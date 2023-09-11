@@ -16,4 +16,6 @@ class ResourceContent extends Model
     {
         return $this->belongsTo(Resource::class, 'res_id', 'res_id');
     }
+
+    public $timestamps = false;
 }
