@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resource', function (Blueprint $table) {
-            $table->string('res_id')->primary();
-            $table->integer('res_ver')->default(1);
-            $table->string('fhir_version')->default('R5');
+            $table->increments('res_id')->unsigned();
             $table->string('res_type');
+            $table->integer('res_ver')->default(1);
+            $table->string('fhir_ver')->default('R5');
             $table->timestamp('created_at');
             $table->timestamp('updated_at')->nullable();
         });

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('resource_content', function (Blueprint $table) {
             $table->id();
-            $table->string('res_id')->foreign('res_id')->references('res_id')->on('resource');
+            $table->integer('res_id')->unsigned()->foreign('res_id')->references('res_id')->on('resource');
             $table->integer('res_ver')->default(1);
             $table->json('res_text');
         });

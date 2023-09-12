@@ -56,6 +56,12 @@ return [
             'throw' => false,
         ],
 
+        'fhir-example' => [
+            'driver' => 'local',
+            'root' => storage_path('fhir-example'),
+            'throw' => false,
+        ]
+
     ],
 
     /*

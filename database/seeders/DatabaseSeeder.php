@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             ResourceSeeder::class,
+            ResourceForcedIdSeeder::class,
             ResourceContentSeeder::class
         ]);
     }
