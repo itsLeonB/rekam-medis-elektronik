@@ -14,7 +14,7 @@ class Resource extends Model
     protected $table = 'resource';
 
     protected $attributes = [
-        'res_ver' => 1,
+        'res_version' => 1,
         'fhir_ver' => 'R5'
     ];
 

@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ResourceContentController;
+use App\Http\Controllers\DaftarRekamMedisController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,7 +26,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', [ResourceContentController::class, 'index'])
+Route::get('/dashboard', [DaftarRekamMedisController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('dashboard.index');
 
 Route::middleware('auth')->group(function () {

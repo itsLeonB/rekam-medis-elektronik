@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
 defineProps({
-    resourceContents: Object
+    rekamMedis: Object
 });
 </script>
 
@@ -29,25 +29,25 @@ defineProps({
                             <thead>
                                 <tr>
                                     <th class="px-6 py-3 bg-gray-50 text-center">
-                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">id</span>
+                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">Resource ID</span>
                                     </th>
                                     <th class="px-6 py-3 bg-gray-50 text-center">
-                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">res_id</span>
+                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">Nama Pasien</span>
                                     </th>
                                     <th class="px-6 py-3 bg-gray-50 text-center">
-                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">res_ver</span>
+                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">Nomor Rekam Medis</span>
                                     </th>
                                     <th class="px-6 py-3 bg-gray-50 text-left">
-                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">res_text[text][div]</span>
+                                        <span class="text-xs leading-4 font-medium text-gray-700 uppercase">Konten</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200 divide-solid">
-                                <tr v-for="re in resourceContents" :key="re.id">
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm leading-5 text-gray-700">{{ re.id }}</td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm leading-5 text-gray-700">{{ re.res_id }}
+                                <tr v-for="re in rekamMedis" :key="re.res_id">
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm leading-5 text-gray-700">{{ re.res_id }}</td>
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm leading-5 text-gray-700">{{ re.nama_pasien }}
                                     </td>
-                                    <td class="px-4 py-2 whitespace-nowrap text-sm leading-5 text-gray-700">{{ re.res_ver }}
+                                    <td class="px-4 py-2 whitespace-nowrap text-sm leading-5 text-gray-700">{{ re.nomor_rekam_medis }}
                                     </td>
                                     <td class="px-4 py-2 whitespace-nowrap text-sm leading-5 text-gray-700" v-html="re.res_text">
                                     </td>
