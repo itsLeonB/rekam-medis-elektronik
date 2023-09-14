@@ -21,13 +21,15 @@ class DaftarRekamMedisController extends Controller
 
         foreach ($daftarPasien as $dataPasien) {
             $resContent = json_decode($dataPasien->res_text, true);
-            $nameData = getName($dataPasien->res_text);
+            $nameData = getName($resContent);
             $parsedName = parseName($nameData);
-            // dd($parsedName);
+
+            $identifier = getIdentifier($resContent);
+            $nomorRM = getMRN($identifier);
             $rekamMedis[] = [
-                'res_id' => $dataPasien->res_id,
+                'res_id' => $dataPasien->forced_id,
                 'nama_pasien' => $parsedName,
-                'nomor_rekam_medis' => $dataPasien->forced_id,
+                'nomor_rekam_medis' => $nomorRM,
                 'res_text' => $resContent['text']['div'],
             ];
         }
