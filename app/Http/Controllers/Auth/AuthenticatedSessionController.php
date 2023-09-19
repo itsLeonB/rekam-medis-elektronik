@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Session;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -28,13 +32,41 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request, Client $client): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        $auth_url = env('auth_url');
+
+        try {
+            $tokenRequest = $client->request('POST', $auth_url . '/accesstoken?grant_type=client_credentials', [
+                'headers' => [
+                    'Content-Type' => 'application/x-www-form-urlencoded'
+                ],
+                'form_params' => [
+                    'client_id' => env('client_id'),
+                    'client_secret' => env('client_secret')
+                ],
+            ]);
+
+            $responseCode = $tokenRequest->getStatusCode();
+            $tokenBody = $tokenRequest->getBody();
+            $tokenData = json_decode($tokenBody);
+
+            if ($responseCode === 200 && $tokenData != null) {
+                Session::put('token', $tokenData->access_token);
+                return redirect()->intended(RouteServiceProvider::HOME);
+            } else {
+                Log::error('Gagal mengotentikasi client pada SATUSEHAT');
+            }
+
+        } catch (Exception $e) {
+            Log::error('Gagal mengotentikasi client pada SATUSEHAT: ' . $e->getMessage());
+        }
+
+
     }
 
     /**
@@ -47,6 +79,8 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
+        Session::forget('token');
 
         return redirect('/');
     }
