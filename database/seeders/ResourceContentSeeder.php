@@ -29,5 +29,19 @@ class ResourceContentSeeder extends Seeder
             );
             $count++;
         }
+        $resourceTypes = ['Patient', 'Practitioner'];
+        foreach ($resourceTypes as $resource) {
+            $files = Storage::disk('fhir-example')->files($resource);
+            foreach ($files as $f) {
+                $fname = str_replace($resource . '/', '', $f);
+                list($res_type, $forced_id) = explode('-', $fname, 2);
+                list($forced_id, $ext) = explode('.', $forced_id, 2);
+                Resource::create(
+                    [
+                        'res_type' => $res_type
+                    ]
+                );
+            }
+        }
     }
 }

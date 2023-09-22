@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Resource;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Log;
-use App\Models\ResourceContent;
 
 class DaftarRekamMedisController extends Controller
 {
+    /**
+     * Display medical record list view.
+     */
     public function index()
     {
         $daftarPasien = Resource::join('resource_content', function ($join) {

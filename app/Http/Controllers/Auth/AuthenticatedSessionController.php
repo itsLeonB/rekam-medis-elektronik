@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Session;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -56,7 +55,7 @@ class AuthenticatedSessionController extends Controller
             $tokenData = json_decode($tokenBody);
 
             if ($responseCode === 200 && $tokenData != null) {
-                Session::put('token', $tokenData->access_token);
+                $request->session()->put('token', $tokenData->access_token);
                 return redirect()->intended(RouteServiceProvider::HOME);
             } else {
                 Log::error('Gagal mengotentikasi client pada SATUSEHAT');
@@ -79,8 +78,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
-        Session::forget('token');
 
         return redirect('/');
     }

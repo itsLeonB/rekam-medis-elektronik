@@ -27,4 +27,9 @@ class Resource extends Model
     {
         return $this->hasOne(ResourceForcedId::class, 'res_id', 'res_id');
     }
+
+    public function practitioner(): HasMany
+    {
+        return $this->hasMany(Practitioner::class, 'res_id', 'res_id');
+    }
 }
