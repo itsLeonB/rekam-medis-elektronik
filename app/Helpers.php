@@ -2,10 +2,8 @@
 
 function getName($resource)
 {
-    $jsonData = json_decode($resource, true);
-
-    if (isset($jsonData['name']) && !empty($jsonData['name'])) {
-        return $jsonData['name'];
+    if (isset($resource['name']) && !empty($resource['name'])) {
+        return $resource['name'];
     }
 
     return null;
@@ -57,6 +55,35 @@ function parseName($nameData)
         }
 
         return $displayName;
+    }
+
+    return null;
+}
+
+function getIdentifier($resource)
+{
+    if (isset($resource['identifier']) && !empty($resource['identifier'])) {
+        return $resource['identifier'];
+    }
+
+    return null;
+}
+
+function getMRN($identifier)
+{
+    if ($identifier === null) {
+        return null;
+    }
+
+    foreach ($identifier as $id) {
+        if (isset($id['type']['coding']) && is_array($id['type']['coding'])) {
+            foreach ($id['type']['coding'] as $coding) {
+                if (isset($coding['code']) && $coding['code'] === 'MR') {
+                    $value = $id['value'];
+                    return $value;
+                }
+            }
+        }
     }
 
     return null;
