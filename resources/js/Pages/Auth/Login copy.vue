@@ -34,22 +34,27 @@ const submit = () => {
 
         <Head title="Login - " />
 
-        <div class="flex flex-col lg:flex-row lg:border lg:rounded-3xl lg:shadow-lg bg-white px-6 ">
+        <div
+            class="flex md:flex-row sm:flex-col justify-center max-w-5xl bg-white shadow-[0_0_25px_-5px_rgba(0,0,0,0.15)] lg:rounded-3xl p-12">
 
-            <img src="storage/images/welcome-doctor.png" class="w-full block pt-5 max-w-lg" alt="">
+            <div>
+                <img src="storage/images/welcome-doctor.png" class="max-w-lg" alt="">
+            </div>
 
-            <div class="w-full max-w-lg lg:w-96 flex flex-col justify-center px-10">
-                <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-                    {{ status }}
-                </div>
-                <h1 class="font-bold text-2xl text-center mb-5 text-zinc-700">Hai, Jumpa Lagi!</h1>
+            <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
+                {{ status }}
+            </div>
+
+            <div class="flex flex-col px-10 justify-center">
+
+                <h1 class="font-bold text-3xl text-center mb-8 text-zinc-700">Hai, Jumpa Lagi!</h1>
 
                 <form @submit.prevent="submit">
                     <div>
                         <InputLabel for="email" value="Email" />
 
                         <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required autofocus
-                            autocomplete="username" placeholder="Masukkan Email" />
+                            autocomplete="username" placeholder="Masukkan Email"/>
 
                         <InputError class="mt-2" :message="form.errors.email" />
                     </div>
@@ -70,22 +75,24 @@ const submit = () => {
                         </label>
                     </div> -->
 
-                    <div class="flex flex-col items-center justify-end mt-10">
-                        <PrimaryButton class="w-full mb-3 mx-auto max-w-[284px] block " :class="{ 'opacity-25': form.processing }"
+                    <div class="flex flex-col items-center justify-end mt-4">
+                        <PrimaryButton class="w-full mb-4" :class="{ 'opacity-25': form.processing }"
                             :disabled="form.processing">
                             Login
                         </PrimaryButton>
 
-                        <p class="text-center text-sm font-light text-zinc-700">Lupa password?
-                            <Link v-if="canResetPassword" :href="route('password.request')"
-                                class="inline-block font-semibold text-vegan-300 hover:text-vegan-600 focus:text-vegan-600 active:text-vegan-700">
-                            Klik disini
-                            </Link>
-                        </p>
+                        <div class="flex justify-center text-sm">
+                            <p>Lupa password?
+                                <Link v-if="canResetPassword" :href="route('password.request')"
+                                    class="font-bold text-teal-500 hover:text-teal-600 focus:text-teal-600 active:text-teal-700">
+                                Klik disini
+                                </Link>
+                            </p>
+                        </div>
+
                     </div>
                 </form>
             </div>
         </div>
-
     </GuestLayout>
 </template>
