@@ -3,9 +3,8 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div class="min-h-screen flex
-                sm:justify-center items-center
-                pt-6 sm:pt-0
+    <div class="min-h-screen min-w-full flex
+                justify-center items-center
                 bg-white">
         <slot />
     </div>
