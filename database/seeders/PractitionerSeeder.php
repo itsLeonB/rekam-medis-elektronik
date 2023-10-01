@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Resource;
 use App\Models\Practitioner;
+use App\Models\PractitionerAddress;
+use App\Models\PractitionerQualification;
 use App\Models\PractitionerTelecom;
 use Illuminate\Support\Facades\Storage;
 
@@ -21,6 +23,7 @@ class PractitionerSeeder extends Seeder
                 ->whereColumn('resource.res_version', '=', 'resource_content.res_ver')->where('resource.res_type', '=', 'Practitioner');
         })->get();
         $photo = Storage::disk('public')->files('images');
+        $count = 1;
         foreach ($practitioners as $p) {
             $resContent = json_decode($p->res_text, true);
             $nameData = getName($resContent);
@@ -30,6 +33,8 @@ class PractitionerSeeder extends Seeder
             $nik = getNik($identifier) == null ? 9999999999999999 : getNik($identifier);
             $ihs = getIhs($identifier) == null ? 'N10000000' : getIhs($identifier);
             $telecom = getTelecom($resContent);
+            $address = getAddress($resContent);
+            $qualifications = getQualifications($resContent);
 
             Practitioner::create(
                 [
@@ -50,7 +55,7 @@ class PractitionerSeeder extends Seeder
                     $telecomDetails = getTelecomDetails($t);
                     PractitionerTelecom::create(
                         [
-                            'practitioner_id' => $p->res_id,
+                            'practitioner_id' => $count,
                             'system' => $telecomDetails['system'],
                             'use' => $telecomDetails['use'],
                             'value' => $telecomDetails['value'],
@@ -58,6 +63,47 @@ class PractitionerSeeder extends Seeder
                     );
                 }
             }
+
+            if ($address != null) {
+                foreach ($address as $a) {
+                    $addressDetails = getAddressDetails($a);
+                    PractitionerAddress::create(
+                        [
+                            'practitioner_id' => $count,
+                            'use' => $addressDetails['use'],
+                            'line' => $addressDetails['line'],
+                            'postal_code' => $addressDetails['postalCode'],
+                            'country' => $addressDetails['country'],
+                            'rt' => $addressDetails['rt'],
+                            'rw' => $addressDetails['rw'],
+                            'village' => $addressDetails['village'],
+                            'district' => $addressDetails['district'],
+                            'city' => $addressDetails['city'],
+                            'province' => $addressDetails['province'],
+                        ]
+                    );
+                }
+            }
+
+            if ($qualifications != null) {
+                foreach ($qualifications as $q) {
+                    $qualificationDetails = getQualificationDetails($q);
+                    // dd($qualificationDetails);
+                    PractitionerQualification::create(
+                        [
+                            'practitioner_id' => $count,
+                            'code' => $qualificationDetails['code'],
+                            'code_system' => $qualificationDetails['system'],
+                            'display' => $qualificationDetails['display'],
+                            'identifier' => $qualificationDetails['identifier'],
+                            'issuer' => $qualificationDetails['issuer'],
+                            'period_start' => $qualificationDetails['periodStart'],
+                            'period_end' => $qualificationDetails['periodEnd']
+                        ]
+                        );
+                }
+            }
+            $count++;
         }
     }
 }

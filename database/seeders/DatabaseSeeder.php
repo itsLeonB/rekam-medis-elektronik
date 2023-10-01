@@ -18,6 +18,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        \App\Models\User::factory()->create([
+            'email' => 'admin@admin.com',
+            'password' => 'admin123'
+        ]);
+
         $this->call([
             ResourceSeeder::class,
             PractitionerSeeder::class,

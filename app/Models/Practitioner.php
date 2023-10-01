@@ -15,7 +15,7 @@ class Practitioner extends Model
 
     protected $attributes = [
         'nik' => 9999999999999999,
-        'ihs_number' => 'N10000005',
+        'ihs_number' => 'N10000000',
         'active' => 1,
     ];
 

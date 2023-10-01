@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->integer('practitioner_id')->unsigned()->foreign('practitioner_id')->references('id')->on('practitioner');
             $table->string('code');
+            $table->string('code_system');
+            $table->string('display');
             $table->string('identifier');
             $table->string('issuer');
             $table->date('period_start');
-            $table->date('period_end');
+            $table->date('period_end')->nullable();
         });
     }
 

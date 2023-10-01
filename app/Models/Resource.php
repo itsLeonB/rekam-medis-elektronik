@@ -15,7 +15,7 @@ class Resource extends Model
 
     protected $attributes = [
         'res_version' => 1,
-        'fhir_ver' => 'R5'
+        'fhir_ver' => 'R4'
     ];
 
     public function content(): HasMany
