@@ -12,6 +12,11 @@ class PractitionerQualification extends Model
 
     protected $table = 'practitioner_qualification';
 
+    protected $casts = [
+        'period_start' => 'date',
+        'period_end' => 'date'
+    ];
+
     public function practitioner(): BelongsTo
     {
         return $this->belongsTo(Practitioner::class, 'id', 'practitioner_id');

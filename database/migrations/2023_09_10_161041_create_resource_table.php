@@ -16,8 +16,7 @@ return new class extends Migration
             $table->string('res_type');
             $table->integer('res_version')->default(1);
             $table->string('fhir_ver')->default('R5');
-            $table->timestamp('created_at');
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

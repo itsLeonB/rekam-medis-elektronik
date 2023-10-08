@@ -17,6 +17,11 @@ class Practitioner extends Model
         'nik' => 9999999999999999,
         'ihs_number' => 'N10000000',
         'active' => 1,
+        'user_id' => -1
+    ];
+
+    protected $casts = [
+        'birth_date' => 'date'
     ];
 
     public function telecom(): HasMany
@@ -37,6 +42,11 @@ class Practitioner extends Model
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class, 'res_id', 'res_id');
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id', 'user_id');
     }
 
     public $timestamps = false;
