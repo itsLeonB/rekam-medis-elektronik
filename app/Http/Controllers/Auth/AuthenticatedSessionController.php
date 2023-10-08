@@ -33,6 +33,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request, Client $client): RedirectResponse
     {
+        $request->authenticate();
+        $request->session()->regenerate();
+
         $auth_url = env('auth_url');
         $tokenRequest = $client->request('POST', $auth_url . '/accesstoken?grant_type=client_credentials', [
             'headers' => [
@@ -49,10 +52,7 @@ class AuthenticatedSessionController extends Controller
         $tokenData = json_decode($tokenBody);
 
         if ($responseCode == 200 && $tokenData != null) {
-            $request->authenticate();
-            $request->session()->regenerate();
             $request->session()->put('token', $tokenData->access_token);
-
             if ($request->user()->email_verified_at == null) {
                 return redirect()->route('verification.notice');
             } else {
