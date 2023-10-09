@@ -60,6 +60,12 @@ return [
             'driver' => 'local',
             'root' => storage_path('fhir-example'),
             'throw' => false,
+        ],
+
+        'administrative-code' => [
+            'driver' => 'local',
+            'root' => storage_path('administrative-code'),
+            'throw' => false,
         ]
 
     ],

@@ -25,8 +25,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
+            UserSeeder::class,
+            WilayahSeeder::class,
             ResourceSeeder::class,
             PractitionerSeeder::class,
+            PatientSeeder::class
         ]);
     }
 }

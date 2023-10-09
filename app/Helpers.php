@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\KotaKabupaten;
+
 function getName($resource)
 {
     if (isset($resource['name']) && !empty($resource['name'])) {
@@ -63,7 +65,7 @@ function parseName($nameData)
 function getFullName($nameData)
 {
     if ($nameData === null) {
-        return null;
+        return '';
     }
 
     foreach ($nameData as $name) {
@@ -88,17 +90,14 @@ function getFullName($nameData)
 
             $displayName = implode(' ', $nameParts);
         }
-
-        return $displayName;
     }
-
-    return null;
+    return $displayName;
 }
 
 function getPrefix($nameData)
 {
     if ($nameData === null) {
-        return null;
+        return '';
     }
 
     foreach ($nameData as $name) {
@@ -116,7 +115,7 @@ function getPrefix($nameData)
 function getSuffix($nameData)
 {
     if ($nameData === null) {
-        return null;
+        return '';
     }
 
     foreach ($nameData as $name) {
@@ -138,6 +137,30 @@ function getIdentifier($resource)
     }
 
     return null;
+}
+
+function parseIdentifier($identifier)
+{
+    $identifierDetails = [];
+
+    if (isset($identifier['system']) && !empty($identifier['system'])) {
+        $identifierDetails['system'] = $identifier['system'];
+    } else {
+        $identifierDetails['system'] = '';
+    }
+
+    if (isset($identifier['use']) && !empty($identifier['use'])) {
+        $identifierDetails['use'] = $identifier['use'];
+    } else {
+        $identifierDetails['use'] = '';
+    }
+
+    if (isset($identifier['value']) && !empty($identifier['value'])) {
+        $identifierDetails['value'] = $identifier['value'];
+    } else {
+        $identifierDetails['value'] = '';
+    }
+    return $identifierDetails;
 }
 
 function getMRN($identifier)
@@ -198,7 +221,7 @@ function getGender($resource)
         return $resource['gender'];
     }
 
-    return null;
+    return 'unknown';
 }
 
 function getBirthDate($resource)
@@ -371,4 +394,161 @@ function getQualificationDetails($qualification)
     }
 
     return $qualificationDetails;
+}
+
+function getExtension($resource)
+{
+    if (isset($resource['extension']) && !empty($resource['extension'])) {
+        return $resource['extension'];
+    }
+
+    return null;
+}
+
+function getBirthPlace($extension)
+{
+    if (is_array($extension) || is_object($extension)) {
+        foreach ($extension as $e) {
+            if (isset($e['url']) && $e['url'] === 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace') {
+                if (isset($e['extension']) && !empty($e['extension'])) {
+                    $extensions = $e['extension'][0]['extension'];
+                    foreach ($extensions as $ex) {
+                        if (isset($ex['url']) && $ex['url'] === 'city') {
+                            return $ex['valueCode'];
+                        } else {
+                            return 0;
+                        }
+                    }
+                } elseif (isset($e['valueAddress']) && !empty($e['valueAddress'])) {
+                    if (isset($e['valueAddress']['city']) && !empty($e['valueAddress']['city'])) {
+                        $city = $e['valueAddress']['city'];
+                        $kotaKabupaten = KotaKabupaten::where('nama_wilayah', $city)
+                            ->orWhere('nama_wilayah', 'Kota ' . $city)
+                            ->orWhere('nama_wilayah', 'Kabupaten ' . $city)
+                            ->first();
+                        if ($kotaKabupaten) {
+                            return $kotaKabupaten->kode_wilayah;
+                        } else {
+                            return 0;
+                        }
+                    } else {
+                        return 0;
+                    }
+                }
+            } else {
+                return 0;
+            }
+        }
+    } else {
+        return 0;
+    }
+}
+
+function getDeceased($resource)
+{
+    if (isset($resource['deceasedBoolean']) && !empty($resource['deceasedBoolean'])) {
+        if ($resource['deceasedBoolean'] == true) {
+            return '1900-01-01';
+        } else {
+            return null;
+        }
+    } elseif (isset($resource['deceasedDateTime']) && !empty($resource['deceasedDateTime'])) {
+        return $resource['deceasedDateTime'];
+    } else {
+        return null;
+    }
+}
+
+function getMaritalStatus($resource)
+{
+    if (isset($resource['maritalStatus']) && !empty($resource['maritalStatus'])) {
+        $coding = $resource['maritalStatus']['coding'];
+        if (isset($coding) && !empty($coding)) {
+            foreach ($coding as $c) {
+                if ($c['system'] === 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus') {
+                    return $c['code'];
+                } else {
+                    return 'A';
+                }
+            }
+        } else {
+            return 'A';
+        }
+    } else {
+        return 'A';
+    }
+}
+
+function getMultipleBirth($resource)
+{
+    if (isset($resource['multipleBirthBoolean']) && !empty($resource['multipleBirthBoolean'])) {
+        return $resource['multipleBirthBoolean'];
+    } elseif (isset($resource['multipleBirthInteger']) && !empty($resource['multipleBirthInteger'])) {
+        if ($resource['multipleBirthInteger'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+function getLanguage($resource)
+{
+    if (isset($resource['communication'][0]['language']['coding'][0]['code']) && !empty($resource['communication'][0]['language']['coding'][0]['code'])) {
+        return $resource['communication'][0]['language']['coding'][0]['code'];
+    } else {
+        return '';
+    }
+}
+
+function getContact($resource)
+{
+    if (isset($resource['contact']) && !empty($resource['contact'])) {
+        return $resource['contact'];
+    }
+
+    return null;
+}
+
+function getContactDetails($contact)
+{
+    $contactDetails = [];
+
+    if (isset($contact['relationship']) && !empty($resource['relationship'])) {
+        $relationCoding = $contact['relationship'][0]['coding'];
+        if (isset($relationCoding) && !empty($relationCoding)) {
+            foreach ($relationCoding as $rc) {
+                if ($rc['system'] === 'http://terminology.hl7.org/CodeSystem/v2-0131') {
+                    $contactDetails['relationship'] = $rc['code'];
+                } else {
+                    $contactDetails['relationship'] = 'U';
+                }
+            }
+        } else {
+            $contactDetails['relationship'] = 'U';
+        }
+    } else {
+        $contactDetails['relationship'] = 'U';
+    }
+
+    $contactName = getName($contact);
+    $contactDetails['name'] = getFullName($contactName);
+    $contactDetails['prefix'] = getPrefix($contactName);
+    $contactDetails['suffix'] = getSuffix($contactName);
+    $contactDetails['gender'] = getGender($contact);
+    $contactDetails['telecom'] = getTelecom($contact);
+    $contactDetails['address'] = getAddress($contact);
+
+    return $contactDetails;
+}
+
+function getGeneralPractitioner($resource)
+{
+    if (isset($resource['generalPractitioner']) && !empty($resource['generalPractitioner'])) {
+        return $resource['generalPractitioner'];
+    }
+
+    return null;
 }
