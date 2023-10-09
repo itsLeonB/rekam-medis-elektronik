@@ -1,0 +1,84 @@
+{
+    "active": true,
+    "address": [
+        {
+            "city": "Pandeglang",
+            "country": "ID",
+            "extension": [
+                {
+                    "extension": [
+                        {
+                            "url": "province",
+                            "valueCode": "36"
+                        },
+                        {
+                            "url": "city",
+                            "valueCode": "3601"
+                        },
+                        {
+                            "url": "district",
+                            "valueCode": "360101"
+                        },
+                        {
+                            "url": "village",
+                            "valueCode": "36010101"
+                        }
+                    ],
+                    "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+                }
+            ],
+            "line": [
+                "Jl. Raya Sangat Waras No.3, RT.009/RW.002, Kec. Sumur, Kab. Pandeglang, Banten 42283"
+            ],
+            "postalCode": "42283",
+            "type": "both",
+            "use": "work"
+        }
+    ],
+    "id": "baee58d5-bfb6-4762-841f-bf8f0c6d7ce6",
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/organization/10000004",
+            "use": "official",
+            "value": "SW-KIB"
+        }
+    ],
+    "meta": {
+        "lastUpdated": "2023-10-03T04:30:10.143824+00:00",
+        "versionId": "MTY5NjMwNzQxMDE0MzgyNDAwMA"
+    },
+    "name": "Divisi Kesehatan Ibu dan Anak",
+    "partOf": {
+        "display": "Puskesmas Sangat Waras",
+        "reference": "Organization/10000004"
+    },
+    "resourceType": "Organization",
+    "telecom": [
+        {
+            "system": "phone",
+            "use": "work",
+            "value": "+6221-14045"
+        },
+        {
+            "system": "email",
+            "use": "work",
+            "value": "puskesmassangatwaras@gmail.com"
+        },
+        {
+            "system": "url",
+            "use": "work",
+            "value": "www.puskesmassangatwaras.com"
+        }
+    ],
+    "type": [
+        {
+            "coding": [
+                {
+                    "code": "team",
+                    "display": "Organizational team",
+                    "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+    "active": true,
+    "address": [
+        {
+            "city": "Jakarta",
+            "country": "ID",
+            "extension": [
+                {
+                    "extension": [
+                        {
+                            "url": "province",
+                            "valueCode": "31"
+                        },
+                        {
+                            "url": "city",
+                            "valueCode": "3171"
+                        },
+                        {
+                            "url": "district",
+                            "valueCode": "317101"
+                        },
+                        {
+                            "url": "village",
+                            "valueCode": "31710101"
+                        }
+                    ],
+                    "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+                }
+            ],
+            "line": [
+                "Jalan Jati Asih"
+            ],
+            "postalCode": "55292",
+            "type": "both",
+            "use": "work"
+        }
+    ],
+    "id": "6c878fb8-70fa-4627-840a-73485dd37f77",
+    "identifier": [],
+    "meta": {
+        "lastUpdated": "2023-09-22T02:58:20.657562+00:00",
+        "versionId": "MTY5NTM1MTUwMDY1NzU2MjAwMA"
+    },
+    "name": "Testing Organization",
+    "partOf": {
+        "reference": "Organization/10000004"
+    },
+    "resourceType": "Organization",
+    "telecom": [
+        {
+            "system": "phone",
+            "use": "work",
+            "value": "+6221-783042654"
+        },
+        {
+            "system": "email",
+            "use": "work",
+            "value": "rs-satusehat@gmail.com"
+        },
+        {
+            "system": "url",
+            "use": "work",
+            "value": "www.rs-satusehat@gmail.com"
+        }
+    ],
+    "type": [
+        {
+            "coding": [
+                {
+                    "code": "prov",
+                    "display": "Healthcare Provider",
+                    "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+                }
+            ]
+        }
+    ]
+}

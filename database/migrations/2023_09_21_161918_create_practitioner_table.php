@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('gender');
             $table->date('birth_date');
             $table->string('photo');
-            $table->integer('user_id')->foreign('user_id')->references('id')->on('users');
         });
     }
 

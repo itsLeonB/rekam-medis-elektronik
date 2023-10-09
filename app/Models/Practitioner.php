@@ -16,8 +16,7 @@ class Practitioner extends Model
     protected $attributes = [
         'nik' => 9999999999999999,
         'ihs_number' => 'N10000000',
-        'active' => 1,
-        'user_id' => -1
+        'active' => 1
     ];
 
     protected $casts = [
@@ -44,9 +43,9 @@ class Practitioner extends Model
         return $this->belongsTo(Resource::class, 'res_id', 'res_id');
     }
 
-    public function user(): BelongsTo
+    public function userProfile(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id', 'user_id');
+        return $this->belongsTo(UserProfile::class, 'practitioner_id', 'id');
     }
 
     public $timestamps = false;

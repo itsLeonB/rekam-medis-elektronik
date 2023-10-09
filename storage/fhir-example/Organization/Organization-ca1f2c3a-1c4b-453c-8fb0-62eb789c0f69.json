@@ -1,0 +1,83 @@
+{
+    "active": true,
+    "address": [
+        {
+            "city": "Jakarta",
+            "country": "ID",
+            "extension": [
+                {
+                    "extension": [
+                        {
+                            "url": "province",
+                            "valueCode": "31"
+                        },
+                        {
+                            "url": "city",
+                            "valueCode": "3171"
+                        },
+                        {
+                            "url": "district",
+                            "valueCode": "317101"
+                        },
+                        {
+                            "url": "village",
+                            "valueCode": "31710101"
+                        }
+                    ],
+                    "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+                }
+            ],
+            "line": [
+                "Jalan Jati Asih"
+            ],
+            "postalCode": "55292",
+            "type": "both",
+            "use": "work"
+        }
+    ],
+    "id": "ca1f2c3a-1c4b-453c-8fb0-62eb789c0f69",
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/organization/1000079374",
+            "use": "official",
+            "value": "Pos Imunisasi LUBUK BATANGTESTFASKES1231"
+        }
+    ],
+    "meta": {
+        "lastUpdated": "2023-10-03T07:36:35.641637+00:00",
+        "versionId": "MTY5NjMxODU5NTY0MTYzNzAwMA"
+    },
+    "name": "Pos Imunisasi",
+    "partOf": {
+        "reference": "Organization/10000004"
+    },
+    "resourceType": "Organization",
+    "telecom": [
+        {
+            "system": "phone",
+            "use": "work",
+            "value": "+6221-783042654"
+        },
+        {
+            "system": "email",
+            "use": "work",
+            "value": "rs-satusehat@gmail.com"
+        },
+        {
+            "system": "url",
+            "use": "work",
+            "value": "www.rs-satusehat@gmail.com"
+        }
+    ],
+    "type": [
+        {
+            "coding": [
+                {
+                    "code": "dept",
+                    "display": "Hospital Department",
+                    "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+                }
+            ]
+        }
+    ]
+}
