@@ -7,21 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PatientContact extends Model
+class OrganizationContact extends Model
 {
-    use HasFactory;
-
-    protected $table = 'patient_contact';
-
+    protected $table = 'organization_contact';
     public $timestamps = false;
 
-    public function patient(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(Patient::class, 'id', 'patient_id');
+        return $this->belongsTo('organization', 'id', 'organization_id');
     }
 
     public function telecom(): HasMany
     {
-        return $this->hasMany(PatientContactTelecom::class, 'contact_id', 'id');
+        return $this->hasMany('organization_contact_telecom', 'organization_contact_id', 'id');
     }
 }

@@ -19,6 +19,16 @@ return new class extends Migration
             $table->string('prefix');
             $table->string('suffix');
             $table->string('gender');
+            $table->string('address_use');
+            $table->string('address_line');
+            $table->string('country');
+            $table->string('postal_code');
+            $table->integer('province')->unsigned();
+            $table->integer('city')->unsigned();
+            $table->bigInteger('district')->unsigned();
+            $table->bigInteger('village')->unsigned();
+            $table->integer('rw')->unsigned();
+            $table->integer('rt')->unsigned();
         });
     }
 

@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('provinsi', function (Blueprint $table) {
+        Schema::create('organization_type', function (Blueprint $table) {
             $table->id();
-            $table->integer('kode_wilayah')->unsigned();
-            $table->string('nama_wilayah');
+            $table->integer('organization_id')->unsigned()->foreign('organization_id')->references('id')->on('organization');
+            $table->string('system');
+            $table->string('code');
+            $table->string('display');
         });
     }
 
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('provinsi');
+        Schema::dropIfExists('organization_type');
     }
 };

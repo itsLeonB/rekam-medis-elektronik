@@ -311,12 +311,12 @@ function getAddressDetails($address)
             $addressDetails[$url] = $value;
         }
     } else {
-        $addressDetails['rt'] = -1;
-        $addressDetails['rw'] = -1;
-        $addressDetails['village'] = -1;
-        $addressDetails['district'] = -1;
-        $addressDetails['city'] = -1;
-        $addressDetails['province'] = -1;
+        $addressDetails['rt'] = 0;
+        $addressDetails['rw'] = 0;
+        $addressDetails['village'] = 0;
+        $addressDetails['district'] = 0;
+        $addressDetails['city'] = 0;
+        $addressDetails['province'] = 0;
     }
 
     return $addressDetails;

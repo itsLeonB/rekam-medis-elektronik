@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ContactAddress extends Model
+class PatientContactTelecom extends Model
 {
     use HasFactory;
 
-    protected $table = 'contact_address';
+    protected $table = 'patient_contact_telecom';
 
     public $timestamps = false;
 

@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\ContactAddress;
-use App\Models\ContactTelecom;
+use App\Models\PatientContactTelecom;
 use App\Models\GeneralPractitioner;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -126,7 +125,7 @@ class PatientSeeder extends Seeder
             if (is_array($contact) || is_object($contact)) {
                 foreach ($contact as $c) {
                     $contactDetails = getContactDetails($c);
-
+                    $addressDetails = getAddressDetails($address);
                     $patientContact = PatientContact::create(
                         [
                             'patient_id' => $patient->id,
@@ -134,41 +133,29 @@ class PatientSeeder extends Seeder
                             'name' => $contactDetails['name'],
                             'prefix' => $contactDetails['prefix'],
                             'suffix' => $contactDetails['suffix'],
-                            'gender' => $contactDetails['gender']
+                            'gender' => $contactDetails['gender'],
+                            'address_use' => $addressDetails['use'],
+                            'address_line' => $addressDetails['line'],
+                            'country' => $addressDetails['country'],
+                            'postal_code' => $addressDetails['postalCode'],
+                            'province' => $addressDetails['province'],
+                            'city' => $addressDetails['city'],
+                            'district' => $addressDetails['district'],
+                            'village' => $addressDetails['village'],
+                            'rw' => $addressDetails['rw'],
+                            'rt' => $addressDetails['rt']
                         ]
                     );
 
                     if (is_array($contactDetails['telecom']) || is_object($contactDetails['telecom'])) {
                         foreach ($contactDetails['telecom'] as $telecom) {
                             $contactTelecomDetails = getTelecomDetails($telecom);
-                            ContactTelecom::create(
+                            PatientContactTelecom::create(
                                 [
                                     'contact_id' => $patientContact->id,
                                     'system' => $contactTelecomDetails['system'],
                                     'use' => $contactTelecomDetails['use'],
                                     'value' => $contactTelecomDetails['value']
-                                ]
-                            );
-                        }
-                    }
-
-
-                    if (is_array($contactDetails['address']) || is_object($contactDetails['address'])) {
-                        foreach ($contactDetails['address'] as $address) {
-                            $addressDetails = getAddressDetails($address);
-                            ContactAddress::create(
-                                [
-                                    'contact_id' => $patientContact->id,
-                                    'use' => $addressDetails['use'],
-                                    'line' => $addressDetails['line'],
-                                    'country' => $addressDetails['country'],
-                                    'postal_code' => $addressDetails['postalCode'],
-                                    'province' => $addressDetails['province'],
-                                    'city' => $addressDetails['city'],
-                                    'district' => $addressDetails['district'],
-                                    'village' => $addressDetails['village'],
-                                    'rw' => $addressDetails['rw'],
-                                    'rt' => $addressDetails['rt']
                                 ]
                             );
                         }

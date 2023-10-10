@@ -6,16 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ContactTelecom extends Model
+class OrganizationAddress extends Model
 {
-    use HasFactory;
-
-    protected $table = 'contact_telecom';
-
+    protected $table = 'organization_address';
     public $timestamps = false;
 
-    public function patient(): BelongsTo
+    public function organization(): BelongsTo
     {
-        return $this->belongsTo(PatientContact::class, 'id', 'patient_id');
+        return $this->belongsTo('organization', 'id', 'organization_id');
     }
 }

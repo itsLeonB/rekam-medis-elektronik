@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('kota_kabupaten', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('kode_wilayah')->unsigned();
+            $table->integer('kode_wilayah')->unsigned();
             $table->string('nama_wilayah');
         });
     }

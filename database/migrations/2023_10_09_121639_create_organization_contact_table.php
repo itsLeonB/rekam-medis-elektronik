@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_address', function (Blueprint $table) {
+        Schema::create('organization_contact', function (Blueprint $table) {
             $table->id();
-            $table->integer('patient_id')->unsigned()->foreign('patient_id')->references('id')->on('patient');
-            $table->string('use');
-            $table->string('line');
+            $table->integer('organization_id')->unsigned()->foreign('organization_id')->references('id')->on('organization');
+            $table->string('purpose_system');
+            $table->string('purpose_code');
+            $table->string('purpose_display');
+            $table->string('name');
+            $table->string('address_use');
+            $table->string('address_line');
             $table->string('country');
             $table->string('postal_code');
             $table->integer('province')->unsigned();
@@ -32,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_address');
+        Schema::dropIfExists('organization_contact');
     }
 };

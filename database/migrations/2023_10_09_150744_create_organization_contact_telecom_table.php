@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_telecom', function (Blueprint $table) {
+        Schema::create('organization_contact_telecom', function (Blueprint $table) {
             $table->id();
-            $table->integer('contact_id')->unsigned()->foreign('contact_id')->references('id')->on('patient_contact');
+            $table->integer('organization_id')->unsigned()->foreign('organization_id')->references('id')->on('organization_contact');
             $table->string('system');
             $table->string('use');
             $table->string('value');
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact_telecom');
+        Schema::dropIfExists('organization_contact_telecom');
     }
 };

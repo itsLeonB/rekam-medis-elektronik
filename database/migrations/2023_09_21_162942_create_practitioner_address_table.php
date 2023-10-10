@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('line');
             $table->string('postal_code');
             $table->string('country');
-            $table->integer('rt');
-            $table->integer('rw');
-            $table->integer('village');
-            $table->integer('district');
-            $table->integer('city');
-            $table->integer('province');
+            $table->integer('province')->unsigned();
+            $table->integer('city')->unsigned();
+            $table->bigInteger('district')->unsigned();
+            $table->bigInteger('village')->unsigned();
+            $table->integer('rw')->unsigned();
+            $table->integer('rt')->unsigned();
         });
     }
 
