@@ -16,7 +16,7 @@ class ResourceSeeder extends Seeder
      */
     public function run(): void
     {
-        $resourceTypes = ['Patient', 'Practitioner'];
+        $resourceTypes = ['Patient', 'Practitioner', 'Organization'];
         $count = 1;
         foreach ($resourceTypes as $resource) {
             $files = Storage::disk('fhir-example')->files($resource);

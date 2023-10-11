@@ -2,6 +2,15 @@
 
 use App\Models\KotaKabupaten;
 
+function getActive($resource)
+{
+    if (isset($resource['active']) && !empty($resource['active'])) {
+        return $resource['active'];
+    } else {
+        return true;
+    }
+}
+
 function getName($resource)
 {
     if (isset($resource['name']) && !empty($resource['name'])) {
@@ -276,6 +285,13 @@ function getAddressDetails($address)
 {
     $addressDetails = [];
 
+    $addressDetails['rt'] = 0;
+    $addressDetails['rw'] = 0;
+    $addressDetails['village'] = 0;
+    $addressDetails['district'] = 0;
+    $addressDetails['city'] = 0;
+    $addressDetails['province'] = 0;
+
     if (isset($address['use']) && !empty($address['use'])) {
         $addressDetails['use'] = $address['use'];
     } else {
@@ -307,16 +323,9 @@ function getAddressDetails($address)
 
         foreach ($extensionData as $extension) {
             $url = $extension['url'];
-            $value = $extension['valueCode'];
+            $value = (int)preg_replace("/[^0-9]/", "", $extension['valueCode']);
             $addressDetails[$url] = $value;
         }
-    } else {
-        $addressDetails['rt'] = 0;
-        $addressDetails['rw'] = 0;
-        $addressDetails['village'] = 0;
-        $addressDetails['district'] = 0;
-        $addressDetails['city'] = 0;
-        $addressDetails['province'] = 0;
     }
 
     return $addressDetails;
@@ -551,4 +560,101 @@ function getGeneralPractitioner($resource)
     }
 
     return null;
+}
+
+function getOrganizationType($resource)
+{
+    if (isset($resource['type']) && !empty($resource['type'])) {
+        return $resource['type'];
+    }
+
+    return null;
+}
+
+function getTypeDetails($type)
+{
+    $typeDetails = [];
+
+    if (isset($type['coding']) && !empty($type['coding'])) {
+        if (isset($type['coding'][0]['system']) && !empty($type['coding'][0]['system'])) {
+            $typeDetails['system'] = $type['coding'][0]['system'];
+        } else {
+            $typeDetails['system'] = '';
+        }
+
+        if (isset($type['coding'][0]['code']) && !empty($type['coding'][0]['code'])) {
+            $typeDetails['code'] = $type['coding'][0]['code'];
+        } else {
+            $typeDetails['code'] = 'other';
+        }
+
+        if (isset($type['coding'][0]['display']) && !empty($type['coding'][0]['display'])) {
+            $typeDetails['display'] = $type['coding'][0]['display'];
+        } else {
+            $typeDetails['display'] = '';
+        }
+    } else {
+        $typeDetails['system'] = '';
+        $typeDetails['code'] = '';
+        $typeDetails['display'] = '';
+    }
+
+    return $typeDetails;
+}
+
+function getOrganizationContactDetails($contact)
+{
+    $contactDetails = [];
+
+    if (isset($contact['purpose']['coding']) && !empty($resource['purpose']['coding'])) {
+        $purpose = $contact['purpose']['coding'];
+
+        if (isset($purpose[0]['system']) && !empty($purpose[0]['system'])) {
+            $contactDetails['purposeSystem'] = $purpose[0]['system'];
+        } else {
+            $contactDetails['purposeSystem'] = '';
+        }
+
+        if (isset($purpose[0]['code']) && !empty($purpose[0]['code'])) {
+            $contactDetails['purposeCode'] = $purpose[0]['code'];
+        } else {
+            $contactDetails['purposeCode'] = '';
+        }
+
+        if (isset($purpose[0]['display']) && !empty($purpose[0]['display'])) {
+            $contactDetails['purposeDisplay'] = $purpose[0]['display'];
+        } else {
+            $contactDetails['purposeDisplay'] = '';
+        }
+    } else {
+        $contactDetails['purposeSystem'] = '';
+        $contactDetails['purposeCode'] = '';
+        $contactDetails['purposeDisplay'] = '';
+    }
+
+    $contactName = getName($contact);
+    $contactDetails['name'] = getFullName($contactName);
+    $contactDetails['gender'] = getGender($contact);
+    $contactDetails['telecom'] = getTelecom($contact);
+    $contactDetails['address'] = getAddress($contact);
+
+    return $contactDetails;
+}
+
+function getAlias($resource)
+{
+    if (isset($resource['alias'][0]) && !empty($resource['alias'][0])) {
+        return $resource['alias'][0];
+    } else {
+        return '';
+    }
+}
+
+function getPartOf($resource)
+{
+    if (isset($resource['partOf']['reference']) && !empty($resource['partOf']['reference'])) {
+        return $resource['partOf']['reference'];
+    } else {
+        return '';
+    }
 }

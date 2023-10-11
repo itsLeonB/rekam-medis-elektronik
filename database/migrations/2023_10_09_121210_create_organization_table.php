@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('alias');
             $table->string('part_of');
-            $table->string('endpoint');
         });
     }
 

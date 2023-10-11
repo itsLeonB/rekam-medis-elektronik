@@ -29,7 +29,8 @@ class DatabaseSeeder extends Seeder
             WilayahSeeder::class,
             ResourceSeeder::class,
             PractitionerSeeder::class,
-            PatientSeeder::class
+            PatientSeeder::class,
+            OrganizationSeeder::class,
         ]);
     }
 }

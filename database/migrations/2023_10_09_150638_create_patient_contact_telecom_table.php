@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('patient_contact_telecom', function (Blueprint $table) {
             $table->id();
-            $table->integer('contact_id')->unsigned()->foreign('contact_id')->references('id')->on('patient_contact');
+            $table->integer('patient_contact_id')->unsigned()->foreign('patient_contact_id')->references('id')->on('patient_contact');
             $table->string('system');
             $table->string('use');
             $table->string('value');

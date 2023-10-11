@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrganizationTelecom extends Model
 {
-    protected $table = 'organization_type';
+    protected $table = 'organization_telecom';
     public $timestamps = false;
 
     public function organization(): BelongsTo

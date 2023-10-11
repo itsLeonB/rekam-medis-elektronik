@@ -36,6 +36,7 @@ class PatientSeeder extends Seeder
 
         foreach ($patients as $p) {
             $resContent = json_decode($p->res_text, true);
+            $active = getActive($resContent);
             $nameData = getName($resContent);
             $gender = getGender($resContent) == null ? 'unknown' : getGender($resContent);
             $birthDate = getBirthDate($resContent) == null ? '1900-01-01' : getBirthDate($resContent);
@@ -50,6 +51,7 @@ class PatientSeeder extends Seeder
             $patient = Patient::create(
                 [
                     'res_id' => $p->res_id,
+                    'active' => $active,
                     'name' => getFullName($nameData),
                     'prefix' => getPrefix($nameData),
                     'suffix' => getSuffix($nameData),
@@ -125,7 +127,7 @@ class PatientSeeder extends Seeder
             if (is_array($contact) || is_object($contact)) {
                 foreach ($contact as $c) {
                     $contactDetails = getContactDetails($c);
-                    $addressDetails = getAddressDetails($address);
+                    $addressDetails = getAddressDetails($contactDetails['address']);
                     $patientContact = PatientContact::create(
                         [
                             'patient_id' => $patient->id,
@@ -152,7 +154,7 @@ class PatientSeeder extends Seeder
                             $contactTelecomDetails = getTelecomDetails($telecom);
                             PatientContactTelecom::create(
                                 [
-                                    'contact_id' => $patientContact->id,
+                                    'patient_contact_id' => $patientContact->id,
                                     'system' => $contactTelecomDetails['system'],
                                     'use' => $contactTelecomDetails['use'],
                                     'value' => $contactTelecomDetails['value']

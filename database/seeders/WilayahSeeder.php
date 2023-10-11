@@ -39,22 +39,22 @@ class WilayahSeeder extends Seeder
                             ]
                         );
                         break;
-                    case 'Kecamatan':
-                        Kecamatan::create(
-                            [
-                                'kode_wilayah' => $data[2],
-                                'nama_wilayah' => $data[3]
-                            ]
-                        );
-                        break;
-                    case 'Kelurahan':
-                        Kelurahan::create(
-                            [
-                                'kode_wilayah' => $data[2],
-                                'nama_wilayah' => $data[3]
-                            ]
-                        );
-                        break;
+                    // case 'Kecamatan':
+                    //     Kecamatan::create(
+                    //         [
+                    //             'kode_wilayah' => $data[2],
+                    //             'nama_wilayah' => $data[3]
+                    //         ]
+                    //     );
+                    //     break;
+                    // case 'Kelurahan':
+                    //     Kelurahan::create(
+                    //         [
+                    //             'kode_wilayah' => $data[2],
+                    //             'nama_wilayah' => $data[3]
+                    //         ]
+                    //     );
+                    //     break;
                 }
                 $row++;
             }
