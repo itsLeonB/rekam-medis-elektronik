@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             PractitionerSeeder::class,
             PatientSeeder::class,
             OrganizationSeeder::class,
+            LocationSeeder::class
         ]);
     }
 }

@@ -30,7 +30,7 @@ class OrganizationSeeder extends Seeder
             $resContent = json_decode($o->res_text, true);
             $active = getActive($resContent);
             $identifier = getIdentifier($resContent);
-            $type = getOrganizationType($resContent);
+            $type = getResourceType($resContent);
             $telecoms = getTelecom($resContent);
             $address = getAddress($resContent);
             $contact = getContact($resContent);

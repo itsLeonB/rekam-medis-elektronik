@@ -562,7 +562,7 @@ function getGeneralPractitioner($resource)
     return null;
 }
 
-function getOrganizationType($resource)
+function getResourceType($resource)
 {
     if (isset($resource['type']) && !empty($resource['type'])) {
         return $resource['type'];
@@ -657,4 +657,150 @@ function getPartOf($resource)
     } else {
         return '';
     }
+}
+
+function getOperationalStatus($resource)
+{
+    if (isset($resource['operationalStatus']['code']) && !empty($resource['operationalStatus']['code'])) {
+        return $resource['operationalStatus']['code'];
+    } else {
+        return '';
+    }
+}
+
+function getDescription($resource)
+{
+    if (isset($resource['description']) && !empty($resource['description'])) {
+        return $resource['description'];
+    } else {
+        return '';
+    }
+}
+
+function getMode($resource)
+{
+    if (isset($resource['mode']) && !empty($resource['mode'])) {
+        return $resource['mode'];
+    } else {
+        return '';
+    }
+}
+
+function getPhysicalType($resource)
+{
+    if (isset($resource['physicalType']['coding'][0]['code']) && !empty($resource['physicalType']['coding'][0]['code'])) {
+        return $resource['physicalType']['coding'][0]['code'];
+    } else {
+        return '';
+    }
+}
+
+function getPosition($resource)
+{
+    $position = [
+        'longitude' => 0,
+        'latitude' => 0,
+        'altitude' => 0
+    ];
+
+    if (isset($resource['position']) && !empty($resource['position'])) {
+        if (isset($resource['position']['longitude']) && !empty($resource['position']['longitude'])) {
+            $position['longitude'] = $resource['position']['longitude'];
+        }
+        if (isset($resource['position']['latitude']) && !empty($resource['position']['latitude'])) {
+            $position['latitude'] = $resource['position']['latitude'];
+        }
+        if (isset($resource['position']['altitude']) && !empty($resource['position']['altitude'])) {
+            $position['altitude'] = $resource['position']['altitude'];
+        }
+    }
+
+    return $position;
+}
+
+function getManagingOrganization($resource)
+{
+    if (isset($resource['managingOrganization']['reference']) && !empty($resource['managingOrganization']['reference'])) {
+        return $resource['managingOrganization']['reference'];
+    } else {
+        return '';
+    }
+}
+
+function getAvailabilityExceptions($resource)
+{
+    if (isset($resource['availabilityExceptions']) && !empty($resource['availabilityExceptions'])) {
+        return $resource['availabilityExceptions'];
+    } else {
+        return '';
+    }
+}
+
+function getServiceClass($extension)
+{
+    if (is_array($extension) || is_object($extension)) {
+        foreach ($extension as $e) {
+            if (isset($e['url']) && $e['url'] === 'https://fhir.kemkes.go.id/r4/StructureDefinition/LocationServiceClass') {
+                if (isset($e['coding'][0]['code']) && !empty($e['coding'][0]['code'])) {
+                    return $e['coding'][0]['code'];
+                } else {
+                    return '0';
+                }
+            } else {
+                return '0';
+            }
+        }
+    } else {
+        return '0';
+    }
+}
+
+function getOperationHours($resource)
+{
+    if (isset($resource['hoursOfOperation']) && !empty($resource['hoursOfOperation'])) {
+        return $resource['hoursOfOperation'];
+    } else {
+        return null;
+    }
+}
+
+function parseOperationHours($operationHours)
+{
+    $operationHoursDetails = [
+        'mon' => false,
+        'tue' => false,
+        'wed' => false,
+        'thu' => false,
+        'fri' => false,
+        'sat' => false,
+        'sun' => false,
+        'openingTime' => '00:00:00',
+        'closingTime' => '00:00:00'
+    ];
+
+    if (isset($operationHours['allDay']) && !empty($operationHours['allDay']) && $operationHours['allDay'] === true) {
+        $operationHoursDetails['mon'] = true;
+        $operationHoursDetails['tue'] = true;
+        $operationHoursDetails['wed'] = true;
+        $operationHoursDetails['thu'] = true;
+        $operationHoursDetails['fri'] = true;
+        $operationHoursDetails['sat'] = true;
+        $operationHoursDetails['sun'] = true;
+    } else {
+        if (isset($operationHours['daysOfWeek']) && !empty($operationHours['daysOfWeek'])) {
+            foreach ($operationHours['daysOfWeek'] as $day) {
+                $operationHoursDetails[$day] = true;
+            }
+        }
+    }
+
+    if (isset($operationHours['openingTime']) && !empty($operationHours['openingTime'])) {
+        $operationHoursDetails['openingTime'] = $operationHours['openingTime'];
+    }
+
+    if (isset($operationHours['closingTime']) && !empty($operationHours['closingTime'])) {
+        $operationHoursDetails['closingTime'] = $operationHours['closingTime'];
+    }
+
+    return $operationHoursDetails;
 }
