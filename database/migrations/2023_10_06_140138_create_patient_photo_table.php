@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('patient_photo', function (Blueprint $table) {
-            $table->id();
-            $table->integer('patient_id')->unsigned()->foreign('patient_id')->references('id')->on('patient');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('patient_id');
+            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
             $table->string('title');
             $table->string('url');
             $table->datetime('creation');

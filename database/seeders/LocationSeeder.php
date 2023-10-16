@@ -19,7 +19,7 @@ class LocationSeeder extends Seeder
     public function run(): void
     {
         $locations = Resource::join('resource_content', function ($join) {
-            $join->on('resource.res_id', '=', 'resource_content.res_id')
+            $join->on('resource.id', '=', 'resource_content.resource_id')
                 ->whereColumn('resource.res_version', '=', 'resource_content.res_ver')
                 ->where('resource.res_type', '=', 'Location');
         })->get();
@@ -37,7 +37,7 @@ class LocationSeeder extends Seeder
 
             $loc = Location::create(
                 [
-                    'res_id' => $l->res_id,
+                    'resource_id' => $l->resource_id,
                     'active' => getActive($resContent),
                     'operational_status' => getOperationalStatus($resContent),
                     'name' => getName($resContent),

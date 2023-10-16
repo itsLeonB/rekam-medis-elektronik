@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('practitioner_address', function (Blueprint $table) {
-            $table->id();
-            $table->integer('practitioner_id')->unsigned()->foreign('practitioner_id')->references('id')->on('practitioner');
-            $table->string('use');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('practitioner_id');
+            $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
+             $table->string('use');
             $table->string('line');
             $table->string('postal_code');
             $table->string('country');

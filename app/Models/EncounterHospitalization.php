@@ -14,16 +14,16 @@ class EncounterHospitalization extends Model
 
     public function encounter(): BelongsTo
     {
-        return $this->belongsTo('encounter', 'id', 'encounter_id');
+        return $this->belongsTo(Encounter::class, 'id', 'encounter_id');
     }
 
     public function diet(): HasMany
     {
-        return $this->hasMany('encounter_hospitalization_diet', 'encounter_hospitalization_id', 'id');
+        return $this->hasMany(EncounterHospitalizationDiet::class, 'enc_hosp_id', 'id');
     }
 
     public function specialArrangement(): HasMany
     {
-        return $this->hasMany('encounter_hospitalization_special_arrangement', 'encounter_hospitalization_id', 'id');
+        return $this->hasMany(EncounterHospitalizationSpecialArrangement::class, 'enc_hosp_id', 'id');
     }
 }

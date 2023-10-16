@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('organization_contact', function (Blueprint $table) {
-            $table->id();
-            $table->integer('organization_id')->unsigned()->foreign('organization_id')->references('id')->on('organization');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
             $table->string('purpose_system');
             $table->string('purpose_code');
             $table->string('purpose_display');

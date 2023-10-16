@@ -13,6 +13,6 @@ class EncounterHospitalizationDiet extends Model
 
     public function encounterHospitalization(): BelongsTo
     {
-        return $this->belongsTo('encounter_hospitalization', 'id', 'encounter_hospitalization_id');
+        return $this->belongsTo(EncounterHospitalization::class, 'id', 'enc_hosp_id');
     }
 }

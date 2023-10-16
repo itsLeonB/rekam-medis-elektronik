@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('encounter_status_history', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('encounter_id')->foreign('encounter_id')->references('id')->on('encounter');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('encounter_id');
+            $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
             $table->string('status');
             $table->dateTime('period_start');
             $table->dateTime('period_end');

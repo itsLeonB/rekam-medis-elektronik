@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('location_type', function (Blueprint $table) {
-            $table->id();
-            $table->integer('location_id')->unsigned()->foreign('location_id')->references('id')->on('location');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade');
             $table->string('system');
             $table->string('code');
             $table->string('display');

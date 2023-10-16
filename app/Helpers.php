@@ -804,3 +804,198 @@ function parseOperationHours($operationHours)
 
     return $operationHoursDetails;
 }
+
+function getStatusHistory($resource)
+{
+    if (isset($resource['statusHistory']) && !empty($resource['statusHistory'])) {
+        return $resource['statusHistory'];
+    } else {
+        return null;
+    }
+}
+
+function getClassHistory($resource)
+{
+    if (isset($resource['classHistory']) && !empty($resource['classHistory'])) {
+        return $resource['classHistory'];
+    } else {
+        return null;
+    }
+}
+
+function getParticipants($resource)
+{
+    if (isset($resource['participant']) && !empty($resource['participant'])) {
+        return $resource['participant'];
+    } else {
+        return null;
+    }
+}
+
+function getReasons($resource)
+{
+    $reasons = [
+        'code' => 0,
+        'reference' => ''
+    ];
+
+    if (isset($resource['reasonCode']) && !empty($resource['reasonCode'])) {
+        $reasons['code'] = $resource['reasonCode'];
+    }
+
+    if (isset($resource['reasonReference']) && !empty($resource['reasonReference'])) {
+        $reasons['reference'] = $resource['reasonReference'];
+    }
+
+    return $reasons;
+}
+
+function getDiagnosis($resource)
+{
+    if (isset($resource['diagnosis']) && !empty($resource['diagnosis'])) {
+        return $resource['diagnosis'];
+    } else {
+        return null;
+    }
+}
+
+function getServiceType($resource)
+{
+    if (isset($resource['serviceType']['coding'][0]['code']) && !empty($resource['serviceType']['coding'][0]['code'])) {
+        return $resource['serviceType']['coding'][0]['code'];
+    } else {
+        return 0;
+    }
+}
+
+function getPriority($resource)
+{
+    if (isset($resource['priority']['coding'][0]['system']) && !empty($resource['priority']['coding'][0]['system']) && $resource['priority']['coding'][0]['system'] === 'http://terminology.hl7.org/CodeSystem/v3-ActPriority') {
+        if (isset($resource['priority']['coding'][0]['code']) && !empty($resource['priority']['coding'][0]['code'])) {
+            return $resource['priority']['coding'][0]['code'];
+        } else {
+            return '';
+        }
+    } else {
+        return '';
+    }
+}
+
+function getEpisodeOfCare($resource)
+{
+    if (isset($resource['episodeOfCare'][0]['reference']) && !empty($resource['episodeOfCare'][0]['reference'])) {
+        return $resource['episodeOfCare'][0]['reference'];
+    } else {
+        return '';
+    }
+}
+
+function getBasedOn($resource)
+{
+    if (isset($resource['basedOn'][0]['reference']) && !empty($resource['basedOn'][0]['reference'])) {
+        return $resource['basedOn'][0]['reference'];
+    } else {
+        return '';
+    }
+}
+
+function getAccount($resource)
+{
+    if (isset($resource['account'][0]['reference']) && !empty($resource['account'][0]['reference'])) {
+        return $resource['account'][0]['reference'];
+    } else {
+        return '';
+    }
+}
+
+function getClass($resource)
+{
+    if (isset($resource['class']['code']) && !empty($resource['class']['code'])) {
+        return $resource['class']['code'];
+    } else {
+        return '';
+    }
+}
+
+function getPeriod($resource)
+{
+    $period = [
+        'start' => '1900-01-01',
+        'end' => '1900-01-01'
+    ];
+
+    if (isset($resource['period']['start']) && !empty($resource['period']['start'])) {
+        $period['start'] = $resource['period']['start'];
+    }
+
+    if (isset($resource['period']['end']) && !empty($resource['period']['end'])) {
+        $period['end'] = $resource['period']['end'];
+    }
+
+    return $period;
+}
+
+function getLocation($resource)
+{
+    if (isset($resource['location'][0]['location']['reference']) && !empty($resource['location'][0]['location']['reference'])) {
+        return $resource['location'][0]['location']['reference'];
+    } else {
+        return '';
+    }
+}
+
+function getIndividual($participant)
+{
+    if (isset($participant['individual']['reference']) && !empty($participant['individual']['reference'])) {
+        return $participant['individual']['reference'];
+    } else {
+        return '';
+    }
+}
+
+function getServiceProvider($resource)
+{
+    if (isset($resource['serviceProvider']['reference']) && !empty($resource['serviceProvider']['reference'])) {
+        return $resource['serviceProvider']['reference'];
+    } else {
+        return '';
+    }
+}
+
+function getParticipantType($participant)
+{
+    if (isset($participant['type'][0]['coding'][0]['code']) && !empty($participant['type'][0]['coding'][0]['code'])) {
+        return $participant['type'][0]['coding'][0]['code'];
+    } else {
+        return '';
+    }
+}
+
+function getDiagnosisDetails($diagnosis)
+{
+    $diagnosisDetails = [
+        'conditionReference' => '',
+        'conditionDisplay' => '',
+        'use' => '',
+        'rank' => 1
+    ];
+
+    if (isset($diagnosis['condition']['reference']) && !empty($diagnosis['condition']['reference'])) {
+        $diagnosisDetails['conditionReference'] = $diagnosis['condition']['reference'];
+    }
+
+    if (isset($diagnosis['condition']['display']) && !empty($diagnosis['condition']['display'])) {
+        $diagnosisDetails['conditionDisplay'] = $diagnosis['condition']['display'];
+    }
+
+    if (isset($diagnosis['use']['coding'][0]['code']) && !empty($diagnosis['use']['coding'][0]['code'])) {
+        $diagnosisDetails['use'] = $diagnosis['use']['coding'][0]['code'];
+    }
+
+    if (isset($diagnosis['rank']) && !empty($diagnosis['rank'])) {
+        $diagnosisDetails['rank'] = $diagnosis['rank'];
+    }
+
+    return $diagnosisDetails;
+}
+

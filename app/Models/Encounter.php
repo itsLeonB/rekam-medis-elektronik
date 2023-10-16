@@ -18,41 +18,41 @@ class Encounter extends Model
 
     public function resource(): BelongsTo
     {
-        return $this->belongsTo('resource', 'res_id', 'res_id');
+        return $this->belongsTo(Resource::class, 'res_id', 'res_id');
     }
 
     public function identifier(): HasMany
     {
-        return $this->hasMany('encounter_identifier', 'encounter_id', 'id');
+        return $this->hasMany(EncounterIdentifier::class, 'encounter_id', 'id');
     }
 
     public function statusHistory(): HasMany
     {
-        return $this->hasMany('encounter_status_history', 'encounter_id', 'id');
+        return $this->hasMany(EncounterStatusHistory::class, 'encounter_id', 'id');
     }
 
     public function classHistory(): HasMany
     {
-        return $this->hasMany('encounter_class_history', 'encounter_id', 'id');
+        return $this->hasMany(EncounterClassHistory::class, 'encounter_id', 'id');
     }
 
     public function participant(): HasMany
     {
-        return $this->hasMany('encounter_participant', 'encounter_id', 'id');
+        return $this->hasMany(EncounterParticipant::class, 'encounter_id', 'id');
     }
 
     public function reason(): HasMany
     {
-        return $this->hasMany('encounter_reason', 'encounter_id', 'id');
+        return $this->hasMany(EncounterReason::class, 'encounter_id', 'id');
     }
 
     public function diagnosis(): HasMany
     {
-        return $this->hasMany('encounter_diagnosis', 'encounter_id', 'id');
+        return $this->hasMany(EncounterDiagnosis::class, 'encounter_id', 'id');
     }
 
     public function hospitalization(): HasMany
     {
-        return $this->hasMany('encounter_hospitalization', 'encounter_id', 'id');
+        return $this->hasMany(EncounterHospitalization::class, 'encounter_id', 'id');
     }
 }

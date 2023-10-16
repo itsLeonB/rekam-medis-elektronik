@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('encounter_hospitalization_diet', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('encounter_hospitalization_id')->foreign('encounter_hospitalization_id')->references('id')->on('encounter_hospitalization');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('enc_hosp_id');
+            $table->foreign('enc_hosp_id')->references('id')->on('encounter_hospitalization')->onDelete('cascade');
             $table->string('diet');
         });
     }

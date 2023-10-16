@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class EncounterHospitalizationSpecialArrangement extends Model
 {
-    protected $table = 'encounter_hospitalization_special_arrangement';
+    protected $table = 'encounter_hospitalization_spc_arr';
     public $timestamps = false;
 
     public function encounterHospitalization(): BelongsTo
     {
-        return $this->belongsTo('encounter_hospitalization', 'id', 'encounter_hospitalization_id');
+        return $this->belongsTo(EncounterHospitalization::class, 'id', 'enc_hosp_id');
     }
 }

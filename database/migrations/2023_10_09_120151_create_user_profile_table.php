@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_profile', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user_id')->unsigned()->foreign('user_id')->references('id')->on('users');
-            $table->integer('practitioner_id')->unsigned()->foreign('practitioner_id')->references('id')->on('practitioner');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('practitioner_id');
+            $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
         });
     }
 

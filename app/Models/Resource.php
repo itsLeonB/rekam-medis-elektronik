@@ -32,4 +32,24 @@ class Resource extends Model
     {
         return $this->hasMany(Practitioner::class, 'res_id', 'res_id');
     }
+
+    public function patient(): HasMany
+    {
+        return $this->hasMany(Patient::class, 'res_id', 'res_id');
+    }
+
+    public function location(): HasMany
+    {
+        return $this->hasMany(Location::class, 'res_id', 'res_id');
+    }
+
+    public function organization(): HasMany
+    {
+        return $this->hasMany(Organization::class, 'res_id', 'res_id');
+    }
+
+    public function encounter(): HasMany
+    {
+        return $this->hasMany(Encounter::class, 'res_id', 'res_id');
+    }
 }

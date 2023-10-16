@@ -14,11 +14,11 @@ class OrganizationContact extends Model
 
     public function organization(): BelongsTo
     {
-        return $this->belongsTo('organization', 'id', 'organization_id');
+        return $this->belongsTo(Organization::class, 'id', 'organization_id');
     }
 
     public function telecom(): HasMany
     {
-        return $this->hasMany('organization_contact_telecom', 'organization_contact_id', 'id');
+        return $this->hasMany(OrganizationContactTelecom::class, 'organization_contact_id', 'id');
     }
 }

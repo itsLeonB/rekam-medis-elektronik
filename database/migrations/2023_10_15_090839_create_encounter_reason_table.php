@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('encounter_reason', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedInteger('encounter_id')->foreign('encounter_id')->references('id')->on('encounter');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('encounter_id');
+            $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
             $table->unsignedBigInteger('code');
             $table->string('reference');
         });

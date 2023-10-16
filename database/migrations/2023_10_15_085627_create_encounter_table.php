@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('encounter', function (Blueprint $table) {
-            $table->id();
-            $table->integer('res_id')->unsigned()->foreign('res_id')->references('res_id')->on('resource');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('resource_id');
+            $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->string('status');
             $table->string('class');
             $table->unsignedInteger('service_type');
-            $table->char('priority', [1, 3]);
+            $table->char('priority', 3);
             $table->string('subject');
             $table->string('episode_of_care');
             $table->string('based_on');

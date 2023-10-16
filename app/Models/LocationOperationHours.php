@@ -26,6 +26,6 @@ class LocationOperationHours extends Model
 
     public function location(): BelongsTo
     {
-        return $this->belongsTo('location', 'id', 'location_id');
+        return $this->belongsTo(Location::class, 'id', 'location_id');
     }
 }

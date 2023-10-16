@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('location', function (Blueprint $table) {
-            $table->id();
-            $table->integer('res_id')->unsigned()->foreign('res_id')->references('res_id')->on('resource');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('resource_id');
+            $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->boolean('active');
             $table->char('operational_status', 1);
             $table->string('name');
@@ -22,6 +23,8 @@ return new class extends Migration
             $table->string('mode');
             $table->string('address_use');
             $table->string('address_line');
+            $table->string('country');
+            $table->string('postal_code');
             $table->integer('province')->unsigned();
             $table->integer('city')->unsigned();
             $table->bigInteger('district')->unsigned();

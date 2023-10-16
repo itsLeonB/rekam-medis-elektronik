@@ -22,26 +22,26 @@ class Location extends Model
 
     public function resource(): BelongsTo
     {
-        return $this->belongsTo('resource', 'res_id', 'res_id');
+        return $this->belongsTo(Resource::class, 'res_id', 'res_id');
     }
 
     public function identifier(): HasMany
     {
-        return $this->hasMany('location_identifier', 'location_id', 'id');
+        return $this->hasMany(LocationIdentifier::class, 'location_id', 'id');
     }
 
     public function type(): HasMany
     {
-        return $this->hasMany('location_type', 'location_id', 'id');
+        return $this->hasMany(LocationType::class, 'location_id', 'id');
     }
 
     public function telecom(): HasMany
     {
-        return $this->hasMany('location_telecom', 'location_id', 'id');
+        return $this->hasMany(LocationTelecom::class, 'location_id', 'id');
     }
 
     public function operationHours(): HasMany
     {
-        return $this->hasMany('location_operation_hours', 'location_id', 'id');
+        return $this->hasMany(LocationOperationHours::class, 'location_id', 'id');
     }
 }

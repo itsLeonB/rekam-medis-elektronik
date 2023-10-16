@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resource_forced_id', function (Blueprint $table) {
-            $table->id();
-            $table->integer('res_id')->unsigned()->foreign('res_id')->references('res_id')->on('resource');
+            $table->id()->unsigned();
+            $table->unsignedBigInteger('resource_id');
+            $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->string('forced_id');
         });
     }
