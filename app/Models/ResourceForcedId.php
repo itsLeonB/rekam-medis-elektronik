@@ -14,7 +14,7 @@ class ResourceForcedId extends Model
 
     public function resource(): BelongsTo
     {
-        return $this->belongsTo(Resource::class, 'res_id', 'res_id');
+        return $this->belongsTo(Resource::class,);
     }
 
     public $timestamps = false;

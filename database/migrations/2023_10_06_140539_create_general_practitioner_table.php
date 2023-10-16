@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('general_practitioner', function (Blueprint $table) {
             $table->id();
-            $table->integer('patient_id')->unsigned()->foreign('patient_id')->references('id')->on('patient');
-            $table->integer('practitioner_id')->unsigned()->foreign('practitioner_id')->references('id')->on('practitioner');
+            $table->unsignedBigInteger('patient_id');
+            $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
             $table->string('reference');
         });
     }

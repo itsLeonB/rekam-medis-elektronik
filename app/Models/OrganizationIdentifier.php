@@ -13,6 +13,6 @@ class OrganizationIdentifier extends Model
 
     public function organization(): BelongsTo
     {
-        return $this->belongsTo('organization', 'id', 'organization_id');
+        return $this->belongsTo(Organization::class);
     }
 }

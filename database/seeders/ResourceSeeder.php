@@ -16,33 +16,36 @@ class ResourceSeeder extends Seeder
      */
     public function run(): void
     {
-        $resourceTypes = ['Patient', 'Practitioner', 'Organization'];
-        $count = 1;
+        $resourceTypes = ['Patient', 'Practitioner', 'Organization', 'Location', 'Encounter'];
+
         foreach ($resourceTypes as $resource) {
             $files = Storage::disk('fhir-example')->files($resource);
+
             foreach ($files as $f) {
                 $res_content = file_get_contents(storage_path('fhir-example') . '/' . $f);
                 $fname = str_replace($resource . '/', '', $f);
                 list($res_type, $forced_id) = explode('-', $fname, 2);
                 list($forced_id, $ext) = explode('.', $forced_id, 2);
-                Resource::create(
+
+                $res = Resource::create(
                     [
                         'res_type' => $res_type
                     ]
                 );
+
                 ResourceContent::create(
                     [
-                        'res_id' => $count,
+                        'resource_id' => $res->id,
                         'res_text' => $res_content
                     ]
                 );
+
                 ResourceForcedId::create(
                     [
-                        'res_id' => $count,
+                        'resource_id' => $res->id,
                         'forced_id' => $forced_id
                     ]
                 );
-                $count++;
             }
         }
     }

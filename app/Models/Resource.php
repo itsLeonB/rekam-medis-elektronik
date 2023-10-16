@@ -20,16 +20,41 @@ class Resource extends Model
 
     public function content(): HasMany
     {
-        return $this->hasMany(ResourceContent::class, 'res_id', 'res_id');
+        return $this->hasMany(ResourceContent::class);
     }
 
     public function forcedId(): HasOne
     {
-        return $this->hasOne(ResourceForcedId::class, 'res_id', 'res_id');
+        return $this->hasOne(ResourceForcedId::class);
     }
 
     public function practitioner(): HasMany
     {
-        return $this->hasMany(Practitioner::class, 'res_id', 'res_id');
+        return $this->hasMany(Practitioner::class);
+    }
+
+    public function patient(): HasMany
+    {
+        return $this->hasMany(Patient::class);
+    }
+
+    public function location(): HasMany
+    {
+        return $this->hasMany(Location::class);
+    }
+
+    public function organization(): HasMany
+    {
+        return $this->hasMany(Organization::class);
+    }
+
+    public function encounter(): HasMany
+    {
+        return $this->hasMany(Encounter::class);
+    }
+
+    public function condition(): HasMany
+    {
+        return $this->hasMany(Condition::class);
     }
 }

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('location_operation_hours', function (Blueprint $table) {
             $table->id();
-            $table->integer('location_id')->unsigned()->foreign('location_id')->references('id')->on('location');
+            $table->unsignedBigInteger('location_id');
+            $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade');
             $table->boolean('mon');
             $table->boolean('tue');
             $table->boolean('wed');

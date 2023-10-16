@@ -25,22 +25,22 @@ class Practitioner extends Model
 
     public function telecom(): HasMany
     {
-        return $this->hasMany(PractitionerTelecom::class, 'practitioner_id', 'id');
+        return $this->hasMany(PractitionerTelecom::class);
     }
 
     public function address(): HasMany
     {
-        return $this->HasMany(PractitionerAddress::class, 'practitioner_id', 'id');
+        return $this->HasMany(PractitionerAddress::class);
     }
 
     public function qualification(): HasMany
     {
-        return $this->HasMany(PractitionerQualification::class, 'practitioner_id', 'id');
+        return $this->HasMany(PractitionerQualification::class);
     }
 
     public function resource(): BelongsTo
     {
-        return $this->belongsTo(Resource::class, 'res_id', 'res_id');
+        return $this->belongsTo(Resource::class);
     }
 
     public function userProfile(): BelongsTo

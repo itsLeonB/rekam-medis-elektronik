@@ -24,14 +24,9 @@ class PatientSeeder extends Seeder
     public function run(): void
     {
         $patients = Resource::join('resource_content', function ($join) {
-            $join->on('resource.res_id', '=', 'resource_content.res_id')
+            $join->on('resource.id', '=', 'resource_content.resource_id')
                 ->whereColumn('resource.res_version', '=', 'resource_content.res_ver')
                 ->where('resource.res_type', '=', 'Patient');
-        })->get();
-
-        $practitioners = Resource::join('resource_forced_id', function ($join) {
-            $join->on('resource.res_id', '=', 'resource_forced_id.res_id')
-                ->where('resource.res_type', '=', 'Practitioner');
         })->get();
 
         foreach ($patients as $p) {
@@ -50,7 +45,7 @@ class PatientSeeder extends Seeder
 
             $patient = Patient::create(
                 [
-                    'res_id' => $p->res_id,
+                    'resource_id' => $p->resource_id,
                     'active' => $active,
                     'name' => getFullName($nameData),
                     'prefix' => getPrefix($nameData),
@@ -169,18 +164,9 @@ class PatientSeeder extends Seeder
             if (is_array($generalPractitioners) || is_object($generalPractitioners)) {
                 foreach ($generalPractitioners as $gp) {
                     $ref = $gp['reference'];
-                    foreach ($practitioners as $prac) {
-                        if ($prac->forced_id === $ref) {
-                            $prac_id = $prac->id;
-                            break;
-                        } else {
-                            $prac_id = 0;
-                        }
-                    }
                     GeneralPractitioner::create(
                         [
                             'patient_id' => $patient->id,
-                            'practitioner_id' => $prac_id,
                             'reference' => $ref
                         ]
                     );

@@ -19,8 +19,9 @@ class PractitionerSeeder extends Seeder
     public function run(): void
     {
         $practitioners = Resource::join('resource_content', function ($join) {
-            $join->on('resource.res_id', '=', 'resource_content.res_id')
-                ->whereColumn('resource.res_version', '=', 'resource_content.res_ver')->where('resource.res_type', '=', 'Practitioner');
+            $join->on('resource.id', '=', 'resource_content.resource_id')
+                ->whereColumn('resource.res_version', '=', 'resource_content.res_ver')
+                ->where('resource.res_type', '=', 'Practitioner');
         })->get();
         $photo = Storage::disk('public')->files('images');
         $count = 1;
@@ -39,7 +40,7 @@ class PractitionerSeeder extends Seeder
 
             Practitioner::create(
                 [
-                    'res_id' => $p->res_id,
+                    'resource_id' => $p->resource_id,
                     'nik' => $nik,
                     'ihs_number' => $ihs,
                     'active' => $active,
@@ -102,7 +103,7 @@ class PractitionerSeeder extends Seeder
                             'period_start' => $qualificationDetails['periodStart'],
                             'period_end' => $qualificationDetails['periodEnd']
                         ]
-                        );
+                    );
                 }
             }
             $count++;

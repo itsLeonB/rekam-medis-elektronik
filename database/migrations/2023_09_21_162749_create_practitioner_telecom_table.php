@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('practitioner_telecom', function (Blueprint $table) {
             $table->id();
-            $table->integer('practitioner_id')->unsigned()->foreign('practitioner_id')->references('id')->on('practitioner');
+            $table->unsignedBigInteger('practitioner_id');
+            $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
             $table->string('system');
             $table->string('use');
             $table->string('value');

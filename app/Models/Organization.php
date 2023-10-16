@@ -19,31 +19,31 @@ class Organization extends Model
 
     public function resource(): BelongsTo
     {
-        return $this->belongsTo('resource', 'res_id', 'res_id');
+        return $this->belongsTo(Resource::class);
     }
 
     public function identifier(): HasMany
     {
-        return $this->hasMany('organization_identifier', 'organization_id', 'id');
+        return $this->hasMany(OrganizationIdentifier::class);
     }
 
     public function type(): HasMany
     {
-        return $this->hasMany('organization_type', 'organization_id', 'id');
+        return $this->hasMany(OrganizationType::class);
     }
 
     public function telecom(): HasMany
     {
-        return $this->hasMany('organization_telecom', 'organization_id', 'id');
+        return $this->hasMany(OrganizationTelecom::class);
     }
 
     public function address(): HasMany
     {
-        return $this->hasMany('organization_address', 'organization_id', 'id');
+        return $this->hasMany(OrganizationAddress::class);
     }
 
     public function contact(): HasMany
     {
-        return $this->hasMany('organization_contact', 'organization_id', 'id');
+        return $this->hasMany(OrganizationContact::class);
     }
 }

@@ -21,7 +21,7 @@ class OrganizationSeeder extends Seeder
     public function run(): void
     {
         $organizations = Resource::join('resource_content', function ($join) {
-            $join->on('resource.res_id', '=', 'resource_content.res_id')
+            $join->on('resource.id', '=', 'resource_content.resource_id')
                 ->whereColumn('resource.res_version', '=', 'resource_content.res_ver')
                 ->where('resource.res_type', '=', 'Organization');
         })->get();
@@ -37,7 +37,7 @@ class OrganizationSeeder extends Seeder
 
             $org = Organization::create(
                 [
-                    'res_id' => $o->res_id,
+                    'resource_id' => $o->resource_id,
                     'active' => $active,
                     'name' => $resContent['name'],
                     'alias' => getActive($resContent),

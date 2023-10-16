@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('organization_address', function (Blueprint $table) {
             $table->id();
-            $table->integer('organization_id')->unsigned()->foreign('organization_id')->references('id')->on('organization');
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
             $table->string('use');
             $table->string('line');
             $table->string('country');
