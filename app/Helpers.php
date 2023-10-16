@@ -999,3 +999,183 @@ function getDiagnosisDetails($diagnosis)
     return $diagnosisDetails;
 }
 
+function getCategory($resource)
+{
+    if (isset($resource['category']) && !empty($resource['category'])) {
+        return $resource['category'];
+    } else {
+        return null;
+    }
+}
+
+function getCategoryDetails($category)
+{
+    $categoryDetails = [
+        'system' => '',
+        'code' => '',
+        'display' => ''
+    ];
+
+    if (isset($category['coding'][0]['system']) && !empty($category['coding'][0]['system'])) {
+        $categoryDetails['system'] = $category['coding'][0]['system'];
+    }
+
+    if (isset($category['coding'][0]['code']) && !empty($category['coding'][0]['code'])) {
+        $categoryDetails['code'] = $category['coding'][0]['code'];
+    }
+
+    if (isset($category['coding'][0]['display']) && !empty($category['coding'][0]['display'])) {
+        $categoryDetails['display'] = $category['coding'][0]['display'];
+    }
+
+    return $categoryDetails;
+}
+
+function getBodySite($resource)
+{
+    if (isset($resource['bodySite']) && !empty($resource['bodySite'])) {
+        return $resource['bodySite'];
+    } else {
+        return null;
+    }
+}
+
+function getBodySiteDetails($bodySite)
+{
+    $bodySiteDetails = [
+        'system' => '',
+        'code' => '',
+        'display' => ''
+    ];
+
+    if (isset($bodySite['coding'][0]['system']) && !empty($bodySite['coding'][0]['system'])) {
+        $bodySiteDetails['system'] = $bodySite['coding'][0]['system'];
+    }
+
+    if (isset($bodySite['coding'][0]['code']) && !empty($bodySite['coding'][0]['code'])) {
+        $bodySiteDetails['code'] = $bodySite['coding'][0]['code'];
+    }
+
+    if (isset($bodySite['coding'][0]['display']) && !empty($bodySite['coding'][0]['display'])) {
+        $bodySiteDetails['display'] = $bodySite['coding'][0]['display'];
+    }
+
+    return $bodySiteDetails;
+}
+
+function getStage($resource)
+{
+    if (isset($resource['stage']) && !empty($resource['stage'])) {
+        return $resource['stage'];
+    } else {
+        return null;
+    }
+}
+
+function getStageDetails($stage)
+{
+    $stageDetails = [
+        'summarySystem' => '',
+        'summaryCode' => '',
+        'summaryDisplay' => '',
+        'typeSystem' => '',
+        'typeCode' => '',
+        'typeDisplay' => ''
+    ];
+
+    if (isset($stage['summary']['coding'][0]['system']) && !empty($stage['summary']['coding'][0]['system'])) {
+        $stageDetails['summarySystem'] = $stage['summary']['coding'][0]['system'];
+    }
+
+    if (isset($stage['summary']['coding'][0]['code']) && !empty($stage['summary']['coding'][0]['code'])) {
+        $stageDetails['summaryCode'] = $stage['summary']['coding'][0]['code'];
+    }
+
+    if (isset($stage['summary']['coding'][0]['display']) && !empty($stage['summary']['coding'][0]['display'])) {
+        $stageDetails['summaryDisplay'] = $stage['summary']['coding'][0]['display'];
+    }
+
+    if (isset($stage['type']['coding'][0]['system']) && !empty($stage['type']['coding'][0]['system'])) {
+        $stageDetails['typeSystem'] = $stage['type']['coding'][0]['system'];
+    }
+
+    if (isset($stage['type']['coding'][0]['code']) && !empty($stage['type']['coding'][0]['code'])) {
+        $stageDetails['typeCode'] = $stage['type']['coding'][0]['code'];
+    }
+
+    if (isset($stage['type']['coding'][0]['display']) && !empty($stage['type']['coding'][0]['display'])) {
+        $stageDetails['typeDisplay'] = $stage['type']['coding'][0]['display'];
+    }
+
+    return $stageDetails;
+}
+
+function getAssessment($stage)
+{
+    if (isset($stage['assessment']) && !empty($stage['assessment'])) {
+        return $stage['assessment'];
+    } else {
+        return null;
+    }
+}
+
+function getEvidence($resource)
+{
+    if (isset($resource['evidence']) && !empty($resource['evidence'])) {
+        return $resource['evidence'];
+    } else {
+        return null;
+    }
+}
+
+function getEvidenceDetails($evidence)
+{
+    $evidenceDetails = [
+        'code' => 0,
+        'detailReference' => ''
+    ];
+
+    if (isset($evidence['code']['coding'][0]['code']) && !empty($evidence['code']['coding'][0]['code'])) {
+        $evidenceDetails['code'] = $evidence['code']['coding'][0]['code'];
+    }
+
+    if (isset($evidence['detail'][0]['reference']) && !empty($evidence['detail'][0]['reference'])) {
+        $evidenceDetails['detailReference'] = $evidence['detail'][0]['reference'];
+    }
+
+    return $evidenceDetails;
+}
+
+function getNote($resource)
+{
+    if (isset($resource['note']) && !empty($resource['note'])) {
+        return $resource['note'];
+    } else {
+        return null;
+    }
+}
+
+function getNoteDetails($note)
+{
+    $noteDetails = [
+        'author' => '',
+        'time' => '1900-01-01',
+        'text' => ''
+    ];
+
+    if (isset($note['authorReference']) && !empty($note['authorReference'])) {
+        $noteDetails['author'] = $note['authorReference'];
+    } elseif (isset($note['authorString']) && !empty($note['authorString'])) {
+        $noteDetails['author'] = $note['authorString'];
+    }
+
+    if (isset($note['time']) && !empty($note['time'])) {
+        $noteDetails['time'] = $note['time'];
+    }
+
+    if (isset($note['text']) && !empty($note['text'])) {
+        $noteDetails['text'] = $note['text'];
+    }
+
+    return $noteDetails;
+}

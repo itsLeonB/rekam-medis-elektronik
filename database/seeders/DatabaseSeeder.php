@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
             PatientSeeder::class,
             OrganizationSeeder::class,
             LocationSeeder::class,
-            EncounterSeeder::class
+            EncounterSeeder::class,
+            ConditionSeeder::class
         ]);
     }
 }
