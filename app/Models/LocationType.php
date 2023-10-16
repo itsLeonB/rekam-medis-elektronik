@@ -13,6 +13,6 @@ class LocationType extends Model
 
     public function location(): BelongsTo
     {
-        return $this->belongsTo(Location::class, 'id', 'location_id');
+        return $this->belongsTo(Location::class);
     }
 }

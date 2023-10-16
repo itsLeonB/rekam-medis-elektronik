@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('encounter_hospitalization_spc_arr', function (Blueprint $table) {
-            $table->id()->unsigned();
+            $table->id();
             $table->unsignedBigInteger('enc_hosp_id');
             $table->foreign('enc_hosp_id')->references('id')->on('encounter_hospitalization')->onDelete('cascade');
             $table->string('special_arrangement');

@@ -1,0 +1,41 @@
+{
+    "resourceType": "Condition",
+    "id": "f1369adf-26f6-47a5-90f2-ce08442639aa",
+    "clinicalStatus": {
+        "coding": [
+            {
+                "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                "code": "remission",
+                "display": "Remission"
+            }
+        ]
+    },
+    "category": [
+        {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                    "code": "encounter-diagnosis",
+                    "display": "Encounter Diagnosis"
+                }
+            ]
+        }
+    ],
+    "code": {
+        "coding": [
+            {
+                "system": "http://hl7.org/fhir/sid/icd-10",
+                "code": "K35.8",
+                "display": "Acute appendicitis, other and unspecified"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/100000030009",
+        "display": "Budi Santoso"
+    },
+    "encounter": {
+        "reference": "Encounter/1a0951f7-c99e-4b54-9207-29709483895d",
+        "display": "Kunjungan Budi Santoso di hari Selasa, 14 Juni 2022"
+    }
+}

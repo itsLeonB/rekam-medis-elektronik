@@ -13,6 +13,6 @@ class OrganizationContactTelecom extends Model
 
     public function organizationContact(): BelongsTo
     {
-        return $this->belongsTo(OrganizationContact::class, 'id', 'organization_contact_id');
+        return $this->belongsTo(OrganizationContact::class, 'organization_contact_id');
     }
 }

@@ -16,6 +16,6 @@ class PatientContactTelecom extends Model
 
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(PatientContact::class, 'id', 'patient_id');
+        return $this->belongsTo(PatientContact::class, 'patient_contact_id');
     }
 }

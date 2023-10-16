@@ -14,7 +14,7 @@ class EncounterHospitalization extends Model
 
     public function encounter(): BelongsTo
     {
-        return $this->belongsTo(Encounter::class, 'id', 'encounter_id');
+        return $this->belongsTo(Encounter::class);
     }
 
     public function diet(): HasMany

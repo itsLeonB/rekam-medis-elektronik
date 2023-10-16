@@ -13,6 +13,6 @@ class EncounterReason extends Model
 
     public function encounter(): BelongsTo
     {
-        return $this->belongsTo(Encounter::class, 'id', 'encounter_id');
+        return $this->belongsTo(Encounter::class);
     }
 }

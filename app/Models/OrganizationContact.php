@@ -14,7 +14,7 @@ class OrganizationContact extends Model
 
     public function organization(): BelongsTo
     {
-        return $this->belongsTo(Organization::class, 'id', 'organization_id');
+        return $this->belongsTo(Organization::class);
     }
 
     public function telecom(): HasMany

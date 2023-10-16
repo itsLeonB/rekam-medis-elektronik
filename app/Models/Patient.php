@@ -31,36 +31,36 @@ class Patient extends Model
 
     public function resource(): BelongsTo
     {
-        return $this->belongsTo(Resource::class, 'res_id', 'res_id');
+        return $this->belongsTo(Resource::class);
     }
 
     public function identifier(): HasMany
     {
-        return $this->hasMany(PatientIdentifier::class, 'patient_id', 'id');
+        return $this->hasMany(PatientIdentifier::class);
     }
 
     public function telecom(): HasMany
     {
-        return $this->hasMany(PatientTelecom::class, 'patient_id', 'id');
+        return $this->hasMany(PatientTelecom::class);
     }
 
     public function address(): HasMany
     {
-        return $this->hasMany(PatientAddress::class, 'patient_id', 'id');
+        return $this->hasMany(PatientAddress::class);
     }
 
     public function photo(): HasMany
     {
-        return $this->hasMany(PatientPhoto::class, 'patient_id', 'id');
+        return $this->hasMany(PatientPhoto::class);
     }
 
     public function contact(): HasMany
     {
-        return $this->hasMany(PatientContact::class, 'patient_id', 'id');
+        return $this->hasMany(PatientContact::class);
     }
 
     public function generalPractitioner(): HasMany
     {
-        return $this->hasMany(GeneralPractitioner::class, 'patient_id', 'id');
+        return $this->hasMany(GeneralPractitioner::class);
     }
 }

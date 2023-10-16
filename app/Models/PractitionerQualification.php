@@ -19,7 +19,7 @@ class PractitionerQualification extends Model
 
     public function practitioner(): BelongsTo
     {
-        return $this->belongsTo(Practitioner::class, 'id', 'practitioner_id');
+        return $this->belongsTo(Practitioner::class);
     }
 
     public $timestamps = false;

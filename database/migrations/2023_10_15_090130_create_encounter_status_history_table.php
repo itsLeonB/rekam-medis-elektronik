@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('encounter_status_history', function (Blueprint $table) {
-            $table->id()->unsigned();
+            $table->id();
             $table->unsignedBigInteger('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
             $table->string('status');

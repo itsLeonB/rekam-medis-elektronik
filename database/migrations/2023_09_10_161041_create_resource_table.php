@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('resource', function (Blueprint $table) {
-            $table->id()->unsigned();
+            $table->id();
             $table->string('res_type');
             $table->integer('res_version')->default(1);
             $table->string('fhir_ver')->default('R4');
