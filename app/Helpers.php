@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\KotaKabupaten;
+use App\Models\Resource;
 
 function getActive($resource)
 {
@@ -1178,4 +1179,22 @@ function getNoteDetails($note)
     }
 
     return $noteDetails;
+}
+
+function returnAttribute($attribute, $defaultValue)
+{
+    if (isset($attribute) && !empty($attribute)) {
+        return $attribute;
+    } else {
+        return $defaultValue;
+    }
+}
+
+function parseAndCreate($model, $data, $callback) {
+    if (is_array($data) || is_object($data)) {
+        foreach ($data as $d) {
+            $details = $callback($d);
+            $model::create($details);
+        }
+    }
 }
