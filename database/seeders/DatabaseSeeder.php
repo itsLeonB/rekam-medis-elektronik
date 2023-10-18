@@ -33,7 +33,8 @@ class DatabaseSeeder extends Seeder
             OrganizationSeeder::class,
             LocationSeeder::class,
             EncounterSeeder::class,
-            ConditionSeeder::class
+            ConditionSeeder::class,
+            ObservationSeeder::class
         ]);
     }
 }

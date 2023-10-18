@@ -11,13 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class ObservationComponent extends Model
 {
     protected $table = 'observation_component';
-    protected $casts = [
-        'value_boolean' => 'boolean',
-        'value_time' => 'time',
-        'value_datetime' => 'datetime',
-        'value_start' => 'datetime',
-        'value_end' => 'datetime'
-    ];
+    protected $casts = ['value' => 'json'];
     public $timestamps = false;
 
     public function observation(): BelongsTo
@@ -33,25 +27,5 @@ class ObservationComponent extends Model
     public function referenceRange(): HasMany
     {
         return $this->hasMany(ObservationComponentReferenceRange::class, 'obs_comp_id');
-    }
-
-    public function valueRatio(): HasOne
-    {
-        return $this->hasOne(ObservationComponentValueRatio::class, 'obs_comp_id');
-    }
-
-    public function valueRange(): HasOne
-    {
-        return $this->hasOne(ObservationComponentValueRange::class, 'obs_comp_id');
-    }
-
-    public function valueQuantity(): HasOne
-    {
-        return $this->hasOne(ObservationComponentValueQuantity::class, 'obs_comp_id');
-    }
-
-    public function valueSample(): HasOne
-    {
-        return $this->hasOne(ObservationComponentValueSample::class, 'obs_comp_id');
     }
 }

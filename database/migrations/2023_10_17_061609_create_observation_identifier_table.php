@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('observation_identifier', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('observation_id');
+            $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
             $table->string('system');
-            $table->string('use');
+            $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old']);
             $table->string('value');
         });
     }

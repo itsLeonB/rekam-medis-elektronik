@@ -15,16 +15,14 @@ class Patient extends Model
 
     protected $attributes = [
         'active' => true,
-        'deceased' => null,
-        'multiple_birth' => false,
         'language' => 'id-ID'
     ];
 
     protected $casts = [
         'active' => 'boolean',
         'birth_date' => 'date',
-        'deceased' => 'datetime',
-        'multiple_birth' => 'boolean'
+        'deceased' => 'json',
+        'multiple_birth' => 'json'
     ];
 
     public $timestamps = false;

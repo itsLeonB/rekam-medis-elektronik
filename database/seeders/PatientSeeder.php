@@ -36,11 +36,11 @@ class PatientSeeder extends Seeder
             $gender = getGender($resContent) == null ? 'unknown' : getGender($resContent);
             $birthDate = getBirthDate($resContent) == null ? '1900-01-01' : getBirthDate($resContent);
             $extension = getExtension($resContent);
-            $identifiers = getIdentifier($resContent);
-            $telecoms = getTelecom($resContent);
-            $address = getAddress($resContent);
+            $identifiers = returnAttribute($resContent, ['identifier'], null);
+            $telecoms = returnAttribute($resContent, ['telecom'], null);
+            $address = returnAttribute($resContent, ['address'], null);
             $photo = Storage::disk('public')->files('images');
-            $contact = getContact($resContent);
+            $contact = returnAttribute($resContent, ['contact'], null);
             $generalPractitioners = getGeneralPractitioner($resContent);
 
             $patient = Patient::create(
@@ -60,55 +60,11 @@ class PatientSeeder extends Seeder
                 ]
             );
 
-            if (is_array($identifiers) || is_object($identifiers)) {
-                foreach ($identifiers as $identifier) {
-                    $identifierDetails = parseIdentifier($identifier);
-                    PatientIdentifier::create(
-                        [
-                            'patient_id' => $patient->id,
-                            'system' => $identifierDetails['system'],
-                            'use' => $identifierDetails['use'],
-                            'value' => $identifierDetails['value']
-                        ]
-                    );
-                }
-            }
+            $foreignKey = ['patient_id' => $patient->id];
 
-            if (is_array($telecoms) || is_object($telecoms)) {
-                foreach ($telecoms as $telecom) {
-                    $telecomDetails = getTelecomDetails($telecom);
-                    PatientTelecom::create(
-                        [
-                            'patient_id' => $patient->id,
-                            'system' => $telecomDetails['system'],
-                            'use' => $telecomDetails['use'],
-                            'value' => $telecomDetails['value']
-                        ]
-                    );
-                }
-            }
-
-            if (is_array($address) || is_object($address)) {
-                foreach ($address as $a) {
-                    $addressDetails = getAddressDetails($a);
-                    PatientAddress::create(
-                        [
-                            'patient_id' => $patient->id,
-                            'use' => $addressDetails['use'],
-                            'line' => $addressDetails['line'],
-                            'country' => $addressDetails['country'],
-                            'postal_code' => $addressDetails['postalCode'],
-                            'province' => $addressDetails['province'],
-                            'city' => $addressDetails['city'],
-                            'district' => $addressDetails['district'],
-                            'village' => $addressDetails['village'],
-                            'rw' => $addressDetails['rw'],
-                            'rt' => $addressDetails['rt']
-                        ]
-                    );
-                }
-            }
-
+            parseAndCreate(PatientIdentifier::class, $identifiers, 'returnIdentifier', $foreignKey);
+            parseAndCreate(PatientTelecom::class, $telecoms, 'returnTelecom', $foreignKey);
+            parseAndCreate(PatientAddress::class, $address, 'returnAddress', $foreignKey);
 
             PatientPhoto::create(
                 [
@@ -121,45 +77,13 @@ class PatientSeeder extends Seeder
 
             if (is_array($contact) || is_object($contact)) {
                 foreach ($contact as $c) {
-                    $contactDetails = getContactDetails($c);
-                    $addressDetails = getAddressDetails($contactDetails['address']);
-                    $patientContact = PatientContact::create(
-                        [
-                            'patient_id' => $patient->id,
-                            'relationship' => $contactDetails['relationship'],
-                            'name' => $contactDetails['name'],
-                            'prefix' => $contactDetails['prefix'],
-                            'suffix' => $contactDetails['suffix'],
-                            'gender' => $contactDetails['gender'],
-                            'address_use' => $addressDetails['use'],
-                            'address_line' => $addressDetails['line'],
-                            'country' => $addressDetails['country'],
-                            'postal_code' => $addressDetails['postalCode'],
-                            'province' => $addressDetails['province'],
-                            'city' => $addressDetails['city'],
-                            'district' => $addressDetails['district'],
-                            'village' => $addressDetails['village'],
-                            'rw' => $addressDetails['rw'],
-                            'rt' => $addressDetails['rt']
-                        ]
-                    );
-
-                    if (is_array($contactDetails['telecom']) || is_object($contactDetails['telecom'])) {
-                        foreach ($contactDetails['telecom'] as $telecom) {
-                            $contactTelecomDetails = getTelecomDetails($telecom);
-                            PatientContactTelecom::create(
-                                [
-                                    'patient_contact_id' => $patientContact->id,
-                                    'system' => $contactTelecomDetails['system'],
-                                    'use' => $contactTelecomDetails['use'],
-                                    'value' => $contactTelecomDetails['value']
-                                ]
-                            );
-                        }
-                    }
+                    $contactData = returnPatientContact($c);
+                    $contactTelecom = returnAttribute($c, ['telecom'], null);
+                    $patientContact = PatientContact::create(array_merge($contactData, $foreignKey));
+                    $contactFk = ['patient_contact_id' => $patientContact->id];
+                    parseAndCreate(PatientContactTelecom::class, $contactTelecom, 'returnTelecom', $contactFk);
                 }
             }
-
 
             if (is_array($generalPractitioners) || is_object($generalPractitioners)) {
                 foreach ($generalPractitioners as $gp) {

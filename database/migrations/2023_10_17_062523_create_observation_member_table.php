@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('observation_member', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('observation_id');
+            $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
             $table->string('reference');
         });

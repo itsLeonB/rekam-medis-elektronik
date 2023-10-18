@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('organization_address', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id');
+            $table->index('organization_id');
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
-            $table->string('use');
+            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing']);
             $table->string('line');
             $table->string('country');
             $table->string('postal_code');

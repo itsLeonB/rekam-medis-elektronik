@@ -34,11 +34,11 @@ class PractitionerSeeder extends Seeder
             $birthDate = getBirthDate($resContent) == null ? '1900-01-01' : getBirthDate($resContent);
             $nik = getNik($identifier) == null ? 9999999999999999 : getNik($identifier);
             $ihs = getIhs($identifier) == null ? 'N10000000' : getIhs($identifier);
-            $telecom = getTelecom($resContent);
+            $telecom = returnAttribute($resContent, ['telecom'], null);
             $address = getAddress($resContent);
             $qualifications = getQualifications($resContent);
 
-            Practitioner::create(
+            $prac = Practitioner::create(
                 [
                     'resource_id' => $p->resource_id,
                     'nik' => $nik,
@@ -53,19 +53,9 @@ class PractitionerSeeder extends Seeder
                 ]
             );
 
-            if ($telecom != null) {
-                foreach ($telecom as $t) {
-                    $telecomDetails = getTelecomDetails($t);
-                    PractitionerTelecom::create(
-                        [
-                            'practitioner_id' => $count,
-                            'system' => $telecomDetails['system'],
-                            'use' => $telecomDetails['use'],
-                            'value' => $telecomDetails['value'],
-                        ]
-                    );
-                }
-            }
+            $foreignKey = ['practitioner_id' => $prac->id];
+
+            parseAndCreate(PractitionerTelecom::class, $telecom, 'returnTelecom', $foreignKey);
 
             if ($address != null) {
                 foreach ($address as $a) {

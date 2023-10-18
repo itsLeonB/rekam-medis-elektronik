@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('organization_type', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id');
+            $table->index('organization_id');
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
             $table->string('system');
             $table->string('code');

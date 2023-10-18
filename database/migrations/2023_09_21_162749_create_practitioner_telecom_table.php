@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('practitioner_telecom', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
+            $table->index('practitioner_id');
             $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
-            $table->string('system');
-            $table->string('use');
+            $table->enum('system', ['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other']);
+            $table->enum('use', ['home', 'work', 'temp', 'old', 'mobile']);
             $table->string('value');
         });
     }

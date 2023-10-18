@@ -14,18 +14,19 @@ return new class extends Migration
         Schema::create('patient', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resource_id');
+            $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->boolean('active');
             $table->string('name');
-            $table->string('prefix');
-            $table->string('suffix');
-            $table->string('gender');
-            $table->date('birth_date');
-            $table->integer('birth_place')->unsigned();
-            $table->datetime('deceased')->nullable();
-            $table->char('marital_status', 1);
-            $table->boolean('multiple_birth');
-            $table->string('language');
+            $table->string('prefix')->nullable();
+            $table->string('suffix')->nullable();
+            $table->enum('gender', ['male', 'female', 'other', 'unknown']);
+            $table->date('birth_date')->nullable();
+            $table->integer('birth_place')->unsigned()->nullable();
+            $table->json('deceased')->nullable();
+            $table->enum('marital_status', ['A', 'D', 'I', 'L', 'M', 'P', 'S', 'T', 'U', 'W'])->nullable();
+            $table->json('multiple_birth');
+            $table->string('language')->nullable();
         });
     }
 

@@ -12,13 +12,9 @@ class Observation extends Model
 {
     protected $table = 'observation';
     protected $casts = [
-        'effective_datetime' => 'datetime',
+        'effective' => 'json',
         'issued' => 'datetime',
-        'value_boolean' => 'boolean',
-        'value_time' => 'time',
-        'value_datetime' => 'datetime',
-        'value_start' => 'datetime',
-        'value_end' => 'datetime',
+        'value' => 'json',
     ];
     public $timestamps = false;
 
@@ -85,25 +81,5 @@ class Observation extends Model
     public function component(): HasMany
     {
         return $this->hasMany(ObservationComponent::class);
-    }
-
-    public function valueQuantity(): HasOne
-    {
-        return $this->hasOne(ObservationValueQuantity::class);
-    }
-
-    public function valueRange(): HasOne
-    {
-        return $this->hasOne(ObservationValueRange::class);
-    }
-
-    public function valueRatio(): HasOne
-    {
-        return $this->hasOne(ObservationValueRatio::class);
-    }
-
-    public function valueSample(): HasOne
-    {
-        return $this->hasOne(ObservationValueSample::class);
     }
 }

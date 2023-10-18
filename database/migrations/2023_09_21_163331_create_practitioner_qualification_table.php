@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('practitioner_qualification', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
+            $table->index('practitioner_id');
             $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
             $table->string('code');
             $table->string('code_system');
             $table->string('display');
-            $table->string('identifier');
-            $table->string('issuer');
-            $table->date('period_start');
+            $table->string('identifier')->nullable();
+            $table->string('issuer')->nullable();
+            $table->date('period_start')->nullable();
             $table->date('period_end')->nullable();
         });
     }

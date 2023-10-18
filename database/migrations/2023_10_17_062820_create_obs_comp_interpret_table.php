@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('obs_comp_interpret', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('obs_comp_id');
+            $table->index('obs_comp_id');
             $table->foreign('obs_comp_id')->references('id')->on('observation_component')->onDelete('cascade');
             $table->string('system');
             $table->string('code');

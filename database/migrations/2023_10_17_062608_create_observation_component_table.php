@@ -14,16 +14,11 @@ return new class extends Migration
         Schema::create('observation_component', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('observation_id');
+            $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
             $table->string('code');
-            $table->string('value_string');
-            $table->boolean('value_boolean');
-            $table->integer('value_integer');
-            $table->time('value_time');
-            $table->dateTime('value_datetime');
-            $table->dateTime('value_start');
-            $table->dateTime('value_end');
-            $table->string('data_absent_reason');
+            $table->json('value')->nullable();
+            $table->string('data_absent_reason')->nullable();
         });
     }
 

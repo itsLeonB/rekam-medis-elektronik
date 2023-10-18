@@ -23,53 +23,48 @@ class ConditionSeeder extends Seeder
     {
         $conditions = Resource::join('resource_content', function ($join) {
             $join->on('resource.id', '=', 'resource_content.resource_id')
-                ->whereColumn('resource.res_version', '=', 'resource_content.res_ver')
-                ->where('resource.res_type', '=', 'Condition');
-        })->get();
+                ->whereColumn('resource.res_version', '=', 'resource_content.res_ver');
+        })->where('resource.res_type', 'Condition')
+            ->select('resource.*', 'resource_content.res_text')
+            ->get();
 
         foreach ($conditions as $c) {
             $resContent = json_decode($c->res_text, true);
-            $identifiers = getIdentifier($resContent);
+            $identifiers = returnAttribute($resContent, ['identifier'], null);
             $category = getCategory($resContent);
             $bodySite = getBodySite($resContent);
             $stage = getStage($resContent);
-            $evidence = getEvidence($resContent);
-            $note = getNote($resContent);
+            $evidence = returnAttribute($resContent, ['evidence'], null);
+            $note = returnAttribute($resContent, ['note'], null);
+            $severity = returnAttribute($resContent, ['severity', 'coding', 0, 'code'], null);
+            $severitySet = ['24484000', '6736007', '255604002'];
+            if (in_array($severity, $severitySet)) {
+                // Value found in the list, do nothing
+            } else {
+                // Value not found in the list, assign '6736007'
+                $severity = '6736007';
+            }
 
             $cond = Condition::create(
                 [
                     'resource_id' => $c->id,
-                    'clinical_status' => isset($resContent['clinicalStatus']['coding'][0]['code']) && !empty($resContent['clinicalStatus']['coding'][0]['code']) ? $resContent['clinicalStatus']['coding'][0]['code'] : '',
-                    'verification_status' => isset($resContent['verificationStatus']['coding'][0]['code']) && !empty($resContent['verificationStatus']['coding'][0]['code']) ? $resContent['verificationStatus']['coding'][0]['code'] : '',
-                    'severity' => isset($resContent['severity']['coding'][0]['code']) && !empty($resContent['severity']['coding'][0]['code']) ? $resContent['severity']['coding'][0]['code'] : 0,
+                    'clinical_status' => returnAttribute($resContent, ['clinicalStatus', 'coding', 0, 'code'], null),
+                    'verification_status' => returnAttribute($resContent, ['verificationStatus', 'coding', 0, 'code'], null),
+                    'severity' =>  $severity,
                     'code' => isset($resContent['code']['coding'][0]['code']) && !empty($resContent['code']['coding'][0]['code']) ? $resContent['code']['coding'][0]['code'] : '',
                     'subject' => isset($resContent['subject']['reference']) && !empty($resContent['subject']['reference']) ? $resContent['subject']['reference'] : '',
                     'encounter' => isset($resContent['encounter']['reference']) && !empty($resContent['encounter']['reference']) ? $resContent['encounter']['reference'] : '',
-                    'onset_datetime' => isset($resContent['onsetDateTime']) && !empty($resContent['onsetDateTime']) ? $resContent['onsetDateTime'] : '1900-01-01',
-                    'onset_age' => isset($resContent['onsetAge']['value']) && !empty($resContent['onsetAge']['value']) ? $resContent['onsetAge']['value'] : 0,
-                    'onset_string' => isset($resContent['onsetString']) && !empty($resContent['onsetString']) ? $resContent['onsetString'] : '',
-                    'abatement_datetime' => isset($resContent['abatementDateTime']) && !empty($resContent['abatementDateTime']) ? $resContent['abatementDateTime'] : '1900-01-01',
-                    'abatement_age' => isset($resContent['abatementAge']['value']) && !empty($resContent['abatementAge']['value']) ? $resContent['abatementAge']['value'] : 0,
-                    'abatement_string' => isset($resContent['abatementString']) && !empty($resContent['abatementString']) ? $resContent['abatementString'] : '',
+                    'onset' => returnVariableAttribute($resContent, 'onset', ['DateTime', 'Age', 'Period', 'Range', 'String']),
+                    'abatement' => returnVariableAttribute($resContent, 'abatement', ['DateTime', 'Age', 'Period', 'Range', 'String']),
                     'recorded_date' => isset($resContent['recordedDate']) && !empty($resContent['recordedDate']) ? $resContent['recordedDate'] : '1900-01-01',
                     'recorder' => isset($resContent['recorder']['reference']) && !empty($resContent['recorder']['reference']) ? $resContent['recorder']['reference'] : '',
                     'asserter' => isset($resContent['asserter']['reference']) && !empty($resContent['asserter']['reference']) ? $resContent['asserter']['reference'] : ''
                 ]
             );
 
-            if (is_array($identifiers) || is_object($identifiers)) {
-                foreach ($identifiers as $i) {
-                    $identifierDetails = parseIdentifier($i);
-                    ConditionIdentifier::create(
-                        [
-                            'condition_id' => $cond->id,
-                            'system' => $identifierDetails['system'],
-                            'use' => $identifierDetails['use'],
-                            'value' => $identifierDetails['value']
-                        ]
-                    );
-                }
-            }
+            $foreignKey = ['condition_id' => $cond->id];
+
+            parseAndCreate(ConditionIdentifier::class, $identifiers, 'returnIdentifier', $foreignKey);
 
             if (is_array($category) || is_object($category)) {
                 foreach ($category as $cat) {
@@ -131,32 +126,8 @@ class ConditionSeeder extends Seeder
                 }
             }
 
-            if (is_array($evidence) || is_object($evidence)) {
-                foreach ($evidence as $e) {
-                    $evidenceDetails = getEvidenceDetails($e);
-                    ConditionEvidence::create(
-                        [
-                            'condition_id' => $cond->id,
-                            'code' => $evidenceDetails['code'],
-                            'detail_reference' => $evidenceDetails['detailReference']
-                        ]
-                    );
-                }
-            }
-
-            if (is_array($note) || is_object($note)) {
-                foreach ($note as $n) {
-                    $noteDetails = getNoteDetails($n);
-                    ConditionNote::create(
-                        [
-                            'condition_id' => $cond->id,
-                            'author' => $noteDetails['author'],
-                            'time' => $noteDetails['time'],
-                            'text' => $noteDetails['text']
-                        ]
-                    );
-                }
-            }
+            parseAndCreate(ConditionEvidence::class, $evidence, 'returnEvidence', $foreignKey);
+            parseAndCreate(ConditionNote::class, $note, 'returnAnnotation', $foreignKey);
         }
     }
 }

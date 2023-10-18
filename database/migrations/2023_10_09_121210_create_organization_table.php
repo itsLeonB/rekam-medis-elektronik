@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('organization', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resource_id');
+            $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->boolean('active');
             $table->string('name');
-            $table->string('alias');
-            $table->string('part_of');
+            $table->string('alias')->nullable();
+            $table->string('part_of')->nullable();
         });
     }
 

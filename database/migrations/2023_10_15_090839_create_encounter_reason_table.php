@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('encounter_reason', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('encounter_id');
+            $table->index('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
-            $table->unsignedBigInteger('code');
-            $table->string('reference');
+            $table->unsignedBigInteger('code')->nullable();
+            $table->string('reference')->nullable();
         });
     }
 

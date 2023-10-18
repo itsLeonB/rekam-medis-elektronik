@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('organization_telecom', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id');
+            $table->index('organization_id');
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
-            $table->string('system');
-            $table->string('use');
+            $table->enum('system', ['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other']);
+            $table->enum('use', ['home', 'work', 'temp', 'old', 'mobile']);
             $table->string('value');
         });
     }

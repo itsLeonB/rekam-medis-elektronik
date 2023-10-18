@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ObservationComponentInterpretation extends Model
 {
-    protected $table = 'obs_comp_interpretation';
+    protected $table = 'obs_comp_interpret';
     public $timestamps = false;
 
     public function observationComponent(): BelongsTo

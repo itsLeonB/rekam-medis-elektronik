@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('observation_interpretation', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('observation_id');
+            $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
             $table->string('system');
             $table->string('code');
-            $table->string('display');
+            $table->string('display')->nullable();
         });
     }
 

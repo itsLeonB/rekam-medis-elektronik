@@ -14,17 +14,18 @@ return new class extends Migration
         Schema::create('observation_ref_range', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('observation_id');
+            $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
-            $table->decimal('value_low');
-            $table->decimal('value_high');
-            $table->string('unit');
-            $table->string('system');
-            $table->string('code');
-            $table->string('type');
-            $table->string('applies_to');
-            $table->integer('age_low');
-            $table->integer('age_high');
-            $table->string('text');
+            $table->decimal('value_low')->nullable();
+            $table->decimal('value_high')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('system')->nullable();
+            $table->string('code')->nullable();
+            $table->string('type')->nullable();
+            $table->string('applies_to')->nullable();
+            $table->integer('age_low')->nullable();
+            $table->integer('age_high')->nullable();
+            $table->text('text')->nullable();
         });
     }
 

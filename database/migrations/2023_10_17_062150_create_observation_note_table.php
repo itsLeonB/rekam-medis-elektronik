@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('observation_note', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('observation_id');
+            $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
-            $table->string('author');
-            $table->dateTime('time');
+            $table->json('author')->nullable();
+            $table->dateTime('time')->nullable();
             $table->string('text');
         });
     }

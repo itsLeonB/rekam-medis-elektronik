@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('encounter_hospitalization', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('encounter_id');
+            $table->index('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
-            $table->string('preadmission_identifier_system');
-            $table->string('preadmission_identifier_use');
-            $table->string('preadmission_identifier_value');
-            $table->string('origin');
-            $table->string('admit_source');
-            $table->char('re_admission', 1);
-            $table->string('destination');
-            $table->string('discharge_disposition');
+            $table->string('preadmission_identifier_system')->nullable();
+            $table->enum('preadmission_identifier_use', ['usual', 'official', 'temp', 'secondary', 'old']);
+            $table->string('preadmission_identifier_value')->nullable();
+            $table->string('origin')->nullable();
+            $table->string('admit_source')->nullable();
+            $table->enum('re_admission', ['R'])->nullable();
+            $table->string('destination')->nullable();
+            $table->string('discharge_disposition')->nullable();
         });
     }
 

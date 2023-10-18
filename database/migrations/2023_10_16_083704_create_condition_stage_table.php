@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('condition_stage', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condition_id');
+            $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
-            $table->string('summary_system');
-            $table->string('summary_code');
-            $table->string('summary_display');
-            $table->string('type_system');
-            $table->string('type_code');
-            $table->string('type_display');
+            $table->string('summary_system')->nullable();
+            $table->string('summary_code')->nullable();
+            $table->string('summary_display')->nullable();
+            $table->string('type_system')->nullable();
+            $table->string('type_code')->nullable();
+            $table->string('type_display')->nullable();
         });
     }
 
