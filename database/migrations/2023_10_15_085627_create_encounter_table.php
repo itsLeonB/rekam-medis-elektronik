@@ -14,20 +14,21 @@ return new class extends Migration
         Schema::create('encounter', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resource_id');
+            $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->string('status');
+            $table->enum('status', ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']);
             $table->string('class');
-            $table->unsignedInteger('service_type');
-            $table->char('priority', 3);
+            $table->unsignedInteger('service_type')->nullable();
+            $table->char('priority', 3)->nullable();
             $table->string('subject');
-            $table->string('episode_of_care');
-            $table->string('based_on');
+            $table->string('episode_of_care')->nullable();
+            $table->string('based_on')->nullable();
             $table->dateTime('period_start');
-            $table->dateTime('period_end');
-            $table->string('account');
+            $table->dateTime('period_end')->nullable();
+            $table->string('account')->nullable();
             $table->string('location');
             $table->string('service_provider');
-            $table->string('part_of');
+            $table->string('part_of')->nullable();
         });
     }
 

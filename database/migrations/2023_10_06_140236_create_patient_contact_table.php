@@ -14,13 +14,14 @@ return new class extends Migration
         Schema::create('patient_contact', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
+            $table->index('patient_id');
             $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
             $table->char('relationship', 1);
             $table->string('name');
-            $table->string('prefix');
-            $table->string('suffix');
-            $table->string('gender');
-            $table->string('address_use');
+            $table->string('prefix')->nullable();
+            $table->string('suffix')->nullable();
+            $table->enum('gender', ['male', 'female', 'other', 'unknown']);
+            $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing']);
             $table->string('address_line');
             $table->string('country');
             $table->string('postal_code');

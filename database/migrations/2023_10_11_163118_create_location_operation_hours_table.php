@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('location_operation_hours', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('location_id');
+            $table->index('location_id');
             $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade');
             $table->boolean('mon');
             $table->boolean('tue');

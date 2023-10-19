@@ -11,8 +11,8 @@ class Condition extends Model
 {
     protected $table = 'condition';
     protected $casts = [
-        'onset_datetime' => 'datetime',
-        'abatement_datetime' => 'datetime',
+        'onset' => 'json',
+        'abatement' => 'json',
         'recorded_date' => 'date'
     ];
     public $timestamps = false;

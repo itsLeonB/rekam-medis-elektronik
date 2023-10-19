@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('encounter_hospitalization_diet', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('enc_hosp_id');
+            $table->index('enc_hosp_id');
             $table->foreign('enc_hosp_id')->references('id')->on('encounter_hospitalization')->onDelete('cascade');
             $table->string('diet');
         });

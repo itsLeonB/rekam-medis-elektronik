@@ -10,6 +10,7 @@ use App\Models\LocationType;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Resource;
+use Exception;
 
 class LocationSeeder extends Seeder
 {
@@ -26,58 +27,49 @@ class LocationSeeder extends Seeder
 
         foreach ($locations as $l) {
             $resContent = json_decode($l->res_text, true);
-            $address = getAddress($resContent);
-            $addressDetails = getAddressDetails($address);
-            $position = getPosition($resContent);
+            $alias = returnAttribute($resContent, ['alias'], null);
+            if (is_array($alias) || is_object($alias)) {
+                $alias = implode(', ', $alias);
+            }
+            $address = returnAddress(returnAttribute($resContent, ['address'], null));
+            $addressUse = $address['use'];
+            $addressLine = $address['line'];
+            unset($address['use']);
+            unset($address['line']);
             $extension = getExtension($resContent);
-            $identifier = getIdentifier($resContent);
+            $identifier = returnAttribute($resContent, ['identifier'], null);
             $type = getResourceType($resContent);
-            $telecom = getTelecom($resContent);
+            $telecom = returnAttribute($resContent, ['telecom'], null);
             $operationHours = getOperationHours($resContent);
 
             $loc = Location::create(
-                [
-                    'resource_id' => $l->resource_id,
-                    'active' => getActive($resContent),
-                    'operational_status' => getOperationalStatus($resContent),
-                    'name' => getName($resContent),
-                    'alias' => getAlias($resContent),
-                    'description' => getDescription($resContent),
-                    'mode' => getMode($resContent),
-                    'address_use' => $addressDetails['use'],
-                    'address_line' => $addressDetails['line'],
-                    'country' => $addressDetails['country'],
-                    'postal_code' => $addressDetails['postalCode'],
-                    'province' => $addressDetails['province'],
-                    'city' => $addressDetails['city'],
-                    'district' => $addressDetails['district'],
-                    'village' => $addressDetails['village'],
-                    'rw' => $addressDetails['rw'],
-                    'rt' => $addressDetails['rt'],
-                    'physical_type' => getPhysicalType($resContent),
-                    'longitude' => $position['longitude'],
-                    'latitude' => $position['latitude'],
-                    'altitude' => $position['altitude'],
-                    'managing_organization' => getManagingOrganization($resContent),
-                    'part_of' => getPartOf($resContent),
-                    'availability_exceptions' => getAvailabilityExceptions($resContent),
-                    'service_class' => getServiceClass($extension)
-                ]
+                array_merge(
+                    [
+                        'resource_id' => $l->resource_id,
+                        'status' => returnAttribute($resContent, ['status'], 'suspended'),
+                        'operational_status' => returnAttribute($resContent, ['operationalStatus', 'code'], null),
+                        'name' => returnAttribute($resContent, ['name'], ''),
+                        'alias' => $alias,
+                        'description' => returnAttribute($resContent, ['description'], null),
+                        'mode' => returnAttribute($resContent, ['mode'], null),
+                        'address_use' => $addressUse,
+                        'address_line' => $addressLine,
+                        'physical_type' => returnAttribute($resContent, ['physicalType', 'coding', 0, 'code'], 'ro'),
+                        'longitude' => returnAttribute($resContent, ['position', 'longitude'], 0),
+                        'latitude' => returnAttribute($resContent, ['position', 'latitude'], 0),
+                        'altitude' => returnAttribute($resContent, ['position', 'altitude'], null),
+                        'managing_organization' => returnAttribute($resContent, ['managingOrganization', 'reference'], null),
+                        'part_of' => returnAttribute($resContent, ['partOf', 'reference'], null),
+                        'availability_exceptions' => getAvailabilityExceptions($resContent),
+                        'service_class' => getServiceClass($extension)
+                    ],
+                    $address
+                )
             );
 
-            if (is_array($identifier) || is_object($identifier)) {
-                foreach ($identifier as $i) {
-                    $identifierDetails = parseIdentifier($i);
-                    LocationIdentifier::create(
-                        [
-                            'location_id' => $loc->id,
-                            'system' => $identifierDetails['system'],
-                            'use' => $identifierDetails['use'],
-                            'value' => $identifierDetails['value']
-                        ]
-                    );
-                }
-            }
+            $foreignKey = ['location_id' => $loc->id];
+
+            parseAndCreate(LocationIdentifier::class, $identifier, 'returnIdentifier', $foreignKey);
 
             if (is_array($type) || is_object($type)) {
                 foreach ($type as $t) {
@@ -93,19 +85,7 @@ class LocationSeeder extends Seeder
                 }
             }
 
-            if (is_array($telecom) || is_object($telecom)) {
-                foreach ($telecom as $t) {
-                    $telecomDetails = getTelecomDetails($t);
-                    LocationTelecom::create(
-                        [
-                            'location_id' => $loc->id,
-                            'system' => $telecomDetails['system'],
-                            'use' => $telecomDetails['use'],
-                            'value' => $telecomDetails['value']
-                        ]
-                    );
-                }
-            }
+            parseAndCreate(LocationTelecom::class, $telecom, 'returnTelecom', $foreignKey);
 
             if (is_array($operationHours) || is_object($operationHours)) {
                 foreach ($operationHours as $o) {

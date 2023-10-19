@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('practitioner_address', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
+            $table->index('practitioner_id');
             $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
-             $table->string('use');
+            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing']);
             $table->string('line');
             $table->string('postal_code');
-            $table->string('country');
+            $table->char('country', 3);
             $table->integer('province')->unsigned();
             $table->integer('city')->unsigned();
             $table->bigInteger('district')->unsigned();

@@ -14,22 +14,19 @@ return new class extends Migration
         Schema::create('condition', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resource_id');
+            $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->string('clinical_status');
-            $table->string('verification_status');
-            $table->unsignedBigInteger('severity');
+            $table->enum('clinical_status', ['active', 'recurrnce', 'relapse', 'inactive', 'remission', 'resolved'])->nullable();
+            $table->enum('verification_status', ['unconfirmed', 'provisional', 'differential', 'confirmed', 'refuted', 'entered-in-error'])->nullable();
+            $table->enum('severity', [24484000, 6736007, 255604002])->nullable();
             $table->string('code');
             $table->string('subject');
             $table->string('encounter');
-            $table->dateTime('onset_datetime');
-            $table->unsignedInteger('onset_age');
-            $table->string('onset_string');
-            $table->dateTime('abatement_datetime');
-            $table->unsignedInteger('abatement_age');
-            $table->string('abatement_string');
-            $table->date('recorded_date');
-            $table->string('recorder');
-            $table->string('asserter');
+            $table->json('onset')->nullable();
+            $table->json('abatement')->nullable();
+            $table->date('recorded_date')->nullable();
+            $table->string('recorder')->nullable();
+            $table->string('asserter')->nullable();
         });
     }
 

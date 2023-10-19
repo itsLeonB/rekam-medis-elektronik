@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('organization_identifier', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id');
+            $table->index('organization_id');
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
             $table->string('system');
-            $table->string('use');
+            $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old']);
             $table->string('value');
         });
     }

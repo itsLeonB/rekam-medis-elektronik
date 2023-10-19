@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('encounter_diagnosis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('encounter_id');
+            $table->index('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
             $table->string('condition_reference');
             $table->string('condition_display');
-            $table->string('use');
-            $table->unsignedInteger('rank');
+            $table->enum('use', ['AD', 'DD', 'CC', 'CM', 'pre-op', 'post-op', 'billing'])->nullable();
+            $table->unsignedInteger('rank')->nullable();
         });
     }
 

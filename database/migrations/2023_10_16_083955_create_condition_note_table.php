@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('condition_note', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condition_id');
+            $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
-            $table->string('author');
-            $table->dateTime('time');
+            $table->json('author')->nullable();
+            $table->dateTime('time')->nullable();
             $table->string('text');
         });
     }

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('condition_body_site', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condition_id');
+            $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
             $table->string('system');
             $table->string('code');

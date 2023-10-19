@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('organization_contact', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organization_id');
+            $table->index('organization_id');
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
-            $table->string('purpose_system');
-            $table->string('purpose_code');
-            $table->string('purpose_display');
+            $table->string('purpose_system')->nullable();
+            $table->string('purpose_code')->nullable();
+            $table->string('purpose_display')->nullable();
             $table->string('name');
-            $table->string('address_use');
+            $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing']);
             $table->string('address_line');
             $table->string('country');
             $table->string('postal_code');

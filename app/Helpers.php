@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\KotaKabupaten;
+use App\Models\Resource;
 
 function getActive($resource)
 {
@@ -999,3 +1000,549 @@ function getDiagnosisDetails($diagnosis)
     return $diagnosisDetails;
 }
 
+function getCategory($resource)
+{
+    if (isset($resource['category']) && !empty($resource['category'])) {
+        return $resource['category'];
+    } else {
+        return null;
+    }
+}
+
+function getCategoryDetails($category)
+{
+    $categoryDetails = [
+        'system' => '',
+        'code' => '',
+        'display' => ''
+    ];
+
+    if (isset($category['coding'][0]['system']) && !empty($category['coding'][0]['system'])) {
+        $categoryDetails['system'] = $category['coding'][0]['system'];
+    }
+
+    if (isset($category['coding'][0]['code']) && !empty($category['coding'][0]['code'])) {
+        $categoryDetails['code'] = $category['coding'][0]['code'];
+    }
+
+    if (isset($category['coding'][0]['display']) && !empty($category['coding'][0]['display'])) {
+        $categoryDetails['display'] = $category['coding'][0]['display'];
+    }
+
+    return $categoryDetails;
+}
+
+function getBodySite($resource)
+{
+    if (isset($resource['bodySite']) && !empty($resource['bodySite'])) {
+        return $resource['bodySite'];
+    } else {
+        return null;
+    }
+}
+
+function getBodySiteDetails($bodySite)
+{
+    $bodySiteDetails = [
+        'system' => '',
+        'code' => '',
+        'display' => ''
+    ];
+
+    if (isset($bodySite['coding'][0]['system']) && !empty($bodySite['coding'][0]['system'])) {
+        $bodySiteDetails['system'] = $bodySite['coding'][0]['system'];
+    }
+
+    if (isset($bodySite['coding'][0]['code']) && !empty($bodySite['coding'][0]['code'])) {
+        $bodySiteDetails['code'] = $bodySite['coding'][0]['code'];
+    }
+
+    if (isset($bodySite['coding'][0]['display']) && !empty($bodySite['coding'][0]['display'])) {
+        $bodySiteDetails['display'] = $bodySite['coding'][0]['display'];
+    }
+
+    return $bodySiteDetails;
+}
+
+function getStage($resource)
+{
+    if (isset($resource['stage']) && !empty($resource['stage'])) {
+        return $resource['stage'];
+    } else {
+        return null;
+    }
+}
+
+function getStageDetails($stage)
+{
+    $stageDetails = [
+        'summarySystem' => '',
+        'summaryCode' => '',
+        'summaryDisplay' => '',
+        'typeSystem' => '',
+        'typeCode' => '',
+        'typeDisplay' => ''
+    ];
+
+    if (isset($stage['summary']['coding'][0]['system']) && !empty($stage['summary']['coding'][0]['system'])) {
+        $stageDetails['summarySystem'] = $stage['summary']['coding'][0]['system'];
+    }
+
+    if (isset($stage['summary']['coding'][0]['code']) && !empty($stage['summary']['coding'][0]['code'])) {
+        $stageDetails['summaryCode'] = $stage['summary']['coding'][0]['code'];
+    }
+
+    if (isset($stage['summary']['coding'][0]['display']) && !empty($stage['summary']['coding'][0]['display'])) {
+        $stageDetails['summaryDisplay'] = $stage['summary']['coding'][0]['display'];
+    }
+
+    if (isset($stage['type']['coding'][0]['system']) && !empty($stage['type']['coding'][0]['system'])) {
+        $stageDetails['typeSystem'] = $stage['type']['coding'][0]['system'];
+    }
+
+    if (isset($stage['type']['coding'][0]['code']) && !empty($stage['type']['coding'][0]['code'])) {
+        $stageDetails['typeCode'] = $stage['type']['coding'][0]['code'];
+    }
+
+    if (isset($stage['type']['coding'][0]['display']) && !empty($stage['type']['coding'][0]['display'])) {
+        $stageDetails['typeDisplay'] = $stage['type']['coding'][0]['display'];
+    }
+
+    return $stageDetails;
+}
+
+function getAssessment($stage)
+{
+    if (isset($stage['assessment']) && !empty($stage['assessment'])) {
+        return $stage['assessment'];
+    } else {
+        return null;
+    }
+}
+
+function getEvidence($resource)
+{
+    if (isset($resource['evidence']) && !empty($resource['evidence'])) {
+        return $resource['evidence'];
+    } else {
+        return null;
+    }
+}
+
+function getEvidenceDetails($evidence)
+{
+    $evidenceDetails = [
+        'code' => 0,
+        'detailReference' => ''
+    ];
+
+    if (isset($evidence['code']['coding'][0]['code']) && !empty($evidence['code']['coding'][0]['code'])) {
+        $evidenceDetails['code'] = $evidence['code']['coding'][0]['code'];
+    }
+
+    if (isset($evidence['detail'][0]['reference']) && !empty($evidence['detail'][0]['reference'])) {
+        $evidenceDetails['detailReference'] = $evidence['detail'][0]['reference'];
+    }
+
+    return $evidenceDetails;
+}
+
+function getNote($resource)
+{
+    if (isset($resource['note']) && !empty($resource['note'])) {
+        return $resource['note'];
+    } else {
+        return null;
+    }
+}
+
+function getNoteDetails($note)
+{
+    $noteDetails = [
+        'author' => '',
+        'time' => '1900-01-01',
+        'text' => ''
+    ];
+
+    if (isset($note['authorReference']) && !empty($note['authorReference'])) {
+        $noteDetails['author'] = $note['authorReference'];
+    } elseif (isset($note['authorString']) && !empty($note['authorString'])) {
+        $noteDetails['author'] = $note['authorString'];
+    }
+
+    if (isset($note['time']) && !empty($note['time'])) {
+        $noteDetails['time'] = $note['time'];
+    }
+
+    if (isset($note['text']) && !empty($note['text'])) {
+        $noteDetails['text'] = $note['text'];
+    }
+
+    return $noteDetails;
+}
+
+function returnAttribute($array, $keys, $defaultValue)
+{
+    $value = $array;
+    foreach ($keys as $key) {
+        if (isset($value[$key]) && !empty($value[$key])) {
+            $value = $value[$key];
+        } else {
+            return $defaultValue;
+        }
+    }
+    return $value;
+}
+
+function parseAndCreate($model, $data, $callback, $foreignKey)
+{
+    if (is_array($data) || is_object($data)) {
+        $dataArray = [];
+        foreach ($data as $d) {
+            $details = $callback($d);
+            if (is_array($details) || is_object($details)) {
+                $details = array_merge($details, $foreignKey);
+                $dataArray[] = $details;
+            }
+        }
+        try {
+            $model::insert($dataArray);
+        } catch (Exception $e) {
+            dd($dataArray);
+        }
+    }
+}
+
+function returnEffective($resource)
+{
+    $effectiveJson[] = [];
+
+    if (isset($resource['effectiveDateTime']) && !empty($resource['effectiveDateTime'])) {
+        $effectiveJson['effectiveDateTime'] = $resource['effectiveDateTime'];
+    } else if (isset($resource['effectivePeriod']) && !empty($resource['effectivePeriod'])) {
+        $effectiveJson['effectivePeriod'] = $resource['effectivePeriod'];
+    } else if (isset($resource['effectiveTiming']) && !empty($resource['effectiveTiming'])) {
+        $effectiveJson['effectiveTiming'] = $resource['effectiveTiming'];
+    } else if (isset($resource['effectiveInstant']) && !empty($resource['effectiveInstant'])) {
+        $effectiveJson['effectiveInstant'] = $resource['effectiveInstant'];
+    }
+
+    return $effectiveJson;
+}
+
+function returnValue($resource)
+{
+    $valueJson[] = [];
+    $valueTypes = ['valueQuantity', 'valueString', 'valueBoolean', 'valueInteger', 'valueRange', 'valueRatio', 'valueSampledData', 'valueTime', 'valueDateTime', 'valuePeriod'];
+
+    foreach ($valueTypes as $v) {
+        if (isset($resource[$v]) && !empty($resource[$v])) {
+            $valueJson[$v] = $resource[$v];
+        }
+    }
+
+    return $valueJson;
+}
+
+function returnReference($attribute)
+{
+    if (isset($attribute['reference']) && !empty($attribute['reference'])) {
+        return $attribute['reference'];
+    } else {
+        return null;
+    }
+}
+
+function returnCodeableConcept($attribute)
+{
+    $codeableConcept = [
+        'system' => returnAttribute($attribute, ['coding', 0, 'system'], null),
+        'code' => returnAttribute($attribute, ['coding', 0, 'code'], null),
+        'display' => returnAttribute($attribute, ['coding', 0, 'display'], null)
+    ];
+
+    if (containsOnlyNull($codeableConcept)) {
+        return null;
+    } else {
+        return $codeableConcept;
+    }
+}
+
+function returnVariableAttribute($resource, $var, $variableAttributes)
+{
+    $variableAttribute[] = [];
+
+    foreach ($variableAttributes as $va) {
+        $va = $var . $va;
+        if (isset($resource[$va]) && !empty($resource[$va])) {
+            $variableAttribute[$va] = $resource[$va];
+        }
+    }
+
+    if (empty($variableAttribute)) {
+        return null;
+    } else {
+        return json_encode($variableAttribute);
+    }
+}
+
+function returnAnnotation($attribute)
+{
+    $annotation = [
+        'author' => returnVariableAttribute($attribute, 'author', ['String', 'Reference']),
+        'time' => returnAttribute($attribute, ['time'], null),
+        'text' => returnAttribute($attribute, ['text'], null)
+    ];
+
+    return $annotation['text'] === null ? null : $annotation;
+}
+
+function returnReferenceRange($attribute)
+{
+    return [
+        'value_low' => returnAttribute($attribute, ['low', 'value'], null),
+        'value_high' => returnAttribute($attribute, ['high', 'value'], null),
+        'unit' => returnAttribute($attribute, ['low', 'unit'], null) == null ? returnAttribute($attribute, ['high', 'unit'], null) : returnAttribute($attribute, ['low', 'unit'], null),
+        'system' => returnAttribute($attribute, ['low', 'system'], null) == null ? returnAttribute($attribute, ['high', 'system'], null) : returnAttribute($attribute, ['low', 'system'], null),
+        'code' => returnAttribute($attribute, ['low', 'code'], null) == null ? returnAttribute($attribute, ['high', 'code'], null) : returnAttribute($attribute, ['low', 'code'], null),
+        'type' => returnAttribute($attribute, ['type', 'coding', 0, 'code'], null),
+        'applies_to' => returnAttribute($attribute, ['appliesTo', 'coding', 0, 'code'], null),
+        'age_low' => returnAttribute($attribute, ['age', 'low', 'value'], null),
+        'age_high' => returnAttribute($attribute, ['age', 'high', 'value'], null),
+        'text' => returnAttribute($attribute, ['text'], null)
+    ];
+}
+
+function returnComponent($attribute)
+{
+    return [
+        'code' => returnAttribute($attribute, ['code', 'coding', 0, 'code'], ''),
+        'value' => returnVariableAttribute($attribute, 'value', ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer', 'Range', 'Ratio', 'SampledData', 'Time', 'DateTime', 'Period']),
+        'data_absent_reason' => returnAttribute($attribute, ['dataAbsentReason', 'coding', 0, 'code'], null)
+    ];
+}
+
+function returnTelecom($attribute)
+{
+    $telecom = [
+        'system' => returnAttribute($attribute, ['system'], 'other'),
+        'use' => returnAttribute($attribute, ['use'], 'temp'),
+        'value' => returnAttribute($attribute, ['value'], null),
+    ];
+
+    if ($telecom['value'] === null) {
+        return null;
+    } else {
+        return $telecom;
+    }
+}
+
+function returnIdentifier($attribute)
+{
+    return [
+        'system' => returnAttribute($attribute, ['system'], ''),
+        'use' => returnAttribute($attribute, ['use'], 'temp'),
+        'value' => returnAttribute($attribute, ['value'], '')
+    ];
+}
+
+function returnAddress($attribute)
+{
+    $addressDetails = [
+        'province' => 0,
+        'city' => 0,
+        'district' => 0,
+        'village' => 0,
+        'rw' => 0,
+        'rt' => 0
+    ];
+
+    $extensionData = returnAttribute($attribute, ['extension', 0, 'extension'], null);
+
+    if (is_array($extensionData) || is_object($extensionData)) {
+        foreach ($extensionData as $extension) {
+            $url = $extension['url'];
+            $value = (int)preg_replace("/[^0-9]/", "", $extension['valueCode']);
+            $addressDetails[$url] = $value;
+        }
+    }
+
+    $line = returnAttribute($attribute, ['line'], null) === null ? returnAttribute($attribute, ['text'], '') : returnAttribute($attribute, ['line'], '');
+    if (is_array($line) || is_object($line)) {
+        $line = implode(' ', $line);
+    }
+
+    return array_merge(
+        [
+            'use' => returnAttribute($attribute, ['use'], 'temp'),
+            'line' => $line,
+            'country' => returnAttribute($attribute, ['country'], 'ID'),
+            'postal_code' => returnAttribute($attribute, ['postalCode'], ''),
+        ],
+        $addressDetails
+    );
+}
+
+function returnHumanName($attribute)
+{
+    $fullName = returnAttribute($attribute, ['text'], null);
+
+    if ($fullName === null) {
+        $givenName = returnAttribute($attribute, ['given'], '');
+        if (is_array($givenName) || is_object($givenName)) {
+            $givenName = implode(' ', $givenName);
+        }
+        $familyName = returnAttribute($attribute, ['family'], '');
+        $fullName = implode(' ', [$givenName, $familyName]);
+    }
+
+    return [
+        'name' => $fullName,
+        'prefix' => returnAttribute($attribute, ['prefix'], null),
+        'suffix' => returnAttribute($attribute, ['suffix'], null)
+    ];
+}
+
+function returnPatientContact($attribute)
+{
+    $relationships = returnAttribute($attribute, ['relationship', 0, 'coding'], null);
+    $name = returnAttribute($attribute, ['name'], null);
+
+    foreach ($relationships as $r) {
+        if ($r['system'] === 'http://terminology.hl7.org/CodeSystem/v2-0131') {
+            $relationship = $r['code'];
+        } else {
+            $relationship = 'U';
+        }
+    }
+
+    $address = returnAddress($attribute);
+    $addressUse = $address['use'];
+    $addressLine = $address['line'];
+    unset($address['use']);
+    unset($address['line']);
+
+    return array_merge(
+        [
+            'relationship' => $relationship,
+            'gender' => returnAttribute($attribute, ['gender'], 'unknown'),
+            'address_use' => $addressUse,
+            'address_line' => $addressLine
+
+        ],
+        returnHumanName($name),
+        $address,
+    );
+}
+
+function returnOrganizationContact($attribute)
+{
+    $purpose = returnAttribute($attribute, ['purpose'], null);
+    $purposeDetails = returnCodeableConcept($purpose);
+    if ($purposeDetails === null) {
+        $purposeData = [
+            'purpose_system' => null,
+            'purpose_code' => null,
+            'purpose_display' => null
+        ];
+    } else {
+        $purposeData = [
+            'purpose_system' => $purposeDetails['system'],
+            'purpose_code' => $purposeDetails['code'],
+            'purpose_display' => $purposeDetails['display'],
+        ];
+    }
+    $address = returnAddress($attribute);
+    $addressUse = $address['use'];
+    $addressLine = $address['line'];
+    unset($address['use']);
+    unset($address['line']);
+    try {
+    return array_merge(
+        $purposeData,
+        [
+            'name' => returnHumanName($attribute)['name'],
+            'address_use' => $addressUse,
+            'address_line' => $addressLine
+        ],
+        $address
+    ); } catch (Exception $e) {
+        dd($purposeDetails);
+    }
+}
+
+function returnPeriod($attribute)
+{
+    return [
+        'period_start' => parseDate(returnAttribute($attribute, ['period', 'start'], '1900-01-01')),
+        'period_end' => parseDate(returnAttribute($attribute, ['period', 'end'], null))
+    ];
+}
+
+function returnStatusHistory($attribute)
+{
+    return array_merge(
+        ['status' => returnAttribute($attribute, ['status'], 'unknown')],
+        returnPeriod($attribute)
+    );
+}
+
+function parseDate($date)
+{
+    // Create a DateTime object with the input date
+    $dateTime = new DateTime($date);
+
+    // Set the desired time zone for the SQL datetime format
+    $dateTime->setTimezone(new DateTimeZone('UTC'));
+
+    // Format the date in SQL datetime format
+    $sqlDateTime = $dateTime->format('Y-m-d H:i:s');
+
+    return $sqlDateTime;
+}
+
+function containsOnlyNull($input)
+{
+    return empty(array_filter($input, function ($a) {
+        return $a !== null;
+    }));
+}
+
+function returnDiagnosis($attribute)
+{
+    $diagnosis = [
+        'condition_reference' => returnAttribute($attribute, ['condition', 'reference'], null),
+        'condition_display' => returnAttribute($attribute, ['condition', 'display'], null),
+        'use' => returnAttribute($attribute, ['use', 'coding', 0, 'code'], null),
+        'rank' => returnAttribute($attribute, ['rank'], null)
+    ];
+
+    if (containsOnlyNull($diagnosis)) {
+        return null;
+    } else {
+        return $diagnosis;
+    }
+}
+
+function returnEvidence($attribute)
+{
+    $evidence = [
+        'code' => returnAttribute($attribute, ['code', 0, 'coding', 'code'], null),
+        'detail_reference' => returnAttribute($attribute, ['detail', 0, 'reference'], null)
+    ];
+
+    if ($evidence['code'] === null && $evidence['detail_reference'] === null) {
+        return null;
+    } else {
+        return $evidence;
+    }
+}
+
+function returnParticipant($attribute)
+{
+    $participant = [
+        'type' => returnAttribute($attribute, ['individual', 'reference'], null) === null ? null : returnAttribute($attribute, ['type', 0, 'coding', 0, 'code'], null),
+        'individual' => returnAttribute($attribute, ['individual', 'reference'], null)
+    ];
+    return containsOnlyNull($participant) ? null : $participant;
+}

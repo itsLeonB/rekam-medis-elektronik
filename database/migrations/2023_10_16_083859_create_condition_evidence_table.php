@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('condition_evidence', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condition_id');
+            $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
-            $table->unsignedBigInteger('code');
-            $table->string('detail_reference');
+            $table->unsignedBigInteger('code')->nullable();
+            $table->string('detail_reference')->nullable();
         });
     }
 

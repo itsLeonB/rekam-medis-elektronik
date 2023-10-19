@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('condition_identifier', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('condition_id');
+            $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
             $table->string('system');
-            $table->string('use');
+            $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old']);
             $table->string('value');
         });
     }

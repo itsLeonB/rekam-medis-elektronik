@@ -29,11 +29,11 @@ class OrganizationSeeder extends Seeder
         foreach ($organizations as $o) {
             $resContent = json_decode($o->res_text, true);
             $active = getActive($resContent);
-            $identifier = getIdentifier($resContent);
+            $identifier = returnAttribute($resContent, ['identifier'], null);
             $type = getResourceType($resContent);
             $telecoms = getTelecom($resContent);
-            $address = getAddress($resContent);
-            $contact = getContact($resContent);
+            $address = returnAttribute($resContent, ['address'], null);
+            $contact = returnAttribute($resContent, ['contact'], null);
 
             $org = Organization::create(
                 [
@@ -45,19 +45,9 @@ class OrganizationSeeder extends Seeder
                 ]
             );
 
-            if (is_array($identifier) || is_object($identifier)) {
-                foreach ($identifier as $i) {
-                    $identifierDetails = parseIdentifier($i);
-                    OrganizationIdentifier::create(
-                        [
-                            'organization_id' => $org->id,
-                            'system' => $identifierDetails['system'],
-                            'use' => $identifierDetails['use'],
-                            'value' => $identifierDetails['value']
-                        ]
-                    );
-                }
-            }
+            $foreignKey = ['organization_id' => $org->id];
+
+            parseAndCreate(OrganizationIdentifier::class, $identifier, 'returnIdentifier', $foreignKey);
 
             if (is_array($type) || is_object($type)) {
                 foreach ($type as $t) {
@@ -87,64 +77,15 @@ class OrganizationSeeder extends Seeder
                 }
             }
 
-            if (is_array($address) || is_object($address)) {
-                foreach ($address as $a) {
-                    $addressDetails = getAddressDetails($a);
-                    OrganizationAddress::create(
-                        [
-                            'organization_id' => $org->id,
-                            'use' => $addressDetails['use'],
-                            'line' => $addressDetails['line'],
-                            'country' => $addressDetails['country'],
-                            'postal_code' => $addressDetails['postalCode'],
-                            'province' => $addressDetails['province'],
-                            'city' => $addressDetails['city'],
-                            'district' => $addressDetails['district'],
-                            'village' => $addressDetails['village'],
-                            'rw' => $addressDetails['rw'],
-                            'rt' => $addressDetails['rt']
-                        ]
-                    );
-                }
-            }
+            parseAndCreate(OrganizationAddress::class, $address, 'returnAddress', $foreignKey);
 
             if (is_array($contact) || is_object($contact)) {
                 foreach ($contact as $c) {
-                    $contactDetails = getOrganizationContactDetails($c);
-                    $addressDetails = getAddressDetails($contactDetails['address']);
-                    $organizationContact = OrganizationContact::create(
-                        [
-                            'organization_id' => $org->id,
-                            'purpose_system' => $contactDetails['purposeSystem'],
-                            'purpose_code' => $contactDetails['purposeCode'],
-                            'purpose_display' => $contactDetails['purposeDisplay'],
-                            'name' => $contactDetails['name'],
-                            'address_use' => $addressDetails['use'],
-                            'address_line' => $addressDetails['line'],
-                            'country' => $addressDetails['country'],
-                            'postal_code' => $addressDetails['postalCode'],
-                            'province' => $addressDetails['province'],
-                            'city' => $addressDetails['city'],
-                            'district' => $addressDetails['district'],
-                            'village' => $addressDetails['village'],
-                            'rw' => $addressDetails['rw'],
-                            'rt' => $addressDetails['rt']
-                        ]
-                    );
-
-                    if (is_array($contactDetails['telecom']) || is_object($contactDetails['telecom'])) {
-                        foreach ($contactDetails['telecom'] as $telecom) {
-                            $contactTelecomDetails = getTelecomDetails($telecom);
-                            OrganizationContactTelecom::create(
-                                [
-                                    'organization_contact_id' => $organizationContact->id,
-                                    'system' => $contactTelecomDetails['system'],
-                                    'use' => $contactTelecomDetails['use'],
-                                    'value' => $contactTelecomDetails['value']
-                                ]
-                            );
-                        }
-                    }
+                    $contactDetails = returnOrganizationContact($c);
+                    $orgContact = OrganizationContact::create(array_merge($contactDetails, $foreignKey));
+                    $contactTelecom = returnAttribute($c, ['telecom'], null);
+                    $orgContactFk = ['organization_contact_id' => $orgContact->id];
+                    parseAndCreate(OrganizationContactTelecom::class, $contactTelecom, 'returnTelecom', $orgContactFk);
                 }
             }
         }

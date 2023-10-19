@@ -26,17 +26,17 @@ class EncounterSeeder extends Seeder
 
         foreach ($encounters as $e) {
             $resContent = json_decode($e->res_text, true);
-            $identifiers = getIdentifier($resContent);
-            $statusHistory = getStatusHistory($resContent);
+            $identifiers = returnAttribute($resContent, ['identifier'], null);
+            $statusHistory = returnAttribute($resContent, ['statusHistory'], null);
             $classHistory = getClassHistory($resContent);
-            $participants = getParticipants($resContent);
-            $diagnosis = getDiagnosis($resContent);
+            $participants = returnAttribute($resContent, ['participant'], null);
+            $diagnosis = returnAttribute($resContent, ['diagnosis'], null);
             $period = getPeriod($resContent);
 
             $enc = Encounter::create(
                 [
                     'resource_id' => $e->id,
-                    'status' => $resContent['status'],
+                    'status' => returnAttribute($resContent, ['status'], 'unknown') === 'completed' ? 'finished' : returnAttribute($resContent, ['status'], 'unknown'),
                     'class' => getClass($resContent),
                     'service_type' => getServiceType($resContent),
                     'priority' => getPriority($resContent),
@@ -52,32 +52,10 @@ class EncounterSeeder extends Seeder
                 ]
             );
 
-            if (is_array($identifiers) || is_object($identifiers)) {
-                foreach ($identifiers as $i) {
-                    $identifierDetails = parseIdentifier($i);
-                    EncounterIdentifier::create(
-                        [
-                            'encounter_id' => $enc->id,
-                            'system' => $identifierDetails['system'],
-                            'use' => $identifierDetails['use'],
-                            'value' => $identifierDetails['value']
-                        ]
-                    );
-                }
-            }
+            $foreignKey = ['encounter_id' => $enc->id];
 
-            if (is_array($statusHistory) || is_object($statusHistory)) {
-                foreach ($statusHistory as $sh) {
-                    EncounterStatusHistory::create(
-                        [
-                            'encounter_id' => $enc->id,
-                            'status' => $sh['status'],
-                            'period_start' => $sh['period']['start'],
-                            'period_end' => $sh['period']['end']
-                        ]
-                    );
-                }
-            }
+            parseAndCreate(EncounterIdentifier::class, $identifiers, 'returnIdentifier', $foreignKey);
+            parseAndCreate(EncounterStatusHistory::class, $statusHistory, 'returnStatusHistory', $foreignKey);
 
             if (is_array($classHistory) || is_object($classHistory)) {
                 foreach ($classHistory as $ch) {
@@ -92,33 +70,8 @@ class EncounterSeeder extends Seeder
                 }
             }
 
-            if (is_array($participants) || is_object($participants)) {
-                foreach ($participants as $p) {
-                    EncounterParticipant::create(
-                        [
-                            'encounter_id' => $enc->id,
-                            'type' => getParticipantType($p),
-                            'individual' => getIndividual($p)
-                        ]
-                    );
-                }
-            }
-
-            if (is_array($diagnosis) || is_object($diagnosis)) {
-                foreach ($diagnosis as $d) {
-                    $diagnosisDetails = getDiagnosisDetails($d);
-
-                    EncounterDiagnosis::create(
-                        [
-                            'encounter_id' => $enc->id,
-                            'condition_reference' => $diagnosisDetails['conditionReference'],
-                            'condition_display' => $diagnosisDetails['conditionDisplay'],
-                            'use' => $diagnosisDetails['use'],
-                            'rank' => $diagnosisDetails['rank']
-                        ]
-                    );
-                }
-            }
+            parseAndCreate(EncounterParticipant::class, $participants, 'returnParticipant', $foreignKey);
+            parseAndCreate(EncounterDiagnosis::class, $diagnosis, 'returnDiagnosis', $foreignKey);
         }
     }
 }

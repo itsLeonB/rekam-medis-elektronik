@@ -14,16 +14,17 @@ return new class extends Migration
         Schema::create('practitioner', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('resource_id');
+            $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->bigInteger('nik')->unsigned();
             $table->string('ihs_number');
             $table->boolean('active');
             $table->string('name');
-            $table->string('prefix');
-            $table->string('suffix');
-            $table->string('gender');
+            $table->string('prefix')->nullable();
+            $table->string('suffix')->nullable();
+            $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->date('birth_date');
-            $table->string('photo');
+            $table->string('photo')->nullable();
         });
     }
 
