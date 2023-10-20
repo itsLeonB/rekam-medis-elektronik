@@ -1,0 +1,105 @@
+{
+  "active": true,
+  "address": [
+    {
+      "city": "Jakarta",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "10"
+            },
+            {
+              "url": "city",
+              "valueCode": "1010"
+            },
+            {
+              "url": "district",
+              "valueCode": "1010101"
+            },
+            {
+              "url": "village",
+              "valueCode": "1010101101"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "line": [
+        "Gd. Prof. Dr. Sujudi Lt.5, Jl. H.R. Rasuna Said Blok X5 Kav. 4-9 Kuningan"
+      ],
+      "postalCode": "12950",
+      "use": "work"
+    }
+  ],
+  "contact": [
+    {
+      "name": {
+        "text": "mevr. D. de Haan"
+      },
+      "purpose": {
+        "coding": [
+          {
+            "code": "ADMIN",
+            "system": "http://terminology.hl7.org/CodeSystem/contactentity-type"
+          }
+        ]
+      },
+      "telecom": [
+        {
+          "system": "phone",
+          "value": "022-655 2321"
+        },
+        {
+          "system": "email",
+          "value": "cardio@burgersumc.nl"
+        },
+        {
+          "system": "fax",
+          "value": "022-655 2322"
+        }
+      ]
+    }
+  ],
+  "id": "RSPARA",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/org-number",
+      "value": "RSPARA"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2022-11-19T03:53:44.211446+00:00",
+    "profile": [
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Organization|4.0.1"
+    ],
+    "versionId": "MTY2ODgzMDAyNDIxMTQ0NjAwMA"
+  },
+  "name": "RS Paramarta",
+  "resourceType": "Organization",
+  "telecom": [
+    {
+      "system": "phone",
+      "use": "work",
+      "value": "+1 555 234 1234"
+    },
+    {
+      "system": "email",
+      "use": "work",
+      "value": "contact@labs.x.org"
+    }
+  ],
+  "type": [
+    {
+      "coding": [
+        {
+          "code": "prov",
+          "display": "Healthcare Provider",
+          "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+        }
+      ]
+    }
+  ]
+}

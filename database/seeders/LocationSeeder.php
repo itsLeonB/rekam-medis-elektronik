@@ -60,7 +60,7 @@ class LocationSeeder extends Seeder
                         'altitude' => returnAttribute($resContent, ['position', 'altitude'], null),
                         'managing_organization' => returnAttribute($resContent, ['managingOrganization', 'reference'], null),
                         'part_of' => returnAttribute($resContent, ['partOf', 'reference'], null),
-                        'availability_exceptions' => getAvailabilityExceptions($resContent),
+                        'availability_exceptions' => returnAttribute($resContent, ['availabilityExceptions'], null),
                         'service_class' => getServiceClass($extension)
                     ],
                     $address

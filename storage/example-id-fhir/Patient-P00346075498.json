@@ -1,0 +1,48 @@
+{
+  "active": true,
+  "communication": [
+    {
+      "language": {
+        "coding": [
+          {
+            "code": "id-ID",
+            "display": "Indonesian",
+            "system": "urn:ietf:bcp:47"
+          }
+        ],
+        "text": "Indonesian"
+      },
+      "preferred": true
+    }
+  ],
+  "deceasedBoolean": false,
+  "gender": "male",
+  "id": "P00346075498",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/ihs-number",
+      "use": "official",
+      "value": "P00346075498"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/paspor",
+      "use": "official",
+      "value": "############"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2022-04-27T17:21:52.893837+00:00",
+    "profile": [
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
+    ],
+    "versionId": "MTY1MTA4MDExMjg5MzgzNzAwMA"
+  },
+  "multipleBirthBoolean": false,
+  "name": [
+    {
+      "text": "SAMUEL RHODRI SMITH",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Patient"
+}

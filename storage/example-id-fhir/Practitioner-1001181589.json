@@ -1,0 +1,48 @@
+{
+  "address": [
+    {
+      "city": "Kota Tegal",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "33"
+            },
+            {
+              "url": "city",
+              "valueCode": "3376"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "use": "home"
+    }
+  ],
+  "gender": "male",
+  "id": "1001181589",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nakes-id",
+      "value": "1001181589"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik",
+      "use": "official",
+      "value": "3328112107900004"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2022-04-22T08:03:33.898282+00:00",
+    "versionId": "MTY1MDYxNDYxMzg5ODI4MjAwMA"
+  },
+  "name": [
+    {
+      "text": "BAMBANG TRI WALUYO,S.Kep.Ners",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Practitioner"
+}

@@ -1,0 +1,104 @@
+{
+  "active": true,
+  "address": [
+    {
+      "city": "MUNA",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "74"
+            },
+            {
+              "url": "city",
+              "valueCode": "3"
+            },
+            {
+              "url": "district",
+              "valueCode": "26"
+            },
+            {
+              "url": "village",
+              "valueCode": "1008"
+            },
+            {
+              "url": "rw",
+              "valueCode": "1"
+            },
+            {
+              "url": "rt",
+              "valueCode": "1"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "line": [
+        "KEL.TOMBULA"
+      ],
+      "use": "home"
+    }
+  ],
+  "birthDate": "1980-12-03",
+  "communication": [
+    {
+      "language": {
+        "coding": [
+          {
+            "code": "id-ID",
+            "display": "Indonesian",
+            "system": "urn:ietf:bcp:47"
+          }
+        ],
+        "text": "Indonesian"
+      },
+      "preferred": true
+    }
+  ],
+  "deceasedBoolean": false,
+  "extension": [
+    {
+      "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/citizenshipStatus",
+      "valueCode": "WNI"
+    }
+  ],
+  "gender": "male",
+  "id": "P02478375538",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/ihs-number",
+      "use": "official",
+      "value": "P02478375538"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik",
+      "use": "official",
+      "value": "9271060312000001"
+    }
+  ],
+  "link": [
+    {
+      "other": {
+        "reference": "RelatedPerson/7af11905-8d49-47dc-a72b-bca4948c01e7"
+      },
+      "type": "refer"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2023-05-31T06:40:40.038378+00:00",
+    "profile": [
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
+    ],
+    "versionId": "MTY4NTUxNTI0MDAzODM3ODAwMA"
+  },
+  "multipleBirthBoolean": false,
+  "name": [
+    {
+      "text": "patient 1",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Patient"
+}

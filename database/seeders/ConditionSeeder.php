@@ -38,11 +38,15 @@ class ConditionSeeder extends Seeder
             $note = returnAttribute($resContent, ['note'], null);
             $severity = returnAttribute($resContent, ['severity', 'coding', 0, 'code'], null);
             $severitySet = ['24484000', '6736007', '255604002'];
-            if (in_array($severity, $severitySet)) {
-                // Value found in the list, do nothing
+            if ($severity === null) {
+                $severity = null;
             } else {
-                // Value not found in the list, assign '6736007'
-                $severity = '6736007';
+                if (in_array($severity, $severitySet)) {
+                    // Value found in the list, do nothing
+                } else {
+                    // Value not found in the list, assign '6736007'
+                    $severity = '6736007';
+                }
             }
 
             $cond = Condition::create(

@@ -1,0 +1,31 @@
+{
+  "active": true,
+  "birthDate": "1920-02-28",
+  "id": "P02029102745",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik-ibu",
+      "use": "official",
+      "value": "367400001111222"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/ihs-number",
+      "use": "official",
+      "value": "P02029102745"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2023-03-08T11:05:37.879975+00:00",
+    "profile": [
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
+    ],
+    "versionId": "MTY3ODI3MzUzNzg3OTk3NTAwMA"
+  },
+  "name": [
+    {
+      "text": "Mardigu",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Patient"
+}

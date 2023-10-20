@@ -39,13 +39,6 @@ class ResourceSeeder extends Seeder
                         'res_text' => $res_content
                     ]
                 );
-
-                ResourceForcedId::create(
-                    [
-                        'resource_id' => $res->id,
-                        'forced_id' => $forced_id
-                    ]
-                );
             }
         }
     }
