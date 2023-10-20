@@ -18,7 +18,7 @@ class IdFhirResourceSeeder extends Seeder
         $files = Storage::disk('example-id-fhir')->files();
 
         foreach ($files as $f) {
-            $resText = file_get_contents(storage_path('example-id-fhir') . '/' . $f);
+            $resText = Storage::disk('example-id-fhir')->get($f);
             list($resType, $satusehatId) = explode('-', $f, 2);
             list($satusehatId, $ext) = explode('.', $satusehatId, 2);
 
