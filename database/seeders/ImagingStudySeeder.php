@@ -77,7 +77,7 @@ class ImagingStudySeeder extends Seeder
                 $performer = returnAttribute($s, ['performer'], null);
                 $instance = returnAttribute($s, ['instance'], null);
                 parseAndCreate(ImagingStudySeriesSpecimen::class, $specimen, 'returnReference', $seriesFk);
-                parseAndCreate(ImagingStudySeriesPerformer::class, $performer, 'returnPerformer', $seriesFk);
+                parseAndCreate(ImagingStudySeriesPerformer::class, $performer, 'returnImagingPerformer', $seriesFk);
                 parseAndCreate(ImagingStudySeriesInstance::class, $instance, 'returnImageStudyInstance', $seriesFk);
             }
         }
