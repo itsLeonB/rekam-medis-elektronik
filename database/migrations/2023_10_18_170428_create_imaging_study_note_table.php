@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('imaging_id');
             $table->index('imaging_id');
-            $table->foreign('imaging_id')->references('id')->on('imaging')->onDelete('cascade');
+            $table->foreign('imaging_id')->references('id')->on('imaging_study')->onDelete('cascade');
             $table->json('author')->nullable();
             $table->dateTime('time')->nullable();
             $table->string('text');

@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('imaging_id');
             $table->index('imaging_id');
-            $table->foreign('imaging_id')->references('id')->on('imaging')->onDelete('cascade');
+            $table->foreign('imaging_id')->references('id')->on('imaging_study')->onDelete('cascade');
             $table->string('uid');
             $table->unsignedInteger('number')->nullable();
             $table->string('modality_system');
             $table->string('modality_code');
-            $table->string('modality_display');
+            $table->string('modality_display')->nullable();
             $table->text('description')->nullable();
             $table->unsignedInteger('num_instances')->nullable();
             $table->string('body_site')->nullable();

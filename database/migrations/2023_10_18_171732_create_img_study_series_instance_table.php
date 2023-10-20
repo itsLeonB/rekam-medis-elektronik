@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('uid');
             $table->string('sopclass_system');
             $table->string('sopclass_code');
-            $table->string('sopclass_display');
+            $table->string('sopclass_display')->nullable();
             $table->unsignedInteger('number')->nullable();
             $table->string('title')->nullable();
         });
