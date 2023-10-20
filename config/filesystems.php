@@ -56,17 +56,17 @@ return [
             'throw' => false,
         ],
 
-        'fhir-example' => [
-            'driver' => 'local',
-            'root' => storage_path('fhir-example'),
-            'throw' => false,
-        ],
-
         'administrative-code' => [
             'driver' => 'local',
             'root' => storage_path('administrative-code'),
             'throw' => false,
-        ]
+        ],
+
+        'example-id-fhir' => [
+            'driver' => 'local',
+            'root' => storage_path('example-id-fhir'),
+            'throw' => false,
+        ],
 
     ],
 

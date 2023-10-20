@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\KodeWilayah;
 use App\Models\KotaKabupaten;
 use App\Models\Resource;
 
@@ -432,12 +433,12 @@ function getBirthPlace($extension)
                 } elseif (isset($e['valueAddress']) && !empty($e['valueAddress'])) {
                     if (isset($e['valueAddress']['city']) && !empty($e['valueAddress']['city'])) {
                         $city = $e['valueAddress']['city'];
-                        $kotaKabupaten = KotaKabupaten::where('nama_wilayah', $city)
-                            ->orWhere('nama_wilayah', 'Kota ' . $city)
-                            ->orWhere('nama_wilayah', 'Kabupaten ' . $city)
+                        $kotaKabupaten = KodeWilayah::where('nama', $city)
+                            ->orWhere('nama', 'Kota ' . $city)
+                            ->orWhere('nama', 'Kabupaten ' . $city)
                             ->first();
                         if ($kotaKabupaten) {
-                            return $kotaKabupaten->kode_wilayah;
+                            return $kotaKabupaten->kode;
                         } else {
                             return 0;
                         }
@@ -745,14 +746,14 @@ function getServiceClass($extension)
                 if (isset($e['coding'][0]['code']) && !empty($e['coding'][0]['code'])) {
                     return $e['coding'][0]['code'];
                 } else {
-                    return '0';
+                    return null;
                 }
             } else {
-                return '0';
+                return null;
             }
         }
     } else {
-        return '0';
+        return null;
     }
 }
 

@@ -1,0 +1,83 @@
+{
+  "active": true,
+  "address": [
+    {
+      "city": "Pematangsiantar",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "0"
+            },
+            {
+              "url": "city",
+              "valueCode": "0"
+            },
+            {
+              "url": "district",
+              "valueCode": "0"
+            },
+            {
+              "url": "village",
+              "valueCode": "0"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "line": [
+        "Jl. Gunung simanukmanuk no 1"
+      ],
+      "postalCode": "20100",
+      "type": "both",
+      "use": "work"
+    }
+  ],
+  "id": "51814663-60c9-4bbc-982a-36e89c12924a",
+  "identifier": [
+    {
+      "system": "http://sys-ids.kemkes.go.id/organization/10000004",
+      "use": "official",
+      "value": "Departemen Rawat Inap"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2023-10-15T14:48:32.467572+00:00",
+    "versionId": "MTY5NzM4MTMxMjQ2NzU3MjAwMA"
+  },
+  "name": "Departemen Rawat Inap",
+  "partOf": {
+    "reference": "Organization/10000004"
+  },
+  "resourceType": "Organization",
+  "telecom": [
+    {
+      "system": "phone",
+      "use": "work",
+      "value": "062208080"
+    },
+    {
+      "system": "email",
+      "use": "work",
+      "value": "admin@rumkitsiantar.com"
+    },
+    {
+      "system": "url",
+      "use": "work",
+      "value": "https://rumkitsiantar.com"
+    }
+  ],
+  "type": [
+    {
+      "coding": [
+        {
+          "code": "dept",
+          "display": "Hospital Department",
+          "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+        }
+      ]
+    }
+  ]
+}

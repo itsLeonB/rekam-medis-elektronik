@@ -1,0 +1,91 @@
+{
+  "address": [
+    {
+      "city": "KOTA TEGAL",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "33"
+            },
+            {
+              "url": "city",
+              "valueCode": "76"
+            },
+            {
+              "url": "district",
+              "valueCode": "3"
+            },
+            {
+              "url": "village",
+              "valueCode": "1006"
+            },
+            {
+              "url": "rw",
+              "valueCode": "4"
+            },
+            {
+              "url": "rt",
+              "valueCode": "2"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "line": [
+        "PERUM TEGAL RESIDENCE BLOK B.II NO.11"
+      ],
+      "use": "home"
+    }
+  ],
+  "birthDate": "1990-07-21",
+  "gender": "male",
+  "id": "10000329187",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nakes-his-number",
+      "value": "10000329187"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik",
+      "use": "official",
+      "value": "3328112107900004"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2022-08-10T15:58:33.085148+00:00",
+    "versionId": "MTY2MDE0NzExMzA4NTE0ODAwMA"
+  },
+  "name": [
+    {
+      "text": "BAMBANG TRY WALUYO",
+      "use": "official"
+    }
+  ],
+  "qualification": [
+    {
+      "code": {
+        "coding": [
+          {
+            "code": "STR-KKI",
+            "display": "Surat Tanda Registrasi Dokter",
+            "system": "https://terminology.kemkes.go.id/v1-0302"
+          }
+        ]
+      },
+      "identifier": [
+        {
+          "system": "https://fhir.kemkes.go.id/id/str-kki-number",
+          "value": "140171217-1463280"
+        }
+      ],
+      "period": {
+        "end": "2022-07-21",
+        "start": "2017-11-08"
+      }
+    }
+  ],
+  "resourceType": "Practitioner"
+}

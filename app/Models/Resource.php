@@ -23,11 +23,6 @@ class Resource extends Model
         return $this->hasMany(ResourceContent::class);
     }
 
-    public function forcedId(): HasOne
-    {
-        return $this->hasOne(ResourceForcedId::class);
-    }
-
     public function practitioner(): HasMany
     {
         return $this->hasMany(Practitioner::class);
@@ -56,5 +51,15 @@ class Resource extends Model
     public function condition(): HasMany
     {
         return $this->hasMany(Condition::class);
+    }
+
+    public function observation(): HasMany
+    {
+        return $this->hasMany(Observation::class);
+    }
+
+    public function imagingStudy(): HasMany
+    {
+        return $this->hasMany(ImagingStudy::class);
     }
 }

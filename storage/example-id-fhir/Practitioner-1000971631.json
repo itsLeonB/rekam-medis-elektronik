@@ -1,0 +1,48 @@
+{
+  "address": [
+    {
+      "city": "Kab. Banyumas",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "33"
+            },
+            {
+              "url": "city",
+              "valueCode": "3302"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "use": "home"
+    }
+  ],
+  "gender": "male",
+  "id": "1000971631",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nakes-id",
+      "value": "1000971631"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik",
+      "use": "official",
+      "value": "3302251905820002"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2022-04-22T05:52:09.238448+00:00",
+    "versionId": "MTY1MDYwNjcyOTIzODQ0ODAwMA"
+  },
+  "name": [
+    {
+      "text": "BAMBANG WALUYOJATI, S.Kom",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Practitioner"
+}

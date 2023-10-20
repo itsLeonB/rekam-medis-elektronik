@@ -1,0 +1,33 @@
+{
+  "active": true,
+  "birthDate": "1920-02-28",
+  "id": "P02029102825",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik-ibu",
+      "use": "official",
+      "value": "367400001111222"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/ihs-number",
+      "use": "official",
+      "value": "P02029102825"
+    }
+  ],
+  "language": "id",
+  "meta": {
+    "lastUpdated": "2023-10-17T06:26:21.585017+00:00",
+    "profile": [
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient|4.0.1",
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
+    ],
+    "versionId": "MTY5NzUyMzk4MTU4NTAxNzAwMA"
+  },
+  "name": [
+    {
+      "text": "Sambo",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Patient"
+}
