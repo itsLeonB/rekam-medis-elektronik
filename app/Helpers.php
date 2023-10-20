@@ -1205,11 +1205,11 @@ function parseAndCreate($model, $data, $callback, $foreignKey)
                 $dataArray[] = $details;
             }
         }
-        try {
+        // try {
             $model::insert($dataArray);
-        } catch (Exception $e) {
-            dd($dataArray);
-        }
+        // } catch (Exception $e) {
+        //     dd($dataArray);
+        // }
     }
 }
 
@@ -1247,7 +1247,7 @@ function returnValue($resource)
 function returnReference($attribute)
 {
     if (isset($attribute['reference']) && !empty($attribute['reference'])) {
-        return $attribute['reference'];
+        return ['reference' => $attribute['reference']];
     } else {
         return null;
     }
@@ -1458,15 +1458,16 @@ function returnOrganizationContact($attribute)
     unset($address['use']);
     unset($address['line']);
     try {
-    return array_merge(
-        $purposeData,
-        [
-            'name' => returnHumanName($attribute)['name'],
-            'address_use' => $addressUse,
-            'address_line' => $addressLine
-        ],
-        $address
-    ); } catch (Exception $e) {
+        return array_merge(
+            $purposeData,
+            [
+                'name' => returnHumanName($attribute)['name'],
+                'address_use' => $addressUse,
+                'address_line' => $addressLine
+            ],
+            $address
+        );
+    } catch (Exception $e) {
         dd($purposeDetails);
     }
 }
@@ -1545,4 +1546,74 @@ function returnParticipant($attribute)
         'individual' => returnAttribute($attribute, ['individual', 'reference'], null)
     ];
     return containsOnlyNull($participant) ? null : $participant;
+}
+
+function returnCoding($attribute)
+{
+    if ($attribute === null) {
+        return null;
+    } else {
+        $coding = [
+            'system' => returnAttribute($attribute, ['system'], null),
+            'code' => returnAttribute($attribute, ['code'], null),
+            'display' => returnAttribute($attribute, ['display'], null)
+        ];
+
+        if (containsOnlyNull($coding)) {
+            return null;
+        } else {
+            return $coding;
+        }
+    }
+}
+
+function returnSeries($attribute)
+{
+    $modality = returnCoding(returnAttribute($attribute, ['modality'], null));
+    return [
+        'uid' => returnAttribute($attribute, ['uid'], ''),
+        'number' => returnAttribute($attribute, ['number'], null),
+        'modality_system' => $modality['system'],
+        'modality_code' => $modality['code'],
+        'modality_display' => $modality['display'],
+        'description' => returnAttribute($attribute, ['description'], null),
+        'num_instances' => returnAttribute($attribute, ['numberOfInstances'], null),
+        'body_site' => returnAttribute($attribute, ['bodySite', 'code'], null),
+        'laterality' => returnAttribute($attribute, ['laterality', 'code'], null),
+        'started' => returnAttribute($attribute, ['started'], null)
+    ];
+}
+
+function returnPerformer($attribute)
+{
+    $actor = returnAttribute($attribute, ['actor', 'reference'], null);
+    if ($actor === null) {
+        return null;
+    } else {
+        $function = returnCodeableConcept(returnAttribute($attribute, ['function'], null));
+        return [
+            'function_system' => $function['system'],
+            'function_code' => $function['code'],
+            'function_display' => $function['display'],
+            'actor' => returnAttribute($attribute, ['actor', 'reference'], null)
+        ];
+    }
+}
+
+function returnImageStudyInstance($attribute)
+{
+    $uid = returnAttribute($attribute, ['uid'], null);
+    $sopClass = returnCoding(returnAttribute($attribute, ['sopClass'], null));
+    if ($uid === null) {
+        return null;
+    } else {
+        return [
+            'uid' => $uid,
+            'sopclass_system' => $sopClass['system'],
+            'sopclass_code' => $sopClass['code'],
+            'sopclass_display' => $sopClass['display'],
+            'number' => returnAttribute($attribute, ['number'], null),
+            'title' => returnAttribute($attribute, ['title'], null)
+        ];
+    }
 }

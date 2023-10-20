@@ -34,7 +34,8 @@ class DatabaseSeeder extends Seeder
             LocationSeeder::class,
             EncounterSeeder::class,
             ConditionSeeder::class,
-            ObservationSeeder::class
+            ObservationSeeder::class,
+            ImagingStudySeeder::class,
         ]);
     }
 }
