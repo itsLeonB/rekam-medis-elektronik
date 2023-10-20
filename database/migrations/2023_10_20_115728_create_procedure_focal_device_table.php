@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('system')->nullable();
             $table->string('code')->nullable();
             $table->string('display')->nullable();
-            $table->string('manipulated')->nullable();
+            $table->string('manipulated');
         });
     }
 

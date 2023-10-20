@@ -1206,11 +1206,27 @@ function parseAndCreate($model, $data, $callback, $foreignKey)
                 $dataArray[] = $details;
             }
         }
-        // try {
-            $model::insert($dataArray);
-        // } catch (Exception $e) {
-        //     dd($dataArray);
-        // }
+        $model::insert($dataArray);
+    }
+}
+
+function parseAndCreateCompound($model, $resource, $attributeCallback, $foreignKey)
+{
+    $insertData = [];
+    foreach ($attributeCallback as $attr => $callback) {
+        $data = returnAttribute($resource, [$attr], null);
+        if (is_array($data) || is_object($data)) {
+            foreach ($data as $d) {
+                $details = $callback($d);
+                if (is_array($details) || is_object($details)) {
+                    $insertData = array_merge($insertData, $details);
+                }
+            }
+        }
+    }
+    if (!containsOnlyNull($insertData)) {
+        $insertData = array_merge($insertData, $foreignKey);
+        $model::insert($insertData);
     }
 }
 
@@ -1585,7 +1601,7 @@ function returnSeries($attribute)
     ];
 }
 
-function returnPerformer($attribute)
+function returnImagingPerformer($attribute)
 {
     $actor = returnAttribute($attribute, ['actor', 'reference'], null);
     if ($actor === null) {
@@ -1617,4 +1633,25 @@ function returnImageStudyInstance($attribute)
             'title' => returnAttribute($attribute, ['title'], null)
         ];
     }
+}
+
+function returnProcedurePerformer($attribute)
+{
+    return [
+        'function' => returnAttribute($attribute, ['function', 'coding', 0, 'code'], null),
+        'actor' => returnAttribute($attribute, ['actor', 'reference'], ''),
+        'on_behalf_of' => returnAttribute($attribute, ['onBehalfOf', 'reference'], null)
+    ];
+}
+
+function returnFocalDevice($attribute)
+{
+    $action = returnAttribute($attribute, ['action'], null);
+    $actionDetails = returnCodeableConcept($action);
+    return array_merge(
+        [
+            'manipulated' => returnAttribute($attribute, ['manipulated', 'reference'], '')
+        ],
+        $actionDetails
+    );
 }
