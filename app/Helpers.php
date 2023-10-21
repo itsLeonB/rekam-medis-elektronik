@@ -1270,12 +1270,15 @@ function returnReference($attribute)
     }
 }
 
-function returnCodeableConcept($attribute)
+function returnCodeableConcept($attribute, $prefix = null)
 {
+    if ($prefix) {
+        $prefix = $prefix . '_';
+    }
     $codeableConcept = [
-        'system' => returnAttribute($attribute, ['coding', 0, 'system'], null),
-        'code' => returnAttribute($attribute, ['coding', 0, 'code'], null),
-        'display' => returnAttribute($attribute, ['coding', 0, 'display'], null)
+        $prefix . 'system' => returnAttribute($attribute, ['coding', 0, 'system'], null),
+        $prefix . 'code' => returnAttribute($attribute, ['coding', 0, 'code'], null),
+        $prefix . 'display' => returnAttribute($attribute, ['coding', 0, 'display'], null)
     ];
 
     if (containsOnlyNull($codeableConcept)) {
@@ -1653,5 +1656,40 @@ function returnFocalDevice($attribute)
             'manipulated' => returnAttribute($attribute, ['manipulated', 'reference'], '')
         ],
         $actionDetails
+    );
+}
+
+function returnRatio($attribute, $prefix)
+{
+    $prefix = $prefix . '_';
+    return [
+        $prefix . 'numerator_value' => returnAttribute($attribute, ['numerator', 'value'], null),
+        $prefix . 'numerator_comparator' => returnAttribute($attribute, ['numerator', 'comparator'], null),
+        $prefix . 'numerator_unit' => returnAttribute($attribute, ['numerator', 'unit'], null),
+        $prefix . 'numerator_system' => returnAttribute($attribute, ['numerator', 'system'], null),
+        $prefix . 'numerator_code' => returnAttribute($attribute, ['numerator', 'code'], null),
+        $prefix . 'denominator_value' => returnAttribute($attribute, ['denominator', 'value'], null),
+        $prefix . 'denominator_comparator' => returnAttribute($attribute, ['denominator', 'comparator'], null),
+        $prefix . 'denominator_unit' => returnAttribute($attribute, ['denominator', 'unit'], null),
+        $prefix . 'denominator_system' => returnAttribute($attribute, ['denominator', 'system'], null),
+        $prefix . 'denominator_code' => returnAttribute($attribute, ['denominator', 'code'], null),
+    ];
+}
+
+function returnMedicationIngredient($attribute)
+{
+    $item = returnAttribute($attribute, ['itemCodeableConcept'], null);
+    $itemCodeableConcept = returnCodeableConcept($item, 'item');
+    $strength = returnAttribute($attribute, ['strength'], null);
+    $strengthData = returnRatio($strength, 'strength');
+
+    return array_merge(
+        $itemCodeableConcept,
+        $strengthData,
+        [
+            'item_reference' => returnAttribute($attribute, ['itemReference', 'reference'], null),
+            'is_active' => returnAttribute($attribute, ['isActive'], null),
+
+        ]
     );
 }
