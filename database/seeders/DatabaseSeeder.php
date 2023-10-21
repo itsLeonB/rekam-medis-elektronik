@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
             ConditionSeeder::class,
             ObservationSeeder::class,
             ImagingStudySeeder::class,
+            ProcedureSeeder::class,
+            MedicationSeeder::class
         ]);
     }
 }
