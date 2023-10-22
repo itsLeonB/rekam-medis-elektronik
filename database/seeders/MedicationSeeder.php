@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Medication;
+use App\Models\MedicationIdentifier;
 use App\Models\MedicationIngredient;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -26,6 +27,7 @@ class MedicationSeeder extends Seeder
             $resContent = json_decode($m->res_text, true);
             $code = returnCodeableConcept($resContent['code']);
             $ratio = returnRatio($resContent, 'amount');
+            $identifier = returnAttribute($resContent, ['identifier'], null);
             $ingredients = returnAttribute($resContent, ['ingredient'], null);
 
             $med = Medication::create(array_merge(
@@ -44,6 +46,7 @@ class MedicationSeeder extends Seeder
 
             $foreignKey = ['medication_id' => $med->id];
 
+            parseAndCreate(MedicationIdentifier::class, $identifier, 'returnIdentifier', $foreignKey);
             parseAndCreate(MedicationIngredient::class, $ingredients, 'returnMedicationIngredient', $foreignKey);
         }
     }
