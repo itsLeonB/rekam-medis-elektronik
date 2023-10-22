@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\MedicationRequest;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -38,7 +40,8 @@ class DatabaseSeeder extends Seeder
             ObservationSeeder::class,
             ImagingStudySeeder::class,
             ProcedureSeeder::class,
-            MedicationSeeder::class
+            MedicationSeeder::class,
+            MedicationRequest::class,
         ]);
     }
 }

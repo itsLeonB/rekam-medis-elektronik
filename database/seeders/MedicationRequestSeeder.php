@@ -97,7 +97,6 @@ class MedicationRequestSeeder extends Seeder
                 $doseRate = returnAttribute($d, ['doseAndRate']);
 
                 $dos = MedicationRequestDosage::create(
-                // dd(
                     merge_array(
                         [
                             'med_req_id' => $medReq->id,
