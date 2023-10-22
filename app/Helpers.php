@@ -1182,7 +1182,7 @@ function getNoteDetails($note)
     return $noteDetails;
 }
 
-function returnAttribute($array, $keys, $defaultValue)
+function returnAttribute($array, $keys, $defaultValue = null)
 {
     $value = $array;
     foreach ($keys as $key) {
@@ -1290,7 +1290,7 @@ function returnCodeableConcept($attribute, $prefix = null)
 
 function returnVariableAttribute($resource, $var, $variableAttributes)
 {
-    $variableAttribute[] = [];
+    $variableAttribute = [];
 
     foreach ($variableAttributes as $va) {
         $va = $var . $va;
@@ -1492,11 +1492,15 @@ function returnOrganizationContact($attribute)
     }
 }
 
-function returnPeriod($attribute)
+function returnPeriod($attribute, $prefix = null)
 {
+    if ($prefix != null) {
+        $prefix = $prefix . '_';
+    }
+
     return [
-        'period_start' => parseDate(returnAttribute($attribute, ['period', 'start'], '1900-01-01')),
-        'period_end' => parseDate(returnAttribute($attribute, ['period', 'end'], null))
+        $prefix . 'period_start' => parseDate(returnAttribute($attribute, ['start'], '1900-01-01')),
+        $prefix . 'period_end' => parseDate(returnAttribute($attribute, ['end'], null))
     ];
 }
 
@@ -1692,4 +1696,102 @@ function returnMedicationIngredient($attribute)
 
         ]
     );
+}
+
+function returnDuration($attribute, $prefix = null)
+{
+    if ($prefix != null) {
+        $prefix = $prefix . '_';
+    }
+
+    $duration = [
+        $prefix . 'value' => returnAttribute($attribute, ['value'], null),
+        $prefix . 'comparator' => returnAttribute($attribute, ['comparator'], null),
+        $prefix . 'unit' => returnAttribute($attribute, ['unit'], null),
+        $prefix . 'system' => returnAttribute($attribute, ['system'], null),
+        $prefix . 'code' => returnAttribute($attribute, ['code'], null),
+    ];
+
+    if (containsOnlyNull($duration)) {
+        return null;
+    } else {
+        return $duration;
+    }
+}
+
+function returnQuantity($attribute, $prefix = null, $simple = false)
+{
+    if ($prefix != null) {
+        $prefix = $prefix . '_';
+    }
+
+    $quantity = [
+        $prefix . 'value' => returnAttribute($attribute, ['value'], null),
+        $prefix . 'unit' => returnAttribute($attribute, ['unit'], null),
+        $prefix . 'system' => returnAttribute($attribute, ['system'], null),
+        $prefix . 'code' => returnAttribute($attribute, ['code'], null),
+    ];
+
+    if ($simple === false) {
+        $quantity[] = [$prefix . 'comparator' => returnAttribute($attribute, ['comparator'], null)];
+    }
+
+    if (containsOnlyNull($quantity)) {
+        return null;
+    } else {
+        return $quantity;
+    }
+}
+
+function returnTiming($attribute, $prefix = null)
+{
+    $code = returnCodeableConcept(returnAttribute($attribute, ['code']), $prefix);
+
+    if ($prefix != null) {
+        $prefix = $prefix . '_';
+    }
+
+    $timing = merge_array(
+        [
+            $prefix . 'event' => returnAttribute($attribute, ['event']),
+            $prefix . 'repeat' => returnAttribute($attribute, ['repeat'])
+        ],
+        $code
+    );
+
+    if (containsOnlyNull($timing)) {
+        return null;
+    } else {
+        return $timing;
+    }
+}
+
+function returnDoseRate($attribute, $prefix = null)
+{
+    $type = returnCodeableConcept(returnAttribute($attribute, ['type']), $prefix);
+
+    $doseRate = array_merge(
+        $type,
+        [
+            'dose' => returnVariableAttribute($attribute, 'dose', ['Range', 'Quantity']),
+            'rate' => returnVariableAttribute($attribute, 'rate', ['Ratio', 'Range', 'Quantity'])
+        ]
+    );
+
+    if (containsOnlyNull($doseRate)) {
+        return null;
+    } else {
+        return $doseRate;
+    }
+}
+
+function merge_array(...$arrays)
+{
+    $arr = [];
+    foreach ($arrays as $a) {
+        if ($a != null) {
+            $arr = array_merge($arr, $a);
+        }
+    }
+    return $arr;
 }

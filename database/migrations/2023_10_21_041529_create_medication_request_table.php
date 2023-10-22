@@ -35,8 +35,8 @@ return new class extends Migration
             $table->string('dispense_interval_unit')->nullable();
             $table->string('dispense_interval_system')->nullable();
             $table->string('dispense_interval_code')->nullable();
-            $table->dateTime('validity_start')->nullable();
-            $table->dateTime('validity_end')->nullable();
+            $table->dateTime('validity_period_start')->nullable();
+            $table->dateTime('validity_period_end')->nullable();
             $table->unsignedInteger('repeats_allowed')->nullable();
             $table->decimal('quantity_value')->nullable();
             $table->string('quantity_unit')->nullable();
