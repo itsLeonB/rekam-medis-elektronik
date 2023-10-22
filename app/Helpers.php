@@ -1357,13 +1357,23 @@ function returnTelecom($attribute)
     }
 }
 
-function returnIdentifier($attribute)
+function returnIdentifier($attribute, $prefix=null)
 {
-    return [
-        'system' => returnAttribute($attribute, ['system'], ''),
-        'use' => returnAttribute($attribute, ['use'], 'temp'),
-        'value' => returnAttribute($attribute, ['value'], '')
+    if ($prefix != null) {
+        $prefix = $prefix . '_';
+    }
+
+    $identifier = [
+        $prefix . 'system' => returnAttribute($attribute, ['system'], ''),
+        $prefix . 'use' => returnAttribute($attribute, ['use'], 'temp'),
+        $prefix . 'value' => returnAttribute($attribute, ['value'], '')
     ];
+
+    if (containsOnlyNull($identifier)) {
+        return null;
+    } else {
+        return $identifier;
+    }
 }
 
 function returnAddress($attribute)
@@ -1794,4 +1804,51 @@ function merge_array(...$arrays)
         }
     }
     return $arr;
+}
+
+function returnAttester($attribute)
+{
+    $attester = [
+        'mode' => returnAttribute($attribute, ['mode'], 'official'),
+        'time' => returnAttribute($attribute, ['time']),
+        'party' => returnAttribute($attribute, ['party', 'reference'])
+    ];
+
+    if (containsOnlyNull($attester)) {
+        return null;
+    } else {
+        return $attester;
+    }
+}
+
+function relatesTo($attribute)
+{
+    $relatesTo = [
+        'code' => returnAttribute($attribute, ['code'], 'append'),
+        'target' => returnVariableAttribute($attribute, 'target', ['Identifier', 'Reference'])
+    ];
+
+    if (containsOnlyNull($relatesTo)) {
+        return null;
+    } else {
+        return $relatesTo;
+    }
+}
+
+function returnNarrative($attribute, $prefix=null)
+{
+    if ($prefix != null) {
+        $prefix = $prefix . '_';
+    }
+
+    $narrative = [
+        $prefix . 'status' => returnAttribute($attribute, ['status']),
+        $prefix . 'div' => returnAttribute($attribute, ['div'])
+    ];
+
+    if (containsOnlyNull($narrative)) {
+        return null;
+    } else {
+        return $narrative;
+    }
 }
