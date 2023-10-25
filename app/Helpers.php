@@ -1357,7 +1357,7 @@ function returnTelecom($attribute)
     }
 }
 
-function returnIdentifier($attribute, $prefix=null)
+function returnIdentifier($attribute, $prefix = null)
 {
     if ($prefix != null) {
         $prefix = $prefix . '_';
@@ -1524,16 +1524,20 @@ function returnStatusHistory($attribute)
 
 function parseDate($date)
 {
-    // Create a DateTime object with the input date
-    $dateTime = new DateTime($date);
+    if ($date != null) {
+        // Create a DateTime object with the input date
+        $dateTime = new DateTime($date);
 
-    // Set the desired time zone for the SQL datetime format
-    $dateTime->setTimezone(new DateTimeZone('UTC'));
+        // Set the desired time zone for the SQL datetime format
+        $dateTime->setTimezone(new DateTimeZone('UTC'));
 
-    // Format the date in SQL datetime format
-    $sqlDateTime = $dateTime->format('Y-m-d H:i:s');
+        // Format the date in SQL datetime format
+        $sqlDateTime = $dateTime->format('Y-m-d H:i:s');
 
-    return $sqlDateTime;
+        return $sqlDateTime;
+    } else {
+        return null;
+    }
 }
 
 function containsOnlyNull($input)
@@ -1835,7 +1839,7 @@ function relatesTo($attribute)
     }
 }
 
-function returnNarrative($attribute, $prefix=null)
+function returnNarrative($attribute, $prefix = null)
 {
     if ($prefix != null) {
         $prefix = $prefix . '_';
