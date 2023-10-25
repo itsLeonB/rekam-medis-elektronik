@@ -13,7 +13,11 @@ class AllergyIntolerance extends Model
     protected $casts = [
         'onset' => 'json',
         'recorder_date' => 'datetime',
-        'last_occurence' => 'datetime'
+        'last_occurence' => 'datetime',
+        'category_food' => 'boolean',
+        'category_medication' => 'boolean',
+        'category_environment'  => 'boolean',
+        'category_biologic' => 'boolean'
     ];
     public $timestamps = false;
 
@@ -25,11 +29,6 @@ class AllergyIntolerance extends Model
     public function identifier(): HasMany
     {
         return $this->hasMany(AllergyIntoleranceIdentifier::class, 'allergy_id');
-    }
-
-    public function category(): HasMany
-    {
-        return $this->hasMany(AllergyIntoleranceCategory::class, 'allergy_id');
     }
 
     public function note(): HasMany

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AllergyIntoleranceReactionNote extends Model
 {
-    protected $table = 'allergy_intolerance_reaction_note';
+    protected $table = 'allergy_react_note';
     protected $casts = [
         'author' => 'json',
         'time' => 'datetime'
@@ -17,6 +17,6 @@ class AllergyIntoleranceReactionNote extends Model
 
     public function reaction(): BelongsTo
     {
-        return $this->belongsTo(AllergyIntoleranceReaction::class, 'allergy_reaction_id');
+        return $this->belongsTo(AllergyIntoleranceReaction::class, 'allergy_react_id');
     }
 }

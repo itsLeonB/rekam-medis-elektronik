@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('allergy_intolerance_reaction_manifestation', function (Blueprint $table) {
+        Schema::create('allergy_react_manifest', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('allergy_reaction_id');
-            $table->index('allergy_reaction_id');
-            $table->foreign('allergy_reaction_id')->references('id')->on('allergy_intolerance_reaction')->onDelete('cascade');
+            $table->unsignedBigInteger('allergy_react_id');
+            $table->index('allergy_react_id');
+            $table->foreign('allergy_react_id')->references('id')->on('allergy_intolerance_reaction')->onDelete('cascade');
             $table->string('system')->nullable();
             $table->string('code');
             $table->string('display')->nullable();

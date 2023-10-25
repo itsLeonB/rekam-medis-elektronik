@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('allergy_intolerance_reaction', function (Blueprint $table) {
             $table->id();
-            $$table->unsignedBigInteger('allergy_id');
+            $table->unsignedBigInteger('allergy_id');
             $table->index('allergy_id');
             $table->foreign('allergy_id')->references('id')->on('allergy_intolerance')->onDelete('cascade');
             $table->string('substance_system')->nullable();
