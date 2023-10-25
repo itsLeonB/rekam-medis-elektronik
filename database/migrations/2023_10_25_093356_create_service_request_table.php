@@ -29,7 +29,7 @@ return new class extends Migration
             $table->json('quantity')->nullable();
             $table->string('subject');
             $table->string('encounter');
-            $table->json('occurence')->nullable();
+            $table->json('occurrence')->nullable();
             $table->json('as_needed')->nullable();
             $table->dateTime('authored_on')->nullable();
             $table->string('requester')->nullable();
