@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('allergy_react_manifest', function (Blueprint $table) {
+        Schema::create('clinical_impression_prognosis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('allergy_react_id');
-            $table->index('allergy_react_id');
-            $table->foreign('allergy_react_id')->references('id')->on('allergy_intolerance_reaction')->onDelete('cascade');
+            $table->unsignedBigInteger('impression_id');
+            $table->index('impression_id');
+            $table->foreign('impression_id')->references('id')->on('clinical_impression')->onDelete('cascade');
             $table->string('system')->nullable();
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->string('display')->nullable();
+            $table->string('reference')->nullable();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('allergy_react_manifest');
+        Schema::dropIfExists('clinical_impression_prognosis');
     }
 };

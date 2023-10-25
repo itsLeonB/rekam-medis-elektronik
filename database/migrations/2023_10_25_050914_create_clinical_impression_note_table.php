@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('allergy_react_note', function (Blueprint $table) {
+        Schema::create('clinical_impression_note', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('allergy_react_id');
-            $table->index('allergy_react_id');
-            $table->foreign('allergy_react_id')->references('id')->on('allergy_intolerance_reaction')->onDelete('cascade');
+            $table->unsignedBigInteger('impression_id');
+            $table->index('impression_id');
+            $table->foreign('impression_id')->references('id')->on('clinical_impression')->onDelete('cascade');
             $table->json('author')->nullable();
             $table->dateTime('time')->nullable();
             $table->string('text');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('allergy_react_note');
+        Schema::dropIfExists('clinical_impression_note');
     }
 };
