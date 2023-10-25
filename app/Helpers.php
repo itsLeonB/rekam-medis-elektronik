@@ -1856,3 +1856,21 @@ function returnNarrative($attribute, $prefix = null)
         return $narrative;
     }
 }
+
+function returnFinding($attribute)
+{
+    $itemCode = returnCodeableConcept(returnAttribute($attribute, ['itemCodeableConcept']));
+    $finding = merge_array(
+        $itemCode,
+        [
+            'reference' => returnAttribute($attribute, ['itemReference', 'reference']),
+            'basis' => returnAttribute($attribute, ['basis'])
+        ]
+    );
+
+    if (containsOnlyNull($finding)) {
+        return null;
+    } else {
+        return $finding;
+    }
+}
