@@ -43,6 +43,8 @@ class DatabaseSeeder extends Seeder
             MedicationRequestSeeder::class,
             CompositionSeeder::class,
             AllergyIntoleranceSeeder::class,
+            ClinicalImpressionSeeder::class,
+            ServiceRequestSeeder::class
         ]);
     }
 }
