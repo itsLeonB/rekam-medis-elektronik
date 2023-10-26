@@ -22,6 +22,11 @@ class Medication extends Model
         return $this->belongsTo(Resource::class);
     }
 
+    public function identifier(): HasMany
+    {
+        return $this->hasMany(MedicationIdentifier::class);
+    }
+
     public function ingredient(): HasMany
     {
         return $this->hasMany(MedicationIngredient::class);
