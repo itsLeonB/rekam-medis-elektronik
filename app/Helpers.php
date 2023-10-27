@@ -1874,3 +1874,17 @@ function returnFinding($attribute)
         return $finding;
     }
 }
+
+function returnPerformer($attribute)
+{
+    $performer = merge_array(
+        returnCodeableConcept(returnAttribute($attribute, ['function']), 'function'),
+        ['actor' => returnAttribute($attribute, ['actor', 'reference'])]
+    );
+
+    if (containsOnlyNull($performer)) {
+        return null;
+    } else {
+        return $performer;
+    }
+}

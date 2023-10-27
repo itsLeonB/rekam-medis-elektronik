@@ -103,7 +103,6 @@ class MedicationRequestSeeder extends Seeder
                             'sequence' => returnAttribute($d, ['sequence']),
                             'text' => returnAttribute($d, ['text']),
                             'patient_instruction' => returnAttribute($d, ['patientInstruction']),
-
                         ],
                         $timing,
                         $site,
