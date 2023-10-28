@@ -23,7 +23,7 @@ class PatientResource extends JsonResource
         $generalPractitioner = $this->createGeneralPractitionerArray($patient);
         $maritalDisplay = $this->displayMaritalStatus($patient->marital_status);
 
-        return merge_array(
+        $data = merge_array(
             [
                 'resourceType' => 'Patient',
                 'id' => $this->satusehat_id,
@@ -74,6 +74,10 @@ class PatientResource extends JsonResource
             ],
             $patient->deceased,
         );
+
+        $data = removeEmptyValues($data);
+
+        return $data;
     }
 
     private function createIdentifierArray($patient) {

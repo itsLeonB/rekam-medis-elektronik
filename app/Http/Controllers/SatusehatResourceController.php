@@ -28,9 +28,7 @@ class SatusehatResourceController extends Controller
 
             return response()->json(json_decode($body));
         } catch (Exception $e) {
-            return response()->json(json_decode(
-                $e->getResponse()->getBody()->getContents()
-            ));
+            return $e->getMessage();
         }
     }
 }

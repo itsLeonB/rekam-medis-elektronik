@@ -1880,3 +1880,22 @@ function returnPerformer($attribute)
         return $performer;
     }
 }
+
+function removeEmptyValues($array) {
+    foreach ($array as $key => $value) {
+        if (is_array($value)) {
+            // Recursively call the function for nested arrays
+            $array[$key] = removeEmptyValues($value);
+            if (empty($array[$key])) {
+                // Remove keys with empty arrays
+                unset($array[$key]);
+            }
+        } else {
+            // Remove null values, empty arrays, empty strings, and keys with empty arrays
+            if ($value === null || (is_array($value) && empty($value)) || $value === "") {
+                unset($array[$key]);
+            }
+        }
+    }
+    return $array;
+}

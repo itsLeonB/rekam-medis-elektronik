@@ -36,34 +36,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        $auth_url = env('auth_url');
-        $tokenRequest = $client->request('POST', $auth_url . '/accesstoken?grant_type=client_credentials', [
-            'headers' => [
-                'Content-Type' => 'application/x-www-form-urlencoded'
-            ],
-            'form_params' => [
-                'client_id' => env('client_id'),
-                'client_secret' => env('client_secret')
-            ],
-        ]);
-
-        $responseCode = $tokenRequest->getStatusCode();
-        $tokenBody = $tokenRequest->getBody();
-        $tokenData = json_decode($tokenBody);
-
-        if ($responseCode == 200 && $tokenData != null) {
-            $request->session()->put('token', $tokenData->access_token);
-            if ($request->user()->email_verified_at == null) {
-                return redirect()->route('verification.notice');
-            } else {
-                if ($request->user()->password_changed_at == null) {
-                    return redirect()->route('profile.edit');
-                } else {
-                    return redirect()->intended(RouteServiceProvider::HOME);
-                }
-            }
+        if ($request->user()->email_verified_at == null) {
+            return redirect()->route('verification.notice');
         } else {
-            return back()->with('status', 'Gagal mengotentikasi client pada SATUSEHAT');
+            if ($request->user()->password_changed_at == null) {
+                return redirect()->route('profile.edit');
+            } else {
+                return redirect()->intended(RouteServiceProvider::HOME);
+            }
         }
     }
 

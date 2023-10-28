@@ -12,11 +12,14 @@ use App\Models\PatientIdentifier;
 use App\Models\PatientTelecom;
 use App\Models\Resource;
 use App\Models\ResourceContent;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ResourceController extends Controller
 {
-    public function getPatient($satusehatId) {
+    public function getPatient($satusehatId)
+    {
         return (new PatientResource(
             Resource::where('satusehat_id', $satusehatId)->firstOrFail()
         ))
@@ -24,44 +27,55 @@ class ResourceController extends Controller
             ->setStatusCode(200);
     }
 
-    public function postPatient(Request $request) {
+    public function postPatient(Request $request)
+    {
         $content = json_decode($request->getContent(), true);
 
-        $resource = Resource::create([
-            'res_type' => 'Patient',
-            'res_ver' => 1,
-        ]);
+        DB::beginTransaction();
 
-        ResourceContent::create([
-            'res_ver' => 1,
-            'res_text' => $content,
-        ]);
+        try {
+            $resource = Resource::create([
+                'res_type' => 'Patient',
+                'res_ver' => 1,
+            ]);
 
-        $patient = Patient::create($this->readPatientData($resource, $content));
-        $patientKey = ['patient_id' => $patient->id];
-        parseAndCreate(PatientIdentifier::class, returnAttribute($content, ['identifier']), 'returnIdentifier', $patientKey);
-        parseAndCreate(PatientTelecom::class, returnAttribute($content, ['telecom']), 'returnTelecom', $patientKey);
-        parseAndCreate(PatientAddress::class, returnAttribute($content, ['address']), 'returnAddress', $patientKey);
-        parseAndCreate(GeneralPractitioner::class, returnAttribute($content, ['generalPractitioner']), 'returnReference', $patientKey);
+            ResourceContent::create([
+                'res_ver' => 1,
+                'res_text' => $content,
+            ]);
 
-        $contact = returnAttribute($content, ['contact']);
+            $patient = Patient::create($this->readPatientData($resource, $content));
+            $patientKey = ['patient_id' => $patient->id];
+            parseAndCreate(PatientIdentifier::class, returnAttribute($content, ['identifier']), 'returnIdentifier', $patientKey);
+            parseAndCreate(PatientTelecom::class, returnAttribute($content, ['telecom']), 'returnTelecom', $patientKey);
+            parseAndCreate(PatientAddress::class, returnAttribute($content, ['address']), 'returnAddress', $patientKey);
+            parseAndCreate(GeneralPractitioner::class, returnAttribute($content, ['generalPractitioner']), 'returnReference', $patientKey);
 
-        if (is_array($contact) || is_object($contact)) {
-            foreach ($contact as $c) {
-                $contactData = returnPatientContact($c);
-                $patientContact = PatientContact::create(array_merge($contactData, $patientKey));
-                $contactKey = ['contact_id' => $patientContact->id];
-                $contactTelecom = returnAttribute($c, ['telecom']);
-                parseAndCreate(PatientContactTelecom::class, $contactTelecom, 'returnTelecom', $contactKey);
+            $contact = returnAttribute($content, ['contact']);
+
+            if (is_array($contact) || is_object($contact)) {
+                foreach ($contact as $c) {
+                    $contactData = returnPatientContact($c);
+                    $patientContact = PatientContact::create(array_merge($contactData, $patientKey));
+                    $contactKey = ['contact_id' => $patientContact->id];
+                    $contactTelecom = returnAttribute($c, ['telecom']);
+                    parseAndCreate(PatientContactTelecom::class, $contactTelecom, 'returnTelecom', $contactKey);
+                }
             }
-        }
 
-        return (new PatientResource($content))
+            DB::commit();
+
+            return (new PatientResource($content))
             ->response()
             ->setStatusCode(201);
+        } catch (Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
+        }
     }
 
-    private function readPatientData($resource, $content) {
+    private function readPatientData($resource, $content)
+    {
         return [
             'resource_id' => $resource->id,
             'active' => returnAttribute($content, ['active']),
