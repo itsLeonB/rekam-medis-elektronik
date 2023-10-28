@@ -42,3 +42,11 @@ Route::get('/patient/{satusehat_id}', function ($satusehat_id) {
         Resource::where('satusehat_id', $satusehat_id)->firstOrFail()
     );
 });
+
+Route::post('/patient', function (Request $request) {
+    $patient = Resource::create($request->all());
+
+    return (new PatientResource($patient))
+        ->response()
+        ->setStatusCode(201);
+});

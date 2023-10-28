@@ -16,7 +16,68 @@ class PatientResource extends JsonResource
     public function toArray(Request $request): array
     {
         $patient = $this->patient->first();
+        $identifier = $this->createIdentifierArray($patient);
+        $telecom = $this->createTelecomArray($patient);
+        $address = $this->createAddressArray($patient);
+        $contact = $this->createContactArray($patient);
+        $generalPractitioner = $this->createGeneralPractitionerArray($patient);
+        $maritalDisplay = $this->displayMaritalStatus($patient->marital_status);
 
+        return merge_array(
+            [
+                'resourceType' => 'Patient',
+                'id' => $this->satusehat_id,
+                'extension' => [
+                    [
+                        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace',
+                        'valueAddress' => [
+                            'city' => $patient->birth_place,
+                        ]
+                    ],
+                ],
+                'identifier' => $identifier,
+                'active' => $patient->active,
+                'name' => [[
+                    'use' => 'official',
+                    'text' => $patient->name,
+                    'prefix' => $patient->prefix == '' ? null : explode(' ', $patient->prefix),
+                    'suffix' => $patient->suffix == '' ? null : explode(' ', $patient->suffix),
+                ]],
+                'telecom' => $telecom,
+                'gender' => $patient->gender,
+                'birthDate' => Carbon::parse($patient->birth_date)->format('Y-m-d'),
+                'address' => $address,
+                'contact' => $contact,
+                'maritalStatus' => [
+                    'coding' => [
+                        [
+                            'system' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+                            'code' => $patient->marital_status,
+                            'display' => $maritalDisplay
+                        ]
+                    ],
+                ],
+                'multipleBirthBoolean' => $patient->multiple_birth,
+                'communication' => [
+                    [
+                        'language' => [
+                            'coding' => [
+                                [
+                                    'system' => 'urn:ietf:bcp:47',
+                                    'code' => $patient->language
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'generalPractitioner' => $generalPractitioner,
+            ],
+            $patient->deceased,
+        );
+    }
+
+    private function createIdentifierArray($patient) {
+        $identifier = [];
         foreach ($patient->identifier as $i) {
             $identifier[] = [
                 'system' => $i->system,
@@ -24,7 +85,11 @@ class PatientResource extends JsonResource
                 'value' => $i->value,
             ];
         }
+        return $identifier;
+    }
 
+    private function createTelecomArray($patient) {
+        $telecom = [];
         foreach ($patient->telecom as $t) {
             $telecom[] = [
                 'system' => $t->system,
@@ -32,7 +97,11 @@ class PatientResource extends JsonResource
                 'value' => $t->value,
             ];
         }
+        return $telecom;
+    }
 
+    private function createAddressArray($patient) {
+        $address = [];
         foreach ($patient->address as $a) {
             $address[] = [
                 'use' => $a->use,
@@ -72,43 +141,42 @@ class PatientResource extends JsonResource
                 ],
             ];
         }
+        return $address;
+    }
 
-        switch ($patient->relationship) {
-            case 'C':
-                $relationDisplay = 'Emergency Contact';
-                break;
-            case 'E':
-                $relationDisplay = 'Employer';
-                break;
-            case 'F':
-                $relationDisplay = 'Federal Agency';
-                break;
-            case 'I':
-                $relationDisplay = 'Insurance Company';
-                break;
-            case 'N':
-                $relationDisplay = 'Next-of-Kin';
-                break;
-            case 'S':
-                $relationDisplay = 'State Agency';
-                break;
-            case 'U':
-                $relationDisplay = 'Unknown';
-                break;
-            case 'T':
-            default:
-                $relationDisplay = 'Unknown';
-                break;
-        }
-
+    private function createContactArray($patient) {
+        $contact = [];
         foreach ($patient->contact as $c) {
-            foreach ($c->telecom as $ct) {
-                $contactTelecom[] = [
-                    'system' => $ct->system,
-                    'use' => $ct->use,
-                    'value' => $ct->value,
-                ];
+            $contactTelecom = $this->createTelecomArray($c);
+
+            switch ($c->relationship) {
+                case 'C':
+                    $relationDisplay = 'Emergency Contact';
+                    break;
+                case 'E':
+                    $relationDisplay = 'Employer';
+                    break;
+                case 'F':
+                    $relationDisplay = 'Federal Agency';
+                    break;
+                case 'I':
+                    $relationDisplay = 'Insurance Company';
+                    break;
+                case 'N':
+                    $relationDisplay = 'Next-of-Kin';
+                    break;
+                case 'S':
+                    $relationDisplay = 'State Agency';
+                    break;
+                case 'U':
+                    $relationDisplay = 'Unknown';
+                    break;
+                case 'T':
+                default:
+                    $relationDisplay = 'Unknown';
+                    break;
             }
+            $relationshipDisplay = $relationDisplay;
             $contact[] = [
                 'relationship' => [
                     [
@@ -116,7 +184,7 @@ class PatientResource extends JsonResource
                             [
                                 'system' => 'http://terminology.hl7.org/CodeSystem/v2-0131',
                                 'code' => $c->relationship,
-                                'display' => $relationDisplay
+                                'display' => $relationshipDisplay,
                             ],
                         ],
                     ],
@@ -168,8 +236,11 @@ class PatientResource extends JsonResource
                 'gender' => $c->gender,
             ];
         }
+        return $contact;
+    }
 
-        switch ($patient->marital_status) {
+    public function displayMaritalStatus($maritalCode) {
+        switch ($maritalCode) {
             case 'A':
                 $maritalDisplay = 'Annulled';
                 break;
@@ -207,69 +278,16 @@ class PatientResource extends JsonResource
                 $maritalDisplay = 'Annulled';
                 break;
         }
+        return $maritalDisplay;
+    }
 
-        $generalPractitioner = null;
+    private function createGeneralPractitionerArray($patient) {
+        $generalPractitioner = [];
         foreach ($patient->generalPractitioner as $gp) {
             $generalPractitioner[] = [
                 'reference' => $gp->reference,
             ];
         }
-
-        if (is_array($generalPractitioner)) {
-            $genPrac = ['generalPractitioner' => $generalPractitioner];
-        } else {
-            $genPrac = null;
-        }
-
-        return merge_array(
-            [
-                'resourceType' => 'Patient',
-                'id' => $this->satusehat_id,
-                'extension' => [
-                    [
-                        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace',
-                        'valueAddress' => [
-                            'city' => $patient->birth_place,
-                        ]
-                    ],
-                ],
-                'identifier' => $identifier,
-                'active' => $patient->active,
-                'name' => [[
-                    'use' => 'official',
-                    'text' => $patient->name,
-                    'prefix' => $patient->prefix == '' ? null : explode(' ', $patient->prefix),
-                    'suffix' => $patient->suffix == '' ? null : explode(' ', $patient->suffix),
-                ]],
-                'telecom' => $telecom,
-                'gender' => $patient->gender,
-                'birthDate' => Carbon::parse($patient->birth_date)->format('Y-m-d'),
-                'address' => $address,
-                'maritalStatus' => [
-                    'coding' => [
-                        [
-                            'system' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
-                            'code' => $patient->marital_status,
-                            'display' => $maritalDisplay
-                        ]
-                    ],
-                ],
-                'multipleBirthBoolean' => $patient->multiple_birth,
-                'communication' => [
-                    [
-                        'language' => [
-                            'coding' => [
-                                [
-                                    'system' => 'urn:ietf:bcp:47',
-                                    'code' => $patient->language
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            $patient->deceased,
-            $genPrac
-        );
+        return $generalPractitioner;
     }
 }
