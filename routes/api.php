@@ -5,6 +5,7 @@ use App\Models\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SatusehatResourceController;
 use App\Http\Controllers\SatusehatTokenController;
 use App\Http\Resources\FhirResource;
@@ -37,16 +38,5 @@ Route::group(['middleware' => ['web']], function () {
 
 
 // Patient resource API
-Route::get('/patient/{satusehat_id}', function ($satusehat_id) {
-    return new PatientResource(
-        Resource::where('satusehat_id', $satusehat_id)->firstOrFail()
-    );
-});
-
-Route::post('/patient', function (Request $request) {
-    $patient = Resource::create($request->all());
-
-    return (new PatientResource($patient))
-        ->response()
-        ->setStatusCode(201);
-});
+Route::get('/patient/{satusehat_id}', [ResourceController::class, 'getPatient']);
+Route::post('/patient', [ResourceController::class, 'postPatient']);
