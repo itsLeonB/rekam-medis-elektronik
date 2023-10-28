@@ -108,12 +108,12 @@ function getFullName($nameData)
 function getPrefix($nameData)
 {
     if ($nameData === null) {
-        return '';
+        return null;
     }
 
     foreach ($nameData as $name) {
 
-        $displayName = '';
+        $displayName = null;
         $nameParts = [];
         if (isset($name['prefix']) && !empty($name['prefix'])) {
             $nameParts[] = implode(' ', $name['prefix']);
@@ -126,12 +126,12 @@ function getPrefix($nameData)
 function getSuffix($nameData)
 {
     if ($nameData === null) {
-        return '';
+        return null;
     }
 
     foreach ($nameData as $name) {
 
-        $displayName = '';
+        $displayName = null;
         $nameParts = [];
         if (isset($name['suffix']) && !empty($name['suffix'])) {
             $nameParts[] = implode(' ', $name['suffix']);
@@ -427,31 +427,23 @@ function getBirthPlace($extension)
                         if (isset($ex['url']) && $ex['url'] === 'city') {
                             return $ex['valueCode'];
                         } else {
-                            return 0;
+                            return null;
                         }
                     }
                 } elseif (isset($e['valueAddress']) && !empty($e['valueAddress'])) {
                     if (isset($e['valueAddress']['city']) && !empty($e['valueAddress']['city'])) {
                         $city = $e['valueAddress']['city'];
-                        $kotaKabupaten = KodeWilayah::where('nama', $city)
-                            ->orWhere('nama', 'Kota ' . $city)
-                            ->orWhere('nama', 'Kabupaten ' . $city)
-                            ->first();
-                        if ($kotaKabupaten) {
-                            return $kotaKabupaten->kode;
-                        } else {
-                            return 0;
-                        }
+                        return $city;
                     } else {
-                        return 0;
+                        return null;
                     }
                 }
             } else {
-                return 0;
+                return null;
             }
         }
     } else {
-        return 0;
+        return null;
     }
 }
 

@@ -45,6 +45,10 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+
+        'satusehat' => [
+            \App\Http\Middleware\VerifyAccessToken::class,
+        ],
     ];
 
     /**

@@ -62,4 +62,44 @@ class Resource extends Model
     {
         return $this->hasMany(ImagingStudy::class);
     }
+
+    public function procedure(): HasMany
+    {
+        return $this->hasMany(Procedure::class);
+    }
+
+    public function serviceRequest(): HasMany
+    {
+        return $this->hasMany(ServiceRequest::class);
+    }
+
+    public function medicationRequest(): HasMany
+    {
+        return $this->hasMany(MedicationRequest::class);
+    }
+
+    public function medication(): HasMany
+    {
+        return $this->hasMany(Medication::class);
+    }
+
+    public function medicationDispense(): HasMany
+    {
+        return $this->hasMany(MedicationDispense::class);
+    }
+
+    public function composition(): HasMany
+    {
+        return $this->hasMany(Composition::class);
+    }
+
+    public function allergyIntolerance(): HasMany
+    {
+        return $this->hasMany(AllergyIntolerance::class);
+    }
+
+    public function clinicalImpression(): HasMany
+    {
+        return $this->hasMany(ClinicalImpression::class);
+    }
 }
