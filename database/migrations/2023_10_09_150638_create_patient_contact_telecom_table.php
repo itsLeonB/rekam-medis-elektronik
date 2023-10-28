@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('patient_contact_telecom', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('patient_contact_id');
-            $table->index('patient_contact_id');
-            $table->foreign('patient_contact_id')->references('id')->on('patient_contact')->onDelete('cascade');
+            $table->unsignedBigInteger('contact_id');
+            $table->index('contact_id');
+            $table->foreign('contact_id')->references('id')->on('patient_contact')->onDelete('cascade');
             $table->enum('system', ['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other']);
             $table->enum('use', ['home', 'work', 'temp', 'old', 'mobile']);
             $table->string('value');

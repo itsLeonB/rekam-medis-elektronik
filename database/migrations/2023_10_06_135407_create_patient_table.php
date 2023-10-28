@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('suffix')->nullable();
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->date('birth_date')->nullable();
-            $table->integer('birth_place')->unsigned()->nullable();
+            $table->string('birth_place')->nullable();
             $table->json('deceased')->nullable();
             $table->enum('marital_status', ['A', 'D', 'I', 'L', 'M', 'P', 'S', 'T', 'U', 'W'])->nullable();
             $table->json('multiple_birth');

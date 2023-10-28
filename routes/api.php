@@ -1,7 +1,14 @@
 <?php
 
+use App\Http\Resources\PatientResource;
+use App\Models\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SatusehatResourceController;
+use App\Http\Controllers\SatusehatTokenController;
+use App\Http\Resources\FhirResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +24,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// SATUSEHAT resource API
+// Route::middleware(['satusehat'])->group(function () {
+//     Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatResourceController::class, 'getResource']);
+// });
+
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatResourceController::class, 'getResource']);
+    Route::get('/satusehat/accesstoken', [SatusehatTokenController::class, 'getAccessToken']);
+});
+
+
+// Patient resource API
+Route::get('/patient/{satusehat_id}', [ResourceController::class, 'getPatient']);
+Route::post('/patient', [ResourceController::class, 'postPatient']);

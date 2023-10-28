@@ -80,7 +80,7 @@ class PatientSeeder extends Seeder
                     $contactData = returnPatientContact($c);
                     $contactTelecom = returnAttribute($c, ['telecom'], null);
                     $patientContact = PatientContact::create(array_merge($contactData, $foreignKey));
-                    $contactFk = ['patient_contact_id' => $patientContact->id];
+                    $contactFk = ['contact_id' => $patientContact->id];
                     parseAndCreate(PatientContactTelecom::class, $contactTelecom, 'returnTelecom', $contactFk);
                 }
             }
