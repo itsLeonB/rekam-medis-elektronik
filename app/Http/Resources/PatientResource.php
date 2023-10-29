@@ -15,13 +15,13 @@ class PatientResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $patient = $this->patient->first();
-        $identifier = $this->createIdentifierArray($patient);
-        $telecom = $this->createTelecomArray($patient);
-        $address = $this->createAddressArray($patient);
-        $contact = $this->createContactArray($patient);
-        $generalPractitioner = $this->createGeneralPractitionerArray($patient);
-        $maritalDisplay = $this->displayMaritalStatus($patient->marital_status);
+        $patient = $request['patient'];
+        $identifier = $request['identifier'];
+        $telecom = $request['telecom'];
+        $address = $request['address'];
+        $contact = $request['contact'];
+        $generalPractitioner = $request['general_practitioner'];
+        $maritalDisplay = $request['marital_display'];
 
         $data = merge_array(
             [

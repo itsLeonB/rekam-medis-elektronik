@@ -28,7 +28,7 @@ class OrganizationSeeder extends Seeder
 
         foreach ($organizations as $o) {
             $resContent = json_decode($o->res_text, true);
-            $active = getActive($resContent);
+            $active = returnAttribute($resContent, ['active']);
             $identifier = returnAttribute($resContent, ['identifier'], null);
             $type = getResourceType($resContent);
             $telecoms = getTelecom($resContent);
@@ -40,7 +40,7 @@ class OrganizationSeeder extends Seeder
                     'resource_id' => $o->resource_id,
                     'active' => $active,
                     'name' => $resContent['name'],
-                    'alias' => getActive($resContent),
+                    'alias' => returnAttribute($resContent, ['alias']),
                     'part_of' => getPartOf($resContent)
                 ]
             );

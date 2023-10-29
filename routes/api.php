@@ -34,10 +34,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatController::class, 'getResource']);
-    Route::get('/satusehat/accesstoken', [SatusehatController::class, 'getAccessToken']);
 });
 
 
 // Patient resource API
-Route::get('/patient/{satusehat_id}', [ResourceController::class, 'getPatient']);
+Route::get('/{res_type}/{satusehat_id}', [ResourceController::class, 'getResource']);
 Route::post('/patient', [ResourceController::class, 'postPatient']);

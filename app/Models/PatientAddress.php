@@ -14,6 +14,8 @@ class PatientAddress extends Model
 
     public $timestamps = false;
 
+    protected $guarded = ['id'];
+
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);

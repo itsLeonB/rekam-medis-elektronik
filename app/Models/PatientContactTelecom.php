@@ -14,6 +14,8 @@ class PatientContactTelecom extends Model
 
     public $timestamps = false;
 
+    protected $guarded = ['id'];
+
     public function patient(): BelongsTo
     {
         return $this->belongsTo(PatientContact::class, 'patient_contact_id');

@@ -1,18 +1,5 @@
 <?php
 
-use App\Models\KodeWilayah;
-use App\Models\KotaKabupaten;
-use App\Models\Resource;
-
-function getActive($resource)
-{
-    if (isset($resource['active']) && !empty($resource['active'])) {
-        return $resource['active'];
-    } else {
-        return true;
-    }
-}
-
 function getName($resource)
 {
     if (isset($resource['name']) && !empty($resource['name'])) {
@@ -633,15 +620,6 @@ function getOrganizationContactDetails($contact)
     $contactDetails['address'] = getAddress($contact);
 
     return $contactDetails;
-}
-
-function getAlias($resource)
-{
-    if (isset($resource['alias'][0]) && !empty($resource['alias'][0])) {
-        return $resource['alias'][0];
-    } else {
-        return '';
-    }
 }
 
 function getPartOf($resource)

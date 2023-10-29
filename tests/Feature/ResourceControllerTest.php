@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Patient;
+use App\Models\Resource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
@@ -17,189 +19,156 @@ class ResourceControllerTest extends TestCase
      */
     public function test_users_can_create_new_patient_data()
     {
-        $resText = '{
-            "_birthDate": {
-              "extension": [
-                {
-                  "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/patient-birthTime",
-                  "valueDateTime": "1944-11-17T15:39:00+07:00"
-                }
-              ]
+        $data =
+        '{
+            "patient": {
+                "active": true,
+                "name": "Budi Pekerti",
+                "prefix": "Prof. Dr.",
+                "suffix": "S.Kom., M.Kom.",
+                "gender": "male",
+                "birth_date": "2000-10-10",
+                "birth_place": "Surabaya",
+                "deceased": null,
+                "marital_status": "M",
+                "multiple_birth": false,
+                "language": "id"
             },
-            "active": true,
-            "address": [
-              {
-                "city": "Jakarta",
-                "country": "ID",
-                "extension": [
-                  {
-                    "extension": [
-                      {
-                        "url": "province",
-                        "valueCode": "10"
-                      },
-                      {
-                        "url": "city",
-                        "valueCode": "1010"
-                      },
-                      {
-                        "url": "district",
-                        "valueCode": "1010101"
-                      },
-                      {
-                        "url": "village",
-                        "valueCode": "1010101101"
-                      },
-                      {
-                        "url": "rt",
-                        "valueCode": "1"
-                      },
-                      {
-                        "url": "rw",
-                        "valueCode": "2"
-                      }
-                    ],
-                    "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode"
-                  }
-                ],
-                "line": [
-                  "Gd. Prof. Dr. Sujudi Lt.5, Jl. H.R. Rasuna Said Blok X5 Kav. 4-9 Kuningan"
-                ],
-                "postalCode": "12950",
-                "use": "home"
-              }
-            ],
-            "birthDate": "1944-11-17",
-            "communication": [
-              {
-                "language": {
-                  "coding": [
-                    {
-                      "code": "id",
-                      "display": "Indonesian",
-                      "system": "urn:ietf:bcp:47"
-                    }
-                  ],
-                  "text": "Indonesian"
+            "identifier": [
+                {
+                    "system": "https://fhir.kemkes.go.id/id/nik",
+                    "use": "official",
+                    "value": "3578020356038885"
                 },
-                "preferred": true
-              }
-            ],
-            "contact": [
-              {
-                "name": {
-                  "family": "Smith",
-                  "given": [
-                    "Rebecca"
-                  ],
-                  "use": "official"
+                {
+                    "system": "https://fhir.kemkes.go.id/id/ihs-number",
+                    "use": "official",
+                    "value": "P92029102723"
                 },
-                "relationship": [
-                  {
-                    "coding": [
-                      {
-                        "code": "C",
-                        "system": "http://terminology.hl7.org/CodeSystem/v2-0131"
-                      }
-                    ]
-                  }
-                ],
-                "telecom": [
-                  {
+                {
+                    "system": "rekam-medis-rsum",
+                    "use": "official",
+                    "value": "110204"
+                }
+            ],
+            "telecom": [
+                {
                     "system": "phone",
                     "use": "mobile",
-                    "value": "0690383372"
-                  }
-                ]
-              }
-            ],
-            "deceasedBoolean": false,
-            "extension": [
-              {
-                "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace",
-                "valueAddress": {
-                  "city": "Jakarta",
-                  "country": "ID"
-                }
-              }
-            ],
-            "gender": "male",
-            "id": "100000030009",
-            "identifier": [
-              {
-                "system": "https://fhir.kemkes.go.id/id/ihs-number",
-                "use": "official",
-                "value": "100000030009"
-              },
-              {
-                "system": "https://fhir.kemkes.go.id/id/nik",
-                "use": "official",
-                "value": "3171022809990001"
-              }
-            ],
-            "maritalStatus": {
-              "coding": [
+                    "value": "082393751918"
+                },
                 {
-                  "code": "M",
-                  "display": "Married",
-                  "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus"
+                    "system": "email",
+                    "use": "work",
+                    "value": "budi.pekerti@kantor.com"
                 }
-              ],
-              "text": "Married"
-            },
-            "meta": {
-              "lastUpdated": "2022-08-20T12:14:05.526183+00:00",
-              "profile": [
-                "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient|4.0.1",
-                "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
-              ],
-              "versionId": "MTY2MDk5NzY0NTUyNjE4MzAwMA"
-            },
-            "multipleBirthBoolean": false,
-            "name": [
-              {
-                "family": "Santoso",
-                "given": [
-                  "Budi"
-                ],
-                "suffix": [
-                  "MSc"
-                ],
-                "text": "Budi Santoso",
-                "use": "official"
-              }
             ],
-            "resourceType": "Patient",
-            "telecom": [
-              {
-                "system": "phone",
-                "use": "mobile",
-                "value": "08123456789"
-              },
-              {
-                "system": "email",
-                "use": "home",
-                "value": "budi.santoso@xyz.com"
-              }
+            "address": [
+                {
+                    "use": "home",
+                    "line": "Jalan Surabaya Nomor 6 Blok 9",
+                    "country": "ID",
+                    "postal_code": "60255",
+                    "province": 35,
+                    "city": 3578,
+                    "district": 357802,
+                    "village": 3578020001,
+                    "rw": 9,
+                    "rt": 6
+                },
+                {
+                    "use": "work",
+                    "line": "Gedung DPRD Jawa Timur",
+                    "country": "ID",
+                    "postal_code": "60255",
+                    "province": 35,
+                    "city": 3578,
+                    "district": 357802,
+                    "village": 3578020001,
+                    "rw": 9,
+                    "rt": 6
+                }
+            ],
+            "contact": [
+                {
+                    "contact_data": {
+                        "relationship": "C",
+                        "name": "Banyak Pahala",
+                        "prefix": null,
+                        "suffix": null,
+                        "gender": "unknown",
+                        "address_use": "home",
+                        "address_line": "Gedung DPRD Jawa Timur",
+                        "country": "ID",
+                        "postal_code": "60255",
+                        "province": 35,
+                        "city": 3578,
+                        "district": 357802,
+                        "village": 3578020001,
+                        "rw": 9,
+                        "rt": 6
+                    },
+                    "telecom": [
+                        {
+                            "system": "phone",
+                            "use": "mobile",
+                            "value": "082393751918"
+                        },
+                        {
+                            "system": "email",
+                            "use": "work",
+                            "value": "budi.pekerti@kantor.com"
+                        }
+                    ]
+                },
+                {
+                    "contact_data": {
+                        "relationship": "C",
+                        "name": "Budi Ajaib",
+                        "prefix": null,
+                        "suffix": null,
+                        "gender": "unknown",
+                        "address_use": "home",
+                        "address_line": "Gedung DPRD Jawa Timur",
+                        "country": "ID",
+                        "postal_code": "60255",
+                        "province": 35,
+                        "city": 3578,
+                        "district": 357802,
+                        "village": 3578020001,
+                        "rw": 9,
+                        "rt": 6
+                    },
+                    "telecom": [
+                        {
+                            "system": "phone",
+                            "use": "mobile",
+                            "value": "082393751918"
+                        },
+                        {
+                            "system": "email",
+                            "use": "work",
+                            "value": "budi.pekerti@kantor.com"
+                        }
+                    ]
+                }
+            ],
+            "general_practitioner": [
+                {
+                    "reference": "Practitioner/N10000001"
+                },
+                {
+                    "reference": "Practitioner/N10000001"
+                }
             ]
-          }';
+        }';
+        $data = json_decode($data, true);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/patient', $data, $headers)->assertStatus(201);
 
-        $data = json_decode($resText, true);
-        $response = $this->json('POST', '/api/patient', $data)->assertStatus(201);
-
-        $this->assertDatabaseHas('patient', [
-            'active' => true,
-            'name' => 'Budi Santoso',
-            'prefix' => '',
-            'suffix' => 'MSc',
-            'gender' => 'male',
-            'birth_date' => '1944-11-17',
-            'birth_place' => 'Jakarta',
-            'deceased' => null,
-            'marital_status' => 'M',
-            'multiple_birth' => false,
-            'language' => 'id'
-        ]);
+        $this->assertDatabaseHas('patient', $data['patient']);
     }
 
 
@@ -208,7 +177,26 @@ class ResourceControllerTest extends TestCase
      */
     public function test_users_can_view_patient_data()
     {
-        $response = $this->json('GET', 'api/patient/100000030009');
+        $resource = Resource::create(
+            [
+                'satusehat_id' => 'P000000',
+                'res_type' => 'Patient',
+                'res_ver' => 1
+            ]
+        );
+
+        Patient::create([
+            'resource_id' => $resource->id,
+            'active' => false,
+            'name' => 'Budi Pekerti',
+            'gender' => 'male',
+            'birth_date' => '2002-11-11',
+            'marital_status' => 'M',
+            'multiple_birth' => true,
+            'language' => 'id'
+        ]);
+
+        $response = $this->json('GET', 'api/patient/P000000');
 
         $response->assertStatus(200);
     }

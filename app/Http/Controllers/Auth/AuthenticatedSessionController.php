@@ -38,13 +38,11 @@ class AuthenticatedSessionController extends Controller
 
         if ($request->user()->email_verified_at == null) {
             return redirect()->route('verification.notice');
-        } else {
-            if ($request->user()->password_changed_at == null) {
-                return redirect()->route('profile.edit');
-            } else {
-                return redirect()->intended(RouteServiceProvider::HOME);
-            }
         }
+        if ($request->user()->password_changed_at == null) {
+            return redirect()->route('profile.edit');
+        }
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

@@ -31,15 +31,14 @@ class PatientSeeder extends Seeder
 
         foreach ($patients as $p) {
             $resContent = json_decode($p->res_text, true);
-            $active = getActive($resContent);
+            $active = returnAttribute($resContent, ['active']);
             $nameData = getName($resContent);
             $gender = getGender($resContent) == null ? 'unknown' : getGender($resContent);
-            $birthDate = getBirthDate($resContent) == null ? '1900-01-01' : getBirthDate($resContent);
+            $birthDate = parseDate(returnAttribute($resContent, ['birthDate'], '1900-01-01'));
             $extension = getExtension($resContent);
             $identifiers = returnAttribute($resContent, ['identifier'], null);
             $telecoms = returnAttribute($resContent, ['telecom'], null);
             $address = returnAttribute($resContent, ['address'], null);
-            $photo = Storage::disk('public')->files('images');
             $contact = returnAttribute($resContent, ['contact'], null);
             $generalPractitioners = getGeneralPractitioner($resContent);
 
@@ -65,15 +64,6 @@ class PatientSeeder extends Seeder
             parseAndCreate(PatientIdentifier::class, $identifiers, 'returnIdentifier', $foreignKey);
             parseAndCreate(PatientTelecom::class, $telecoms, 'returnTelecom', $foreignKey);
             parseAndCreate(PatientAddress::class, $address, 'returnAddress', $foreignKey);
-
-            PatientPhoto::create(
-                [
-                    'patient_id' => $patient->id,
-                    'title' => "Foto pasien",
-                    'url' => $photo[0],
-                    'creation' => Carbon::now()
-                ]
-            );
 
             if (is_array($contact) || is_object($contact)) {
                 foreach ($contact as $c) {

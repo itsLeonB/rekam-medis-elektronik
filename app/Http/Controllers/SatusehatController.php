@@ -6,21 +6,43 @@ use App\Http\Controllers\Controller;
 use Dotenv\Dotenv;
 use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
 class SatusehatController extends Controller
 {
-    public function getAccessToken()
+    private $satusehatClient;
+
+    private function loadEnv() {
+        $dotenv = Dotenv::createUnsafeImmutable(getcwd());
+        $dotenv->safeLoad();
+
+        return [
+            'auth_url' => env('auth_url'),
+            'base_url' => env('base_url'),
+            'consent_url' => env('consent_url'),
+            'client_id' => env('client_id'),
+            'client_secret' => env('client_secret'),
+            'organization_id' => env('organization_id'),
+        ];
+    }
+
+    public function __construct()
     {
-        $satusehatClient = new SatusehatClient();
-        $response = $satusehatClient->getToken();
-        return $response;
+        $envVars = $this->loadEnv();
+        $this->satusehatClient = new SatusehatClient(
+            $envVars['auth_url'],
+            $envVars['base_url'],
+            $envVars['consent_url'],
+            $envVars['client_id'],
+            $envVars['client_secret'],
+            $envVars['organization_id']
+        );
     }
 
     public function getResource($resourceType, $satusehatId)
     {
-        $satusehatClient = new SatusehatClient();
-        $response = $satusehatClient->get($resourceType, $satusehatId);
+        $response = $this->satusehatClient->get($resourceType, $satusehatId);
         return $response;
     }
 }
@@ -34,17 +56,14 @@ class SatusehatClient
     public string $clientSecret;
     public string $organizationId;
 
-    public function __construct()
+    public function __construct($authUrl, $baseUrl, $consentUrl, $clientId, $clientSecret, $organizationId)
     {
-        $dotenv = Dotenv::createUnsafeImmutable(getcwd());
-        $dotenv->safeLoad();
-
-        $this->authUrl = env('auth_url');
-        $this->baseUrl = env('base_url');
-        $this->consentUrl = env('consent_url');
-        $this->clientId = env('client_id');
-        $this->clientSecret = env('client_secret');
-        $this->organizationId = env('organization_id');
+        $this->authUrl = $authUrl;
+        $this->baseUrl = $baseUrl;
+        $this->consentUrl = $consentUrl;
+        $this->clientId = $clientId;
+        $this->clientSecret = $clientSecret;
+        $this->organizationId = $organizationId;
     }
 
     public function getToken()
@@ -53,12 +72,11 @@ class SatusehatClient
             if (session()->has('token_created_at')) {
                 if (now()->diffInMinutes(session('token_created_at')) < 55) {
                     return session()->get('token');
-                } else {
-                    session()->forget('token');
-                    session()->forget('token_created_at');
                 }
             }
         }
+        session()->forget('token');
+        session()->forget('token_created_at');
 
         $client = new Client();
         $url = $this->authUrl . '/accesstoken?grant_type=client_credentials';
@@ -71,14 +89,6 @@ class SatusehatClient
         ];
 
         $request = new Request('POST', $url, $headers);
-
-        // $response = $client->request('POST', $url, [
-        //     'headers' => $headers,
-        //     'form_params' => [
-        //         'client_id' => env('client_id'),
-        //         'client_secret' => env('client_secret')
-        //     ],
-        // ]);
 
         $response = $client->sendAsync($request, $options)->wait();
         $contents = json_decode($response->getBody()->getContents());
@@ -104,7 +114,7 @@ class SatusehatClient
             $response = $client->sendAsync($request)->wait();
             $contents = json_decode($response->getBody()->getContents());
             return $contents;
-        } catch (Exception $e) {
+        } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
             ));

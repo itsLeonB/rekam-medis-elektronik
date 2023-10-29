@@ -18,6 +18,8 @@ class Resource extends Model
         'fhir_ver' => 'R4'
     ];
 
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
     public function content(): HasMany
     {
         return $this->hasMany(ResourceContent::class);
