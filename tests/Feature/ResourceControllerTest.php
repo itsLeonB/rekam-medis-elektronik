@@ -4,10 +4,205 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ResourceControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+
+    /**
+     * Test apakah user dapat membuat data pasien baru
+     */
+    public function test_users_can_create_new_patient_data()
+    {
+        $resText = '{
+            "_birthDate": {
+              "extension": [
+                {
+                  "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/patient-birthTime",
+                  "valueDateTime": "1944-11-17T15:39:00+07:00"
+                }
+              ]
+            },
+            "active": true,
+            "address": [
+              {
+                "city": "Jakarta",
+                "country": "ID",
+                "extension": [
+                  {
+                    "extension": [
+                      {
+                        "url": "province",
+                        "valueCode": "10"
+                      },
+                      {
+                        "url": "city",
+                        "valueCode": "1010"
+                      },
+                      {
+                        "url": "district",
+                        "valueCode": "1010101"
+                      },
+                      {
+                        "url": "village",
+                        "valueCode": "1010101101"
+                      },
+                      {
+                        "url": "rt",
+                        "valueCode": "1"
+                      },
+                      {
+                        "url": "rw",
+                        "valueCode": "2"
+                      }
+                    ],
+                    "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode"
+                  }
+                ],
+                "line": [
+                  "Gd. Prof. Dr. Sujudi Lt.5, Jl. H.R. Rasuna Said Blok X5 Kav. 4-9 Kuningan"
+                ],
+                "postalCode": "12950",
+                "use": "home"
+              }
+            ],
+            "birthDate": "1944-11-17",
+            "communication": [
+              {
+                "language": {
+                  "coding": [
+                    {
+                      "code": "id",
+                      "display": "Indonesian",
+                      "system": "urn:ietf:bcp:47"
+                    }
+                  ],
+                  "text": "Indonesian"
+                },
+                "preferred": true
+              }
+            ],
+            "contact": [
+              {
+                "name": {
+                  "family": "Smith",
+                  "given": [
+                    "Rebecca"
+                  ],
+                  "use": "official"
+                },
+                "relationship": [
+                  {
+                    "coding": [
+                      {
+                        "code": "C",
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0131"
+                      }
+                    ]
+                  }
+                ],
+                "telecom": [
+                  {
+                    "system": "phone",
+                    "use": "mobile",
+                    "value": "0690383372"
+                  }
+                ]
+              }
+            ],
+            "deceasedBoolean": false,
+            "extension": [
+              {
+                "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace",
+                "valueAddress": {
+                  "city": "Jakarta",
+                  "country": "ID"
+                }
+              }
+            ],
+            "gender": "male",
+            "id": "100000030009",
+            "identifier": [
+              {
+                "system": "https://fhir.kemkes.go.id/id/ihs-number",
+                "use": "official",
+                "value": "100000030009"
+              },
+              {
+                "system": "https://fhir.kemkes.go.id/id/nik",
+                "use": "official",
+                "value": "3171022809990001"
+              }
+            ],
+            "maritalStatus": {
+              "coding": [
+                {
+                  "code": "M",
+                  "display": "Married",
+                  "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus"
+                }
+              ],
+              "text": "Married"
+            },
+            "meta": {
+              "lastUpdated": "2022-08-20T12:14:05.526183+00:00",
+              "profile": [
+                "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient|4.0.1",
+                "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
+              ],
+              "versionId": "MTY2MDk5NzY0NTUyNjE4MzAwMA"
+            },
+            "multipleBirthBoolean": false,
+            "name": [
+              {
+                "family": "Santoso",
+                "given": [
+                  "Budi"
+                ],
+                "suffix": [
+                  "MSc"
+                ],
+                "text": "Budi Santoso",
+                "use": "official"
+              }
+            ],
+            "resourceType": "Patient",
+            "telecom": [
+              {
+                "system": "phone",
+                "use": "mobile",
+                "value": "08123456789"
+              },
+              {
+                "system": "email",
+                "use": "home",
+                "value": "budi.santoso@xyz.com"
+              }
+            ]
+          }';
+
+        $data = json_decode($resText, true);
+        $response = $this->json('POST', '/api/patient', $data)->assertStatus(201);
+
+        $this->assertDatabaseHas('patient', [
+            'active' => true,
+            'name' => 'Budi Santoso',
+            'prefix' => '',
+            'suffix' => 'MSc',
+            'gender' => 'male',
+            'birth_date' => '1944-11-17',
+            'birth_place' => 'Jakarta',
+            'deceased' => null,
+            'marital_status' => 'M',
+            'multiple_birth' => false,
+            'language' => 'id'
+        ]);
+    }
+
+
     /**
      * Test apakah user dapat menlihat data pasien
      */
@@ -16,187 +211,5 @@ class ResourceControllerTest extends TestCase
         $response = $this->json('GET', 'api/patient/100000030009');
 
         $response->assertStatus(200);
-    }
-
-    /**
-     * Test apakah user dapat membuat data pasien baru
-     */
-    public function test_users_can_create_new_patient_data()
-    {
-        $data = json_decode(
-            '{
-                "_birthDate": {
-                  "extension": [
-                    {
-                      "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/patient-birthTime",
-                      "valueDateTime": "1944-11-17T15:39:00+07:00"
-                    }
-                  ]
-                },
-                "active": true,
-                "address": [
-                  {
-                    "city": "Jakarta",
-                    "country": "ID",
-                    "extension": [
-                      {
-                        "extension": [
-                          {
-                            "url": "province",
-                            "valueCode": "10"
-                          },
-                          {
-                            "url": "city",
-                            "valueCode": "1010"
-                          },
-                          {
-                            "url": "district",
-                            "valueCode": "1010101"
-                          },
-                          {
-                            "url": "village",
-                            "valueCode": "1010101101"
-                          },
-                          {
-                            "url": "rt",
-                            "valueCode": "1"
-                          },
-                          {
-                            "url": "rw",
-                            "valueCode": "2"
-                          }
-                        ],
-                        "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode"
-                      }
-                    ],
-                    "line": [
-                      "Gd. Prof. Dr. Sujudi Lt.5, Jl. H.R. Rasuna Said Blok X5 Kav. 4-9 Kuningan"
-                    ],
-                    "postalCode": "12950",
-                    "use": "home"
-                  }
-                ],
-                "birthDate": "1944-11-17",
-                "communication": [
-                  {
-                    "language": {
-                      "coding": [
-                        {
-                          "code": "id",
-                          "display": "Indonesian",
-                          "system": "urn:ietf:bcp:47"
-                        }
-                      ],
-                      "text": "Indonesian"
-                    },
-                    "preferred": true
-                  }
-                ],
-                "contact": [
-                  {
-                    "name": {
-                      "family": "Smith",
-                      "given": [
-                        "Rebecca"
-                      ],
-                      "use": "official"
-                    },
-                    "relationship": [
-                      {
-                        "coding": [
-                          {
-                            "code": "C",
-                            "system": "http://terminology.hl7.org/CodeSystem/v2-0131"
-                          }
-                        ]
-                      }
-                    ],
-                    "telecom": [
-                      {
-                        "system": "phone",
-                        "use": "mobile",
-                        "value": "0690383372"
-                      }
-                    ]
-                  }
-                ],
-                "deceasedBoolean": false,
-                "extension": [
-                  {
-                    "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace",
-                    "valueAddress": {
-                      "city": "Jakarta",
-                      "country": "ID"
-                    }
-                  }
-                ],
-                "gender": "male",
-                "id": "100000030009",
-                "identifier": [
-                  {
-                    "system": "https://fhir.kemkes.go.id/id/ihs-number",
-                    "use": "official",
-                    "value": "100000030009"
-                  },
-                  {
-                    "system": "https://fhir.kemkes.go.id/id/nik",
-                    "use": "official",
-                    "value": "3171022809990001"
-                  }
-                ],
-                "maritalStatus": {
-                  "coding": [
-                    {
-                      "code": "M",
-                      "display": "Married",
-                      "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus"
-                    }
-                  ],
-                  "text": "Married"
-                },
-                "meta": {
-                  "lastUpdated": "2022-08-20T12:14:05.526183+00:00",
-                  "profile": [
-                    "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient|4.0.1",
-                    "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
-                  ],
-                  "versionId": "MTY2MDk5NzY0NTUyNjE4MzAwMA"
-                },
-                "multipleBirthBoolean": false,
-                "name": [
-                  {
-                    "family": "Santoso",
-                    "given": [
-                      "Budi"
-                    ],
-                    "suffix": [
-                      "MSc"
-                    ],
-                    "text": "Budi Santoso",
-                    "use": "official"
-                  }
-                ],
-                "resourceType": "Patient",
-                "telecom": [
-                  {
-                    "system": "phone",
-                    "use": "mobile",
-                    "value": "08123456789"
-                  },
-                  {
-                    "system": "email",
-                    "use": "home",
-                    "value": "budi.santoso@xyz.com"
-                  }
-                ]
-              }',
-            true
-        );
-
-        $response = $this->json('POST', 'api/patient', $data);
-
-        $response->assertStatus(201);
-
-        $this->assertDatabaseHas('patient', ['name' => 'Budi Santoso']);
     }
 }

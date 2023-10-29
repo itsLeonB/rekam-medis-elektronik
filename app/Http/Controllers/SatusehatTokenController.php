@@ -38,5 +38,6 @@ class SatusehatTokenController extends Controller
             // Handle the error
             return 'error';
         }
+        return $data;
     }
 }

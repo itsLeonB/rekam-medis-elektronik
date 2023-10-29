@@ -15,6 +15,7 @@ use App\Models\ResourceContent;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ResourceController extends Controller
 {
@@ -70,7 +71,8 @@ class ResourceController extends Controller
             ->setStatusCode(201);
         } catch (Exception $e) {
             DB::rollback();
-            return $e->getMessage();
+            Log::error('Error dalam input data pasien baru: ' . $e->getMessage());
+            return response()->json(['error' => 'Error dalam input data pasien baru.'], 500);
         }
     }
 

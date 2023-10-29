@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\SatusehatResourceController;
 use App\Http\Controllers\SatusehatTokenController;
 use App\Http\Resources\FhirResource;
@@ -32,8 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // });
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatResourceController::class, 'getResource']);
-    Route::get('/satusehat/accesstoken', [SatusehatTokenController::class, 'getAccessToken']);
+    Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatController::class, 'getResource']);
+    Route::get('/satusehat/accesstoken', [SatusehatController::class, 'getAccessToken']);
 });
 
 
