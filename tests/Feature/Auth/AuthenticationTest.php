@@ -23,7 +23,7 @@ class AuthenticationTest extends TestCase
         $user = User::create([
             'name' => 'leon',
             'email' => 'leon@mail.com',
-            'password' => 'password'
+            'password' => bcrypt('password')
         ]);
 
         $response = $this->post('/login', [

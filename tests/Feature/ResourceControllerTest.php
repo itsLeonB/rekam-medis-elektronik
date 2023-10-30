@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Patient;
 use App\Models\Resource;
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Storage;
@@ -15,12 +16,48 @@ class ResourceControllerTest extends TestCase
 
 
     /**
+     * Test apakah user dapat menlihat data pasien
+     */
+    public function test_users_can_view_patient_data()
+    {
+        $data = $this->getPatientTestData();
+
+        $resource = Resource::create(
+            [
+                'satusehat_id' => 'P000000',
+                'res_type' => 'Patient',
+                'res_ver' => 1
+            ]
+        );
+
+        $patientData = array_merge(['resource_id' => $resource->id], $data['patient']);
+
+        Patient::create($patientData);
+
+        $response = $this->json('GET', 'api/patient/P000000');
+        $response->assertStatus(200);
+    }
+
+
+    /**
      * Test apakah user dapat membuat data pasien baru
      */
     public function test_users_can_create_new_patient_data()
     {
+        $data = $this->getPatientTestData();
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/patient/create', $data, $headers);
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('patient', $data['patient']);
+    }
+
+
+    private function getPatientTestData(): array
+    {
         $data =
-        '{
+            '{
             "patient": {
                 "active": true,
                 "name": "Budi Pekerti",
@@ -31,7 +68,10 @@ class ResourceControllerTest extends TestCase
                 "birth_place": "Surabaya",
                 "deceased": null,
                 "marital_status": "M",
-                "multiple_birth": false,
+                "multiple_birth": {
+                    "multipleBirthBoolean": false,
+                    "multipleBirthInteger": 0
+                },
                 "language": "id"
             },
             "identifier": [
@@ -162,42 +202,7 @@ class ResourceControllerTest extends TestCase
                 }
             ]
         }';
-        $data = json_decode($data, true);
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/patient', $data, $headers)->assertStatus(201);
 
-        $this->assertDatabaseHas('patient', $data['patient']);
-    }
-
-
-    /**
-     * Test apakah user dapat menlihat data pasien
-     */
-    public function test_users_can_view_patient_data()
-    {
-        $resource = Resource::create(
-            [
-                'satusehat_id' => 'P000000',
-                'res_type' => 'Patient',
-                'res_ver' => 1
-            ]
-        );
-
-        Patient::create([
-            'resource_id' => $resource->id,
-            'active' => false,
-            'name' => 'Budi Pekerti',
-            'gender' => 'male',
-            'birth_date' => '2002-11-11',
-            'marital_status' => 'M',
-            'multiple_birth' => true,
-            'language' => 'id'
-        ]);
-
-        $response = $this->json('GET', 'api/patient/P000000');
-
-        $response->assertStatus(200);
+        return json_decode($data, true);
     }
 }

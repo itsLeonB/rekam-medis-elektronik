@@ -37,6 +37,9 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 
-// Patient resource API
+// Local DB resource API
+Route::get('/{res_type}', [ResourceController::class, 'indexResource']);
 Route::get('/{res_type}/{satusehat_id}', [ResourceController::class, 'getResource']);
-Route::post('/patient', [ResourceController::class, 'postPatient']);
+
+// Patient resource API
+Route::post('/patient/create', [ResourceController::class, 'postPatient']);
