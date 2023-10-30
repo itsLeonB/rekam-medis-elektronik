@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Patient;
 use App\Models\Resource;
+use App\Models\User;
 use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -20,6 +21,9 @@ class ResourceControllerTest extends TestCase
      */
     public function test_users_can_view_patient_data()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $data = $this->getPatientTestData();
 
         $resource = Resource::create(
@@ -44,6 +48,9 @@ class ResourceControllerTest extends TestCase
      */
     public function test_users_can_create_new_patient_data()
     {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
         $data = $this->getPatientTestData();
         $headers = [
             'Content-Type' => 'application/json'
