@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\SatusehatResourceController;
 use App\Http\Controllers\SatusehatTokenController;
 use App\Http\Resources\FhirResource;
@@ -32,11 +33,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // });
 
 Route::group(['middleware' => ['web']], function () {
-    Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatResourceController::class, 'getResource']);
-    Route::get('/satusehat/accesstoken', [SatusehatTokenController::class, 'getAccessToken']);
+    Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatController::class, 'getResource']);
 });
 
 
+// Local DB resource API
+Route::get('/{res_type}', [ResourceController::class, 'indexResource']);
+Route::get('/{res_type}/{satusehat_id}', [ResourceController::class, 'getResource']);
+
 // Patient resource API
-Route::get('/patient/{satusehat_id}', [ResourceController::class, 'getPatient']);
-Route::post('/patient', [ResourceController::class, 'postPatient']);
+Route::post('/patient/create', [ResourceController::class, 'postPatient']);

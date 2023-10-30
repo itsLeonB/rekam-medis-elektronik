@@ -25,6 +25,8 @@ class Patient extends Model
         'multiple_birth' => 'json'
     ];
 
+    protected $guarded = ['id'];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo
@@ -45,11 +47,6 @@ class Patient extends Model
     public function address(): HasMany
     {
         return $this->hasMany(PatientAddress::class);
-    }
-
-    public function photo(): HasMany
-    {
-        return $this->hasMany(PatientPhoto::class);
     }
 
     public function contact(): HasMany

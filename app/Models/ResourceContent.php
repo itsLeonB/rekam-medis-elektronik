@@ -17,6 +17,8 @@ class ResourceContent extends Model
         'res_ver' => 1
     ];
 
+    protected $guarded = ['id'];
+
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class);

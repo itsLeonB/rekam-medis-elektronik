@@ -1,18 +1,5 @@
 <?php
 
-use App\Models\KodeWilayah;
-use App\Models\KotaKabupaten;
-use App\Models\Resource;
-
-function getActive($resource)
-{
-    if (isset($resource['active']) && !empty($resource['active'])) {
-        return $resource['active'];
-    } else {
-        return true;
-    }
-}
-
 function getName($resource)
 {
     if (isset($resource['name']) && !empty($resource['name'])) {
@@ -633,15 +620,6 @@ function getOrganizationContactDetails($contact)
     $contactDetails['address'] = getAddress($contact);
 
     return $contactDetails;
-}
-
-function getAlias($resource)
-{
-    if (isset($resource['alias'][0]) && !empty($resource['alias'][0])) {
-        return $resource['alias'][0];
-    } else {
-        return '';
-    }
 }
 
 function getPartOf($resource)
@@ -1879,4 +1857,23 @@ function returnPerformer($attribute)
     } else {
         return $performer;
     }
+}
+
+function removeEmptyValues($array) {
+    foreach ($array as $key => $value) {
+        if (is_array($value)) {
+            // Recursively call the function for nested arrays
+            $array[$key] = removeEmptyValues($value);
+            if (empty($array[$key])) {
+                // Remove keys with empty arrays
+                unset($array[$key]);
+            }
+        } else {
+            // Remove null values, empty arrays, empty strings, and keys with empty arrays
+            if ($value === null || (is_array($value) && empty($value)) || $value === "") {
+                unset($array[$key]);
+            }
+        }
+    }
+    return $array;
 }

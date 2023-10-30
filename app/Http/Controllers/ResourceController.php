@@ -3,78 +3,108 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PatientRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\GeneralPractitioner;
 use App\Models\Patient;
+use App\Models\PatientAddress;
 use App\Models\PatientContact;
 use App\Models\PatientContactTelecom;
 use App\Models\PatientIdentifier;
 use App\Models\PatientTelecom;
 use App\Models\Resource;
 use App\Models\ResourceContent;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ResourceController extends Controller
 {
-    public function getPatient($satusehatId) {
-        return (new PatientResource(
-            Resource::where('satusehat_id', $satusehatId)->firstOrFail()
-        ))
-            ->response()
-            ->setStatusCode(200);
+    public function getResource($res_type, $satusehat_id)
+    {
+        try {
+            return response()->json(Resource::where([
+                ['satusehat_id', '=', $satusehat_id],
+                ['res_type', '=', $res_type]
+            ])->firstOrFail()->$res_type->first(), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
     }
 
-    public function postPatient(Request $request) {
-        $content = json_decode($request->getContent(), true);
+    public function postPatient(PatientRequest $request)
+    {
+        $body = json_decode($request->getContent(), true);
 
-        $resource = Resource::create([
-            'res_type' => 'Patient',
-            'res_ver' => 1,
-        ]);
-
-        ResourceContent::create([
-            'res_ver' => 1,
-            'res_text' => $content,
-        ]);
-
-        $patient = Patient::create($this->readPatientData($resource, $content));
-        $patientKey = ['patient_id' => $patient->id];
-        parseAndCreate(PatientIdentifier::class, returnAttribute($content, ['identifier']), 'returnIdentifier', $patientKey);
-        parseAndCreate(PatientTelecom::class, returnAttribute($content, ['telecom']), 'returnTelecom', $patientKey);
-        parseAndCreate(PatientAddress::class, returnAttribute($content, ['address']), 'returnAddress', $patientKey);
-        parseAndCreate(GeneralPractitioner::class, returnAttribute($content, ['generalPractitioner']), 'returnReference', $patientKey);
-
-        $contact = returnAttribute($content, ['contact']);
-
-        if (is_array($contact) || is_object($contact)) {
-            foreach ($contact as $c) {
-                $contactData = returnPatientContact($c);
-                $patientContact = PatientContact::create(array_merge($contactData, $patientKey));
-                $contactKey = ['contact_id' => $patientContact->id];
-                $contactTelecom = returnAttribute($c, ['telecom']);
-                parseAndCreate(PatientContactTelecom::class, $contactTelecom, 'returnTelecom', $contactKey);
-            }
+        // Request validation
+        if (!isset($body['patient'], $body['identifier'], $body['telecom'], $body['address'], $body['general_practitioner'], $body['contact'])) {
+            return response()->json(['error' => 'Data tidak lengkap.'], 400);
         }
 
-        return (new PatientResource($content))
-            ->response()
-            ->setStatusCode(201);
-    }
+        DB::beginTransaction();
+        try {
 
-    private function readPatientData($resource, $content) {
-        return [
-            'resource_id' => $resource->id,
-            'active' => returnAttribute($content, ['active']),
-            'name' => getFullName(returnAttribute($content, ['name'])),
-            'prefix' => returnAttribute($content, ['name', 0, 'prefix']),
-            'suffix' => returnAttribute($content, ['name', 0, 'suffix']),
-            'gender' => returnAttribute($content, ['gender'], 'unknown'),
-            'birth_date' => parseDate(returnAttribute($content, ['birthDate'])),
-            'birthPlace' => getBirthPlace(returnAttribute($content, ['extension'])),
-            'deceased' => returnVariableAttribute($content, 'deceased', ['Boolean', 'DateTime']),
-            'marital_status' => returnAttribute($content, ['maritalStatus', 'coding', 0, 'code']),
-            'multiple_birth' => returnVariableAttribute($content, 'multipleBirth', ['Boolean', 'Integer']),
-            'language' => returnAttribute($content, ['communication', 0, 'language', 'coding', 0, 'code']),
-        ];
+            $resource = Resource::create([
+                'res_type' => 'Patient',
+                'res_ver' => 1,
+            ]);
+
+            $resourceKey = ['resource_id' => $resource->id];
+
+            $patient = Patient::create(array_merge($resourceKey, $body['patient']));
+
+            $patientKey = ['patient_id' => $patient->id];
+
+            foreach ($body['identifier'] as $i) {
+                PatientIdentifier::create(array_merge($patientKey, $i));
+            }
+
+            foreach ($body['telecom'] as $t) {
+                PatientTelecom::create(array_merge($patientKey, $t));
+            }
+
+            foreach ($body['address'] as $a) {
+                PatientAddress::create(array_merge($patientKey, $a));
+            }
+
+            foreach ($body['general_practitioner'] as $gp) {
+                GeneralPractitioner::create(array_merge($patientKey, $gp));
+            }
+
+            foreach ($body['contact'] as $c) {
+                $contact = PatientContact::create(array_merge($patientKey, $c['contact_data']));
+
+                $contactKey = ['contact_id' => $contact->id];
+
+                foreach ($c['telecom'] as $ct) {
+                    PatientContactTelecom::create(array_merge($contactKey, $ct));
+                }
+            }
+
+            // $resourceData = new PatientResource($body);
+            // $resourceText = json_encode($resourceData);
+
+            // ResourceContent::create([
+            //     'res_ver' => 1,
+            //     'res_text' => $resourceText,
+            // ]);
+
+            DB::commit();
+            return response()->json($resource->patient->first(), 201);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Server error dalam input data pasien baru.'], 500);
+        } catch (QueryException $e) {
+            DB::rollBack();
+            Log::error('Database error: ' . $e->getMessage());
+            return response()->json(['error' => 'Database error dalam input data pasien baru.'], 500);
+        }
     }
 }
