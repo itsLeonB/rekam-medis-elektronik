@@ -76,14 +76,14 @@ class PatientController extends Controller
 
             DB::commit();
             return response()->json($resource->patient->first(), 201);
-        } catch (Exception $e) {
-            DB::rollBack();
-            Log::error('Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Server error dalam input data pasien baru.'], 500);
         } catch (QueryException $e) {
             DB::rollBack();
             Log::error('Database error: ' . $e->getMessage());
             return response()->json(['error' => 'Database error dalam input data pasien baru.'], 500);
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error('Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Server error dalam input data pasien baru.'], 500);
         }
     }
 }

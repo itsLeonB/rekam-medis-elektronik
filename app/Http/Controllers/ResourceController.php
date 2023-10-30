@@ -21,6 +21,10 @@ class ResourceController extends Controller
 
     public function getResource($res_type, $satusehat_id)
     {
+        if (!in_array($res_type, Resource::VALID_RESOURCE_TYPES)) {
+            return response()->json(['error' => 'Invalid resource type.'], 400);
+        }
+
         try {
             return response()->json(Resource::where([
                 ['satusehat_id', '=', $satusehat_id],
