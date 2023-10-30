@@ -31,7 +31,7 @@ class PatientSeeder extends Seeder
 
         foreach ($patients as $p) {
             $resContent = json_decode($p->res_text, true);
-            $active = returnAttribute($resContent, ['active']);
+            $active = returnAttribute($resContent, ['active'], true);
             $nameData = getName($resContent);
             $gender = getGender($resContent) == null ? 'unknown' : getGender($resContent);
             $birthDate = parseDate(returnAttribute($resContent, ['birthDate'], '1900-01-01'));

@@ -91,4 +91,14 @@ class PatientRequest extends FormRequest
             'general_practitioner.*.reference' => 'required|string|max:255'
         ];
     }
+
+
+    public function messages(): array
+    {
+        // create the corresponding validation error message according to the rules above
+        return [
+            'patient.active.required' => 'Harus dipilih.',
+            'patient.name.required' => 'Nama harus diisi.',
+        ];
+    }
 }
