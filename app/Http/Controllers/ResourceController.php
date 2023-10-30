@@ -11,6 +11,11 @@ class ResourceController extends Controller
 {
     public function indexResource($res_type)
     {
+        // Validate the resource type
+        if (!in_array($res_type, Resource::VALID_RESOURCE_TYPES)) {
+            return response()->json(['error' => 'Invalid resource type.'], 400);
+        }
+
         return response()->json(Resource::where('res_type', '=', $res_type)->get(), 200);
     }
 
