@@ -30,6 +30,14 @@ class PatientRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // Patient attributes
+            'patient' => 'required|array',
+            'identifier' => 'required|array',
+            'telecom' => 'required|array',
+            'address' => 'required|array',
+            'contact' => 'required|array',
+            'general_practitioner' => 'required|array',
+
             // Patient base data
             'patient.active' => 'required|boolean',
             'patient.name' => 'required|string|max:255',

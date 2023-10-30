@@ -11,13 +11,7 @@ class ResourceController extends Controller
 {
     public function indexResource($res_type)
     {
-        try {
-            return response()
-                ->json(Resource::where('res_type', '=', $res_type)->get(), 200);
-        } catch (ModelNotFoundException $e) {
-            Log::error('Model error: ' . $e->getMessage());
-            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
-        }
+        return response()->json(Resource::where('res_type', '=', $res_type)->get(), 200);
     }
 
     public function getResource($res_type, $satusehat_id)

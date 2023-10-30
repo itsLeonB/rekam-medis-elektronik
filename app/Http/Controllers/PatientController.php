@@ -25,11 +25,6 @@ class PatientController extends Controller
     {
         $body = json_decode($request->getContent(), true);
 
-        // Request validation
-        if (!isset($body['patient'], $body['identifier'], $body['telecom'], $body['address'], $body['general_practitioner'], $body['contact'])) {
-            return response()->json(['error' => 'Data tidak lengkap.'], 400);
-        }
-
         DB::beginTransaction();
         try {
 
