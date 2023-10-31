@@ -44,60 +44,24 @@ class EncounterController extends Controller
 
             $encounterKey = ['encounter_id' => $encounter->id];
 
-            if (isset($body['identifier'])) {
-                foreach ($body['identifier'] as $i) {
-                    EncounterIdentifier::create(array_merge($encounterKey, $i));
-                }
-            }
-
-            if (isset($body['status_history'])) {
-                foreach ($body['status_history'] as $sh) {
-                    EncounterStatusHistory::create(array_merge($encounterKey, $sh));
-                }
-            }
-
-            if (isset($body['class_history'])) {
-                foreach ($body['class_history'] as $ch) {
-                    EncounterClassHistory::create(array_merge($encounterKey, $ch));
-                }
-            }
-
-            if (isset($body['participant'])) {
-                foreach ($body['participant'] as $p) {
-                    EncounterParticipant::create(array_merge($encounterKey, $p));
-                }
-            }
-
-            if (isset($body['reason'])) {
-                foreach ($body['reason'] as $r) {
-                    EncounterReason::create(array_merge($encounterKey, $r));
-                }
-            }
-
-            if (isset($body['diagnosis'])) {
-                foreach ($body['diagnosis'] as $d) {
-                    EncounterDiagnosis::create(array_merge($encounterKey, $d));
-                }
-            }
-
-            if (isset($body['hospitalization'])) {
-                foreach ($body['hospitalization'] as $h) {
-                    $hospitalization = EncounterHospitalization::create(array_merge($encounterKey, $h['hospitalization_data']));
-                    $hospitalKey = ['enc_hosp_id' => $hospitalization->id];
-
-                    if (is_array($h['diet']) || is_object($h['diet'])) {
-                        foreach ($h['diet'] as $hd) {
-                            EncounterHospitalizationDiet::create(array_merge($hospitalKey, $hd));
-                        }
-                    }
-
-                    if (is_array($h['special_arrangement']) || is_object($h['special_arrangement'])) {
-                        foreach ($h['special_arrangement'] as $hsa) {
-                            EncounterHospitalizationSpecialArrangement::create(array_merge($hospitalKey, $hsa));
-                        }
-                    }
-                }
-            }
+            $this->createInstances(EncounterIdentifier::class, $encounterKey, $body, 'identifier');
+            $this->createInstances(EncounterStatusHistory::class, $encounterKey, $body, 'status_history');
+            $this->createInstances(EncounterClassHistory::class, $encounterKey, $body, 'class_history');
+            $this->createInstances(EncounterParticipant::class, $encounterKey, $body, 'participant');
+            $this->createInstances(EncounterReason::class, $encounterKey, $body, 'reason');
+            $this->createInstances(EncounterDiagnosis::class, $encounterKey, $body, 'diagnosis');
+            $this->createInstances(EncounterHospitalization::class, $encounterKey, $body, 'hospitalization_data', [
+                [
+                    'model' => EncounterHospitalizationDiet::class,
+                    'key' => 'enc_hosp_id',
+                    'bodyKey' => 'diet'
+                ],
+                [
+                    'model' => EncounterHospitalizationSpecialArrangement::class,
+                    'key' => 'enc_hosp_id',
+                    'bodyKey' => 'special_arrangement'
+                ],
+            ]);
 
             $resourceData = new EncounterResource($resource);
             $resourceText = json_encode($resourceData);
@@ -229,60 +193,24 @@ class EncounterController extends Controller
 
             $encounterKey = ['encounter_id' => $encounter->id];
 
-            if (isset($body['identifier'])) {
-                foreach ($body['identifier'] as $i) {
-                    EncounterIdentifier::create(array_merge($encounterKey, $i));
-                }
-            }
-
-            if (isset($body['status_history'])) {
-                foreach ($body['status_history'] as $sh) {
-                    EncounterStatusHistory::create(array_merge($encounterKey, $sh));
-                }
-            }
-
-            if (isset($body['class_history'])) {
-                foreach ($body['class_history'] as $ch) {
-                    EncounterClassHistory::create(array_merge($encounterKey, $ch));
-                }
-            }
-
-            if (isset($body['participant'])) {
-                foreach ($body['participant'] as $p) {
-                    EncounterParticipant::create(array_merge($encounterKey, $p));
-                }
-            }
-
-            if (isset($body['reason'])) {
-                foreach ($body['reason'] as $r) {
-                    EncounterReason::create(array_merge($encounterKey, $r));
-                }
-            }
-
-            if (isset($body['diagnosis'])) {
-                foreach ($body['diagnosis'] as $d) {
-                    EncounterDiagnosis::create(array_merge($encounterKey, $d));
-                }
-            }
-
-            if (isset($body['hospitalization'])) {
-                foreach ($body['hospitalization'] as $h) {
-                    $hospitalization = EncounterHospitalization::create(array_merge($encounterKey, $h['hospitalization_data']));
-                    $hospitalKey = ['enc_hosp_id' => $hospitalization->id];
-
-                    if (is_array($h['diet']) || is_object($h['diet'])) {
-                        foreach ($h['diet'] as $hd) {
-                            EncounterHospitalizationDiet::create(array_merge($hospitalKey, $hd));
-                        }
-                    }
-
-                    if (is_array($h['special_arrangement']) || is_object($h['special_arrangement'])) {
-                        foreach ($h['special_arrangement'] as $hsa) {
-                            EncounterHospitalizationSpecialArrangement::create(array_merge($hospitalKey, $hsa));
-                        }
-                    }
-                }
-            }
+            $this->createInstances(EncounterIdentifier::class, $encounterKey, $body, 'identifier');
+            $this->createInstances(EncounterStatusHistory::class, $encounterKey, $body, 'status_history');
+            $this->createInstances(EncounterClassHistory::class, $encounterKey, $body, 'class_history');
+            $this->createInstances(EncounterParticipant::class, $encounterKey, $body, 'participant');
+            $this->createInstances(EncounterReason::class, $encounterKey, $body, 'reason');
+            $this->createInstances(EncounterDiagnosis::class, $encounterKey, $body, 'diagnosis');
+            $this->createInstances(EncounterHospitalization::class, $encounterKey, $body, 'hospitalization_data', [
+                [
+                    'model' => EncounterHospitalizationDiet::class,
+                    'key' => 'enc_hosp_id',
+                    'bodyKey' => 'diet'
+                ],
+                [
+                    'model' => EncounterHospitalizationSpecialArrangement::class,
+                    'key' => 'enc_hosp_id',
+                    'bodyKey' => 'special_arrangement'
+                ],
+            ]);
 
             $resourceData = new EncounterResource($resource);
             $resourceText = json_encode($resourceData);

@@ -40,43 +40,17 @@ class PatientController extends Controller
 
             $patientKey = ['patient_id' => $patient->id];
 
-            if (isset($body['identifier'])) {
-                foreach ($body['identifier'] as $i) {
-                    PatientIdentifier::create(array_merge($patientKey, $i));
-                }
-            }
-
-            if (isset($body['telecom'])) {
-                foreach ($body['telecom'] as $t) {
-                    PatientTelecom::create(array_merge($patientKey, $t));
-                }
-            }
-
-            if (isset($body['address'])) {
-                foreach ($body['address'] as $a) {
-                    PatientAddress::create(array_merge($patientKey, $a));
-                }
-            }
-
-            if (isset($body['general_practitioner'])) {
-                foreach ($body['general_practitioner'] as $gp) {
-                    GeneralPractitioner::create(array_merge($patientKey, $gp));
-                }
-            }
-
-            if (isset($body['contact'])) {
-                foreach ($body['contact'] as $c) {
-                    $contact = PatientContact::create(array_merge($patientKey, $c['contact_data']));
-
-                    $contactKey = ['contact_id' => $contact->id];
-
-                    if (is_array($c['telecom']) || is_object($c['telecom'])) {
-                        foreach ($c['telecom'] as $ct) {
-                            PatientContactTelecom::create(array_merge($contactKey, $ct));
-                        }
-                    }
-                }
-            }
+            $this->createInstances(PatientIdentifier::class, $patientKey, $body, 'identifier');
+            $this->createInstances(PatientTelecom::class, $patientKey, $body, 'telecom');
+            $this->createInstances(PatientAddress::class, $patientKey, $body, 'address');
+            $this->createInstances(GeneralPractitioner::class, $patientKey, $body, 'general_practitioner');
+            $this->createInstances(PatientContact::class, $patientKey, $body, 'contact_data', [
+                [
+                    'model' => PatientContactTelecom::class,
+                    'key' => 'contact_id',
+                    'bodyKey' => 'telecom'
+                ]
+            ]);
 
             $resourceData = new PatientResource($resource);
             $resourceText = json_encode($resourceData);

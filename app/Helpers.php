@@ -838,19 +838,6 @@ function getDiagnosis($resource)
     }
 }
 
-function getPriority($resource)
-{
-    if (isset($resource['priority']['coding'][0]['system']) && !empty($resource['priority']['coding'][0]['system']) && $resource['priority']['coding'][0]['system'] === 'http://terminology.hl7.org/CodeSystem/v3-ActPriority') {
-        if (isset($resource['priority']['coding'][0]['code']) && !empty($resource['priority']['coding'][0]['code'])) {
-            return $resource['priority']['coding'][0]['code'];
-        } else {
-            return '';
-        }
-    } else {
-        return '';
-    }
-}
-
 function getEpisodeOfCare($resource)
 {
     if (isset($resource['episodeOfCare'][0]['reference']) && !empty($resource['episodeOfCare'][0]['reference'])) {

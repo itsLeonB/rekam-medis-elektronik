@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('codesystem_participanttype', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->index('code');
+            $table->string('code')->primary();
             $table->string('system');
             $table->string('display');
             $table->text('definition');

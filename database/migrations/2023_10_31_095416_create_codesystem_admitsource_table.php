@@ -12,9 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('codesystem_admitsource', function (Blueprint $table) {
-            $table->id();
-            $table->string('code')->unique();
-            $table->index('code');
+            $table->string('code')->primary();
             $table->string('display');
             $table->text('definition');
         });

@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('codesystem_servicetype', function (Blueprint $table) {
-            $table->unsignedBigInteger('code')->unique();
-            $table->index('code');
+            $table->unsignedBigInteger('code')->primary();
             $table->string('display');
         });
     }

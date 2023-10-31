@@ -40,7 +40,7 @@ class EncounterSeeder extends Seeder
                     'status' => returnAttribute($resContent, ['status'], 'unknown') === 'completed' ? 'finished' : returnAttribute($resContent, ['status'], 'unknown'),
                     'class' => getClass($resContent),
                     'service_type' => returnAttribute($resContent, ['serviceType', 'coding', 0, 'code']),
-                    'priority' => getPriority($resContent),
+                    'priority' => returnAttribute($resContent, ['priority', 'coding', 0, 'code']),
                     'subject' => $resContent['subject']['reference'],
                     'episode_of_care' => getEpisodeOfCare($resContent),
                     'based_on' => getBasedOn($resContent),
