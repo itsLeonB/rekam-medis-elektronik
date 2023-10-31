@@ -30,6 +30,14 @@ class PatientRequest extends FormRequest
     public function rules(): array
     {
         return [
+            // Patient attributes
+            'patient' => 'required|array',
+            'identifier' => 'required|array',
+            'telecom' => 'required|array',
+            'address' => 'required|array',
+            'contact' => 'required|array',
+            'general_practitioner' => 'required|array',
+
             // Patient base data
             'patient.active' => 'required|boolean',
             'patient.name' => 'required|string|max:255',
@@ -89,6 +97,16 @@ class PatientRequest extends FormRequest
 
             // General practitioner data
             'general_practitioner.*.reference' => 'required|string|max:255'
+        ];
+    }
+
+
+    public function messages(): array
+    {
+        // create the corresponding validation error message according to the rules above
+        return [
+            'patient.active.required' => 'Harus dipilih.',
+            'patient.name.required' => 'Nama harus diisi.',
         ];
     }
 }

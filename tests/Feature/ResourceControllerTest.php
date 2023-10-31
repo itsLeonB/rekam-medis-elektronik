@@ -73,11 +73,12 @@ class ResourceControllerTest extends TestCase
                 "gender": "male",
                 "birth_date": "2000-10-10",
                 "birth_place": "Surabaya",
-                "deceased": null,
+                "deceased": {
+                    "deceasedBoolean": false
+                },
                 "marital_status": "M",
                 "multiple_birth": {
-                    "multipleBirthBoolean": false,
-                    "multipleBirthInteger": 0
+                    "multipleBirthBoolean": false
                 },
                 "language": "id"
             },

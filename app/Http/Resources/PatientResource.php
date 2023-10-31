@@ -15,13 +15,7 @@ class PatientResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $patient = $request['patient'];
-        $identifier = $request['identifier'];
-        $telecom = $request['telecom'];
-        $address = $request['address'];
-        $contact = $request['contact'];
-        $generalPractitioner = $request['general_practitioner'];
-        $maritalDisplay = $request['marital_display'];
+        $patient = $this->resource->patient->first();
 
         $data = merge_array(
             [
@@ -35,29 +29,28 @@ class PatientResource extends JsonResource
                         ]
                     ],
                 ],
-                'identifier' => $identifier,
-                'active' => $patient->active,
+                'identifier' => $this->createIdentifierArray($patient),
+                'active' => returnAttribute($patient, ['active']),
                 'name' => [[
                     'use' => 'official',
-                    'text' => $patient->name,
-                    'prefix' => $patient->prefix == '' ? null : explode(' ', $patient->prefix),
-                    'suffix' => $patient->suffix == '' ? null : explode(' ', $patient->suffix),
+                    'text' => returnAttribute($patient, ['name']),
+                    'prefix' => returnAttribute($patient, ['prefix']) == '' ? null : explode(' ', returnAttribute($patient, ['prefix'])),
+                    'suffix' => returnAttribute($patient, ['suffix']) == '' ? null : explode(' ', returnAttribute($patient, ['suffix'])),
                 ]],
-                'telecom' => $telecom,
-                'gender' => $patient->gender,
-                'birthDate' => Carbon::parse($patient->birth_date)->format('Y-m-d'),
-                'address' => $address,
-                'contact' => $contact,
+                'telecom' => $this->createTelecomArray($patient),
+                'gender' => returnAttribute($patient, ['gender']),
+                'birthDate' => Carbon::parse(returnAttribute($patient, ['birth_date']))->format('Y-m-d'),
+                'address' => $this->createAddressArray($patient),
+                'contact' => $this->createContactArray($patient),
                 'maritalStatus' => [
                     'coding' => [
                         [
                             'system' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
                             'code' => $patient->marital_status,
-                            'display' => $maritalDisplay
+                            'display' => $this->displayMaritalStatus($patient->marital_status)
                         ]
                     ],
                 ],
-                'multipleBirthBoolean' => $patient->multiple_birth,
                 'communication' => [
                     [
                         'language' => [
@@ -70,9 +63,10 @@ class PatientResource extends JsonResource
                         ],
                     ],
                 ],
-                'generalPractitioner' => $generalPractitioner,
+                'generalPractitioner' => $this->createGeneralPractitionerArray($patient),
             ],
             $patient->deceased,
+            $patient->multiple_birth,
         );
 
         $data = removeEmptyValues($data);
@@ -80,7 +74,8 @@ class PatientResource extends JsonResource
         return $data;
     }
 
-    private function createIdentifierArray($patient) {
+    private function createIdentifierArray($patient)
+    {
         $identifier = [];
         foreach ($patient->identifier as $i) {
             $identifier[] = [
@@ -92,158 +87,167 @@ class PatientResource extends JsonResource
         return $identifier;
     }
 
-    private function createTelecomArray($patient) {
+    private function createTelecomArray($patient)
+    {
         $telecom = [];
-        foreach ($patient->telecom as $t) {
-            $telecom[] = [
-                'system' => $t->system,
-                'use' => $t->use,
-                'value' => $t->value,
-            ];
+
+        $telecomData = $patient->telecom;
+
+        if (is_array($telecomData) || is_object($telecomData)) {
+            foreach ($telecomData as $t) {
+                $telecom[] = [
+                    'system' => $t->system,
+                    'use' => $t->use,
+                    'value' => $t->value,
+                ];
+            }
         }
+
         return $telecom;
     }
 
-    private function createAddressArray($patient) {
-        $address = [];
-        foreach ($patient->address as $a) {
-            $address[] = [
-                'use' => $a->use,
-                'line' => [$a->line],
-                'postalCode' => $a->postal_code,
-                'country' => $a->country,
-                'extension' => [
-                    [
-                        'extension' => [
-                            [
-                                'url' => 'province',
-                                'valueCode' => $a->province,
-                            ],
-                            [
-                                'url' => 'city',
-                                'valueCode' => $a->city,
-                            ],
-                            [
-                                'url' => 'district',
-                                'valueCode' => $a->district,
-                            ],
-                            [
-                                'url' => 'village',
-                                'valueCode' => $a->village,
-                            ],
-                            [
-                                'url' => 'rt',
-                                'valueCode' => $a->rt,
-                            ],
-                            [
-                                'url' => 'rw',
-                                'valueCode' => $a->rw,
-                            ],
-                        ],
-                        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode'
-                    ]
-                ],
-            ];
-        }
-        return $address;
-    }
+    private function createAddressArray($patient)
+    {
+        $addressData = [];
 
-    private function createContactArray($patient) {
-        $contact = [];
-        foreach ($patient->contact as $c) {
-            $contactTelecom = $this->createTelecomArray($c);
+        $address = $patient->address;
 
-            switch ($c->relationship) {
-                case 'C':
-                    $relationDisplay = 'Emergency Contact';
-                    break;
-                case 'E':
-                    $relationDisplay = 'Employer';
-                    break;
-                case 'F':
-                    $relationDisplay = 'Federal Agency';
-                    break;
-                case 'I':
-                    $relationDisplay = 'Insurance Company';
-                    break;
-                case 'N':
-                    $relationDisplay = 'Next-of-Kin';
-                    break;
-                case 'S':
-                    $relationDisplay = 'State Agency';
-                    break;
-                case 'U':
-                    $relationDisplay = 'Unknown';
-                    break;
-                case 'T':
-                default:
-                    $relationDisplay = 'Unknown';
-                    break;
-            }
-            $relationshipDisplay = $relationDisplay;
-            $contact[] = [
-                'relationship' => [
-                    [
-                        'coding' => [
-                            [
-                                'system' => 'http://terminology.hl7.org/CodeSystem/v2-0131',
-                                'code' => $c->relationship,
-                                'display' => $relationshipDisplay,
-                            ],
-                        ],
-                    ],
-                ],
-                'name' => [
-                    'use' => 'official',
-                    'text' => $c->name,
-                    'prefix' => $c->prefix == '' ? null : explode(' ', $c->prefix),
-                    'suffix' => $c->suffix == '' ? null : explode(' ', $c->suffix),
-                ],
-                'telecom' => $contactTelecom,
-                'address' => [
-                    'use' => $c->address_use,
-                    'line' => [$c->address_line],
-                    'postalCode' => $c->postal_code,
-                    'country' => $c->country,
+        if (is_array($address) || is_object($address)) {
+            foreach ($address as $a) {
+                $addressData[] = [
+                    'use' => $a->use,
+                    'line' => [$a->line],
+                    'country' => $a->country,
+                    'postalCode' => $a->postal_code,
                     'extension' => [
                         [
+                            'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
                             'extension' => [
                                 [
                                     'url' => 'province',
-                                    'valueCode' => $c->province == 0 ? null : $c->province,
+                                    'valueCode' => $a->province == 0 ? null : $a->province,
                                 ],
                                 [
                                     'url' => 'city',
-                                    'valueCode' => $c->city == 0 ? null : $c->city
+                                    'valueCode' => $a->city == 0 ? null : $a->city,
                                 ],
                                 [
                                     'url' => 'district',
-                                    'valueCode' => $c->district == 0 ? null : $c->district,
+                                    'valueCode' => $a->district == 0 ? null : $a->district,
                                 ],
                                 [
                                     'url' => 'village',
-                                    'valueCode' => $c->village == 0 ? null : $c->village,
+                                    'valueCode' => $a->village == 0 ? null : $a->village,
                                 ],
                                 [
                                     'url' => 'rt',
-                                    'valueCode' => $c->rt == 0 ? null : $c->rt,
+                                    'valueCode' => $a->rt == 0 ? null : $a->rt,
                                 ],
                                 [
                                     'url' => 'rw',
-                                    'valueCode' => $c->rw == 0 ? null : $c->rw,
+                                    'valueCode' => $a->rw == 0 ? null : $a->rw,
                                 ],
-                            ],
-                            'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode'
+                            ]
                         ]
                     ]
-                ],
-                'gender' => $c->gender,
-            ];
+                ];
+            }
         }
+
+        return $addressData;
+    }
+
+    private function createContactArray($patient)
+    {
+        $contact = [];
+
+        $contactAttribute = $patient->contact;
+
+        if (is_array($contactAttribute) || is_object($contactAttribute)) {
+            foreach ($contactAttribute as $c) {
+                $contact[] = [
+                    'relationship' => [
+                        [
+                            'coding' => [
+                                [
+                                    'system' => 'http://terminology.hl7.org/CodeSystem/v2-0131',
+                                    'code' => $c->relationship,
+                                    'display' => $this->displayRelationship($c->relationship)
+                                ],
+                            ],
+                        ],
+                    ],
+                    'name' => [
+                        'use' => 'official',
+                        'text' => $c->name,
+                        'prefix' => $c->prefix == '' ? null : explode(' ', $c->prefix),
+                        'suffix' => $c->suffix == '' ? null : explode(' ', $c->suffix),
+                    ],
+                    'telecom' => $this->createTelecomArray($c),
+                    'address' => [
+                        'use' => $c->address_use,
+                        'line' => [$c->address_line],
+                        'postalCode' => $c->postal_code,
+                        'country' => $c->country,
+                        'extension' => [
+                            [
+                                'extension' => [
+                                    [
+                                        'url' => 'province',
+                                        'valueCode' => $c->province == 0 ? null : $c->province,
+                                    ],
+                                    [
+                                        'url' => 'city',
+                                        'valueCode' => $c->city == 0 ? null : $c->city
+                                    ],
+                                    [
+                                        'url' => 'district',
+                                        'valueCode' => $c->district == 0 ? null : $c->district
+                                    ],
+                                    [
+                                        'url' => 'village',
+                                        'valueCode' => $c->village == 0 ? null : $c->village
+                                    ],
+                                    [
+                                        'url' => 'rt',
+                                        'valueCode' => $c->rt == 0 ? null : $c->rt
+                                    ],
+                                    [
+                                        'url' => 'rw',
+                                        'valueCode' => $c->rw == 0 ? null : $c->rw
+                                    ],
+                                ],
+                                'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode'
+                            ]
+                        ]
+                    ],
+                    'gender' => $c->gender
+                ];
+            }
+        }
+
         return $contact;
     }
 
-    public function displayMaritalStatus($maritalCode) {
+    private function createGeneralPractitionerArray($patient)
+    {
+        $generalPractitioner = [];
+
+        $generalPractitionerAttribute = $patient->generalPractitioner;
+
+        if (is_array($generalPractitionerAttribute) || is_object($generalPractitionerAttribute)) {
+            foreach ($generalPractitionerAttribute as $g) {
+                $generalPractitioner[] = [
+                    'reference' => $g->reference,
+                ];
+            }
+        }
+
+        return $generalPractitioner;
+    }
+
+    private function displayMaritalStatus($maritalCode)
+    {
         switch ($maritalCode) {
             case 'A':
                 $maritalDisplay = 'Annulled';
@@ -285,13 +289,48 @@ class PatientResource extends JsonResource
         return $maritalDisplay;
     }
 
-    private function createGeneralPractitionerArray($patient) {
-        $generalPractitioner = [];
-        foreach ($patient->generalPractitioner as $gp) {
-            $generalPractitioner[] = [
-                'reference' => $gp->reference,
-            ];
+    private function displayRelationship($relationshipCode)
+    {
+        switch ($relationshipCode) {
+            case 'BP':
+                return 'Billing contact person';
+                break;
+            case 'CP':
+                return 'Contact person';
+                break;
+            case 'EP':
+                return 'Emergency contact person';
+                break;
+            case 'PR':
+                return 'Person preparing referral';
+                break;
+            case 'E':
+                return 'Employer';
+                break;
+            case 'C':
+                return 'Emergency Contact';
+                break;
+            case 'F':
+                return 'Federal Agency';
+                break;
+            case 'I':
+                return 'Insurance Company';
+                break;
+            case 'N':
+                return 'Next-of-Kin';
+                break;
+            case 'S':
+                return 'State Agency';
+                break;
+            case 'O':
+                return 'Other';
+                break;
+            case 'U':
+                return 'Unknown';
+                break;
+            default:
+                return 'Unknown';
+                break;
         }
-        return $generalPractitioner;
     }
 }

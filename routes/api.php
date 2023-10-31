@@ -42,4 +42,4 @@ Route::get('/{res_type}', [ResourceController::class, 'indexResource']);
 Route::get('/{res_type}/{satusehat_id}', [ResourceController::class, 'getResource']);
 
 // Patient resource API
-Route::post('/patient/create', [ResourceController::class, 'postPatient']);
+Route::post('/patient/create', [PatientController::class, 'postPatient']);

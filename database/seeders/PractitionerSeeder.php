@@ -27,7 +27,7 @@ class PractitionerSeeder extends Seeder
         $count = 1;
         foreach ($practitioners as $p) {
             $resContent = json_decode($p->res_text, true);
-            $active = returnAttribute($resContent, ['active']);
+            $active = returnAttribute($resContent, ['active'], false);
             $nameData = getName($resContent);
             $identifier = getIdentifier($resContent);
             $gender = getGender($resContent) == null ? 'unknown' : getGender($resContent);

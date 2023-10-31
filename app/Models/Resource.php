@@ -11,6 +11,10 @@ class Resource extends Model
 {
     use HasFactory;
 
+    const VALID_RESOURCE_TYPES = [
+        'Patient', 'Practitioner', 'Location', 'Organization', 'Encounter', 'Condition', 'Observation', 'ImagingStudy', 'Procedure', 'ServiceRequest', 'MedicationRequest', 'Medication', 'MedicationDispense', 'Composition', 'AllergyIntolerance', 'ClinicalImpression'
+    ];
+
     protected $table = 'resource';
 
     protected $attributes = [
