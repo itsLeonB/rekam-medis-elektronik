@@ -24,6 +24,7 @@ class PatientController extends Controller
     public function postPatient(PatientRequest $request)
     {
         $body = json_decode($request->getContent(), true);
+        $body = removeEmptyValues($body);
 
         DB::beginTransaction();
         try {
@@ -39,29 +40,41 @@ class PatientController extends Controller
 
             $patientKey = ['patient_id' => $patient->id];
 
-            foreach ($body['identifier'] as $i) {
-                PatientIdentifier::create(array_merge($patientKey, $i));
+            if (isset($body['identifier'])) {
+                foreach ($body['identifier'] as $i) {
+                    PatientIdentifier::create(array_merge($patientKey, $i));
+                }
             }
 
-            foreach ($body['telecom'] as $t) {
-                PatientTelecom::create(array_merge($patientKey, $t));
+            if (isset($body['telecom'])) {
+                foreach ($body['telecom'] as $t) {
+                    PatientTelecom::create(array_merge($patientKey, $t));
+                }
             }
 
-            foreach ($body['address'] as $a) {
-                PatientAddress::create(array_merge($patientKey, $a));
+            if (isset($body['address'])) {
+                foreach ($body['address'] as $a) {
+                    PatientAddress::create(array_merge($patientKey, $a));
+                }
             }
 
-            foreach ($body['general_practitioner'] as $gp) {
-                GeneralPractitioner::create(array_merge($patientKey, $gp));
+            if (isset($body['general_practitioner'])) {
+                foreach ($body['general_practitioner'] as $gp) {
+                    GeneralPractitioner::create(array_merge($patientKey, $gp));
+                }
             }
 
-            foreach ($body['contact'] as $c) {
-                $contact = PatientContact::create(array_merge($patientKey, $c['contact_data']));
+            if (isset($body['contact'])) {
+                foreach ($body['contact'] as $c) {
+                    $contact = PatientContact::create(array_merge($patientKey, $c['contact_data']));
 
-                $contactKey = ['contact_id' => $contact->id];
+                    $contactKey = ['contact_id' => $contact->id];
 
-                foreach ($c['telecom'] as $ct) {
-                    PatientContactTelecom::create(array_merge($contactKey, $ct));
+                    if (is_array($c['telecom']) || is_object($c['telecom'])) {
+                        foreach ($c['telecom'] as $ct) {
+                            PatientContactTelecom::create(array_merge($contactKey, $ct));
+                        }
+                    }
                 }
             }
 

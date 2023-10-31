@@ -1,5 +1,12 @@
 <?php
 
+use App\Models\CodeSystemAdmitSource;
+use App\Models\CodeSystemDischargeDisposition;
+use App\Models\CodeSystemEncounterReason;
+use App\Models\CodeSystemParticipantType;
+use App\Models\CodeSystemServiceType;
+use Illuminate\Support\Facades\Log;
+
 function getName($resource)
 {
     if (isset($resource['name']) && !empty($resource['name'])) {
@@ -828,15 +835,6 @@ function getDiagnosis($resource)
         return $resource['diagnosis'];
     } else {
         return null;
-    }
-}
-
-function getServiceType($resource)
-{
-    if (isset($resource['serviceType']['coding'][0]['code']) && !empty($resource['serviceType']['coding'][0]['code'])) {
-        return $resource['serviceType']['coding'][0]['code'];
-    } else {
-        return 0;
     }
 }
 
@@ -1859,7 +1857,8 @@ function returnPerformer($attribute)
     }
 }
 
-function removeEmptyValues($array) {
+function removeEmptyValues($array)
+{
     foreach ($array as $key => $value) {
         if (is_array($value)) {
             // Recursively call the function for nested arrays
@@ -1876,4 +1875,402 @@ function removeEmptyValues($array) {
         }
     }
     return $array;
+}
+
+// Helper functions for resource creation
+function createIdentifierArray($resource)
+{
+    $identifier = [];
+    foreach ($resource->identifier as $i) {
+        $identifier[] = [
+            'system' => $i->system,
+            'use' => $i->use,
+            'value' => $i->value,
+        ];
+    }
+    return $identifier;
+}
+
+function createTelecomArray($resource)
+{
+    $telecom = [];
+
+    $telecomData = $resource->telecom;
+
+    if (is_array($telecomData) || is_object($telecomData)) {
+        foreach ($telecomData as $t) {
+            $telecom[] = [
+                'system' => $t->system,
+                'use' => $t->use,
+                'value' => $t->value,
+            ];
+        }
+    }
+
+    return $telecom;
+}
+
+function createAddressArray($resource)
+{
+    $addressData = [];
+
+    $address = $resource->address;
+
+    if (is_array($address) || is_object($address)) {
+        foreach ($address as $a) {
+            $addressData[] = [
+                'use' => $a->use,
+                'line' => [$a->line],
+                'country' => $a->country,
+                'postalCode' => $a->postal_code,
+                'extension' => [
+                    [
+                        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
+                        'extension' => [
+                            [
+                                'url' => 'province',
+                                'valueCode' => $a->province == 0 ? null : $a->province,
+                            ],
+                            [
+                                'url' => 'city',
+                                'valueCode' => $a->city == 0 ? null : $a->city,
+                            ],
+                            [
+                                'url' => 'district',
+                                'valueCode' => $a->district == 0 ? null : $a->district,
+                            ],
+                            [
+                                'url' => 'village',
+                                'valueCode' => $a->village == 0 ? null : $a->village,
+                            ],
+                            [
+                                'url' => 'rt',
+                                'valueCode' => $a->rt == 0 ? null : $a->rt,
+                            ],
+                            [
+                                'url' => 'rw',
+                                'valueCode' => $a->rw == 0 ? null : $a->rw,
+                            ],
+                        ]
+                    ]
+                ]
+            ];
+        }
+    }
+
+    return $addressData;
+}
+
+function createReferenceArray($referenceAttribute)
+{
+    $reference = [];
+
+    if (is_array($referenceAttribute) || is_object($referenceAttribute)) {
+        foreach ($referenceAttribute as $ref) {
+            $reference[] = [
+                'reference' => $ref->reference,
+            ];
+        }
+    }
+
+    return $reference;
+}
+
+function createCodeableConceptArray($codeableConceptAttribute): array
+{
+    $codeableConcept = [];
+
+    if (is_array($codeableConceptAttribute) || is_object($codeableConceptAttribute)) {
+        foreach ($codeableConceptAttribute as $cc) {
+            $codeableConcept[] = [
+                'coding' => [
+                    [
+                        'system' => $cc->system,
+                        'code' => $cc->code,
+                        'display' => $cc->display,
+                    ]
+                ]
+            ];
+        }
+    }
+
+    return $codeableConcept;
+}
+
+
+// Helper functions for defined valuesets
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+ */
+function encounterClassDisplay($encounterClass)
+{
+    switch ($encounterClass) {
+        case 'IMP':
+            return 'inpatient encounter';
+            break;
+        case 'AMB':
+            return 'ambulatory encounter';
+            break;
+        case 'OBSENC':
+            return 'observation encounter';
+            break;
+        case 'EMER':
+            return 'emergency';
+            break;
+        case 'VR':
+            return 'virtual';
+            break;
+        case 'HH':
+            return 'home health';
+            break;
+        default:
+            return null;
+    }
+}
+
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus"
+ */
+function maritalStatusDisplay($maritalCode)
+{
+    switch ($maritalCode) {
+        case 'A':
+            return 'Annulled';
+            break;
+        case 'D':
+            return 'Divorced';
+            break;
+        case 'I':
+            return 'Interloctury';
+            break;
+        case 'L':
+            return 'Legally Separated';
+            break;
+        case 'M':
+            return 'Married';
+            break;
+        case 'C':
+            return 'Common Law';
+            break;
+        case 'P':
+            return 'Polygamous';
+            break;
+        case 'T':
+            return 'Domestic partner';
+            break;
+        case 'U':
+            return 'Unmarried';
+            break;
+        case 'S':
+            return 'Never Married';
+            break;
+        case 'W':
+            return 'Widowed';
+            break;
+        default:
+            return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/v2-0131"
+ */
+function relationshipDisplay($relationshipCode)
+{
+    switch ($relationshipCode) {
+        case 'BP':
+            return 'Billing contact person';
+            break;
+        case 'CP':
+            return 'Contact person';
+            break;
+        case 'EP':
+            return 'Emergency contact person';
+            break;
+        case 'PR':
+            return 'Person preparing referral';
+            break;
+        case 'E':
+            return 'Employer';
+            break;
+        case 'C':
+            return 'Emergency Contact';
+            break;
+        case 'F':
+            return 'Federal Agency';
+            break;
+        case 'I':
+            return 'Insurance Company';
+            break;
+        case 'N':
+            return 'Next-of-Kin';
+            break;
+        case 'S':
+            return 'State Agency';
+            break;
+        case 'O':
+            return 'Other';
+            break;
+        case 'U':
+            return 'Unknown';
+            break;
+        default:
+            return null;
+            break;
+    }
+}
+
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/service-type"
+ */
+function serviceTypeDisplay($serviceTypeCode)
+{
+    try {
+        return CodeSystemServiceType::find($serviceTypeCode)->first()->display;
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/v3-ActPriority"
+ */
+function priorityDisplay($priorityCode)
+{
+    switch ($priorityCode) {
+        case 'A':
+            return ' ASAP';
+            break;
+        case 'CR':
+            return 'callback results';
+            break;
+        case 'CS':
+            return 'callback for scheduling';
+            break;
+        case 'CSP':
+            return 'callback placer for scheduling';
+            break;
+        case 'EL':
+            return 'elective';
+            break;
+        case 'EM':
+            return 'emergency';
+            break;
+        case 'P':
+            return 'preop';
+            break;
+        case 'PRN':
+            return 'as needed';
+            break;
+        case 'R':
+            return 'routine';
+            break;
+        case 'RR':
+            return 'rush reporting';
+            break;
+        case 'S':
+            return 'stat';
+            break;
+        case 'T':
+            return 'timing critical';
+            break;
+        case 'UD':
+            return 'use as directed';
+            break;
+        case 'UR':
+            return 'urgent';
+            break;
+        default:
+            return null;
+            break;
+    }
+}
+
+
+/**
+ * Value set: "https://hl7.org/fhir/R4/valueset-encounter-participant-type.html"
+ */
+function participantType($participantTypeCode)
+{
+    try {
+        return CodeSystemParticipantType::where('code', $participantTypeCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * Value set: "https://hl7.org/fhir/R4/valueset-encounter-reason.html"
+ */
+function encounterReasonDisplay($encounterReasonCode)
+{
+    try {
+        return CodeSystemEncounterReason::find($encounterReasonCode)->first()->display;
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/diagnosis-role"
+ */
+function diagnosisUseDisplay($diagnosisUseCode)
+{
+    switch ($diagnosisUseCode) {
+        case 'AD':
+            return 'Admission diagnosis';
+            break;
+        case 'DD':
+            return 'Discharge diagnosis';
+            break;
+        case 'CC':
+            return 'Chief complaint';
+            break;
+        case 'CM':
+            return 'Comorbidity diagnosis';
+            break;
+        case 'pre-op':
+            return 'pre-op diagnosis';
+            break;
+        case 'post-op':
+            return 'post-op diagnosis';
+            break;
+        case 'billing':
+            return 'billing';
+            break;
+        default:
+            return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/admit-source"
+ */
+function admitSource($admitSourceCode)
+{
+    try {
+        return CodeSystemAdmitSource::find($admitSourceCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/discharge-disposition"
+ */
+function dischargeDisposition($dischargeDispositionCode)
+{
+    try {
+        return CodeSystemDischargeDisposition::find($dischargeDispositionCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
 }

@@ -5,16 +5,13 @@ namespace Tests\Feature;
 use App\Models\Patient;
 use App\Models\Resource;
 use App\Models\User;
-use DateTime;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
-class ResourceControllerTest extends TestCase
+class PatientDataTest extends TestCase
 {
-    use RefreshDatabase;
-
+    use DatabaseTransactions;
 
     /**
      * Test apakah user dapat menlihat data pasien

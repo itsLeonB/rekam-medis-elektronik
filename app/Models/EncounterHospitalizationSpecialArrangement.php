@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class EncounterHospitalizationSpecialArrangement extends Model
 {
     protected $table = 'encounter_hospitalization_spc_arr';
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function encounterHospitalization(): BelongsTo

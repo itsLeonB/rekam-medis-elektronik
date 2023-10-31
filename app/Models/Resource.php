@@ -12,7 +12,7 @@ class Resource extends Model
     use HasFactory;
 
     const VALID_RESOURCE_TYPES = [
-        'Patient', 'Practitioner', 'Location', 'Organization', 'Encounter', 'Condition', 'Observation', 'ImagingStudy', 'Procedure', 'ServiceRequest', 'MedicationRequest', 'Medication', 'MedicationDispense', 'Composition', 'AllergyIntolerance', 'ClinicalImpression'
+        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'imagingstudy', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression'
     ];
 
     protected $table = 'resource';

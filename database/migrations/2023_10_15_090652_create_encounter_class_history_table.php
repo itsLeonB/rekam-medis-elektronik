@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
             $table->string('class');
             $table->dateTime('period_start');
-            $table->dateTime('period_end');
+            $table->dateTime('period_end')->nullable();
         });
     }
 

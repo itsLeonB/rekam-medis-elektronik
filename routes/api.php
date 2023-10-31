@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EncounterController;
 use App\Http\Resources\PatientResource;
 use App\Models\Resource;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-// SATUSEHAT resource API
+// SATUSEHAT resource endpoint
 // Route::middleware(['satusehat'])->group(function () {
 //     Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatResourceController::class, 'getResource']);
 // });
@@ -37,9 +38,16 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 
-// Local DB resource API
+// Local DB resource endpoint
 Route::get('/{res_type}', [ResourceController::class, 'indexResource']);
 Route::get('/{res_type}/{satusehat_id}', [ResourceController::class, 'getResource']);
 
-// Patient resource API
+// Patient resource endpoint
 Route::post('/patient/create', [PatientController::class, 'postPatient']);
+
+// Encounter resource endpoint
+Route::post('/encounter/create', [EncounterController::class, 'postEncounter']);
+
+// Testing endpoint
+Route::get('/test-get/{res_type}/{satusehat_id}', [ResourceController::class, 'testResource']);
+Route::get('/test-create/encounter/create', [EncounterController::class, 'testResource']);
