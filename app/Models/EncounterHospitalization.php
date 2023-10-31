@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class EncounterHospitalization extends Model
 {
     protected $table = 'encounter_hospitalization';
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function encounter(): BelongsTo

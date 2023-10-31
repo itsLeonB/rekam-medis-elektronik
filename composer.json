@@ -15,6 +15,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
+        "jeroenzwart/laravel-csv-seeder": "^1.6",
         "laravel/breeze": "^1.23",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",

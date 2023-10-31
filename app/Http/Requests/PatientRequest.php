@@ -14,12 +14,10 @@ class PatientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        if (Auth::check()) {
-            return true;
-        } else {
-            Log::error('Error: user tidak terotentikasi.');
-            return false;
+        if (!Auth::check()) {
+            abort(403, 'Unauthorized action.');
         }
+        return true;
     }
 
     /**

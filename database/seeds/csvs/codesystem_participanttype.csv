@@ -1,0 +1,13 @@
+﻿code,system,display,definition
+ADM,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,admitter,The practitioner who is responsible for admitting a patient to a patient encounter.
+ATND,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,attender,The practitioner that has responsibility for overseeing a patient's care during a patient encounter.
+CALLBCK,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,callback contact,A person or organization who should be contacted for follow-up questions about the act in place of the author.
+CON,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,consultant,An advisor participating in the service by performing evaluations and making recommendations.
+DIS,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,discharger,The practitioner who is responsible for the discharge of a patient from a patient encounter.
+ESC,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,escort,Only with Transportation services. A person who escorts the patient.
+REF,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,referrer,"A person having referred the subject of the service to the performer (referring physician). Typically, a referring physician will receive a report."
+SPRF,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,secondary performer,"A person assisting in an act through his substantial presence and involvement This includes: assistants, technicians, associates, or whatever the job titles may be."
+PPRF,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,primary performer,The principal or primary performer of the act.
+PART,http://terminology.hl7.org/CodeSystem/v3-ParticipationType,Participation,"Indicates that the target of the participation is involved in some manner in the act, but does not qualify how."
+translator,http://terminology.hl7.org/CodeSystem/participant-type,Translator,A translator who is facilitating communication with the patient during the encounter.
+emergency,http://terminology.hl7.org/CodeSystem/participant-type,Emergency,A person to be contacted in case of an emergency during the encounter.

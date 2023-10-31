@@ -14,6 +14,7 @@ class Encounter extends Model
         'period_start' => 'datetime',
         'period_end' => 'datetime'
     ];
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function resource(): BelongsTo

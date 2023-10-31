@@ -16,7 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('enc_hosp_id');
             $table->index('enc_hosp_id');
             $table->foreign('enc_hosp_id')->references('id')->on('encounter_hospitalization')->onDelete('cascade');
-            $table->string('special_arrangement');
+            $table->string('system')->nullable();
+            $table->string('code');
+            $table->string('display')->nullable();
         });
     }
 

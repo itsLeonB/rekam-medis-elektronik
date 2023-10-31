@@ -5,12 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-
-class WilayahSeeder extends CsvSeeder
+class CodeSystemServiceTypeSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeds/csvs/kode_wilayah.csv';
+        $this->file = '/database/seeds/csvs/codesystem_servicetype.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

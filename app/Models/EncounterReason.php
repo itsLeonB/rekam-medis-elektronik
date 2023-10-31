@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class EncounterReason extends Model
 {
     protected $table = 'encounter_reason';
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function encounter(): BelongsTo

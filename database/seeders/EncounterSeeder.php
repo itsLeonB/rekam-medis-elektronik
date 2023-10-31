@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Encounter;
+use App\Models\EncounterClassHistory;
 use App\Models\EncounterDiagnosis;
 use App\Models\EncounterIdentifier;
 use App\Models\EncounterParticipant;
@@ -38,13 +39,13 @@ class EncounterSeeder extends Seeder
                     'resource_id' => $e->id,
                     'status' => returnAttribute($resContent, ['status'], 'unknown') === 'completed' ? 'finished' : returnAttribute($resContent, ['status'], 'unknown'),
                     'class' => getClass($resContent),
-                    'service_type' => getServiceType($resContent),
-                    'priority' => getPriority($resContent),
+                    'service_type' => returnAttribute($resContent, ['serviceType', 'coding', 0, 'code']),
+                    'priority' => returnAttribute($resContent, ['priority', 'coding', 0, 'code']),
                     'subject' => $resContent['subject']['reference'],
                     'episode_of_care' => getEpisodeOfCare($resContent),
                     'based_on' => getBasedOn($resContent),
-                    'period_start' => $period['start'],
-                    'period_end' => $period['end'],
+                    'period_start' => returnAttribute($resContent, ['period', 'start']),
+                    'period_end' => returnAttribute($resContent, ['period', 'end']),
                     'account' => getAccount($resContent),
                     'location' => getLocation($resContent),
                     'service_provider' => getServiceProvider($resContent),
@@ -59,7 +60,7 @@ class EncounterSeeder extends Seeder
 
             if (is_array($classHistory) || is_object($classHistory)) {
                 foreach ($classHistory as $ch) {
-                    EncounterStatusHistory::create(
+                    EncounterClassHistory::create(
                         [
                             'encounter_id' => $enc->id,
                             'class' => $ch['class'],

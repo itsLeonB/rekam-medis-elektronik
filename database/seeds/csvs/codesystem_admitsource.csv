@@ -1,0 +1,11 @@
+﻿code,display,definition
+hosp-trans,Transferred from other hospital,The Patient has been transferred from another hospital for this encounter.
+emd,From accident/emergency department,The patient has been transferred from the emergency department within the hospital. This is typically used in the transition to an inpatient encounter
+outp,From outpatient department,The patient has been transferred from an outpatient department within the hospital.
+born,Born in hospital,The patient is a newborn and the encounter will track the baby related activities (as opposed to the Mothers encounter - that may be associated using the newborn encounters partof property)
+gp,General Practitioner referral,The patient has been admitted due to a referred from a General Practitioner.
+mp,Medical Practitioner/physician referral,The patient has been admitted due to a referred from a Specialist (as opposed to a General Practitioner).
+nursing,From nursing home,The patient has been transferred from a nursing home.
+psych,From psychiatric hospital,The patient has been transferred from a psychiatric facility.
+rehab,From rehabilitation facility,The patient has been transferred from a rehabilitation facility or clinic.
+other,Other,The patient has been admitted from a source otherwise not specified here.
