@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ConditionCategory extends Model
 {
     protected $table = 'condition_category';
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function condition(): BelongsTo

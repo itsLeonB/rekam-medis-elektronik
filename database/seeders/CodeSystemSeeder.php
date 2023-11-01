@@ -14,10 +14,13 @@ class CodeSystemSeeder extends Seeder
     {
         $this->call([
             CodeSystemAdmitSourceSeeder::class,
+            CodeSystemClinicalStatusSeeder::class,
             CodeSystemDischargeDispositionSeeder::class,
             CodeSystemEncounterReasonSeeder::class,
+            CodeSystemICD10Seeder::class,
             CodeSystemParticipantTypeSeeder::class,
             CodeSystemServiceTypeSeeder::class,
+            CodeSystemVerificationStatusSeeder::class,
         ]);
     }
 }

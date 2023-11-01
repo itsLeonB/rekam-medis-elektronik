@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\EncounterController;
 use App\Http\Resources\PatientResource;
 use App\Models\Resource;
@@ -48,6 +49,10 @@ Route::post('/patient/create', [PatientController::class, 'postPatient']);
 // Encounter resource endpoint
 Route::post('/encounter/create', [EncounterController::class, 'postEncounter']);
 
+// Condition resource endpoint
+Route::post('/condition/create', [ConditionController::class, 'postCondition']);
+
 // Testing endpoint
 Route::get('/test-get/{res_type}/{satusehat_id}', [ResourceController::class, 'testResource']);
 Route::get('/test-create/encounter/create', [EncounterController::class, 'testResource']);
+Route::get('/test-create/condition/create', [ConditionController::class, 'testResource']);

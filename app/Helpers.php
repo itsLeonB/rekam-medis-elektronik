@@ -1,10 +1,13 @@
 <?php
 
 use App\Models\CodeSystemAdmitSource;
+use App\Models\CodeSystemClinicalStatus;
 use App\Models\CodeSystemDischargeDisposition;
 use App\Models\CodeSystemEncounterReason;
+use App\Models\CodeSystemICD10;
 use App\Models\CodeSystemParticipantType;
 use App\Models\CodeSystemServiceType;
+use App\Models\CodeSystemVerificationStatus;
 use Illuminate\Support\Facades\Log;
 
 function getName($resource)
@@ -838,15 +841,6 @@ function getDiagnosis($resource)
     }
 }
 
-function getEpisodeOfCare($resource)
-{
-    if (isset($resource['episodeOfCare'][0]['reference']) && !empty($resource['episodeOfCare'][0]['reference'])) {
-        return $resource['episodeOfCare'][0]['reference'];
-    } else {
-        return '';
-    }
-}
-
 function getBasedOn($resource)
 {
     if (isset($resource['basedOn'][0]['reference']) && !empty($resource['basedOn'][0]['reference'])) {
@@ -1521,11 +1515,13 @@ function returnDiagnosis($attribute)
 function returnEvidence($attribute)
 {
     $evidence = [
-        'code' => returnAttribute($attribute, ['code', 0, 'coding', 'code'], null),
-        'detail_reference' => returnAttribute($attribute, ['detail', 0, 'reference'], null)
+        'system' => returnAttribute($attribute, ['code', 0, 'coding', 'system']),
+        'code' => returnAttribute($attribute, ['code', 0, 'coding', 'code']),
+        'display' => returnAttribute($attribute, ['code', 0, 'coding', 'display']),
+        'detail_reference' => returnAttribute($attribute, ['detail', 0, 'reference'])
     ];
 
-    if ($evidence['code'] === null && $evidence['detail_reference'] === null) {
+    if (containsOnlyNull($evidence)) {
         return null;
     } else {
         return $evidence;
@@ -1984,6 +1980,25 @@ function createCodeableConceptArray($codeableConceptAttribute): array
     return $codeableConcept;
 }
 
+function createAnnotationArray($annotationAttribute): array
+{
+    $annotation = [];
+
+    if (is_array($annotationAttribute) || is_object($annotationAttribute)) {
+        foreach ($annotationAttribute as $a) {
+            $annotation[] = merge_array(
+                json_decode($a->author, true),
+                [
+                    'time' => parseDate($a->time),
+                    'text' => $a->text
+                ]
+            );
+        }
+    }
+
+    return $annotation;
+}
+
 
 // Helper functions for defined valuesets
 /**
@@ -2115,7 +2130,7 @@ function relationshipDisplay($relationshipCode)
 function serviceTypeDisplay($serviceTypeCode)
 {
     try {
-        return CodeSystemServiceType::find($serviceTypeCode)->first()->display;
+        return CodeSystemServiceType::where('code', $serviceTypeCode)->first()->display;
     } catch (Exception $e) {
         Log::error($e);
         return null;
@@ -2197,7 +2212,7 @@ function participantType($participantTypeCode)
 function encounterReasonDisplay($encounterReasonCode)
 {
     try {
-        return CodeSystemEncounterReason::find($encounterReasonCode)->first()->display;
+        return CodeSystemEncounterReason::where('code', $encounterReasonCode)->first()->display;
     } catch (Exception $e) {
         Log::error($e);
         return null;
@@ -2242,7 +2257,7 @@ function diagnosisUseDisplay($diagnosisUseCode)
 function admitSource($admitSourceCode)
 {
     try {
-        return CodeSystemAdmitSource::find($admitSourceCode)->first();
+        return CodeSystemAdmitSource::where('code', $admitSourceCode)->first();
     } catch (Exception $e) {
         Log::error($e);
         return null;
@@ -2255,7 +2270,56 @@ function admitSource($admitSourceCode)
 function dischargeDisposition($dischargeDispositionCode)
 {
     try {
-        return CodeSystemDischargeDisposition::find($dischargeDispositionCode)->first();
+        return CodeSystemDischargeDisposition::where('code', $dischargeDispositionCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/condition-clinical"
+ */
+function clinicalStatus($clinicalStatusCode)
+{
+    try {
+        return CodeSystemClinicalStatus::where('code', $clinicalStatusCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+ */
+function verificationStatus($verificationStatusCode)
+{
+    try {
+        return CodeSystemVerificationStatus::where('code', $verificationStatusCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://hl7.org/fhir/sid/icd-10"
+ */
+function icd10Display($icd10Code, $language = 'en')
+{
+    try {
+        switch ($language) {
+            case 'en':
+                return CodeSystemICD10::where('code', $icd10Code)->first()->display_en;
+                break;
+            case 'id':
+                return CodeSystemICD10::where('code', $icd10Code)->first()->display_id;
+                break;
+            default:
+                return CodeSystemICD10::where('code' ,$icd10Code)->first()->display_en;
+                break;
+        }
     } catch (Exception $e) {
         Log::error($e);
         return null;

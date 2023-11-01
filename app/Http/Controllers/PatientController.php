@@ -44,7 +44,7 @@ class PatientController extends Controller
             $this->createInstances(PatientTelecom::class, $patientKey, $body, 'telecom');
             $this->createInstances(PatientAddress::class, $patientKey, $body, 'address');
             $this->createInstances(GeneralPractitioner::class, $patientKey, $body, 'general_practitioner');
-            $this->createInstances(PatientContact::class, $patientKey, $body, 'contact_data', [
+            $this->createInstances(PatientContact::class, $patientKey, $body['contact'], 'contact_data', [
                 [
                     'model' => PatientContactTelecom::class,
                     'key' => 'contact_id',

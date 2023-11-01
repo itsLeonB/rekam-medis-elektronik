@@ -50,18 +50,21 @@ class EncounterController extends Controller
             $this->createInstances(EncounterParticipant::class, $encounterKey, $body, 'participant');
             $this->createInstances(EncounterReason::class, $encounterKey, $body, 'reason');
             $this->createInstances(EncounterDiagnosis::class, $encounterKey, $body, 'diagnosis');
-            $this->createInstances(EncounterHospitalization::class, $encounterKey, $body, 'hospitalization_data', [
-                [
-                    'model' => EncounterHospitalizationDiet::class,
-                    'key' => 'enc_hosp_id',
-                    'bodyKey' => 'diet'
-                ],
-                [
-                    'model' => EncounterHospitalizationSpecialArrangement::class,
-                    'key' => 'enc_hosp_id',
-                    'bodyKey' => 'special_arrangement'
-                ],
-            ]);
+
+            if (isset($body['hospitalization'])) {
+                $this->createInstances(EncounterHospitalization::class, $encounterKey, $body['hospitalization'], 'hospitalization_data', [
+                    [
+                        'model' => EncounterHospitalizationDiet::class,
+                        'key' => 'enc_hosp_id',
+                        'bodyKey' => 'diet'
+                    ],
+                    [
+                        'model' => EncounterHospitalizationSpecialArrangement::class,
+                        'key' => 'enc_hosp_id',
+                        'bodyKey' => 'special_arrangement'
+                    ],
+                ]);
+            }
 
             $resourceData = new EncounterResource($resource);
             $resourceText = json_encode($resourceData);
@@ -136,70 +139,31 @@ class EncounterController extends Controller
             "code": 160303001,
             "reference": "Condition/ba0dd351-c30a-4659-994e-0013797b545b"
             }
-            ],
-            "diagnosis": [
-            {
-            "condition_reference": null,
-            "condition_display": null,
-            "use": null,
-            "rank": null
-            }
-            ],
-            "hospitalization": [
-            {
-            "hospitalization_data": {
-            "preadmission_identifier_system": null,
-            "preadmission_identifier_use": null,
-            "preadmission_identifier_value": null,
-            "origin": null,
-            "admit_source": null,
-            "re_admission": null,
-            "destination": null,
-            "discharge_disposition": null
-            },
-            "diet": [
-            {
-            "system": null,
-            "code": null,
-            "display": null
-            }
-            ],
-            "special_arrangement": [
-            {
-            "system": null,
-            "code": null,
-            "display": null
-            }
-            ]
-            }
             ]
             }';
-
-
         $body = json_decode($data, true);
         $body = removeEmptyValues($body);
 
-        DB::beginTransaction();
+        $resource = Resource::create([
+            'res_type' => 'Encounter',
+            'res_ver' => 1,
+        ]);
 
-        // try {
-            $resource = Resource::create([
-                'res_type' => 'Encounter',
-                'res_ver' => 1,
-            ]);
+        $resourceKey = ['resource_id' => $resource->id];
 
-            $resourceKey = ['resource_id' => $resource->id];
+        $encounter = Encounter::create(array_merge($resourceKey, $body['encounter']));
 
-            $encounter = Encounter::create(array_merge($resourceKey, $body['encounter']));
+        $encounterKey = ['encounter_id' => $encounter->id];
 
-            $encounterKey = ['encounter_id' => $encounter->id];
+        $this->createInstances(EncounterIdentifier::class, $encounterKey, $body, 'identifier');
+        $this->createInstances(EncounterStatusHistory::class, $encounterKey, $body, 'status_history');
+        $this->createInstances(EncounterClassHistory::class, $encounterKey, $body, 'class_history');
+        $this->createInstances(EncounterParticipant::class, $encounterKey, $body, 'participant');
+        $this->createInstances(EncounterReason::class, $encounterKey, $body, 'reason');
+        $this->createInstances(EncounterDiagnosis::class, $encounterKey, $body, 'diagnosis');
 
-            $this->createInstances(EncounterIdentifier::class, $encounterKey, $body, 'identifier');
-            $this->createInstances(EncounterStatusHistory::class, $encounterKey, $body, 'status_history');
-            $this->createInstances(EncounterClassHistory::class, $encounterKey, $body, 'class_history');
-            $this->createInstances(EncounterParticipant::class, $encounterKey, $body, 'participant');
-            $this->createInstances(EncounterReason::class, $encounterKey, $body, 'reason');
-            $this->createInstances(EncounterDiagnosis::class, $encounterKey, $body, 'diagnosis');
-            $this->createInstances(EncounterHospitalization::class, $encounterKey, $body, 'hospitalization_data', [
+        if (isset($body['hospitalization'])) {
+            $this->createInstances(EncounterHospitalization::class, $encounterKey, $body['hospitalization'], 'hospitalization_data', [
                 [
                     'model' => EncounterHospitalizationDiet::class,
                     'key' => 'enc_hosp_id',
@@ -211,27 +175,17 @@ class EncounterController extends Controller
                     'bodyKey' => 'special_arrangement'
                 ],
             ]);
+        }
 
-            $resourceData = new EncounterResource($resource);
-            $resourceText = json_encode($resourceData);
+        $resourceData = new EncounterResource($resource);
+        $resourceText = json_encode($resourceData);
 
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+        ResourceContent::create([
+            'resource_id' => $resource->id,
+            'res_ver' => 1,
+            'res_text' => $resourceText,
+        ]);
 
-            DB::commit();
-
-            return response()->json($resource->encounter->first(), 201);
-        // } catch (QueryException $e) {
-        //     DB::rollBack();
-        //     Log::error('Database error: ' . $e->getMessage());
-        //     return response()->json(['error' => 'Database error dalam input data pasien baru.'], 500);
-        // } catch (Exception $e) {
-        //     DB::rollBack();
-        //     Log::error('Error: ' . $e->getMessage());
-        //     return response()->json(['error' => 'Server error dalam input data pasien baru.'], 500);
-        // }
+        return response()->json($resource->encounter->first(), 201);
     }
 }

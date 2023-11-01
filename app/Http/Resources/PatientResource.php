@@ -66,7 +66,7 @@ class PatientResource extends JsonResource
                 'generalPractitioner' => $this->createGeneralPractitionerArray($patient),
             ],
             $patient->deceased,
-            $patient->multiple_birth,
+            $patient->multiple_birth
         );
 
         $data = removeEmptyValues($data);

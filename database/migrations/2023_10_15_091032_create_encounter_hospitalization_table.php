@@ -17,7 +17,7 @@ return new class extends Migration
             $table->index('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
             $table->string('preadmission_identifier_system')->nullable();
-            $table->enum('preadmission_identifier_use', ['usual', 'official', 'temp', 'secondary', 'old']);
+            $table->enum('preadmission_identifier_use', ['usual', 'official', 'temp', 'secondary', 'old'])->nullable();
             $table->string('preadmission_identifier_value')->nullable();
             $table->string('origin')->nullable();
             $table->string('admit_source')->nullable();

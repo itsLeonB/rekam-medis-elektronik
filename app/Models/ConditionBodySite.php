@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ConditionBodySite extends Model
 {
     protected $table = 'condition_body_site';
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function condition(): BelongsTo

@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('codesystem_dischargedisposition', function (Blueprint $table) {
-            $table->string('code')->unique();
-            $table->index('code');
+        Schema::create('codesystem_clinicalstatus', function (Blueprint $table) {
+            $table->char('code', 10)->primary();
             $table->string('display');
-            $table->string('definition');
+            $table->text('definition');
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('codesystem_dischargedisposition');
+        Schema::dropIfExists('codesystem_clinicalstatus');
     }
 };

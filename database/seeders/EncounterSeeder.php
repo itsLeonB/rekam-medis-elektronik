@@ -42,7 +42,7 @@ class EncounterSeeder extends Seeder
                     'service_type' => returnAttribute($resContent, ['serviceType', 'coding', 0, 'code']),
                     'priority' => returnAttribute($resContent, ['priority', 'coding', 0, 'code']),
                     'subject' => $resContent['subject']['reference'],
-                    'episode_of_care' => getEpisodeOfCare($resContent),
+                    'episode_of_care' => returnAttribute($resContent, ['episodeOfCare', 0, 'reference']),
                     'based_on' => getBasedOn($resContent),
                     'period_start' => returnAttribute($resContent, ['period', 'start']),
                     'period_end' => returnAttribute($resContent, ['period', 'end']),

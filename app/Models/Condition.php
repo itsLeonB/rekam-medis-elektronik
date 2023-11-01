@@ -15,6 +15,7 @@ class Condition extends Model
         'abatement' => 'json',
         'recorded_date' => 'date'
     ];
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function resource(): BelongsTo

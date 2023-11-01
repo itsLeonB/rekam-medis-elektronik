@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('codesystem_dischargedisposition', function (Blueprint $table) {
-            $table->string('code')->unique();
-            $table->index('code');
-            $table->string('display');
-            $table->string('definition');
+        Schema::create('codesystem_icd10', function (Blueprint $table) {
+            $table->char('code', 6)->primary();
+            $table->string('display_en');
+            $table->string('display_id');
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('codesystem_dischargedisposition');
+        Schema::dropIfExists('codesystem_icd10');
     }
 };

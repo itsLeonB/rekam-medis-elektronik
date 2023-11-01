@@ -10,6 +10,7 @@ class ConditionNote extends Model
 {
     protected $table = 'condition_note';
     protected $casts = ['time' => 'datetime'];
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function condition(): BelongsTo

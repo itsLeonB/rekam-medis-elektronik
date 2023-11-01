@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ConditionStage extends Model
 {
     protected $table = 'condition_stage';
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function condition(): BelongsTo

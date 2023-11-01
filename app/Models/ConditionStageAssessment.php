@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ConditionStageAssessment extends Model
 {
     protected $table = 'condition_stage_assessment';
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function conditionStage(): BelongsTo

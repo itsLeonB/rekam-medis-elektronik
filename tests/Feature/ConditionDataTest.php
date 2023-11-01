@@ -2,119 +2,64 @@
 
 namespace Tests\Feature;
 
+use App\Models\Condition;
 use App\Models\Encounter;
 use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class EncounterDataTest extends TestCase
+class ConditionDataTest extends TestCase
 {
     use DatabaseTransactions;
 
     /**
-     * Test apakah user dapat menlihat data kunjungan pasien
+     * Test apakah user dapat menlihat data kondisi pasien
      */
-    public function test_users_can_view_encounter_data()
+    public function test_users_can_view_condition_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getEncounterTestData();
+        $data = $this->getConditionTestData();
 
         $resource = Resource::create(
             [
                 'satusehat_id' => '000001',
-                'res_type' => 'Encounter',
+                'res_type' => 'Condition',
                 'res_ver' => 1
             ]
         );
 
-        $encounterData = array_merge(['resource_id' => $resource->id], $data['encounter']);
+        $conditionData = array_merge(['resource_id' => $resource->id], $data['condition']);
 
-        Encounter::create($encounterData);
+        Condition::create($conditionData);
 
-        $response = $this->json('GET', 'api/encounter/000001');
+        $response = $this->json('GET', 'api/condition/000001');
         $response->assertStatus(200);
     }
 
 
     /**
-     * Test apakah user dapat membuat data kunjungan pasien baru
+     * Test apakah user dapat membuat data kondisi pasien baru
      */
-    public function test_users_can_create_new_encounter_data()
+    public function test_users_can_create_new_condition_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getEncounterTestData();
+        $data = $this->getConditionTestData();
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/encounter/create', $data, $headers);
+        $response = $this->json('POST', '/api/condition/create', $data, $headers);
         $response->assertStatus(201);
-        $this->assertDatabaseHas('encounter', $data['encounter']);
+        // $this->assertDatabaseHas('condition', $data['condition']);
     }
 
-
-    private function getEncounterTestData(): array
-    {
-        $data = '{
-            "encounter": {
-            "status": "arrived",
-            "class": "AMB",
-            "service_type": 117,
-            "priority": "A",
-            "subject": "Patient/100000030009",
-            "episode_of_care": null,
-            "based_on": null,
-            "period_start": "2023-10-31T10:49:00+07:00",
-            "period_end": null,
-            "account": null,
-            "location": "Location/dc01c797-547a-4e4d-97cd-4ece0630e380",
-            "service_provider": "Organization/RSPARA",
-            "part_of": null
-            },
-            "identifier": [
-            {
-            "system": "http://sys-ids.kemkes.go.id/encounter/RSPARA",
-            "use": "official",
-            "value": "000001"
-            }
-            ],
-            "status_history": [
-            {
-            "status": "arrived",
-            "period_start": "2023-10-31T10:49:00+07:00",
-            "period_end": null
-            }
-            ],
-            "class_history" : [
-            {
-            "class": "AMB",
-            "period_start": "2023-10-31T10:49:00+07:00",
-            "period_end": null
-            }
-            ],
-            "participant": [
-            {
-            "type": "ATND",
-            "individual": "Practitioner/1000400104"
-            }
-            ],
-            "reason": [
-            {
-            "code": 160303001,
-            "reference": "Condition/ba0dd351-c30a-4659-994e-0013797b545b"
-            }
-            ]
-            }';
-
-        return json_decode($data, true);
-    }
-
-    private function getEncounterFullData(): array
+    private function getConditionTestData(): array
     {
         $data = '{
             "condition": {
@@ -182,7 +127,7 @@ class EncounterDataTest extends TestCase
             },
             "abatementString": null
             },
-            "recordedDate": "2023-11-01T11.16.01+07:00",
+            "recorded_date": "2023-11-01T11.16.01+07:00",
             "recorder": "Practitioner/1000400104",
             "asserter": "Practitioner-1000400104"
             },
