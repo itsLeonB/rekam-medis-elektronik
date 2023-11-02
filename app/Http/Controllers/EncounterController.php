@@ -17,22 +17,16 @@ use App\Models\EncounterReason;
 use App\Models\EncounterStatusHistory;
 use App\Models\Resource;
 use App\Models\ResourceContent;
-use Exception;
-use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Services\FhirService;
 
 class EncounterController extends Controller
 {
-    public function postEncounter(EncounterRequest $request)
+    public function postEncounter(EncounterRequest $request, FhirService $fhirService)
     {
         $body = json_decode($request->getContent(), true);
         $body = removeEmptyValues($body);
 
-        DB::beginTransaction();
-
-        try {
+        return $fhirService->insertData(function () use ($body) {
             $resource = Resource::create([
                 'res_type' => 'Encounter',
                 'res_ver' => 1,
@@ -51,7 +45,7 @@ class EncounterController extends Controller
             $this->createInstances(EncounterReason::class, $encounterKey, $body, 'reason');
             $this->createInstances(EncounterDiagnosis::class, $encounterKey, $body, 'diagnosis');
 
-            if (isset($body['hospitalization'])) {
+            if (isset($body['hospitalization']) && !empty($body['hospitalization'])) {
                 $this->createInstances(EncounterHospitalization::class, $encounterKey, $body['hospitalization'], 'hospitalization_data', [
                     [
                         'model' => EncounterHospitalizationDiet::class,
@@ -75,17 +69,7 @@ class EncounterController extends Controller
                 'res_text' => $resourceText,
             ]);
 
-            DB::commit();
-
             return response()->json($resource->encounter->first(), 201);
-        } catch (QueryException $e) {
-            DB::rollBack();
-            Log::error('Database error: ' . $e->getMessage());
-            return response()->json(['error' => 'Database error dalam input data pasien baru.'], 500);
-        } catch (Exception $e) {
-            DB::rollBack();
-            Log::error('Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Server error dalam input data pasien baru.'], 500);
-        }
+        });
     }
 }

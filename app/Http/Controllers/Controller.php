@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Exception;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -32,7 +31,7 @@ class Controller extends BaseController
                         }
                     }
                 } catch (Exception $e) {
-                    return response()->json(['error' => 'Error dalam input data baru', 500]);
+                    return response()->json(['error' => 'Error dalam input data baru'], 500);
                 }
             }
         }
