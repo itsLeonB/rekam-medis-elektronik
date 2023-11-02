@@ -1,0 +1,50 @@
+{
+    "encounter": {
+        "status": "arrived",
+        "class": "AMB",
+        "service_type": 117,
+        "priority": "A",
+        "subject": "Patient/100000030009",
+        "episode_of_care": null,
+        "based_on": null,
+        "period_start": "2023-10-31T10:49:00+07:00",
+        "period_end": null,
+        "account": null,
+        "location": "Location/dc01c797-547a-4e4d-97cd-4ece0630e380",
+        "service_provider": "Organization/RSPARA",
+        "part_of": null
+    },
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/encounter/RSPARA",
+            "use": "official",
+            "value": "000001"
+        }
+    ],
+    "status_history": [
+        {
+            "status": "arrived",
+            "period_start": "2023-10-31T10:49:00+07:00",
+            "period_end": null
+        }
+    ],
+    "class_history": [
+        {
+            "class": "AMB",
+            "period_start": "2023-10-31T10:49:00+07:00",
+            "period_end": null
+        }
+    ],
+    "participant": [
+        {
+            "type": "ATND",
+            "individual": "Practitioner/1000400104"
+        }
+    ],
+    "reason": [
+        {
+            "code": 160303001,
+            "reference": "Condition/ba0dd351-c30a-4659-994e-0013797b545b"
+        }
+    ]
+}

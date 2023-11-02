@@ -21,8 +21,7 @@ class ConditionController extends Controller
 {
     public function postCondition(ConditionRequest $request, FhirService $fhirService)
     {
-        $body = json_decode($request->getContent(), true);
-        $body = removeEmptyValues($body);
+        $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
             $resource = Resource::create([

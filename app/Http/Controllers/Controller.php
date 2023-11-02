@@ -5,11 +5,22 @@ namespace App\Http\Controllers;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    public function retrieveJsonPayload(Request $request)
+    {
+        $body = json_decode($request->getContent(), true);
+        if ($body === null) {
+            return response()->json(['error' => 'Invalid JSON'], 400);
+        }
+        $body = removeEmptyValues($body);
+        return $body;
+    }
 
     public function createInstances(string $model, array $key, array $body, string $bodyKey, array $nestedModels = [])
     {
@@ -31,7 +42,7 @@ class Controller extends BaseController
                         }
                     }
                 } catch (Exception $e) {
-                    return response()->json(['error' => 'Error dalam input data baru'], 500);
+                    return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
                 }
             }
         }
