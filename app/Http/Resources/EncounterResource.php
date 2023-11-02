@@ -14,7 +14,7 @@ class EncounterResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $encounter = $this->resource->encounter->first();
+        $encounter = $this->resource->encounter ? $this->resource->encounter->first() : null;
 
         $data = [
             'resourceType' => 'Encounter',

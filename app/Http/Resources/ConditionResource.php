@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\CodeSystemClinicalStatus;
+use App\Models\Condition;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -15,7 +16,7 @@ class ConditionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $condition = $this->resource->condition->first();
+        $condition = $this->resource->condition ? $this->resource->condition->first() : null;
 
         $data = merge_array(
             [
@@ -46,7 +47,7 @@ class ConditionResource extends JsonResource
                         [
                             'system' => 'http://snomed.info/sct',
                             'code' => $condition->severity,
-                            'display' => $this->severityDisplay($condition->severity)
+                            'display' => Condition::SEVERITY_DISPLAY[$condition->severity] ?? null
                         ]
                     ]
                 ],
@@ -84,24 +85,6 @@ class ConditionResource extends JsonResource
         $data = removeEmptyValues($data);
 
         return $data;
-    }
-
-    private function severityDisplay($severityCode)
-    {
-        switch ($severityCode) {
-            case '24484000':
-                return 'Severe';
-                break;
-            case '6736007':
-                return 'Moderate';
-                break;
-            case '255604002':
-                return 'Mild';
-                break;
-            default:
-                return null;
-                break;
-        }
     }
 
     private function createStageArray($condition): array

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ConditionCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
             $table->string('system');
-            $table->string('code');
+            $table->enum('code', ConditionCategory::CODE);
             $table->string('display');
         });
     }

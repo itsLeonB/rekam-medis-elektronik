@@ -15,7 +15,7 @@ class PatientResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $patient = $this->resource->patient->first();
+        $patient = $this->resource->patient ? $this->resource->patient->first() : null;
 
         $data = merge_array(
             [
