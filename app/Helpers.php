@@ -1269,16 +1269,16 @@ function returnAnnotation($attribute)
 function returnReferenceRange($attribute)
 {
     return [
-        'value_low' => returnAttribute($attribute, ['low', 'value'], null),
-        'value_high' => returnAttribute($attribute, ['high', 'value'], null),
-        'unit' => returnAttribute($attribute, ['low', 'unit'], null) == null ? returnAttribute($attribute, ['high', 'unit'], null) : returnAttribute($attribute, ['low', 'unit'], null),
-        'system' => returnAttribute($attribute, ['low', 'system'], null) == null ? returnAttribute($attribute, ['high', 'system'], null) : returnAttribute($attribute, ['low', 'system'], null),
-        'code' => returnAttribute($attribute, ['low', 'code'], null) == null ? returnAttribute($attribute, ['high', 'code'], null) : returnAttribute($attribute, ['low', 'code'], null),
-        'type' => returnAttribute($attribute, ['type', 'coding', 0, 'code'], null),
-        'applies_to' => returnAttribute($attribute, ['appliesTo', 'coding', 0, 'code'], null),
-        'age_low' => returnAttribute($attribute, ['age', 'low', 'value'], null),
-        'age_high' => returnAttribute($attribute, ['age', 'high', 'value'], null),
-        'text' => returnAttribute($attribute, ['text'], null)
+        'value_low' => returnAttribute($attribute, ['low', 'value']),
+        'value_high' => returnAttribute($attribute, ['high', 'value']),
+        'unit' => returnAttribute($attribute, ['low', 'unit']) == null ? returnAttribute($attribute, ['high', 'unit'], null) : returnAttribute($attribute, ['low', 'unit'], null),
+        'system' => returnAttribute($attribute, ['low', 'system']) == null ? returnAttribute($attribute, ['high', 'system'], null) : returnAttribute($attribute, ['low', 'system'], null),
+        'code' => returnAttribute($attribute, ['low', 'code']) == null ? returnAttribute($attribute, ['high', 'code'], null) : returnAttribute($attribute, ['low', 'code'], null),
+        'type' => returnAttribute($attribute, ['type', 'coding', 0, 'code']),
+        'applies_to' => returnAttribute($attribute, ['appliesTo']),
+        'age_low' => returnAttribute($attribute, ['age', 'low', 'value']),
+        'age_high' => returnAttribute($attribute, ['age', 'high', 'value']),
+        'text' => returnAttribute($attribute, ['text'])
     ];
 }
 

@@ -17,7 +17,6 @@ use App\Models\ObservationNote;
 use App\Models\ObservationPartOf;
 use App\Models\ObservationPerformer;
 use App\Models\ObservationReferenceRange;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Resource;
 
@@ -54,17 +53,23 @@ class ObservationSeeder extends Seeder
                 [
                     'resource_id' => $o->id,
                     'status' => returnAttribute($resContent, ['status'], 'unknown'),
-                    'code' => returnAttribute($resContent, ['code', 'coding', 0, 'code'], ''),
+                    'code_system' => returnAttribute($resContent, ['code', 'coding', 0, 'system']),
+                    'code_code' => returnAttribute($resContent, ['code', 'coding', 0, 'code'], ''),
+                    'code_display' => returnAttribute($resContent, ['code', 'coding', 0, 'display']),
                     'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
                     'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
                     'effective' => returnEffective($resContent),
-                    'issued' => returnAttribute($resContent, ['issued'], null),
+                    'issued' => returnAttribute($resContent, ['issued']),
                     'value' => returnValue($resContent),
-                    'data_absent_reason' => returnAttribute($resContent, ['dataAbsentReason', 'coding', 0, 'code'], null),
-                    'body_site' => returnAttribute($resContent, ['bodySite', 'coding', 0, 'code'], null),
-                    'method' => returnAttribute($resContent, ['method', 'coding', 0, 'code'], null),
-                    'specimen' => returnAttribute($resContent, ['specimen', 'reference'], null),
-                    'device' => returnAttribute($resContent, ['device', 'reference'], null),
+                    'data_absent_reason' => returnAttribute($resContent, ['dataAbsentReason', 'coding', 0, 'code']),
+                    'body_site_system' => returnAttribute($resContent, ['bodySite', 'coding', 0, 'system']),
+                    'body_site_code' => returnAttribute($resContent, ['bodySite', 'coding', 0, 'code']),
+                    'body_site_display' => returnAttribute($resContent, ['bodySite', 'coding', 0, 'display']),
+                    'method_system' => returnAttribute($resContent, ['method', 'coding', 0, 'system']),
+                    'method_code' => returnAttribute($resContent, ['method', 'coding', 0, 'code']),
+                    'method_display' => returnAttribute($resContent, ['method', 'coding', 0, 'display']),
+                    'specimen' => returnAttribute($resContent, ['specimen', 'reference']),
+                    'device' => returnAttribute($resContent, ['device', 'reference']),
                 ]
             );
 
