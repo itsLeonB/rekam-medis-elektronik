@@ -51,10 +51,10 @@ class AllergyIntoleranceSeeder extends Seeder
                     'patient' => returnAttribute($resContent, ['patient', 'reference'], ''),
                     'encounter' => returnAttribute($resContent, ['encounter', 'reference']),
                     'onset' => returnVariableAttribute($resContent, 'onset', ['DateTime', 'Age', 'Period', 'Range', 'String']),
-                    'recorded_date' => parseDate(returnAttribute($resContent, ['recordedDate'])),
+                    'recorded_date' => parseDateInput(returnAttribute($resContent, ['recordedDate'])),
                     'recorder' => returnAttribute($resContent, ['recorder', 'reference']),
                     'asserter' => returnAttribute($resContent, ['asserter', 'reference']),
-                    'last_occurence' => parseDate(returnAttribute($resContent, ['lastOccurence']))
+                    'last_occurence' => parseDateInput(returnAttribute($resContent, ['lastOccurence']))
                 ],
                 $code,
                 $category
@@ -72,7 +72,7 @@ class AllergyIntoleranceSeeder extends Seeder
                         returnCodeableConcept(returnAttribute($r, ['substance']), 'substance'),
                         [
                             'description' => returnAttribute($r, ['description']),
-                            'onset' => parseDate(returnAttribute($r, ['onset'])),
+                            'onset' => parseDateInput(returnAttribute($r, ['onset'])),
                             'severity' => returnAttribute($r, ['severity'])
                         ],
                         returnCodeableConcept(returnAttribute($r, ['exposureRoute']), 'exposure_route')

@@ -1458,8 +1458,8 @@ function returnPeriod($attribute, $prefix = null)
     }
 
     return [
-        $prefix . 'period_start' => parseDate(returnAttribute($attribute, ['start'], '1900-01-01')),
-        $prefix . 'period_end' => parseDate(returnAttribute($attribute, ['end'], null))
+        $prefix . 'period_start' => parseDateInput(returnAttribute($attribute, ['start'], '1900-01-01')),
+        $prefix . 'period_end' => parseDateInput(returnAttribute($attribute, ['end'], null))
     ];
 }
 
@@ -1471,14 +1471,14 @@ function returnStatusHistory($attribute)
     );
 }
 
-function parseDate($date)
+function parseDateInput($date)
 {
     if ($date != null) {
         // Create a DateTime object with the input date
         $dateTime = new DateTime($date);
 
         // Set the desired time zone for the SQL datetime format
-        $dateTime->setTimezone(new DateTimeZone('UTC'));
+        $dateTime->setTimezone(new DateTimeZone('Asia/Jakarta'));
 
         // Format the date in SQL datetime format
         $sqlDateTime = $dateTime->format('Y-m-d H:i:s');
@@ -1488,6 +1488,7 @@ function parseDate($date)
         return null;
     }
 }
+
 
 function containsOnlyNull($input)
 {
@@ -1860,144 +1861,6 @@ function removeEmptyValues($array)
     return $array;
 }
 
-// Helper functions for resource creation
-function createIdentifierArray($resource)
-{
-    $identifier = [];
-    foreach ($resource->identifier as $i) {
-        $identifier[] = [
-            'system' => $i->system,
-            'use' => $i->use,
-            'value' => $i->value,
-        ];
-    }
-    return $identifier;
-}
-
-function createTelecomArray($resource)
-{
-    $telecom = [];
-
-    $telecomData = $resource->telecom;
-
-    if (is_array($telecomData) || is_object($telecomData)) {
-        foreach ($telecomData as $t) {
-            $telecom[] = [
-                'system' => $t->system,
-                'use' => $t->use,
-                'value' => $t->value,
-            ];
-        }
-    }
-
-    return $telecom;
-}
-
-function createAddressArray($resource)
-{
-    $addressData = [];
-
-    $address = $resource->address;
-
-    if (is_array($address) || is_object($address)) {
-        foreach ($address as $a) {
-            $addressData[] = [
-                'use' => $a->use,
-                'line' => [$a->line],
-                'country' => $a->country,
-                'postalCode' => $a->postal_code,
-                'extension' => [
-                    [
-                        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
-                        'extension' => [
-                            [
-                                'url' => 'province',
-                                'valueCode' => $a->province == 0 ? null : $a->province,
-                            ],
-                            [
-                                'url' => 'city',
-                                'valueCode' => $a->city == 0 ? null : $a->city,
-                            ],
-                            [
-                                'url' => 'district',
-                                'valueCode' => $a->district == 0 ? null : $a->district,
-                            ],
-                            [
-                                'url' => 'village',
-                                'valueCode' => $a->village == 0 ? null : $a->village,
-                            ],
-                            [
-                                'url' => 'rt',
-                                'valueCode' => $a->rt == 0 ? null : $a->rt,
-                            ],
-                            [
-                                'url' => 'rw',
-                                'valueCode' => $a->rw == 0 ? null : $a->rw,
-                            ],
-                        ]
-                    ]
-                ]
-            ];
-        }
-    }
-
-    return $addressData;
-}
-
-function createReferenceArray($referenceAttribute)
-{
-    $reference = [];
-
-    if (is_array($referenceAttribute) || is_object($referenceAttribute)) {
-        foreach ($referenceAttribute as $ref) {
-            $reference[] = [
-                'reference' => $ref->reference,
-            ];
-        }
-    }
-
-    return $reference;
-}
-
-function createCodeableConceptArray($codeableConceptAttribute): array
-{
-    $codeableConcept = [];
-
-    if (is_array($codeableConceptAttribute) || is_object($codeableConceptAttribute)) {
-        foreach ($codeableConceptAttribute as $cc) {
-            $codeableConcept[] = [
-                'coding' => [
-                    [
-                        'system' => $cc->system,
-                        'code' => $cc->code,
-                        'display' => $cc->display,
-                    ]
-                ]
-            ];
-        }
-    }
-
-    return $codeableConcept;
-}
-
-function createAnnotationArray($annotationAttribute): array
-{
-    $annotation = [];
-
-    if (is_array($annotationAttribute) || is_object($annotationAttribute)) {
-        foreach ($annotationAttribute as $a) {
-            $annotation[] = merge_array(
-                json_decode($a->author, true),
-                [
-                    'time' => parseDate($a->time),
-                    'text' => $a->text
-                ]
-            );
-        }
-    }
-
-    return $annotation;
-}
 
 
 // Helper functions for defined valuesets
@@ -2317,7 +2180,7 @@ function icd10Display($icd10Code, $language = 'en')
                 return CodeSystemICD10::where('code', $icd10Code)->first()->display_id;
                 break;
             default:
-                return CodeSystemICD10::where('code' ,$icd10Code)->first()->display_en;
+                return CodeSystemICD10::where('code', $icd10Code)->first()->display_en;
                 break;
         }
     } catch (Exception $e) {

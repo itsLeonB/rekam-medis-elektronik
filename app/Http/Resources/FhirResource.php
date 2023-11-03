@@ -2,29 +2,178 @@
 
 namespace App\Http\Resources;
 
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FhirResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
-     */
-    public function toArray(Request $request): array
+    public function parseDate(&$array)
     {
-        return [
-            'resourceType' => $this->res_type,
-            'id' => $this->satusehat_id,
-            'extension' => [
-                [
-                    'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace',
-                    'valueAddress' => [
-                        'city' => $this->patient[0]->birth_place,
+        foreach ($array as &$value) {
+            if (is_array($value)) {
+                $this->parseDate($value); // Recursively process nested arrays
+            } elseif ($value instanceof DateTime) {
+                $value = $this->parseDateFhir($value);
+            }
+        }
+        return $array;
+    }
+
+    public function parseDateFhir($date)
+    {
+        if ($date != null) {
+            // Create a DateTime object with the input date
+            $dateTime = new DateTime($date);
+
+            // Set the desired time zone for Jakarta (+07:00)
+            $dateTime->setTimezone(new DateTimeZone('Asia/Jakarta'));
+
+            // Format the date in the desired format
+            $formattedDate = $dateTime->format('Y-m-d\TH:i:sP');
+
+            return $formattedDate;
+        } else {
+            return null;
+        }
+    }
+
+    public function createIdentifierArray($resource)
+    {
+        $identifier = [];
+        foreach ($resource->identifier as $i) {
+            $identifier[] = [
+                'system' => $i->system,
+                'use' => $i->use,
+                'value' => $i->value,
+            ];
+        }
+        return $identifier;
+    }
+
+    public function createTelecomArray($resource)
+    {
+        $telecom = [];
+
+        $telecomData = $resource->telecom;
+
+        if (is_array($telecomData) || is_object($telecomData)) {
+            foreach ($telecomData as $t) {
+                $telecom[] = [
+                    'system' => $t->system,
+                    'use' => $t->use,
+                    'value' => $t->value,
+                ];
+            }
+        }
+
+        return $telecom;
+    }
+
+    public function createAddressArray($resource)
+    {
+        $addressData = [];
+
+        $address = $resource->address;
+
+        if (is_array($address) || is_object($address)) {
+            foreach ($address as $a) {
+                $addressData[] = [
+                    'use' => $a->use,
+                    'line' => [$a->line],
+                    'country' => $a->country,
+                    'postalCode' => $a->postal_code,
+                    'extension' => [
+                        [
+                            'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
+                            'extension' => [
+                                [
+                                    'url' => 'province',
+                                    'valueCode' => $a->province == 0 ? null : $a->province,
+                                ],
+                                [
+                                    'url' => 'city',
+                                    'valueCode' => $a->city == 0 ? null : $a->city,
+                                ],
+                                [
+                                    'url' => 'district',
+                                    'valueCode' => $a->district == 0 ? null : $a->district,
+                                ],
+                                [
+                                    'url' => 'village',
+                                    'valueCode' => $a->village == 0 ? null : $a->village,
+                                ],
+                                [
+                                    'url' => 'rt',
+                                    'valueCode' => $a->rt == 0 ? null : $a->rt,
+                                ],
+                                [
+                                    'url' => 'rw',
+                                    'valueCode' => $a->rw == 0 ? null : $a->rw,
+                                ],
+                            ]
+                        ]
                     ]
-                ],
-            ],
-        ];
+                ];
+            }
+        }
+
+        return $addressData;
+    }
+
+    public function createReferenceArray($referenceAttribute)
+    {
+        $reference = [];
+
+        if (is_array($referenceAttribute) || is_object($referenceAttribute)) {
+            foreach ($referenceAttribute as $ref) {
+                $reference[] = [
+                    'reference' => $ref->reference,
+                ];
+            }
+        }
+
+        return $reference;
+    }
+
+    public function createCodeableConceptArray($codeableConceptAttribute): array
+    {
+        $codeableConcept = [];
+
+        if (is_array($codeableConceptAttribute) || is_object($codeableConceptAttribute)) {
+            foreach ($codeableConceptAttribute as $cc) {
+                $codeableConcept[] = [
+                    'coding' => [
+                        [
+                            'system' => $cc->system,
+                            'code' => $cc->code,
+                            'display' => $cc->display,
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $codeableConcept;
+    }
+
+    public function createAnnotationArray($annotationAttribute): array
+    {
+        $annotation = [];
+
+        if (is_array($annotationAttribute) || is_object($annotationAttribute)) {
+            foreach ($annotationAttribute as $a) {
+                $annotation[] = merge_array(
+                    json_decode($a->author, true),
+                    [
+                        'time' => $a->time,
+                        'text' => $a->text
+                    ]
+                );
+            }
+        }
+
+        return $annotation;
     }
 }

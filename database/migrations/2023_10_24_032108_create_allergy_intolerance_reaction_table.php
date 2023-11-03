@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\AllergyIntoleranceReaction;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,7 +21,7 @@ return new class extends Migration
             $table->string('substance_display')->nullable();
             $table->text('description')->nullable();
             $table->dateTime('onset')->nullable();
-            $table->enum('severity', AllergyIntoleranceReaction::SEVERITY_CODE)->nullable();
+            $table->enum('severity', ['mild', 'moderate', 'severe'])->nullable();
             $table->string('exposure_route_system')->nullable();
             $table->string('exposure_route_code')->nullable();
             $table->string('exposure_route_display')->nullable();

@@ -3,9 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class EncounterResource extends JsonResource
+class EncounterResource extends FhirResource
 {
     /**
      * Transform the resource into an array.
@@ -19,7 +18,7 @@ class EncounterResource extends JsonResource
         $data = [
             'resourceType' => 'Encounter',
             'id' => $this->satusehat_id,
-            'identifier' => createIdentifierArray($encounter),
+            'identifier' => $this->createIdentifierArray($encounter),
             'status' => $encounter->status,
             'statusHistory' => $this->createStatusHistoryArray($encounter),
             'class' => [
@@ -65,7 +64,7 @@ class EncounterResource extends JsonResource
                 'end' => $encounter->period_end,
             ],
             'reasonCode' => $this->createReasonCodeArray($encounter),
-            'reasonReference' => createReferenceArray($encounter->reason),
+            'reasonReference' => $this->createReferenceArray($encounter->reason),
             'diagnosis' => $this->createDiagnosisArray($encounter->diagnosis),
             'account' => [
                 [
@@ -89,6 +88,7 @@ class EncounterResource extends JsonResource
         ];
 
         $data = removeEmptyValues($data);
+        $data = $this->parseDate($data);
 
         return $data;
     }
@@ -241,8 +241,8 @@ class EncounterResource extends JsonResource
                             ],
                         ],
                     ],
-                    'dietPreference' => createCodeableConceptArray($h->diet),
-                    'specialArrangement' => createCodeableConceptArray($h->specialArrangement),
+                    'dietPreference' => $this->createCodeableConceptArray($h->diet),
+                    'specialArrangement' => $this->createCodeableConceptArray($h->specialArrangement),
                     'destination' => [
                         'reference' => $h->destination
                     ],

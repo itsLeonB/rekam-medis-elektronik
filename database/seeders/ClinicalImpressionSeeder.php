@@ -43,7 +43,7 @@ class ClinicalImpressionSeeder extends Seeder
                     'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
                     'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
                     'effective' => returnVariableAttribute($resContent, 'effective', ['DateTime', 'Period']),
-                    'date' => parseDate(returnAttribute($resContent, ['date'])),
+                    'date' => parseDateInput(returnAttribute($resContent, ['date'])),
                     'assessor' => returnAttribute($resContent, ['assessor', 'reference']),
                     'previous' => returnAttribute($resContent, ['previous', 'reference']),
                     'summary' => returnAttribute($resContent, ['summary']),

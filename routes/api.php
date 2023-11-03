@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AllergyIntoleranceController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\EncounterController;
 use App\Http\Resources\PatientResource;
@@ -11,6 +12,7 @@ use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\SatusehatResourceController;
 use App\Http\Controllers\SatusehatTokenController;
+use App\Http\Controllers\TestController;
 use App\Http\Resources\FhirResource;
 
 /*
@@ -52,7 +54,10 @@ Route::post('/encounter/create', [EncounterController::class, 'postEncounter']);
 // Condition resource endpoint
 Route::post('/condition/create', [ConditionController::class, 'postCondition']);
 
+// AllergyIntolerance resource endpoint
+Route::post('allergyintolerance/create', [AllergyIntoleranceController::class, 'postAllergyIntolerance']);
+
 // Testing endpoint
-Route::get('/test-get/{res_type}/{satusehat_id}', [ResourceController::class, 'testResource']);
-Route::get('/test-create/encounter/create', [EncounterController::class, 'testResource']);
-Route::get('/test-create/condition/create', [ConditionController::class, 'testResource']);
+Route::get('/test-get/allergyintolerance/{satusehat_id}', [TestController::class, 'testAllergyIntoleranceResource']);
+Route::get('/test-create/encounter/create', [TestController::class, 'testCreateEncounter']);
+Route::get('/test-create/condition/create', [TestController::class, 'testCreateCondition']);

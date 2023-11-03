@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -76,13 +76,14 @@ class AllergyIntolerance extends Model
     protected $table = 'allergy_intolerance';
     protected $casts = [
         'onset' => 'json',
-        'recorder_date' => 'datetime',
+        'recorded_date' => 'datetime',
         'last_occurence' => 'datetime',
         'category_food' => 'boolean',
         'category_medication' => 'boolean',
         'category_environment'  => 'boolean',
         'category_biologic' => 'boolean'
     ];
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function resource(): BelongsTo

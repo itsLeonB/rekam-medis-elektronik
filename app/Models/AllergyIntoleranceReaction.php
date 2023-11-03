@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -25,6 +25,7 @@ class AllergyIntoleranceReaction extends Model
 
     protected $table = 'allergy_intolerance_reaction';
     protected $casts = ['onset' => 'datetime'];
+    protected $guarded = ['id'];
     public $timestamps = false;
 
     public function allergy(): BelongsTo

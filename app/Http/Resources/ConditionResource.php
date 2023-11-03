@@ -2,12 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\CodeSystemClinicalStatus;
 use App\Models\Condition;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class ConditionResource extends JsonResource
+class ConditionResource extends FhirResource
 {
     /**
      * Transform the resource into an array.
@@ -22,7 +20,7 @@ class ConditionResource extends JsonResource
             [
                 'resourceType' => 'Condition',
                 'id' => $this->satusehat_id,
-                'identifier' => createIdentifierArray($condition),
+                'identifier' => $this->createIdentifierArray($condition),
                 'clinicalStatus' => [
                     'coding' => [
                         [
@@ -41,7 +39,7 @@ class ConditionResource extends JsonResource
                         ],
                     ],
                 ],
-                'category' => createCodeableConceptArray($condition->category),
+                'category' => $this->createCodeableConceptArray($condition->category),
                 'severity' => [
                     'coding' => [
                         [
@@ -60,7 +58,7 @@ class ConditionResource extends JsonResource
                         ]
                     ]
                 ],
-                'bodySite' => createCodeableConceptArray($condition->body_site),
+                'bodySite' => $this->createCodeableConceptArray($condition->body_site),
                 'subject' => [
                     'reference' => $condition->subject
                 ],
@@ -76,13 +74,14 @@ class ConditionResource extends JsonResource
                 ],
                 'stage' => $this->createStageArray($condition),
                 'evidence' => $this->createEvidenceArray($condition),
-                'note' => createAnnotationArray($condition->note)
+                'note' => $this->createAnnotationArray($condition->note)
             ],
             $condition->onset,
             $condition->abatement,
         );
 
         $data = removeEmptyValues($data);
+        $data = $this->parseDate($data);
 
         return $data;
     }
@@ -104,7 +103,7 @@ class ConditionResource extends JsonResource
                         ]
                     ]
                 ],
-                'assessment' => createReferenceArray($s->assessment),
+                'assessment' => $this->createReferenceArray($s->assessment),
                 'type' => [
                     'coding' => [
                         [

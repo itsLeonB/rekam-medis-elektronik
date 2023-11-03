@@ -34,7 +34,7 @@ class PatientSeeder extends Seeder
             $active = returnAttribute($resContent, ['active'], true);
             $nameData = getName($resContent);
             $gender = getGender($resContent) == null ? 'unknown' : getGender($resContent);
-            $birthDate = parseDate(returnAttribute($resContent, ['birthDate'], '1900-01-01'));
+            $birthDate = parseDateInput(returnAttribute($resContent, ['birthDate'], '1900-01-01'));
             $extension = getExtension($resContent);
             $identifiers = returnAttribute($resContent, ['identifier'], null);
             $telecoms = returnAttribute($resContent, ['telecom'], null);

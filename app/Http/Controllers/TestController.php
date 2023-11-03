@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
 use App\Models\Condition;
@@ -27,9 +28,20 @@ use App\Models\Resource;
 use App\Models\ResourceContent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Tests\Traits\ExamplePayload;
 
 class TestController extends Controller
 {
+    use ExamplePayload;
+
+    public function testAllergyIntoleranceResource($satusehat_id)
+    {
+        return response()->json(new AllergyIntoleranceResource(Resource::where([
+            ['satusehat_id', '=', $satusehat_id],
+            ['res_type', '=', 'allergyintolerance']
+        ])->firstOrFail()), 200);
+    }
+
     public function testCreateEncounter()
     {
         $data = '{

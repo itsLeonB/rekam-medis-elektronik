@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\AllergyIntolerance;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,14 +16,14 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->enum('clinical_status', AllergyIntolerance::CLINICAL_STATUS_CODE)->nullable();
-            $table->enum('verification_status', AllergyIntolerance::VERIFICATION_STATUS_CODE)->nullable();
-            $table->enum('type', AllergyIntolerance::TYPE_CODE)->nullable();
+            $table->enum('clinical_status', ['active', 'inactive', 'resolved'])->nullable();
+            $table->enum('verification_status', ['unconfirmed', 'confirmed', 'refuted', 'entered-in-error'])->nullable();
+            $table->enum('type', ['allergy', 'intolerance'])->nullable();
             $table->boolean('category_food');
             $table->boolean('category_medication');
             $table->boolean('category_environment');
             $table->boolean('category_biologic');
-            $table->enum('criticality', AllergyIntolerance::CRITICALITY_CODE)->nullable();
+            $table->enum('criticality', ['low', 'high', 'unable-to-assess'])->nullable();
             $table->string('code_system')->nullable();
             $table->string('code_code');
             $table->string('code_display')->nullable();
