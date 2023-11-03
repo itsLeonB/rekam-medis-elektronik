@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use App\Model;
 
 class CodeSystemAdmitSource extends Model
 {
-    use HasFactory;
+    protected $table = 'codesystem_admitsource';
+    public $timestamps = false;
 }

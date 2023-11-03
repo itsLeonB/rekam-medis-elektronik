@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('codesystem_dischargedisposition', function (Blueprint $table) {
-            $table->string('code')->primary();
+            $table->string('code')->unique();
+            $table->index('code');
             $table->string('display');
             $table->string('definition');
         });

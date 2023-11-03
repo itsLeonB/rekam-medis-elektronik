@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\AllergyIntoleranceReactionManifestation;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ return new class extends Migration
             $table->index('allergy_react_id');
             $table->foreign('allergy_react_id')->references('id')->on('allergy_intolerance_reaction')->onDelete('cascade');
             $table->string('system')->nullable();
-            $table->string('code');
+            $table->enum('code', AllergyIntoleranceReactionManifestation::CODE);
             $table->string('display')->nullable();
         });
     }

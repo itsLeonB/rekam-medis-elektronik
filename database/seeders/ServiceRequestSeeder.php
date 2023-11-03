@@ -51,7 +51,7 @@ class ServiceRequestSeeder extends Seeder
                     'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
                     'occurrence' => returnVariableAttribute($resContent, 'occurrence', ['DateTime', 'Period', 'Timing']),
                     'as_needed' => returnVariableAttribute($resContent, 'asNeeded', ['Boolean', 'CodeableConcept']),
-                    'authored_on' => parseDate(returnAttribute($resContent, ['authoredOn'])),
+                    'authored_on' => parseDateInput(returnAttribute($resContent, ['authoredOn'])),
                     'requester' => returnAttribute($resContent, ['requester', 'reference']),
                     'patient_instruction' => returnAttribute($resContent, ['patientInstruction'])
                 ],

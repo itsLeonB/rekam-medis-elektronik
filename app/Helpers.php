@@ -1,10 +1,13 @@
 <?php
 
 use App\Models\CodeSystemAdmitSource;
+use App\Models\CodeSystemClinicalStatus;
 use App\Models\CodeSystemDischargeDisposition;
 use App\Models\CodeSystemEncounterReason;
+use App\Models\CodeSystemICD10;
 use App\Models\CodeSystemParticipantType;
 use App\Models\CodeSystemServiceType;
+use App\Models\CodeSystemVerificationStatus;
 use Illuminate\Support\Facades\Log;
 
 function getName($resource)
@@ -838,15 +841,6 @@ function getDiagnosis($resource)
     }
 }
 
-function getEpisodeOfCare($resource)
-{
-    if (isset($resource['episodeOfCare'][0]['reference']) && !empty($resource['episodeOfCare'][0]['reference'])) {
-        return $resource['episodeOfCare'][0]['reference'];
-    } else {
-        return '';
-    }
-}
-
 function getBasedOn($resource)
 {
     if (isset($resource['basedOn'][0]['reference']) && !empty($resource['basedOn'][0]['reference'])) {
@@ -1464,8 +1458,8 @@ function returnPeriod($attribute, $prefix = null)
     }
 
     return [
-        $prefix . 'period_start' => parseDate(returnAttribute($attribute, ['start'], '1900-01-01')),
-        $prefix . 'period_end' => parseDate(returnAttribute($attribute, ['end'], null))
+        $prefix . 'period_start' => parseDateInput(returnAttribute($attribute, ['start'], '1900-01-01')),
+        $prefix . 'period_end' => parseDateInput(returnAttribute($attribute, ['end'], null))
     ];
 }
 
@@ -1477,14 +1471,14 @@ function returnStatusHistory($attribute)
     );
 }
 
-function parseDate($date)
+function parseDateInput($date)
 {
     if ($date != null) {
         // Create a DateTime object with the input date
         $dateTime = new DateTime($date);
 
         // Set the desired time zone for the SQL datetime format
-        $dateTime->setTimezone(new DateTimeZone('UTC'));
+        $dateTime->setTimezone(new DateTimeZone('Asia/Jakarta'));
 
         // Format the date in SQL datetime format
         $sqlDateTime = $dateTime->format('Y-m-d H:i:s');
@@ -1494,6 +1488,7 @@ function parseDate($date)
         return null;
     }
 }
+
 
 function containsOnlyNull($input)
 {
@@ -1521,11 +1516,13 @@ function returnDiagnosis($attribute)
 function returnEvidence($attribute)
 {
     $evidence = [
-        'code' => returnAttribute($attribute, ['code', 0, 'coding', 'code'], null),
-        'detail_reference' => returnAttribute($attribute, ['detail', 0, 'reference'], null)
+        'system' => returnAttribute($attribute, ['code', 0, 'coding', 'system']),
+        'code' => returnAttribute($attribute, ['code', 0, 'coding', 'code']),
+        'display' => returnAttribute($attribute, ['code', 0, 'coding', 'display']),
+        'detail_reference' => returnAttribute($attribute, ['detail', 0, 'reference'])
     ];
 
-    if ($evidence['code'] === null && $evidence['detail_reference'] === null) {
+    if (containsOnlyNull($evidence)) {
         return null;
     } else {
         return $evidence;
@@ -1864,125 +1861,6 @@ function removeEmptyValues($array)
     return $array;
 }
 
-// Helper functions for resource creation
-function createIdentifierArray($resource)
-{
-    $identifier = [];
-    foreach ($resource->identifier as $i) {
-        $identifier[] = [
-            'system' => $i->system,
-            'use' => $i->use,
-            'value' => $i->value,
-        ];
-    }
-    return $identifier;
-}
-
-function createTelecomArray($resource)
-{
-    $telecom = [];
-
-    $telecomData = $resource->telecom;
-
-    if (is_array($telecomData) || is_object($telecomData)) {
-        foreach ($telecomData as $t) {
-            $telecom[] = [
-                'system' => $t->system,
-                'use' => $t->use,
-                'value' => $t->value,
-            ];
-        }
-    }
-
-    return $telecom;
-}
-
-function createAddressArray($resource)
-{
-    $addressData = [];
-
-    $address = $resource->address;
-
-    if (is_array($address) || is_object($address)) {
-        foreach ($address as $a) {
-            $addressData[] = [
-                'use' => $a->use,
-                'line' => [$a->line],
-                'country' => $a->country,
-                'postalCode' => $a->postal_code,
-                'extension' => [
-                    [
-                        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
-                        'extension' => [
-                            [
-                                'url' => 'province',
-                                'valueCode' => $a->province == 0 ? null : $a->province,
-                            ],
-                            [
-                                'url' => 'city',
-                                'valueCode' => $a->city == 0 ? null : $a->city,
-                            ],
-                            [
-                                'url' => 'district',
-                                'valueCode' => $a->district == 0 ? null : $a->district,
-                            ],
-                            [
-                                'url' => 'village',
-                                'valueCode' => $a->village == 0 ? null : $a->village,
-                            ],
-                            [
-                                'url' => 'rt',
-                                'valueCode' => $a->rt == 0 ? null : $a->rt,
-                            ],
-                            [
-                                'url' => 'rw',
-                                'valueCode' => $a->rw == 0 ? null : $a->rw,
-                            ],
-                        ]
-                    ]
-                ]
-            ];
-        }
-    }
-
-    return $addressData;
-}
-
-function createReferenceArray($referenceAttribute)
-{
-    $reference = [];
-
-    if (is_array($referenceAttribute) || is_object($referenceAttribute)) {
-        foreach ($referenceAttribute as $ref) {
-            $reference[] = [
-                'reference' => $ref->reference,
-            ];
-        }
-    }
-
-    return $reference;
-}
-
-function createCodeableConceptArray($codeableConceptAttribute): array
-{
-    $codeableConcept = [];
-
-    if (is_array($codeableConceptAttribute) || is_object($codeableConceptAttribute)) {
-        foreach ($codeableConceptAttribute as $cc) {
-            $codeableConcept[] = [
-                'coding' => [
-                    [
-                        'system' => $cc->system,
-                        'code' => $cc->code,
-                        'display' => $cc->display,
-                    ]
-                ]
-            ];
-        }
-    }
-
-    return $codeableConcept;
-}
 
 
 // Helper functions for defined valuesets
@@ -2115,7 +1993,7 @@ function relationshipDisplay($relationshipCode)
 function serviceTypeDisplay($serviceTypeCode)
 {
     try {
-        return CodeSystemServiceType::find($serviceTypeCode)->first()->display;
+        return CodeSystemServiceType::where('code', $serviceTypeCode)->first()->display;
     } catch (Exception $e) {
         Log::error($e);
         return null;
@@ -2197,7 +2075,7 @@ function participantType($participantTypeCode)
 function encounterReasonDisplay($encounterReasonCode)
 {
     try {
-        return CodeSystemEncounterReason::find($encounterReasonCode)->first()->display;
+        return CodeSystemEncounterReason::where('code', $encounterReasonCode)->first()->display;
     } catch (Exception $e) {
         Log::error($e);
         return null;
@@ -2242,7 +2120,7 @@ function diagnosisUseDisplay($diagnosisUseCode)
 function admitSource($admitSourceCode)
 {
     try {
-        return CodeSystemAdmitSource::find($admitSourceCode)->first();
+        return CodeSystemAdmitSource::where('code', $admitSourceCode)->first();
     } catch (Exception $e) {
         Log::error($e);
         return null;
@@ -2255,7 +2133,56 @@ function admitSource($admitSourceCode)
 function dischargeDisposition($dischargeDispositionCode)
 {
     try {
-        return CodeSystemDischargeDisposition::find($dischargeDispositionCode)->first();
+        return CodeSystemDischargeDisposition::where('code', $dischargeDispositionCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/condition-clinical"
+ */
+function clinicalStatus($clinicalStatusCode)
+{
+    try {
+        return CodeSystemClinicalStatus::where('code', $clinicalStatusCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+ */
+function verificationStatus($verificationStatusCode)
+{
+    try {
+        return CodeSystemVerificationStatus::where('code', $verificationStatusCode)->first();
+    } catch (Exception $e) {
+        Log::error($e);
+        return null;
+    }
+}
+
+/**
+ * System: "http://hl7.org/fhir/sid/icd-10"
+ */
+function icd10Display($icd10Code, $language = 'en')
+{
+    try {
+        switch ($language) {
+            case 'en':
+                return CodeSystemICD10::where('code', $icd10Code)->first()->display_en;
+                break;
+            case 'id':
+                return CodeSystemICD10::where('code', $icd10Code)->first()->display_id;
+                break;
+            default:
+                return CodeSystemICD10::where('code', $icd10Code)->first()->display_en;
+                break;
+        }
     } catch (Exception $e) {
         Log::error($e);
         return null;

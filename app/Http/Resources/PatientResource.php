@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
 
-class PatientResource extends JsonResource
+class PatientResource extends FhirResource
 {
     /**
      * Transform the resource into an array.
@@ -15,7 +14,7 @@ class PatientResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $patient = $this->resource->patient->first();
+        $patient = $this->resource->patient ? $this->resource->patient->first() : null;
 
         $data = merge_array(
             [
@@ -29,7 +28,7 @@ class PatientResource extends JsonResource
                         ]
                     ],
                 ],
-                'identifier' => createIdentifierArray($patient),
+                'identifier' => $this->createIdentifierArray($patient),
                 'active' => $patient->active,
                 'name' => [[
                     'use' => 'official',
@@ -37,10 +36,10 @@ class PatientResource extends JsonResource
                     'prefix' => $patient->prefix == '' ? null : explode(' ', $patient->prefix),
                     'suffix' => $patient->suffix == '' ? null : explode(' ', $patient->suffix),
                 ]],
-                'telecom' => createTelecomArray($patient),
+                'telecom' => $this->createTelecomArray($patient),
                 'gender' => $patient->gender,
                 'birthDate' => Carbon::parse($patient->birth_date)->format('Y-m-d'),
-                'address' => createAddressArray($patient),
+                'address' => $this->createAddressArray($patient),
                 'contact' => $this->createContactArray($patient),
                 'maritalStatus' => [
                     'coding' => [
@@ -66,10 +65,11 @@ class PatientResource extends JsonResource
                 'generalPractitioner' => $this->createGeneralPractitionerArray($patient),
             ],
             $patient->deceased,
-            $patient->multiple_birth,
+            $patient->multiple_birth
         );
 
         $data = removeEmptyValues($data);
+        $data = $this->parseDate($data);
 
         return $data;
     }
@@ -100,7 +100,7 @@ class PatientResource extends JsonResource
                         'prefix' => $c->prefix == '' ? null : explode(' ', $c->prefix),
                         'suffix' => $c->suffix == '' ? null : explode(' ', $c->suffix),
                     ],
-                    'telecom' => createTelecomArray($c),
+                    'telecom' => $this->createTelecomArray($c),
                     'address' => [
                         'use' => $c->address_use,
                         'line' => [$c->address_line],
