@@ -9,7 +9,7 @@ class CodeSystemEncounterReasonSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeds/csvs/codesystem_encounterreason.csv';
+        $this->file = '/database/seeders/csvs/codesystem_encounterreason.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

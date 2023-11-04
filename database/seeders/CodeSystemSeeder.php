@@ -21,6 +21,7 @@ class CodeSystemSeeder extends Seeder
             CodeSystemServiceTypeSeeder::class,
             CodeSystemVerificationStatusSeeder::class,
             CodeSystemLoincSeeder::class,
+            CodeSystemICD9CMProcedureSeeder::class,
         ]);
     }
 }

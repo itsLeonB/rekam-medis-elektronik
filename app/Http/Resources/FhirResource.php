@@ -4,8 +4,6 @@ namespace App\Http\Resources;
 
 use DateTime;
 use DateTimeZone;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FhirResource extends JsonResource

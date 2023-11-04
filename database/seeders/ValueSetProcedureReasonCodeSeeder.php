@@ -5,11 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class CodeSystemLoincSeeder extends CsvSeeder
+class ValueSetProcedureReasonCodeSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/codesystem_loinc.csv';
+        $this->file = '/database/seeders/csvs/valueset_procedure_reasoncode.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

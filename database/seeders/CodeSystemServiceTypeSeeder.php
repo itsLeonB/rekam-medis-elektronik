@@ -9,7 +9,7 @@ class CodeSystemServiceTypeSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeds/csvs/codesystem_servicetype.csv';
+        $this->file = '/database/seeders/csvs/codesystem_servicetype.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

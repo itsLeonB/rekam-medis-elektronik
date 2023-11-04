@@ -50,7 +50,7 @@ class ObservationRequest extends FormRequest
             // Observation base data
             'observation.status' => ['required', Rule::in(Observation::STATUS_CODE)],
             'observation.code_system' => 'nullable|string',
-            'observation.code_code' => ['required', Rule::in(CodeSystemLoinc::all()->pluck('code')->toArray())],
+            'observation.code_code' => 'required|string',
             'observation.code_display' => 'nullable|string',
             'observation.subject' => 'required|string',
             'observation.encounter' => 'required|string',
@@ -223,7 +223,7 @@ class ObservationRequest extends FormRequest
             // Observation component data
             'component.*.component_data' => 'required|array',
             'component.*.component_data.code_system' => 'nullable|string',
-            'component.*.component_data.code_code' => ['required', Rule::in(CodeSystemLoinc::all()->pluck('code')->toArray())],
+            'component.*.component_data.code_code' => 'required|string',
             'component.*.component_data.code_display' => 'nullable|string',
             'component.*.component_data.value' => 'nullable|array',
             'component.*.component_data.value.quantity' => 'nullable|array',
