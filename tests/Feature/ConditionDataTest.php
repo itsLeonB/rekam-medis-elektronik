@@ -55,6 +55,5 @@ class ConditionDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/condition/create', $data, $headers);
         $response->assertStatus(201);
-        // $this->assertDatabaseHas('condition', $data['condition']);
     }
 }

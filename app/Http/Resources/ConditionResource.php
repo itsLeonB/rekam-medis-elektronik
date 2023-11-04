@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Condition;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ConditionResource extends FhirResource
@@ -20,7 +21,7 @@ class ConditionResource extends FhirResource
             [
                 'resourceType' => 'Condition',
                 'id' => $this->satusehat_id,
-                'identifier' => $this->createIdentifierArray($condition),
+                'identifier' => $this->createIdentifierArray($condition->identifier),
                 'clinicalStatus' => [
                     'coding' => [
                         [
@@ -65,15 +66,15 @@ class ConditionResource extends FhirResource
                 'encounter' => [
                     'reference' => $condition->encounter
                 ],
-                'recordedDate' => $condition->recorded_date,
+                'recordedDate' => $this->parseDateFhir($condition->recorded_date),
                 'recorder' => [
                     'reference' => $condition->recorder
                 ],
                 'asserter' => [
                     'reference' => $condition->asserter
                 ],
-                'stage' => $this->createStageArray($condition),
-                'evidence' => $this->createEvidenceArray($condition),
+                'stage' => $this->createStageArray($condition->stage),
+                'evidence' => $this->createEvidenceArray($condition->evidence),
                 'note' => $this->createAnnotationArray($condition->note)
             ],
             $condition->onset,
@@ -81,69 +82,68 @@ class ConditionResource extends FhirResource
         );
 
         $data = removeEmptyValues($data);
-        $data = $this->parseDate($data);
 
         return $data;
     }
 
-    private function createStageArray($condition): array
+    private function createStageArray(Collection $stageAttribute): array
     {
-        $stageData = $condition->stage;
-
         $stageArray = [];
 
-        foreach ($stageData as $s) {
-            $stageArray[] = [
-                'summary' => [
-                    'coding' => [
-                        [
-                            'system' => $s->summary_system,
-                            'code' => $s->summary_code,
-                            'display' => $s->summary_display
+        if (is_array($stageAttribute) || is_object($stageAttribute)) {
+            foreach ($stageAttribute as $s) {
+                $stageArray[] = [
+                    'summary' => [
+                        'coding' => [
+                            [
+                                'system' => $s->summary_system,
+                                'code' => $s->summary_code,
+                                'display' => $s->summary_display
+                            ]
+                        ]
+                    ],
+                    'assessment' => $this->createReferenceArray($s->assessment),
+                    'type' => [
+                        'coding' => [
+                            [
+                                'system' => $s->type_system,
+                                'code' => $s->type_code,
+                                'display' => $s->type_display
+                            ]
                         ]
                     ]
-                ],
-                'assessment' => $this->createReferenceArray($s->assessment),
-                'type' => [
-                    'coding' => [
-                        [
-                            'system' => $s->type_system,
-                            'code' => $s->type_code,
-                            'display' => $s->type_display
-                        ]
-                    ]
-                ]
-            ];
+                ];
+            }
         }
 
         return $stageArray;
     }
 
-    private function createEvidenceArray($condition): array
+    private function createEvidenceArray(Collection $evidenceAttribute): array
     {
-        $evidenceData = $condition->evidence;
-
         $evidenceArray = [];
 
-        foreach ($evidenceData as $e) {
-            $evidenceArray[] = [
-                'code' => [
-                    [
-                        'coding' => [
-                            [
-                                'system' => $e->system,
-                                'code' => $e->code,
-                                'display' => $e->display,
+        if (is_array($evidenceAttribute) || is_object($evidenceAttribute)) {
+            foreach ($evidenceAttribute as $e) {
+                $evidenceArray[] = [
+                    'code' => [
+                        [
+                            'coding' => [
+                                [
+                                    'system' => $e->system,
+                                    'code' => $e->code,
+                                    'display' => $e->display,
+                                ]
                             ]
                         ]
+                    ],
+                    'detail' => [
+                        [
+                            'reference' => $e->detail_reference
+                        ]
                     ]
-                ],
-                'detail' => [
-                    [
-                        'reference' => $e->detail_reference
-                    ]
-                ]
-            ];
+                ];
+            }
         }
 
         return $evidenceArray;

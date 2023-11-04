@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Patient;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class PatientResource extends FhirResource
@@ -28,7 +30,7 @@ class PatientResource extends FhirResource
                         ]
                     ],
                 ],
-                'identifier' => $this->createIdentifierArray($patient),
+                'identifier' => $this->createIdentifierArray($patient->identifier),
                 'active' => $patient->active,
                 'name' => [[
                     'use' => 'official',
@@ -36,11 +38,11 @@ class PatientResource extends FhirResource
                     'prefix' => $patient->prefix == '' ? null : explode(' ', $patient->prefix),
                     'suffix' => $patient->suffix == '' ? null : explode(' ', $patient->suffix),
                 ]],
-                'telecom' => $this->createTelecomArray($patient),
+                'telecom' => $this->createTelecomArray($patient->telecom),
                 'gender' => $patient->gender,
                 'birthDate' => Carbon::parse($patient->birth_date)->format('Y-m-d'),
-                'address' => $this->createAddressArray($patient),
-                'contact' => $this->createContactArray($patient),
+                'address' => $this->createAddressArray($patient->address),
+                'contact' => $this->createContactArray($patient->contact),
                 'maritalStatus' => [
                     'coding' => [
                         [
@@ -62,23 +64,20 @@ class PatientResource extends FhirResource
                         ],
                     ],
                 ],
-                'generalPractitioner' => $this->createGeneralPractitionerArray($patient),
+                'generalPractitioner' => $this->createGeneralPractitionerArray($patient->generalPractitioner),
             ],
             $patient->deceased,
             $patient->multiple_birth
         );
 
         $data = removeEmptyValues($data);
-        $data = $this->parseDate($data);
 
         return $data;
     }
 
-    private function createContactArray($patient)
+    private function createContactArray(Collection $contactAttribute)
     {
         $contact = [];
-
-        $contactAttribute = $patient->contact;
 
         if (is_array($contactAttribute) || is_object($contactAttribute)) {
             foreach ($contactAttribute as $c) {
@@ -100,7 +99,7 @@ class PatientResource extends FhirResource
                         'prefix' => $c->prefix == '' ? null : explode(' ', $c->prefix),
                         'suffix' => $c->suffix == '' ? null : explode(' ', $c->suffix),
                     ],
-                    'telecom' => $this->createTelecomArray($c),
+                    'telecom' => $this->createTelecomArray($c->telecom),
                     'address' => [
                         'use' => $c->address_use,
                         'line' => [$c->address_line],
@@ -146,11 +145,9 @@ class PatientResource extends FhirResource
         return $contact;
     }
 
-    private function createGeneralPractitionerArray($patient)
+    private function createGeneralPractitionerArray(Collection $generalPractitionerAttribute)
     {
         $generalPractitioner = [];
-
-        $generalPractitionerAttribute = $patient->generalPractitioner;
 
         if (is_array($generalPractitionerAttribute) || is_object($generalPractitionerAttribute)) {
             foreach ($generalPractitionerAttribute as $g) {

@@ -16,7 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('observation_id');
             $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
-            $table->string('code');
+            $table->string('code_system')->nullable();
+            $table->string('code_code');
+            $table->string('code_display')->nullable();
             $table->json('value')->nullable();
             $table->string('data_absent_reason')->nullable();
         });

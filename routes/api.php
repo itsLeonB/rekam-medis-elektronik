@@ -3,6 +3,7 @@
 use App\Http\Controllers\AllergyIntoleranceController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\EncounterController;
+use App\Http\Controllers\ObservationController;
 use App\Http\Resources\PatientResource;
 use App\Models\Resource;
 use Illuminate\Http\Request;
@@ -55,9 +56,13 @@ Route::post('/encounter/create', [EncounterController::class, 'postEncounter']);
 Route::post('/condition/create', [ConditionController::class, 'postCondition']);
 
 // AllergyIntolerance resource endpoint
-Route::post('allergyintolerance/create', [AllergyIntoleranceController::class, 'postAllergyIntolerance']);
+Route::post('/allergyintolerance/create', [AllergyIntoleranceController::class, 'postAllergyIntolerance']);
+
+// Observation resource endpoint
+Route::post('/observation/create', [ObservationController::class, 'postObservation']);
 
 // Testing endpoint
 Route::get('/test-get/allergyintolerance/{satusehat_id}', [TestController::class, 'testAllergyIntoleranceResource']);
+Route::get('/test-get/observation/{satusehat_id}', [TestController::class, 'testObservationResource']);
 Route::get('/test-create/encounter/create', [TestController::class, 'testCreateEncounter']);
 Route::get('/test-create/condition/create', [TestController::class, 'testCreateCondition']);

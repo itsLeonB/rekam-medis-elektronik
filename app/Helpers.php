@@ -1285,7 +1285,9 @@ function returnReferenceRange($attribute)
 function returnComponent($attribute)
 {
     return [
-        'code' => returnAttribute($attribute, ['code', 'coding', 0, 'code'], ''),
+        'code_system' => returnAttribute($attribute, ['code', 'coding', 0, 'system'], ''),
+        'code_code' => returnAttribute($attribute, ['code', 'coding', 0, 'code'], ''),
+        'code_display' => returnAttribute($attribute, ['code', 'coding', 0, 'display'], ''),
         'value' => returnVariableAttribute($attribute, 'value', ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer', 'Range', 'Ratio', 'SampledData', 'Time', 'DateTime', 'Period']),
         'data_absent_reason' => returnAttribute($attribute, ['dataAbsentReason', 'coding', 0, 'code'], null)
     ];

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
+use App\Http\Resources\ObservationResource;
 use App\Models\Condition;
 use App\Models\ConditionBodySite;
 use App\Models\ConditionCategory;
@@ -33,6 +34,14 @@ use Tests\Traits\ExamplePayload;
 class TestController extends Controller
 {
     use ExamplePayload;
+
+    public function testObservationResource($satusehat_id)
+    {
+        return response()->json(new ObservationResource(Resource::where([
+            ['satusehat_id', '=', $satusehat_id],
+            ['res_type', '=', 'observation']
+        ])->firstOrFail()), 200);
+    }
 
     public function testAllergyIntoleranceResource($satusehat_id)
     {

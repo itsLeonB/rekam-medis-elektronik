@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('codesystem_loinc', function (Blueprint $table) {
             $table->string('code', 8)->primary();
             $table->string('display');
-            $table->text('definition');
+            $table->text('definition')->nullable();
         });
     }
 

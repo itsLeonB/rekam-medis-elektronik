@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Encounter;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class EncounterResource extends FhirResource
@@ -18,15 +20,15 @@ class EncounterResource extends FhirResource
         $data = [
             'resourceType' => 'Encounter',
             'id' => $this->satusehat_id,
-            'identifier' => $this->createIdentifierArray($encounter),
+            'identifier' => $this->createIdentifierArray($encounter->identifier),
             'status' => $encounter->status,
-            'statusHistory' => $this->createStatusHistoryArray($encounter),
+            'statusHistory' => $this->createStatusHistoryArray($encounter->statusHistory),
             'class' => [
                 'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
                 'code' => $this->class,
                 'display' => encounterClassDisplay($this->class),
             ],
-            'classHistory' => $this->createClassHistoryArray($encounter),
+            'classHistory' => $this->createClassHistoryArray($encounter->classHistory),
             'serviceType' => [
                 'coding' => [
                     [
@@ -58,12 +60,12 @@ class EncounterResource extends FhirResource
                     'reference' => $encounter->based_on
                 ]
             ],
-            'participant' => $this->createParticipantArray($encounter),
+            'participant' => $this->createParticipantArray($encounter->participant),
             'period' => [
-                'start' => $encounter->period_start,
-                'end' => $encounter->period_end,
+                'start' => $this->parseDateFhir($encounter->period_start),
+                'end' => $this->parseDateFhir($encounter->period_end),
             ],
-            'reasonCode' => $this->createReasonCodeArray($encounter),
+            'reasonCode' => $this->createReasonCodeArray($encounter->reason),
             'reasonReference' => $this->createReferenceArray($encounter->reason),
             'diagnosis' => $this->createDiagnosisArray($encounter->diagnosis),
             'account' => [
@@ -71,7 +73,7 @@ class EncounterResource extends FhirResource
                     'reference' => $encounter->account
                 ]
             ],
-            'hospitalization' => $this->createHospitalizationArray($encounter),
+            'hospitalization' => $this->createHospitalizationArray($encounter->hospitalization),
             'location' => [
                 [
                     'location' => [
@@ -88,22 +90,21 @@ class EncounterResource extends FhirResource
         ];
 
         $data = removeEmptyValues($data);
-        $data = $this->parseDate($data);
 
         return $data;
     }
 
-    private function createStatusHistoryArray($encounter): array
+    private function createStatusHistoryArray(Collection $statusHistoryAttribute): array
     {
         $statusHistory = [];
 
-        if (is_array($encounter->statusHistory) || is_object($encounter->statusHistory)) {
-            foreach ($encounter->statusHistory as $sh) {
+        if (is_array($statusHistoryAttribute) || is_object($statusHistoryAttribute)) {
+            foreach ($statusHistoryAttribute as $sh) {
                 $statusHistory[] = [
                     'status' => $sh->status,
                     'period' => [
-                        'start' => $sh->period_start,
-                        'end' => $sh->period_end,
+                        'start' => $this->parseDateFhir($sh->period_start),
+                        'end' => $this->parseDateFhir($sh->period_end),
                     ],
                 ];
             }
@@ -112,12 +113,12 @@ class EncounterResource extends FhirResource
         return $statusHistory;
     }
 
-    private function createClassHistoryArray($encounter): array
+    private function createClassHistoryArray(Collection $classHistoryAttribute): array
     {
         $classHistory = [];
 
-        if (is_array($encounter->classHistory) || is_object($encounter->classHistory)) {
-            foreach ($encounter->classHistory as $ch) {
+        if (is_array($classHistoryAttribute) || is_object($classHistoryAttribute)) {
+            foreach ($classHistoryAttribute as $ch) {
                 $classHistory[] = [
                     'class' => [
                         'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
@@ -125,8 +126,8 @@ class EncounterResource extends FhirResource
                         'display' => encounterClassDisplay($ch->class),
                     ],
                     'period' => [
-                        'start' => $ch->period_start,
-                        'end' => $ch->period_end,
+                        'start' => $this->parseDateFhir($ch->period_start),
+                        'end' => $this->parseDateFhir($ch->period_end),
                     ],
                 ];
             }
@@ -135,12 +136,12 @@ class EncounterResource extends FhirResource
         return $classHistory;
     }
 
-    private function createParticipantArray($encounter): array
+    private function createParticipantArray(Collection $participantAttribute): array
     {
         $participant = [];
 
-        if (is_array($encounter->participant) || is_object($encounter->participant)) {
-            foreach ($encounter->participant as $p) {
+        if (is_array($participantAttribute) || is_object($participantAttribute)) {
+            foreach ($participantAttribute as $p) {
                 $participant[] = [
                     'type' => [
                         [
@@ -163,12 +164,12 @@ class EncounterResource extends FhirResource
         return $participant;
     }
 
-    private function createReasonCodeArray($encounter): array
+    private function createReasonCodeArray(Collection $reasonCodeAttribute): array
     {
         $reasonCode = [];
 
-        if (is_array($encounter->reason) || is_object($encounter->reason)) {
-            foreach ($encounter->reason as $r) {
+        if (is_array($reasonCodeAttribute) || is_object($reasonCodeAttribute)) {
+            foreach ($reasonCodeAttribute as $r) {
                 $reasonCode[] = [
                     'system' => 'http://snomed.info/sct',
                     'code' => $r->code,
@@ -180,12 +181,12 @@ class EncounterResource extends FhirResource
         return $reasonCode;
     }
 
-    private function createDiagnosisArray($encounter): array
+    private function createDiagnosisArray(Collection $diagnosisAttribute): array
     {
         $diagnosis = [];
 
-        if (isset($encounter->diagnosis)) {
-            foreach ($encounter->diagnosis as $d) {
+        if (isset($diagnosisAttribute)) {
+            foreach ($diagnosisAttribute as $d) {
                 $diagnosis[] = [
                     'condition' => [
                         'reference' => $d->condition_reference,
@@ -208,12 +209,12 @@ class EncounterResource extends FhirResource
         return $diagnosis;
     }
 
-    private function createHospitalizationArray($encounter): array
+    private function createHospitalizationArray(Collection $hospitalizationAttribute): array
     {
         $hospitalization = [];
 
-        if (is_array($encounter->hospitalization) || is_object($encounter->hospitalization)) {
-            foreach ($encounter->hospitalization as $h) {
+        if (is_array($hospitalizationAttribute) || is_object($hospitalizationAttribute)) {
+            foreach ($hospitalizationAttribute as $h) {
                 $hospitalization[] = [
                     'preAdmissionIdentifier' => [
                         'system' => $h->preadmission_identifier_system,

@@ -5,6 +5,8 @@ namespace App\Http\Resources;
 use App\Models\CodeSystemLoinc;
 use App\Models\Observation;
 use App\Models\ObservationReferenceRange;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ObservationResource extends FhirResource
@@ -22,11 +24,11 @@ class ObservationResource extends FhirResource
             [
                 'resourceType' => 'Observation',
                 'id' => $this->satusehat_id,
-                'identifier' => $this->createIdentifierArray($observation),
+                'identifier' => $this->createIdentifierArray($observation->identifier),
                 'basedOn' => $this->createReferenceArray($observation->basedOn),
                 'partOf' => $this->createReferenceArray($observation->partOf),
                 'status' => $observation->status,
-                'category' => $this->createCategoryArray($observation),
+                'category' => $this->createCodeableConceptArray($observation->category),
                 'code' => [
                     'coding' => [
                         [
@@ -43,14 +45,14 @@ class ObservationResource extends FhirResource
                 'encounter' => [
                     'reference' => $observation->encounter
                 ],
-                'issued' => $observation->issued,
+                'issued' => $this->parseDateFhir($observation->issued),
                 'performer' => $this->createReferenceArray($observation->performer),
                 'dataAbsentReason' => [
                     'coding' => [
                         [
-                            'system' => Observation::DATA_ABSENT_REASON_SYSTEM[$observation->data_absent_reason],
+                            'system' => $observation->data_absent_reason == null ? null : Observation::DATA_ABSENT_REASON_SYSTEM,
                             'code' => $observation->data_absent_reason,
-                            'display' => Observation::DATA_ABSENT_REASON_DISPLAY[$observation->data_absent_reason],
+                            'display' => Observation::DATA_ABSENT_REASON_DISPLAY[$observation->data_absent_reason] ?? null,
                         ]
                     ]
                 ],
@@ -80,26 +82,25 @@ class ObservationResource extends FhirResource
                 'device' => [
                     'reference' => $observation->device
                 ],
-                'referenceRange' => $this->createReferenceRangeArray($observation),
+                'referenceRange' => $this->createReferenceRangeArray($observation->referenceRange),
                 'hasMember' => $this->createReferenceArray($observation->member),
                 'derivedFrom' => $this->createReferenceArray($observation->derivedFrom),
-                'component' => $this->createComponentArray($observation)
+                'component' => $this->createComponentArray($observation->component)
             ],
             $observation->effective,
             $observation->value,
         );
 
         $data = removeEmptyValues($data);
-        $data = $this->parseDate($data);
 
         return $data;
     }
 
-    private function createReferenceRangeArray($observation)
+    private function createReferenceRangeArray(Collection $referenceRangeAttribute)
     {
         $referenceRange = [];
 
-        foreach ($observation->referenceRange as $r) {
+        foreach ($referenceRangeAttribute as $r) {
             $referenceRange[] = [
                 'low' => [
                     'value' => $r->value_low,
@@ -144,11 +145,11 @@ class ObservationResource extends FhirResource
         return $referenceRange;
     }
 
-    private function createComponentArray($observation)
+    private function createComponentArray(Collection $componentAttribute)
     {
         $component = [];
 
-        foreach ($observation->component as $c) {
+        foreach ($componentAttribute as $c) {
             $component[] = merge_array(
                 [
                     'code' => [
@@ -164,13 +165,13 @@ class ObservationResource extends FhirResource
                         'coding' => [
                             [
                                 'system' => Observation::DATA_ABSENT_REASON_SYSTEM[$c->data_absent_reason],
-                                'code' => $observation->data_absent_reason,
+                                'code' => $c->data_absent_reason,
                                 'display' => Observation::DATA_ABSENT_REASON_DISPLAY[$c->data_absent_reason],
                             ]
                         ]
                     ],
                     'interpretation' => $this->createCodeableConceptArray($c->interpretation),
-                    'referenceRange' => $this->createReferenceRangeArray($c)
+                    'referenceRange' => $this->createReferenceRangeArray($c->referenceRange)
                 ],
                 $c->value,
             );
