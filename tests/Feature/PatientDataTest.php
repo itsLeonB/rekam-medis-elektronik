@@ -50,6 +50,7 @@ class PatientDataTest extends TestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('patient');
+
         $headers = [
             'Content-Type' => 'application/json'
         ];

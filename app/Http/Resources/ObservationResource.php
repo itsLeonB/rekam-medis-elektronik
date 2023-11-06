@@ -20,10 +20,6 @@ class ObservationResource extends FhirResource
     {
         $observation = $this->getData('observation');
 
-        if ($observation == null) {
-            throw new Exception('Data tidak ditemukan', 404);
-        }
-
         $data = merge_array(
             [
                 'resourceType' => 'Observation',
@@ -92,7 +88,7 @@ class ObservationResource extends FhirResource
                 'component' => $this->createComponentArray($observation->component)
             ],
             $observation->effective,
-            $observation->value,
+            $observation->value
         );
 
         $data = removeEmptyValues($data);

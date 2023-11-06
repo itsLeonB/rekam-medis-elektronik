@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use App\Models\AllergyIntolerance;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -17,10 +16,6 @@ class AllergyIntoleranceResource extends FhirResource
     public function toArray(Request $request): array
     {
         $allergyIntolerance = $this->getData('allergyIntolerance');
-
-        if ($allergyIntolerance == null) {
-            throw new Exception('Data tidak ditemukan', 404);
-        }
 
         $data = merge_array(
             [
@@ -74,7 +69,7 @@ class AllergyIntoleranceResource extends FhirResource
                 'note' => $this->createAnnotationArray($allergyIntolerance->note),
                 'reaction' => $this->createReactionArray($allergyIntolerance->reaction)
             ],
-            $allergyIntolerance->onset
+            $allergyIntolerance->onset,
         );
 
         $data = removeEmptyValues($data);
@@ -119,7 +114,7 @@ class AllergyIntoleranceResource extends FhirResource
         return $reaction;
     }
 
-    private function createCategoryArray(Collection $allergyIntolerance)
+    private function createCategoryArray($allergyIntolerance)
     {
         $category = [];
 

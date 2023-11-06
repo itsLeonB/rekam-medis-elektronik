@@ -27,10 +27,6 @@ class FhirRequest extends FormRequest
      */
     public function getIdentifierDataRules(string $prefix = null): array
     {
-        if ($prefix) {
-            $prefix = $prefix . '.';
-        }
-
         return [
             $prefix . 'system' => 'required|string',
             $prefix . 'use' => ['required', Rule::in(Constants::IDENTIFIER_USE)],

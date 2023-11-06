@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Patient;
 use Carbon\Carbon;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -18,10 +16,6 @@ class PatientResource extends FhirResource
     public function toArray(Request $request): array
     {
         $patient = $this->getData('patient');
-
-        if ($patient == null) {
-            throw new Exception('Data tidak ditemukan', 404);
-        }
 
         $data = merge_array(
             [

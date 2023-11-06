@@ -1625,7 +1625,7 @@ function returnFocalDevice($attribute)
     $focalDeviceDetails = returnCodeableConcept($focalDevice);
     return array_merge(
         [
-            'reference' => returnAttribute($attribute, ['manipulated', 'reference'], '')
+            'reference' => returnAttribute($focalDevice, ['manipulated', 'reference'], '')
         ],
         $focalDeviceDetails
     );
@@ -1756,10 +1756,15 @@ function returnDoseRate($attribute, $prefix = null)
 function merge_array(...$arrays)
 {
     $arr = [];
-    foreach ($arrays as $a) {
-        if ($a != null) {
-            $arr = array_merge($arr, $a);
+
+    try {
+        foreach ($arrays as $a) {
+            if ($a != null) {
+                $arr = array_merge($arr, $a);
+            }
         }
+    } catch (TypeError $e) {
+        dd($a);
     }
     return $arr;
 }

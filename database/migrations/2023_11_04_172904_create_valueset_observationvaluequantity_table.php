@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('valueset_observation_valuequantity', function (Blueprint $table) {
             $table->id();
             $table->string('code');
+            $table->index('code');
             $table->string('description');
         });
     }

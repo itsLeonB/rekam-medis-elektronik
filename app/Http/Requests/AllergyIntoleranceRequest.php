@@ -80,7 +80,7 @@ class AllergyIntoleranceRequest extends FhirRequest
                 'reaction.*.manifestation.*.code' => ['required', Rule::in(AllergyIntoleranceReactionManifestation::CODE)],
                 'reaction.*.manifestation.*.display' => 'nullable|string',
             ],
-            $this->getAnnotationDataRules('reaction.*.'),
+            $this->getAnnotationDataRules('reaction.*.note.*.'),
         );
     }
 

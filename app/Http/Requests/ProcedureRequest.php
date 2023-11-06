@@ -20,8 +20,8 @@ class ProcedureRequest extends FhirRequest
             $this->baseAttributeRules(),
             $this->baseDataRules(),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRulesDataRules('based_on.*.'),
-            $this->getReferenceDataRulesDataRules('part_of.*.'),
+            $this->getReferenceDataRules('based_on.*.'),
+            $this->getReferenceDataRules('part_of.*.'),
             $this->performerDataRules(),
             $this->reasonDataRules(),
             $this->getCodeableConceptDataRules('body_site.*.'),
@@ -78,9 +78,9 @@ class ProcedureRequest extends FhirRequest
     private function performerDataRules(): array
     {
         return [
-            'performer.function' => 'nullable|integer|gte:0',
-            'performer.actor' => 'required|string',
-            'performer.on_behalf_of' => 'nullable|string',
+            'performer.*.function' => 'nullable|integer|gte:0',
+            'performer.*.actor' => 'required|string',
+            'performer.*.on_behalf_of' => 'nullable|string',
         ];
     }
 
