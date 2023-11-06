@@ -18,7 +18,7 @@ return new class extends Migration
             $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
             $table->string('system');
-            $table->enum('code', ConditionCategory::CODE);
+            $table->enum('code', ['problem-list-item', 'encounter-diagnosis']);
             $table->string('display');
         });
     }

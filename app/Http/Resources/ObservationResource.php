@@ -21,9 +21,7 @@ class ObservationResource extends FhirResource
         $observation = $this->getData('observation');
 
         if ($observation == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
+            throw new Exception('Data tidak ditemukan', 404);
         }
 
         $data = merge_array(

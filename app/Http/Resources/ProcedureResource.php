@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Procedure;
 use App\Models\ValueSetProcedurePerformerType;
 use App\Models\ValueSetProcedureReasonCode;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProcedureResource extends FhirResource
@@ -19,9 +20,7 @@ class ProcedureResource extends FhirResource
         $procedure = $this->getData('procedure');
 
         if ($procedure == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
+            throw new Exception('Data tidak ditemukan', 404);
         }
 
         $data = merge_array(

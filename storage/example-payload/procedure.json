@@ -1,0 +1,134 @@
+{
+    "procedure": {
+        "status": "preparation",
+        "status_reason": "183932001",
+        "category": "387713003",
+        "code_system": "http://hl7.org/fhir/sid/icd-9-cm",
+        "code_code": "8744",
+        "code_display": "Routine chest x-ray, so described",
+        "subject": "Patient/P00030004",
+        "encounter": "Encounter/2823ed1d-3e3e-434e-9a5b-9c579d192787",
+        "performed": {
+            "performedDateTime": "2023-11-06T19:41:02+07:00",
+            "performedPeriod": {
+                "start": null,
+                "end": null
+            },
+            "performedString": null,
+            "performedAge": {
+                "value": null,
+                "comparator": null,
+                "unit": null,
+                "system": null,
+                "code": null
+            },
+            "performedRange": {
+                "low": {
+                    "value": null,
+                    "comparator": null,
+                    "unit": null,
+                    "system": null,
+                    "code": null
+                },
+                "high": {
+                    "value": null,
+                    "comparator": null,
+                    "unit": null,
+                    "system": null,
+                    "code": null
+                }
+            }
+        },
+        "recorder": "Practitioner-1000400104",
+        "asserter": "Practitioner-1000400104",
+        "location": "Location-dc01c797-547a-4e4d-97cd-4ece0630e380",
+        "outcome": "385670004"
+    },
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/procedure/1000001",
+            "use": "official",
+            "value": "5234342"
+        }
+    ],
+    "based_on": [
+        {
+            "reference": "ServiceRequest/cc52bfcd-6cb2-4c0a-87a7-d5906f74bed9"
+        }
+    ],
+    "part_of": [
+        {
+            "reference": "Procedure/1a2b3c4d5e6f7g8h9i0j"
+        }
+    ],
+    "performer": [
+        {
+            "function": "106289002",
+            "actor": "Practitioner/N10000001",
+            "on_behalf_of": "Organization/1000004"
+        }
+    ],
+    "reason": [
+        {
+            "system": "http://hl7.org/fhir/sid/icd-10",
+            "code": "A15.0",
+            "display": "Tuberculosis of lung, confirmed by sputum microscopy with or without culture",
+            "reference": "Condition-f2bc12fe-0ab2-4e5c-a3cd-32c66150cbe9"
+        }
+    ],
+    "body_site": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "302551006",
+            "display": "Entire Thorax"
+        }
+    ],
+    "report": [
+        {
+            "reference": "Composition-e511fb00-3641-4816-a9fd-db2a55d1897d"
+        }
+    ],
+    "complication": [
+        {
+            "system": "http://hl7.org/fhir/sid/icd-10",
+            "code": "A41.9",
+            "display": "Sepsis, unspecified",
+            "reference": "Condition-f2bc12fe-0ab2-4e5c-a3cd-32c66150cbe9"
+        }
+    ],
+    "follow_up": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "35963001",
+            "display": "Removal of staples"
+        }
+    ],
+    "note": [
+        {
+            "author": {
+                "authorString": "Dokter Bronsig",
+                "authorReference": {
+                    "reference": "Practitioner/1000400104"
+                }
+            },
+            "time": "2023-11-01T11:31:00+07:00",
+            "text": "# Catatan<br>## Subbab"
+        }
+    ],
+    "focal_device": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "360325005",
+            "display": "Simple removal - action",
+            "reference": "Device/null"
+        }
+    ],
+    "item_used": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "716314000",
+            "display": "Manual stander and exerciser",
+            "reference": "Device/null"
+        }
+    ]
+}

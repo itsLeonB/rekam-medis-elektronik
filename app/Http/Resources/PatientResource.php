@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Patient;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,7 @@ class PatientResource extends FhirResource
         $patient = $this->getData('patient');
 
         if ($patient == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
+            throw new Exception('Data tidak ditemukan', 404);
         }
 
         $data = merge_array(

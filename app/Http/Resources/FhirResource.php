@@ -17,7 +17,7 @@ class FhirResource extends JsonResource
      */
     public function getData($resourceType): Collection|null
     {
-        return $this->resource && $this->resource->$resourceType ? $this->resource->$resourceType->first() : null;
+        return $this->resource && $this->resource->$resourceType instanceof Collection ? $this->resource->$resourceType->first() : null;
     }
 
     public function parseDate(&$array)

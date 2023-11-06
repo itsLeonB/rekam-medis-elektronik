@@ -1621,13 +1621,13 @@ function returnProcedurePerformer($attribute)
 
 function returnFocalDevice($attribute)
 {
-    $action = returnAttribute($attribute, ['action'], null);
-    $actionDetails = returnCodeableConcept($action);
+    $focalDevice = returnAttribute($attribute, ['focalDevice']);
+    $focalDeviceDetails = returnCodeableConcept($focalDevice);
     return array_merge(
         [
-            'manipulated' => returnAttribute($attribute, ['manipulated', 'reference'], '')
+            'reference' => returnAttribute($attribute, ['manipulated', 'reference'], '')
         ],
-        $actionDetails
+        $focalDeviceDetails
     );
 }
 

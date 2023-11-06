@@ -275,4 +275,35 @@ class FhirRequest extends FormRequest
             $prefix . 'rw' => 'required|integer|gte:0|max_digits:2',
         ];
     }
+
+    public function getPerformedDataRules($prefix = null): array
+    {
+        return [
+            $prefix . 'performed' => 'nullable|array',
+            $prefix . 'performed.performedDateTime' => 'nullable|date',
+            $prefix . 'performed.performedPeriod' => 'nullable|array',
+            $prefix . 'performed.performedPeriod.start' => 'nullable|date',
+            $prefix . 'performed.performedPeriod.end' => 'nullable|date',
+            $prefix . 'performed.performedString' => 'nullable|string',
+            $prefix . 'performed.performedAge' => 'nullable|array',
+            $prefix . 'performed.performedAge.value' => 'nullable|decimal',
+            $prefix . 'performed.performedAge.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'performed.performedAge.unit' => 'nullable|string',
+            $prefix . 'performed.performedAge.system' => 'nullable|string',
+            $prefix . 'performed.performedAge.code' => 'nullable|string',
+            $prefix . 'performed.performedRange' => 'nullable|array',
+            $prefix . 'performed.performedRange.low' => 'nullable|array',
+            $prefix . 'performed.performedRange.low.value' => 'nullable|decimal',
+            $prefix . 'performed.performedRange.low.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'performed.performedRange.low.unit' => 'nullable|string',
+            $prefix . 'performed.performedRange.low.system' => 'nullable|string',
+            $prefix . 'performed.performedRange.low.code' => 'nullable|string',
+            $prefix . 'performed.performedRange.high' => 'nullable|array',
+            $prefix . 'performed.performedRange.high.value' => 'nullable|decimal',
+            $prefix . 'performed.performedRange.high.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'performed.performedRange.high.unit' => 'nullable|string',
+            $prefix . 'performed.performedRange.high.system' => 'nullable|string',
+            $prefix . 'performed.performedRange.high.code' => 'nullable|string',
+        ];
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\AllergyIntolerance;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -18,9 +19,7 @@ class AllergyIntoleranceResource extends FhirResource
         $allergyIntolerance = $this->getData('allergyIntolerance');
 
         if ($allergyIntolerance == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
+            throw new Exception('Data tidak ditemukan', 404);
         }
 
         $data = merge_array(
