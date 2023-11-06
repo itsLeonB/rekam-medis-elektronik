@@ -9,7 +9,7 @@ class CodeSystemICD10Seeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeds/csvs/codesystem_icd10.csv';
+        $this->file = '/database/seeders/csvs/codesystem_icd10.csv';
         $this->timestamps = false;
         $this->delimiter = ';';
     }

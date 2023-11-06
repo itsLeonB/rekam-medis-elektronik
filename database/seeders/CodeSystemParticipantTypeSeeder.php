@@ -9,7 +9,7 @@ class CodeSystemParticipantTypeSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeds/csvs/codesystem_participanttype.csv';
+        $this->file = '/database/seeders/csvs/codesystem_participanttype.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

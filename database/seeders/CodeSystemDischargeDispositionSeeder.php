@@ -9,7 +9,7 @@ class CodeSystemDischargeDispositionSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeds/csvs/codesystem_dischargedisposition.csv';
+        $this->file = '/database/seeders/csvs/codesystem_dischargedisposition.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

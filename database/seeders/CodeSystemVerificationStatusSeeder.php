@@ -9,7 +9,7 @@ class CodeSystemVerificationStatusSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeds/csvs/codesystem_verificationstatus.csv';
+        $this->file = '/database/seeders/csvs/codesystem_verificationstatus.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

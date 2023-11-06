@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,6 +27,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             WilayahSeeder::class,
             CodeSystemSeeder::class,
+            ValueSetSeeder::class,
             // ResourceSeeder::class, // Resource FHIR R5
             IdFhirResourceSeeder::class, // Resource example dari SATUSEHAT API
             PractitionerSeeder::class,

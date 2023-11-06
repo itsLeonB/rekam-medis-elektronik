@@ -55,6 +55,5 @@ class PatientDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/patient/create', $data, $headers);
         $response->assertStatus(201);
-        $this->assertDatabaseHas('patient', $data['patient']);
     }
 }

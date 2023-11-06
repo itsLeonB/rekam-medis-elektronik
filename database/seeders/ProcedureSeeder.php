@@ -15,7 +15,6 @@ use App\Models\ProcedurePartOf;
 use App\Models\ProcedurePerformer;
 use App\Models\ProcedureReason;
 use App\Models\ProcedureReport;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Resource;
 
@@ -51,7 +50,9 @@ class ProcedureSeeder extends Seeder
                     'status' => returnAttribute($resContent, ['status'], 'unknown'),
                     'status_reason' => returnAttribute($resContent, ['statusReason', 'coding', 0, 'code'], null),
                     'category' => returnAttribute($resContent, ['category', 'coding', 0, 'code'], null),
-                    'code' => returnAttribute($resContent, ['code', 'coding', 0, 'code'], ''),
+                    'code_system' => returnAttribute($resContent, ['code', 'coding', 0, 'system'], ''),
+                    'code_code' => returnAttribute($resContent, ['code', 'coding', 0, 'code'], ''),
+                    'code_display' => returnAttribute($resContent, ['code', 'coding', 0, 'display'], ''),
                     'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
                     'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
                     'performed' => returnVariableAttribute($resContent, 'performed', ['DateTime', 'Period', 'String', 'Age', 'Range']),

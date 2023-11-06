@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class CodeSystemSeeder extends Seeder
@@ -21,6 +20,8 @@ class CodeSystemSeeder extends Seeder
             CodeSystemParticipantTypeSeeder::class,
             CodeSystemServiceTypeSeeder::class,
             CodeSystemVerificationStatusSeeder::class,
+            CodeSystemLoincSeeder::class,
+            CodeSystemICD9CMProcedureSeeder::class,
         ]);
     }
 }

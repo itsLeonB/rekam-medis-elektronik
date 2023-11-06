@@ -4,11 +4,22 @@ namespace App\Http\Resources;
 
 use DateTime;
 use DateTimeZone;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FhirResource extends JsonResource
 {
+    /**
+     * Get the data for a specific resource type.
+     *
+     * @param string $resourceType The resource type to retrieve data for.
+     * @return Collection|null The data for the specified resource type, or null if it doesn't exist.
+     */
+    public function getData($resourceType): Collection|null
+    {
+        return $this->resource && $this->resource->$resourceType ? $this->resource->$resourceType->first() : null;
+    }
+
     public function parseDate(&$array)
     {
         foreach ($array as &$value) {
@@ -39,27 +50,29 @@ class FhirResource extends JsonResource
         }
     }
 
-    public function createIdentifierArray($resource)
+    public function createIdentifierArray($identifierAttribute)
     {
         $identifier = [];
-        foreach ($resource->identifier as $i) {
-            $identifier[] = [
-                'system' => $i->system,
-                'use' => $i->use,
-                'value' => $i->value,
-            ];
+
+        if (is_array($identifierAttribute) || is_object($identifierAttribute)) {
+            foreach ($identifierAttribute as $i) {
+                $identifier[] = [
+                    'system' => $i->system,
+                    'use' => $i->use,
+                    'value' => $i->value,
+                ];
+            }
         }
+
         return $identifier;
     }
 
-    public function createTelecomArray($resource)
+    public function createTelecomArray($telecomAttribute)
     {
         $telecom = [];
 
-        $telecomData = $resource->telecom;
-
-        if (is_array($telecomData) || is_object($telecomData)) {
-            foreach ($telecomData as $t) {
+        if (is_array($telecomAttribute) || is_object($telecomAttribute)) {
+            foreach ($telecomAttribute as $t) {
                 $telecom[] = [
                     'system' => $t->system,
                     'use' => $t->use,
@@ -71,14 +84,12 @@ class FhirResource extends JsonResource
         return $telecom;
     }
 
-    public function createAddressArray($resource)
+    public function createAddressArray($addressAttribute)
     {
         $addressData = [];
 
-        $address = $resource->address;
-
-        if (is_array($address) || is_object($address)) {
-            foreach ($address as $a) {
+        if (is_array($addressAttribute) || is_object($addressAttribute)) {
+            foreach ($addressAttribute as $a) {
                 $addressData[] = [
                     'use' => $a->use,
                     'line' => [$a->line],
@@ -167,7 +178,7 @@ class FhirResource extends JsonResource
                 $annotation[] = merge_array(
                     json_decode($a->author, true),
                     [
-                        'time' => $a->time,
+                        'time' => $this->parseDateFhir($a->time),
                         'text' => $a->text
                     ]
                 );

@@ -19,7 +19,9 @@ return new class extends Migration
             $table->enum('status', ['preparation', 'in-progress', 'not-done', 'on-hold', 'stopped', 'completed', 'entered-in-error', 'unknown'])->default('unknown');
             $table->unsignedBigInteger('status_reason')->nullable();
             $table->enum('category', ['24642003', '409063005', '409073007', '387713003', '103693007', '46947000', '410606002'])->nullable();
-            $table->string('code');
+            $table->string('code_system');
+            $table->string('code_code');
+            $table->string('code_display');
             $table->string('subject');
             $table->string('encounter');
             $table->json('performed')->nullable();

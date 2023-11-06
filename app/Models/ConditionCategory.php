@@ -7,18 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ConditionCategory extends Model
 {
-    // Enum values
-    public const CODE = ['problem-list-item', 'encounter-diagnosis'];
-    public const CATEGORY_DISPLAY = [
-        'problem-list-item' => [
-            'display' => 'Problem List Item',
-            'definition' => 'An item on a problem list that can be managed over time and can be expressed by a practitioner (e.g. physician, nurse), patient, or related person.'
-        ],
-        'encounter-diagnosis' => [
-            'display' => 'Encounter Diagnosis',
-            'definition' => 'A point in time diagnosis (e.g. from a physician or nurse) in context of an encounter.'
-        ]
-    ];
+    public const CATEGORY_SYSTEM = 'http://terminology.hl7.org/CodeSystem/condition-category';
+    public const CATEGORY_CODE = ['problem-list-item', 'encounter-diagnosis'];
+    public const CATEGORY_DISPLAY = ['problem-list-item' => 'Problem List Item', 'encounter-diagnosis' => 'Encounter Diagnosis'];
+    public const CATEGORY_DEFINITION = ["problem-list-item" => "Daftar keluhan/masalah yang dapat dikelola waktu ke waktu dan dapat diungkapkan oleh tenaga kesehatan, pasien, atau orang terkait", "encounter-diagnosis" => "Diagnosis pasien pada waktu tertentu dalam kunjungan"];
 
     protected $table = 'condition_category';
     protected $guarded = ['id'];

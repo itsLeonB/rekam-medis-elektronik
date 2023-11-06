@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\AllergyIntolerance;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class AllergyIntoleranceResource extends FhirResource
@@ -14,13 +15,19 @@ class AllergyIntoleranceResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $allergyIntolerance = $this->resource->allergyIntolerance ? $this->resource->allergyIntolerance->first() : null;
+        $allergyIntolerance = $this->getData('allergyIntolerance');
+
+        if ($allergyIntolerance == null) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
 
         $data = merge_array(
             [
                 'resourceType' => 'AllergyIntolerance',
                 'id' => $this->satusehat_id,
-                'identifier' => $this->createIdentifierArray($allergyIntolerance),
+                'identifier' => $this->createIdentifierArray($allergyIntolerance->identifier),
                 'clinicalStatus' => [
                     'coding' => [
                         [
@@ -57,62 +64,63 @@ class AllergyIntoleranceResource extends FhirResource
                 'encounter' => [
                     'reference' => $allergyIntolerance->encounter
                 ],
-                'recordedDate' => $allergyIntolerance->recorded_date,
+                'recordedDate' => $this->parseDateFhir($allergyIntolerance->recorded_date),
                 'recorder' => [
                     'reference' => $allergyIntolerance->recorder
                 ],
                 'asserter' => [
                     'reference' => $allergyIntolerance->asserter
                 ],
-                'lastOcurrence' => $allergyIntolerance->last_occurence,
+                'lastOcurrence' => $this->parseDateFhir($allergyIntolerance->last_occurence),
                 'note' => $this->createAnnotationArray($allergyIntolerance->note),
-                'reaction' => $this->createReactionArray($allergyIntolerance)
+                'reaction' => $this->createReactionArray($allergyIntolerance->reaction)
             ],
             $allergyIntolerance->onset
         );
 
         $data = removeEmptyValues($data);
-        $data = $this->parseDate($data);
 
         return $data;
     }
 
-    private function createReactionArray($allergyIntolerance)
+    private function createReactionArray(Collection $reactionAttribute)
     {
         $reaction = [];
 
-        foreach ($allergyIntolerance->reaction as $r) {
-            $reaction[] = [
-                'substance' => [
-                    'coding' => [
-                        [
-                            'system' => $r->substance_system,
-                            'code' => $r->substance_code,
-                            'display' => $r->substance_display
+        if (is_array($reactionAttribute) || is_object($reactionAttribute)) {
+            foreach ($reactionAttribute as $r) {
+                $reaction[] = [
+                    'substance' => [
+                        'coding' => [
+                            [
+                                'system' => $r->substance_system,
+                                'code' => $r->substance_code,
+                                'display' => $r->substance_display
+                            ]
                         ]
-                    ]
-                ],
-                'manifestation' => $this->createCodeableConceptArray($r->manifestation),
-                'description' => $r->description,
-                'onset' => $r->onset,
-                'severity' => $r->severity,
-                'exposureRoute' => [
-                    'coding' => [
-                        [
-                            'system' => $r->exposure_route_system,
-                            'code' => $r->exposure_route_code,
-                            'display' => $r->exposure_route_display
+                    ],
+                    'manifestation' => $this->createCodeableConceptArray($r->manifestation),
+                    'description' => $r->description,
+                    'onset' => $this->parseDateFhir($r->onset),
+                    'severity' => $r->severity,
+                    'exposureRoute' => [
+                        'coding' => [
+                            [
+                                'system' => $r->exposure_route_system,
+                                'code' => $r->exposure_route_code,
+                                'display' => $r->exposure_route_display
+                            ]
                         ]
-                    ]
-                ],
-                'note' => $this->createAnnotationArray($r->note)
-            ];
+                    ],
+                    'note' => $this->createAnnotationArray($r->note)
+                ];
+            }
         }
 
         return $reaction;
     }
 
-    private function createCategoryArray($allergyIntolerance)
+    private function createCategoryArray(Collection $allergyIntolerance)
     {
         $category = [];
 

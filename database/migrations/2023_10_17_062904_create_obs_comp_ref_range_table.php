@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('system')->nullable();
             $table->string('code')->nullable();
             $table->string('type')->nullable();
-            $table->string('applies_to')->nullable();
+            $table->json('applies_to')->nullable();
             $table->integer('age_low')->nullable();
             $table->integer('age_high')->nullable();
             $table->string('text')->nullable();

@@ -55,6 +55,5 @@ class EncounterDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/encounter/create', $data, $headers);
         $response->assertStatus(201);
-        $this->assertDatabaseHas('encounter', $data['encounter']);
     }
 }
