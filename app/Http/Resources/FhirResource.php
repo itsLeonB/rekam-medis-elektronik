@@ -4,10 +4,22 @@ namespace App\Http\Resources;
 
 use DateTime;
 use DateTimeZone;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FhirResource extends JsonResource
 {
+    /**
+     * Get the data for a specific resource type.
+     *
+     * @param string $resourceType The resource type to retrieve data for.
+     * @return Collection|null The data for the specified resource type, or null if it doesn't exist.
+     */
+    public function getData($resourceType): Collection|null
+    {
+        return $this->resource && $this->resource->$resourceType ? $this->resource->$resourceType->first() : null;
+    }
+
     public function parseDate(&$array)
     {
         foreach ($array as &$value) {

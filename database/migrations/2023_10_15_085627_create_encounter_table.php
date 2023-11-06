@@ -27,6 +27,8 @@ return new class extends Migration
             $table->dateTime('period_end')->nullable();
             $table->string('account')->nullable();
             $table->string('location');
+            $table->enum('service_class', ['1', '2', '3', 'vip', 'vvip', 'reguler', 'eksekutif'])->nullable();
+            $table->enum('upgrade_class', ['kelas-tetap', 'naik-kelas', 'turun-kelas', 'titip-rawat'])->nullable();
             $table->string('service_provider');
             $table->string('part_of')->nullable();
         });

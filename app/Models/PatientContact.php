@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PatientContact extends Model
 {
-    use HasFactory;
+    public const RELATIONSHIP_SYSTEM = 'http://terminology.hl7.org/CodeSystem/v2-0131';
+    public const RELATIONSHIP_CODE = ['C', 'E', 'F', 'I', 'N', 'S', 'U'];
+    public const RELATIONSHIP_DISPLAY = ['C' => 'Emergency Contact', 'E' => 'Employer', 'F' => 'Federal Agency', 'I' => 'Insurance Company', 'N' => 'Next-of-Kin', 'S' => 'State Agency', 'U' => 'Unknown'];
 
     protected $table = 'patient_contact';
 

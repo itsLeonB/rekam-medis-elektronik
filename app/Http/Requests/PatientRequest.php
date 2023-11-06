@@ -2,24 +2,13 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use App\Constants;
+use App\Models\Patient;
+use App\Models\PatientContact;
 use Illuminate\Validation\Rule;
 
-class PatientRequest extends FormRequest
+class PatientRequest extends FhirRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        if (!Auth::check()) {
-            abort(403, 'Unauthorized action.');
-        }
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,77 +16,65 @@ class PatientRequest extends FormRequest
      */
     public function rules(): array
     {
+        return array_merge(
+            $this->baseAttributeRules(),
+            $this->baseDataRules(),
+            $this->getIdentifierDataRules('identifier.*.'),
+            $this->getTelecomDataRules('telecom.*.'),
+            $this->getAddressDataRules('address.*.'),
+            $this->contactDataRules(),
+            $this->getReferenceDataRules('general_practitioner.*.')
+        );
+    }
+
+    public function baseAttributeRules(): array
+    {
         return [
-            // Patient attributes
             'patient' => 'required|array',
             'identifier' => 'required|array',
             'telecom' => 'required|array',
             'address' => 'required|array',
             'contact' => 'required|array',
             'general_practitioner' => 'required|array',
+        ];
+    }
 
-            // Patient base data
+    public function baseDataRules(): array
+    {
+        return [
             'patient.active' => 'required|boolean',
             'patient.name' => 'required|string|max:255',
             'patient.prefix' => 'nullable|string|max:255',
             'patient.suffix' => 'nullable|string|max:255',
-            'patient.gender' => ['required', 'string', Rule::in(['male', 'female', 'other', 'unknown'])],
+            'patient.gender' => ['required', 'string', Rule::in(Constants::GENDER)],
             'patient.birth_date' => 'nullable|date',
             'patient.birth_place' => 'nullable|string|max:255',
             'patient.deceased' => 'nullable|array',
-            'patient.marital_status' => ['nullable', 'string', Rule::in(['A', 'D', 'I', 'L', 'M', 'P', 'S', 'T', 'U', 'W'])],
+            'patient.marital_status' => ['nullable', 'string', Rule::in(Patient::MARITAL_STATUS_CODE)],
             'patient.multiple_birth' => 'nullable|array',
             'patient.language' => 'nullable|string|max:255',
-
-            // Patient identifier data
-            'identifier.*.system' => 'required|string|max:255',
-            'identifier.*.use' => ['required', 'string', Rule::in(['usual', 'official', 'temp', 'secondary', 'old'])],
-            'identifier.*.value' => 'required|string|max:255',
-
-            // Patient telecom data
-            'telecom.*.system' => ['required', 'string', Rule::in(['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other'])],
-            'telecom.*.use' => ['required', 'string', Rule::in(['home', 'work', 'temp', 'old', 'mobile'])],
-            'telecom.*.value' => 'required|string|max:255',
-
-            // Patient address data
-            'address.*.use' => ['required', 'string', Rule::in(['home', 'work', 'temp', 'old', 'billing'])],
-            'address.*.line' => 'required|string',
-            'address.*.country' => 'required|string|max:255',
-            'address.*.postal_code' => 'required|string|max:255',
-            'address.*.province' => 'required|integer|gte:0|digits:2',
-            'address.*.city' => 'required|integer|gte:0|digits:4',
-            'address.*.district' => 'required|integer|gte:0|digits:6',
-            'address.*.village' => 'required|integer|gte:0|digits:10',
-            'address.*.rt' => 'required|integer|gte:0|max_digits:2',
-            'address.*.rw' => 'required|integer|gte:0|max_digits:2',
-
-            // Patient contact data
-            'contact.*.contact_data.relationship' => ['required', 'string', Rule::in(['BP', 'CP', 'EP', 'PR', 'E', 'C', 'F', 'I', 'N', 'S', 'U'])],
-            'contact.*.contact_data.name' => 'required|string|max:255',
-            'contact.*.contact_data.prefix' => 'nullable|string|max:255',
-            'contact.*.contact_data.suffix' => 'nullable|string|max:255',
-            'contact.*.contact_data.gender' => ['required', 'string', Rule::in(['male', 'female', 'other', 'unknown'])],
-            'contact.*.contact_data.address_use' => ['required', 'string', Rule::in(['home', 'work', 'temp', 'old', 'billing'])],
-            'contact.*.contact_data.address_line' => 'required|string',
-            'contact.*.contact_data.country' => 'required|string|max:255',
-            'contact.*.contact_data.postal_code' => 'required|string|max:255',
-            'contact.*.contact_data.province' => 'required|integer|gte:0|digits:2',
-            'contact.*.contact_data.city' => 'required|integer|gte:0|digits:4',
-            'contact.*.contact_data.district' => 'required|integer|gte:0|digits:6',
-            'contact.*.contact_data.village' => 'required|integer|gte:0|digits:10',
-            'contact.*.contact_data.rt' => 'required|integer|gte:0|max_digits:2',
-            'contact.*.contact_data.rw' => 'required|integer|gte:0|max_digits:2',
-
-            // Patient contact telecom data
-            'contact.*.telecom.*.system' => ['required', 'string', Rule::in(['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other'])],
-            'contact.*.telecom.*.use' => ['required', 'string', Rule::in(['home', 'work', 'temp', 'old', 'mobile'])],
-            'contact.*.telecom.*.value' => 'required|string|max:255',
-
-            // General practitioner data
-            'general_practitioner.*.reference' => 'required|string|max:255'
         ];
     }
 
+    public function contactDataRules(): array
+    {
+        $address = $this->getAddressDataRules('contact.*.contact_data.');
+        $address['contact.*.contact_data.address_use'] = $address['contact.*.contact_data.use'];
+        $address['contact.*.contact_data.address_line'] = $address['contact.*.contact_data.line'];
+        unset($address['contact.*.contact_data.use']);
+        unset($address['contact.*.contact_data.line']);
+        return array_merge(
+            [
+                'contact.*.contact_data.relationship' => ['required', 'string', Rule::in(PatientContact::RELATIONSHIP_CODE)],
+                'contact.*.contact_data.name' => 'required|string|max:255',
+                'contact.*.contact_data.prefix' => 'nullable|string|max:255',
+                'contact.*.contact_data.suffix' => 'nullable|string|max:255',
+                'contact.*.contact_data.gender' => ['required', 'string', Rule::in(Constants::GENDER)],
+            ],
+            $address,
+            $this->getTelecomDataRules('contact.*.telecom.*.')
+        );
+    }
 
     public function messages(): array
     {

@@ -18,7 +18,13 @@ class ObservationResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $observation = $this->resource->observation ? $this->resource->observation->first() : null;
+        $observation = $this->getData('observation');
+
+        if ($observation == null) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
 
         $data = merge_array(
             [

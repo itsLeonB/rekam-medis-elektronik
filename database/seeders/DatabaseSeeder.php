@@ -2,9 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use Dotenv\Parser\Value;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

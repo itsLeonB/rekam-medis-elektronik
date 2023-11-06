@@ -2,24 +2,16 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use App\Constants;
+use App\Models\Encounter;
+use App\Models\EncounterDiagnosis;
+use App\Models\EncounterHospitalization;
+use App\Models\EncounterHospitalizationDiet;
+use App\Models\EncounterHospitalizationSpecialArrangement;
 use Illuminate\Validation\Rule;
 
-class EncounterRequest extends FormRequest
+class EncounterRequest extends FhirRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        // if (!Auth::check()) {
-        //     abort(403, 'Unauthorized action.');
-        // }
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -27,8 +19,24 @@ class EncounterRequest extends FormRequest
      */
     public function rules(): array
     {
+        return array_merge(
+            $this->baseAttributeRules(),
+            $this->baseDataRules(),
+            $this->getIdentifierDataRules('identifier.*.'),
+            $this->statusHistoryDataRules(),
+            $this->classHistoryDataRules(),
+            $this->participantDataRules(),
+            $this->reasonDataRules(),
+            $this->diagnosisDataRules(),
+            $this->hospitalizationDataRules(),
+            $this->getCodeableConceptDataRules('hospitalization.*.diet.*.', EncounterHospitalizationDiet::PREFERENCE_CODE),
+            $this->getCodeableConceptDataRules('hospitalization.*.special_arrangement.*.', EncounterHospitalizationSpecialArrangement::CODE),
+        );
+    }
+
+    private function baseAttributeRules(): array
+    {
         return [
-            // Encounter attributes
             'encounter' => 'required|array',
             'identifier' => 'required|array',
             'status_history' => 'required|array',
@@ -37,9 +45,13 @@ class EncounterRequest extends FormRequest
             'reason' => 'nullable|array',
             'diagnosis' => 'nullable|array',
             'hospitalization' => 'nullable|array',
+        ];
+    }
 
-            // Encounter base data
-            'encounter.status' => ['required', 'string', Rule::in(['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown'])],
+    private function baseDataRules(): array
+    {
+        return [
+            'encounter.status' => ['required', 'string', Rule::in(Encounter::STATUS_CODE)],
             'encounter.class' => 'required|string|max:6',
             'encounter.service_type' => 'nullable|integer|gte:0',
             'encounter.priority' => 'nullable|string|max:3',
@@ -52,55 +64,64 @@ class EncounterRequest extends FormRequest
             'encounter.location' => 'required|string',
             'encounter.service_provider' => 'required|string',
             'encounter.part_of' => 'nullable|string',
+        ];
+    }
 
-            // Encounter identifier data
-            'identifier.*.system' => 'required|string',
-            'identifier.*.use' => ['required', Rule::in(['usual', 'official', 'temp', 'secondary', 'old'])],
-            'identifier.*.value' => 'required|string',
-
-            // Encounter status history data
-            'status_history.*.status' => ['required', Rule::in(['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown'])],
+    private function statusHistoryDataRules(): array
+    {
+        return [
+            'status_history.*.status' => ['required', Rule::in(Encounter::STATUS_CODE)],
             'status_history.*.period_start' => 'required|date',
             'status_history.*.period_end' => 'nullable|date',
+        ];
+    }
 
-            // Encounter class history data
-            'class_history.*.class' => 'required|string|max:6',
+    private function classHistoryDataRules(): array
+    {
+        return [
+            'class_history.*.class' => ['required', Rule::in(Encounter::CLASS_CODE)],
             'class_history.*.period_start' => 'required|date',
             'class_history.*.period_end' => 'nullable|date',
+        ];
+    }
 
-            // Encounter participant data
+    private function participantDataRules(): array
+    {
+        return [
             'participant.*.type' => 'required|string|max:10',
             'participant.*.individual' => 'required|string',
+        ];
+    }
 
-            // Encounter reason data
+    private function reasonDataRules(): array
+    {
+        return [
             'reason.*.code' => 'nullable|integer|gte:0',
             'reason.*.reference' => 'nullable|string',
+        ];
+    }
 
-            // Encounter diagnosis data
+    private function diagnosisDataRules(): array
+    {
+        return [
             'diagnosis.*.condition_reference' => 'required|string',
             'diagnosis.*.condition_display' => 'required|string',
-            'diagnosis.*.use' => ['nullable', Rule::in(['AD', 'DD', 'CC', 'CM', 'pre-op', 'post-op', 'billing'])],
+            'diagnosis.*.use' => ['nullable', Rule::in(EncounterDiagnosis::USE_CODE)],
             'diagnosis.*.rank' => 'nullable|integer',
+        ];
+    }
 
-            // Encounter hospitalization data
+    private function hospitalizationDataRules(): array
+    {
+        return [
             'hospitalization.*.hospitalization_data.preadmission_identifier_system' => 'nullable|string',
-            'hospitalization.*.hospitalization_data.preadmission_identifier_use' => ['nullable', Rule::in(['usual', 'official', 'temp', 'secondary', 'old'])],
+            'hospitalization.*.hospitalization_data.preadmission_identifier_use' => ['nullable', Rule::in(Constants::IDENTIFIER_USE)],
             'hospitalization.*.hospitalization_data.preadmission_identifier_value' => 'nullable|string',
             'hospitalization.*.hospitalization_data.origin' => 'nullable|string',
             'hospitalization.*.hospitalization_data.admit_source' => 'nullable|string',
-            'hospitalization.*.hospitalization_data.re_admission' => ['nullable', Rule::in(['R'])],
+            'hospitalization.*.hospitalization_data.re_admission' => ['nullable', Rule::in(EncounterHospitalization::READMISSION_CODE)],
             'hospitalization.*.hospitalization_data.destination' => 'nullable|string',
             'hospitalization.*.hospitalization_data.discharge_disposition' => 'nullable|string',
-
-            // Encounter hospitalization diet data
-            'hospitalization.*.diet.*.system' => 'nullable|string',
-            'hospitalization.*.diet.*.code' => 'required|string',
-            'hospitalization.*.diet.*.display' => 'nullable|string',
-
-            // Encounter hospitalization special arrangement data
-            'hospitalization.*.special_arrangement.*.system' => 'nullable|string',
-            'hospitalization.*.special_arrangement.*.code' => 'required|string',
-            'hospitalization.*.special_arrangement.*.display' => 'nullable|string',
         ];
     }
 

@@ -15,7 +15,13 @@ class ConditionResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $condition = $this->resource->condition ? $this->resource->condition->first() : null;
+        $condition = $this->getData('condition');
+
+        if ($condition == null) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
 
         $data = merge_array(
             [

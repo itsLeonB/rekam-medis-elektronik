@@ -15,7 +15,13 @@ class AllergyIntoleranceResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $allergyIntolerance = $this->resource->allergyIntolerance ? $this->resource->allergyIntolerance->first() : null;
+        $allergyIntolerance = $this->getData('allergyIntolerance');
+
+        if ($allergyIntolerance == null) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
 
         $data = merge_array(
             [
@@ -114,7 +120,7 @@ class AllergyIntoleranceResource extends FhirResource
         return $reaction;
     }
 
-    private function createCategoryArray(AllergyIntolerance $allergyIntolerance)
+    private function createCategoryArray(Collection $allergyIntolerance)
     {
         $category = [];
 

@@ -16,7 +16,13 @@ class PatientResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $patient = $this->resource->patient ? $this->resource->patient->first() : null;
+        $patient = $this->getData('patient');
+
+        if ($patient == null) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
 
         $data = merge_array(
             [

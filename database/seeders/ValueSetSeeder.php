@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ValueSetSeeder extends Seeder
@@ -15,6 +14,10 @@ class ValueSetSeeder extends Seeder
         $this->call([
             ValueSetObservationValueQuantitySeeder::class,
             ValueSetProcedureReasonCodeSeeder::class,
+            ValueSetConditionCodeKeluhanUtamaSeeder::class,
+            ValueSetConditionCodeRiwayatPenyakitPribadiSeeder::class,
+            ValueSetConditionCodeRiwayatPenyakitKeluargaSeeder::class,
+            ValueSetProcedurePerformerTypeSeeder::class,
         ]);
     }
 }

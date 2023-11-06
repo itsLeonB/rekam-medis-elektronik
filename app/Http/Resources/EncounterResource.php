@@ -15,7 +15,13 @@ class EncounterResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $encounter = $this->resource->encounter ? $this->resource->encounter->first() : null;
+        $encounter = $this->getData('encounter');
+
+        if ($encounter == null) {
+            return response()->json([
+                'message' => 'Data tidak ditemukan'
+            ], 404);
+        }
 
         $data = [
             'resourceType' => 'Encounter',
