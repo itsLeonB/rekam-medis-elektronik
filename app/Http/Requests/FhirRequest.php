@@ -302,4 +302,20 @@ class FhirRequest extends FormRequest
             $prefix . 'performed.performedRange.high.code' => 'nullable|string',
         ];
     }
+
+    public function getRatioDataRules($prefix = null): array
+    {
+        return [
+            $prefix . 'numerator.value' => 'nullable|decimal',
+            $prefix . 'numerator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'numerator.unit' => 'nullable|string',
+            $prefix . 'numerator.system' => 'nullable|string',
+            $prefix . 'numerator.code' => 'nullable|string',
+            $prefix . 'denominator.value' => 'nullable|decimal',
+            $prefix . 'denominator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'denominator.unit' => 'nullable|string',
+            $prefix . 'denominator.system' => 'nullable|string',
+            $prefix . 'denominator.code' => 'nullable|string',
+        ];
+    }
 }

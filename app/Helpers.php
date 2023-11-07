@@ -1651,18 +1651,14 @@ function returnRatio($attribute, $prefix)
 function returnMedicationIngredient($attribute)
 {
     $item = returnAttribute($attribute, ['itemCodeableConcept'], null);
-    $itemCodeableConcept = returnCodeableConcept($item, 'item');
+    $itemCodeableConcept = returnCodeableConcept($item);
     $strength = returnAttribute($attribute, ['strength'], null);
     $strengthData = returnRatio($strength, 'strength');
 
     return array_merge(
         $itemCodeableConcept,
         $strengthData,
-        [
-            'item_reference' => returnAttribute($attribute, ['itemReference', 'reference'], null),
-            'is_active' => returnAttribute($attribute, ['isActive'], null),
-
-        ]
+        ['is_active' => returnAttribute($attribute, ['isActive'], null)]
     );
 }
 
@@ -1757,15 +1753,12 @@ function merge_array(...$arrays)
 {
     $arr = [];
 
-    try {
-        foreach ($arrays as $a) {
-            if ($a != null) {
-                $arr = array_merge($arr, $a);
-            }
+    foreach ($arrays as $a) {
+        if ($a != null) {
+            $arr = array_merge($arr, $a);
         }
-    } catch (TypeError $e) {
-        dd($a);
     }
+
     return $arr;
 }
 

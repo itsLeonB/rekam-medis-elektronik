@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,8 +11,8 @@ class MedicationDispense extends Model
 {
     protected $table = 'medication_dispense';
     protected $casts = [
-        'quantity_value' => 'decimal',
-        'days_supply_value' => 'decimal',
+        'quantity_value' => 'decimal:2',
+        'days_supply_value' => 'decimal:2',
         'when_prepared' => 'datetime',
         'when_handed_over' => 'datetime'
     ];

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,10 +12,10 @@ class MedicationRequestDosage extends Model
     protected $casts = [
         'timing_event' => 'json',
         'timing_repeat' => 'json',
-        'max_dose_per_period_numerator_value' => 'decimal',
-        'max_dose_per_period_denominator_value' => 'decimal',
-        'max_dose_per_administration_value' => 'decimal',
-        'max_dose_per_lifetime_value' => 'decimal'
+        'max_dose_per_period_numerator_value' => 'decimal:2',
+        'max_dose_per_period_denominator_value' => 'decimal:2',
+        'max_dose_per_administration_value' => 'decimal:2',
+        'max_dose_per_lifetime_value' => 'decimal:2'
     ];
     public $timestamps = false;
 

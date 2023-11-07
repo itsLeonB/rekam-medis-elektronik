@@ -16,10 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('medication_id');
             $table->index('medication_id');
             $table->foreign('medication_id')->references('id')->on('medication')->onDelete('cascade');
-            $table->string('item_system')->nullable();
-            $table->unsignedBigInteger('item_code')->nullable();
-            $table->string('item_display')->nullable();
-            $table->string('item_reference')->nullable();
+            $table->string('system')->nullable();
+            $table->unsignedBigInteger('code');
+            $table->string('display')->nullable();
             $table->boolean('is_active')->nullable();
             $table->decimal('strength_numerator_value')->nullable();
             $table->enum('strength_numerator_comparator', ['<', '<=', '>=', '>'])->nullable();

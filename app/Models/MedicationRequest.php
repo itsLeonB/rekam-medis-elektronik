@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,11 +13,11 @@ class MedicationRequest extends Model
         'do_not_perform' => 'boolean',
         'reported' => 'boolean',
         'authored_on' => 'datetime',
-        'dispense_interval_value' => 'decimal',
+        'dispense_interval_value' => 'decimal:2',
         'validitiy_start' => 'datetime',
         'validity_end' => 'datetime',
-        'quantity_value' => 'decimal',
-        'supply_duration_value' => 'decimal',
+        'quantity_value' => 'decimal:2',
+        'supply_duration_value' => 'decimal:2',
         'substitution_allowed' => 'json'
     ];
     public $timestamps = false;
