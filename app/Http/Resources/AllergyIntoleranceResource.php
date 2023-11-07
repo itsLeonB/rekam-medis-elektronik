@@ -17,12 +17,6 @@ class AllergyIntoleranceResource extends FhirResource
     {
         $allergyIntolerance = $this->getData('allergyIntolerance');
 
-        if ($allergyIntolerance == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
-        }
-
         $data = merge_array(
             [
                 'resourceType' => 'AllergyIntolerance',
@@ -75,7 +69,7 @@ class AllergyIntoleranceResource extends FhirResource
                 'note' => $this->createAnnotationArray($allergyIntolerance->note),
                 'reaction' => $this->createReactionArray($allergyIntolerance->reaction)
             ],
-            $allergyIntolerance->onset
+            $allergyIntolerance->onset,
         );
 
         $data = removeEmptyValues($data);
@@ -120,7 +114,7 @@ class AllergyIntoleranceResource extends FhirResource
         return $reaction;
     }
 
-    private function createCategoryArray(Collection $allergyIntolerance)
+    private function createCategoryArray($allergyIntolerance)
     {
         $category = [];
 

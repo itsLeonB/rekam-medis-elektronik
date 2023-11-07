@@ -1,0 +1,459 @@
+code,display
+129264002,Action
+129265001,Evaluation - action
+129266000,Measurement - action
+129267009,Administrative action
+129268004,Observation - action
+129269007,Assisting - action
+129271007,Management - action
+129272000,Stimulation - action
+129273005,Admission - action
+129274004,Discharge - action
+129275003,Administrative transfer - action (qualifier value)
+129276002,Referral - action
+129277006,Administrative disposition - action
+129278001,Audit - action
+129279009,Medicolegal action
+129280007,Medicolegal testimony - action
+129283009,Training - action
+129284003,Surgical action
+129286001,Microsurgery - action
+129287005,Incision - action
+129289008,Drainage - action
+129291000,Drilling - action
+129292007,Evacuation - action
+129293002,Dissection - action
+129294008,Discission - action
+129295009,Slitting - action
+129296005,Bisection - action
+129297001,Bifurcation - action
+129298006,Division - action
+129299003,Release - action
+129300006,Puncture - action
+129301005,Scarification - action
+129303008,Removal - action
+129304002,Excision - action
+129305001,Wedge resection - action
+129306000,Surgical removal - action
+129307009,Expulsion - action
+129308004,Reexcision - action
+129309007,Amputation - action
+129310002,Transfixion - action
+129311003,Evisceration - action
+129312005,Enucleation - action
+129313000,Trephination - action
+129314006,Biopsy - action
+129315007,Incisional biopsy - action
+129316008,Aspiration - action
+129317004,Debridement - action
+129318009,Saucerization - action
+129319001,Curettage - action
+129321006,Trimming - action
+129322004,Shaving - action
+129323009,Scraping - action
+129324003,Filleting - action
+129325002,Introduction - action
+129326001,Injection - action
+129327005,Tattooing - action
+129328000,Inflation - action
+129330003,Infusion - action
+129331004,Perfusion - action
+129332006,Irrigation - action
+129333001,Insufflation - action
+129334007,Instillation - action
+129335008,Embolization - action
+129336009,Implantation - action
+129337000,Reimplantation - action
+129338005,Surgical implantation - action
+129339002,Intubation - action
+129340000,Sounding - action
+129344009,Surgical recession - action
+129345005,Resection-recession - action
+129346006,Radial incision - action
+129347002,Surgical transfer - action
+129348007,Z-plasty - action
+129349004,Surgical lengthening - action
+129350004,Surgical shortening - action
+129351000,Surgical augmentation - action
+129352007,Surgical advancement - action
+129353002,Suspension and fixation - action
+129354008,Exteriorization - action
+129355009,Marsupialization - action
+129356005,Reinforcement - action
+129357001,Closure - action
+129358006,Layered closure - action
+129360008,Oversewing - action
+129366002,Closure by buckling - action
+129368001,Cerclage - action
+129369009,Ligation - action
+129371009,Fixation - action
+129372002,Cryopexy - action
+129373007,Plication - action
+129374001,Imbrication - action
+129376004,Construction - action
+129377008,Reconstruction - action
+129378003,Stabilization - action
+129379006,Fusion - action
+129380009,Anchoring - action
+129381008,Enlargement - action
+129382001,Destruction - action
+129383006,Avulsion - action
+129384000,Decortication - action
+129385004,Stripping - action
+129386003,Stripping and ligation - action
+129387007,Abrasion - action
+129388002,Salabrasion - action
+129389005,Grinding - action
+129390001,Coagulation - action
+129391002,Obliteration - action
+129392009,Cauterization - action
+129393004,Cryosurgery - action
+129394005,Thermocautery - action
+129395006,Fulguration - action
+129396007,Electrodesiccation - action
+129397003,Electrocoagulation - action
+129398008,Galvanocauterization - action
+129399000,Electrodestruction - action
+129400007,Crushing - action
+129401006,Fragmentation - action
+129402004,Emulsification - action
+129403009,Chemosurgery - action
+129404003,Chemocautery - action
+129405002,Photocoagulation - action
+129406001,Transplantation - action
+129407005,Grafting - action
+129408000,Manipulation - action
+129409008,Mobilization - action
+129410003,Remobilization - action
+129411004,Traction - action
+129412006,Manual reduction - action
+129413001,Elevation - action
+129414007,Instrumental elevation - action
+129415008,Extraction - action
+129416009,Surgical extraction - action
+129418005,Expression - action
+129419002,Dilation - action
+129420008,Stretching - action
+129421007,Dilation and stretching - action
+129423005,Bougienage - action
+129424004,Fitting - action
+129425003,Application - action
+129426002,Adjustment - action
+129427006,Reduction - action
+129430004,Consultation - action
+129431000,History taking - action
+129433002,Inspection - action
+129434008,Palpation - action
+129435009,Percussion - action
+129436005,Auscultation - action
+129437001,Optical transillumination - action
+129438006,Prescription - action
+129441002,Counseling - action
+129442009,Iontophoresis - action
+129443004,Electrolysis - action
+129445006,Administration - action
+129449000,Functional assessment - action
+183648002,Long-term assistance
+245854003,Proximal anastomosis
+245855002,Distal anastomosis
+255595002,Debulking - action
+256644001,Darning - action
+257729003,Ablation
+257730008,Chemical destruction
+257739009,Open adjustment
+257741005,Anastomosis
+257742003,Direct anastomosis - action
+257743008,Lecompte maneuver (qualifier value)
+257744002,End-to-end anastomosis
+257745001,Double barreled end-to-end anastomosis - action (qualifier value)
+257746000,End-to-side anastomosis
+257747009,Roux-en-Y
+257748004,End-to-side anastomosis without tunnel
+257749007,End-to-side anastomosis with tunnel
+257750007,Side-to-side anastomosis
+257751006,Wallace 1969 side-to-end anastomosis - action (qualifier value)
+257759008,FNA - Fine needle aspiration
+257768005,Binding - action
+257777003,Chemical inactivation
+257778008,Chemodissolution
+257780002,Mass closure
+257781003,Interrupted mass closure
+257782005,Continuous mass closure
+257783000,Thermocoagulation
+257784006,Semm thermal coagulation
+257785007,Wolf thermal coagulation
+257786008,Cryotherapy - action
+257788009,Delamination
+257789001,Hydrodelamination
+257791009,Desiccation - action
+257802002,Anterior displacement
+257803007,Posterior displacement
+257804001,Lateral displacement
+257805000,Medial displacement
+257806004,Close rectal dissection
+257808003,Ultrasonic dissection
+257811002,External drainage
+257817003,Digital evacuation
+257821005,Manual expression
+257822003,Extracapsular extraction
+257824002,Intracapsular extraction
+257825001,Fenestration - action
+257846005,Ballistic fragmentation
+257850003,Mechanical fragmentation
+257855008,Electromagnetic pulse fragmentation
+257857000,Galvanism
+257859002,High intensity focused ultrasound
+257863009,Radioactive destruction
+257867005,Insertion - action (qualifier value)
+257878002,Keeling - action
+257880008,Localization
+257884004,Immobilization - action
+257885003,Occlusion
+257886002,Operative ultrasound
+257889009,Padding
+257890000,Peeling - action
+257893003,Pressure - action
+257894009,One handed pressure
+257895005,Two handed pressure
+257897002,Realignment - action
+257903006,Repair - action
+257905004,Keel repair
+257906003,Mayo repair
+257907007,Patching - action
+257911001,Repair of recurrence
+257912008,Rotation - action
+257913003,IR - Internal rotation
+257914009,External rotation
+257915005,Sampling
+257916006,Bilateral sampling
+257917002,Bilateral sequential sampling
+257918007,Bilateral simultaneous sampling
+257926004,Unilateral sampling
+257928003,Segmentation
+257933004,Tamponade - action
+257935006,Tapering - action
+257937003,Soft tissue transfer
+257938008,Transfer of bone block
+257940003,Transposition - action
+258061005,Photic stimulation
+260222006,SPECT
+261027000,Sequential anastomosis
+261191006,Open extraction
+261197005,Doppler color flow
+261198000,Doppler continuous wave
+261199008,Doppler pulsed
+261391004,Resurfacing - action
+261498006,Bone-patellar tendon-bone reconstruction
+261499003,Braided prosthetic ligament reconstruction
+261518005,Cystodiathermy
+261519002,Diathermy excision
+261526002,Electromagnetic fragmentation
+261545006,Loop diathermy excision
+261553003,REDY - Regeneration of dialysate
+261569005,Thermocompaction
+261576000,Ultrasound fragmentation
+262143007,Side-to-end anastomosis
+263720003,Compression
+264592006,Intravesical drug therapy
+264594007,Laser - action
+264730003,Lateral rotation
+264739002,Medial rotation
+272381008,Microvascular anastomosis - action
+274392008,EUA - Examination under anesthetic
+276734006,Mechanical assistance
+277261002,Excision biopsy
+277607009,Digital removal
+277763000,Refashioning
+277851003,Conduit anastomosis
+277852005,Reservoir anastomosis
+278110001,Radiographic imaging
+278292003,Ultrasound imaging
+278312000,Reattachment - action
+278313005,Regeneration
+278420002,Sealing
+281609006,Cryoablation - action
+281613004,Decompression - action
+281615006,Exploration - action
+281698007,Cryocautery - action
+281767003,Manual dilatation
+281838007,Disarticulation - action
+281839004,Exenteration
+282015008,Shave biopsy - action
+282089006,Replacement - action
+282722008,Ultrasound destruction
+286553006,Plastic operation
+286637000,Block dissection
+286792001,Denervation
+287682008,Application of caustics
+288324002,Eversion - action
+288466002,Diathermy incision
+288468001,Disimpaction - action
+289928003,Reduction plasty
+289930001,Enzyme destruction
+289936007,Shave excision
+289938008,Microsurgical repair
+290001001,Recession - action
+297179000,Microsurgical anastomosis
+297183000,Revascularization
+298053008,Devascularization - action
+298116000,Application of substance
+299712004,Osteoclasis - action
+299893001,Interposition anastomosis - action
+302193003,Actions by modality
+302196006,Freeing - action
+302199004,Examination - action
+302204005,Ultrasound - action
+302205006,Microwave - action
+303893007,Functional modification
+303894001,Structural modification
+303955003,Transfusion - action
+303996000,Terminalization
+303998004,Unused action values
+304054006,Structural support - action
+304904003,Manual evacuation
+312236008,Duplex ultrasound
+312250003,Magnetic resonance imaging
+312251004,Computed tomography technique
+312254007,Plain X-ray imaging
+312275004,Fluoroscopic imaging
+312336005,Opening - action
+312337001,Thermography imaging
+312421008,Radionuclide imaging
+312883004,Desensitization - action
+313029009,Brachytherapy - action
+360017003,Clipping - action
+360018008,Stimulus dosing technique
+360020006,Extirpation - action
+360021005,Bypass - action
+360025001,Harvesting - action
+360027009,Interposition - action
+360028004,Surgical biopsy - action
+360029007,Nonsurgical biopsy - action
+360032005,Flap reconstruction - action
+360037004,Imaging - action
+360038009,Gluing - action
+360051004,Surgical toilet
+360060007,Approximation - action
+360082000,Apposition - action
+360084004,Septation - action
+360087006,Indirect anastomosis - action
+360146007,Repositioning - action
+360147003,Attention - action
+360148008,Obstetric action
+360149000,Delivery - action
+360150000,Inlay replacement - action
+360152008,Monitoring - action
+360153003,Take impression - action
+360154009,Try-in of device - action
+360160009,Checking - action
+360161008,Induction - action
+360163006,Infiltration - action
+360165004,Apheresis - action
+360166003,Filtration - action
+360220002,Mapping - action
+360222005,Massage - action
+360223000,Cine imaging - action
+360226008,Electrical discharge - action
+360231005,Video imaging - action
+360232003,Spectroscopy - action
+360239007,Termination - action
+360240009,Connection - action
+360270004,Therapy - action
+360272007,Discussion - action
+360273002,Provision - action
+360314001,Cutting - action
+360315000,Filing - action
+360323003,Restore - action
+360324009,Obturation - action
+360325005,Simple removal - action
+360393008,Disinsertion - action
+362939006,Dissolution - action
+363659002,Pacing - action
+363678002,Positron emission tomographic imaging
+367529003,Lending - action
+367558000,Contouring - action
+367559008,Preparation - action
+367642006,Inversion - action
+367740008,Suspension - action
+369242005,Hyfrecation - action
+386746003,Maintenance - action (qualifier value)
+399009009,B mode ultrasound (qualifier value)
+399015009,"Tomographic imaging, plain radiologic - action (qualifier value)"
+399035005,Tomographic imaging - action (qualifier value)
+399064001,Two dimensional mode ultrasound - action (qualifier value)
+399155008,M-mode ultrasound (qualifier value)
+410460000,Illumination - action (qualifier value)
+410461001,Dual diffuse direct illumination - action (qualifier value)
+410462008,Fine slit beam direct illumination - action (qualifier value)
+410463003,Broad tangential direct illumination - action (qualifier value)
+410464009,Indirect sclerotic scatter illumination - action (qualifier value)
+410465005,Indirect retroillumination from the iris - action (qualifier value)
+410466006,Indirect retroillumination from the retina - action (qualifier value)
+410467002,Indirect iris transillumination - action (qualifier value)
+410756002,Surgical decompression - action (qualifier value)
+410757006,Decompressive excision - action (qualifier value)
+410758001,Decompressive incision - action (qualifier value)
+410759009,Decompressive division - action (qualifier value)
+410769003,Elevation reduction - action (qualifier value)
+410814006,Surgical reduction - action (qualifier value)
+410817004,Dilation repair - action (qualifier value)
+410820007,Surgical transplantation - action (qualifier value)
+415186003,Proximal illumination - action (qualifier value)
+416677001,Internal drainage - action (qualifier value)
+419385000,Use
+419652001,Take
+419656003,Examination AND/OR history taking - action (qualifier value)
+419988009,Action of drug administration (qualifier value)
+424208002,Shunt - action (qualifier value)
+424832003,Surgical introduction - action (qualifier value)
+424900004,Recommendation - action (qualifier value)
+425362007,Surgical insertion - action (qualifier value)
+425689005,Education - action (qualifier value)
+425704008,Power Doppler ultrasound - action (qualifier value)
+425764006,Transection - action (qualifier value)
+426413004,Closed reduction - action (qualifier value)
+426530000,Open reduction - action (qualifier value)
+426865009,3D mode ultrasound (qualifier value)
+428010000,Open embolization - action (qualifier value)
+428381003,Diathermy - action (qualifier value)
+430975009,Surgical piercing - action (qualifier value)
+439054007,Surgical cataract aspiration - action (qualifier value)
+439237009,Mechanical repair - action (qualifier value)
+439417007,Closed manual reduction - action (qualifier value)
+439513008,Surgical size reduction - action (qualifier value)
+440338007,Dispensing - action (qualifier value)
+440647007,Mechanical construction - action (qualifier value)
+441504007,Surgical manipulation - action
+442837002,Excision debridement - action (qualifier value)
+445103003,Fixation by wedging - action (qualifier value)
+698788008,Transmission illumination (qualifier value)
+698789000,Reflection illumination (qualifier value)
+698790009,Epifluorescence illumination
+698792001,Brightfield illumination (qualifier value)
+698793006,Darkfield illumination (qualifier value)
+698794000,Oblique illumination (qualifier value)
+698796003,Phase contrast illumination (qualifier value)
+698797007,Differential interference contrast (qualifier value)
+698798002,Total internal reflection fluorescence
+702569007,Cone beam computed tomography imaging - action
+713295009,Surgical replacement - action
+787145007,Reinsertion - action
+788288006,Surgical reimplantation - action
+830058008,Nonsurgical fixation - action (qualifier value)
+830059000,Nonsurgical repair - action (qualifier value)
+1156997004,Surgical rotation - action (qualifier value)
+1172737007,Doppler ultrasound - action
+1172738002,Doppler ultrasound imaging - action (qualifier value)
+1193839003,Distant flap reconstruction - action (qualifier value)
+1193841002,Local flap reconstruction - action
+1193842009,Local flap reconstruction by rotation - action
+1193851001,Local flap reconstruction by advancement - action (qualifier value)
+1193917004,Flap creation - action (qualifier value)
+1196928009,Regional flap reconstruction - action
+1196931005,Local flap reconstruction by transposition - action
+1204227006,Local flap reconstruction by rotation advancement technique - action (qualifier value)
+1204229009,Local flap reconstruction by W-plasty - action
+1209015001,Bypass grafting - action
+1209078005,Surgical denervation - action
+1231382004,Super resolution ultrasound imaging - action (qualifier value)
+899991000168109,Unroofing - action

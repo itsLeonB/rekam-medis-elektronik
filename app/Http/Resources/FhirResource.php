@@ -4,20 +4,29 @@ namespace App\Http\Resources;
 
 use DateTime;
 use DateTimeZone;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FhirResource extends JsonResource
 {
     /**
-     * Get the data for a specific resource type.
+     * Get the data of a specific resource type.
      *
-     * @param string $resourceType The resource type to retrieve data for.
-     * @return Collection|null The data for the specified resource type, or null if it doesn't exist.
+     * @param string $resourceType The type of resource to retrieve data from.
+     *
+     * @return mixed The data of the specified resource type.
+     *
+     * @throws ModelNotFoundException If the data is not found.
      */
-    public function getData($resourceType): Collection|null
+    public function getData($resourceType)
     {
-        return $this->resource && $this->resource->$resourceType ? $this->resource->$resourceType->first() : null;
+        $data = $this->resource ? $this->resource->$resourceType->first() : null;
+
+        if ($data == null) {
+            throw new ModelNotFoundException('Data tidak ditemukan');
+        } else {
+            return $data;
+        }
     }
 
     public function parseDate(&$array)

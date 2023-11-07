@@ -18,6 +18,7 @@ class ValueSetSeeder extends Seeder
             ValueSetConditionCodeRiwayatPenyakitPribadiSeeder::class,
             ValueSetConditionCodeRiwayatPenyakitKeluargaSeeder::class,
             ValueSetProcedurePerformerTypeSeeder::class,
+            ValueSetProcedureFocalDeviceSeeder::class,
         ]);
     }
 }

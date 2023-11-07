@@ -5,12 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-
-class WilayahSeeder extends CsvSeeder
+class ValueSetProcedureFocalDeviceSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/kode_wilayah.csv';
+        $this->file = '/database/seeders/csvs/valueset_procedure_focaldevice.csv';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

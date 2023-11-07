@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Encounter;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -16,12 +15,6 @@ class EncounterResource extends FhirResource
     public function toArray(Request $request): array
     {
         $encounter = $this->getData('encounter');
-
-        if ($encounter == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
-        }
 
         $data = [
             'resourceType' => 'Encounter',

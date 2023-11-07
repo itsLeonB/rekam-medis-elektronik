@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valueset_observation_valuequantity', function (Blueprint $table) {
-            $table->id();
-            $table->string('code');
-            $table->index('code');
-            $table->string('description');
+        Schema::create('valueset_procedure_focaldevice', function (Blueprint $table) {
+            $table->char('code', 15)->primary();
+            $table->string('display', 86);
         });
     }
 
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valueset_observationvaluequantity');
+        Schema::dropIfExists('valueset_procedure_focaldevice');
     }
 };

@@ -17,12 +17,6 @@ class ConditionResource extends FhirResource
     {
         $condition = $this->getData('condition');
 
-        if ($condition == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
-        }
-
         $data = merge_array(
             [
                 'resourceType' => 'Condition',
@@ -84,7 +78,7 @@ class ConditionResource extends FhirResource
                 'note' => $this->createAnnotationArray($condition->note)
             ],
             $condition->onset,
-            $condition->abatement,
+            $condition->abatement
         );
 
         $data = removeEmptyValues($data);

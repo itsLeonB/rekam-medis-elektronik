@@ -27,10 +27,6 @@ class FhirRequest extends FormRequest
      */
     public function getIdentifierDataRules(string $prefix = null): array
     {
-        if ($prefix) {
-            $prefix = $prefix . '.';
-        }
-
         return [
             $prefix . 'system' => 'required|string',
             $prefix . 'use' => ['required', Rule::in(Constants::IDENTIFIER_USE)],
@@ -273,6 +269,53 @@ class FhirRequest extends FormRequest
             $prefix . 'village' => 'required|integer|gte:0|digits:10',
             $prefix . 'rt' => 'required|integer|gte:0|max_digits:2',
             $prefix . 'rw' => 'required|integer|gte:0|max_digits:2',
+        ];
+    }
+
+    public function getPerformedDataRules($prefix = null): array
+    {
+        return [
+            $prefix . 'performed' => 'nullable|array',
+            $prefix . 'performed.performedDateTime' => 'nullable|date',
+            $prefix . 'performed.performedPeriod' => 'nullable|array',
+            $prefix . 'performed.performedPeriod.start' => 'nullable|date',
+            $prefix . 'performed.performedPeriod.end' => 'nullable|date',
+            $prefix . 'performed.performedString' => 'nullable|string',
+            $prefix . 'performed.performedAge' => 'nullable|array',
+            $prefix . 'performed.performedAge.value' => 'nullable|decimal',
+            $prefix . 'performed.performedAge.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'performed.performedAge.unit' => 'nullable|string',
+            $prefix . 'performed.performedAge.system' => 'nullable|string',
+            $prefix . 'performed.performedAge.code' => 'nullable|string',
+            $prefix . 'performed.performedRange' => 'nullable|array',
+            $prefix . 'performed.performedRange.low' => 'nullable|array',
+            $prefix . 'performed.performedRange.low.value' => 'nullable|decimal',
+            $prefix . 'performed.performedRange.low.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'performed.performedRange.low.unit' => 'nullable|string',
+            $prefix . 'performed.performedRange.low.system' => 'nullable|string',
+            $prefix . 'performed.performedRange.low.code' => 'nullable|string',
+            $prefix . 'performed.performedRange.high' => 'nullable|array',
+            $prefix . 'performed.performedRange.high.value' => 'nullable|decimal',
+            $prefix . 'performed.performedRange.high.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'performed.performedRange.high.unit' => 'nullable|string',
+            $prefix . 'performed.performedRange.high.system' => 'nullable|string',
+            $prefix . 'performed.performedRange.high.code' => 'nullable|string',
+        ];
+    }
+
+    public function getRatioDataRules($prefix = null): array
+    {
+        return [
+            $prefix . 'numerator.value' => 'nullable|decimal',
+            $prefix . 'numerator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'numerator.unit' => 'nullable|string',
+            $prefix . 'numerator.system' => 'nullable|string',
+            $prefix . 'numerator.code' => 'nullable|string',
+            $prefix . 'denominator.value' => 'nullable|decimal',
+            $prefix . 'denominator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'denominator.unit' => 'nullable|string',
+            $prefix . 'denominator.system' => 'nullable|string',
+            $prefix . 'denominator.code' => 'nullable|string',
         ];
     }
 }

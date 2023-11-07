@@ -18,24 +18,18 @@ class ProcedureResource extends FhirResource
     {
         $procedure = $this->getData('procedure');
 
-        if ($procedure == null) {
-            return response()->json([
-                'message' => 'Data tidak ditemukan'
-            ], 404);
-        }
-
         $data = merge_array(
             [
                 'resourceType' => 'Procedure',
                 'id' => $this->satusehat_id,
                 'identifier' => $this->createIdentifierArray($procedure->identifier),
-                'basedOn' => $this->createReferenceArrayArray($procedure->basedOn),
-                'partOf' => $this->createReferenceArrayArray($procedure->partOf),
+                'basedOn' => $this->createReferenceArray($procedure->basedOn),
+                'partOf' => $this->createReferenceArray($procedure->partOf),
                 'status' => $procedure->status,
                 'statusReason' => [
                     'coding' => [
                         [
-                            'system' => ValueSetProcedureReasonCode::SYSTEM,
+                            'system' => $procedure->status_reason ? ValueSetProcedureReasonCode::SYSTEM : null,
                             'code' => $procedure->status_reason,
                             'display' => ValueSetProcedureReasonCode::where('code', $procedure->status_reason)->first()->display ?? null
                         ]
@@ -81,7 +75,7 @@ class ProcedureResource extends FhirResource
                 'outcome' => [
                     'coding' => [
                         [
-                            'system' => Procedure::OUTCOME_SYSTEM,
+                            'system' => $procedure->outcome ? Procedure::OUTCOME_SYSTEM : null,
                             'code' => $procedure->outcome,
                             'display' => Procedure::OUTCOME_DISPLAY[$procedure->outcome] ?? null
                         ]
@@ -114,12 +108,18 @@ class ProcedureResource extends FhirResource
                     'function' => [
                         'coding' => [
                             [
-                                'system' => ValueSetProcedurePerformerType::SYSTEM,
+                                'system' => $p->function ? ValueSetProcedurePerformerType::SYSTEM : null,
                                 'code' => $p->function,
                                 'display' => ValueSetProcedurePerformerType::where('code', $p->function)->first()->display ?? null
                             ]
                         ]
-                    ]
+                    ],
+                    'actor' => [
+                        'reference' => $p->actor
+                    ],
+                    'onBehalfOf' => [
+                        'reference' => $p->on_behalf_of
+                    ],
                 ];
             }
         }

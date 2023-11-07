@@ -1,11 +1,11 @@
 code,display
-4.42E+13,Adult child of alcoholic
+44241000119103,Adult child of alcoholic
 789612004,Alcohol abuse by mother
 878802007,Alcoholic husband
 275114006,Alcoholic offspring
 878804008,Alcoholic parent
 878803002,Alcoholic spouse
-5.68E+14,Both parents have allergy
+568061000005106,Both parents have allergy
 439138006,Both parents misuse drugs
 161079000,Both parents smoke
 160447006,Brother deceased
@@ -16,45 +16,45 @@ code,display
 442080007,Drug misuse by mother
 1258861001,Family attended diabetes structured education program
 720400005,Family distress
-6.46E+13,Family history of abdominal wall defect
+64571000119104,Family history of abdominal wall defect
 789240000,Family history of acetylcholinesterase deficiency
-6.41E+13,Family history of achondroplasia
+64121000119107,Family history of achondroplasia
 441120009,Family history of acquired immune deficiency syndrome
 160953001,Family history of acute medical disorder
 699057005,Family history of Addison disease
 266890009,Family history of alcoholism
-6.44E+13,Family history of alpha thalassemia
+64431000119101,Family history of alpha thalassemia
 431912005,Family history of alpha-1-antitrypsin deficiency
-6.47E+13,Family history of ambiguous genitalia
+64651000119109,Family history of ambiguous genitalia
 430728001,Family history of amnesia
 430727006,Family history of amyotrophic lateral sclerosis
 160418004,Family history of anencephaly
 725118003,Family history of aneurysm of abdominal aorta
 430102007,Family history of aneurysm of artery
-1.06E+16,Family history of aneurysm of blood vessel of brain
+10624451000119100,Family history of aneurysm of blood vessel of brain
 430753003,Family history of aneurysm of thoracic aorta
 433306000,Family history of anorexia nervosa
-1.09E+14,Family history of antithrombin III deficiency
+108891000119103,Family history of antithrombin III deficiency
 160377001,Family history of asthma
 433276002,Family history of atrial fibrillation
 429950008,Family history of attention deficit hyperactivity disorder
 433380009,"Family history of attention deficit hyperactivity disorder, predominantly inattentive type"
 412750001,Family history of autism
-6.38E+13,Family history of autism in sibling
-6.50E+13,Family history of autosomal aneuploidy
-1.44E+14,Family history of autosomal translocation
+63761000119101,Family history of autism in sibling
+65011000119103,Family history of autosomal aneuploidy
+144171000119108,Family history of autosomal translocation
 429976008,Family history of backache
 430552005,Family history of benign prostatic hyperplasia
-6.44E+13,Family history of beta thalassemia
-1.09E+14,Family history of blood coagulation disorder
+64371000119105,Family history of beta thalassemia
+108801000119109,Family history of blood coagulation disorder
 429740004,Family history of breast cancer
 431330007,Family history of breast cancer 1 gene mutation
 431331006,Family history of breast cancer 2 gene mutation
-3.19E+13,Family history of breast cancer gene BRCA mutation
-1.44E+14,Family history of breast cancer gene mutation in first degree relative
+31881000119108,Family history of breast cancer gene BRCA mutation
+143691000119102,Family history of breast cancer gene mutation in first degree relative
 433277006,Family history of bulimia nervosa
-9.80E+13,Family history of butyrylcholinesterase deficiency
-9.83E+13,Family history of Canavan disease
+98011000119108,Family history of butyrylcholinesterase deficiency
+98251000119101,Family history of Canavan disease
 275937001,Family history of cancer
 312824007,Family history of cancer of colon
 430331003,Family history of cancer of the esophagus
@@ -71,34 +71,34 @@ code,display
 430330002,Family history of chronic myeloid leukemia
 297241004,Family history of chronic obstructive lung disease
 430560006,Family history of chronic renal impairment
-1.51E+14,Family history of chronic respiratory disease
+151181000119106,Family history of chronic respiratory disease
 430729009,Family history of chronic ulcerative proctitis
-1.46E+16,Family history of Churg Strauss syndrome
+14580001000004100,Family history of Churg Strauss syndrome
 429954004,Family history of cleft lip
 430086009,Family history of cleft palate
 433279009,Family history of cleft palate with cleft lip
-1.40E+13,Family history of clubfoot
+13961000119104,Family history of clubfoot
 430336008,Family history of color blindness
-1.42E+12,Family history of colorectal cancer
-6.41E+13,Family history of combined hyperlipidemia
+1421000119104,Family history of colorectal cancer
+64111000119100,Family history of combined hyperlipidemia
 281022002,Family history of complete trisomy 21 syndrome
-6.40E+13,Family history of complex congenital heart disease
+64041000119100,Family history of complex congenital heart disease
 429958001,Family history of conduction disorder of the heart
 266908007,Family history of congenital anomaly of cardiovascular system
 429977004,Family history of congenital cataract
 160417009,Family history of congenital disease
 700191004,Family history of congenital hip dysplasia
-6.39E+13,Family history of congenital hydrocephalus
-5.01E+16,Family history of congenital immunodeficiency disease
+63941000119102,Family history of congenital hydrocephalus
+50050161000188100,Family history of congenital immunodeficiency disease
 1148759006,Family history of congenital microcephaly
 433305001,Family history of congestive heart failure
-6.50E+13,Family history of connective tissue disorder
+65001000119101,Family history of connective tissue disorder
 160475008,Family history of consanguinity
 430091005,Family history of coronary arteriosclerosis
-6.50E+13,Family history of Cowden syndrome
-9.47E+13,Family history of craniosynostosis
+65031000119108,Family history of Cowden syndrome
+94721000119105,Family history of craniosynostosis
 160309002,Family history of cystic fibrosis
-6.49E+13,Family history of cystic hygroma
+64911000119103,Family history of cystic hygroma
 430288004,Family history of death due to natural cause
 430289007,Family history of death of unknown cause
 431812006,Family history of degenerative disorder of macula
@@ -118,46 +118,46 @@ code,display
 704009004,Family history of disorder of vein
 430568004,Family history of dissection of aorta
 433163001,Family history of diverticulitis of colon
-1.09E+14,Family history of double heterozygous familial hypercholesterolemia
+109271000119105,Family history of double heterozygous familial hypercholesterolemia
 429951007,Family history of eating disorder
 473071007,Family history of edema of lower extremity
 429978009,Family history of endocarditis
 160301004,Family history of endocrine disorders
-1.09E+14,Family history of eruptive xanthoma
-9.47E+13,Family history of familial dysautonomia
+109241000119103,Family history of eruptive xanthoma
+94691000119101,Family history of familial dysautonomia
 443454007,Family history of familial hypercholesterolemia
 709090007,Family history of familial multiple polyposis syndrome
 297246009,Family history of female genital tract disorder
 430693007,Family history of fracture of proximal end of femur
-6.51E+13,Family history of fragile X syndrome
-6.41E+13,Family history of galactosemia
-1.39E+14,Family history of gene mutation
+65071000119106,Family history of fragile X syndrome
+64081000119105,Family history of galactosemia
+138701000119105,Family history of gene mutation
 430695000,Family history of genetic disorder carrier
-1.10E+15,Family history of genetic mutation for Lynch syndrome
-6.43E+13,Family history of glycogen storage disease
-1.19E+14,Family history of Hashimoto thyroiditis
+1099601000119100,Family history of genetic mutation for Lynch syndrome
+64251000119106,Family history of glycogen storage disease
+118651000119105,Family history of Hashimoto thyroiditis
 429963002,Family history of headache disorder
 439750006,Family history of hearing loss
 429959009,Family history of heart failure
 309631001,Family history of helminth infection
-1.38E+14,Family history of hematuria
+138081000119104,Family history of hematuria
 401119001,Family history of hemochromatosis
-6.45E+13,Family history of hemoglobinopathy
-6.44E+13,Family history of hemoglobinopathy E
+64501000119109,Family history of hemoglobinopathy
+64391000119106,Family history of hemoglobinopathy E
 429962007,Family history of hereditary disease
-1.10E+15,Family history of hereditary nonpolyposis colon cancer
-8.17E+13,Family history of heritable malignancy
+1098871000119100,Family history of hereditary nonpolyposis colon cancer
+81651000119109,Family history of heritable malignancy
 433495007,Family history of Hodgkin's disease
 438998000,Family history of human immunodeficiency virus infection
-7.13E+13,Family history of hydronephrosis
-7.41E+13,Family history of hyperbetalipoproteinemia
-1.31E+14,Family history of hypercoagulable state
+71261000119101,Family history of hydronephrosis
+74131000119101,Family history of hyperbetalipoproteinemia
+130771000119102,Family history of hypercoagulable state
 725117008,Family history of hyperlipidemia
-1.09E+14,Family history of hyperlipoproteinemia a
+109331000119100,Family history of hyperlipoproteinemia a
 430089002,Family history of hyperthyroidism
 275939003,Family history of hypertriglyceridemia
-7.42E+13,Family history of hypoalphalipoproteinemia
-7.12E+13,Family history of hypospadias
+74171000119103,Family history of hypoalphalipoproteinemia
+71201000119102,Family history of hypospadias
 429971003,Family history of impaired glucose tolerance
 160279000,Family history of infectious disease
 763598005,Family history of intellectual disability
@@ -170,24 +170,24 @@ code,display
 160292002,Family history of leukemia
 700192006,Family history of long QT syndrome
 433164007,Family history of lupus erythematosus
-9.47E+13,Family history of macrocephaly
+94741000119104,Family history of macrocephaly
 297245008,Family history of male genital tract disorder
 1149514007,Family history of malignant epithelial neoplasm
-7.12E+13,Family history of malignant hematopoietic neoplasm
+71241000119100,Family history of malignant hematopoietic neoplasm
 429965009,Family history of malignant lymphoma
 427858005,Family history of malignant melanoma
 428994006,Family history of malignant neoplasm of biliary tract
 429252007,Family history of malignant neoplasm of bone
 429251000,Family history of malignant neoplasm of brain
 767310001,Family history of malignant neoplasm of breast at under age 50 in second degree female relative
-1.43E+14,Family history of malignant neoplasm of breast at under age 50 in second degree relative
-1.54E+14,Family history of malignant neoplasm of breast diagnosed before 45 years of age
+143451000119105,Family history of malignant neoplasm of breast at under age 50 in second degree relative
+154141000119104,Family history of malignant neoplasm of breast diagnosed before 45 years of age
 430292006,Family history of malignant neoplasm of breast in first degree relative
-1.43E+14,Family history of malignant neoplasm of breast in first degree relative less than 50 years of age
+143461000119107,Family history of malignant neoplasm of breast in first degree relative less than 50 years of age
 428047000,Family history of malignant neoplasm of cervix uteri
-1.54E+14,Family history of malignant neoplasm of colon over age 50
+154051000119101,Family history of malignant neoplasm of colon over age 50
 430813008,Family history of malignant neoplasm of digestive organ
-1.54E+14,Family history of malignant neoplasm of endometrium
+154031000119107,Family history of malignant neoplasm of endometrium
 428935009,Family history of malignant neoplasm of eye proper
 429006005,Family history of malignant neoplasm of gastrointestinal tract
 430954001,Family history of malignant neoplasm of genital structure
@@ -197,8 +197,8 @@ code,display
 429011007,Family history of malignant neoplasm of lung
 428748002,Family history of malignant neoplasm of male breast
 430705002,Family history of malignant neoplasm of ovary
-2.30E+12,Family history of malignant neoplasm of ovary in first degree relative
-2.29E+12,Family history of malignant neoplasm of ovary in second degree relative
+2301000119106,Family history of malignant neoplasm of ovary in first degree relative
+2291000119105,Family history of malignant neoplasm of ovary in second degree relative
 429000004,Family history of malignant neoplasm of pancreas
 430298005,Family history of malignant neoplasm of pharynx
 429405004,Family history of malignant neoplasm of skin
@@ -206,25 +206,25 @@ code,display
 430677003,Family history of malignant neoplasm of thoracic cavity structure
 430534005,Family history of malignant neoplasm of thyroid
 428269004,Family history of malignant neoplasm of trachea
-7.12E+13,Family history of malignant neoplasm of ureter
-7.12E+13,Family history of malignant neoplasm of urethra
+71221000119106,Family history of malignant neoplasm of ureter
+71231000119109,Family history of malignant neoplasm of urethra
 430542006,Family history of malignant neoplasm of urinary bladder
 788921007,Family history of malignant neoplasm of urinary tract
 429637009,Family history of malignant neoplasm of uterus
 428276009,Family history of malignant neoplasm of vagina
-6.42E+13,Family history of Marfan syndrome
+64181000119106,Family history of Marfan syndrome
 430754009,Family history of mastoiditis
 160324006,Family history of mental disorder
 160305008,Family history of metabolic disorder
-6.41E+13,Family history of methylmalonic aciduria
-9.48E+13,Family history of microcephaly
+64131000119105,Family history of methylmalonic aciduria
+94761000119100,Family history of microcephaly
 473070008,Family history of mitochondrial disease
 430730004,Family history of mitral valve regurgitation
 443868006,Family history of morphea
 430809001,Family history of movement disorder
-1.39E+14,Family history of Muir-Torré syndrome
-6.47E+13,Family history of multiple congenital anomalies
-1.17E+14,Family history of multiple endocrine neoplasia
+138751000119109,Family history of Muir-Torré syndrome
+64731000119106,Family history of multiple congenital anomalies
+117351000119101,Family history of multiple endocrine neoplasia
 434462008,Family history of multiple myeloma
 401066000,Family history of myocardial infarct in first degree female relative less than 65 years of age
 439154009,Family history of myocarditis
@@ -238,33 +238,33 @@ code,display
 439220002,Family history of neoplasm of upper aerodigestive tract
 1149524004,Family history of neoplasm of urinary system
 430808009,Family history of nephrotic syndrome
-6.50E+13,Family history of neurofibromatosis
-6.40E+13,Family history of neurological developmental delay
+65021000119105,Family history of neurofibromatosis
+64021000119106,Family history of neurological developmental delay
 297239000,Family history of neurological disorder
 430814002,Family history of neuropathy
-3.29E+14,Family history of non-glaucomatous eye disorder
+329351000119105,Family history of non-glaucomatous eye disorder
 433450000,Family history of non-Hodgkin's lymphoma
-7.13E+13,Family history of nonleukemic lymphatic malignancy
+71251000119103,Family history of nonleukemic lymphatic malignancy
 737366005,Family history of nutritional disorder
-9.80E+13,Family history of osteogenesis imperfecta
+98041000119107,Family history of osteogenesis imperfecta
 430716009,Family history of osteopenia
 160313009,Family history of osteoporosis
 297240003,Family history of Parkinson's disease
 431170009,Family history of perinatal disorder
 430807004,Family history of periodic limb movement disorder
 297243001,Family history of pernicious anemia
-6.42E+13,Family history of phenylketonuria
+64161000119102,Family history of phenylketonuria
 412783008,Family history of polycystic ovary
 781073000,Family history of polycystic ovary syndrome
 429969003,Family history of polyp of colon
-6.49E+13,Family history of Prader-Willi syndrome
+64851000119105,Family history of Prader-Willi syndrome
 700190003,Family history of pre-eclampsia
 433278001,Family history of presenile dementia
 430334006,Family history of problem behavior
 414205003,Family history of prostate cancer
-1.09E+14,Family history of protein C deficiency
-1.09E+14,Family history of protein C resistance
-1.09E+14,Family history of protein S deficiency
+109001000119105,Family history of protein C deficiency
+109011000119108,Family history of protein C resistance
+108981000119107,Family history of protein S deficiency
 430543001,Family history of psoriasis with psoriatic arthritis
 266969002,Family history of psychotic illness
 430801003,Family history of pulmonary embolism
@@ -276,39 +276,39 @@ code,display
 430682005,Family history of renal failure syndrome
 416519002,Family history of renal stone
 430565001,Family history of restless legs syndrome
-1.17E+16,Family history of retinal detachment
-7.13E+13,Family history of retinitis pigmentosa
-6.39E+13,Family history of Rett syndrome
+11718821000119100,Family history of retinal detachment
+71271000119107,Family history of retinitis pigmentosa
+63921000119108,Family history of Rett syndrome
 430777009,Family history of rheumatic fever
 430778004,Family history of sarcoidosis
 430544007,Family history of scoliosis deformity of spine
-1.39E+14,Family history of sebaceous adenoma
-1.39E+14,Family history of sebaceous carcinoma
+138721000119101,Family history of sebaceous adenoma
+138711000119108,Family history of sebaceous carcinoma
 430711004,Family history of seizure disorder
-6.49E+13,Family history of sex chromosome aneuploidy
-6.97E+13,Family history of short stature
+64921000119105,Family history of sex chromosome aneuploidy
+69731000119107,Family history of short stature
 160320002,Family history of sickle cell anemia
-8.60E+13,Family history of single congenital anomaly
+85951000119104,Family history of single congenital anomaly
 430337004,Family history of sleep apnea
 443877004,Family history of smoking
 428932007,Family history of speech and language disorder
 160419007,Family history of Spina bifida
 430709008,Family history of spinal stenosis
-6.39E+13,Family history of spinocerebellar ataxia
+63881000119101,Family history of spinocerebellar ataxia
 700193001,Family history of squamous cell carcinoma of skin
-6.39E+13,Family history of Steinert myotonic dystrophy
+63931000119106,Family history of Steinert myotonic dystrophy
 429952000,Family history of stenosis of aortic valve
 275104002,Family history of stroke
-1.06E+16,Family history of stroke due to aneurysm
-1.35E+14,Family history of substance abuse
+10624401000119100,Family history of stroke due to aneurysm
+134591000119102,Family history of substance abuse
 1254977008,Family history of substance dependency
-1.17E+14,Family history of sudden cardiac death
+117361000119104,Family history of sudden cardiac death
 430283008,Family history of sudden death
 430815001,Family history of syncope
 431479003,Family history of synovial cyst of popliteal space
-1.56E+16,Family history of systemic lupus erythematosus
+15627891000119100,Family history of systemic lupus erythematosus
 443720007,Family history of systemic sclerosis
-6.39E+13,Family history of Tay-Sachs disease
+63901000119104,Family history of Tay-Sachs disease
 699108005,Family history of tendinous xanthoma in first degree relative
 699109002,Family history of tendinous xanthoma in second degree relative
 430710003,Family history of thromboembolic disorder
@@ -316,21 +316,21 @@ code,display
 160363004,Family history of transient ischemic attack
 430726002,Family history of tremor
 433496008,Family history of trigeminal neuralgia
-6.48E+13,Family history of trisomy 13
-6.48E+13,Family history of trisomy 18
+64831000119104,Family history of trisomy 13
+64841000119108,Family history of trisomy 18
 417001009,Family history of tuberous sclerosis
-6.49E+13,Family history of Turner syndrome
+64861000119107,Family history of Turner syndrome
 297244007,Family history of urological disorder
 430805007,Family history of uveitis
 433449000,Family history of ventricular premature beats
 430723005,Family history of visual disturbance
-6.50E+13,Family history of Von Hippel-Lindau syndrome
-6.45E+13,Family history of Von Willebrand disease
+64971000119106,Family history of Von Hippel-Lindau syndrome
+64521000119100,Family history of Von Willebrand disease
 160340009,Family history: Cerebral palsy
 275132006,Family history: Gynecological problem
 160378006,Family history: Occupational lung disease
 266966009,Family illness
-2.88E+14,Family member absent due to military deployment
+288001000119103,Family member absent due to military deployment
 740604001,Family member deceased
 160436004,Father deceased
 275140000,Father left home
@@ -540,7 +540,7 @@ code,display
 275141001,Mother left home
 160807009,Mother remarried
 161078008,Mother smokes
-5.00E+16,Mother under medication treatment
+50040131000188100,Mother under medication treatment
 720407008,Mother victim of domestic violence
 160274005,No family history diabetes
 704008007,No family history of asthma
@@ -559,7 +559,7 @@ code,display
 266882009,No FH: Ischemic heart disease
 310251007,No FH: Osteoporosis
 313342001,No FH: Venous thrombosis
-5.68E+14,One parent or sibling has allergy
+568071000005101,One parent or sibling has allergy
 1254718004,Parent has disability
 415036007,Parent has physical disability
 413316000,Parent on probation

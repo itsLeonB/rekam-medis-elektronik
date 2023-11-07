@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valueset_condition_code_riwayatpenyakit');
+        Schema::dropIfExists('valueset_condition_code_riwayatpenyakit_keluarga');
     }
 };

@@ -1,0 +1,48 @@
+{
+    "medication": {
+        "system": "http://sys-ids.kemkes.go.id/kfa",
+        "code": "93001019",
+        "display": "Obat Anti Tuberculosis / Rifampicin 150 mg / Isoniazid 75 mg / Pyrazinamide 400 mg / Ethambutol 275 mg Kaplet Salut Selaput (KIMIA FARMA)",
+        "status": "active",
+        "manufacturer": "Organization/900001",
+        "form": "BS001",
+        "amount_numerator_value": null,
+        "amount_numerator_comparator": null,
+        "amount_numerator_unit": null,
+        "amount_numerator_system": null,
+        "amount_numerator_code": null,
+        "amount_denominator_value": null,
+        "amount_denominator_comparator": null,
+        "amount_denominator_unit": null,
+        "amount_denominator_system": null,
+        "amount_denominator_code": null,
+        "batch_lot_number": null,
+        "batch_expiration_date": null,
+        "type": "NC"
+    },
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/medication/10000004/",
+            "use": "official",
+            "value": "R100005"
+        }
+    ],
+    "ingredient": [
+        {
+            "item_system": "http://sys-ids.kemkes.go.id/kfa",
+            "item_code": "91000314",
+            "item_display": "Acarbose",
+            "is_active": true,
+            "strength_numerator_value": null,
+            "strength_numerator_comparator": null,
+            "strength_numerator_unit": null,
+            "strength_numerator_system": null,
+            "strength_numerator_code": null,
+            "strength_denominator_value": null,
+            "strength_denominator_comparator": null,
+            "strength_denominator_unit": null,
+            "strength_denominator_system": null,
+            "strength_denominator_code": null
+        }
+    ]
+}

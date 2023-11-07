@@ -18,9 +18,9 @@ class ConditionRequest extends FhirRequest
         return array_merge(
             $this->baseAttributeRules(),
             $this->baseDataRules(),
-            $this->getIdentifierDataRules(),
-            $this->getCodeableConceptDataRules('category.', ConditionCategory::CATEGORY_CODE),
-            $this->getCodeableConceptDataRules('body_site.'),
+            $this->getIdentifierDataRules('identifier.*.'),
+            $this->getCodeableConceptDataRules('category.*.', ConditionCategory::CATEGORY_CODE),
+            $this->getCodeableConceptDataRules('body_site.*.'),
             $this->stageDataRules(),
             $this->evidenceDataRules(),
             $this->getAnnotationDataRules('note.*.')

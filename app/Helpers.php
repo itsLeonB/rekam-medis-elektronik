@@ -1621,13 +1621,13 @@ function returnProcedurePerformer($attribute)
 
 function returnFocalDevice($attribute)
 {
-    $action = returnAttribute($attribute, ['action'], null);
-    $actionDetails = returnCodeableConcept($action);
+    $focalDevice = returnAttribute($attribute, ['focalDevice']);
+    $focalDeviceDetails = returnCodeableConcept($focalDevice);
     return array_merge(
         [
-            'manipulated' => returnAttribute($attribute, ['manipulated', 'reference'], '')
+            'reference' => returnAttribute($focalDevice, ['manipulated', 'reference'], '')
         ],
-        $actionDetails
+        $focalDeviceDetails
     );
 }
 
@@ -1651,18 +1651,14 @@ function returnRatio($attribute, $prefix)
 function returnMedicationIngredient($attribute)
 {
     $item = returnAttribute($attribute, ['itemCodeableConcept'], null);
-    $itemCodeableConcept = returnCodeableConcept($item, 'item');
+    $itemCodeableConcept = returnCodeableConcept($item);
     $strength = returnAttribute($attribute, ['strength'], null);
     $strengthData = returnRatio($strength, 'strength');
 
     return array_merge(
         $itemCodeableConcept,
         $strengthData,
-        [
-            'item_reference' => returnAttribute($attribute, ['itemReference', 'reference'], null),
-            'is_active' => returnAttribute($attribute, ['isActive'], null),
-
-        ]
+        ['is_active' => returnAttribute($attribute, ['isActive'], null)]
     );
 }
 
@@ -1756,11 +1752,13 @@ function returnDoseRate($attribute, $prefix = null)
 function merge_array(...$arrays)
 {
     $arr = [];
+
     foreach ($arrays as $a) {
         if ($a != null) {
             $arr = array_merge($arr, $a);
         }
     }
+
     return $arr;
 }
 

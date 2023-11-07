@@ -15,7 +15,7 @@ code,display
 395683001,Born by normal vaginal delivery
 407614003,Born by ventouse delivery
 473389001,Born in ambulance
-1.03011E+14,Coronary arteriosclerosis in patient with history of previous myocardial infarction
+103011000119106,Coronary arteriosclerosis in patient with history of previous myocardial infarction
 1187607009,Deserted from military service
 473137000,Disability absent
 1187608004,Dishonorably discharged from military service
@@ -60,7 +60,7 @@ code,display
 161474000,H/O: attempted suicide
 161570007,H/O: back problem
 267000009,H/O: biliary disease
-1.2481E+13,H/O: biological substance allergy
+12481000132103,H/O: biological substance allergy
 161580006,H/O: birth trauma
 266992002,H/O: blood disorder
 275540007,H/O: brain disorder
@@ -236,32 +236,32 @@ code,display
 161638000,Hepatitis B Occupational risk
 439956007,History of abnormal cervical Papanicolaou smear
 313214000,History of abuse
-1.69E+16,History of acalculous cholecystitis
-1.38381E+14,History of acoustic neuroma
-6.90711E+14,History of acquired spondylolisthesis
-4.8811E+13,History of acromegaly
-1.361E+12,History of actinic keratosis
+16915500000000000,History of acalculous cholecystitis
+138381000119101,History of acoustic neuroma
+690711000119103,History of acquired spondylolisthesis
+48811000119106,History of acromegaly
+1361000119104,History of actinic keratosis
 473114006,History of active tuberculosis
-1.57533E+17,History of acute angle closure glaucoma
-1.63609E+16,History of acute febrile mucocutaneous lymph node syndrome
-4.00347E+17,History of acute leukemia
+157533041000119000,History of acute angle closure glaucoma
+16360861000119100,History of acute febrile mucocutaneous lymph node syndrome
+400347211000119000,History of acute leukemia
 472959005,History of acute lower respiratory tract infection
-6.76113E+17,History of acute lymphoid leukemia
-7.9081E+13,History of acute myeloid leukemia
-1.37971E+14,History of acute renal failure
-1.67751E+16,History of acute respiratory failure
-2.85721E+14,History of acute ST segment elevation myocardial infarction
+676112841000119000,History of acute lymphoid leukemia
+79081000119100,History of acute myeloid leukemia
+137971000119104,History of acute renal failure
+16775141000119100,History of acute respiratory failure
+285721000119104,History of acute ST segment elevation myocardial infarction
 429047008,History of adenomatous polyp of colon
-6.91201E+14,History of adrenal adenoma
-1.60935E+16,History of adult obesity
-9.4671E+13,History of adult respiratory distress syndrome
+691201000119100,History of adrenal adenoma
+16093531000119100,History of adult obesity
+94671000119102,History of adult respiratory distress syndrome
 414371008,History of agoraphobia
 371434005,History of alcohol abuse
-1.141E+12,History of alcohol withdrawal syndrome
-1.69121E+16,History of alcoholic hepatitis
-1.30164E+16,History of amaurosis fugax
-1.66881E+16,History of anal intraepithelial neoplasia III
-1.08394E+16,History of anaphylaxis
+1141000161108,History of alcohol withdrawal syndrome
+16912131000119100,History of alcoholic hepatitis
+13016361000119100,History of amaurosis fugax
+16688121000119100,History of anal intraepithelial neoplasia III
+10839421000119100,History of anaphylaxis
 275538002,History of anemia
 161457000,History of anemia vitamin B12 deficient
 397942001,History of anesthesia problem
@@ -269,151 +269,151 @@ code,display
 789474004,History of aneurysm of artery of trunk
 433845004,History of aneurysm of iliac artery
 789475003,History of aneurysm of peripheral artery
-1.65427E+16,History of anoxic brain injury
+16542721000119100,History of anoxic brain injury
 161804005,History of antepartum hemorrhage
-1.61E+16,History of anterior ischemic optic neuropathy
+16093700000000000,History of anterior ischemic optic neuropathy
 440700005,History of aortoiliac atherosclerosis
 429208004,History of aplastic anemia
-1.68333E+16,History of arterial thrombosis
+16833281000119100,History of arterial thrombosis
 472975008,History of arteritis
-1.08243E+16,History of artery embolism
-1.54081E+14,History of aspiration pneumonia
+10824251000119100,History of artery embolism
+154081000119108,History of aspiration pneumonia
 429258006,History of aspirin exacerbated respiratory disease
-7.3831E+13,History of astrocytoma of brain
+73831000119109,History of astrocytoma of brain
 432218001,History of asymptomatic human immunodeficiency virus infection
 428448003,History of atopy
 428076002,History of atrial flutter
-3.28001E+14,History of atrial myxoma
+328001000119104,History of atrial myxoma
 473390005,History of attempted weight loss
-2.8271E+13,History of attention deficit hyperactivity disorder
-1.43491E+14,History of atypical hyperplasia of breast
-1.351E+12,History of atypical nevus
+28271000087107,History of attention deficit hyperactivity disorder
+143491000119100,History of atypical hyperplasia of breast
+1351000119101,History of atypical nevus
 472968007,History of autoimmune disorder of endocrine system
 429217004,History of autoimmune hemolytic anemia
 699032000,History of awareness under general anesthesia
 427846005,History of B-cell lymphoma
-1.19981E+14,History of bacterial infection
-1.60936E+16,History of Barrett's esophagus
-6.9411E+13,History of basal cell carcinoma of eyelid
+119981000119101,History of bacterial infection
+16093611000119100,History of Barrett's esophagus
+69411000119107,History of basal cell carcinoma of eyelid
 161473006,History of behavior problem
-2.88391E+14,History of being a victim of child physical abuse
+288391000119107,History of being a victim of child physical abuse
 772993004,History of being in foster care
 161769009,History of being infant bottle fed
-1.34481E+14,History of being under immunized
-2.88371E+14,History of being victim of child abuse
+134481000119104,History of being under immunized
+288371000119106,History of being victim of child abuse
 161483005,History of Bell's palsy
-1.10031E+16,History of benign carcinoid neoplasm
-5.9651E+13,History of benign carcinoid neoplasm of gastrointestinal tract
-3.47941E+14,History of benign meningioma of brain
-1.09938E+15,History of benign neoplasm of bone
+11003051000119100,History of benign carcinoid neoplasm
+59651000119104,History of benign carcinoid neoplasm of gastrointestinal tract
+347941000119102,History of benign meningioma of brain
+1099381000119100,History of benign neoplasm of bone
 428323002,History of benign neoplasm of brain
-1.22421E+14,History of benign neoplasm of larynx
-1.07434E+16,History of benign neoplasm of salivary gland
-1.56478E+16,History of benign neoplasm of small intestine
-1.44101E+14,History of benign neoplasm of spinal cord
-1.60948E+16,History of benign phyllodes neoplasm of breast
-1.44811E+14,History of benign schwannoma
-1.68E+16,History of bilateral lung non-small cell carcinoma
-1.6848E+16,History of bilateral primary malignant neoplasm of kidneys
-1.68483E+16,History of bilateral primary malignant neoplasm of lungs
-1.68477E+16,History of bilateral primary malignant neoplasm of ovaries
-1.68485E+16,History of bilateral primary malignant neoplasm of testes
-1.68484E+16,History of bilateral primary malignant neoplasm of ureters
+122421000119106,History of benign neoplasm of larynx
+10743431000119100,History of benign neoplasm of salivary gland
+15647821000119100,History of benign neoplasm of small intestine
+144101000119103,History of benign neoplasm of spinal cord
+16094781000119100,History of benign phyllodes neoplasm of breast
+144811000119109,History of benign schwannoma
+16848200000000000,History of bilateral lung non-small cell carcinoma
+16848021000119100,History of bilateral primary malignant neoplasm of kidneys
+16848261000119100,History of bilateral primary malignant neoplasm of lungs
+16847741000119100,History of bilateral primary malignant neoplasm of ovaries
+16848501000119100,History of bilateral primary malignant neoplasm of testes
+16848381000119100,History of bilateral primary malignant neoplasm of ureters
 161581005,History of birth asphyxia
 289917002,History of bladder neoplasm
-7.831E+12,History of blood transfusion reaction
-3.28021E+14,History of bowel obstruction
-6.90461E+14,History of bradycardia
+7831000175106,History of blood transfusion reaction
+328021000119108,History of bowel obstruction
+690461000119106,History of bradycardia
 427902001,History of branch retinal vein occlusion
 473123009,History of bronchiolitis
-1.26151E+14,History of bulimia nervosa
-1.21473E+16,History of burn
+126151000119107,History of bulimia nervosa
+12147341000119100,History of burn
 429025008,History of calculus of kidney
-1.09929E+15,History of cancer metastatic to bone
-1.09897E+15,History of cancer metastatic to brain
-1.09895E+15,History of cancer metastatic to liver
-1.09896E+15,History of cancer metastatic to lung
-1.09893E+15,History of cancer metastatic to lymph nodes
-1.09894E+15,History of cancer metastatic to skin
-7.3771E+13,History of cancer of ampulla of duodenum
-8.8831E+13,History of cancer of floor of mouth
-7.3751E+13,History of cancer of gall bladder
-7.3891E+13,History of cancer of unknown primary site
-7.3801E+13,History of cancer of urethra
-1.10019E+16,History of carcinoma in situ of breast
-1.07388E+16,History of carcinoma in situ of uterine cervix
-6.90651E+14,History of carcinoma in situ of vulva
+1099291000119100,History of cancer metastatic to bone
+1098971000119100,History of cancer metastatic to brain
+1098951000119100,History of cancer metastatic to liver
+1098961000119100,History of cancer metastatic to lung
+1098931000119100,History of cancer metastatic to lymph nodes
+1098941000119100,History of cancer metastatic to skin
+73771000119104,History of cancer of ampulla of duodenum
+88831000119109,History of cancer of floor of mouth
+73751000119108,History of cancer of gall bladder
+73891000119108,History of cancer of unknown primary site
+73801000119102,History of cancer of urethra
+11001921000119100,History of carcinoma in situ of breast
+10738811000119100,History of carcinoma in situ of uterine cervix
+690651000119106,History of carcinoma in situ of vulva
 1204366000,History of carcinoma of duodenum
 1204445009,History of carcinoma of lip
 1204365001,History of carcinoma of pancreas
 1204448006,History of carcinoma of rectosigmoid junction
 1204447001,History of carcinoma of stomach
 1186911009,History of carcinoma of tongue
-6.72291E+14,History of carcinosarcoma of ovary
-6.72281E+14,History of carcinosarcoma of uterus
+672291000119107,History of carcinosarcoma of ovary
+672281000119109,History of carcinosarcoma of uterus
 429007001,History of cardiac arrest
-1.31471E+14,History of cardiac arrhythmia
+131471000119104,History of cardiac arrhythmia
 429235008,History of cardioembolic stroke
-6.90491E+14,History of cardiomyopathy
+690491000119104,History of cardiomyopathy
 789642001,History of carotid artery stenosis
-1.44931E+14,History of carotid body neoplasm
+144931000119108,History of carotid body neoplasm
 472962008,History of cellulitis
 472966006,History of cellulitis of skin
-1.06918E+16,History of central serous retinopathy
-6.90051E+14,History of cerebellar stroke
-1.68454E+16,History of cerebral aneurysm
+10691841000119100,History of central serous retinopathy
+690051000119100,History of cerebellar stroke
+16845421000119100,History of cerebral aneurysm
 428267002,History of cerebral hemorrhage
 275526006,History of cerebrovascular accident
-1.68969E+16,History of cerebrovascular accident due to ischemia
+16896891000119100,History of cerebrovascular accident due to ischemia
 699429007,History of cerebrovascular accident in last eight weeks
 440140008,History of cerebrovascular accident with residual deficit
 429993008,History of cerebrovascular accident without residual deficits
 308064009,History of cerebrovascular disease
-1.60894E+16,History of chest pain
-2.88411E+14,History of child sexual abuse
-4.3991E+13,History of childhood obesity
+16089411000119100,History of chest pain
+288411000119107,History of child sexual abuse
+43991000119102,History of childhood obesity
 472954000,History of chlamydial infection
-7.3711E+13,History of cholangiocarcinoma
-1.62168E+16,History of cholestasis in pregnancy
+73711000119107,History of cholangiocarcinoma
+16216781000119100,History of cholestasis in pregnancy
 428978004,History of choriocarcinoma of placenta
-1.60988E+16,History of choroiditis
+16098821000119100,History of choroiditis
 713031009,History of chronic dissection of thoracic aorta
 414415007,History of chronic lung disease
-6.3581E+13,History of chronic lymphocytic leukemia
+63581000119104,History of chronic lymphocytic leukemia
 270473001,History of chronic obstructive airway disease
 472953006,History of chronic renal impairment
 441547007,History of chronic urinary tract infection
 430545008,History of claudication
-9.7121E+13,History of closed head injury
-1.67752E+16,History of coma
-1.0996E+16,History of combat and operational stress reaction
+97121000119101,History of closed head injury
+16775181000119100,History of coma
+10995991000119100,History of combat and operational stress reaction
 429286003,History of combination internal cardiac defibrillator and pacemaker
 1156096005,History of complication occurring during labor and delivery
 1156097001,History of complication of puerperium
-1.56631E+16,History of concussion injury of brain
-1.25731E+14,History of congenital absence of germinal epithelium of testes
-1.25771E+14,History of congenital adrenal hyperplasia
+15663121000119100,History of concussion injury of brain
+125731000119107,History of congenital absence of germinal epithelium of testes
+125771000119105,History of congenital adrenal hyperplasia
 275529004,History of congenital disease of hip
 161577005,History of congenital dislocation of hip
-1.08281E+14,History of congenital hypospadias
+108281000119102,History of congenital hypospadias
 709046002,History of congenital vascular malformation
 161774001,History of contraceptive cap usage
 420209000,History of contraceptive usage
-6.81341E+14,History of cornea graft failure
-1.56479E+16,History of corneal erosion
+681341000119108,History of cornea graft failure
+15647891000119100,History of corneal erosion
 441484007,History of craniopharyngioma
-1.12561E+14,History of Crohns disease
-4.9071E+13,History of Cushing disease
-4.9081E+13,History of Cushing syndrome
-1.26731E+14,History of cystic dilatation of duct of bulbourethral gland
+112561000119108,History of Crohns disease
+49071000119104,History of Cushing disease
+49081000119101,History of Cushing syndrome
+126731000119100,History of cystic dilatation of duct of bulbourethral gland
 161508001,History of deep vein thrombosis
 439124004,History of deliberate self neglect
-1.65358E+16,History of delirium
-3.2271E+13,History of delivery of macrosomal infant
+16535771000119100,History of delirium
+32271000119102,History of delivery of macrosomal infant
 1260014004,History of dental trauma
 472970003,History of diabetes mellitus type 1
 472969004,History of diabetes mellitus type 2
-1.10E+16,History of diabetic foot ulcer
+10995800000000000,History of diabetic foot ulcer
 433874008,History of diabetic peripheral angiopathy
 441638006,History of Diamond-Blackfan anemia
 473107009,History of difficult fitting of intrauterine contraceptive device
@@ -424,193 +424,193 @@ code,display
 895699003,History of disorder of eye proper
 895701003,History of disorder of eye region
 472956003,History of disorder of soft tissue
-1.80301E+14,History of disorder of vision
-6.90481E+14,History of dissection of carotid artery
+180301000119102,History of disorder of vision
+690481000119102,History of dissection of carotid artery
 720810005,History of dissection of external carotid artery
 720729008,History of dissection of internal carotid artery
-8.8701E+13,History of disseminated malignant neoplasm
-1.18361E+14,History of diverticulitis
+88701000119109,History of disseminated malignant neoplasm
+118361000119100,History of diverticulitis
 429746005,History of domestic abuse
 720428004,History of domestic emotional abuse
 720411002,History of domestic physical abuse
-2.93611E+14,History of domestic physical abuse of adult
+293611000119101,History of domestic physical abuse of adult
 720741001,History of domestic sexual abuse
 412732008,History of domestic violence
 371435006,History of drug abuse
-1.18501E+14,History of drug-induced anaphylaxis
-8.8811E+13,History of ductal carcinoma in situ of breast
+118501000119105,History of drug-induced anaphylaxis
+88811000119104,History of ductal carcinoma in situ of breast
 161783006,History of dysmenorrhea
-1.69161E+16,History of dysphagia
+16916101000119100,History of dysphagia
 472967002,History of dysplasia of cervix
-1.42471E+14,History of dysplasia of vulva
-1.099E+15,History of dysthymia
-1.26131E+14,History of eating disorder
-1.68969E+16,History of embolic cerebrovascular accident
-1.41831E+14,History of embolic stroke with deficits
-1.18971E+14,History of embolic stroke without deficits
-1.56284E+16,History of emergence delirium
+142471000119105,History of dysplasia of vulva
+1099001000119100,History of dysthymia
+126131000119101,History of eating disorder
+16896851000119100,History of embolic cerebrovascular accident
+141831000119101,History of embolic stroke with deficits
+118971000119107,History of embolic stroke without deficits
+15628411000119100,History of emergence delirium
 313217007,History of emotional abuse
 428287001,History of endocarditis
-1.30591E+14,History of endometrial hyperplasia
-1.15451E+14,History of endophthalmitis
-7.3851E+13,History of ependymoma of brain
+130591000119108,History of endometrial hyperplasia
+115451000119100,History of endophthalmitis
+73851000119103,History of ependymoma of brain
 429010008,History of epidural hematoma
-1.5913E+16,History of episcleritis
-1.60891E+16,History of esophageal ulcer
-1.60937E+16,History of esophageal varices
-6.91491E+14,History of esophagitis
+15912951000119100,History of episcleritis
+16089091000119100,History of esophageal ulcer
+16093661000119100,History of esophageal varices
+691491000119105,History of esophagitis
 429023001,History of Ewings sarcoma
 736060002,History of exposure to diethylstilbestrol in utero
-1.09201E+14,History of exposure to fenfluramine
-1.10189E+16,History of exposure to hazardous bodily fluids
+109201000119100,History of exposure to fenfluramine
+11018891000119100,History of exposure to hazardous bodily fluids
 442029006,History of exposure to lead
 705133000,History of exposure to occupational risk factor
 699009004,History of exposure to second hand smoke
 762296001,History of exposure to tobacco smoke in perinatal period
-1.68809E+16,History of exudative age-related macular degeneration
-1.68809E+16,History of eyelid ptosis
-1.60938E+16,History of facial palsy
+16880891000119100,History of exudative age-related macular degeneration
+16880931000119100,History of eyelid ptosis
+16093761000119100,History of facial palsy
 428942009,History of fall
 441586006,History of Fanconi anemia
-1.25781E+14,History of febrile urinary tract infection
+125781000119108,History of febrile urinary tract infection
 715477006,History of female genital mutilation
 763017007,History of female infertility due to tubal factor
 428064002,History of follicular adenocarcinoma of thyroid
 762616007,History of food allergy
 762615006,History of food hypersensitivity
 725942003,History of fourth degree perineal laceration
-1.37761E+14,History of fracture of hip due to traumatic event
-1.63009E+16,History of fracture of orbit
-1.68E+16,History of gangrenous disorder
-6.91501E+14,History of gastritis
-7.0861E+13,History of gastroesophageal reflux disease
+137761000119107,History of fracture of hip due to traumatic event
+16300891000119100,History of fracture of orbit
+16829500000000000,History of gangrenous disorder
+691501000119103,History of gastritis
+70861000119106,History of gastroesophageal reflux disease
 275551007,History of gastrointestinal bleed
-1.40731E+14,History of gastrointestinal stromal tumor
-1.60892E+16,History of gastrojejunal ulcer
-1.62796E+16,History of gastroschisis
-5.9601E+13,History of germ cell tumor
+140731000119101,History of gastrointestinal stromal tumor
+16089211000119100,History of gastrojejunal ulcer
+16279601000119100,History of gastroschisis
+59601000119103,History of germ cell tumor
 472971004,History of gestational diabetes mellitus
 709881001,History of gestational hypertension
 736725001,History of gestational trophoblastic disease
-3.28201E+14,History of giant cell arteritis
+328201000119109,History of giant cell arteritis
 407553003,History of glandular fever
-1.67756E+16,History of glaucoma suspect
-7.3841E+13,History of glioma of brainstem
-1.37871E+14,History of Graves' disease
-1.28731E+14,History of Guillain Barre syndrome
+16775641000119100,History of glaucoma suspect
+73841000119100,History of glioma of brainstem
+137871000119109,History of Graves' disease
+128731000119101,History of Guillain Barre syndrome
 271902005,History of gynecological disorder
-9.3931E+13,History of Haemophilus influenzae type b infection
+93931000119108,History of Haemophilus influenzae type b infection
 425978000,History of headache
 428900007,History of headache after dural puncture
 472955004,History of hearing loss
-1.17871E+14,History of heart block
-7.0561E+13,History of heartburn
-1.56277E+16,History of Helicobacter pylori infection
+117871000119101,History of heart block
+70561000119109,History of heartburn
+15627741000119100,History of Helicobacter pylori infection
 161538007,History of hematemesis
 161550001,History of hematuria
 726513006,History of hemolysis-elevated liver enzymes-low platelet count syndrome
 161458005,History of hemolytic anemia
 161582003,History of hemolytic disease
 428951001,History of hemorrhage into ventricle of brain
-1.41811E+14,History of hemorrhagic cerebrovascular accident with residual deficit
-1.18961E+14,History of hemorrhagic cerebrovascular accident without residual deficits
-1.40701E+14,History of hemorrhagic stroke with hemiparesis
-1.40711E+14,History of hemorrhagic stroke with hemiplegia
-1.68512E+16,History of hemorrhoid
+141811000119106,History of hemorrhagic cerebrovascular accident with residual deficit
+118961000119101,History of hemorrhagic cerebrovascular accident without residual deficits
+140701000119108,History of hemorrhagic stroke with hemiparesis
+140711000119106,History of hemorrhagic stroke with hemiplegia
+16851191000119100,History of hemorrhoid
 428030001,History of hepatitis A
 429721005,History of hepatitis B
-5.9851E+13,History of hepatitis B conferring immunity
-9.3871E+13,History of hepatitis C
-4.9101E+13,History of hepatoblastoma
-4.9111E+13,History of hepatocellular carcinoma
-1.65E+16,History of herpes simplex keratitis
-6.81221E+14,History of herpes zoster
-1.37741E+14,History of hip stress fracture
-4.9121E+13,History of histiocytosis
-9.3911E+13,History of histoplasmosis
+59851000119103,History of hepatitis B conferring immunity
+93871000119101,History of hepatitis C
+49101000119108,History of hepatoblastoma
+49111000119106,History of hepatocellular carcinoma
+16475500000000000,History of herpes simplex keratitis
+681221000119108,History of herpes zoster
+137741000119108,History of hip stress fracture
+49121000119104,History of histiocytosis
+93911000119103,History of histoplasmosis
 473068004,History of Hodgkin lymphoma
 309636006,History of hospital admission in last year for hyperglycemic disorder
-2.93201E+14,History of human papilloma virus infection
-1.26181E+16,History of hydronephrosis
+293201000119102,History of human papilloma virus infection
+12618061000119100,History of hydronephrosis
 429406003,History of hyperaldosteronism
 414416008,History of hypercholesterolemia
-9.7681E+13,History of hypercoagulable state
-1.56278E+16,History of hyphema
-1.25711E+14,History of hypospermatogenesis
+97681000119106,History of hypercoagulable state
+15627801000119100,History of hyphema
+125711000119102,History of hypospermatogenesis
 472960000,History of hypotension
-1.62351E+16,History of idiopathic intracranial hypertension
-1.07921E+14,History of immune disorder
+16235071000119100,History of idiopathic intracranial hypertension
+107921000119107,History of immune disorder
 441511006,History of immune thrombocytopenia
 472973001,History of immunodeficiency disorder
 428934008,History of inactive tuberculosis
 725954003,History of induced onset of labor
-1.06245E+16,History of infection due to vancomycin resistant enterococcus
-1.69155E+16,History of infection following procedure
+10624491000119100,History of infection due to vancomycin resistant enterococcus
+16915501000119100,History of infection following procedure
 441576005,History of infectious disease of central nervous system
 763016003,History of infertility due to endometriosis
 608844008,History of inflammatory bowel disease
 789775004,History of influenza
 699010009,History of inhalant intoxication
-1.65357E+16,History of injury of eye region
-1.02191E+14,History of injury of globe of eye
-1.69168E+16,History of injury of tendon
-1.68649E+16,History of intracranial hemorrhage
-1.62167E+16,History of intrauterine fetal death
-1.64647E+16,History of intravenous drug abuse
-4.8901E+13,History of invasive malignant neoplasm of breast
-3.50351E+14,History of inverted papilloma
+16535651000119100,History of injury of eye region
+102191000119109,History of injury of globe of eye
+16916751000119100,History of injury of tendon
+16864911000119100,History of intracranial hemorrhage
+16216731000119100,History of intrauterine fetal death
+16464661000119100,History of intravenous drug abuse
+48901000119103,History of invasive malignant neoplasm of breast
+350351000119100,History of inverted papilloma
 427762006,History of iron deficiency
-7.0871E+13,History of irritable bowel syndrome
-1.41821E+14,History of ischemic cerebrovascular accident with residual deficit
-1.09962E+15,History of ischemic colitis
-1.41281E+14,History of ischemic stroke without residual deficits
+70871000119100,History of irritable bowel syndrome
+141821000119104,History of ischemic cerebrovascular accident with residual deficit
+1099621000119100,History of ischemic colitis
+141281000119101,History of ischemic stroke without residual deficits
 161773007,History of IUCD (intrauterine contraceptive device) usage
 428292004,History of Kaposi's sarcoma
-9.9051E+13,History of lacunar cerebrovascular accident
-9.27778E+17,History of langerhans cell histiocytosis
-3.6068E+17,History of large bowel obstruction
-1.64102E+16,History of laryngospasm
+99051000119101,History of lacunar cerebrovascular accident
+927778271000119000,History of langerhans cell histiocytosis
+360679851000119000,History of large bowel obstruction
+16410191000119100,History of laryngospasm
 161436008,History of leukemia
-1.69004E+16,History of lipoma
-1.37401E+14,History of listeria meningitis
+16900351000119100,History of lipoma
+137401000119102,History of listeria meningitis
 726001007,History of live birth
-1.43481E+14,History of lobular carcinoma in situ
-3.7251E+13,History of low birth weight
-1.28131E+14,"History of low birth weight status, 2-2.5kg"
-1.28161E+14,"History of low birth weight status, less than 500 grams"
-1.16351E+14,History of lower extremity skin ulcer
-2.93771E+14,History of lower gastrointestinal bleed
+143481000119103,History of lobular carcinoma in situ
+37251000119108,History of low birth weight
+128131000119102,"History of low birth weight status, 2-2.5kg"
+128161000119105,"History of low birth weight status, less than 500 grams"
+116351000119103,History of lower extremity skin ulcer
+293771000119100,History of lower gastrointestinal bleed
 429423007,History of Lyme disease
 429125006,History of lymphadenopathy
 473058009,History of lymphoid leukemia
-1.52451E+14,History of lymphosarcoma
-1.65354E+16,History of macular degeneration
+152451000119104,History of lymphosarcoma
+16535401000119100,History of macular degeneration
 161416007,History of malaria
 429031006,History of male erectile disorder
-1.39621E+14,History of malignant ameloblastoma of mandible
+139621000119101,History of malignant ameloblastoma of mandible
 428053000,History of malignant basal cell neoplasm of skin
-1.09954E+16,History of malignant carcinoid tumor of bronchus
-2.86771E+14,History of malignant carcinoid tumor of colon
-1.09877E+16,History of malignant carcinoid tumor of kidney
-2.86791E+14,History of malignant carcinoid tumor of rectum
-2.86781E+14,History of malignant carcinoid tumor of small intestine
-1.0988E+16,History of malignant carcinoid tumor of stomach
-1.09818E+16,History of malignant carcinoid tumor of thymus
-1.22571E+14,History of malignant cutaneous T-cell lymphoma
-1.39281E+14,History of malignant germ cell neoplasm of mediastinum
-1.41951E+14,History of malignant germ cell neoplasm of ovary
-1.39271E+14,History of malignant germ cell neoplasm of testis
+10995411000119100,History of malignant carcinoid tumor of bronchus
+286771000119106,History of malignant carcinoid tumor of colon
+10987721000119100,History of malignant carcinoid tumor of kidney
+286791000119107,History of malignant carcinoid tumor of rectum
+286781000119109,History of malignant carcinoid tumor of small intestine
+10987961000119100,History of malignant carcinoid tumor of stomach
+10981821000119100,History of malignant carcinoid tumor of thymus
+122571000119106,History of malignant cutaneous T-cell lymphoma
+139281000119104,History of malignant germ cell neoplasm of mediastinum
+141951000119104,History of malignant germ cell neoplasm of ovary
+139271000119102,History of malignant germ cell neoplasm of testis
 699005005,History of malignant hematologic neoplasm
 429014004,History of malignant lymphoma
-1.15561E+14,History of malignant melanoma of eye
-3.21E+11,History of malignant melanoma of the skin
-4.8951E+13,History of malignant meningeal neoplasm
-3.47931E+14,History of malignant meningioma of meninges of brain
+115561000119102,History of malignant melanoma of eye
+321000119108,History of malignant melanoma of the skin
+48951000119104,History of malignant meningeal neoplasm
+347931000119106,History of malignant meningioma of meninges of brain
 429144004,History of malignant mesothelioma
 432007009,History of malignant mesothelioma of pleura
 698298001,History of malignant neoplasm of adrenal gland
-1.12071E+14,History of malignant neoplasm of anus
-7.3781E+13,History of malignant neoplasm of appendix
+112071000119105,History of malignant neoplasm of anus
+73781000119101,History of malignant neoplasm of appendix
 415086001,History of malignant neoplasm of bladder
 429247002,History of malignant neoplasm of bone
 473059001,History of malignant neoplasm of brain
@@ -618,48 +618,48 @@ code,display
 415077006,History of malignant neoplasm of bronchus
 429484003,History of malignant neoplasm of cervix
 429699009,History of malignant neoplasm of colon
-5.1271E+13,History of malignant neoplasm of colon and/or rectum
-7.3791E+13,History of malignant neoplasm of common bile duct
-1.09956E+16,History of malignant neoplasm of digestive organ
-1.39611E+14,History of malignant neoplasm of duodenum
+51271000112100,History of malignant neoplasm of colon and/or rectum
+73791000119103,History of malignant neoplasm of common bile duct
+10995641000119100,History of malignant neoplasm of digestive organ
+139611000119108,History of malignant neoplasm of duodenum
 415078001,"History of malignant neoplasm of ear, nose AND/OR throat"
 431572009,History of malignant neoplasm of endocrine gland
 429089000,History of malignant neoplasm of endometrium
 429357003,History of malignant neoplasm of epididymis
 429410000,History of malignant neoplasm of esophagus
-1.09957E+16,History of malignant neoplasm of external ear
-1.52891E+14,History of malignant neoplasm of eye
-1.24361E+14,History of malignant neoplasm of fallopian tube
+10995681000119100,History of malignant neoplasm of external ear
+152891000119106,History of malignant neoplasm of eye
+124361000119101,History of malignant neoplasm of fallopian tube
 415079009,History of malignant neoplasm of female genital organ
 415080007,History of malignant neoplasm of gastrointestinal tract
-8.8851E+13,History of malignant neoplasm of gum
+88851000119103,History of malignant neoplasm of gum
 431573004,History of malignant neoplasm of head and/or neck
-7.3721E+13,History of malignant neoplasm of hypopharynx
+73721000119100,History of malignant neoplasm of hypopharynx
 415081006,History of malignant neoplasm of kidney
 473064002,History of malignant neoplasm of larynx
-1.09E+16,History of malignant neoplasm of lip
+10939900000000000,History of malignant neoplasm of lip
 473067009,History of malignant neoplasm of liver
 415082004,History of malignant neoplasm of lung
 415083009,History of malignant neoplasm of male genital organ
 428117004,History of malignant neoplasm of mediastinum
-1.09819E+16,History of malignant neoplasm of middle ear
-1.09819E+16,History of malignant neoplasm of nasal cavity
-7.3731E+13,History of malignant neoplasm of nasopharynx
+10981871000119100,History of malignant neoplasm of middle ear
+10981911000119100,History of malignant neoplasm of nasal cavity
+73731000119102,History of malignant neoplasm of nasopharynx
 434193002,History of malignant neoplasm of neck
 431691000,History of malignant neoplasm of nervous system
 473063008,History of malignant neoplasm of oral cavity
 429090009,History of malignant neoplasm of ovary
-7.3761E+13,History of malignant neoplasm of pancreas
-6.91371E+14,History of malignant neoplasm of parotid gland
+73761000119105,History of malignant neoplasm of pancreas
+691371000119102,History of malignant neoplasm of parotid gland
 428880006,History of malignant neoplasm of penis
-8.8591E+13,History of malignant neoplasm of peritoneum
-8.5851E+13,History of malignant neoplasm of pharynx
+88591000119105,History of malignant neoplasm of peritoneum
+85851000119107,History of malignant neoplasm of pharynx
 429355006,History of malignant neoplasm of pleura
 428262008,History of malignant neoplasm of prostate
 429084005,History of malignant neoplasm of rectum
 700239008,History of malignant neoplasm of renal pelvis
-8.8621E+13,History of malignant neoplasm of retroperitoneum
-7.3741E+13,History of malignant neoplasm of salivary gland
+88621000119107,History of malignant neoplasm of retroperitoneum
+73741000119106,History of malignant neoplasm of salivary gland
 429050006,History of malignant neoplasm of skin
 443895001,History of malignant neoplasm of skin excluding melanoma
 428833003,History of malignant neoplasm of small bowel
@@ -670,7 +670,7 @@ code,display
 427918007,History of malignant neoplasm of thymus
 429254008,History of malignant neoplasm of thyroid
 429409005,History of malignant neoplasm of tongue
-8.8801E+13,History of malignant neoplasm of tonsil
+88801000119102,History of malignant neoplasm of tonsil
 415085002,History of malignant neoplasm of trachea
 429444007,History of malignant neoplasm of ureter
 415087005,History of malignant neoplasm of urinary system
@@ -678,177 +678,177 @@ code,display
 428941002,History of malignant neoplasm of uterine body
 427844008,History of malignant neoplasm of vagina
 429635001,History of malignant neoplasm of vulva
-1.61E+16,History of malignant phyllodes neoplasm of breast
+16094800000000000,History of malignant phyllodes neoplasm of breast
 472972006,History of maturity onset diabetes mellitus in young
 429016002,History of medullary carcinoma of thyroid
-7.3861E+13,History of medulloblastoma of brain
-1.251E+12,History of melanoma in situ of skin
+73861000119101,History of medulloblastoma of brain
+1251000119106,History of melanoma in situ of skin
 161539004,History of melena
-1.12101E+14,History of meningioma
-1.38141E+14,History of merkel cell carcinoma
+112101000119101,History of meningioma
+138141000119108,History of merkel cell carcinoma
 709313000,History of methicillin resistant Staphylococcus aureus infection
 473111003,History of microalbuminuria
 608837004,History of migraine with aura
 1187601005,History of military deployment
-1.62168E+16,History of molar pregnancy
-1.29089E+15,History of monkeypox
+16216821000119100,History of molar pregnancy
+1290891000000100,History of monkeypox
 427920005,History of monocytic leukemia
 429124005,History of mood disorder
-1.20481E+14,History of multiple myeloma
-1.65243E+16,History of myalgia caused by statin
-6.81291E+14,History of mycosis fungoides
-1.52861E+14,History of myeloid leukemia
+120481000119109,History of multiple myeloma
+16524291000119100,History of myalgia caused by statin
+681291000119105,History of mycosis fungoides
+152861000119104,History of myeloid leukemia
 399211009,History of myocardial infarction
-3.87786E+17,History of myocardial infarction due to atherothrombotic coronary artery disease
-7.7622E+17,History of myocardial infarction due to demand ischemia
-4.61E+11,History of myocardial infarction in last eight weeks
-6.81211E+14,History of myocarditis
+387785661000119000,History of myocardial infarction due to atherothrombotic coronary artery disease
+776219771000119000,History of myocardial infarction due to demand ischemia
+461000119108,History of myocardial infarction in last eight weeks
+681211000119101,History of myocarditis
 1204446005,History of nasopharyngeal carcinoma
-8.2991E+13,History of negative cervical Papanicolaou smear performed within last 12 months
+82991000119104,History of negative cervical Papanicolaou smear performed within last 12 months
 414372001,History of neonatal abstinence syndrome
-1.10129E+16,History of neoplasm of low malignant potential behavior of ovary
-4.9201E+13,History of neoplasm of pituitary gland
-1.09822E+16,History of neoplasm of uncertain behavior
+11012931000119100,History of neoplasm of low malignant potential behavior of ovary
+49201000119104,History of neoplasm of pituitary gland
+10982181000119100,History of neoplasm of uncertain behavior
 429105007,History of nephroblastoma
-9.0171E+13,History of nephrotic syndrome
-3.2451E+13,History of nervous system disorder
+90171000119101,History of nephrotic syndrome
+32451000119107,History of nervous system disorder
 432745001,History of neuroblastoma
 442414004,History of neurodevelopmental disorder
-1.34461E+14,History of neuroendocrine malignant neoplasm
-4.9191E+13,History of neutropenia
-1.42881E+14,History of nocturnal hypoglycemia
-8.5881E+13,History of non central nervous system primitive neuroectodermal tumor
+134461000119108,History of neuroendocrine malignant neoplasm
+49191000119102,History of neutropenia
+142881000119105,History of nocturnal hypoglycemia
+85881000119100,History of non central nervous system primitive neuroectodermal tumor
 428046009,History of non-Hodgkins lymphoma
 429226001,History of non-small cell malignant neoplasm of lung
 698593009,History of non-ST segment elevation myocardial infarction
 473057004,History of noncompliance with medication regimen
-1.68909E+16,History of nonproliferative diabetic retinopathy
-6.90071E+14,History of nontraumatic ruptured cerebral aneurysm
+16890921000119100,History of nonproliferative diabetic retinopathy
+690071000119109,History of nontraumatic ruptured cerebral aneurysm
 427956008,History of normal menopause
 715200006,History of novel psychoactive substance misuse
-8.0541E+13,History of nutritional deficiency
-1.65355E+16,History of nystagmus
-1.62796E+16,History of occlusion of branch retinal artery
+80541000119104,History of nutritional deficiency
+16535531000119100,History of nystagmus
+16279641000119100,History of occlusion of branch retinal artery
 432160005,History of occlusion of central retinal artery
 432006000,History of occlusion of central retinal vein
 431310008,History of occlusion of cerebral artery
 433807000,History of occlusion of cerebral artery without cerebral infarction
 430301009,History of occlusive disease of artery of lower extremity
 430305000,History of occlusive disease of artery of upper extremity
-1.65405E+16,History of ocular zoster
-1.09906E+15,History of odontogenic keratocyst
-1.06821E+14,History of oligodendroglioma of brain
-9.7131E+13,History of open head injury
-1.65353E+16,History of optic atrophy
-1.30163E+16,History of optic neuritis
+16540531000119100,History of ocular zoster
+1099061000119100,History of odontogenic keratocyst
+106821000119101,History of oligodendroglioma of brain
+97131000119103,History of open head injury
+16535321000119100,History of optic atrophy
+13016271000119100,History of optic neuritis
 473108004,History of osteomyelitis
 473442002,History of osteopenia
 473337006,History of osteopenia resolved
 473120007,History of osteoporosis
 473342003,History of osteoporosis resolved
-1.39461E+14,History of osteoporotic fracture
+139461000119109,History of osteoporotic fracture
 428052005,History of osteosarcoma
-9.34589E+17,History of otitis externa
+934589301000119000,History of otitis externa
 427836008,History of otitis media
-1.42021E+14,History of Paget disease of vulva
-1.43351E+14,History of Paget's disease of breast
+142021000119102,History of Paget disease of vulva
+143351000119104,History of Paget's disease of breast
 789064006,History of pain at rest due to peripheral vascular disease
 472957007,History of pain of multiple joints
 473122004,History of palpitations
-8.5921E+13,History of pancreatitis
+85921000119107,History of pancreatitis
 429255009,History of papillary adenocarcinoma of thyroid
-1.09882E+16,History of parasitic disease
-9.7531E+13,History of parietal cerebrovascular accident
-1.31461E+14,History of paroxysmal atrial tachycardia
-2.85731E+14,History of paroxysmal supraventricular tachycardia
-9.8241E+13,History of partial adherence to treatment
-1.23361E+14,History of pathological fracture
-1.37771E+14,History of pathological hip fracture
-1.37751E+14,History of pathological vertebral fracture
+10988171000119100,History of parasitic disease
+97531000119106,History of parietal cerebrovascular accident
+131461000119105,History of paroxysmal atrial tachycardia
+285731000119101,History of paroxysmal supraventricular tachycardia
+98241000119103,History of partial adherence to treatment
+123361000119104,History of pathological fracture
+137771000119101,History of pathological hip fracture
+137751000119105,History of pathological vertebral fracture
 771412001,History of pelvic inflammatory disease
-2.93581E+14,History of penis injury
-3.50391E+14,History of perforated tympanic membrane
-2.85741E+14,History of pericarditis
+293581000119108,History of penis injury
+350391000119105,History of perforated tympanic membrane
+285741000119105,History of pericarditis
 161584002,History of perinatal cerebral irritability
-1.57589E+16,History of perineal laceration
+15758941000119100,History of perineal laceration
 431545001,History of peripheral arterial occlusive disease
 789544005,History of peripheral ischemia
 473109007,History of peripheral vascular disease
 439589003,History of peritonsillar abscess
-4.9221E+13,History of pheochromocytoma
+49221000119108,History of pheochromocytoma
 313215004,History of physical abuse
-6.91191E+14,History of pituitary adenoma
+691191000119103,History of pituitary adenoma
 725950007,History of placenta accreta
 725924008,History of placenta previa
 789776003,History of placental abruption
-1.881E+12,History of plasmacytoma
-1.07435E+16,History of pleomorphic adenoma of salivary gland
+1881000119103,History of plasmacytoma
+10743471000119100,History of pleomorphic adenoma of salivary gland
 700236001,History of pleural effusion
-9.3961E+13,History of pneumococcal infection
+93961000119100,History of pneumococcal infection
 473113000,History of polymyalgia rheumatica
 428283002,History of polyp of colon
 735934008,History of poor personal hygiene
-5.9701E+13,History of portal hypertension
+59701000119109,History of portal hypertension
 428608003,History of positive Toxoplasma gondii antibody
-1.64099E+16,History of posterior ischemic optic neuropathy
-1.66157E+16,History of posterior vitreous detachment
-1.69161E+16,History of postpartum gestational hypertension
+16409881000119100,History of posterior ischemic optic neuropathy
+16615741000119100,History of posterior vitreous detachment
+16916061000119100,History of postpartum gestational hypertension
 161809000,History of postpartum hemorrhage
-1.05651E+14,History of pre-eclampsia
-1.5011E+13,History of pregnancy loss in non-pregnant woman
+105651000119100,History of pre-eclampsia
+15011000119104,History of pregnancy loss in non-pregnant woman
 1156099003,History of pregnancy with abnormal glucose tolerance test
 713651007,History of pregnancy with abortive outcome
 1156101005,History of pregnancy with normal glucose tolerance test
 441493008,History of premature labor
-1.38091E+14,History of prematurity
+138091000119101,History of prematurity
 421711004,History of pressure injury
-1.08951E+14,History of preterm premature rupture of membranes
+108951000119100,History of preterm premature rupture of membranes
 789395008,History of primary cutaneous lymphoma
-4.9231E+13,History of primary hyperparathyroidism
-1.68487E+16,History of primary malignant neoplasm of anterior wall of urinary bladder
-1.6895E+16,History of primary malignant neoplasm of base of tongue
-1.68488E+16,History of primary malignant neoplasm of dome of urinary bladder
-1.321E+12,History of primary malignant neoplasm of larynx
-1.68489E+16,History of primary malignant neoplasm of lateral wall of urinary bladder
-1.6848E+16,History of primary malignant neoplasm of left kidney
-1.68481E+16,History of primary malignant neoplasm of left lung
-1.68E+16,History of primary malignant neoplasm of left ovary
-1.68484E+16,History of primary malignant neoplasm of left testis
-1.68E+16,History of primary malignant neoplasm of left ureter
-1.68489E+16,History of primary malignant neoplasm of neck of urinary bladder
-1.311E+12,History of primary malignant neoplasm of oropharynx
-1.68489E+16,History of primary malignant neoplasm of posterior wall of urinary bladder
-1.68478E+16,History of primary malignant neoplasm of right kidney
-1.68E+16,History of primary malignant neoplasm of right lung
-1.68478E+16,History of primary malignant neoplasm of right ovary
-1.68485E+16,History of primary malignant neoplasm of right testis
-1.68483E+16,History of primary malignant neoplasm of right ureter
+49231000119106,History of primary hyperparathyroidism
+16848701000119100,History of primary malignant neoplasm of anterior wall of urinary bladder
+16894981000119100,History of primary malignant neoplasm of base of tongue
+16848781000119100,History of primary malignant neoplasm of dome of urinary bladder
+1321000119109,History of primary malignant neoplasm of larynx
+16848901000119100,History of primary malignant neoplasm of lateral wall of urinary bladder
+16847981000119100,History of primary malignant neoplasm of left kidney
+16848061000119100,History of primary malignant neoplasm of left lung
+16847700000000000,History of primary malignant neoplasm of left ovary
+16848421000119100,History of primary malignant neoplasm of left testis
+16848300000000000,History of primary malignant neoplasm of left ureter
+16848941000119100,History of primary malignant neoplasm of neck of urinary bladder
+1311000119102,History of primary malignant neoplasm of oropharynx
+16848861000119100,History of primary malignant neoplasm of posterior wall of urinary bladder
+16847821000119100,History of primary malignant neoplasm of right kidney
+16848100000000000,History of primary malignant neoplasm of right lung
+16847781000119100,History of primary malignant neoplasm of right ovary
+16848461000119100,History of primary malignant neoplasm of right testis
+16848301000119100,History of primary malignant neoplasm of right ureter
 765378003,History of primary malignant neoplasm of skin
-1.301E+12,History of primary malignant neoplasm of testis
-1.68E+16,History of primary malignant neoplasm of trigone of urinary bladder
-1.68488E+16,History of primary malignant neoplasm of urachus
-1.68487E+16,History of primary malignant neoplasm of ureteric orifice
-1.68482E+16,History of primary non-small cell carcinoma of left lung
-1.68481E+16,History of primary non-small cell carcinoma of right lung
-6.19792E+17,History of primary small cell carcinoma of lung
-1.68E+16,History of primary transitional cell carcinoma of left kidney
-1.68479E+16,History of primary transitional cell carcinoma of right kidney
+1301000119100,History of primary malignant neoplasm of testis
+16849000000000000,History of primary malignant neoplasm of trigone of urinary bladder
+16848821000119100,History of primary malignant neoplasm of urachus
+16848741000119100,History of primary malignant neoplasm of ureteric orifice
+16848181000119100,History of primary non-small cell carcinoma of left lung
+16848141000119100,History of primary non-small cell carcinoma of right lung
+619792361000119000,History of primary small cell carcinoma of lung
+16847900000000000,History of primary transitional cell carcinoma of left kidney
+16847901000119100,History of primary transitional cell carcinoma of right kidney
 699029003,History of primitive neuroectodermal tumor
-4.9241E+13,History of prolactinoma
-1.68909E+16,History of proliferative retinopathy due to diabetes mellitus
-1.25791E+14,History of prostatic cyst
-1.09882E+16,History of prostatic dysplasia
-6.81201E+14,History of prostatitis
+49241000119102,History of prolactinoma
+16890881000119100,History of proliferative retinopathy due to diabetes mellitus
+125791000119106,History of prostatic cyst
+10988211000119100,History of prostatic dysplasia
+681201000119104,History of prostatitis
 473110002,History of proteinuria
-5.9711E+13,History of pseudoaneurysm
-1.07615E+16,History of pulmonary embolism on long-term anticoagulation therapy
-1.60891E+16,History of pyloric channel ulcer
+59711000119107,History of pseudoaneurysm
+10761511000119100,History of pulmonary embolism on long-term anticoagulation therapy
+16089131000119100,History of pyloric channel ulcer
 473089008,History of recent air travel
 473087005,History of recent cruise travel
-1.68857E+16,History of rectal bleeding
-1.60892E+16,History of rectal ulcer
-1.09879E+16,History of rectosigmoid junction cancer
-1.41911E+14,History of recurrent deep vein thrombosis
+16885661000119100,History of rectal bleeding
+16089171000119100,History of rectal ulcer
+10987871000119100,History of rectosigmoid junction cancer
+141911000119100,History of recurrent deep vein thrombosis
 429716007,History of recurrent dislocation of hip joint prosthesis
 473062003,History of recurrent malignant neoplasm of breast
 699015004,History of recurrent pneumonia
@@ -856,93 +856,93 @@ code,display
 473116008,History of recurrent urinary tract infection
 161792009,History of recurrent vaginal discharge
 414417004,History of renal failure
-7.3901E+13,History of renal insufficiency
+73901000119107,History of renal insufficiency
 725948004,History of retained placenta
-1.08521E+14,History of reticulosarcoma
-1.30163E+16,History of retinal edema
-1.65E+16,History of retinal hemorrhage
-1.65356E+16,History of retinitis pigmentosa
-9.7641E+13,History of retinoblastoma
-1.65199E+16,History of retinopathy of prematurity
-1.65243E+16,History of rhabdomyolysis due to statin
-7.3881E+13,History of rhabdomyosarcoma
+108521000119103,History of reticulosarcoma
+13016311000119100,History of retinal edema
+16535400000000000,History of retinal hemorrhage
+16535611000119100,History of retinitis pigmentosa
+97641000119101,History of retinoblastoma
+16519911000119100,History of retinopathy of prematurity
+16524331000119100,History of rhabdomyolysis due to statin
+73881000119105,History of rhabdomyosarcoma
 428309004,History of RhD negative
 1156098006,History of Rhesus isoimmunization affecting pregnancy
-1.69168E+16,History of rupture of Achilles tendon
-2.92508E+17,History of SARS-CoV-2
-1.64754E+16,History of Schatzkis ring
-1.38741E+14,History of sebaceous adenoma
-1.38731E+14,History of sebaceous carcinoma
+16916791000119100,History of rupture of Achilles tendon
+292508471000119000,History of SARS-CoV-2
+16475431000119100,History of Schatzkis ring
+138741000119107,History of sebaceous adenoma
+138731000119103,History of sebaceous carcinoma
 725943008,History of second degree perineal laceration
-1.36611E+14,History of sepsis
-1.12031E+14,History of severe nausea and vomiting following administration of anesthetic agent
-1.41961E+14,History of sex cord stromal tumor of ovary
+136611000119100,History of sepsis
+112031000119107,History of severe nausea and vomiting following administration of anesthetic agent
+141961000119102,History of sex cord stromal tumor of ovary
 313216003,History of sexual abuse
-3.4441E+13,History of sexual behavior with high risk of exposure to communicable disease
+34441000087108,History of sexual behavior with high risk of exposure to communicable disease
 275881005,History of sexually transmitted disease
 1208622001,History of short umbilical cord
 816150000,History of shoulder dystocia
-1.17881E+14,History of sick sinus syndrome
+117881000119103,History of sick sinus syndrome
 441482006,History of sickle cell anemia
 703151001,History of single seizure
-1.52711E+14,History of skin and/or subcutaneous tissue disease
+152711000119105,History of skin and/or subcutaneous tissue disease
 420697001,History of skin ulcer
 772995006,History of sleeping out
-3.1103E+17,History of small bowel obstruction
-5.9801E+13,History of small vessel disease due to diabetes mellitus
-4.9291E+13,History of soft tissue sarcoma
+311030311000119000,History of small bowel obstruction
+59801000119102,History of small vessel disease due to diabetes mellitus
+49291000119105,History of soft tissue sarcoma
 432220003,History of spinal cord infarct
-6.0681E+13,History of spinal cord injury
+60681000119105,History of spinal cord injury
 441494002,History of splenomegaly
-6.9551E+13,History of squamous cell carcinoma
-9.7631E+13,History of squamous cell carcinoma in situ
+69551000119109,History of squamous cell carcinoma
+97631000119105,History of squamous cell carcinoma in situ
 429024007,History of squamous cell carcinoma of skin
 430168009,History of stable aneurysm of abdominal aorta
-1.65357E+16,History of strabismus
-1.23351E+14,History of stress fracture
-1.69155E+16,History of stricture of esophagus
-1.43341E+14,History of stromal sarcoma of endometrium
+16535691000119100,History of strabismus
+123351000119101,History of stress fracture
+16915451000119100,History of stricture of esophagus
+143341000119101,History of stromal sarcoma of endometrium
 161515009,History of subarachnoid hemorrhage
 428275008,History of subdural hematoma
 371422002,History of substance abuse
 1254976004,History of substance dependency
-3.6511E+13,History of suspected exposure to biological agent
+36511000119106,History of suspected exposure to biological agent
 428340006,History of sustained ventricular fibrillation
 429046004,History of sustained ventricular tachycardia
-6.74191E+14,History of syncope
-1.08715E+15,History of syphilis
+674191000119109,History of syncope
+1087151000119100,History of syphilis
 428984001,History of tear of retina
 427040000,History of testicular disorder
 725941005,History of third degree perineal laceration
-5.9721E+13,History of thoracoabdominal aortic aneurysm
+59721000119100,History of thoracoabdominal aortic aneurysm
 439627005,History of threatening violent behavior toward others
-4.9341E+13,History of thrombocytopenia
+49341000119108,History of thrombocytopenia
 428904003,History of thromboembolism of vein
 441882000,History of thrombophilia
 430080003,History of thrombophlebitis
-1.18951E+14,History of thrombotic stroke without residual deficits
-8.5931E+13,History of tobacco use in remission less than 12 months
+118951000119103,History of thrombotic stroke without residual deficits
+85931000119105,History of tobacco use in remission less than 12 months
 472958002,History of tonsillitis
-6.90731E+14,History of torsades de pointe caused by drug
-1.09886E+15,History of torsades type ventricular tachycardia due to prolonged QT interval
-1.09211E+14,History of toxic inhalation exposure
-1.43591E+14,History of toxoplasmosis
-5.9641E+13,History of tracheoesophageal fistula
+690731000119108,History of torsades de pointe caused by drug
+1098861000119100,History of torsades type ventricular tachycardia due to prolonged QT interval
+109211000119102,History of toxic inhalation exposure
+143591000119101,History of toxoplasmosis
+59641000119101,History of tracheoesophageal fistula
 161511000,History of transient ischemic attack
-1.40221E+14,History of transient ischemic attack due to embolism
-1.40491E+14,History of transitional cell carcinoma of kidney
-8.8611E+13,History of traumatic brain injury
-1.37731E+14,History of traumatic vertebral fracture
-3.4451E+13,History of travel with high risk of exposure to communicable disease
-9.4001E+13,History of typhoid
-9.9021E+13,History of undescended testes
+140221000119109,History of transient ischemic attack due to embolism
+140491000119105,History of transitional cell carcinoma of kidney
+88611000119100,History of traumatic brain injury
+137731000119104,History of traumatic vertebral fracture
+34451000087106,History of travel with high risk of exposure to communicable disease
+94001000119104,History of typhoid
+99021000119109,History of undescended testes
 312489007,History of upper gastrointestinal tract hemorrhage
-1.37961E+14,History of ureteral obstruction
-1.25701E+14,History of urethral cyst
-1.25981E+14,History of urethral parameatal cyst
-1.25961E+14,History of urethrocutaneous fistula
-1.201E+12,History of urinary tract infection
-1.10129E+16,History of urticaria
+137961000119105,History of ureteral obstruction
+125701000119100,History of urethral cyst
+125981000119105,History of urethral parameatal cyst
+125961000119101,History of urethrocutaneous fistula
+1201000119107,History of urinary tract infection
+11012891000119100,History of urticaria
 473093002,History of use of depot contraception
 473099003,History of use of hormone releasing intrauterine device contraception
 473103008,History of use of postcoital contraception
@@ -950,20 +950,20 @@ code,display
 473096005,History of use of symptothermal method of contraception
 473097001,History of use of withdrawal method of contraception
 783680006,History of uterine laceration
-1.60989E+16,History of uveitis
-1.42461E+14,History of vaginal intraepithelial neoplasia
+16098861000119100,History of uveitis
+142461000119104,History of vaginal intraepithelial neoplasia
 472974007,History of vasculitis
 1237120008,History of venous ulcer of lower leg
 1237121007,History of venous ulcer of lower limb
 473118009,History of ventricular septal defect
-1.37721E+14,History of vertebral stress fracture
+137721000119102,History of vertebral stress fracture
 429032004,History of vesicoureteric reflux
-1.56478E+16,History of villous adenoma of duodenum
+15647781000119100,History of villous adenoma of duodenum
 440234007,History of violent behavior toward others
 473117004,History of viral hepatitis
-5.9741E+13,History of visceral aneurysm
+59741000119106,History of visceral aneurysm
 428863007,History of vitreous floater
-1.64685E+16,History of Zika virus infection
+16468501000119100,History of Zika virus infection
 161637005,Insurance refused - medical reasons
 1187610002,Left military service
 445585003,Livebirth born before admission to hospital
@@ -972,7 +972,7 @@ code,display
 1187609007,Medically discharged from military service
 394989007,Missed childhood immunizations
 315604002,Missed contraceptive pill
-1.60897E+16,Multiple liveborn in hospital by vaginal delivery
+16089691000119100,Multiple liveborn in hospital by vaginal delivery
 717807001,Multiple liveborn other than twins born in hospital
 717808006,Multiple liveborn other than twins born outside hospital
 473386008,Never used condom
@@ -1018,11 +1018,11 @@ code,display
 1187600006,Served in military service
 1187606000,Served in military service during peacetime
 442423001,Single liveborn born in hospital by cesarean section
-1.7561E+13,Single liveborn born in hospital by vaginal delivery
+17561000119102,Single liveborn born in hospital by vaginal delivery
 717803002,Singleton liveborn born in hospital
 717804008,Singleton liveborn born outside hospital
 717805009,Singleton liveborn unspecified as to place of birth
-1.60896E+16,Triplet liveborn in hospital by cesarean section
+16089571000119100,Triplet liveborn in hospital by cesarean section
 442327001,Twin liveborn born in hospital
 442342003,Twin liveborn born in hospital by cesarean section
 717806005,Twin liveborn born outside hospital

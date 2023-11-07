@@ -3,18 +3,15 @@
 use App\Http\Controllers\AllergyIntoleranceController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\EncounterController;
+use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\ObservationController;
-use App\Http\Resources\PatientResource;
-use App\Models\Resource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SatusehatController;
-use App\Http\Controllers\SatusehatResourceController;
-use App\Http\Controllers\SatusehatTokenController;
 use App\Http\Controllers\TestController;
-use App\Http\Resources\FhirResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +58,15 @@ Route::post('/allergyintolerance/create', [AllergyIntoleranceController::class, 
 // Observation resource endpoint
 Route::post('/observation/create', [ObservationController::class, 'postObservation']);
 
+// Procedure resource endpoint
+Route::post('/procedure/create', [ProcedureController::class, 'postProcedure']);
+
+// Medication resource endpoint
+Route::post('/medication/create', [MedicationController::class, 'postMedication']);
+
 // Testing endpoint
+Route::get('/test-get/medication/{satusehat_id}', [TestController::class, 'testMedicationResource']);
+Route::get('/test-get/procedure/{satusehat_id}', [TestController::class, 'testProcedureResource']);
 Route::get('/test-get/allergyintolerance/{satusehat_id}', [TestController::class, 'testAllergyIntoleranceResource']);
 Route::get('/test-get/observation/{satusehat_id}', [TestController::class, 'testObservationResource']);
 Route::get('/test-create/encounter/create', [TestController::class, 'testCreateEncounter']);
