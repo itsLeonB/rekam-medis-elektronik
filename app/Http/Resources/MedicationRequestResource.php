@@ -18,7 +18,16 @@ class MedicationRequestResource extends FhirResource
     {
         $medicationRequest = $this->getData('medicationrequest');
 
-        $data = [
+        $data = $this->resourceStructure($medicationRequest);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($medicationRequest): array
+    {
+        return $data = [
             'resourceType' => 'MedicationRequest',
             'id' => $this->satusehat_id,
             'identifier' => $this->createIdentifierArray($medicationRequest->identifier),
@@ -123,123 +132,5 @@ class MedicationRequestResource extends FhirResource
                 ]
             ]
         ];
-
-        $data = removeEmptyValues($data);
-
-        return $data;
-    }
-
-    private function createDosageArray($dosageAttribute): array
-    {
-        $dosage = [];
-
-        if (is_array($dosageAttribute) || is_object($dosageAttribute)) {
-            foreach ($dosageAttribute as $d) {
-                $dosage[] = [
-                    'sequence' => $d->sequence,
-                    'text' => $d->text,
-                    'additionalInstruction' => $this->createCodeableConceptArray($d->additionalInstruction),
-                    'patientInstruction' => $d->patient_instruction,
-                    'timing' => [
-                        'event' => $d->timing_event,
-                        'repeat' => $d->timing_repeat,
-                        'code' => [
-                            'coding' => [
-                                [
-                                    'system' => $d->timing_system,
-                                    'code' => $d->timing_code,
-                                    'display' => $d->timing_display
-                                ]
-                            ]
-                        ]
-                    ],
-                    'site' => [
-                        'coding' => [
-                            [
-                                'system' => $d->site_system,
-                                'code' => $d->site_code,
-                                'display' => $d->site_display
-                            ]
-                        ]
-                    ],
-                    'route' => [
-                        'coding' => [
-                            [
-                                'system' => $d->route_system,
-                                'code' => $d->route_code,
-                                'display' => $d->route_display
-                            ]
-                        ]
-                    ],
-                    'method' => [
-                        'coding' => [
-                            [
-                                'system' => $d->method_system,
-                                'code' => $d->method_code,
-                                'display' => $d->method_display
-                            ]
-                        ]
-                    ],
-                    'doseAndRate' => $this->createDoseRateArray($d->doseRate),
-                    'maxDosePerPeriod' => [
-                        'numerator' => [
-                            'value' => $d->max_dose_per_period_numerator_value,
-                            'comparator' => $d->max_dose_per_period_numerator_comparator,
-                            'unit' => $d->max_dose_per_period_numerator_unit,
-                            'system' => $d->max_dose_per_period_numerator_system,
-                            'code' => $d->max_dose_per_period_numerator_code,
-                        ],
-                        'denominator' => [
-                            'value' => $d->max_dose_per_period_denominator_value,
-                            'comparator' => $d->max_dose_per_period_denominator_comparator,
-                            'unit' => $d->max_dose_per_period_denominator_unit,
-                            'system' => $d->max_dose_per_period_denominator_system,
-                            'code' => $d->max_dose_per_period_denominator_code,
-                        ]
-                    ],
-                    'maxDosePerAdministration' => [
-                        'value' => $d->max_dose_per_administration_value,
-                        'unit' => $d->max_dose_per_administration_unit,
-                        'system' => $d->max_dose_per_administration_system,
-                        'code' => $d->max_dose_per_administration_code,
-                    ],
-                    'maxDosePerLifetime' => [
-                        'value' => $d->max_dose_per_lifetime_value,
-                        'unit' => $d->max_dose_per_lifetime_unit,
-                        'system' => $d->max_dose_per_lifetime_system,
-                        'code' => $d->max_dose_per_lifetime_code,
-                    ]
-                ];
-            }
-        }
-
-        return $dosage;
-    }
-
-    private function createDoseRateArray($doseRateAttribute): array
-    {
-        $doseRate = [];
-
-        if (is_array($doseRateAttribute) || is_object($doseRateAttribute)) {
-            foreach ($doseRateAttribute as $dr) {
-                $doseRate[] = merge_array(
-                    [
-                        'type' => [
-                            'coding' => [
-                                [
-                                    'system' => $dr->system,
-                                    'code' => $dr->code,
-                                    'display' => $dr->display
-                                ]
-                            ]
-                        ],
-                    ],
-                    $dr->dose,
-                    $dr->rate
-                );
-            }
-        }
-
-        return $doseRate;
     }
 }

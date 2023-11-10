@@ -17,7 +17,16 @@ class ConditionResource extends FhirResource
     {
         $condition = $this->getData('condition');
 
-        $data = merge_array(
+        $data = $this->resourceStructure($condition);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($condition): array
+    {
+        return merge_array(
             [
                 'resourceType' => 'Condition',
                 'id' => $this->satusehat_id,
@@ -80,10 +89,6 @@ class ConditionResource extends FhirResource
             $condition->onset,
             $condition->abatement
         );
-
-        $data = removeEmptyValues($data);
-
-        return $data;
     }
 
     private function createStageArray(Collection $stageAttribute): array

@@ -16,7 +16,16 @@ class MedicationResource extends FhirResource
     {
         $medication = $this->getData('medication');
 
-        $data = [
+        $data = $this->resourceStructure($medication);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($medication): array
+    {
+        return $data = [
             'resourceType' => 'Medication',
             'id' => $this->satusehat_id,
             'extension' => [
@@ -78,10 +87,6 @@ class MedicationResource extends FhirResource
                 'expirationDate' => $this->parseDateFhir($medication->batch_expiration_date)
             ]
         ];
-
-        $data = removeEmptyValues($data);
-
-        return $data;
     }
 
     private function createIngredientArray($ingredientAttribute): array

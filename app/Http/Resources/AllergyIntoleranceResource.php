@@ -17,7 +17,16 @@ class AllergyIntoleranceResource extends FhirResource
     {
         $allergyIntolerance = $this->getData('allergyIntolerance');
 
-        $data = merge_array(
+        $data = $this->resourceStructure($allergyIntolerance);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($allergyIntolerance): array
+    {
+        return merge_array(
             [
                 'resourceType' => 'AllergyIntolerance',
                 'id' => $this->satusehat_id,
@@ -71,10 +80,6 @@ class AllergyIntoleranceResource extends FhirResource
             ],
             $allergyIntolerance->onset,
         );
-
-        $data = removeEmptyValues($data);
-
-        return $data;
     }
 
     private function createReactionArray(Collection $reactionAttribute)

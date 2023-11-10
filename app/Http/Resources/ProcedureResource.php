@@ -18,7 +18,16 @@ class ProcedureResource extends FhirResource
     {
         $procedure = $this->getData('procedure');
 
-        $data = merge_array(
+        $data = $this->resourceStructure($procedure);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($procedure): array
+    {
+        return merge_array(
             [
                 'resourceType' => 'Procedure',
                 'id' => $this->satusehat_id,
@@ -92,10 +101,6 @@ class ProcedureResource extends FhirResource
             ],
             $procedure->performed
         );
-
-        $data = removeEmptyValues($data);
-
-        return $data;
     }
 
     private function createPerformerArray($performerAttribute): array

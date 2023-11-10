@@ -26,12 +26,7 @@ class EncounterController extends Controller
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'Encounter',
-                'res_ver' => 1,
-            ]);
-
-            $resourceKey = ['resource_id' => $resource->id];
+            [$resource, $resourceKey] = $this->createResource('Encounter');
 
             $encounter = Encounter::create(array_merge($resourceKey, $body['encounter']));
 
@@ -59,14 +54,7 @@ class EncounterController extends Controller
                 ]);
             }
 
-            $resourceData = new EncounterResource($resource);
-            $resourceText = json_encode($resourceData);
-
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+            $this->createResourceContent(EncounterResource::class, $resource);
 
             return response()->json($resource->encounter->first(), 201);
         });

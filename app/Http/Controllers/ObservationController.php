@@ -31,12 +31,7 @@ class ObservationController extends Controller
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'Observation',
-                'res_ver' => 1,
-            ]);
-
-            $resourceKey = ['resource_id' => $resource->id];
+            [$resource, $resourceKey] = $this->createResource('Observation');
 
             $observation = Observation::create(array_merge($resourceKey, $body['observation']));
 
@@ -69,14 +64,7 @@ class ObservationController extends Controller
                 ]);
             }
 
-            $resourceData = new ObservationResource($resource);
-            $resourceText = json_encode($resourceData);
-
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+            $this->createResourceContent(ObservationResource::class, $resource);
 
             return response()->json($resource->observation->first(), 201);
         });
