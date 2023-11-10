@@ -2,28 +2,14 @@
 
 namespace App\Http\Requests;
 
-use App\Constants;
-use App\Models\CodeSystemLoinc;
 use App\Models\Observation;
 use App\Models\ObservationCategory;
-use App\Models\ObservationIdentifier;
 use App\Models\ObservationInterpretation;
 use App\Models\ObservationReferenceRange;
 use Illuminate\Validation\Rule;
 
 class ObservationRequest extends FhirRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        // if (!Auth::check()) {
-        //     abort(403, 'Unauthorized action.');
-        // }
-        return true;
-    }
-
     /**
      * Get the validation rules that apply to the request.
      *

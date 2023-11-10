@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->enum('status', ['active', 'on-hold', 'cancelled', 'completed', 'entered-in-error', 'stopped', 'draft', 'unknown']);
             $table->char('status_reason', 9)->nullable();
+            $table->enum('intent', ['proposal', 'plan', 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order', 'unknown']);
             $table->enum('priority', ['routine', 'urgent', 'asap', 'stat'])->nullable();
             $table->boolean('do_not_perform')->nullable();
             $table->boolean('reported')->nullable();

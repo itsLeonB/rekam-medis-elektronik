@@ -32,43 +32,44 @@ class MedicationRequestSeeder extends Seeder
 
         foreach ($medicationRequests as $mr) {
             $resContent = json_decode($mr->res_text, true);
-            $dispenseInterval = returnAttribute($resContent, ['dispenseRequest', 'dispenseInterval'], null);
+            $dispenseInterval = returnAttribute($resContent, ['dispenseRequest', 'dispenseInterval']);
             $dispenseIntervalData = returnDuration($dispenseInterval, 'dispense_interval');
-            $validity = returnAttribute($resContent, ['dispenseRequest', 'validityPeriod'], null);
+            $validity = returnAttribute($resContent, ['dispenseRequest', 'validityPeriod']);
             $validityPeriod = returnPeriod($validity, 'validity');
-            $dispenseQuantity = returnAttribute($resContent, ['dispenseRequest', 'quantity'], null);
+            $dispenseQuantity = returnAttribute($resContent, ['dispenseRequest', 'quantity']);
             $quantity = returnQuantity($dispenseQuantity, 'quantity', true);
-            $supplyDuration = returnAttribute($resContent, ['dispenseRequest', 'expectedSupplyDuration'], null);
+            $supplyDuration = returnAttribute($resContent, ['dispenseRequest', 'expectedSupplyDuration']);
             $duration = returnDuration($supplyDuration, 'supply_duration');
-            $substitution = returnAttribute($resContent, ['substitution'], null);
-            $identifier = returnAttribute($resContent, ['identifier'], null);
-            $category = returnAttribute($resContent, ['category'], null);
-            $basedOn = returnAttribute($resContent, ['basedOn'], null);
-            $insurance = returnAttribute($resContent, ['insurance'], null);
-            $note = returnAttribute($resContent, ['note'], null);
-            $dosage = returnAttribute($resContent, ['dosageInstruction'], null);
+            $substitution = returnAttribute($resContent, ['substitution']);
+            $identifier = returnAttribute($resContent, ['identifier']);
+            $category = returnAttribute($resContent, ['category']);
+            $basedOn = returnAttribute($resContent, ['basedOn']);
+            $insurance = returnAttribute($resContent, ['insurance']);
+            $note = returnAttribute($resContent, ['note']);
+            $dosage = returnAttribute($resContent, ['dosageInstruction']);
 
             $medReq = MedicationRequest::create(array_merge(
                 [
                     'resource_id' => $mr->id,
                     'status' => returnAttribute($resContent, ['status'], 'unknown'),
-                    'status_reason' => returnAttribute($resContent, ['statusReason', 'coding', 0, 'code'], null),
-                    'priority' => returnAttribute($resContent, ['priority'], null),
-                    'do_not_perform' => returnAttribute($resContent, ['doNotPerform'], null),
-                    'reported' => returnAttribute($resContent, ['reportedBoolean'], null),
+                    'status_reason' => returnAttribute($resContent, ['statusReason', 'coding', 0, 'code']),
+                    'intent' => returnAttribute($resContent, ['intent'], 'unknown'),
+                    'priority' => returnAttribute($resContent, ['priority']),
+                    'do_not_perform' => returnAttribute($resContent, ['doNotPerform']),
+                    'reported' => returnAttribute($resContent, ['reportedBoolean']),
                     'medication' => returnAttribute($resContent, ['medicationReference', 'reference'], ''),
                     'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
-                    'encounter' => returnAttribute($resContent, ['encounter', 'reference'], null),
-                    'authored_on' => returnAttribute($resContent, ['authoredOn'], null),
-                    'requester' => returnAttribute($resContent, ['requester', 'reference'], null),
-                    'performer' => returnAttribute($resContent, ['performer', 'reference'], null),
-                    'performer_type' => returnAttribute($resContent, ['performerType', 'coding', 0, 'code'], null),
-                    'recorder' => returnAttribute($resContent, ['recorder', 'reference'], null),
-                    'course_of_therapy' => returnAttribute($resContent, ['courseOfTherapyType', 'coding', 0, 'code'], null),
-                    'repeats_allowed' => returnAttribute($resContent, ['dispenseRequest', 'numberOfRepeatsAllowed'], null),
-                    'dispense_performer' => returnAttribute($resContent, ['dispenseRequest', 'performer', 'reference'], null),
+                    'encounter' => returnAttribute($resContent, ['encounter', 'reference']),
+                    'authored_on' => returnAttribute($resContent, ['authoredOn']),
+                    'requester' => returnAttribute($resContent, ['requester', 'reference']),
+                    'performer' => returnAttribute($resContent, ['performer', 'reference']),
+                    'performer_type' => returnAttribute($resContent, ['performerType', 'coding', 0, 'code']),
+                    'recorder' => returnAttribute($resContent, ['recorder', 'reference']),
+                    'course_of_therapy' => returnAttribute($resContent, ['courseOfTherapyType', 'coding', 0, 'code']),
+                    'repeats_allowed' => returnAttribute($resContent, ['dispenseRequest', 'numberOfRepeatsAllowed']),
+                    'dispense_performer' => returnAttribute($resContent, ['dispenseRequest', 'performer', 'reference']),
                     'substitution_allowed' => returnVariableAttribute($substitution, 'allowed', ['Boolean', 'CodeableConcept']),
-                    'substitution_reason' => returnAttribute($substitution, ['reason', 'coding', 0, 'code'], null)
+                    'substitution_reason' => returnAttribute($substitution, ['reason', 'coding', 0, 'code'])
                 ],
                 $dispenseIntervalData,
                 $validityPeriod,
