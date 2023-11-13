@@ -15,7 +15,7 @@ class MedicationRequestRequest extends FhirRequest
      */
     public function rules(): array
     {
-        return array_merge(
+        $rule = array_merge(
             $this->baseAttributeRules(),
             $this->baseDataRules(),
             $this->getIdentifierDataRules('identifier.*.'),
@@ -27,6 +27,9 @@ class MedicationRequestRequest extends FhirRequest
             $this->getAnnotationDataRules('note.*.'),
             $this->getDosageDataRules('dosage.*.')
         );
+
+        // dd($rule);
+        return $rule;
     }
 
     private function baseAttributeRules(): array
@@ -68,11 +71,11 @@ class MedicationRequestRequest extends FhirRequest
                 'medication_request.substitution_allowed.allowedBoolean' => 'nullable|boolean',
                 'medication_request.substitution_reason' => ['nullable', Rule::in(MedicationRequest::SUBSTITUTION_REASON_CODE)],
             ],
-            $this->getDurationDataRules('dispense_interval_'),
-            $this->getPeriodDataRules('validity_period_'),
-            $this->getQuantityDataRules('quantity_', true),
-            $this->getDurationDataRules('supply_duration_'),
-            $this->getCodeableConceptDataRules('substitution_allowed.allowedCodeableConcept.coding.*.', MedicationRequest::SUBSTITUTION_ALLOWED_CODE)
+            $this->getDurationDataRules('medication_request.dispense_interval_'),
+            $this->getPeriodDataRules('medication_request.validity_period_'),
+            $this->getQuantityDataRules('medication_request.quantity_', true),
+            $this->getDurationDataRules('medication_request.supply_duration_'),
+            $this->getCodeableConceptDataRules('medication_request.substitution_allowed.allowedCodeableConcept.coding.*.', MedicationRequest::SUBSTITUTION_ALLOWED_CODE)
         );
     }
 }

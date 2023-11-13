@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
+use App\Http\Resources\MedicationDispenseResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;
 use App\Http\Resources\ObservationResource;
@@ -36,6 +37,14 @@ use Tests\Traits\ExamplePayload;
 class TestController extends Controller
 {
     use ExamplePayload;
+
+    public function testMedicationDispenseResource($satusehat_id)
+    {
+        return response()->json(new MedicationDispenseResource(Resource::where([
+            ['satusehat_id', '=', $satusehat_id],
+            ['res_type', '=', 'MedicationDispense']
+        ])->firstOrFail()), 200);
+    }
 
     public function testMedicationRequestResource($satusehat_id)
     {

@@ -38,6 +38,7 @@ class MedicationDispenseSeeder extends Seeder
                 [
                     'resource_id' => $md->id,
                     'status' => returnAttribute($resContent, ['status'], 'unknown'),
+                    'category' => returnAttribute($resContent, ['category', 'coding', 0, 'code']),
                     'medication' => returnAttribute($resContent, ['medicationReference', 'reference'], ''),
                     'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
                     'context' => returnAttribute($resContent, ['context', 'reference']),
@@ -45,7 +46,6 @@ class MedicationDispenseSeeder extends Seeder
                     'when_prepared' => returnAttribute($resContent, ['whenPrepared']),
                     'when_handed_over' => returnAttribute($resContent, ['whenHandedOver'])
                 ],
-                returnCodeableConcept(returnAttribute($resContent, ['category']), 'category'),
                 returnQuantity(returnattribute($resContent, ['quantity']), 'quantity', true),
                 returnQuantity(returnAttribute($resContent, ['daysSupply']), 'days_supply', true),
             ));

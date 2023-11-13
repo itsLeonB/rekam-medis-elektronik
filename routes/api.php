@@ -4,6 +4,7 @@ use App\Http\Controllers\AllergyIntoleranceController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\EncounterController;
 use App\Http\Controllers\MedicationController;
+use App\Http\Controllers\MedicationDispenseController;
 use App\Http\Controllers\MedicationRequestController;
 use App\Http\Controllers\ObservationController;
 use Illuminate\Http\Request;
@@ -68,7 +69,11 @@ Route::post('/medication/create', [MedicationController::class, 'postMedication'
 // MedicationRequest resource endpoint
 Route::post('/medicationrequest/create', [MedicationRequestController::class, 'postMedicationRequest']);
 
+// MedicationDispense resource endpoint
+Route::post('/medicationdispense/create', [MedicationDispenseController::class, 'postMedicationDispense']);
+
 // Testing endpoint
+Route::get('/test-get/medicationdispense/{satusehat_id}', [TestController::class, 'testMedicationDispenseResource']);
 Route::get('/test-get/medicationrequest/{satusehat_id}', [TestController::class, 'testMedicationRequestResource']);
 Route::get('/test-get/medication/{satusehat_id}', [TestController::class, 'testMedicationResource']);
 Route::get('/test-get/procedure/{satusehat_id}', [TestController::class, 'testProcedureResource']);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\MedicationDispense;
 use Illuminate\Http\Request;
 
 class MedicationDispenseResource extends FhirResource
@@ -13,9 +14,9 @@ class MedicationDispenseResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $medicationRequest = $this->getData('medicationrequest');
+        $medicationDispense = $this->getData('medicationdispense');
 
-        $data = $this->resourceStructure($medicationRequest);
+        $data = $this->resourceStructure($medicationDispense);
 
         $data = removeEmptyValues($data);
 
@@ -33,9 +34,9 @@ class MedicationDispenseResource extends FhirResource
             'category' => [
                 'coding' => [
                     [
-                        'system' => $data->category_system,
-                        'code' => $data->category_code,
-                        'display' => $data->category_display
+                        'system' => $data->category ? MedicationDispense::CATEGORY_SYSTEM : null,
+                        'code' => $data->category,
+                        'display' => MedicationDispense::CATEGORY_DISPLAY[$data->category] ?? null
                     ]
                 ]
             ],
@@ -70,18 +71,18 @@ class MedicationDispenseResource extends FhirResource
             'note' => $this->createAnnotationArray($data->note),
             'dosageInstruction' => $this->createDosageArray($data->dosageInstruction),
             'substitution' => [
-                'wasSubstituted' => $data->substitution->was_substituted,
+                'wasSubstituted' => $data->substitution->was_substituted ?? null,
                 'type' => [
                     'coding' => [
                         [
-                            'system' => $data->substitution->type_system,
-                            'code' => $data->substitution->type_code,
-                            'display' => $data->substitution->type_display
+                            'system' => $data->substitution->type_system ?? null,
+                            'code' => $data->substitution->type_code ?? null,
+                            'display' => $data->substitution->type_display ?? null
                         ]
                     ]
                 ],
-                'reason' => $this->createCodeableConceptArray($data->substitution->reason),
-                'responsibleParty' => $this->createReferenceArray($data->substitution->responsibleParty)
+                'reason' => $this->createCodeableConceptArray($data->substitution->reason ?? null),
+                'responsibleParty' => $this->createReferenceArray($data->substitution->responsibleParty ?? null)
             ]
         ];
     }
