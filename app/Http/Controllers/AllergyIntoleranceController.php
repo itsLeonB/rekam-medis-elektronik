@@ -22,12 +22,7 @@ class AllergyIntoleranceController extends Controller
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'AllergyIntolerance',
-                'res_ver' => 1,
-            ]);
-
-            $resourceKey = ['resource_id' => $resource->id];
+            [$resource, $resourceKey] = $this->createResource('AllergyIntolerance');
 
             $allergyIntolerance = AllergyIntolerance::create(array_merge($resourceKey, $body['allergy_intolerance']));
 
@@ -50,14 +45,7 @@ class AllergyIntoleranceController extends Controller
                 ]);
             }
 
-            $resourceData = new AllergyIntoleranceResource($resource);
-            $resourceText = json_encode($resourceData);
-
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+            $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
 
             return response()->json($resource->allergyIntolerance->first(), 201);
         });

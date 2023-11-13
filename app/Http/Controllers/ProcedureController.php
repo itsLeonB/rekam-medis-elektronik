@@ -29,12 +29,7 @@ class ProcedureController extends Controller
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'Procedure',
-                'res_ver' => 1,
-            ]);
-
-            $resourceKey = ['resource_id' => $resource->id];
+            [$resource, $resourceKey] = $this->createResource('Procedure');
 
             $procedure = Procedure::create(array_merge($resourceKey, $body['procedure']));
 
@@ -53,14 +48,7 @@ class ProcedureController extends Controller
             $this->createInstances(ProcedureFocalDevice::class, $procedureKey, $body, 'focal_device');
             $this->createInstances(ProcedureItemUsed::class, $procedureKey, $body, 'item_used');
 
-            $resourceData = new ProcedureResource($resource);
-            $resourceText = json_encode($resourceData);
-
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+            $this->createResourceContent(ProcedureResource::class, $resource);
 
             return response()->json($resource->procedure->first(), 201);
         });

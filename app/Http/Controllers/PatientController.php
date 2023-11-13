@@ -23,12 +23,7 @@ class PatientController extends Controller
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'Patient',
-                'res_ver' => 1,
-            ]);
-
-            $resourceKey = ['resource_id' => $resource->id];
+            [$resource, $resourceKey] = $this->createResource('Patient');
 
             $patient = Patient::create(array_merge($resourceKey, $body['patient']));
 
@@ -48,14 +43,7 @@ class PatientController extends Controller
                 ]);
             }
 
-            $resourceData = new PatientResource($resource);
-            $resourceText = json_encode($resourceData);
-
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+            $this->createResourceContent(PatientResource::class, $resource);
 
             return response()->json($resource->patient->first(), 201);
         });

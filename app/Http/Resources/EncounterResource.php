@@ -16,7 +16,16 @@ class EncounterResource extends FhirResource
     {
         $encounter = $this->getData('encounter');
 
-        $data = [
+        $data = $this->resourceStructure($encounter);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($encounter): array
+    {
+        return [
             'resourceType' => 'Encounter',
             'id' => $this->satusehat_id,
             'identifier' => $this->createIdentifierArray($encounter->identifier),
@@ -87,10 +96,6 @@ class EncounterResource extends FhirResource
                 'reference' => $encounter->part_of
             ]
         ];
-
-        $data = removeEmptyValues($data);
-
-        return $data;
     }
 
     private function createStatusHistoryArray(Collection $statusHistoryAttribute): array

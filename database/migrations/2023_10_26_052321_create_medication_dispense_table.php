@@ -17,9 +17,7 @@ return new class extends Migration
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->enum('status', ['preparation', 'in-progress', 'cancelled', 'on-hold', 'completed', 'entered-in-error', 'stopped', 'declined', 'unknown']);
-            $table->string('category_system')->nullable();
-            $table->string('category_code')->nullable();
-            $table->string('category_display')->nullable();
+            $table->enum('category', ['inpatient', 'outpatient', 'community', 'discharge'])->nullable();
             $table->string('medication');
             $table->string('subject');
             $table->string('context')->nullable();

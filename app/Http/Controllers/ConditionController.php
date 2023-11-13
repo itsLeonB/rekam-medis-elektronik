@@ -24,12 +24,7 @@ class ConditionController extends Controller
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'Condition',
-                'res_ver' => 1,
-            ]);
-
-            $resourceKey = ['resource_id' => $resource->id];
+            [$resource, $resourceKey] = $this->createResource('Condition');
 
             $condition = Condition::create(array_merge($resourceKey, $body['condition']));
 
@@ -51,14 +46,7 @@ class ConditionController extends Controller
             $this->createInstances(ConditionEvidence::class, $conditionKey, $body, 'evidence');
             $this->createInstances(ConditionNote::class, $conditionKey, $body, 'note');
 
-            $resourceData = new ConditionResource($resource);
-            $resourceText = json_encode($resourceData);
-
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+            $this->createResourceContent(ConditionResource::class, $resource);
 
             return response()->json($resource->condition->first(), 201);
         });

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\FhirResource;
+use App\Models\Resource;
+use App\Models\ResourceContent;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -12,6 +15,43 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    /**
+     * Create a new resource content.
+     *
+     * @param FhirResource $resourceClass The FHIR resource class.
+     * @param Resource $resource The resource instance.
+     * @return void
+     */
+    public function createResourceContent($resourceClass, Resource $resource)
+    {
+        $resourceData = new $resourceClass($resource);
+        $resourceText = json_encode($resourceData);
+
+        ResourceContent::create([
+            'resource_id' => $resource->id,
+            'res_ver' => 1,
+            'res_text' => $resourceText,
+        ]);
+    }
+
+    /**
+     * Create a new resource of the given type.
+     *
+     * @param string $resourceType The type of the resource to create.
+     * @return array An array containing the created resource and its key.
+     */
+    public function createResource(string $resourceType)
+    {
+        $resource = Resource::create([
+            'res_type' => $resourceType,
+            'res_ver' => 1,
+        ]);
+
+        $resourceKey = ['resource_id' => $resource->id];
+
+        return [$resource, $resourceKey];
+    }
 
     /**
      * Retrieve the JSON payload from the request.

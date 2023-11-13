@@ -17,7 +17,16 @@ class PatientResource extends FhirResource
     {
         $patient = $this->getData('patient');
 
-        $data = merge_array(
+        $data = $this->resourceStructure($patient);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($patient): array
+    {
+        return merge_array(
             [
                 'resourceType' => 'Patient',
                 'id' => $this->satusehat_id,
@@ -68,10 +77,6 @@ class PatientResource extends FhirResource
             $patient->deceased,
             $patient->multiple_birth
         );
-
-        $data = removeEmptyValues($data);
-
-        return $data;
     }
 
     private function createContactArray(Collection $contactAttribute)

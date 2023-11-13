@@ -19,12 +19,7 @@ class MedicationController extends Controller
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'Medication',
-                'res_ver' => 1,
-            ]);
-
-            $resourceKey = ['resource_id' => $resource->id];
+            [$resource, $resourceKey] = $this->createResource('Medication');
 
             $medication = Medication::create(array_merge($resourceKey, $body['medication']));
 
@@ -33,14 +28,7 @@ class MedicationController extends Controller
             $this->createInstances(MedicationIdentifier::class, $medicationKey, $body, 'identifier');
             $this->createInstances(MedicationIngredient::class, $medicationKey, $body, 'ingredient');
 
-            $resourceData = new MedicationResource($resource);
-            $resourceText = json_encode($resourceData);
-
-            ResourceContent::create([
-                'resource_id' => $resource->id,
-                'res_ver' => 1,
-                'res_text' => $resourceText,
-            ]);
+            $this->createResourceContent(MedicationResource::class, $resource);
 
             return response()->json($resource->medication->first(), 201);
         });

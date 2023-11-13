@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Constants;
+use App\Models\MedicationRequestDosage;
+use App\Models\MedicationRequestDosageAdditionalInstruction;
+use App\Models\MedicationRequestDosageDoseRate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -17,6 +20,144 @@ class FhirRequest extends FormRequest
         //     abort(403, 'Unauthorized action.');
         // }
         return true;
+    }
+
+    public function getTimingDataRules(string $prefix = null): array
+    {
+        return array_merge(
+            [
+                $prefix . 'event' => 'nullable|array',
+                $prefix . 'event.*' => 'nullable|date',
+                $prefix . 'repeat' => 'nullable|array',
+                $prefix . 'repeat.count' => 'nullable|integer|gte:0',
+                $prefix . 'repeat.countMax' => 'nullable|integer|gte:0',
+                $prefix . 'repeat.duration' => 'nullable|numeric',
+                $prefix . 'repeat.durationMax' => 'nullable|numeric',
+                $prefix . 'repeat.durationUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
+                $prefix . 'repeat.frequency' => 'nullable|integer|gte:0',
+                $prefix . 'repeat.frequencyMax' => 'nullable|integer|gte:0',
+                $prefix . 'repeat.period' => 'nullable|numeric',
+                $prefix . 'repeat.periodMax' => 'nullable|numeric',
+                $prefix . 'repeat.periodUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
+                $prefix . 'repeat.dayOfWeek' => 'nullable|array',
+                $prefix . 'repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAY_OF_WEEK)],
+                $prefix . 'repeat.timeOfDay' => 'nullable|array',
+                $prefix . 'repeat.timeOfDay.*' => 'nullable|date_format:H:i:s',
+                $prefix . 'repeat.when' => 'nullable|array',
+                $prefix . 'repeat.when.*' => ['nullable', Rule::in(Constants::TIMING_REPEAT_WHEN_CODE)],
+                $prefix . 'repeat.offset' => 'nullable|integer|gte:0',
+            ],
+            $this->getDurationDataRules($prefix . 'repeat.boundsDuration.'),
+            $this->getRangeDataRules($prefix . 'repeat.boundsRange.'),
+            $this->getPeriodDataRules($prefix . 'repeat.boundsPeriod.'),
+            $this->getCodeableConceptDataRules($prefix, Constants::TIMING_ABBREVIATION_CODE),
+        );
+    }
+
+    /**
+     * Get the validation rules for range data.
+     *
+     * @param string|null $prefix The prefix for the range data.
+     * @return array The validation rules for range data.
+     */
+    public function getRangeDataRules(string $prefix = null): array
+    {
+        return array_merge(
+            $this->getQuantityDataRules($prefix . 'low.', true),
+            $this->getQuantityDataRules($prefix . 'high.', true),
+        );
+    }
+
+    /**
+     * Get the validation rules that apply to the dosage data.
+     *
+     * @param string|null $prefix
+     * @return array
+     */
+    public function getDosageDataRules(string $prefix = null): array
+    {
+        return array_merge(
+            [
+                $prefix . 'dosage_data' => 'required|array',
+                $prefix . 'additional_instruction' => 'nullable|array',
+                $prefix . 'dose_rate' => 'nullable|array',
+                $prefix . 'dosage_data.sequence' => 'nullable|integer',
+                $prefix . 'dosage_data.text' => 'nullable|string',
+                $prefix . 'dosage_data.patient_instruction' => 'nullable|string',
+            ],
+            $this->getTimingDataRules($prefix . 'dosage_data.timing_'),
+            $this->getCodeableConceptDataRules($prefix . 'dosage_data.site_'),
+            $this->getCodeableConceptDataRules($prefix . 'dosage_data.route_', Constants::DOSAGE_ROUTE_CODE),
+            $this->getCodeableConceptDataRules($prefix . 'dosage_data.method_', MedicationRequestDosage::METHOD_CODE),
+            $this->getRatioDataRules($prefix . 'dosage_data.max_dose_per_period_', false),
+            $this->getQuantityDataRules($prefix . 'dosage_data.max_dose_per_administration_', true),
+            $this->getQuantityDataRules($prefix . 'dosage_data.max_dose_per_lifetime_', true),
+            $this->getCodeableConceptDataRules($prefix . 'additional_instruction.*.', MedicationRequestDosageAdditionalInstruction::CODE),
+            $this->getCodeableConceptDataRules($prefix . 'dose_rate.*.', Constants::DOSERATE_TYPE_CODE),
+            $this->getRangeDataRules($prefix . 'dose_rate.*.dose.doseRange.'),
+            $this->getQuantityDataRules($prefix . 'dose_rate.*.dose.doseQuantity.', true),
+            $this->getRatioDataRules($prefix . 'dose_rate.*.rate.rateRatio.', true),
+            $this->getRangeDataRules($prefix . 'dose_rate.*.rate.rateRange.'),
+            $this->getQuantityDataRules($prefix . 'dose_rate.*.rate.rateQuantity.', true),
+        );
+    }
+
+    /**
+     * Returns an array of validation rules for quantity data.
+     *
+     * @param string|null $prefix The prefix to be added to the rule keys.
+     * @param bool $simple Whether to return simple or complex rules.
+     * @return array The array of validation rules.
+     */
+    public function getQuantityDataRules(string $prefix = null, bool $simple = false): array
+    {
+        if ($simple) {
+            return [
+                $prefix . 'value' => 'nullable|numeric',
+                $prefix . 'unit' => 'nullable|string',
+                $prefix . 'system' => 'nullable|string',
+                $prefix . 'code' => 'nullable|string',
+            ];
+        } else {
+            return [
+                $prefix . 'value' => 'nullable|numeric',
+                $prefix . 'comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+                $prefix . 'unit' => 'nullable|string',
+                $prefix . 'system' => 'nullable|string',
+                $prefix . 'code' => 'nullable|string',
+            ];
+        }
+    }
+
+    /**
+     * Get the validation rules that apply to the period data.
+     *
+     * @param  string|null  $prefix
+     * @return array
+     */
+    public function getPeriodDataRules(string $prefix = null): array
+    {
+        return [
+            $prefix . 'start' => 'nullable|date',
+            $prefix . 'end' => 'nullable|date',
+        ];
+    }
+
+    /**
+     * Get the validation rules that apply to the duration data.
+     *
+     * @param string|null $prefix
+     * @return array
+     */
+    public function getDurationDataRules(string $prefix = null): array
+    {
+        return [
+            $prefix . 'value' => 'nullable|numeric',
+            $prefix . 'comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+            $prefix . 'unit' => 'nullable|string',
+            $prefix . 'system' => 'nullable|string',
+            $prefix . 'code' => 'nullable|string'
+        ];
     }
 
     /**
@@ -58,7 +199,7 @@ class FhirRequest extends FormRequest
             $prefix . 'onset' => 'nullable|array',
             $prefix . 'onset.onsetDateTime' => 'nullable|date',
             $prefix . 'onset.onsetAge' => 'nullable|array',
-            $prefix . 'onset.onsetAge.value' => 'nullable|decimal',
+            $prefix . 'onset.onsetAge.value' => 'nullable|numeric',
             $prefix . 'onset.onsetAge.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'onset.onsetAge.unit' => 'nullable|string',
             $prefix . 'onset.onsetAge.system' => 'nullable|string',
@@ -67,12 +208,12 @@ class FhirRequest extends FormRequest
             $prefix . 'onset.onsetPeriod.start' => 'nullable|date',
             $prefix . 'onset.onsetRange' => 'nullable|array',
             $prefix . 'onset.onsetRange.low' => 'nullable|array',
-            $prefix . 'onset.onsetRange.low.value' => 'nullable|decimal',
+            $prefix . 'onset.onsetRange.low.value' => 'nullable|numeric',
             $prefix . 'onset.onsetRange.low.unit' => 'nullable|string',
             $prefix . 'onset.onsetRange.low.system' => 'nullable|string',
             $prefix . 'onset.onsetRange.low.code' => 'nullable|string',
             $prefix . 'onset.onsetRange.high' => 'nullable|array',
-            $prefix . 'onset.onsetRange.high.value' => 'nullable|decimal',
+            $prefix . 'onset.onsetRange.high.value' => 'nullable|numeric',
             $prefix . 'onset.onsetRange.high.unit' => 'nullable|string',
             $prefix . 'onset.onsetRange.high.system' => 'nullable|string',
             $prefix . 'onset.onsetRange.high.code' => 'nullable|string',
@@ -85,7 +226,7 @@ class FhirRequest extends FormRequest
         return [
             $prefix . 'abatement.abatementDateTime' => 'nullable|date',
             $prefix . 'abatement.abatementAge' => 'nullable|array',
-            $prefix . 'abatement.abatementAge.value' => 'nullable|decimal',
+            $prefix . 'abatement.abatementAge.value' => 'nullable|numeric',
             $prefix . 'abatement.abatementAge.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'abatement.abatementAge.unit' => 'nullable|string',
             $prefix . 'abatement.abatementAge.system' => 'nullable|string',
@@ -95,12 +236,12 @@ class FhirRequest extends FormRequest
             $prefix . 'abatement.abatementPeriod.end' => 'nullable|date',
             $prefix . 'abatement.abatementRange' => 'nullable|array',
             $prefix . 'abatement.abatementRange.low' => 'nullable|array',
-            $prefix . 'abatement.abatementRange.low.value' => 'nullable|decimal',
+            $prefix . 'abatement.abatementRange.low.value' => 'nullable|numeric',
             $prefix . 'abatement.abatementRange.low.unit' => 'nullable|string',
             $prefix . 'abatement.abatementRange.low.system' => 'nullable|string',
             $prefix . 'abatement.abatementRange.low.code' => 'nullable|string',
             $prefix . 'abatement.abatementRange.high' => 'nullable|array',
-            $prefix . 'abatement.abatementRange.high.value' => 'nullable|decimal',
+            $prefix . 'abatement.abatementRange.high.value' => 'nullable|numeric',
             $prefix . 'abatement.abatementRange.high.unit' => 'nullable|string',
             $prefix . 'abatement.abatementRange.high.system' => 'nullable|string',
             $prefix . 'abatement.abatementRange.high.code' => 'nullable|string',
@@ -145,12 +286,12 @@ class FhirRequest extends FormRequest
             $prefix . 'effective.effectiveTiming.repeat.boundsDuration.code' => 'nullable|string',
             $prefix . 'effective.effectiveTiming.repeat.count' => 'nullable|integer|gte:0',
             $prefix . 'effective.effectiveTiming.repeat.countMax' => 'nullable|integer|gte:0',
-            $prefix . 'effective.effectiveTiming.repeat.duration' => 'nullable|decimal',
-            $prefix . 'effective.effectiveTiming.repeat.durationMax' => 'nullable|decimal',
+            $prefix . 'effective.effectiveTiming.repeat.duration' => 'nullable|numeric',
+            $prefix . 'effective.effectiveTiming.repeat.durationMax' => 'nullable|numeric',
             $prefix . 'effective.effectiveTiming.repeat.frequency' => 'nullable|integer|gte:0',
             $prefix . 'effective.effectiveTiming.repeat.frequencyMax' => 'nullable|integer|gte:0',
-            $prefix . 'effective.effectiveTiming.repeat.period' => 'nullable|decimal',
-            $prefix . 'effective.effectiveTiming.repeat.periodMax' => 'nullable|decimal',
+            $prefix . 'effective.effectiveTiming.repeat.period' => 'nullable|numeric',
+            $prefix . 'effective.effectiveTiming.repeat.periodMax' => 'nullable|numeric',
             $prefix . 'effective.effectiveTiming.repeat.periodUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
             $prefix . 'effective.effectiveTiming.repeat.dayOfWeek' => 'nullable|array',
             $prefix . 'effective.effectiveTiming.repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAY_OF_WEEK)],
@@ -174,7 +315,7 @@ class FhirRequest extends FormRequest
         return [
             $prefix . 'value' => 'nullable|array',
             $prefix . 'value.quantity' => 'nullable|array',
-            $prefix . 'value.quantity.value' => 'nullable|decimal',
+            $prefix . 'value.quantity.value' => 'nullable|numeric',
             $prefix . 'value.quantity.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'value.quantity.unit' => 'nullable|string',
             $prefix . 'value.quantity.system' => 'nullable|string',
@@ -190,40 +331,40 @@ class FhirRequest extends FormRequest
             $prefix . 'value.valueInteger' => 'nullable|integer',
             $prefix . 'value.valueRange' => 'nullable|array',
             $prefix . 'value.valueRange.low' => 'nullable|array',
-            $prefix . 'value.valueRange.low.value' => 'nullable|decimal',
+            $prefix . 'value.valueRange.low.value' => 'nullable|numeric',
             $prefix . 'value.valueRange.low.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'value.valueRange.low.unit' => 'nullable|string',
             $prefix . 'value.valueRange.low.system' => 'nullable|string',
             $prefix . 'value.valueRange.low.code' => 'nullable|string',
             $prefix . 'value.valueRange.high' => 'nullable|array',
-            $prefix . 'value.valueRange.high.value' => 'nullable|decimal',
+            $prefix . 'value.valueRange.high.value' => 'nullable|numeric',
             $prefix . 'value.valueRange.high.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'value.valueRange.high.unit' => 'nullable|string',
             $prefix . 'value.valueRange.high.system' => 'nullable|string',
             $prefix . 'value.valueRange.high.code' => 'nullable|string',
             $prefix . 'value.valueRatio' => 'nullable|array',
             $prefix . 'value.valueRatio.numerator' => 'nullable|array',
-            $prefix . 'value.valueRatio.numerator.value' => 'nullable|decimal',
+            $prefix . 'value.valueRatio.numerator.value' => 'nullable|numeric',
             $prefix . 'value.valueRatio.numerator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'value.valueRatio.numerator.unit' => 'nullable|string',
             $prefix . 'value.valueRatio.numerator.system' => 'nullable|string',
             $prefix . 'value.valueRatio.numerator.code' => 'nullable|string',
             $prefix . 'value.valueRatio.denominator' => 'nullable|array',
-            $prefix . 'value.valueRatio.denominator.value' => 'nullable|decimal',
+            $prefix . 'value.valueRatio.denominator.value' => 'nullable|numeric',
             $prefix . 'value.valueRatio.denominator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'value.valueRatio.denominator.unit' => 'nullable|string',
             $prefix . 'value.valueRatio.denominator.system' => 'nullable|string',
             $prefix . 'value.valueRatio.denominator.code' => 'nullable|string',
             $prefix . 'value.valueSampledData' => 'nullable|array',
             $prefix . 'value.valueSampledData.origin' => 'nullable|array',
-            $prefix . 'value.valueSampledData.origin.value' => 'nullable|decimal',
+            $prefix . 'value.valueSampledData.origin.value' => 'nullable|numeric',
             $prefix . 'value.valueSampledData.origin.unit' => 'nullable|string',
             $prefix . 'value.valueSampledData.origin.system' => 'nullable|string',
             $prefix . 'value.valueSampledData.origin.code' => 'nullable|string',
-            $prefix . 'value.valueSampledData.period' => 'nullable|decimal',
-            $prefix . 'value.valueSampledData.factor' => 'nullable|decimal',
-            $prefix . 'value.valueSampledData.lowerLimit' => 'nullable|decimal',
-            $prefix . 'value.valueSampledData.upperLimit' => 'nullable|decimal',
+            $prefix . 'value.valueSampledData.period' => 'nullable|numeric',
+            $prefix . 'value.valueSampledData.factor' => 'nullable|numeric',
+            $prefix . 'value.valueSampledData.lowerLimit' => 'nullable|numeric',
+            $prefix . 'value.valueSampledData.upperLimit' => 'nullable|numeric',
             $prefix . 'value.valueSampledData.dimensions' => 'nullable|integer|gte:0',
             $prefix . 'value.valueSampledData.data' => 'nullable|string',
             $prefix . 'value.valueTime' => 'nullable|date_format:H:i:s',
@@ -282,20 +423,20 @@ class FhirRequest extends FormRequest
             $prefix . 'performed.performedPeriod.end' => 'nullable|date',
             $prefix . 'performed.performedString' => 'nullable|string',
             $prefix . 'performed.performedAge' => 'nullable|array',
-            $prefix . 'performed.performedAge.value' => 'nullable|decimal',
+            $prefix . 'performed.performedAge.value' => 'nullable|numeric',
             $prefix . 'performed.performedAge.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'performed.performedAge.unit' => 'nullable|string',
             $prefix . 'performed.performedAge.system' => 'nullable|string',
             $prefix . 'performed.performedAge.code' => 'nullable|string',
             $prefix . 'performed.performedRange' => 'nullable|array',
             $prefix . 'performed.performedRange.low' => 'nullable|array',
-            $prefix . 'performed.performedRange.low.value' => 'nullable|decimal',
+            $prefix . 'performed.performedRange.low.value' => 'nullable|numeric',
             $prefix . 'performed.performedRange.low.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'performed.performedRange.low.unit' => 'nullable|string',
             $prefix . 'performed.performedRange.low.system' => 'nullable|string',
             $prefix . 'performed.performedRange.low.code' => 'nullable|string',
             $prefix . 'performed.performedRange.high' => 'nullable|array',
-            $prefix . 'performed.performedRange.high.value' => 'nullable|decimal',
+            $prefix . 'performed.performedRange.high.value' => 'nullable|numeric',
             $prefix . 'performed.performedRange.high.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
             $prefix . 'performed.performedRange.high.unit' => 'nullable|string',
             $prefix . 'performed.performedRange.high.system' => 'nullable|string',
@@ -303,19 +444,34 @@ class FhirRequest extends FormRequest
         ];
     }
 
-    public function getRatioDataRules($prefix = null): array
+    public function getRatioDataRules(string $prefix = null, bool $isArray = false): array
     {
-        return [
-            $prefix . 'numerator.value' => 'nullable|decimal',
-            $prefix . 'numerator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
-            $prefix . 'numerator.unit' => 'nullable|string',
-            $prefix . 'numerator.system' => 'nullable|string',
-            $prefix . 'numerator.code' => 'nullable|string',
-            $prefix . 'denominator.value' => 'nullable|decimal',
-            $prefix . 'denominator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
-            $prefix . 'denominator.unit' => 'nullable|string',
-            $prefix . 'denominator.system' => 'nullable|string',
-            $prefix . 'denominator.code' => 'nullable|string',
-        ];
+        if ($isArray) {
+            return [
+                $prefix . 'numerator.value' => 'nullable|numeric',
+                $prefix . 'numerator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+                $prefix . 'numerator.unit' => 'nullable|string',
+                $prefix . 'numerator.system' => 'nullable|string',
+                $prefix . 'numerator.code' => 'nullable|string',
+                $prefix . 'denominator.value' => 'nullable|numeric',
+                $prefix . 'denominator.comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+                $prefix . 'denominator.unit' => 'nullable|string',
+                $prefix . 'denominator.system' => 'nullable|string',
+                $prefix . 'denominator.code' => 'nullable|string',
+            ];
+        } else {
+            return [
+                $prefix . 'numerator_value' => 'nullable|numeric',
+                $prefix . 'numerator_comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+                $prefix . 'numerator_unit' => 'nullable|string',
+                $prefix . 'numerator_system' => 'nullable|string',
+                $prefix . 'numerator_code' => 'nullable|string',
+                $prefix . 'denominator_value' => 'nullable|numeric',
+                $prefix . 'denominator_comparator' => ['nullable', Rule::in(Constants::COMPARATOR)],
+                $prefix . 'denominator_unit' => 'nullable|string',
+                $prefix . 'denominator_system' => 'nullable|string',
+                $prefix . 'denominator_code' => 'nullable|string',
+            ];
+        }
     }
 }

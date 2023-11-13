@@ -20,7 +20,16 @@ class ObservationResource extends FhirResource
     {
         $observation = $this->getData('observation');
 
-        $data = merge_array(
+        $data = $this->resourceStructure($observation);
+
+        $data = removeEmptyValues($data);
+
+        return $data;
+    }
+
+    private function resourceStructure($observation): array
+    {
+        return merge_array(
             [
                 'resourceType' => 'Observation',
                 'id' => $this->satusehat_id,
@@ -90,10 +99,6 @@ class ObservationResource extends FhirResource
             $observation->effective,
             $observation->value
         );
-
-        $data = removeEmptyValues($data);
-
-        return $data;
     }
 
     private function createReferenceRangeArray(Collection $referenceRangeAttribute)
