@@ -10,7 +10,7 @@ class ClinicalImpressionNote extends Model
 {
     protected $table = 'clinical_impression_note';
     protected $casts = [
-        'author' => 'json',
+        'author' => 'array',
         'time' => 'datetime'
     ];
     public $timestamps = false;

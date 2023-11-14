@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('status_reason_system')->nullable();
             $table->string('status_reason_code')->nullable();
             $table->string('status_reason_display')->nullable();
+            $table->string('status_reason_text')->nullable();
             $table->string('code_system')->nullable();
             $table->string('code_code')->nullable();
             $table->string('code_display')->nullable();

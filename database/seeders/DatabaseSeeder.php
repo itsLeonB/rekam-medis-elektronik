@@ -18,17 +18,17 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\User::factory()->create([
-            'email' => 'admin@admin.com',
-            'password' => 'admin123'
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'email' => 'admin@admin.com',
+        //     'password' => 'admin123'
+        // ]);
 
         $this->call([
-            UserSeeder::class,
-            WilayahSeeder::class,
-            CodeSystemSeeder::class,
-            ValueSetSeeder::class,
-            // ResourceSeeder::class, // Resource FHIR R5
+            // UserSeeder::class,
+            // WilayahSeeder::class,
+            // CodeSystemSeeder::class,
+            // ValueSetSeeder::class,
+            // // ResourceSeeder::class, // Resource FHIR R5
             IdFhirResourceSeeder::class, // Resource example dari SATUSEHAT API
             PractitionerSeeder::class,
             PatientSeeder::class,

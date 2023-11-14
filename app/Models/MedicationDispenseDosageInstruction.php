@@ -10,8 +10,8 @@ class MedicationDispenseDosageInstruction extends Model
 {
     protected $table = 'medication_dispense_dosage';
     protected $casts = [
-        'timing_event' => 'json',
-        'timing_repeat' => 'json',
+        'timing_event' => 'array',
+        'timing_repeat' => 'array',
         'max_dose_per_period_numerator_value' => 'decimal:2',
         'max_dose_per_period_denominator_value' => 'decimal:2',
         'max_dose_per_administration_value' => 'decimal:2',

@@ -35,10 +35,11 @@ class ClinicalImpressionSeeder extends Seeder
             $statusReason = returnCodeableConcept(returnAttribute($resContent, ['statusReason']), 'status_reason');
             $code = returnCodeableConcept(returnAttribute($resContent, ['code']), 'code');
 
-            $impress = ClinicalImpression::create(merge_array(
+            $impress = ClinicalImpression::create(
                 [
                     'resource_id' => $ci->id,
                     'status' => returnAttribute($resContent, ['status'], 'in-progress'),
+                    'status_reason_text' => returnAttribute($resContent, ['statusReason', 'text']),
                     'description' => returnAttribute($resContent, ['description']),
                     'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
                     'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
@@ -47,10 +48,8 @@ class ClinicalImpressionSeeder extends Seeder
                     'assessor' => returnAttribute($resContent, ['assessor', 'reference']),
                     'previous' => returnAttribute($resContent, ['previous', 'reference']),
                     'summary' => returnAttribute($resContent, ['summary']),
-                ],
-                $statusReason,
-                $code
-            ));
+                ]
+            );
 
             $foreignKey = ['impression_id' => $impress->id];
 
@@ -84,7 +83,6 @@ class ClinicalImpressionSeeder extends Seeder
             parseAndCreate(ClinicalImpressionFinding::class, returnAttribute($resContent, ['finding']), 'returnFinding', $foreignKey);
             parseAndCreateCompound(ClinicalImpressionPrognosis::class, $resContent, ['prognosisCodeableConcept' => 'returnCodeableConcept', 'prognosisReference' => 'returnReference'], $foreignKey);
             parseAndCreate(ClinicalImpressionSupportingInfo::class, returnAttribute($resContent, ['supportingInfo']), 'returnReference', $foreignKey);
-            parseAndCreate(ClinicalImpressionNote::class, returnAttribute($resContent, ['note']), 'returnAnnotation', $foreignKey);
         }
     }
 }

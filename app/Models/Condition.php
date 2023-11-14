@@ -38,8 +38,8 @@ class Condition extends Model
 
     protected $table = 'condition';
     protected $casts = [
-        'onset' => 'json',
-        'abatement' => 'json',
+        'onset' => 'array',
+        'abatement' => 'array',
         'recorded_date' => 'date'
     ];
     protected $guarded = ['id'];

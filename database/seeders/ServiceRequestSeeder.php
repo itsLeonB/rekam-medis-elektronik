@@ -36,27 +36,26 @@ class ServiceRequestSeeder extends Seeder
             $resContent = json_decode($sr->res_text, true);
             $requisition = returnIdentifier(returnAttribute($resContent, ['requisition']), 'requisition');
             $code = returnCodeableConcept(returnAttribute($resContent, ['code']), 'code');
-            $performerType = returnCodeableConcept(returnAttribute($resContent, ['performerType']), 'performer_type');
+            $arr = [
+                'resource_id' => $sr->id,
+                'status' => returnAttribute($resContent, ['status'], 'draft'),
+                'intent' => returnAttribute($resContent, ['intent'], 'proposal'),
+                'priority' => returnAttribute($resContent, ['priority']),
+                'do_not_perform' => returnAttribute($resContent, ['doNotPerform']),
+                'quantity' => returnVariableAttribute($resContent, 'quantity', ['Quantity', 'Ratio', 'Range']),
+                'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
+                'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
+                'occurrence' => returnVariableAttribute($resContent, 'occurrence', ['DateTime', 'Period', 'Timing']),
+                'as_needed' => returnVariableAttribute($resContent, 'asNeeded', ['Boolean', 'CodeableConcept']),
+                'authored_on' => parseDateInput(returnAttribute($resContent, ['authoredOn'])),
+                'requester' => returnAttribute($resContent, ['requester', 'reference']),
+                'patient_instruction' => returnAttribute($resContent, ['patientInstruction'])
+            ];
 
             $serviceReq = ServiceRequest::create(merge_array(
                 $requisition,
-                [
-                    'resource_id' => $sr->id,
-                    'status' => returnAttribute($resContent, ['status'], 'draft'),
-                    'intent' => returnAttribute($resContent, ['intent'], 'proposal'),
-                    'priority' => returnAttribute($resContent, ['priority']),
-                    'do_not_perform' => returnAttribute($resContent, ['doNotPerform']),
-                    'quantity' => returnVariableAttribute($resContent, 'quantity', ['Quantity', 'Ratio', 'Range']),
-                    'subject' => returnAttribute($resContent, ['subject', 'reference'], ''),
-                    'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
-                    'occurrence' => returnVariableAttribute($resContent, 'occurrence', ['DateTime', 'Period', 'Timing']),
-                    'as_needed' => returnVariableAttribute($resContent, 'asNeeded', ['Boolean', 'CodeableConcept']),
-                    'authored_on' => parseDateInput(returnAttribute($resContent, ['authoredOn'])),
-                    'requester' => returnAttribute($resContent, ['requester', 'reference']),
-                    'patient_instruction' => returnAttribute($resContent, ['patientInstruction'])
-                ],
-                $code,
-                $performerType
+                $arr,
+                $code
             ));
 
             $fk = ['request_id' => $serviceReq->id];

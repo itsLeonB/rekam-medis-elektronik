@@ -28,9 +28,9 @@ class Observation extends Model
 
     protected $table = 'observation';
     protected $casts = [
-        'effective' => 'json',
+        'effective' => 'array',
         'issued' => 'datetime',
-        'value' => 'json',
+        'value' => 'array',
     ];
     public $timestamps = false;
 

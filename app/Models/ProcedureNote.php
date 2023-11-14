@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProcedureNote extends Model
 {
     protected $table = 'procedure_note';
-    protected $casts = ['author' => 'json'];
+    protected $casts = ['author' => 'array'];
     public $timestamps = false;
 
     public function procedure(): BelongsTo

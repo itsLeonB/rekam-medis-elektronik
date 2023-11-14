@@ -1,0 +1,98 @@
+{
+    "clinical_impression": {
+        "status": "in-progress",
+        "status_reason_system": "http://hl7.org/fhir/sid/icd-10",
+        "status_reason_code": "A15.0",
+        "status_reason_display": "Tuberculosis of lung, confirmed by sputum microscopy with or without culture",
+        "status_reason_text": "Bapak Budi Santoso terdiagnosa TB, dan tidak menunjukkan adanya resistensi obat",
+        "code_system": null,
+        "code_code": null,
+        "code_display": null,
+        "description": "Bapak Budi Santoso terdiagnosa TB, dan tidak menunjukkan adanya resistensi obat",
+        "subject": "Patient/100000030009",
+        "encounter": "Encounter/4c4d890d-fd63-49e0-bad6-7df4dc443125",
+        "effective": {
+            "effectiveDateTime": "2022-06-14T15:37:31+07:00",
+            "effectivePeriod": {
+                "start": "2022-06-14T15:37:31+07:00",
+                "end": "2022-06-14T16:37:31+07:00"
+            }
+        },
+        "date": "2022-06-14T15:15:31+07:00",
+        "assessor": "Practitioner/N10000001",
+        "previous": "ClinicalImpression/null",
+        "summary": "Prognosis terhadap gejala klinis dan terkonfirmasi Tuberculosis"
+    },
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/clinicallimpression/10000001",
+            "use": "official",
+            "value": "5234342"
+        }
+    ],
+    "problem": [
+        {
+            "reference": "Condition/null"
+        },
+        {
+            "reference": "AllergyIntolerance/null"
+        }
+    ],
+    "investigation": [
+        {
+            "investigation_data": {
+                "system": "http://snomed.info/sct",
+                "code": "271336007",
+                "display": "Examination / signs",
+                "text": "Pemeriksaan Sputum BTA"
+            },
+            "item": [
+                {
+                    "reference": "DiagnosticReport/a0fa6244-7638-43ba-bbc2-2af954761540"
+                },
+                {
+                    "reference": "Observation/56819f05-28b9-43c2-b0d1-3785768aa886"
+                }
+            ]
+        }
+    ],
+    "protocol": [
+        {
+            "uri": "http://null.com"
+        }
+    ],
+    "finding": [
+        {
+            "system": "http://hl7.org/fhir/sid/icd-10",
+            "code": "R40.0",
+            "display": "Somnolence",
+            "reference": "Condition/null",
+            "basis": "Ada sesuatu di Jogja"
+        }
+    ],
+    "prognosis": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "170968001",
+            "display": "Prognosis good",
+            "reference": "RiskAssessment/null"
+        }
+    ],
+    "supporting_info": [
+        {
+            "reference": "Resource/null"
+        }
+    ],
+    "note": [
+        {
+            "author": {
+                "authorString": "Dokter Bronsig",
+                "authorReference": {
+                    "reference": "Practitioner/1000400104"
+                }
+            },
+            "time": "2023-11-01T11:31:00+07:00",
+            "text": "# Catatan<br>## Subbab"
+        }
+    ]
+}

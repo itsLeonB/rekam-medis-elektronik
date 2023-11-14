@@ -75,7 +75,7 @@ class AllergyIntolerance extends Model
 
     protected $table = 'allergy_intolerance';
     protected $casts = [
-        'onset' => 'json',
+        'onset' => 'array',
         'recorded_date' => 'datetime',
         'last_occurence' => 'datetime',
         'category_food' => 'boolean',

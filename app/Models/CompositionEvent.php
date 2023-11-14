@@ -11,8 +11,8 @@ class CompositionEvent extends Model
 {
     protected $table = 'composition_event';
     protected $casts = [
-        'period_start' => 'dateTime',
-        'period_end' => 'dateTime'
+        'period_start' => 'datetime',
+        'period_end' => 'datetime'
     ];
     public $timestamps = false;
 

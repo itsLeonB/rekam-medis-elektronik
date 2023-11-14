@@ -88,13 +88,13 @@ class Controller extends BaseController
      */
     public function createInstances(string $model, array $key, array $body, string $bodyKey, array $nestedModels = [])
     {
-        if (isset($body) && array_key_exists($bodyKey, $body)) {
+        // if (isset($body) && array_key_exists($bodyKey, $body)) {
             foreach ($body[$bodyKey] as $item) {
                 $item = $this->encodeArrayAttributesToJson($item);
                 $instance = $this->createModelInstance($model, $key, $item);
                 $this->createNestedModelInstances($nestedModels, $item, $instance);
             }
-        }
+        // }
     }
 
     /**

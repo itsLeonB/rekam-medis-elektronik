@@ -31,7 +31,7 @@ class Procedure extends Model
     public const OUTCOME_DISPLAY = ['385669000' => 'Successful', '385671000' => 'Unsuccessful', '385670004' => 'Partially successful'];
 
     protected $table = 'procedure';
-    protected $casts = ['performed' => 'json'];
+    protected $casts = ['performed' => 'array'];
     public $timestamps = false;
 
     public function resource(): BelongsTo

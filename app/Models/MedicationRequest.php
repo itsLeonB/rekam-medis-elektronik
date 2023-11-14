@@ -53,7 +53,7 @@ class MedicationRequest extends Model
         'validity_period_end' => 'datetime',
         'quantity_value' => 'decimal:2',
         'supply_duration_value' => 'decimal:2',
-        'substitution_allowed' => 'json'
+        'substitution_allowed' => 'array'
     ];
     public $timestamps = false;
 
