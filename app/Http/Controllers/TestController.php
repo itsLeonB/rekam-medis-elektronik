@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AllergyIntoleranceResource;
+use App\Http\Resources\CompositionResource;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
 use App\Http\Resources\MedicationDispenseResource;
@@ -37,6 +38,14 @@ use Tests\Traits\ExamplePayload;
 class TestController extends Controller
 {
     use ExamplePayload;
+
+    public function testCompositionResource($satusehat_id)
+    {
+        return response()->json(new CompositionResource(Resource::where([
+            ['satusehat_id', '=', $satusehat_id],
+            ['res_type', '=', 'Composition']
+        ])->firstOrFail()), 200);
+    }
 
     public function testMedicationDispenseResource($satusehat_id)
     {
