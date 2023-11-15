@@ -6,15 +6,13 @@ use App\Models\Composition;
 use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Tests\Traits\ExamplePayload;
+use Tests\Traits\FhirTest;
 
 class CompositionDataTest extends TestCase
 {
     use DatabaseTransactions;
-    use ExamplePayload;
+    use FhirTest;
 
     /**
      * Test apakah user dapat menlihat data diet pasien

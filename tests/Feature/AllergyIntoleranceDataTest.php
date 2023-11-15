@@ -6,15 +6,13 @@ use App\Models\AllergyIntolerance;
 use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Tests\Traits\ExamplePayload;
+use Tests\Traits\FhirTest;
 
 class AllergyIntoleranceDataTest extends TestCase
 {
     use DatabaseTransactions;
-    use ExamplePayload;
+    use FhirTest;
 
     /**
      * Test apakah user dapat menlihat data alergi pasien
@@ -57,5 +55,19 @@ class AllergyIntoleranceDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/allergyintolerance/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('allergy_intolerance', $data['allergy_intolerance']);
+        $this->assertManyData('allergy_intolerance_identifier', $data['identifier']);
+        $this->assertManyData('allergy_intolerance_note', $data['note']);
+        $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
+            [
+                'table' => 'allergy_react_manifest',
+                'data' => 'manifestation'
+            ],
+            [
+                'table' => 'allergy_react_note',
+                'data' => 'note'
+            ]
+        ]);
     }
 }

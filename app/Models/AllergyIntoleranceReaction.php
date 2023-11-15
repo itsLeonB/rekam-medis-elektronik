@@ -35,11 +35,11 @@ class AllergyIntoleranceReaction extends Model
 
     public function manifestation(): HasMany
     {
-        return $this->hasMany(AllergyIntoleranceReactionManifestation::class, 'allergy_reaction_id');
+        return $this->hasMany(AllergyIntoleranceReactionManifestation::class, 'allergy_react_id');
     }
 
     public function note(): HasMany
     {
-        return $this->hasMany(AllergyIntoleranceReactionNote::class, 'allergy_reaction_id');
+        return $this->hasMany(AllergyIntoleranceReactionNote::class, 'allergy_react_id');
     }
 }

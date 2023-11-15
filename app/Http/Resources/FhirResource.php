@@ -185,7 +185,7 @@ class FhirResource extends JsonResource
         if (is_array($annotationAttribute) || is_object($annotationAttribute)) {
             foreach ($annotationAttribute as $a) {
                 $annotation[] = merge_array(
-                    json_decode($a->author, true),
+                    $a->author,
                     [
                         'time' => $this->parseDateFhir($a->time),
                         'text' => $a->text

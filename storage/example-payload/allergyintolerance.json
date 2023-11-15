@@ -16,31 +16,31 @@
         "onset": {
             "onsetDateTime": "2023-10-31T11:43:23+07:00",
             "onsetAge": {
-                "value": null,
-                "comparator": null,
-                "unit": null,
-                "system": null,
-                "code": null
+                "value": 22,
+                "comparator": "<",
+                "unit": "years",
+                "system": "http://unitsofmeasure.org",
+                "code": "a"
             },
             "onsetPeriod": {
-                "start": null,
-                "end": null
+                "start": "2023-11-15T14:56:34+07:00",
+                "end": "2023-11-15T15:56:34+07:00"
             },
             "onsetRange": {
                 "low": {
-                    "value": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 10,
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 },
                 "high": {
-                    "value": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 25,
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 }
             },
-            "onsetString": null
+            "onsetString": "sehari-hari"
         },
         "recorded_date": "2023-11-01T11.16.01+07:00",
         "recorder": "Practitioner/1000400104",

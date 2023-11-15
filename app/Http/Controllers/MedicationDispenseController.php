@@ -24,7 +24,7 @@ class MedicationDispenseController extends Controller
     {
         $body = $this->retrieveJsonPayload($request);
 
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             [$resource, $resourceKey] = $this->createResource('MedicationDispense');
 
             $medicationDispense = MedicationDispense::create(array_merge($resourceKey, $body['medication_dispense']));
@@ -36,7 +36,7 @@ class MedicationDispenseController extends Controller
             $this->createInstances(MedicationDispensePerformer::class, $medicationDispenseKey, $body, 'performer');
             $this->createInstances(MedicationDispenseAuthorizingPrescription::class, $medicationDispenseKey, $body, 'authorizing_prescription');
 
-            // if (is_array($body['dosage_instruction']) || is_object($body['dosage_instruction'])) {
+            if (is_array($body['dosage_instruction']) || is_object($body['dosage_instruction'])) {
                 $this->createInstances(MedicationDispenseDosageInstruction::class, $medicationDispenseKey, $body['dosage_instruction'], 'dosage_data', [
                     [
                         'model' => MedicationDispenseDosageInstructionAdditionalInstruction::class,
@@ -49,7 +49,7 @@ class MedicationDispenseController extends Controller
                         'bodyKey' => 'dose_rate'
                     ]
                 ]);
-            // }
+            }
 
             if (is_array($body['substitution']) || is_object($body['substitution'])) {
                 $subs = MedicationDispenseSubstitution::create(array_merge($medicationDispenseKey, $body['substitution']['substitution_data']));
@@ -61,6 +61,6 @@ class MedicationDispenseController extends Controller
             $this->createResourceContent(MedicationDispenseResource::class, $resource);
 
             return response()->json($resource->medicationDispense->first(), 201);
-        // });
+        });
     }
 }
