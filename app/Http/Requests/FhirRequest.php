@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Constants;
+use App\Models\CompositionSection;
 use App\Models\MedicationRequestDosage;
 use App\Models\MedicationRequestDosageAdditionalInstruction;
 use App\Models\MedicationRequestDosageDoseRate;
@@ -20,6 +21,21 @@ class FhirRequest extends FormRequest
         //     abort(403, 'Unauthorized action.');
         // }
         return true;
+    }
+
+    public function getNarrativeDataRules(string $prefix = null, bool $nullable = false): array
+    {
+        if ($nullable) {
+            return [
+                $prefix . 'status' => ['nullable', Rule::in(CompositionSection::TEXT_STATUS_CODE)],
+                $prefix . 'div' => 'nullable|string',
+            ];
+        } else {
+            return [
+                $prefix . 'status' => ['required', Rule::in(CompositionSection::TEXT_STATUS_CODE)],
+                $prefix . 'div' => 'required|string',
+            ];
+        }
     }
 
     public function getTimingDataRules(string $prefix = null): array

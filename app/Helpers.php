@@ -1147,15 +1147,13 @@ function returnAttribute($array, $keys, $defaultValue = null)
 function parseAndCreate($model, $data, $callback, $foreignKey)
 {
     if (is_array($data) || is_object($data)) {
-        $dataArray = [];
         foreach ($data as $d) {
             $details = $callback($d);
             if (is_array($details) || is_object($details)) {
                 $details = array_merge($details, $foreignKey);
-                $dataArray[] = $details;
+                $model::create($details);
             }
         }
-        $model::insert($dataArray);
     }
 }
 
@@ -1242,17 +1240,13 @@ function returnVariableAttribute($resource, $var, $variableAttributes)
     $variableAttribute = [];
 
     foreach ($variableAttributes as $va) {
-        $va = $var . $va;
-        if (isset($resource[$va]) && !empty($resource[$va])) {
-            $variableAttribute[$va] = $resource[$va];
+        $vaKey = $var . $va;
+        if (isset($resource[$vaKey]) && !empty($resource[$vaKey])) {
+            $variableAttribute[$vaKey] = $resource[$vaKey];
         }
     }
 
-    if (empty($variableAttribute)) {
-        return null;
-    } else {
-        return json_encode($variableAttribute);
-    }
+    return empty($variableAttribute) ? null : $variableAttribute;
 }
 
 function returnAnnotation($attribute)

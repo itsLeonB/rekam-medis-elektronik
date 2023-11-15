@@ -86,14 +86,20 @@ class Controller extends BaseController
      * @param array $nestedModels An optional array of nested models to create instances of.
      * @return void
      */
-    public function createInstances(string $model, array $key, array $body, string $bodyKey, array $nestedModels = [])
+    public function createInstances(string $model, array $key, array $body, string $bodyKey)
     {
         if (isset($body) && array_key_exists($bodyKey, $body)) {
             foreach ($body[$bodyKey] as $item) {
-                $item = $this->encodeArrayAttributesToJson($item);
-                $instance = $this->createModelInstance($model, $key, $item);
-                $this->createNestedModelInstances($nestedModels, $item, $instance);
+                $this->createModelInstance($model, $key, $item);
             }
+        }
+    }
+
+    public function createNestedInstances(string $model, array $key, array $body, string $bodyKey, array $nestedModels = [])
+    {
+        foreach ($body[$bodyKey] as $item) {
+            $instance = $this->createModelInstance($model, $key, $item[$bodyKey . '_data']);
+            $this->createNestedModelInstances($nestedModels, $item, $instance);
         }
     }
 

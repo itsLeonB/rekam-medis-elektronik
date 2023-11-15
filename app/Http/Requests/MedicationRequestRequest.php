@@ -15,7 +15,7 @@ class MedicationRequestRequest extends FhirRequest
      */
     public function rules(): array
     {
-        $rule = array_merge(
+        return array_merge(
             $this->baseAttributeRules(),
             $this->baseDataRules(),
             $this->getIdentifierDataRules('identifier.*.'),
@@ -27,9 +27,6 @@ class MedicationRequestRequest extends FhirRequest
             $this->getAnnotationDataRules('note.*.'),
             $this->getDosageDataRules('dosage.*.')
         );
-
-        // dd($rule);
-        return $rule;
     }
 
     private function baseAttributeRules(): array

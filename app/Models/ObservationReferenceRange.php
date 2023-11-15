@@ -17,7 +17,7 @@ class ObservationReferenceRange extends Model
     protected $casts = [
         'value_low' => 'decimal',
         'value_high' => 'decimal',
-        'applies_to' => 'json'
+        'applies_to' => 'array'
     ];
     public $timestamps = false;
 

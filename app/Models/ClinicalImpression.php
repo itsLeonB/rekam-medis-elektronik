@@ -9,9 +9,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClinicalImpression extends Model
 {
+    public const STATUS_SYSTEM = 'http://hl7.org/fhir/eventstatus';
+    public const STATUS_CODE = ['in-progress', 'completed', 'entered-in-error'];
+    public const STATUS_DISPLAY = ["in-progress" => "Proses asesmen sedang berlangsung", "completed" => "Proses asesmen sudah selesai atau final", "entered-in-error" => "Kesalahan dalam input data"];
+
     protected $table = 'clinical_impression';
     protected $casts = [
-        'effective' => 'json',
+        'effective' => 'array',
         'date' => 'datetime'
     ];
     public $timestamps = false;
@@ -24,6 +28,11 @@ class ClinicalImpression extends Model
     public function identifier(): HasMany
     {
         return $this->hasMany(ClinicalImpressionIdentifier::class, 'impression_id');
+    }
+
+    public function problem(): HasMany
+    {
+        return $this->hasMany(ClinicalImpressionProblem::class, 'impression_id');
     }
 
     public function investigation(): HasMany

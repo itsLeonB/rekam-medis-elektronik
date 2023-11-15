@@ -1,0 +1,93 @@
+{
+    "composition": {
+        "identifier_system": "http://sys-ids.kemkes.go.id/composition/10000001",
+        "identifier_use": "official",
+        "identifier_value": "5234342",
+        "status": "preliminary",
+        "type_system": "http://loinc.org",
+        "type_code": "18842-5",
+        "type_display": "Discharge Summary",
+        "subject": "Patient/100000030009",
+        "encounter": "Encounter/4c4d890d-fd63-49e0-bad6-7df4dc443125",
+        "date": "2015-02-07T13:28:17.239+07:00",
+        "title": "Resume Medis Rawat Jalan",
+        "confidentiality": "N",
+        "custodian": "Organization/10000004"
+    },
+    "category": [
+        {
+            "system": "http://loinc.org",
+            "code": "LP173421-1",
+            "display": "Report"
+        }
+    ],
+    "author": [
+        {
+            "reference": "Practitioner/N10000001"
+        }
+    ],
+    "attester": [
+        {
+            "mode": "legal",
+            "time": "2015-02-07T13:28:17.239+07:00",
+            "party": "Patient/100000030009"
+        }
+    ],
+    "relates_to": [
+        {
+            "code": "replaces",
+            "target": {
+                "targetIdentifier": {
+                    "system": "http://sys-ids.kemkes.go.id/composition/10000001",
+                    "use": "official",
+                    "value": "5234342"
+                },
+                "targetReference": "Composition/5234342"
+            }
+        }
+    ],
+    "event": [
+        {
+            "event_data": {
+                "period_start": "2023-11-13T23:16:34+07:00",
+                "period_end": "2023-11-14T00:16:34+07:00"
+            },
+            "code": [
+                {
+                    "system": "http://loinc.org",
+                    "code": "42334-2",
+                    "display": "Discharge diet (narrative)"
+                }
+            ],
+            "detail": [
+                {
+                    "reference": "Resource/null"
+                }
+            ]
+        }
+    ],
+    "section": [
+        {
+            "section_data": {
+                "title": "Resume Medis Rawat Jalan",
+                "code": "42344-2",
+                "focus": "Resource/null",
+                "text_status": "additional",
+                "text_div": "<p>Teks disini</p>",
+                "mode": "working",
+                "ordered_by": "user",
+                "empty_reason": "nilknown"
+            },
+            "author": [
+                {
+                    "reference": "Practitioner/N10000001"
+                }
+            ],
+            "entry": [
+                {
+                    "reference": "Resource/null"
+                }
+            ]
+        }
+    ]
+}

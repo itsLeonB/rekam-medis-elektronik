@@ -60,7 +60,7 @@ class ObservationSeeder extends Seeder
                     'encounter' => returnAttribute($resContent, ['encounter', 'reference'], ''),
                     'effective' => returnVariableAttribute($resContent, 'effective', ['DateTime', 'Period', 'Timing', 'Instant']),
                     'issued' => returnAttribute($resContent, ['issued']),
-                    'value' => returnValue($resContent),
+                    'value' => returnVariableAttribute($resContent, 'value', ['Quantity', 'CodeableConcept', 'String', 'Boolean', 'Integer', 'Range', 'Ratio', 'SampledData', 'Time', 'DateTime', 'Period']),
                     'data_absent_reason' => returnAttribute($resContent, ['dataAbsentReason', 'coding', 0, 'code']),
                     'body_site_system' => returnAttribute($resContent, ['bodySite', 'coding', 0, 'system']),
                     'body_site_code' => returnAttribute($resContent, ['bodySite', 'coding', 0, 'code']),

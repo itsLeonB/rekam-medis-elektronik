@@ -7,12 +7,12 @@ use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use Tests\Traits\ExamplePayload;
+use Tests\Traits\FhirTest;
 
 class PatientDataTest extends TestCase
 {
     use DatabaseTransactions;
-    use ExamplePayload;
+    use FhirTest;
 
     /**
      * Test apakah user dapat menlihat data pasien

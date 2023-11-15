@@ -12,9 +12,9 @@ class ServiceRequest extends Model
     protected $table = 'service_request';
     protected $casts = [
         'do_not_perform' => 'boolean',
-        'quantity' => 'json',
-        'occurence' => 'json',
-        'as_needed' => 'json',
+        'quantity' => 'array',
+        'occurrence' => 'array',
+        'as_needed' => 'array',
         'authored_on' => 'datetime'
     ];
     public $timestamps = false;

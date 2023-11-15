@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class ObservationComponent extends Model
 {
     protected $table = 'observation_component';
-    protected $casts = ['value' => 'json'];
+    protected $casts = ['value' => 'array'];
     public $timestamps = false;
 
     public function observation(): BelongsTo

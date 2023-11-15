@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AllergyIntoleranceController;
+use App\Http\Controllers\ClinicalImpressionController;
+use App\Http\Controllers\CompositionController;
 use App\Http\Controllers\ConditionController;
 use App\Http\Controllers\EncounterController;
 use App\Http\Controllers\MedicationController;
@@ -72,7 +74,15 @@ Route::post('/medicationrequest/create', [MedicationRequestController::class, 'p
 // MedicationDispense resource endpoint
 Route::post('/medicationdispense/create', [MedicationDispenseController::class, 'postMedicationDispense']);
 
+// Composition resource endpoint
+Route::post('/composition/create', [CompositionController::class, 'postComposition']);
+
+// ClinicalImpression resource endpoint
+Route::post('/clinicalimpression/create', [ClinicalImpressionController::class, 'postClinicalImpression']);
+
 // Testing endpoint
+Route::get('/test-get/clinicalimpression/{satusehat_id}', [TestController::class, 'testClinicalImpressionResource']);
+Route::get('/test-get/composition/{satusehat_id}', [TestController::class, 'testCompositionResource']);
 Route::get('/test-get/medicationdispense/{satusehat_id}', [TestController::class, 'testMedicationDispenseResource']);
 Route::get('/test-get/medicationrequest/{satusehat_id}', [TestController::class, 'testMedicationRequestResource']);
 Route::get('/test-get/medication/{satusehat_id}', [TestController::class, 'testMedicationResource']);

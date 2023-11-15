@@ -10,8 +10,8 @@ class MedicationDispenseDosageInstructionDoseRate extends Model
 {
     protected $table = 'med_disp_dosage_dose_rate';
     protected $casts = [
-        'dose' => 'json',
-        'rate' => 'json'
+        'dose' => 'array',
+        'rate' => 'array'
     ];
     public $timestamps = false;
 

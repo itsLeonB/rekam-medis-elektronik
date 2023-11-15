@@ -17,6 +17,13 @@ use App\Services\FhirService;
 
 class AllergyIntoleranceController extends Controller
 {
+    /**
+     * Store a newly created AllergyIntolerance resource in storage.
+     *
+     * @param  \App\Http\Requests\AllergyIntoleranceRequest  $request
+     * @param  \App\Services\FhirService  $fhirService
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postAllergyIntolerance(AllergyIntoleranceRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -30,8 +37,9 @@ class AllergyIntoleranceController extends Controller
 
             $this->createInstances(AllergyIntoleranceIdentifier::class, $allergyKey, $body, 'identifier');
             $this->createInstances(AllergyIntoleranceNote::class, $allergyKey, $body, 'note');
+
             if (isset($body['reaction']) && !empty($body['reaction'])) {
-                $this->createInstances(AllergyIntoleranceReaction::class, $allergyKey, $body['reaction'], 'reaction_data', [
+                $this->createNestedInstances(AllergyIntoleranceReaction::class, $allergyKey, $body, 'reaction', [
                     [
                         'model' => AllergyIntoleranceReactionManifestation::class,
                         'key' => 'allergy_react_id',

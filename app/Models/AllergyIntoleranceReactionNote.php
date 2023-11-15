@@ -10,7 +10,7 @@ class AllergyIntoleranceReactionNote extends Model
 {
     protected $table = 'allergy_react_note';
     protected $casts = [
-        'author' => 'json',
+        'author' => 'array',
         'time' => 'datetime'
     ];
     protected $guarded = ['id'];

@@ -10,7 +10,7 @@ class ServiceRequestNote extends Model
 {
     protected $table = 'service_request_note';
     protected $casts = [
-        'author' => 'json',
+        'author' => 'array',
         'time' => 'datetime'
     ];
     public $timestamps = false;
