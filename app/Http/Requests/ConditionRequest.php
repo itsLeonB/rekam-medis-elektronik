@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Models\Condition;
 use App\Models\ConditionCategory;
+use App\Models\ConditionStage;
 use Illuminate\Validation\Rule;
 
 class ConditionRequest extends FhirRequest
@@ -65,7 +66,7 @@ class ConditionRequest extends FhirRequest
         return [
             'stage.*.stage_data' => 'required|array',
             'stage.*.stage_data.summary_system' => 'nullable|string',
-            'stage.*.stage_data.summary_code' => 'nullable|string',
+            'stage.*.stage_data.summary_code' => ['nullable', Rule::in(ConditionStage::SUMMARY_CODE)],
             'stage.*.stage_data.summary_display' => 'nullable|string',
             'stage.*.stage_data.type_system' => 'nullable|string',
             'stage.*.stage_data.type_code' => 'nullable|string',

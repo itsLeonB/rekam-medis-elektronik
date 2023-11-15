@@ -34,7 +34,7 @@ class ConditionController extends Controller
             $this->createInstances(ConditionCategory::class, $conditionKey, $body, 'category');
             $this->createInstances(ConditionBodySite::class, $conditionKey, $body, 'body_site');
             if (isset($body['stage']) && !empty($body['stage'])) {
-                $this->createInstances(ConditionStage::class, $conditionKey, $body['stage'], 'stage_data', [
+                $this->createNestedInstances(ConditionStage::class, $conditionKey, $body, 'stage', [
                     [
                         'model' => ConditionStageAssessment::class,
                         'key' => 'condition_stage_id',

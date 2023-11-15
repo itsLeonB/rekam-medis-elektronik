@@ -24,7 +24,7 @@ class CompositionController extends Controller
     {
         $body = $this->retrieveJsonPayload($request);
 
-        return $fhirService->insertData(function () use ($body) {
+        // return $fhirService->insertData(function () use ($body) {
             [$resource, $resourceKey] = $this->createResource('Composition');
 
             $composition = Composition::create(array_merge($resourceKey, $body['composition']));
@@ -37,7 +37,7 @@ class CompositionController extends Controller
             $this->createInstances(CompositionRelatesTo::class, $compositionKey, $body, 'relates_to');
 
             if (isset($body['event']) && !empty($body['event'])) {
-                $this->createInstances(CompositionEvent::class, $compositionKey, $body['event'], 'event_data', [
+                $this->createNestedInstances(CompositionEvent::class, $compositionKey, $body, 'event', [
                     [
                         'model' => CompositionEventCode::class,
                         'key' => 'composition_event_id',
@@ -52,7 +52,7 @@ class CompositionController extends Controller
             }
 
             if (isset($body['section']) && !empty($body['section'])) {
-                $this->createInstances(CompositionSection::class, $compositionKey, $body['section'], 'section_data', [
+                $this->createNestedInstances(CompositionSection::class, $compositionKey, $body, 'section', [
                     [
                         'model' => CompositionSectionAuthor::class,
                         'key' => 'composition_section_id',
@@ -69,6 +69,6 @@ class CompositionController extends Controller
             $this->createResourceContent(CompositionResource::class, $resource);
 
             return response()->json($resource->composition->first(), 201);
-        });
+        // });
     }
 }

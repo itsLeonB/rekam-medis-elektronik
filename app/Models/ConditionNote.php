@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ConditionNote extends Model
 {
     protected $table = 'condition_note';
-    protected $casts = ['time' => 'datetime'];
+    protected $casts = [
+        'author' => 'array',
+        'time' => 'datetime'
+    ];
     protected $guarded = ['id'];
     public $timestamps = false;
 

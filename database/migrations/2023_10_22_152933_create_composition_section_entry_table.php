@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('composition_section_id');
             $table->index('composition_section_id');
             $table->foreign('composition_section_id')->references('id')->on('composition_section')->onDelete('cascade');
-            $table->string('entry');
+            $table->string('reference');
         });
     }
 

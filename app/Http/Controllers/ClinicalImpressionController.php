@@ -34,7 +34,7 @@ class ClinicalImpressionController extends Controller
             $this->createInstances(ClinicalImpressionProblem::class, $impressionKey, $body, 'problem');
 
             if (is_array($body['investigation']) && !empty($body['investigation'])) {
-                $this->createInstances(ClinicalImpressionInvestigation::class, $impressionKey, $body['investigation'], 'investigation_data', [
+                $this->createNestedInstances(ClinicalImpressionInvestigation::class, $impressionKey, $body, 'investigation', [
                     [
                         'model' => ClinicalImpressionInvestigationItem::class,
                         'key' => 'impress_investigate_id',

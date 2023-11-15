@@ -13,6 +13,6 @@ class CompositionSectionAuthor extends Model
 
     public function section(): BelongsTo
     {
-        return $this->belongsTo(CompositionSection::class);
+        return $this->belongsTo(CompositionSection::class, 'composition_section_id');
     }
 }

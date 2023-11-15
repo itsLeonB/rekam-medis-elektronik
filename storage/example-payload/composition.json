@@ -9,7 +9,7 @@
         "type_display": "Discharge Summary",
         "subject": "Patient/100000030009",
         "encounter": "Encounter/4c4d890d-fd63-49e0-bad6-7df4dc443125",
-        "date": "2015-02-07T13:28:17.239+07:00",
+        "date": "2015-02-07T13:28:17+07:00",
         "title": "Resume Medis Rawat Jalan",
         "confidentiality": "N",
         "custodian": "Organization/10000004"
@@ -29,7 +29,7 @@
     "attester": [
         {
             "mode": "legal",
-            "time": "2015-02-07T13:28:17.239+07:00",
+            "time": "2015-02-07T13:28:17+07:00",
             "party": "Patient/100000030009"
         }
     ],
