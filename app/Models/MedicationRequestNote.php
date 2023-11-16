@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class MedicationRequestNote extends Model
 {
     protected $table = 'medication_request_note';
-    protected $casts = ['time' => 'datetime'];
+    protected $casts = [
+        'author' => 'array',
+        'time' => 'datetime'
+    ];
     public $timestamps = false;
 
     public function medicationRequest(): BelongsTo

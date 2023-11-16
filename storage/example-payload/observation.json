@@ -10,7 +10,7 @@
             "effectiveDateTime": "2023-11-04T13:59:00+07:00",
             "effectivePeriod": {
                 "start": "2023-11-04T13:59:00+07:00",
-                "end": null
+                "end": "2023-11-04T14:59:00+07:00"
             },
             "effectiveTiming": {
                 "event": [
@@ -19,44 +19,35 @@
                 ],
                 "repeat": {
                     "boundsDuration": {
-                        "value": null,
-                        "comparator": null,
-                        "unit": null,
-                        "system": null,
-                        "code": null
+                        "value": "12",
+                        "comparator": "<=",
+                        "unit": "days",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "d"
                     },
-                    "count": null,
-                    "countMax": null,
-                    "duration": null,
-                    "durationMax": null,
-                    "durationUnit": null,
-                    "frequency": null,
-                    "frequencyMax": null,
-                    "period": null,
-                    "periodMax": null,
-                    "periodUnit": null,
-                    "dayOfWeek": [
-                        null
-                    ],
-                    "timeOfDay": [
-                        null
-                    ],
-                    "when": [
-                        null
-                    ],
-                    "offset": null
+                    "count": 5,
+                    "countMax": 5,
+                    "duration": 5,
+                    "durationMax": 5,
+                    "durationUnit": "d",
+                    "frequency": 5,
+                    "frequencyMax": 5,
+                    "period": 5,
+                    "periodMax": 5,
+                    "periodUnit": "d",
+                    "dayOfWeek": ["mon", "fri"],
+                    "timeOfDay": ["21:45:44", "06:44:21"],
+                    "when": ["MORN", "MORN.early"],
+                    "offset": 2
                 },
                 "code": {
                     "coding": [
                         {
-                            "system": "http://hl7.org/fhir/reference",
-                            "version": "Energetic Badger",
-                            "code": "",
-                            "display": "Crazy Badger",
-                            "userSelected": "false"
+                            "system": "http://hl7.org/fhir/ValueSet/timing-abbreviation",
+                            "code": "BID",
+                            "display": "BID"
                         }
-                    ],
-                    "text": "Energetic Zebra"
+                    ]
                 }
             },
             "effectiveInstant": "2023-11-04T13:59:00+07:00"
@@ -64,77 +55,72 @@
         "issued": "2023-11-04T13:59:00+07:00",
         "value": {
             "valueQuantity": {
-                "id": "gen1",
-                "value": "",
+                "value": 80,
                 "comparator": "<",
-                "unit": "Fantastic Giraffe",
-                "system": "http://hl7.org/fhir/reference",
-                "code": ""
+                "unit": "beats/minute",
+                "system": "http://unitsofmeasure.org",
+                "code": "/min"
             },
             "valueCodeableConcept": {
-                "id": "gen1",
                 "coding": [
                     {
                         "system": "http://hl7.org/fhir/reference",
-                        "version": "Fantastic Giraffe",
-                        "code": "",
-                        "display": "Inventive Mouse",
-                        "userSelected": "false"
+                        "code": "a",
+                        "display": "Inventive Mouse"
                     }
-                ],
-                "text": "Slow Mouse"
+                ]
             },
-            "valueString": null,
-            "valueBoolean": null,
-            "valueInteger": null,
+            "valueString": "string string",
+            "valueBoolean": false,
+            "valueInteger": 1,
             "valueRange": {
                 "low": {
-                    "value": "",
+                    "value": 80,
                     "comparator": "<",
-                    "unit": "Fantastic Giraffe",
-                    "system": "http://hl7.org/fhir/reference",
-                    "code": ""
+                    "unit": "beats/minute",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min"
                 },
                 "high": {
-                    "value": "",
+                    "value": 100,
                     "comparator": "<",
-                    "unit": "Inventive Mouse",
-                    "system": "http://hl7.org/fhir/reference",
-                    "code": ""
+                    "unit": "beats/minute",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min"
                 }
             },
             "valueRatio": {
                 "numerator": {
-                    "value": "",
+                    "value": 80,
                     "comparator": "<",
-                    "unit": "Fantastic Giraffe",
-                    "system": "http://hl7.org/fhir/reference",
-                    "code": ""
+                    "unit": "beats/minute",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min"
                 },
                 "denominator": {
-                    "value": "",
-                    "comparator": "<",
-                    "unit": "Inventive Mouse",
-                    "system": "http://hl7.org/fhir/reference",
-                    "code": ""
+                    "value": 80,
+                    "comparator": ">",
+                    "unit": "beats/minute",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min"
                 }
             },
             "valueSampledData": {
                 "origin": {
-                    "value": "",
-                    "unit": "Fantastic Giraffe",
-                    "system": "http://hl7.org/fhir/reference",
-                    "code": ""
+                    "value": 80,
+                    "unit": "beats/minute",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min"
                 },
-                "period": "",
-                "factor": "",
-                "lowerLimit": "",
-                "upperLimit": "",
-                "dimensions": "1002897798",
-                "data": "Energetic Cat"
+                "period": 5,
+                "factor": 5,
+                "lowerLimit": 1,
+                "upperLimit": 8,
+                "dimensions": 2,
+                "data": "ini data teks"
             },
-            "valueTime": null,
-            "valueDateTime": null,
+            "valueTime": "21:45:21",
+            "valueDateTime": "2023-11-16T14:34:43+07:00",
             "valuePeriod": {
                 "start": "1966-11-29",
                 "end": "1957-07-13"
@@ -145,8 +131,8 @@
         "body_site_code": "106004",
         "body_site_display": "Posterior carpal region",
         "method_system": "http://snomed.info/sct",
-        "method_code": null,
-        "method_display": null,
+        "method_code": "997199941000119102",
+        "method_display": "Fluoroscopic venography of left limb with contrast (procedure)",
         "specimen": "Specimen/null",
         "device": "Device/null"
     },
@@ -174,9 +160,29 @@
             "display": "Vital Signs"
         }
     ],
+    "focus": [
+        {
+            "reference": "Resource/null"
+        }
+    ],
     "performer": [
         {
             "reference": "Practitioner/N10000001"
+        },
+        {
+            "reference": "PractitionerRole/null"
+        },
+        {
+            "reference": "Organization/RSPARA"
+        },
+        {
+            "reference": "CareTeam/null"
+        },
+        {
+            "reference": "Patient/null"
+        },
+        {
+            "reference": "RelatedPerson/null"
         }
     ],
     "interpretation": [
@@ -200,27 +206,57 @@
     ],
     "reference_range": [
         {
-            "value_low": null,
-            "value_high": null,
-            "unit": null,
-            "system": null,
-            "code": null,
-            "type": null,
+            "value_low": 50,
+            "value_high": 160,
+            "unit": "beats/minute",
+            "system": "http://unitsofmeasure.org",
+            "code": "/min",
+            "type": "normal",
             "applies_to": [
                 {
                     "coding": [
                         {
-                            "system": null,
-                            "code": null,
-                            "display": null
+                            "system": "http://snomed.info/sct",
+                            "code": "248153007",
+                            "display": "Male"
                         }
-                    ],
-                    "text": null
+                    ]
                 }
             ],
-            "age_low": null,
-            "age_high": null,
-            "text": null
+            "age_low": 14,
+            "age_high": 44,
+            "text": "makin cerah makin buruk"
+        }
+    ],
+    "has_member": [
+        {
+            "reference": "Observation/100000030009"
+        },
+        {
+            "reference": "QuestionnaireResponse/null"
+        },
+        {
+            "reference": "MolecularSequence/null"
+        }
+    ],
+    "derived_from": [
+        {
+            "reference": "Observation/100000030009"
+        },
+        {
+            "reference": "QuestionnaireResponse/null"
+        },
+        {
+            "reference": "MolecularSequence/null"
+        },
+        {
+            "reference": "DocumentReference/null"
+        },
+        {
+            "reference": "ImagingStudy/1111"
+        },
+        {
+            "reference": "Media/null"
         }
     ],
     "component": [
@@ -231,84 +267,78 @@
                 "code_display": "Systolic blood pressure",
                 "value": {
                     "valueQuantity": {
-                        "id": "gen1",
-                        "value": "",
+                        "value": 80,
                         "comparator": "<",
-                        "unit": "Fantastic Giraffe",
-                        "system": "http://hl7.org/fhir/reference",
-                        "code": ""
+                        "unit": "beats/minute",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "/min"
                     },
                     "valueCodeableConcept": {
-                        "id": "gen1",
                         "coding": [
                             {
                                 "system": "http://hl7.org/fhir/reference",
-                                "version": "Fantastic Giraffe",
-                                "code": "",
-                                "display": "Inventive Mouse",
-                                "userSelected": "false"
+                                "code": "a",
+                                "display": "Inventive Mouse"
                             }
-                        ],
-                        "text": "Slow Mouse"
+                        ]
                     },
-                    "valueString": null,
-                    "valueBoolean": null,
-                    "valueInteger": null,
+                    "valueString": "string string",
+                    "valueBoolean": false,
+                    "valueInteger": 1,
                     "valueRange": {
                         "low": {
-                            "value": "",
+                            "value": 80,
                             "comparator": "<",
-                            "unit": "Fantastic Giraffe",
-                            "system": "http://hl7.org/fhir/reference",
-                            "code": ""
+                            "unit": "beats/minute",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "/min"
                         },
                         "high": {
-                            "value": "",
+                            "value": 100,
                             "comparator": "<",
-                            "unit": "Inventive Mouse",
-                            "system": "http://hl7.org/fhir/reference",
-                            "code": ""
+                            "unit": "beats/minute",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "/min"
                         }
                     },
                     "valueRatio": {
                         "numerator": {
-                            "value": "",
+                            "value": 80,
                             "comparator": "<",
-                            "unit": "Fantastic Giraffe",
-                            "system": "http://hl7.org/fhir/reference",
-                            "code": ""
+                            "unit": "beats/minute",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "/min"
                         },
                         "denominator": {
-                            "value": "",
-                            "comparator": "<",
-                            "unit": "Inventive Mouse",
-                            "system": "http://hl7.org/fhir/reference",
-                            "code": ""
+                            "value": 80,
+                            "comparator": ">",
+                            "unit": "beats/minute",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "/min"
                         }
                     },
                     "valueSampledData": {
                         "origin": {
-                            "value": "",
-                            "comparator": "<",
-                            "unit": "Fantastic Giraffe",
-                            "system": "http://hl7.org/fhir/reference",
-                            "code": ""
+                            "value": 80,
+                            "unit": "beats/minute",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "/min"
                         },
-                        "period": "",
-                        "factor": "",
-                        "lowerLimit": "",
-                        "upperLimit": "",
-                        "dimensions": "1002897798",
-                        "data": "Energetic Cat"
+                        "period": 5,
+                        "factor": 5,
+                        "lowerLimit": 1,
+                        "upperLimit": 8,
+                        "dimensions": 2,
+                        "data": "ini data teks"
                     },
-                    "valueTime": null,
-                    "valueDateTime": null,
+                    "valueTime": "21:45:21",
+                    "valueDateTime": "2023-11-16T14:34:43+07:00",
                     "valuePeriod": {
                         "start": "1966-11-29",
                         "end": "1957-07-13"
                     }
                 },
-                "data_absent_reason": null
+                "data_absent_reason": "unknown"
             },
             "interpretation": [
                 {
@@ -319,27 +349,26 @@
             ],
             "reference_range": [
                 {
-                    "value_low": null,
-                    "value_high": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null,
-                    "type": null,
+                    "value_low": 50,
+                    "value_high": 160,
+                    "unit": "beats/minute",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "/min",
+                    "type": "normal",
                     "applies_to": [
                         {
                             "coding": [
                                 {
-                                    "system": null,
-                                    "code": null,
-                                    "display": null
+                                    "system": "http://snomed.info/sct",
+                                    "code": "248153007",
+                                    "display": "Male"
                                 }
-                            ],
-                            "text": null
+                            ]
                         }
                     ],
-                    "age_low": null,
-                    "age_high": null,
-                    "text": null
+                    "age_low": 14,
+                    "age_high": 44,
+                    "text": "makin cerah makin buruk"
                 }
             ]
         }

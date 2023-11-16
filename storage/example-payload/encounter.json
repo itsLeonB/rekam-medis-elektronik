@@ -5,14 +5,16 @@
         "service_type": 117,
         "priority": "A",
         "subject": "Patient/100000030009",
-        "episode_of_care": null,
-        "based_on": null,
+        "episode_of_care": "EpisodeOfCare/null",
+        "based_on": "ServiceRequest/null",
         "period_start": "2023-10-31T10:49:00+07:00",
-        "period_end": null,
-        "account": null,
+        "period_end": "2023-11-16T10:49:00+07:00",
+        "account": "Account/null",
         "location": "Location/dc01c797-547a-4e4d-97cd-4ece0630e380",
+        "service_class": "vvip",
+        "upgrade_class": "kelas-tetap",
         "service_provider": "Organization/RSPARA",
-        "part_of": null
+        "part_of": "Encounter/null"
     },
     "identifier": [
         {
@@ -25,14 +27,14 @@
         {
             "status": "arrived",
             "period_start": "2023-10-31T10:49:00+07:00",
-            "period_end": null
+            "period_end": "2023-11-16T10:49:00+07:00"
         }
     ],
     "class_history": [
         {
             "class": "AMB",
             "period_start": "2023-10-31T10:49:00+07:00",
-            "period_end": null
+            "period_end": "2023-11-16T10:49:00+07:00"
         }
     ],
     "participant": [
@@ -45,6 +47,48 @@
         {
             "code": 160303001,
             "reference": "Condition/ba0dd351-c30a-4659-994e-0013797b545b"
+        }
+    ],
+    "diagnosis": [
+        {
+            "condition_reference": "Condition/null",
+            "condition_display": "Sakit parah",
+            "use": "AD",
+            "rank": 1
+        },
+        {
+            "condition_reference": "Procedure/null",
+            "condition_display": "Sakit parah",
+            "use": "AD",
+            "rank": 2
+        }
+    ],
+    "hospitalization": [
+        {
+            "hospitalization_data": {
+                "preadmission_identifier_system": "http://sys-ids.kemkes.go.id/encounter/RSPARA",
+                "preadmission_identifier_use": "official",
+                "preadmission_identifier_value": "000001",
+                "origin": "Location/null",
+                "admit_source": "hosp-trans",
+                "re_admission": "R",
+                "destination": "Location/4adccec5-776d-435e-9ac5-98763cb216bb",
+                "discharge_disposition": "rehab"
+            },
+            "diet": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/diet",
+                    "code": "vegetarian",
+                    "display": "Vegetarian"
+                }
+            ],
+            "special_arrangement": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/encounter-special-arrangements",
+                    "code": "wheel",
+                    "display": "Wheelchair"
+                }
+            ]
         }
     ]
 }

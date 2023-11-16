@@ -40,7 +40,7 @@ class EncounterController extends Controller
             $this->createInstances(EncounterDiagnosis::class, $encounterKey, $body, 'diagnosis');
 
             if (isset($body['hospitalization']) && !empty($body['hospitalization'])) {
-                $this->createInstances(EncounterHospitalization::class, $encounterKey, $body['hospitalization'], 'hospitalization_data', [
+                $this->createNestedInstances(EncounterHospitalization::class, $encounterKey, $body, 'hospitalization', [
                     [
                         'model' => EncounterHospitalizationDiet::class,
                         'key' => 'enc_hosp_id',

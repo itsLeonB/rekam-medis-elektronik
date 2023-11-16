@@ -56,5 +56,17 @@ class PatientDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/patient/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('patient', $data['patient']);
+        $this->assertManyData('patient_identifier', $data['identifier']);
+        $this->assertManyData('patient_telecom', $data['telecom']);
+        $this->assertManyData('patient_address', $data['address']);
+        $this->assertNestedData('patient_contact', $data['contact'], 'contact_data', [
+            [
+                'table' => 'patient_contact_telecom',
+                'data' => 'telecom'
+            ]
+        ]);
+        $this->assertManyData('general_practitioner', $data['general_practitioner']);
     }
 }

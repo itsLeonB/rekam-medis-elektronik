@@ -11,31 +11,31 @@
         "performed": {
             "performedDateTime": "2023-11-06T19:41:02+07:00",
             "performedPeriod": {
-                "start": null,
-                "end": null
+                "start": "2023-11-16T21:58:22+07:00",
+                "end": "2023-11-16T22:58:22+07:00"
             },
-            "performedString": null,
+            "performedString": "besok dan lusa",
             "performedAge": {
-                "value": null,
-                "comparator": null,
-                "unit": null,
-                "system": null,
-                "code": null
+                "value": 22,
+                "comparator": "<",
+                "unit": "years",
+                "system": "http://unitsofmeasure.org",
+                "code": "a"
             },
             "performedRange": {
                 "low": {
-                    "value": null,
-                    "comparator": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 22,
+                    "comparator": ">=",
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 },
                 "high": {
-                    "value": null,
-                    "comparator": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 32,
+                    "comparator": "<",
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 }
             }
         },

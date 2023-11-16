@@ -55,5 +55,19 @@ class ProcedureDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/procedure/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('procedure', $data['procedure']);
+        $this->assertManyData('procedure_identifier', $data['identifier']);
+        $this->assertManyData('procedure_based_on', $data['based_on']);
+        $this->assertManyData('procedure_part_of', $data['part_of']);
+        $this->assertManyData('procedure_performer', $data['performer']);
+        $this->assertManyData('procedure_reason', $data['reason']);
+        $this->assertManyData('procedure_body_site', $data['body_site']);
+        $this->assertManyData('procedure_report', $data['report']);
+        $this->assertManyData('procedure_complication', $data['complication']);
+        $this->assertManyData('procedure_follow_up', $data['follow_up']);
+        $this->assertManyData('procedure_note', $data['note']);
+        $this->assertManyData('procedure_focal_device', $data['focal_device']);
+        $this->assertManyData('procedure_item_used', $data['item_used']);
     }
 }

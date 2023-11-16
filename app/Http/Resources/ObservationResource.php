@@ -59,9 +59,9 @@ class ObservationResource extends FhirResource
                 'dataAbsentReason' => [
                     'coding' => [
                         [
-                            'system' => $observation->data_absent_reason == null ? null : Observation::DATA_ABSENT_REASON_SYSTEM,
+                            'system' => $observation->data_absent_reason ? Observation::DATA_ABSENT_REASON_SYSTEM : null,
                             'code' => $observation->data_absent_reason,
-                            'display' => Observation::DATA_ABSENT_REASON_DISPLAY[$observation->data_absent_reason] ?? null,
+                            'display' => $observation->data_absent_reason ? Observation::DATA_ABSENT_REASON_DISPLAY[$observation->data_absent_reason] : null,
                         ]
                     ]
                 ],
@@ -122,9 +122,9 @@ class ObservationResource extends FhirResource
                 'type' => [
                     'coding' => [
                         [
-                            'system' => ObservationReferenceRange::SYSTEM,
+                            'system' => $r->type ? ObservationReferenceRange::TYPE_SYSTEM : null,
                             'code' => $r->type,
-                            'display' => ObservationReferenceRange::DISPLAY[$r->type],
+                            'display' => $r->type ? ObservationReferenceRange::TYPE_DISPLAY[$r->type] : null,
                         ]
                     ]
                 ],
@@ -132,15 +132,15 @@ class ObservationResource extends FhirResource
                 'age' => [
                     'low' => [
                         'value' => $r->age_low,
-                        'unit' => 'years',
-                        'system' => 'http://unitsofmeasure.org',
-                        'code' => 'a'
+                        'unit' => $r->age_low ? 'years' : null,
+                        'system' => $r->age_low ? 'http://unitsofmeasure.org' : null,
+                        'code' => $r->age_low ? 'a' : null
                     ],
                     'high' => [
                         'value' => $r->age_high,
-                        'unit' => 'years',
-                        'system' => 'http://unitsofmeasure.org',
-                        'code' => 'a'
+                        'unit' => $r->age_high ? 'years' : null,
+                        'system' => $r->age_high ? 'http://unitsofmeasure.org' : null,
+                        'code' => $r->age_high ? 'a' : null
                     ],
                 ],
                 'text' => $r->text
@@ -160,18 +160,18 @@ class ObservationResource extends FhirResource
                     'code' => [
                         'coding' => [
                             [
-                                'system' => 'http://loinc.org',
+                                'system' => $c->code ? CodeSystemLoinc::SYSTEM : null,
                                 'code' => $c->code,
-                                'display' => CodeSystemLoinc::where('code', $c->code)->first()->display ?? null
+                                'display' => $c->code ? CodeSystemLoinc::where('code', $c->code)->first()->display : null
                             ]
                         ],
                     ],
                     'dataAbsentReason' => [
                         'coding' => [
                             [
-                                'system' => Observation::DATA_ABSENT_REASON_SYSTEM[$c->data_absent_reason],
+                                'system' => $c->data_absent_reason ? Observation::DATA_ABSENT_REASON_SYSTEM : null,
                                 'code' => $c->data_absent_reason,
-                                'display' => Observation::DATA_ABSENT_REASON_DISPLAY[$c->data_absent_reason],
+                                'display' => $c->data_absent_reason ? Observation::DATA_ABSENT_REASON_DISPLAY[$c->data_absent_reason] : null,
                             ]
                         ]
                     ],

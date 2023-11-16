@@ -12,8 +12,6 @@ use App\Models\PatientContact;
 use App\Models\PatientContactTelecom;
 use App\Models\PatientIdentifier;
 use App\Models\PatientTelecom;
-use App\Models\Resource;
-use App\Models\ResourceContent;
 use App\Services\FhirService;
 
 class PatientController extends Controller
@@ -34,7 +32,7 @@ class PatientController extends Controller
             $this->createInstances(PatientAddress::class, $patientKey, $body, 'address');
             $this->createInstances(GeneralPractitioner::class, $patientKey, $body, 'general_practitioner');
             if (isset($body['contact']) && !empty($body['contact'])) {
-                $this->createInstances(PatientContact::class, $patientKey, $body['contact'], 'contact_data', [
+                $this->createNestedInstances(PatientContact::class, $patientKey, $body, 'contact', [
                     [
                         'model' => PatientContactTelecom::class,
                         'key' => 'contact_id',

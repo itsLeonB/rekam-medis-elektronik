@@ -36,8 +36,8 @@ class MedicationDispenseController extends Controller
             $this->createInstances(MedicationDispensePerformer::class, $medicationDispenseKey, $body, 'performer');
             $this->createInstances(MedicationDispenseAuthorizingPrescription::class, $medicationDispenseKey, $body, 'authorizing_prescription');
 
-            if (is_array($body['dosage_instruction']) || is_object($body['dosage_instruction'])) {
-                $this->createInstances(MedicationDispenseDosageInstruction::class, $medicationDispenseKey, $body['dosage_instruction'], 'dosage_data', [
+            if (is_array($body['dosage']) || is_object($body['dosage'])) {
+                $this->createNestedInstances(MedicationDispenseDosageInstruction::class, $medicationDispenseKey, $body, 'dosage', [
                     [
                         'model' => MedicationDispenseDosageInstructionAdditionalInstruction::class,
                         'key' => 'med_disp_dose_id',
@@ -52,10 +52,18 @@ class MedicationDispenseController extends Controller
             }
 
             if (is_array($body['substitution']) || is_object($body['substitution'])) {
-                $subs = MedicationDispenseSubstitution::create(array_merge($medicationDispenseKey, $body['substitution']['substitution_data']));
-                $subsKey = ['med_disp_subs_id' => $subs->id];
-                $this->createInstances(MedicationDispenseSubstitutionReason::class, $subsKey, $body['substitution'], 'reason');
-                $this->createInstances(MedicationDispenseSubstitutionResponsibleParty::class, $subsKey, $body['substitution'], 'responsible_party');
+                $this->createNestedInstances(MedicationDispenseSubstitution::class, $medicationDispenseKey, $body, 'substitution', [
+                    [
+                        'model' => MedicationDispenseSubstitutionReason::class,
+                        'key' => 'med_disp_subs_id',
+                        'bodyKey' => 'reason'
+                    ],
+                    [
+                        'model' => MedicationDispenseSubstitutionResponsibleParty::class,
+                        'key' => 'med_disp_subs_id',
+                        'bodyKey' => 'responsible_party'
+                    ]
+                ]);
             }
 
             $this->createResourceContent(MedicationDispenseResource::class, $resource);

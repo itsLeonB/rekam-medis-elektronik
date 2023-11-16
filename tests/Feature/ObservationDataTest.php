@@ -55,5 +55,28 @@ class ObservationDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/observation/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('observation', $data['observation']);
+        $this->assertManyData('observation_identifier', $data['identifier']);
+        $this->assertManyData('observation_based_on', $data['based_on']);
+        $this->assertManyData('observation_part_of', $data['part_of']);
+        $this->assertManyData('observation_category', $data['category']);
+        $this->assertManyData('observation_focus', $data['focus']);
+        $this->assertManyData('observation_performer', $data['performer']);
+        $this->assertManyData('observation_interpretation', $data['interpretation']);
+        $this->assertManyData('observation_note', $data['note']);
+        $this->assertManyData('observation_ref_range', $data['reference_range']);
+        $this->assertManyData('observation_member', $data['has_member']);
+        $this->assertManyData('observation_derived_from', $data['derived_from']);
+        $this->assertNestedData('observation_component', $data['component'], 'component_data', [
+            [
+                'table' => 'obs_comp_interpret',
+                'data' => 'interpretation'
+            ],
+            [
+                'table' => 'obs_comp_ref_range',
+                'data' => 'reference_range'
+            ]
+        ]);
     }
 }

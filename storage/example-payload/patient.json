@@ -76,8 +76,8 @@
             "contact_data": {
                 "relationship": "C",
                 "name": "Banyak Pahala",
-                "prefix": null,
-                "suffix": null,
+                "prefix": "Prof. Dr.",
+                "suffix": "S.Kom., M.Kom.",
                 "gender": "unknown",
                 "address_use": "home",
                 "address_line": "Gedung DPRD Jawa Timur",
@@ -107,8 +107,8 @@
             "contact_data": {
                 "relationship": "C",
                 "name": "Budi Ajaib",
-                "prefix": null,
-                "suffix": null,
+                "prefix": "Prof. Dr.",
+                "suffix": "S.Kom., M.Kom.",
                 "gender": "unknown",
                 "address_use": "home",
                 "address_line": "Gedung DPRD Jawa Timur",

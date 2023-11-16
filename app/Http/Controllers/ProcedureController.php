@@ -18,8 +18,6 @@ use App\Models\ProcedurePartOf;
 use App\Models\ProcedurePerformer;
 use App\Models\ProcedureReason;
 use App\Models\ProcedureReport;
-use App\Models\Resource;
-use App\Models\ResourceContent;
 use App\Services\FhirService;
 
 class ProcedureController extends Controller
