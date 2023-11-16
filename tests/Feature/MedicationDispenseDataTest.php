@@ -55,5 +55,30 @@ class MedicationDispenseDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/medicationdispense/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('medication_dispense', $data['medication_dispense']);
+        $this->assertManyData('medication_dispense_identifier', $data['identifier']);
+        $this->assertManyData('medication_dispense_part_of', $data['part_of']);
+        $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizing_prescription']);
+        $this->assertNestedData('medication_dispense_dosage', $data['dosage'], 'dosage_data', [
+            [
+                'table' => 'med_disp_dosage_add_instruct',
+                'data' => 'additional_instruction'
+            ],
+            [
+                'table' => 'med_disp_dosage_dose_rate',
+                'data' => 'dose_rate'
+            ]
+        ]);
+        $this->assertNestedData('medication_dispense_substitution', $data['substitution'], 'substitution_data', [
+            [
+                'table' => 'med_disp_subs_reason',
+                'data' => 'reason'
+            ],
+            [
+                'table' => 'med_disp_subs_responsible_party',
+                'data' => 'responsible_party'
+            ]
+        ]);
     }
 }

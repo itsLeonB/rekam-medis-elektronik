@@ -91,7 +91,7 @@ class CompositionResource extends FhirResource
             foreach ($relatesToAttribute as $rt) {
                 $relatesTo[] = merge_array(
                     ['code' => $rt->code],
-                    json_decode($rt->target, true)
+                    $rt->target
                 );
             }
         }

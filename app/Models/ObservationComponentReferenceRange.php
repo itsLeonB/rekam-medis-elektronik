@@ -15,8 +15,8 @@ class ObservationComponentReferenceRange extends Model
 
     protected $table = 'obs_comp_ref_range';
     protected $casts = [
-        'value_low' => 'decimal',
-        'value_high' => 'decimal',
+        'value_low' => 'decimal:2',
+        'value_high' => 'decimal:2',
         'applies_to' => 'array'
     ];
     public $timestamps = false;

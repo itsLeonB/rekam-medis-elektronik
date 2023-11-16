@@ -40,7 +40,7 @@ class Condition extends Model
     protected $casts = [
         'onset' => 'array',
         'abatement' => 'array',
-        'recorded_date' => 'date'
+        'recorded_date' => 'datetime'
     ];
     protected $guarded = ['id'];
     public $timestamps = false;

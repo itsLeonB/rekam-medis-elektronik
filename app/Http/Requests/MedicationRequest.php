@@ -47,7 +47,7 @@ class MedicationRequest extends FhirRequest
     private function ingredientDataRules(): array
     {
         return array_merge(
-            $this->getCodeableConceptDataRules('ingredient.*.item_'),
+            $this->getCodeableConceptDataRules('ingredient.*.'),
             $this->getRatioDataRules('ingredient.*.strength_'),
             [
                 'ingredient.*.isActive' => 'nullable|boolean',

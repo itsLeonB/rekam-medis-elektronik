@@ -55,5 +55,31 @@ class CompositionDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/composition/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('composition', $data['composition']);
+        $this->assertManyData('composition_category', $data['category']);
+        $this->assertManyData('composition_author', $data['author']);
+        $this->assertManyData('composition_attester', $data['attester']);
+        $this->assertManyData('composition_relates_to', $data['relates_to']);
+        $this->assertNestedData('composition_event', $data['event'], 'event_data', [
+            [
+                'table' => 'composition_event_code',
+                'data' => 'code'
+            ],
+            [
+                'table' => 'composition_event_detail',
+                'data' => 'detail'
+            ],
+        ]);
+        $this->assertNestedData('composition_section', $data['section'], 'section_data', [
+            [
+                'table' => 'composition_section_author',
+                'data' => 'author'
+            ],
+            [
+                'table' => 'composition_section_entry',
+                'data' => 'entry'
+            ],
+        ]);
     }
 }

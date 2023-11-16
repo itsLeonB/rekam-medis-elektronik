@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('encounter');
             $table->json('onset')->nullable();
             $table->json('abatement')->nullable();
-            $table->date('recorded_date')->nullable();
+            $table->dateTime('recorded_date')->nullable();
             $table->string('recorder')->nullable();
             $table->string('asserter')->nullable();
         });

@@ -55,5 +55,9 @@ class MedicationDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/medication/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('medication', $data['medication']);
+        $this->assertManyData('medication_identifier', $data['identifier']);
+        $this->assertManyData('medication_ingredient', $data['ingredient']);
     }
 }

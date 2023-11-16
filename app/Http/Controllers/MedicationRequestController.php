@@ -30,7 +30,7 @@ class MedicationRequestController extends Controller
 
             $medicationRequest = MedicationRequest::create(array_merge($resourceKey, $body['medication_request']));
 
-            $medicationRequestKey = ['medication_id' => $medicationRequest->id];
+            $medicationRequestKey = ['med_req_id' => $medicationRequest->id];
 
             $this->createInstances(MedicationRequestIdentifier::class, $medicationRequestKey, $body, 'identifier');
             $this->createInstances(MedicationRequestCategory::class, $medicationRequestKey, $body, 'category');
@@ -40,7 +40,7 @@ class MedicationRequestController extends Controller
             $this->createInstances(MedicationRequestNote::class, $medicationRequestKey, $body, 'note');
 
             if (isset($body['dosage']) && !empty($body['dosage'])) {
-                $this->createInstances(MedicationRequestDosage::class, $medicationRequestKey, $body['dosage'], 'dosage_data', [
+                $this->createNestedInstances(MedicationRequestDosage::class, $medicationRequestKey, $body, 'dosage', [
                     [
                         'model' => MedicationRequestDosageAdditionalInstruction::class,
                         'key' => 'med_req_dosage_id',

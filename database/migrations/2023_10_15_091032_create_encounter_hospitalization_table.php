@@ -20,10 +20,10 @@ return new class extends Migration
             $table->enum('preadmission_identifier_use', ['usual', 'official', 'temp', 'secondary', 'old'])->nullable();
             $table->string('preadmission_identifier_value')->nullable();
             $table->string('origin')->nullable();
-            $table->string('admit_source')->nullable();
+            $table->enum('admit_source', ['hosp-trans', 'emd', 'outp', 'born', 'gp', 'mp', 'nursing', 'psych', 'rehab', 'other'])->nullable();
             $table->enum('re_admission', ['R'])->nullable();
             $table->string('destination')->nullable();
-            $table->string('discharge_disposition')->nullable();
+            $table->enum('discharge_disposition', ['home', 'alt-home', 'other-hcf', 'hosp', 'long', 'aadvice', 'exp', 'psy', 'rehab', 'snf', 'oth'])->nullable();
         });
     }
 

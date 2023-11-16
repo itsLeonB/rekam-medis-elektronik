@@ -20,8 +20,6 @@ use App\Models\ObservationNote;
 use App\Models\ObservationPartOf;
 use App\Models\ObservationPerformer;
 use App\Models\ObservationReferenceRange;
-use App\Models\Resource;
-use App\Models\ResourceContent;
 use App\Services\FhirService;
 
 class ObservationController extends Controller
@@ -30,7 +28,7 @@ class ObservationController extends Controller
     {
         $body = $this->retrieveJsonPayload($request);
 
-        return $fhirService->insertData(function () use ($body) {
+        // return $fhirService->insertData(function () use ($body) {
             [$resource, $resourceKey] = $this->createResource('Observation');
 
             $observation = Observation::create(array_merge($resourceKey, $body['observation']));
@@ -50,7 +48,7 @@ class ObservationController extends Controller
             $this->createInstances(ObservationDerivedFrom::class, $observationKey, $body, 'derived_from');
 
             if (isset($body['component']) && !empty($body['component'])) {
-                $this->createInstances(ObservationComponent::class, $observationKey, $body['component'], 'component_data', [
+                $this->createNestedInstances(ObservationComponent::class, $observationKey, $body, 'component', [
                     [
                         'model' => ObservationComponentInterpretation::class,
                         'key' => 'obs_comp_id',
@@ -67,6 +65,6 @@ class ObservationController extends Controller
             $this->createResourceContent(ObservationResource::class, $resource);
 
             return response()->json($resource->observation->first(), 201);
-        });
+        // });
     }
 }

@@ -55,5 +55,18 @@ class ConditionDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/condition/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('condition', $data['condition']);
+        $this->assertManyData('condition_identifier', $data['identifier']);
+        $this->assertManyData('condition_category', $data['category']);
+        $this->assertManyData('condition_body_site', $data['body_site']);
+        $this->assertNestedData('condition_stage', $data['stage'], 'stage_data', [
+            [
+                'table' => 'condition_stage_assessment',
+                'data' => 'assessment'
+            ]
+        ]);
+        $this->assertManyData('condition_evidence', $data['evidence']);
+        $this->assertManyData('condition_note', $data['note']);
     }
 }

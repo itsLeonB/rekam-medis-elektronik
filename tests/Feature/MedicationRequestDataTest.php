@@ -55,5 +55,23 @@ class MedicationRequestDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/medicationrequest/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('medication_request', $data['medication_request']);
+        $this->assertManyData('medication_request_identifier', $data['identifier']);
+        $this->assertManyData('medication_request_category', $data['category']);
+        $this->assertManyData('medication_request_reason', $data['reason']);
+        $this->assertManyData('medication_request_based_on', $data['based_on']);
+        $this->assertManyData('medication_request_insurance', $data['insurance']);
+        $this->assertManyData('medication_request_note', $data['note']);
+        $this->assertNestedData('medication_request_dosage', $data['dosage'], 'dosage_data', [
+            [
+                'table' => 'med_req_dosage_additional_instruction',
+                'data' => 'additional_instruction'
+            ],
+            [
+                'table' => 'med_req_dosage_dose_rate',
+                'data' => 'dose_rate'
+            ]
+        ]);
     }
 }

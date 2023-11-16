@@ -9,62 +9,62 @@
         "onset": {
             "onsetDateTime": "2023-10-31T11:43:23+07:00",
             "onsetAge": {
-                "value": null,
-                "comparator": null,
-                "unit": null,
-                "system": null,
-                "code": null
+                "value": 20,
+                "comparator": ">",
+                "unit": "years",
+                "system": "http://unitsofmeasure.org",
+                "code": "a"
             },
             "onsetPeriod": {
-                "start": null,
-                "end": null
+                "start": "2023-11-15T23:30:30+07:00",
+                "end": "2023-11-16T00:30:30+07:00"
             },
             "onsetRange": {
                 "low": {
-                    "value": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 10,
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 },
                 "high": {
-                    "value": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 20,
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 }
             },
-            "onsetString": null
+            "onsetString": "kemarin hari ini"
         },
         "abatement": {
             "abatementDateTime": "2023-10-31T11:43:23+07:00",
             "abatementAge": {
-                "value": null,
-                "comparator": null,
-                "unit": null,
-                "system": null,
-                "code": null
+                "value": 20,
+                "comparator": ">",
+                "unit": "years",
+                "system": "http://unitsofmeasure.org",
+                "code": "a"
             },
             "abatementPeriod": {
-                "start": null,
-                "end": null
+                "start": "2023-11-15T23:30:30+07:00",
+                "end": "2023-11-16T00:30:30+07:00"
             },
             "abatementRange": {
                 "low": {
-                    "value": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 10,
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 },
                 "high": {
-                    "value": null,
-                    "unit": null,
-                    "system": null,
-                    "code": null
+                    "value": 20,
+                    "unit": "years",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "a"
                 }
             },
-            "abatementString": null
+            "abatementString": "lusa hari ini"
         },
-        "recorded_date": "2023-11-01T11.16.01+07:00",
+        "recorded_date": "2023-11-01T11:16:01+07:00",
         "recorder": "Practitioner/1000400104",
         "asserter": "Practitioner-1000400104"
     },
@@ -89,12 +89,35 @@
             "display": "Parathyroid gland"
         }
     ],
+    "stage": [
+        {
+            "stage_data": {
+                "summary_system": "http://snomed.info/sct",
+                "summary_code": "425213009",
+                "summary_display": "Carcinoma of colon, stage I",
+                "type_system": "http://snomed.info/sct",
+                "type_code": "260998006",
+                "type_display": "Clinical staging (qualifier value)"
+            },
+            "assessment": [
+                {
+                    "reference": "ClinicalImpression/1000000001"
+                },
+                {
+                    "reference": "DiagnosticReport/1000000001"
+                },
+                {
+                    "reference": "Observation/1000000001"
+                }
+            ]
+        }
+    ],
     "evidence": [
         {
-            "system": null,
-            "code": null,
-            "display": null,
-            "detail_reference": null
+            "system": "http://snomed.info/sct",
+            "code": "991898981000119108",
+            "display": "Chronic nontraumatic intracranial subdural hematoma",
+            "detail_reference": "Resource/null"
         }
     ],
     "note": [

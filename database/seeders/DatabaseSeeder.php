@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            // UserSeeder::class,
-            // WilayahSeeder::class,
-            // CodeSystemSeeder::class,
-            // ValueSetSeeder::class,
-            // // ResourceSeeder::class, // Resource FHIR R5
+            UserSeeder::class,
+            WilayahSeeder::class,
+            CodeSystemSeeder::class,
+            ValueSetSeeder::class,
+            // ResourceSeeder::class, // Resource FHIR R5
             IdFhirResourceSeeder::class, // Resource example dari SATUSEHAT API
             PractitionerSeeder::class,
             PatientSeeder::class,

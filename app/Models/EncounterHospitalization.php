@@ -18,6 +18,11 @@ class EncounterHospitalization extends Model
     public const READMISSION_CODE = ['R'];
     public const READMISSION_DISPLAY = 'Re-admission';
 
+    public const DISCHARGE_DISPOSITION_SYSTEM = 'http://terminology.hl7.org/CodeSystem/discharge-disposition';
+    public const DISCHARGE_DISPOSITION_CODE = ['home', 'alt-home', 'other-hcf', 'hosp', 'long', 'aadvice', 'exp', 'psy', 'rehab', 'snf', 'oth'];
+    public const DISCHARGE_DISPOSITION_DISPLAY = ["home" => "Home", "alt-home" => "Alternative home", "other-hcf" => "Other healthcare facility", "hosp" => "Hospice", "long" => "Long-term care", "aadvice" => "Left against advice", "exp" => "Expired", "psy" => "Psychiatric hospital", "rehab" => "Rehabilitation", "snf" => "Skilled nursing facility", "oth" => "Other"];
+    public const DISCHARGE_DISPOSITION_DEFINITION = ["home" => "The patient was dicharged and has indicated that they are going to return home afterwards.", "alt-home" => "The patient was discharged and has indicated that they are going to return home afterwards, but not the patient's home - e.g. a family member's home.", "other-hcf" => "The patient was transferred to another healthcare facility.", "hosp" => "The patient has been discharged into palliative care.", "long" => "The patient has been discharged into long-term care where is likely to be monitored through an ongoing episode-of-care.", "aadvice" => "The patient self discharged against medical advice.", "exp" => "The patient has deceased during this encounter.", "psy" => "The patient has been transferred to a psychiatric facility.", "rehab" => "The patient was discharged and is to receive post acute care rehabilitation services.", "snf" => "The patient has been discharged to a skilled nursing facility for the patient to receive additional care.", "oth" => "The discharge disposition has not otherwise defined."];
+
     protected $table = 'encounter_hospitalization';
     protected $guarded = ['id'];
     public $timestamps = false;

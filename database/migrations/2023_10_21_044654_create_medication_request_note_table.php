@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('med_req_id')->references('id')->on('medication_request')->onDelete('cascade');
             $table->json('author')->nullable();
             $table->dateTime('time')->nullable();
-            $table->string('text');
+            $table->text('text');
         });
     }
 

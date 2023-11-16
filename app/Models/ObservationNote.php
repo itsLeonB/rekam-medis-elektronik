@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ObservationNote extends Model
 {
     protected $table = 'observation_note';
-    protected $casts = ['time' => 'datetime'];
+    protected $casts = [
+        'author' => 'array',
+        'time' => 'datetime'
+    ];
     public $timestamps = false;
 
     public function observation(): BelongsTo

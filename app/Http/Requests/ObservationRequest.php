@@ -82,12 +82,12 @@ class ObservationRequest extends FhirRequest
     private function getReferenceRangeDataRules($prefix = null): array
     {
         return [
-            $prefix . 'value_low' => 'nullable|decimal',
-            $prefix . 'value_high' => 'nullable|decimal',
+            $prefix . 'value_low' => 'nullable|numeric',
+            $prefix . 'value_high' => 'nullable|numeric',
             $prefix . 'unit' => 'nullable|string',
             $prefix . 'system' => 'nullable|string',
             $prefix . 'code' => 'nullable|string',
-            $prefix . 'type' => ['nullable', Rule::in(ObservationReferenceRange::CODE)],
+            $prefix . 'type' => ['nullable', Rule::in(ObservationReferenceRange::TYPE_CODE)],
             $prefix . 'applies_to' => 'nullable|array',
             $prefix . 'applies_to.*.coding' => 'nullable|array',
             $prefix . 'applies_to.*.coding.*.system' => 'nullable|string',

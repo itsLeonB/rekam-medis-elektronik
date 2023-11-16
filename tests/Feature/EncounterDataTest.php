@@ -55,5 +55,23 @@ class EncounterDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/encounter/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('encounter', $data['encounter']);
+        $this->assertManyData('encounter_identifier', $data['identifier']);
+        $this->assertManyData('encounter_status_history', $data['status_history']);
+        $this->assertManyData('encounter_class_history', $data['class_history']);
+        $this->assertManyData('encounter_participant', $data['participant']);
+        $this->assertManyData('encounter_reason', $data['reason']);
+        $this->assertManyData('encounter_diagnosis', $data['diagnosis']);
+        $this->assertNestedData('encounter_hospitalization', $data['hospitalization'], 'hospitalization_data', [
+            [
+                'table' => 'encounter_hospitalization_diet',
+                'data' => 'diet'
+            ],
+            [
+                'table' => 'encounter_hospitalization_spc_arr',
+                'data' => 'special_arrangement'
+            ]
+        ]);
     }
 }

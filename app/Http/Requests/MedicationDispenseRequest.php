@@ -73,11 +73,14 @@ class MedicationDispenseRequest extends FhirRequest
     {
         return array_merge(
             [
-                'substitution.substitution_data.was_substituted' => 'required|boolean',
+                'substitution.*.substitution_data' => 'required|array',
+                'substitution.*.reason' => 'nullable|array',
+                'substitution.*.responsible_party' => 'nullable|array',
+                'substitution.*.substitution_data.was_substituted' => 'required|boolean',
             ],
-            $this->getCodeableConceptDataRules('substitution.substitution_data.type_', MedicationDispenseSubstitution::TYPE_CODE),
-            $this->getCodeableConceptDataRules('substitution.reason.*.', MedicationDispenseSubstitution::REASON_CODE),
-            $this->getReferenceDataRules('substitution.responsible_party.*.')
+            $this->getCodeableConceptDataRules('substitution.*.substitution_data.type_', MedicationDispenseSubstitution::TYPE_CODE),
+            $this->getCodeableConceptDataRules('substitution.*.reason.*.', MedicationDispenseSubstitution::REASON_CODE),
+            $this->getReferenceDataRules('substitution.*.responsible_party.*.')
         );
     }
 }

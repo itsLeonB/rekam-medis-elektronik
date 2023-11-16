@@ -88,10 +88,14 @@ class Controller extends BaseController
      */
     public function createInstances(string $model, array $key, array $body, string $bodyKey)
     {
-        if (isset($body) && array_key_exists($bodyKey, $body)) {
-            foreach ($body[$bodyKey] as $item) {
-                $this->createModelInstance($model, $key, $item);
+        try {
+            if (isset($body) && array_key_exists($bodyKey, $body)) {
+                foreach ($body[$bodyKey] as $item) {
+                    $this->createModelInstance($model, $key, $item);
+                }
             }
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
         }
     }
 
@@ -146,12 +150,16 @@ class Controller extends BaseController
      */
     public function createNestedModelInstances(array $nestedModels, array $item, $instance)
     {
-        foreach ($nestedModels as $nestedModel) {
-            if (isset($nestedModel['model'], $nestedModel['key'], $nestedModel['bodyKey']) && (is_array($item[$nestedModel['bodyKey']]) || is_object($item[$nestedModel['bodyKey']]))) {
-                foreach ($item[$nestedModel['bodyKey']] as $nestedItem) {
-                    $nestedModel['model']::create(array_merge([$nestedModel['key'] => $instance->id], $nestedItem));
+        try {
+            foreach ($nestedModels as $nestedModel) {
+                if (isset($nestedModel['model'], $nestedModel['key'], $nestedModel['bodyKey']) && (is_array($item[$nestedModel['bodyKey']]) || is_object($item[$nestedModel['bodyKey']]))) {
+                    foreach ($item[$nestedModel['bodyKey']] as $nestedItem) {
+                        $nestedModel['model']::create(array_merge([$nestedModel['key'] => $instance->id], $nestedItem));
+                    }
                 }
             }
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
         }
     }
 }

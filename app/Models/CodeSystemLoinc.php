@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CodeSystemLoinc extends Model
 {
+    public const SYSTEM = "http://loinc.org";
+
     protected $table = 'codesystem_loinc';
     public $timestamps = false;
 }

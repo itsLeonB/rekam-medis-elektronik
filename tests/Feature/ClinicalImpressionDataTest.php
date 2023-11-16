@@ -55,5 +55,20 @@ class ClinicalImpressionDataTest extends TestCase
         ];
         $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
         $response->assertStatus(201);
+
+        $this->assertMainData('clinical_impression', $data['clinical_impression']);
+        $this->assertManyData('clinical_impression_identifier', $data['identifier']);
+        $this->assertManyData('clinical_impression_problem', $data['problem']);
+        $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [
+            [
+                'table' => 'clinic_impress_investigate_item',
+                'data' => 'item'
+            ]
+        ]);
+        $this->assertManyData('clinical_impression_protocol', $data['protocol']);
+        $this->assertManyData('clinical_impression_finding', $data['finding']);
+        $this->assertManyData('clinical_impression_prognosis', $data['prognosis']);
+        $this->assertManyData('clinical_impression_support_info', $data['supporting_info']);
+        $this->assertManyData('clinical_impression_note', $data['note']);
     }
 }
