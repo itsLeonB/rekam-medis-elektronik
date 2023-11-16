@@ -1,0 +1,250 @@
+{
+    "service_request": {
+        "requisition_system": "http://sys-ids.kemkes.go.id/servicerequest/10080017",
+        "requisition_use": "official",
+        "requisition_value": "00001",
+        "status": "draft",
+        "intent": "proposal",
+        "priority": "routine",
+        "do_not_perform": false,
+        "code_system": "http://snomed.info/sct",
+        "code_code": "185389009",
+        "code_display": "Follow-up visit",
+        "quantity": {
+            "quantityQuantity": {
+                "value": 1,
+                "comparator": ">=",
+                "unit": "days",
+                "system": "http://unitsofmeasure.org",
+                "code": "d"
+            },
+            "quantityRatio": {
+                "numerator": {
+                    "value": 1,
+                    "comparator": ">=",
+                    "unit": "days",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "d"
+                },
+                "denominator": {
+                    "value": 1,
+                    "comparator": ">=",
+                    "unit": "days",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "d"
+                }
+            },
+            "quantityRange": {
+                "low": {
+                    "value": 1,
+                    "unit": "days",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "d"
+                },
+                "high": {
+                    "value": 5,
+                    "unit": "days",
+                    "system": "http://unitsofmeasure.org",
+                    "code": "d"
+                }
+            }
+        },
+        "subject": "Patient/10080017",
+        "encounter": "Encounter/10080017",
+        "occurrence": {
+            "occurrenceDateTime": "2023-11-16T23:12:12+07:00",
+            "occurrencePeriod": {
+                "start": "2023-11-16T23:12:12+07:00",
+                "end": "2023-11-17T23:12:12+07:00"
+            },
+            "occurrenceTiming": {
+                "event": ["2023-11-08T17:02:00+07:00"],
+                "repeat": {
+                    "boundsDuration": {
+                        "value": "12",
+                        "comparator": "<",
+                        "unit": "days",
+                        "system": "http://unitsofmeasure.org",
+                        "code": "d"
+                    },
+                    "boundsRange": {
+                        "low": {
+                            "value": 1,
+                            "unit": "days",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "d"
+                        },
+                        "high": {
+                            "value": 5,
+                            "unit": "days",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "d"
+                        }
+                    },
+                    "boundsPeriod": {
+                        "start": "2023-11-16T23:12:12+07:00",
+                        "end": "2023-11-17T23:12:12+07:00"
+                    },
+                    "count": "5",
+                    "countMax": "5",
+                    "duration": "4",
+                    "durationMax": "4",
+                    "durationUnit": "d",
+                    "frequency": "6",
+                    "frequencyMax": "6",
+                    "period": "5",
+                    "periodMax": "5",
+                    "periodUnit": "d",
+                    "dayOfWeek": ["fri"],
+                    "timeOfDay": ["19:54:22"],
+                    "when": ["CD"],
+                    "offset": "2"
+                },
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/3.1.0/CodeSystem-v3-GTSAbbreviation.html",
+                            "code": "BID",
+                            "display": "BID"
+                        }
+                    ]
+                }
+            }
+        },
+        "as_needed": {
+            "asNeededBoolean": true,
+            "asNeededCodeableConcept": {
+                "system": "http://hl7.org/fhir/sid/icd-10",
+                "code": "R52.9",
+                "display": "Pain, unspecified"
+            }
+        },
+        "authored_on": "2023-11-16T23:12:12+07:00",
+        "requester": "Practitioner/10080017",
+        "performer_type_system": "http://snomed.info/sct",
+        "performer_type_code": "1421009",
+        "performer_type_display": "Specialized surgeon",
+        "patient_instruction": "Kontrol setelah 1 bulan minum obat anti tuberkulosis. Dalam keadaan darurat dapat menghubungi hotline RS di nomor 14045"
+    },
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/servicerequest/10080017",
+            "use": "official",
+            "value": "00001"
+        }
+    ],
+    "based_on": [
+        {
+            "reference": "CarePlan/null"
+        },
+        {
+            "reference": "ServiceRequest/00002"
+        },
+        {
+            "reference": "MedicationRequest/00003"
+        }
+    ],
+    "replaces": [
+        {
+            "reference": "ServiceRequest/00002"
+        }
+    ],
+    "category": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "152200007",
+            "display": "Laboratory test"
+        }
+    ],
+    "order_detail": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "47545007",
+            "display": "Continuous positive airway pressure ventilation treatment (regime/therapy)"
+        }
+    ],
+    "performer": [
+        {
+            "reference": "Practitioner/N10000005"
+        },
+        {
+            "reference": "PractitionerRole/null"
+        },
+        {
+            "reference": "Organization/RSPARA"
+        },
+        {
+            "reference": "CareTeam/null"
+        },
+        {
+            "reference": "HealthcareService/null"
+        },
+        {
+            "reference": "Patient/000001"
+        },
+        {
+            "reference": "Device/null"
+        },
+        {
+            "reference": "RelatedPerson/null"
+        }
+    ],
+    "location": [
+        {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+            "code": "OF",
+            "display": "Outpatient Facility",
+            "reference": "Location/ef011065-38c9-46f8-9c35-d1fe68966a3e"
+        }
+    ],
+    "reason": [
+        {
+            "system": "http://hl7.org/fhir/sid/icd-10",
+            "code": "A15.0",
+            "display": "Tuberculosis of lung, confirmed by sputum microscopy with or without culture",
+            "reference": "Condition/00001"
+        }
+    ],
+    "insurance": [
+        {
+            "reference": "Coverage/null"
+        },
+        {
+            "reference": "ClaimResponse/null"
+        }
+    ],
+    "supporting_info": [
+        {
+            "reference": "Resource/null"
+        }
+    ],
+    "specimen": [
+        {
+            "reference": "Specimen/null"
+        }
+    ],
+    "body_site": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "273000",
+            "display": "Lateral myocardium"
+        }
+    ],
+    "note": [
+        {
+            "author": {
+                "authorString": "Dokter Bronsig",
+                "authorReference": {
+                    "reference": "Practitioner/1000400104"
+                }
+            },
+            "time": "2023-11-01T11:31:00+07:00",
+            "text": "# Catatan<br>## Subbab"
+        }
+    ],
+    "relevant_history": [
+        {
+            "reference": "Provenance/null"
+        }
+    ]
+}

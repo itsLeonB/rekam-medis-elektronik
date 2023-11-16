@@ -102,9 +102,7 @@
                 "sequence": 1,
                 "text": "4 tablet per hari",
                 "patient_instruction": "4 tablet perhari, diminum setiap hari tanpa jeda sampai prose pengobatan berakhir",
-                "timing_event": [
-                    "2023-11-08T17:02:00+07:00"
-                ],
+                "timing_event": ["2023-11-08T17:02:00+07:00"],
                 "timing_repeat": {
                     "boundsDuration": {
                         "value": "12",
@@ -112,6 +110,24 @@
                         "unit": "days",
                         "system": "http://unitsofmeasure.org",
                         "code": "d"
+                    },
+                    "boundsRange": {
+                        "low": {
+                            "value": 1,
+                            "unit": "days",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "d"
+                        },
+                        "high": {
+                            "value": 5,
+                            "unit": "days",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "d"
+                        }
+                    },
+                    "boundsPeriod": {
+                        "start": "2023-11-16T23:12:12+07:00",
+                        "end": "2023-11-17T23:12:12+07:00"
                     },
                     "count": "5",
                     "countMax": "5",
@@ -123,15 +139,9 @@
                     "period": "5",
                     "periodMax": "5",
                     "periodUnit": "d",
-                    "dayOfWeek": [
-                        "fri"
-                    ],
-                    "timeOfDay": [
-                        "19:54:22"
-                    ],
-                    "when": [
-                        "CD"
-                    ],
+                    "dayOfWeek": ["fri"],
+                    "timeOfDay": ["19:54:22"],
+                    "when": ["CD"],
                     "offset": "2"
                 },
                 "timing_system": "http://terminology.hl7.org/3.1.0/CodeSystem-v3-GTSAbbreviation.html",
