@@ -15,6 +15,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SatusehatController;
+use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\TestController;
 
 /*
@@ -80,7 +81,11 @@ Route::post('/composition/create', [CompositionController::class, 'postCompositi
 // ClinicalImpression resource endpoint
 Route::post('/clinicalimpression/create', [ClinicalImpressionController::class, 'postClinicalImpression']);
 
+// ServiceRequest resource endpoint
+Route::post('/servicerequest/create', [ServiceRequestController::class, 'postServiceRequest']);
+
 // Testing endpoint
+Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);
 Route::get('/test-get/clinicalimpression/{satusehat_id}', [TestController::class, 'testClinicalImpressionResource']);
 Route::get('/test-get/composition/{satusehat_id}', [TestController::class, 'testCompositionResource']);
 Route::get('/test-get/medicationdispense/{satusehat_id}', [TestController::class, 'testMedicationDispenseResource']);

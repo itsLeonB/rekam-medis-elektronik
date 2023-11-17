@@ -66,7 +66,7 @@ class FhirRequest extends FormRequest
             $this->getDurationDataRules($prefix . 'repeat.boundsDuration.'),
             $this->getRangeDataRules($prefix . 'repeat.boundsRange.'),
             $this->getPeriodDataRules($prefix . 'repeat.boundsPeriod.'),
-            $this->getCodeableConceptDataRules($prefix, Constants::TIMING_ABBREVIATION_CODE),
+            $this->getCodeableConceptDataRules($prefix . 'code.coding.*.', Constants::TIMING_ABBREVIATION_CODE),
         );
     }
 

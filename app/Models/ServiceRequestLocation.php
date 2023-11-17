@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ServiceRequestLocation extends Model
 {
+    public const SYSTEM = 'http://terminology.hl7.org/CodeSystem/v3-RoleCode';
+    public const CODE = ['AMB'];
+    public const DISPLAY = ["AMB" => "ambulance"];
+
     protected $table = 'service_request_location';
     public $timestamps = false;
 
