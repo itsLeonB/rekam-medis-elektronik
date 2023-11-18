@@ -5,55 +5,47 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicalImpressionRequest;
 use App\Http\Resources\ClinicalImpressionResource;
-use App\Models\ClinicalImpression;
-use App\Models\ClinicalImpressionFinding;
-use App\Models\ClinicalImpressionIdentifier;
-use App\Models\ClinicalImpressionInvestigation;
-use App\Models\ClinicalImpressionInvestigationItem;
-use App\Models\ClinicalImpressionNote;
-use App\Models\ClinicalImpressionProblem;
-use App\Models\ClinicalImpressionPrognosis;
-use App\Models\ClinicalImpressionProtocol;
-use App\Models\ClinicalImpressionSupportingInfo;
-use App\Models\Resource;
 use App\Services\FhirService;
 
 class ClinicalImpressionController extends Controller
 {
+    /**
+     * Store a new ClinicalImpression resource.
+     *
+     * @param ClinicalImpressionRequest $request The request object.
+     * @param FhirService $fhirService The FhirService instance.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the created ClinicalImpression resource.
+     */
     public function store(ClinicalImpressionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            $resource = Resource::create([
-                'res_type' => 'ClinicalImpression',
-                'res_ver' => 1
-            ]);
+            $resource = $this->createResource('ClinicalImpression');
             $clinicalImpression = $resource->clinicalImpression()->create($body['clinical_impression']);
-            $clinicalImpression->identifier()->createMany($body['identifier']);
-            $clinicalImpression->problem()->createMany($body['problem']);
+            $this->createChildModels($clinicalImpression, $body, ['identifier', 'problem', 'protocol', 'finding', 'prognosis', 'supportingInfo', 'note']);
+            $this->createNestedInstances($clinicalImpression, 'investigation', $body, ['item']);
+            $this->createResourceContent(ClinicalImpressionResource::class, $resource);
+            return response()->json($resource->clinicalImpression->first(), 201);
+        });
+    }
 
-            if (!empty($body['investigation'])) {
-                foreach ($body['investigation'] as $i) {}
-                $investigation = $clinicalImpression->investigation()->
-                $this->createNestedInstances(ClinicalImpressionInvestigation::class, $impressionKey, $body, 'investigation', [
-                    [
-                        'model' => ClinicalImpressionInvestigationItem::class,
-                        'key' => 'impress_investigate_id',
-                        'bodyKey' => 'item'
-                    ]
-                ]);
-            }
+    public function update(ClinicalImpressionRequest $request, int $res_id, FhirService $fhirService)
+    {
+        $body = $this->retrieveJsonPayload($request);
+        return $fhirService->insertData(function () use ($body, $res_id) {
+            $resource = $this->updateResource($res_id);
 
-            $this->createInstances(ClinicalImpressionProtocol::class, $impressionKey, $body, 'protocol');
-            $this->createInstances(ClinicalImpressionFinding::class, $impressionKey, $body, 'finding');
-            $this->createInstances(ClinicalImpressionPrognosis::class, $impressionKey, $body, 'prognosis');
-            $this->createInstances(ClinicalImpressionSupportingInfo::class, $impressionKey, $body, 'supporting_info');
-            $this->createInstances(ClinicalImpressionNote::class, $impressionKey, $body, 'note');
+            $clinicalImpression = $resource->clinicalImpression()->first();
+            $clinicalImpression->update($body['clinical_impression']);
+            $impressionId = $clinicalImpression->id;
+
+            $this->updateChildModels($clinicalImpression, $body, ['identifier', 'problem', 'protocol', 'finding', 'prognosis', 'supportingInfo', 'note'], 'impression_id', $impressionId);
+            $this->updateNestedInstances($clinicalImpression, 'investigation', $body, 'impression_id', $impressionId, ['item'], 'impress_investigate_id');
 
             $this->createResourceContent(ClinicalImpressionResource::class, $resource);
 
-            return response()->json($resource->clinicalImpression->first(), 201);
+            return response()->json($resource->clinicalImpression->first(), 200);
         });
     }
 }

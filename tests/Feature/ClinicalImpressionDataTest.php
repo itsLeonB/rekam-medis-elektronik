@@ -24,19 +24,13 @@ class ClinicalImpressionDataTest extends TestCase
 
         $data = $this->getExampleData('clinicalimpression');
 
-        $resource = Resource::create(
-            [
-                'satusehat_id' => '000001',
-                'res_type' => 'ClinicalImpression',
-                'res_ver' => 1
-            ]
-        );
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $newData = json_decode($response->getContent(), true);
 
-        $clinicalImpressionData = array_merge(['resource_id' => $resource->id], $data['clinical_impression']);
-
-        ClinicalImpression::create($clinicalImpressionData);
-
-        $response = $this->json('GET', 'api/clinicalimpression/000001');
+        $response = $this->json('GET', 'api/clinicalimpression/' . $newData['resource_id']);
         $response->assertStatus(200);
     }
 
@@ -68,7 +62,54 @@ class ClinicalImpressionDataTest extends TestCase
         $this->assertManyData('clinical_impression_protocol', $data['protocol']);
         $this->assertManyData('clinical_impression_finding', $data['finding']);
         $this->assertManyData('clinical_impression_prognosis', $data['prognosis']);
-        $this->assertManyData('clinical_impression_support_info', $data['supporting_info']);
+        $this->assertManyData('clinical_impression_support_info', $data['supportingInfo']);
+        $this->assertManyData('clinical_impression_note', $data['note']);
+    }
+
+    /**
+     * Test apakah user dapat memperbarui data prognosis
+     */
+    public function test_users_can_update_clinical_impression_data()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $data = $this->getExampleData('clinicalimpression');
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $newData = json_decode($response->getContent(), true);
+
+        $data['clinical_impression']['id'] = $newData['id'];
+        $data['clinical_impression']['resource_id'] = $newData['resource_id'];
+        $data['clinical_impression']['status'] = 'completed';
+        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
+        $data['identifier'][0]['impression_id'] = $newData['identifier'][0]['impression_id'];
+        $data['identifier'][0]['value'] = "5234341";
+
+        $data['identifier'][] = [
+            'system' => 'http://loinc.org',
+            'use' => 'official',
+            'value' => '1234567890'
+        ];
+
+        $response = $this->json('PUT', '/api/clinicalimpression/' . $newData['resource_id'], $data, $headers);
+        $response->assertStatus(200);
+
+        $this->assertMainData('clinical_impression', $data['clinical_impression']);
+        $this->assertManyData('clinical_impression_identifier', $data['identifier']);
+        $this->assertManyData('clinical_impression_problem', $data['problem']);
+        $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [
+            [
+                'table' => 'clinic_impress_investigate_item',
+                'data' => 'item'
+            ]
+        ]);
+        $this->assertManyData('clinical_impression_protocol', $data['protocol']);
+        $this->assertManyData('clinical_impression_finding', $data['finding']);
+        $this->assertManyData('clinical_impression_prognosis', $data['prognosis']);
+        $this->assertManyData('clinical_impression_support_info', $data['supportingInfo']);
         $this->assertManyData('clinical_impression_note', $data['note']);
     }
 }

@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\FhirResource;
 use App\Models\Resource;
-use App\Models\ResourceContent;
 use Exception;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,6 +14,20 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+
+    public function updateChildModels(object $parent, array $data, array $children, string $foreignKey, int $fkValue)
+    {
+        foreach ($children as $c) {
+            $this->updateInstances($parent, $c, $data, $foreignKey, $fkValue);
+        }
+    }
+
+    public function createChildModels(object $parent, array $data, array $children)
+    {
+        foreach ($children as $c) {
+            $this->createInstances($parent, $c, $data);
+        }
+    }
 
     public function updateNestedInstances(object $parent, string $child, array $data, string $foreignKey, int $fkValue, array $descendants, string $descendantKey)
     {

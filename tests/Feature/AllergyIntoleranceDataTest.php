@@ -6,7 +6,6 @@ use App\Models\AllergyIntolerance;
 use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -25,19 +24,13 @@ class AllergyIntoleranceDataTest extends TestCase
 
         $data = $this->getExampleData('allergyintolerance');
 
-        $resource = Resource::create(
-            [
-                'satusehat_id' => '000001',
-                'res_type' => 'AllergyIntolerance',
-                'res_ver' => 1
-            ]
-        );
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/allergyintolerance/create', $data, $headers);
+        $newData = json_decode($response->getContent(), true);
 
-        $allergyData = array_merge(['resource_id' => $resource->id], $data['allergy_intolerance']);
-
-        AllergyIntolerance::create($allergyData);
-
-        $response = $this->json('GET', 'api/allergyintolerance/' . $resource->id);
+        $response = $this->json('GET', 'api/allergyintolerance/' . $newData['resource_id']);
         $response->assertStatus(200);
     }
 
@@ -51,6 +44,7 @@ class AllergyIntoleranceDataTest extends TestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('allergyintolerance');
+
         $headers = [
             'Content-Type' => 'application/json'
         ];

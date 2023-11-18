@@ -81,6 +81,7 @@ Route::post('/composition/create', [CompositionController::class, 'store']);
 
 // ClinicalImpression resource endpoint
 Route::post('/clinicalimpression/create', [ClinicalImpressionController::class, 'store']);
+Route::put('/clinicalimpression/{res_id}', [ClinicalImpressionController::class, 'update']);
 
 // ServiceRequest resource endpoint
 Route::post('/servicerequest/create', [ServiceRequestController::class, 'store']);

@@ -5,17 +5,16 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AllergyIntoleranceRequest;
 use App\Http\Resources\AllergyIntoleranceResource;
-use App\Models\Resource;
 use App\Services\FhirService;
 
 class AllergyIntoleranceController extends Controller
 {
     /**
-     * Store a newly created AllergyIntolerance resource in storage.
+     * Store a new AllergyIntolerance resource.
      *
-     * @param  \App\Http\Requests\AllergyIntoleranceRequest  $request
-     * @param  \App\Services\FhirService  $fhirService
-     * @return \Illuminate\Http\JsonResponse
+     * @param AllergyIntoleranceRequest $request The request object.
+     * @param FhirService $fhirService The FhirService instance.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the created AllergyIntolerance resource.
      */
     public function store(AllergyIntoleranceRequest $request, FhirService $fhirService)
     {
@@ -24,20 +23,21 @@ class AllergyIntoleranceController extends Controller
         return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('AllergyIntolerance');
             $allergyIntolerance = $resource->allergyIntolerance()->create($body['allergy_intolerance']);
-            $this->createInstances($allergyIntolerance, 'identifier', $body);
-            $this->createInstances($allergyIntolerance, 'note', $body);
+            $this->createChildModels($allergyIntolerance, $body, ['identifier', 'note']);
             $this->createNestedInstances($allergyIntolerance, 'reaction', $body, ['manifestation', 'note']);
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
             return response()->json($resource->allergyIntolerance->first(), 201);
         });
     }
 
+
     /**
-     * Update an existing AllergyIntolerance resource.
+     * Update an AllergyIntolerance resource.
      *
-     * @param AllergyIntoleranceRequest $request The HTTP request instance.
-     * @param FhirService $fhirService The FHIR service instance.
-     * @return \Illuminate\Http\JsonResponse The HTTP response instance.
+     * @param AllergyIntoleranceRequest $request The request object containing the data.
+     * @param int $res_id The ID of the resource to be updated.
+     * @param FhirService $fhirService The FhirService instance for inserting data.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the updated AllergyIntolerance resource.
      */
     public function update(AllergyIntoleranceRequest $request, int $res_id, FhirService $fhirService)
     {
@@ -49,8 +49,7 @@ class AllergyIntoleranceController extends Controller
             $allergyIntolerance->update($body['allergy_intolerance']);
             $allergyId = $allergyIntolerance->id;
 
-            $this->updateInstances($allergyIntolerance, 'identifier', $body, 'allergy_id', $allergyId);
-            $this->updateInstances($allergyIntolerance, 'note', $body, 'allergy_id', $allergyId);
+            $this->updateChildModels($allergyIntolerance, $body, ['identifier', 'note'], 'allergy_id', $allergyId);
             $this->updateNestedInstances($allergyIntolerance, 'reaction', $body, 'allergy_id', $allergyId, ['manifestation', 'note'], 'allergy_react_id');
 
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
