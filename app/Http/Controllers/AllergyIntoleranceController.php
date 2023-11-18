@@ -39,92 +39,23 @@ class AllergyIntoleranceController extends Controller
      * @param FhirService $fhirService The FHIR service instance.
      * @return \Illuminate\Http\JsonResponse The HTTP response instance.
      */
-    public function update(AllergyIntoleranceRequest $request, FhirService $fhirService)
+    public function update(AllergyIntoleranceRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
+        return $fhirService->insertData(function () use ($body, $res_id) {
+            $resource = $this->updateResource($res_id);
 
-        // return $fhirService->insertData(function () use ($body) {
-        $resource = Resource::find($body['allergy_intolerance']['resource_id']);
+            $allergyIntolerance = $resource->allergyIntolerance()->first();
+            $allergyIntolerance->update($body['allergy_intolerance']);
+            $allergyId = $allergyIntolerance->id;
 
-        $resource->res_version = $resource->res_version + 1;
-        $resourceVersion = $resource->res_version;
+            $this->updateInstances($allergyIntolerance, 'identifier', $body, 'allergy_id', $allergyId);
+            $this->updateInstances($allergyIntolerance, 'note', $body, 'allergy_id', $allergyId);
+            $this->updateNestedInstances($allergyIntolerance, 'reaction', $body, 'allergy_id', $allergyId, ['manifestation', 'note'], 'allergy_react_id');
 
-        $allergyIntolerance = $resource->allergyIntolerance()->first();
-        $allergyIntolerance->update($body['allergy_intolerance']);
-        $allergyId = $allergyIntolerance->id;
+            $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
 
-        foreach ($body['identifier'] as $i) {
-            $id = isset($i['id']) ? $i['id'] : null;
-
-            $allergyIntolerance->identifier()->updateOrCreate(
-                ['id' => $id],
-                [
-                    'allergy_id' => $allergyId,
-                    'system' => $i['system'],
-                    'use' => $i['use'],
-                    'value' => $i['value']
-                ]
-            );
-        }
-
-        foreach ($body['note'] as $n) {
-            $id = isset($n['id']) ? $n['id'] : null;
-
-            $allergyIntolerance->note()->updateOrCreate(
-                ['id' => $id],
-                [
-                    'allergy_id' => $allergyId,
-                    'author' => $n['author'],
-                    'time' => $n['time'],
-                    'text' => $n['text']
-                ]
-            );
-        }
-
-        foreach ($body['reaction'] as $r) {
-            $id = isset($r['reaction_data']['id']) ? $r['reaction_data']['id'] : null;
-            unset($r['reaction_data']['id']);
-            unset($r['reaction_data']['allergy_id']);
-
-            $reaction = $allergyIntolerance->reaction()->updateOrCreate(
-                ['id' => $id],
-                array_merge(['allergy_id' => $allergyId], $r['reaction_data'])
-            );
-
-            $reactionId = $reaction->id;
-
-            foreach ($r['manifestation'] as $rm) {
-                $id = isset($rm['id']) ? $rm['id'] : null;
-                unset($rm['id']);
-                unset($rm['allergy_react_id']);
-
-                $reaction->manifestation()->updateOrCreate(
-                    ['id' => $id],
-                    array_merge(['allergy_react_id' => $reactionId], $rm)
-                );
-            }
-
-            foreach ($r['note'] as $rn) {
-                $id = isset($rn['id']) ? $rn['id'] : null;
-                unset($rn['id']);
-                unset($rn['allergy_react_id']);
-
-                $reaction->note()->updateOrCreate(
-                    ['id' => $id],
-                    array_merge(['allergy_react_id' => $reactionId], $rn)
-                );
-            }
-        }
-
-        $resource->refresh();
-
-        $resourceText = new AllergyIntoleranceResource($resource);
-        $resource->content()->create([
-            'res_ver' => $resourceVersion,
-            'res_text' => json_encode($resourceText),
-        ]);
-
-        return response()->json($resource->allergyIntolerance->first(), 201);
-        // });
+            return response()->json($resource->allergyIntolerance->first(), 200);
+        });
     }
 }

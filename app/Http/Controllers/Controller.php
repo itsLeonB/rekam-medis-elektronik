@@ -17,6 +17,52 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
 
+    public function updateNestedInstances(object $parent, string $child, array $data, string $foreignKey, int $fkValue, array $descendants, string $descendantKey)
+    {
+        if (!empty($data[$child])) {
+            foreach ($data[$child] as $c) {
+                $id = isset($c[$child . '_data']['id']) ? $c[$child . '_data']['id'] : null;
+                unset($c[$child . '_data']['id']);
+                unset($c[$child . '_data'][$foreignKey]);
+
+                $instance = $parent->$child()->updateOrCreate(
+                    ['id' => $id],
+                    array_merge([$foreignKey => $fkValue], $c[$child . '_data'])
+                );
+
+                $instanceId = $instance->id;
+
+                foreach ($descendants as $d) {
+                    $this->updateInstances($instance, $d, $c, $descendantKey, $instanceId);
+                }
+            }
+        }
+    }
+
+    public function updateInstances(object $parent, string $child, array $data, string $foreignKey, int $fkValue)
+    {
+        if (!empty($data[$child])) {
+            foreach ($data[$child] as $c) {
+                $id = isset($c['id']) ? $c['id'] : null;
+                unset($c['id']);
+                unset($c[$foreignKey]);
+
+                $parent->$child()->updateOrCreate(
+                    ['id' => $id],
+                    array_merge($c, [$foreignKey => $fkValue])
+                );
+            }
+        }
+    }
+
+    public function updateResource(int $res_id): Resource
+    {
+        $resource = Resource::where('id', $res_id)->firstOrFail();
+        $resource->increment('res_version');
+        $resource->refresh();
+        return $resource;
+    }
+
     public function createResourceContent($resourceClass, Resource $resource)
     {
         $resource->refresh();

@@ -46,7 +46,7 @@ Route::group(['middleware' => ['web']], function () {
 
 // Local DB resource endpoint
 Route::get('/{res_type}', [ResourceController::class, 'index']);
-Route::get('/{res_type}/{satusehat_id}', [ResourceController::class, 'show']);
+Route::get('/{res_type}/{res_id}', [ResourceController::class, 'show']);
 
 // Patient resource endpoint
 Route::post('/patient/create', [PatientController::class, 'store']);
@@ -59,7 +59,7 @@ Route::post('/condition/create', [ConditionController::class, 'store']);
 
 // AllergyIntolerance resource endpoint
 Route::post('/allergyintolerance/create', [AllergyIntoleranceController::class, 'store']);
-Route::post('/allergyintolerance/update', [AllergyIntoleranceController::class, 'update']);
+Route::put('/allergyintolerance/{res_id}', [AllergyIntoleranceController::class, 'update']);
 
 // Observation resource endpoint
 Route::post('/observation/create', [ObservationController::class, 'store']);

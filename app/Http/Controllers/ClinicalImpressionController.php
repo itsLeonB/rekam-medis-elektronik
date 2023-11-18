@@ -15,25 +15,27 @@ use App\Models\ClinicalImpressionProblem;
 use App\Models\ClinicalImpressionPrognosis;
 use App\Models\ClinicalImpressionProtocol;
 use App\Models\ClinicalImpressionSupportingInfo;
+use App\Models\Resource;
 use App\Services\FhirService;
 
 class ClinicalImpressionController extends Controller
 {
-    public function postClinicalImpression(ClinicalImpressionRequest $request, FhirService $fhirService)
+    public function store(ClinicalImpressionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            [$resource, $resourceKey] = $this->createResource('ClinicalImpression');
+            $resource = Resource::create([
+                'res_type' => 'ClinicalImpression',
+                'res_ver' => 1
+            ]);
+            $clinicalImpression = $resource->clinicalImpression()->create($body['clinical_impression']);
+            $clinicalImpression->identifier()->createMany($body['identifier']);
+            $clinicalImpression->problem()->createMany($body['problem']);
 
-            $clinicalImpression = ClinicalImpression::create(array_merge($resourceKey, $body['clinical_impression']));
-
-            $impressionKey = ['impression_id' => $clinicalImpression->id];
-
-            $this->createInstances(ClinicalImpressionIdentifier::class, $impressionKey, $body, 'identifier');
-            $this->createInstances(ClinicalImpressionProblem::class, $impressionKey, $body, 'problem');
-
-            if (is_array($body['investigation']) && !empty($body['investigation'])) {
+            if (!empty($body['investigation'])) {
+                foreach ($body['investigation'] as $i) {}
+                $investigation = $clinicalImpression->investigation()->
                 $this->createNestedInstances(ClinicalImpressionInvestigation::class, $impressionKey, $body, 'investigation', [
                     [
                         'model' => ClinicalImpressionInvestigationItem::class,
