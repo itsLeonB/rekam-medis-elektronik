@@ -1,8 +1,10 @@
 {
     "allergy_intolerance": {
+        "id": 1,
+        "resource_id": 1,
         "clinical_status": "active",
         "verification_status": "unconfirmed",
-        "type": "allergy",
+        "type": "intolerance",
         "category_food": true,
         "category_medication": false,
         "category_environment": false,
@@ -42,20 +44,29 @@
             },
             "onsetString": "sehari-hari"
         },
-        "recorded_date": "2023-11-01T11:16:01+07:00",
+        "recorded_date": "2023-11-01T11.16.01+07:00",
         "recorder": "Practitioner/1000400104",
         "asserter": "Practitioner-1000400104",
         "last_occurence": "2023-11-02T10:31:00+07:00"
     },
     "identifier": [
         {
+            "id": 1,
+            "allergy_id": 1,
             "system": "http://sys-ids.kemkes.go.id/allergy/10000004",
             "use": "official",
             "value": "5234342"
+        },
+        {
+            "system": "http://sys-ids.kemkes.go.id/allergy/10000004",
+            "use": "official",
+            "value": "5234347"
         }
     ],
     "note": [
         {
+            "id": 1,
+            "allergy_id": 1,
             "author": {
                 "authorString": "Dokter Bronsig",
                 "authorReference": {
@@ -69,6 +80,8 @@
     "reaction": [
         {
             "reaction_data": {
+                "id": 1,
+                "allergy_id": 1,
                 "substance_system": "http://terminology.kemkes.go.id/CodeSystem/clinical-term",
                 "substance_code": "AL000024",
                 "substance_display": "Kuning telur",
@@ -81,6 +94,8 @@
             },
             "manifestation": [
                 {
+                    "id": 1,
+                    "allergy_react_id": 1,
                     "system": "http://snomed.info/sct",
                     "code": "195967001",
                     "display": "Asthma"
@@ -88,6 +103,8 @@
             ],
             "note": [
                 {
+                    "id": 1,
+                    "allergy_react_id": 1,
                     "author": {
                         "authorString": "Dokter Bronsig",
                         "authorReference": {

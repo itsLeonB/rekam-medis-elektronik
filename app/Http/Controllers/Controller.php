@@ -16,31 +16,19 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    /**
-     * Create a new resource content.
-     *
-     * @param FhirResource $resourceClass The FHIR resource class.
-     * @param Resource $resource The resource instance.
-     * @return void
-     */
+
     public function createResourceContent($resourceClass, Resource $resource)
     {
-        $resourceData = new $resourceClass($resource);
-        $resourceText = json_encode($resourceData);
+        $resource->refresh();
 
-        ResourceContent::create([
-            'resource_id' => $resource->id,
-            'res_ver' => 1,
-            'res_text' => $resourceText,
+        $resourceText = new $resourceClass($resource);
+        $resource->content()->create([
+            'res_ver' => $resource->res_version,
+            'res_text' => json_encode($resourceText),
         ]);
     }
 
-    /**
-     * Create a new resource of the given type.
-     *
-     * @param string $resourceType The type of the resource to create.
-     * @return array An array containing the created resource and its key.
-     */
+
     public function createResource(string $resourceType)
     {
         $resource = Resource::create([
@@ -48,9 +36,7 @@ class Controller extends BaseController
             'res_ver' => 1,
         ]);
 
-        $resourceKey = ['resource_id' => $resource->id];
-
-        return [$resource, $resourceKey];
+        return $resource;
     }
 
     /**
@@ -76,34 +62,32 @@ class Controller extends BaseController
         return $body;
     }
 
-    /**
-     * Create instances of a given model with the provided data.
-     *
-     * @param string $model The name of the model to create instances of.
-     * @param array $key The key to use for creating the model instance.
-     * @param array $body The data to use for creating the model instance.
-     * @param string $bodyKey The key to use for accessing the data in the body.
-     * @param array $nestedModels An optional array of nested models to create instances of.
-     * @return void
-     */
-    public function createInstances(string $model, array $key, array $body, string $bodyKey)
+
+    public function createInstances(object $parent, string $child, array $data)
     {
         try {
-            if (isset($body) && array_key_exists($bodyKey, $body)) {
-                foreach ($body[$bodyKey] as $item) {
-                    $this->createModelInstance($model, $key, $item);
-                }
+            if (!empty($data[$child])) {
+                $parent->$child()->createMany($data[$child]);
             }
         } catch (Exception $e) {
             return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
         }
     }
 
-    public function createNestedInstances(string $model, array $key, array $body, string $bodyKey, array $nestedModels = [])
+    public function createNestedInstances(object $parent, string $child, array $data, array $descendants)
     {
-        foreach ($body[$bodyKey] as $item) {
-            $instance = $this->createModelInstance($model, $key, $item[$bodyKey . '_data']);
-            $this->createNestedModelInstances($nestedModels, $item, $instance);
+        try {
+            if (!empty($data[$child])) {
+                foreach ($data[$child] as $dc) {
+                    $instance = $parent->$child()->create($dc[$child . '_data']);
+
+                    foreach ($descendants as $d) {
+                        $this->createInstances($instance, $d, $dc);
+                    }
+                }
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
         }
     }
 
