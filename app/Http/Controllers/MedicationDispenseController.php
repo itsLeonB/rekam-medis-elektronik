@@ -19,7 +19,7 @@ class MedicationDispenseController extends Controller
     public function store(MedicationDispenseRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('MedicationDispense');
             $medicationDispense = $resource->medicationDispense()->create($body['medicationDispense']);
             $this->createChildModels($medicationDispense, $body, ['identifier', 'partOf', 'performer', 'authorizingPrescription']);
@@ -27,7 +27,7 @@ class MedicationDispenseController extends Controller
             $this->createNestedInstances($medicationDispense, 'substitution', $body, ['reason', 'responsibleParty']);
             $this->createResourceContent(MedicationDispenseResource::class, $resource);
             return response()->json($resource->medicationDispense->first(), 201);
-        // });
+        });
     }
 
 

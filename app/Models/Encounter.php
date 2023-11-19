@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -44,6 +43,7 @@ class Encounter extends Model
     ];
     protected $guarded = ['id'];
     public $timestamps = false;
+    protected $with = ['identifier', 'statusHistory', 'classHistory', 'participant', 'reason', 'diagnosis', 'hospitalization'];
 
     public function resource(): BelongsTo
     {

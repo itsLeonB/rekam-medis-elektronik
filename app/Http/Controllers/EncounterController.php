@@ -19,14 +19,14 @@ class EncounterController extends Controller
     public function store(EncounterRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('Encounter');
             $encounter = $resource->encounter()->create($body['encounter']);
             $this->createChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'reason', 'diagnosis']);
             $this->createNestedInstances($encounter, 'hospitalization', $body, ['diet', 'specialArrangement']);
             $this->createResourceContent(EncounterResource::class, $resource);
             return response()->json($resource->encounter->first(), 201);
-        // });
+        });
     }
 
 
@@ -47,7 +47,7 @@ class EncounterController extends Controller
             $encounter->update($body['encounter']);
             $encounterId = $encounter->id;
             $this->updateChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'reason', 'diagnosis'], 'encounter_id', $encounterId);
-            $this->updateNestedInstances($encounter, 'hospitalization', $body, 'encounter_id', $encounterId, ['diet', 'soecialArrangement'], 'enc_hosp_id');
+            $this->updateNestedInstances($encounter, 'hospitalization', $body, 'encounter_id', $encounterId, ['diet', 'specialArrangement'], 'enc_hosp_id');
             $this->createResourceContent(EncounterResource::class, $resource);
             return response()->json($resource->encounter->first(), 200);
         });

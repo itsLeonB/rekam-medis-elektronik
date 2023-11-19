@@ -56,6 +56,7 @@ class MedicationRequest extends Model
         'substitution_allowed' => 'array'
     ];
     public $timestamps = false;
+    protected $with = ['identifier', 'category', 'reason', 'basedOn', 'insurance', 'note', 'dosage'];
 
     public function resource(): BelongsTo
     {

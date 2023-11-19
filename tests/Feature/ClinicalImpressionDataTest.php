@@ -25,7 +25,7 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/clinicalimpression/' . $newData['resource_id']);
@@ -45,7 +45,7 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('clinical_impression', $data['clinicalImpression']);
@@ -76,7 +76,7 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['clinicalImpression']['id'] = $newData['id'];

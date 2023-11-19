@@ -25,7 +25,7 @@ class ConditionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/condition/create', $data, $headers);
+        $response = $this->json('POST', '/api/condition', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/condition/' . $newData['resource_id']);
@@ -45,7 +45,7 @@ class ConditionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/condition/create', $data, $headers);
+        $response = $this->json('POST', '/api/condition', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('condition', $data['condition']);
@@ -75,7 +75,7 @@ class ConditionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/condition/create', $data, $headers);
+        $response = $this->json('POST', '/api/condition', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['condition']['id'] = $newData['id'];

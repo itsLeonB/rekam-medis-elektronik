@@ -47,7 +47,7 @@ class ConditionController extends Controller
             $condition->update($body['condition']);
             $conditionId = $condition->id;
             $this->updateChildModels($condition, $body, ['identifier', 'category', 'bodySite', 'evidence', 'note'], 'condition_id', $conditionId);
-            $this->updateNestedInstances($condition, 'stage', $body, 'condition_id', $conditionId, ['assessnebt'], 'condition_stage_id');
+            $this->updateNestedInstances($condition, 'stage', $body, 'condition_id', $conditionId, ['assessment'], 'condition_stage_id');
             $this->createResourceContent(ConditionResource::class, $resource);
             return response()->json($resource->condition->first(), 200);
         });

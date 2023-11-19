@@ -25,7 +25,7 @@ class EncounterDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/encounter/create', $data, $headers);
+        $response = $this->json('POST', '/api/encounter', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/encounter/' . $newData['resource_id']);
@@ -45,7 +45,7 @@ class EncounterDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/encounter/create', $data, $headers);
+        $response = $this->json('POST', '/api/encounter', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('encounter', $data['encounter']);
@@ -80,7 +80,7 @@ class EncounterDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/encounter/create', $data, $headers);
+        $response = $this->json('POST', '/api/encounter', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['encounter']['id'] = $newData['id'];
@@ -98,6 +98,10 @@ class EncounterDataTest extends TestCase
 
         $response = $this->json('PUT', '/api/encounter/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
+        $updatedResponse = $this->json('GET', '/api/encounter/' . $newData['resource_id']);
+        $updatedData = json_decode($updatedResponse->getContent(), true);
+        $this->assertEquals('planned', $updatedData['status']);
+        $this->assertEquals('1234567890', $updatedData['identifier'][1]['value']);
 
         $this->assertMainData('encounter', $data['encounter']);
         $this->assertManyData('encounter_identifier', $data['identifier']);

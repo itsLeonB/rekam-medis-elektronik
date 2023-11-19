@@ -25,7 +25,7 @@ class CompositionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/composition/create', $data, $headers);
+        $response = $this->json('POST', '/api/composition', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/composition/' . $newData['resource_id']);
@@ -45,7 +45,7 @@ class CompositionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/composition/create', $data, $headers);
+        $response = $this->json('POST', '/api/composition', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('composition', $data['composition']);
@@ -88,7 +88,7 @@ class CompositionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/composition/create', $data, $headers);
+        $response = $this->json('POST', '/api/composition', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['composition']['id'] = $newData['id'];

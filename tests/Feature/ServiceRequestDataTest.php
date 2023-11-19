@@ -25,7 +25,7 @@ class ServiceRequestDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/servicerequest/create', $data, $headers);
+        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/servicerequest/' . $newData['resource_id']);
@@ -45,7 +45,7 @@ class ServiceRequestDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/servicerequest/create', $data, $headers);
+        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
@@ -78,7 +78,7 @@ class ServiceRequestDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/servicerequest/create', $data, $headers);
+        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['serviceRequest']['id'] = $newData['id'];

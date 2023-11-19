@@ -25,7 +25,7 @@ class PatientDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/patient/create', $data, $headers);
+        $response = $this->json('POST', '/api/patient', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/patient/' . $newData['resource_id']);
@@ -46,7 +46,7 @@ class PatientDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/patient/create', $data, $headers);
+        $response = $this->json('POST', '/api/patient', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('patient', $data['patient']);
@@ -75,7 +75,7 @@ class PatientDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/patient/create', $data, $headers);
+        $response = $this->json('POST', '/api/patient', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['patient']['id'] = $newData['id'];

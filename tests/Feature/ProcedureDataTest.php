@@ -25,7 +25,7 @@ class ProcedureDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/procedure/create', $data, $headers);
+        $response = $this->json('POST', '/api/procedure', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/procedure/' . $newData['resource_id']);
@@ -46,7 +46,7 @@ class ProcedureDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/procedure/create', $data, $headers);
+        $response = $this->json('POST', '/api/procedure', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('procedure', $data['procedure']);
@@ -77,7 +77,7 @@ class ProcedureDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/procedure/create', $data, $headers);
+        $response = $this->json('POST', '/api/procedure', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['procedure']['id'] = $newData['id'];

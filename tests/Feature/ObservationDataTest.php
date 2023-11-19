@@ -25,7 +25,7 @@ class ObservationDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/observation/create', $data, $headers);
+        $response = $this->json('POST', '/api/observation', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/observation/' . $newData['resource_id']);
@@ -45,7 +45,7 @@ class ObservationDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/observation/create', $data, $headers);
+        $response = $this->json('POST', '/api/observation', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('observation', $data['observation']);
@@ -85,7 +85,7 @@ class ObservationDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/observation/create', $data, $headers);
+        $response = $this->json('POST', '/api/observation', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['observation']['id'] = $newData['id'];

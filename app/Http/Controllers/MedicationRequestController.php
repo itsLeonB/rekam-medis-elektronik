@@ -48,7 +48,7 @@ class MedicationRequestController extends Controller
             $medicationRequest->update($body['medicationRequest']);
             $requestId = $medicationRequest->id;
             $this->updateChildModels($medicationRequest, $body, ['identifier', 'category', 'reason', 'basedOn', 'insurance', 'note'], 'med_req_id', $requestId);
-            $this->updateNestedInstances($medicationRequest, 'dosage', $body, 'med_req_id', $requestId, ['additionalnstruction', 'doseRate'], 'med_req_id');
+            $this->updateNestedInstances($medicationRequest, 'dosage', $body, 'med_req_id', $requestId, ['additionalInstruction', 'doseRate'], 'med_req_id');
             $this->createResourceContent(MedicationRequestResource::class, $resource);
 
             return response()->json($resource->medicationRequest->first(), 200);

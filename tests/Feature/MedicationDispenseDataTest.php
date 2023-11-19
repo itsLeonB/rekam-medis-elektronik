@@ -25,7 +25,7 @@ class MedicationDispenseDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/medicationdispense/create', $data, $headers);
+        $response = $this->json('POST', '/api/medicationdispense', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/medicationdispense/' . $newData['resource_id']);
@@ -45,7 +45,7 @@ class MedicationDispenseDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/medicationdispense/create', $data, $headers);
+        $response = $this->json('POST', '/api/medicationdispense', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('medication_dispense', $data['medicationDispense']);
@@ -87,7 +87,7 @@ class MedicationDispenseDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/medicationdispense/create', $data, $headers);
+        $response = $this->json('POST', '/api/medicationdispense', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['medicationDispense']['id'] = $newData['id'];

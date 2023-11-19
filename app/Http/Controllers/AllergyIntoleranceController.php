@@ -19,14 +19,14 @@ class AllergyIntoleranceController extends Controller
     public function store(AllergyIntoleranceRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body) {
+        // return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('AllergyIntolerance');
             $allergyIntolerance = $resource->allergyIntolerance()->create($body['allergyIntolerance']);
             $this->createChildModels($allergyIntolerance, $body, ['identifier', 'note']);
             $this->createNestedInstances($allergyIntolerance, 'reaction', $body, ['manifestation', 'note']);
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
             return response()->json($resource->allergyIntolerance->first(), 201);
-        });
+        // });
     }
 
 
