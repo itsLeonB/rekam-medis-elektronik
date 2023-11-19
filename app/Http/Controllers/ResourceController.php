@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class ResourceController extends Controller
 {
-    public function indexResource($res_type)
+    public function index($res_type)
     {
         // Validate the resource type
         if (!in_array($res_type, Resource::VALID_RESOURCE_TYPES)) {
@@ -20,7 +20,7 @@ class ResourceController extends Controller
         return response()->json(Resource::where('res_type', '=', $res_type)->get(), 200);
     }
 
-    public function getResource($res_type, $satusehat_id)
+    public function show($res_type, $res_id)
     {
         if (!in_array($res_type, Resource::VALID_RESOURCE_TYPES)) {
             return response()->json(['error' => 'Invalid resource type.'], 400);
@@ -28,7 +28,7 @@ class ResourceController extends Controller
 
         try {
             return response()->json(Resource::where([
-                ['satusehat_id', '=', $satusehat_id],
+                ['id', '=', $res_id],
                 ['res_type', '=', $res_type]
             ])->firstOrFail()->$res_type->first(), 200);
         } catch (ModelNotFoundException $e) {

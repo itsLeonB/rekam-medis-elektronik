@@ -5,57 +5,56 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AllergyIntoleranceRequest;
 use App\Http\Resources\AllergyIntoleranceResource;
-use App\Models\AllergyIntolerance;
-use App\Models\AllergyIntoleranceIdentifier;
-use App\Models\AllergyIntoleranceNote;
-use App\Models\AllergyIntoleranceReaction;
-use App\Models\AllergyIntoleranceReactionManifestation;
-use App\Models\AllergyIntoleranceReactionNote;
-use App\Models\Resource;
-use App\Models\ResourceContent;
 use App\Services\FhirService;
 
 class AllergyIntoleranceController extends Controller
 {
     /**
-     * Store a newly created AllergyIntolerance resource in storage.
+     * Store a new AllergyIntolerance resource.
      *
-     * @param  \App\Http\Requests\AllergyIntoleranceRequest  $request
-     * @param  \App\Services\FhirService  $fhirService
-     * @return \Illuminate\Http\JsonResponse
+     * @param AllergyIntoleranceRequest $request The request object.
+     * @param FhirService $fhirService The FhirService instance.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the created AllergyIntolerance resource.
      */
-    public function postAllergyIntolerance(AllergyIntoleranceRequest $request, FhirService $fhirService)
+    public function store(AllergyIntoleranceRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
 
         return $fhirService->insertData(function () use ($body) {
-            [$resource, $resourceKey] = $this->createResource('AllergyIntolerance');
+            $resource = $this->createResource('AllergyIntolerance');
+            $allergyIntolerance = $resource->allergyIntolerance()->create($body['allergy_intolerance']);
+            $this->createChildModels($allergyIntolerance, $body, ['identifier', 'note']);
+            $this->createNestedInstances($allergyIntolerance, 'reaction', $body, ['manifestation', 'note']);
+            $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
+            return response()->json($resource->allergyIntolerance->first(), 201);
+        });
+    }
 
-            $allergyIntolerance = AllergyIntolerance::create(array_merge($resourceKey, $body['allergy_intolerance']));
 
-            $allergyKey = ['allergy_id' => $allergyIntolerance->id];
+    /**
+     * Update an AllergyIntolerance resource.
+     *
+     * @param AllergyIntoleranceRequest $request The request object containing the data.
+     * @param int $res_id The ID of the resource to be updated.
+     * @param FhirService $fhirService The FhirService instance for inserting data.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the updated AllergyIntolerance resource.
+     */
+    public function update(AllergyIntoleranceRequest $request, int $res_id, FhirService $fhirService)
+    {
+        $body = $this->retrieveJsonPayload($request);
+        return $fhirService->insertData(function () use ($body, $res_id) {
+            $resource = $this->updateResource($res_id);
 
-            $this->createInstances(AllergyIntoleranceIdentifier::class, $allergyKey, $body, 'identifier');
-            $this->createInstances(AllergyIntoleranceNote::class, $allergyKey, $body, 'note');
+            $allergyIntolerance = $resource->allergyIntolerance()->first();
+            $allergyIntolerance->update($body['allergy_intolerance']);
+            $allergyId = $allergyIntolerance->id;
 
-            if (isset($body['reaction']) && !empty($body['reaction'])) {
-                $this->createNestedInstances(AllergyIntoleranceReaction::class, $allergyKey, $body, 'reaction', [
-                    [
-                        'model' => AllergyIntoleranceReactionManifestation::class,
-                        'key' => 'allergy_react_id',
-                        'bodyKey' => 'manifestation'
-                    ],
-                    [
-                        'model' => AllergyIntoleranceReactionNote::class,
-                        'key' => 'allergy_react_id',
-                        'bodyKey' => 'note'
-                    ],
-                ]);
-            }
+            $this->updateChildModels($allergyIntolerance, $body, ['identifier', 'note'], 'allergy_id', $allergyId);
+            $this->updateNestedInstances($allergyIntolerance, 'reaction', $body, 'allergy_id', $allergyId, ['manifestation', 'note'], 'allergy_react_id');
 
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
 
-            return response()->json($resource->allergyIntolerance->first(), 201);
+            return response()->json($resource->allergyIntolerance->first(), 200);
         });
     }
 }

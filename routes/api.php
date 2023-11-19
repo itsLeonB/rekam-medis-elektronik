@@ -45,44 +45,46 @@ Route::group(['middleware' => ['web']], function () {
 
 
 // Local DB resource endpoint
-Route::get('/{res_type}', [ResourceController::class, 'indexResource']);
-Route::get('/{res_type}/{satusehat_id}', [ResourceController::class, 'getResource']);
+Route::get('/{res_type}', [ResourceController::class, 'index']);
+Route::get('/{res_type}/{res_id}', [ResourceController::class, 'show']);
 
 // Patient resource endpoint
-Route::post('/patient/create', [PatientController::class, 'postPatient']);
+Route::post('/patient/create', [PatientController::class, 'store']);
 
 // Encounter resource endpoint
-Route::post('/encounter/create', [EncounterController::class, 'postEncounter']);
+Route::post('/encounter/create', [EncounterController::class, 'store']);
 
 // Condition resource endpoint
-Route::post('/condition/create', [ConditionController::class, 'postCondition']);
+Route::post('/condition/create', [ConditionController::class, 'store']);
 
 // AllergyIntolerance resource endpoint
-Route::post('/allergyintolerance/create', [AllergyIntoleranceController::class, 'postAllergyIntolerance']);
+Route::post('/allergyintolerance/create', [AllergyIntoleranceController::class, 'store']);
+Route::put('/allergyintolerance/{res_id}', [AllergyIntoleranceController::class, 'update']);
 
 // Observation resource endpoint
-Route::post('/observation/create', [ObservationController::class, 'postObservation']);
+Route::post('/observation/create', [ObservationController::class, 'store']);
 
 // Procedure resource endpoint
-Route::post('/procedure/create', [ProcedureController::class, 'postProcedure']);
+Route::post('/procedure/create', [ProcedureController::class, 'store']);
 
 // Medication resource endpoint
-Route::post('/medication/create', [MedicationController::class, 'postMedication']);
+Route::post('/medication/create', [MedicationController::class, 'store']);
 
 // MedicationRequest resource endpoint
-Route::post('/medicationrequest/create', [MedicationRequestController::class, 'postMedicationRequest']);
+Route::post('/medicationrequest/create', [MedicationRequestController::class, 'store']);
 
 // MedicationDispense resource endpoint
-Route::post('/medicationdispense/create', [MedicationDispenseController::class, 'postMedicationDispense']);
+Route::post('/medicationdispense/create', [MedicationDispenseController::class, 'store']);
 
 // Composition resource endpoint
-Route::post('/composition/create', [CompositionController::class, 'postComposition']);
+Route::post('/composition/create', [CompositionController::class, 'store']);
 
 // ClinicalImpression resource endpoint
-Route::post('/clinicalimpression/create', [ClinicalImpressionController::class, 'postClinicalImpression']);
+Route::post('/clinicalimpression/create', [ClinicalImpressionController::class, 'store']);
+Route::put('/clinicalimpression/{res_id}', [ClinicalImpressionController::class, 'update']);
 
 // ServiceRequest resource endpoint
-Route::post('/servicerequest/create', [ServiceRequestController::class, 'postServiceRequest']);
+Route::post('/servicerequest/create', [ServiceRequestController::class, 'store']);
 
 // Testing endpoint
 Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);

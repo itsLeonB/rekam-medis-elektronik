@@ -64,6 +64,7 @@ class PasswordResetTest extends TestCase
             ]);
 
             $response->assertSessionHasNoErrors();
+            $this->assertNotNull($user->refresh()->password_changed_at);
 
             return true;
         });

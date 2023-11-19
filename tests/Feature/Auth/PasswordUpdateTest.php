@@ -48,4 +48,19 @@ class PasswordUpdateTest extends TestCase
             ->assertSessionHasErrors('current_password')
             ->assertRedirect('/profile');
     }
+
+    public function test_timestamp_is_updated_on_password_update(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)->from('/profile')->put('/password', [
+            'current_password' => 'password',
+            'password' => 'new-password',
+            'password_confirmation' => 'new-password',
+        ]);
+
+        $user->refresh();
+
+        $this->assertNotNull($user->password_changed_at);
+    }
 }
