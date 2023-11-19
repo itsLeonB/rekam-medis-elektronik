@@ -143,12 +143,12 @@
             "value": "R100005"
         }
     ],
-    "based_on": [
+    "basedOn": [
         {
             "reference": "ServiceRequest/2e261ca8-0025-11ed-b939-0242ac120002"
         }
     ],
-    "part_of": [
+    "partOf": [
         {
             "reference": "Procedure/eaf09a48-0025-11ed-b939-0242ac120002"
         }
@@ -204,7 +204,7 @@
             "text": "# Catatan<br>## Subbab"
         }
     ],
-    "reference_range": [
+    "referenceRange": [
         {
             "value_low": 50,
             "value_high": 160,
@@ -228,7 +228,7 @@
             "text": "makin cerah makin buruk"
         }
     ],
-    "has_member": [
+    "member": [
         {
             "reference": "Observation/100000030009"
         },
@@ -239,7 +239,7 @@
             "reference": "MolecularSequence/null"
         }
     ],
-    "derived_from": [
+    "derivedFrom": [
         {
             "reference": "Observation/100000030009"
         },
@@ -347,7 +347,7 @@
                     "display": "Significantly High"
                 }
             ],
-            "reference_range": [
+            "referenceRange": [
                 {
                     "value_low": 50,
                     "value_high": 160,

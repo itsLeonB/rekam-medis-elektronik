@@ -51,12 +51,12 @@
             "value": "5234342"
         }
     ],
-    "based_on": [
+    "basedOn": [
         {
             "reference": "ServiceRequest/cc52bfcd-6cb2-4c0a-87a7-d5906f74bed9"
         }
     ],
-    "part_of": [
+    "partOf": [
         {
             "reference": "Procedure/1a2b3c4d5e6f7g8h9i0j"
         }
@@ -76,7 +76,7 @@
             "reference": "Condition-f2bc12fe-0ab2-4e5c-a3cd-32c66150cbe9"
         }
     ],
-    "body_site": [
+    "bodySite": [
         {
             "system": "http://snomed.info/sct",
             "code": "302551006",
@@ -96,7 +96,7 @@
             "reference": "Condition-f2bc12fe-0ab2-4e5c-a3cd-32c66150cbe9"
         }
     ],
-    "follow_up": [
+    "followUp": [
         {
             "system": "http://snomed.info/sct",
             "code": "35963001",
@@ -115,7 +115,7 @@
             "text": "# Catatan<br>## Subbab"
         }
     ],
-    "focal_device": [
+    "focalDevice": [
         {
             "system": "http://snomed.info/sct",
             "code": "360325005",
@@ -123,7 +123,7 @@
             "reference": "Device/null"
         }
     ],
-    "item_used": [
+    "itemUsed": [
         {
             "system": "http://snomed.info/sct",
             "code": "716314000",

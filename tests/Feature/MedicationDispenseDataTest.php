@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\MedicationDispense;
-use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -24,19 +22,13 @@ class MedicationDispenseDataTest extends TestCase
 
         $data = $this->getExampleData('medicationdispense');
 
-        $resource = Resource::create(
-            [
-                'satusehat_id' => 'P000000',
-                'res_type' => 'MedicationDispense',
-                'res_ver' => 1
-            ]
-        );
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/medicationdispense/create', $data, $headers);
+        $newData = json_decode($response->getContent(), true);
 
-        $medicationDispenseData = array_merge(['resource_id' => $resource->id], $data['medication_dispense']);
-
-        MedicationDispense::create($medicationDispenseData);
-
-        $response = $this->json('GET', 'api/medicationdispense/P000000');
+        $response = $this->json('GET', 'api/medicationdispense/' . $newData['resource_id']);
         $response->assertStatus(200);
     }
 
@@ -56,18 +48,18 @@ class MedicationDispenseDataTest extends TestCase
         $response = $this->json('POST', '/api/medicationdispense/create', $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('medication_dispense', $data['medication_dispense']);
+        $this->assertMainData('medication_dispense', $data['medicationDispense']);
         $this->assertManyData('medication_dispense_identifier', $data['identifier']);
-        $this->assertManyData('medication_dispense_part_of', $data['part_of']);
-        $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizing_prescription']);
+        $this->assertManyData('medication_dispense_part_of', $data['partOf']);
+        $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizingPrescription']);
         $this->assertNestedData('medication_dispense_dosage', $data['dosage'], 'dosage_data', [
             [
                 'table' => 'med_disp_dosage_add_instruct',
-                'data' => 'additional_instruction'
+                'data' => 'additionalInstruction'
             ],
             [
                 'table' => 'med_disp_dosage_dose_rate',
-                'data' => 'dose_rate'
+                'data' => 'doseRate'
             ]
         ]);
         $this->assertNestedData('medication_dispense_substitution', $data['substitution'], 'substitution_data', [
@@ -77,7 +69,65 @@ class MedicationDispenseDataTest extends TestCase
             ],
             [
                 'table' => 'med_disp_subs_responsible_party',
-                'data' => 'responsible_party'
+                'data' => 'responsibleParty'
+            ]
+        ]);
+    }
+
+
+    /**
+     * Test apakah user dapat memperbarui data pengeluaran obat
+     */
+    public function test_users_can_update_medication_dispense_data()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $data = $this->getExampleData('medicationdispense');
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/medicationdispense/create', $data, $headers);
+        $newData = json_decode($response->getContent(), true);
+
+        $data['medicationDispense']['id'] = $newData['id'];
+        $data['medicationDispense']['resource_id'] = $newData['resource_id'];
+        $data['medicationDispense']['status'] = 'completed';
+        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
+        $data['identifier'][0]['dispense_id'] = $newData['identifier'][0]['dispense_id'];
+        $data['identifier'][0]['value'] = "5234341";
+
+        $data['identifier'][] = [
+            'system' => 'http://loinc.org',
+            'use' => 'official',
+            'value' => '1234567890'
+        ];
+
+        $response = $this->json('PUT', '/api/medicationdispense/' . $newData['resource_id'], $data, $headers);
+        $response->assertStatus(200);
+
+        $this->assertMainData('medication_dispense', $data['medicationDispense']);
+        $this->assertManyData('medication_dispense_identifier', $data['identifier']);
+        $this->assertManyData('medication_dispense_part_of', $data['partOf']);
+        $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizingPrescription']);
+        $this->assertNestedData('medication_dispense_dosage', $data['dosage'], 'dosage_data', [
+            [
+                'table' => 'med_disp_dosage_add_instruct',
+                'data' => 'additionalInstruction'
+            ],
+            [
+                'table' => 'med_disp_dosage_dose_rate',
+                'data' => 'doseRate'
+            ]
+        ]);
+        $this->assertNestedData('medication_dispense_substitution', $data['substitution'], 'substitution_data', [
+            [
+                'table' => 'med_disp_subs_reason',
+                'data' => 'reason'
+            ],
+            [
+                'table' => 'med_disp_subs_responsible_party',
+                'data' => 'responsibleParty'
             ]
         ]);
     }

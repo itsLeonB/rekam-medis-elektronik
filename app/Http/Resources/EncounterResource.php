@@ -2,6 +2,12 @@
 
 namespace App\Http\Resources;
 
+use App\Models\CodeSystemEncounterReason;
+use App\Models\CodeSystemServiceType;
+use App\Models\Encounter;
+use App\Models\EncounterDiagnosis;
+use App\Models\EncounterHospitalization;
+use App\Models\EncounterParticipant;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -32,26 +38,26 @@ class EncounterResource extends FhirResource
             'status' => $encounter->status,
             'statusHistory' => $this->createStatusHistoryArray($encounter->statusHistory),
             'class' => [
-                'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
-                'code' => $this->class,
-                'display' => encounterClassDisplay($this->class),
+                'system' => $encounter->class ? Encounter::CLASS_SYSTEM : null,
+                'code' => $encounter->class,
+                'display' => $encounter->class ? Encounter::CLASS_DISPLAY[$encounter->class] : null
             ],
             'classHistory' => $this->createClassHistoryArray($encounter->classHistory),
             'serviceType' => [
                 'coding' => [
                     [
-                        'system' => $encounter->service_type == null ? null : 'http://terminology.hl7.org/CodeSystem/service-type',
+                        'system' => $encounter->service_type ? CodeSystemServiceType::SYSTEM : null,
                         'code' => $encounter->service_type,
-                        'display' => serviceTypeDisplay($encounter->service_type)
+                        'display' => $encounter->service_type ? CodeSystemServiceType::where('code', $encounter->service_type)->first()->display : null
                     ],
                 ],
             ],
             'priority' => [
                 'coding' => [
                     [
-                        'system' => $encounter->priority == null ? null : 'http://terminology.hl7.org/CodeSystem/v3-ActPriority',
+                        'system' => $encounter->priority ? Encounter::PRIORITY_SYSTEM : null,
                         'code' => $encounter->priority,
-                        'display' => priorityDisplay($encounter->priority)
+                        'display' => $encounter->priority ? Encounter::PRIORITY_DISPLAY[$encounter->priority] : null
                     ],
                 ],
             ],
@@ -125,9 +131,9 @@ class EncounterResource extends FhirResource
             foreach ($classHistoryAttribute as $ch) {
                 $classHistory[] = [
                     'class' => [
-                        'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+                        'system' => $ch->class ? Encounter::CLASS_SYSTEM : null,
                         'code' => $ch->class,
-                        'display' => encounterClassDisplay($ch->class),
+                        'display' => $ch->class ? Encounter::CLASS_DISPLAY[$ch->class] : null
                     ],
                     'period' => [
                         'start' => $this->parseDateFhir($ch->period_start),
@@ -151,9 +157,9 @@ class EncounterResource extends FhirResource
                         [
                             'coding' => [
                                 [
-                                    'system' => participantType($p->type)->system,
+                                    'system' => $p->type ? EncounterParticipant::TYPE_SYSTEM[$p->type] : null,
                                     'code' => $p->type,
-                                    'display' => participantType($p->type)->display
+                                    'display' => $p->type ? EncounterParticipant::TYPE_DISPLAY[$p->type] : null
                                 ]
                             ]
                         ]
@@ -175,9 +181,9 @@ class EncounterResource extends FhirResource
         if (is_array($reasonCodeAttribute) || is_object($reasonCodeAttribute)) {
             foreach ($reasonCodeAttribute as $r) {
                 $reasonCode[] = [
-                    'system' => 'http://snomed.info/sct',
+                    'system' => $r->code ? CodeSystemEncounterReason::SYSTEM : null,
                     'code' => $r->code,
-                    'display' => encounterReasonDisplay($r->code)
+                    'display' => $r->code ? CodeSystemEncounterReason::where('code', $r->code)->first()->display : null
                 ];
             }
         }
@@ -199,9 +205,9 @@ class EncounterResource extends FhirResource
                     'use' => [
                         'coding' => [
                             [
-                                'system' => 'http://terminology.hl7.org/CodeSystem/diagnosis-role',
+                                'system' => $d->use ? EncounterDiagnosis::USE_SYSTEM : null,
                                 'code' => $d->use,
-                                'display' => diagnosisUseDisplay($d->use)
+                                'display' => $d->use ? EncounterDiagnosis::USE_DISPLAY[$d->use] : null
                             ],
                         ],
                     ],
@@ -231,18 +237,18 @@ class EncounterResource extends FhirResource
                     'admitSource' => [
                         'coding' => [
                             [
-                                'system' => 'http://terminology.hl7.org/CodeSystem/admit-source',
+                                'system' => $h->admit_source ? EncounterHospitalization::ADMIT_SOURCE_SYSTEM : null,
                                 'code' => $h->admit_source,
-                                'display' => admitSource($h->admit_source)->display
+                                'display' => $h->admit_source ? EncounterHospitalization::ADMIT_SOURCE_DISPLAY[$h->admit_source] : null
                             ],
                         ],
                     ],
                     'reAdmission' => [
                         'coding' => [
                             [
-                                'system' => 'http://terminology.hl7.org/CodeSystem/v2-0092',
+                                'system' => $h->re_admission ? EncounterHospitalization::READMISSION_SYSTEM : null,
                                 'code' => $h->re_admission,
-                                'display' => $h->re_admission == 'R' ? 'Re-admssion' : null
+                                'display' => $h->re_admission ? EncounterHospitalization::READMISSION_DISPLAY : null
                             ],
                         ],
                     ],
@@ -254,9 +260,9 @@ class EncounterResource extends FhirResource
                     'dischargeDisposition' => [
                         'coding' => [
                             [
-                                'system' => 'http://terminology.hl7.org/CodeSystem/v2-0092',
+                                'system' => $h->discharge_disposition ? EncounterHospitalization::DISCHARGE_DISPOSITION_SYSTEM : null,
                                 'code' => $h->discharge_disposition,
-                                'display' => dischargeDisposition($h->discharge_disposition)->display
+                                'display' => $h->discharge_disposition ? EncounterHospitalization::DISCHARGE_DISPOSITION_DISPLAY[$h->discharge_disposition] : null
                             ],
                         ],
                     ],

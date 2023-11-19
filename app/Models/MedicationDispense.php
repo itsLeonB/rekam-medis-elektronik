@@ -30,6 +30,7 @@ class MedicationDispense extends Model
         'when_handed_over' => 'datetime'
     ];
     public $timestamps = false;
+    protected $with = ['identifier', 'partOf', 'performer', 'authorizingPrescription', 'dosage', 'substitution'];
 
     public function resource(): BelongsTo
     {
@@ -56,7 +57,7 @@ class MedicationDispense extends Model
         return $this->hasMany(MedicationDispenseAuthorizingPrescription::class, 'dispense_id');
     }
 
-    public function dosageInstruction(): HasMany
+    public function dosage(): HasMany
     {
         return $this->hasMany(MedicationDispenseDosageInstruction::class, 'dispense_id');
     }

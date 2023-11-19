@@ -29,6 +29,8 @@ class Patient extends Model
 
     protected $guarded = ['id'];
 
+    protected $with = ['identifier', 'telecom', 'address', 'contact', 'generalPractitioner'];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo

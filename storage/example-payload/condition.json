@@ -82,7 +82,7 @@
             "display": "Encounter Diagnosis"
         }
     ],
-    "body_site": [
+    "bodySite": [
         {
             "system": "http://snomed.info/sct",
             "code": "111002",

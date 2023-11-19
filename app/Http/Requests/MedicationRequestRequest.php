@@ -22,7 +22,7 @@ class MedicationRequestRequest extends FhirRequest
             $this->getCodeableConceptDataRules('category.*.', MedicationRequestCategory::CODE),
             $this->getCodeableConceptDataRules('reason.*.'),
             $this->getReferenceDataRules('reason.*.', true),
-            $this->getReferenceDataRules('based_on.*.'),
+            $this->getReferenceDataRules('basedOn.*.'),
             $this->getReferenceDataRules('insurance.*.'),
             $this->getAnnotationDataRules('note.*.'),
             $this->getDosageDataRules('dosage.*.')
@@ -32,11 +32,11 @@ class MedicationRequestRequest extends FhirRequest
     private function baseAttributeRules(): array
     {
         return [
-            'medication_request' => 'required|array',
+            'medicationRequest' => 'required|array',
             'identifier' => 'nullable|array',
             'category' => 'nullable|array',
             'reason' => 'nullable|array',
-            'based_on' => 'nullable|array',
+            'basedOn' => 'nullable|array',
             'insurance' => 'nullable|array',
             'note' => 'nullable|array',
             'dosage' => 'nullable|array'
@@ -47,32 +47,32 @@ class MedicationRequestRequest extends FhirRequest
     {
         return array_merge(
             [
-                'medication_request.status' => ['required', Rule::in(MedicationRequest::STATUS_CODE)],
-                'medication_request.status_reason' => ['nullable', Rule::in(MedicationRequest::STATUS_REASON_CODE)],
-                'medication_request.intent' => ['required', Rule::in(MedicationRequest::INTENT_CODE)],
-                'medication_request.priority' => ['nullable', Rule::in(MedicationRequest::PRIORITY_CODE)],
-                'medication_request.do_not_perform' => 'nullable|boolean',
-                'medication_request.reported' => 'nullable|boolean',
-                'medication_request.medication' => 'required|string',
-                'medication_request.subject' => 'required|string',
-                'medication_request.encounter' => 'nullable|string',
-                'medication_request.authored_on' => 'nullable|date',
-                'medication_request.requester' => 'nullable|string',
-                'medication_request.performer' => 'nullable|string',
-                'medication_request.performer_type' => 'nullable|string',
-                'medication_request.recorder' => 'nullable|string',
-                'medication_request.course_of_therapy' => ['nullable', Rule::in(MedicationRequest::COURSE_OF_THERAPY_CODE)],
-                'medication_request.repeats_allowed' => 'nullable|integer|gte:0',
-                'medication_request.dispense_performer' => 'nullable|string',
-                'medication_request.substitution_allowed' => 'nullable|array',
-                'medication_request.substitution_allowed.allowedBoolean' => 'nullable|boolean',
-                'medication_request.substitution_reason' => ['nullable', Rule::in(MedicationRequest::SUBSTITUTION_REASON_CODE)],
+                'medicationRequest.status' => ['required', Rule::in(MedicationRequest::STATUS_CODE)],
+                'medicationRequest.status_reason' => ['nullable', Rule::in(MedicationRequest::STATUS_REASON_CODE)],
+                'medicationRequest.intent' => ['required', Rule::in(MedicationRequest::INTENT_CODE)],
+                'medicationRequest.priority' => ['nullable', Rule::in(MedicationRequest::PRIORITY_CODE)],
+                'medicationRequest.do_not_perform' => 'nullable|boolean',
+                'medicationRequest.reported' => 'nullable|boolean',
+                'medicationRequest.medication' => 'required|string',
+                'medicationRequest.subject' => 'required|string',
+                'medicationRequest.encounter' => 'nullable|string',
+                'medicationRequest.authored_on' => 'nullable|date',
+                'medicationRequest.requester' => 'nullable|string',
+                'medicationRequest.performer' => 'nullable|string',
+                'medicationRequest.performer_type' => 'nullable|string',
+                'medicationRequest.recorder' => 'nullable|string',
+                'medicationRequest.course_of_therapy' => ['nullable', Rule::in(MedicationRequest::COURSE_OF_THERAPY_CODE)],
+                'medicationRequest.repeats_allowed' => 'nullable|integer|gte:0',
+                'medicationRequest.dispense_performer' => 'nullable|string',
+                'medicationRequest.substitution_allowed' => 'nullable|array',
+                'medicationRequest.substitution_allowed.allowedBoolean' => 'nullable|boolean',
+                'medicationRequest.substitution_reason' => ['nullable', Rule::in(MedicationRequest::SUBSTITUTION_REASON_CODE)],
             ],
-            $this->getDurationDataRules('medication_request.dispense_interval_'),
-            $this->getPeriodDataRules('medication_request.validity_period_'),
-            $this->getQuantityDataRules('medication_request.quantity_', true),
-            $this->getDurationDataRules('medication_request.supply_duration_'),
-            $this->getCodeableConceptDataRules('medication_request.substitution_allowed.allowedCodeableConcept.coding.*.', MedicationRequest::SUBSTITUTION_ALLOWED_CODE)
+            $this->getDurationDataRules('medicationRequest.dispense_interval_'),
+            $this->getPeriodDataRules('medicationRequest.validity_period_'),
+            $this->getQuantityDataRules('medicationRequest.quantity_', true),
+            $this->getDurationDataRules('medicationRequest.supply_duration_'),
+            $this->getCodeableConceptDataRules('medicationRequest.substitution_allowed.allowedCodeableConcept.coding.*.', MedicationRequest::SUBSTITUTION_ALLOWED_CODE)
         );
     }
 }

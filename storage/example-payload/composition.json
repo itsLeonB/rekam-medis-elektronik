@@ -33,7 +33,7 @@
             "party": "Patient/100000030009"
         }
     ],
-    "relates_to": [
+    "relatesTo": [
         {
             "code": "replaces",
             "target": {

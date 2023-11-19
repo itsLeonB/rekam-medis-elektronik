@@ -21,18 +21,18 @@ class ObservationRequest extends FhirRequest
             $this->baseAttributeRules(),
             $this->baseDataRules(),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRules('based_on.*.'),
-            $this->getReferenceDataRules('part_of.*.'),
+            $this->getReferenceDataRules('basedOn.*.'),
+            $this->getReferenceDataRules('partOf.*.'),
             $this->getCodeableConceptDataRules('category.*.', ObservationCategory::CODE),
             $this->getReferenceDataRules('focus.*.'),
             $this->getReferenceDataRules('performer.*.'),
             $this->getCodeableConceptDataRules('interpretation.*.', ObservationInterpretation::CODE),
             $this->getAnnotationDataRules('note.*.'),
-            $this->getReferenceRangeDataRules('reference_range.*.'),
-            $this->getReferenceDataRules('has_member.*.'),
-            $this->getReferenceDataRules('derived_from.*.'),
+            $this->getReferenceRangeDataRules('referenceRange.*.'),
+            $this->getReferenceDataRules('member.*.'),
+            $this->getReferenceDataRules('derivedFrom.*.'),
             $this->componentDataRules(),
-            $this->getReferenceRangeDataRules('component.*.reference_range.*.')
+            $this->getReferenceRangeDataRules('component.*.referenceRange.*.')
         );
     }
 
@@ -41,16 +41,16 @@ class ObservationRequest extends FhirRequest
         return [
             'observation' => 'required|array',
             'identifier' => 'nullable|array',
-            'based_on' => 'nullable|array',
-            'part_of' => 'nullable|array',
+            'basedOn' => 'nullable|array',
+            'partOf' => 'nullable|array',
             'category' => 'nullable|array',
             'focus' => 'nullable|array',
             'performer' => 'nullable|array',
             'interpretation' => 'nullable|array',
             'note' => 'nullable|array',
-            'reference_range' => 'nullable|array',
-            'has_member' => 'nullable|array',
-            'derived_from' => 'nullable|array',
+            'referenceRange' => 'nullable|array',
+            'member' => 'nullable|array',
+            'derivedFrom' => 'nullable|array',
             'component' => 'nullable|array',
         ];
     }

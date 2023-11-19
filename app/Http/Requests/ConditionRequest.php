@@ -21,7 +21,7 @@ class ConditionRequest extends FhirRequest
             $this->baseDataRules(),
             $this->getIdentifierDataRules('identifier.*.'),
             $this->getCodeableConceptDataRules('category.*.', ConditionCategory::CATEGORY_CODE),
-            $this->getCodeableConceptDataRules('body_site.*.'),
+            $this->getCodeableConceptDataRules('bodySite.*.'),
             $this->stageDataRules(),
             $this->evidenceDataRules(),
             $this->getAnnotationDataRules('note.*.')
@@ -34,7 +34,7 @@ class ConditionRequest extends FhirRequest
             'condition' => 'required|array',
             'identifier' => 'nullable|array',
             'category' => 'nullable|array',
-            'body_site' => 'nullable|array',
+            'bodySite' => 'nullable|array',
             'stage' => 'nullable|array',
             'evidence' => 'nullable|array',
             'note' => 'nullable|array',
@@ -103,9 +103,9 @@ class ConditionRequest extends FhirRequest
             'category.*.code.required' => 'Kode data kategori harus diisi',
             'category.*.display.required' => 'Display data kategori harus diisi',
 
-            'body_site.*.system.required' => 'Sistem data body site harus diisi',
-            'body_site.*.code.required' => 'Kode data body site harus diisi',
-            'body_site.*.display.required' => 'Display untuk data body site harus diisi',
+            'bodySite.*.system.required' => 'Sistem data body site harus diisi',
+            'bodySite.*.code.required' => 'Kode data body site harus diisi',
+            'bodySite.*.display.required' => 'Display untuk data body site harus diisi',
 
             'stage.*.stage_data.required' => 'Data tahapan kondisi harus diisi',
             'stage.*.assessment.*.reference.required' => 'Referensi data uji kondisi harus diisi',

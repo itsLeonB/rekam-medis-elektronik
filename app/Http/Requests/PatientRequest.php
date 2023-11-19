@@ -23,7 +23,7 @@ class PatientRequest extends FhirRequest
             $this->getTelecomDataRules('telecom.*.'),
             $this->getAddressDataRules('address.*.'),
             $this->contactDataRules(),
-            $this->getReferenceDataRules('general_practitioner.*.')
+            $this->getReferenceDataRules('generalPractitioner.*.')
         );
     }
 
@@ -35,7 +35,7 @@ class PatientRequest extends FhirRequest
             'telecom' => 'required|array',
             'address' => 'required|array',
             'contact' => 'required|array',
-            'general_practitioner' => 'required|array',
+            'generalPractitioner' => 'required|array',
         ];
     }
 
@@ -122,7 +122,7 @@ class PatientRequest extends FhirRequest
             'contact.*.telecom.*.use.required' => 'Kegunaan telekomunikasi kontak darurat pasien harus diisi',
             'contact.*.telecom.*.value.required' => 'Keterangan nilai telekomunikasi kontak darurat pasien harus diisi',
 
-            'general_practitioner.*.reference.required' => 'Referensi general practitioner harus diisi',
+            'generalPractitioner.*.reference.required' => 'Referensi general practitioner harus diisi',
 
             // Untuk Rule::in
             'patient.gender.in' => 'Harus termasuk "male", "female", "other", atau "unknown"',

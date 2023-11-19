@@ -19,10 +19,9 @@ class AllergyIntoleranceController extends Controller
     public function store(AllergyIntoleranceRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-
         return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('AllergyIntolerance');
-            $allergyIntolerance = $resource->allergyIntolerance()->create($body['allergy_intolerance']);
+            $allergyIntolerance = $resource->allergyIntolerance()->create($body['allergyIntolerance']);
             $this->createChildModels($allergyIntolerance, $body, ['identifier', 'note']);
             $this->createNestedInstances($allergyIntolerance, 'reaction', $body, ['manifestation', 'note']);
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
@@ -44,16 +43,12 @@ class AllergyIntoleranceController extends Controller
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body, $res_id) {
             $resource = $this->updateResource($res_id);
-
             $allergyIntolerance = $resource->allergyIntolerance()->first();
-            $allergyIntolerance->update($body['allergy_intolerance']);
+            $allergyIntolerance->update($body['allergyIntolerance']);
             $allergyId = $allergyIntolerance->id;
-
             $this->updateChildModels($allergyIntolerance, $body, ['identifier', 'note'], 'allergy_id', $allergyId);
             $this->updateNestedInstances($allergyIntolerance, 'reaction', $body, 'allergy_id', $allergyId, ['manifestation', 'note'], 'allergy_react_id');
-
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
-
             return response()->json($resource->allergyIntolerance->first(), 200);
         });
     }

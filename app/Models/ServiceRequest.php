@@ -30,6 +30,7 @@ class ServiceRequest extends Model
         'authored_on' => 'datetime'
     ];
     public $timestamps = false;
+    protected $with = ['identifier', 'basedOn', 'replaces', 'category', 'orderDetail', 'performer', 'location', 'reason', 'insurance', 'supportingInfo', 'specimen', 'bodySite', 'note', 'relevantHistory'];
 
     public function resource(): BelongsTo
     {

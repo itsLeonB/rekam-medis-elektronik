@@ -50,12 +50,15 @@ Route::get('/{res_type}/{res_id}', [ResourceController::class, 'show']);
 
 // Patient resource endpoint
 Route::post('/patient/create', [PatientController::class, 'store']);
+Route::put('/patient/{res_id}', [PatientController::class, 'update']);
 
 // Encounter resource endpoint
 Route::post('/encounter/create', [EncounterController::class, 'store']);
+Route::put('/encounter/{res_id}', [EncounterController::class, 'update']);
 
 // Condition resource endpoint
 Route::post('/condition/create', [ConditionController::class, 'store']);
+Route::put('/condition/{res_id}', [ConditionController::class, 'update']);
 
 // AllergyIntolerance resource endpoint
 Route::post('/allergyintolerance/create', [AllergyIntoleranceController::class, 'store']);
@@ -63,21 +66,27 @@ Route::put('/allergyintolerance/{res_id}', [AllergyIntoleranceController::class,
 
 // Observation resource endpoint
 Route::post('/observation/create', [ObservationController::class, 'store']);
+Route::put('/observation/{res_id}', [ObservationController::class, 'update']);
 
 // Procedure resource endpoint
 Route::post('/procedure/create', [ProcedureController::class, 'store']);
+Route::put('/procedure/{res_id}', [ProcedureController::class, 'update']);
 
 // Medication resource endpoint
 Route::post('/medication/create', [MedicationController::class, 'store']);
+Route::put('/medication/{res_id}', [MedicationController::class, 'update']);
 
 // MedicationRequest resource endpoint
 Route::post('/medicationrequest/create', [MedicationRequestController::class, 'store']);
+Route::put('/medicationrequest/{res_id}', [MedicationRequestController::class, 'update']);
 
 // MedicationDispense resource endpoint
 Route::post('/medicationdispense/create', [MedicationDispenseController::class, 'store']);
+Route::put('/medicationdispense/{res_id}', [MedicationDispenseController::class, 'update']);
 
 // Composition resource endpoint
 Route::post('/composition/create', [CompositionController::class, 'store']);
+Route::put('/composition/{res_id}', [CompositionController::class, 'update']);
 
 // ClinicalImpression resource endpoint
 Route::post('/clinicalimpression/create', [ClinicalImpressionController::class, 'store']);
@@ -85,6 +94,7 @@ Route::put('/clinicalimpression/{res_id}', [ClinicalImpressionController::class,
 
 // ServiceRequest resource endpoint
 Route::post('/servicerequest/create', [ServiceRequestController::class, 'store']);
+Route::put('/servicerequest/{res_id}', [ServiceRequestController::class, 'update']);
 
 // Testing endpoint
 Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);

@@ -5,58 +5,53 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MedicationRequestRequest;
 use App\Http\Resources\MedicationRequestResource;
-use App\Models\MedicationRequest;
-use App\Models\MedicationRequestBasedOn;
-use App\Models\MedicationRequestCategory;
-use App\Models\MedicationRequestDosage;
-use App\Models\MedicationRequestDosageAdditionalInstruction;
-use App\Models\MedicationRequestDosageDoseRate;
-use App\Models\MedicationRequestIdentifier;
-use App\Models\MedicationRequestInsurance;
-use App\Models\MedicationRequestNote;
-use App\Models\MedicationRequestReason;
-use App\Models\Resource;
-use App\Models\ResourceContent;
 use App\Services\FhirService;
 
 class MedicationRequestController extends Controller
 {
-    public function postMedicationRequest(MedicationRequestRequest $request, FhirService $fhirService)
+    /**
+     * Store a new medication request.
+     *
+     * @param MedicationRequestRequest $request The request object containing the medication request data.
+     * @param FhirService $fhirService The FHIR service used to insert the data.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the inserted medication request.
+     */
+    public function store(MedicationRequestRequest $request, FhirService $fhirService)
+    {
+        $body = $this->retrieveJsonPayload($request);
+        return $fhirService->insertData(function () use ($body) {
+            $resource = $this->createResource('MedicationRequest');
+            $medicationRequest = $resource->medicationRequest()->create($body['medicationRequest']);
+            $this->createChildModels($medicationRequest, $body, ['identifier', 'category', 'reason', 'basedOn', 'insurance', 'note']);
+            $this->createNestedInstances($medicationRequest, 'dosage', $body, ['additionalInstruction', 'doseRate']);
+            $this->createResourceContent(MedicationRequestResource::class, $resource);
+            return response()->json($resource->medicationRequest->first(), 201);
+        });
+    }
+
+
+    /**
+     * Update a medication request.
+     *
+     * @param MedicationRequestRequest $request The request object.
+     * @param int $res_id The resource ID.
+     * @param FhirService $fhirService The FHIR service.
+     * @return \Illuminate\Http\JsonResponse The JSON response.
+     */
+    public function update(MedicationRequestRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
 
-        return $fhirService->insertData(function () use ($body) {
-            [$resource, $resourceKey] = $this->createResource('MedicationRequest');
-
-            $medicationRequest = MedicationRequest::create(array_merge($resourceKey, $body['medication_request']));
-
-            $medicationRequestKey = ['med_req_id' => $medicationRequest->id];
-
-            $this->createInstances(MedicationRequestIdentifier::class, $medicationRequestKey, $body, 'identifier');
-            $this->createInstances(MedicationRequestCategory::class, $medicationRequestKey, $body, 'category');
-            $this->createInstances(MedicationRequestReason::class, $medicationRequestKey, $body, 'reason');
-            $this->createInstances(MedicationRequestBasedOn::class, $medicationRequestKey, $body, 'based_on');
-            $this->createInstances(MedicationRequestInsurance::class, $medicationRequestKey, $body, 'insurance');
-            $this->createInstances(MedicationRequestNote::class, $medicationRequestKey, $body, 'note');
-
-            if (isset($body['dosage']) && !empty($body['dosage'])) {
-                $this->createNestedInstances(MedicationRequestDosage::class, $medicationRequestKey, $body, 'dosage', [
-                    [
-                        'model' => MedicationRequestDosageAdditionalInstruction::class,
-                        'key' => 'med_req_dosage_id',
-                        'bodyKey' => 'additional_instruction'
-                    ],
-                    [
-                        'model' => MedicationRequestDosageDoseRate::class,
-                        'key' => 'med_req_dosage_id',
-                        'bodyKey' => 'dose_rate'
-                    ]
-                ]);
-            }
-
+        return $fhirService->insertData(function () use ($body, $res_id) {
+            $resource = $this->updateResource($res_id);
+            $medicationRequest = $resource->medicationRequest()->first();
+            $medicationRequest->update($body['medicationRequest']);
+            $requestId = $medicationRequest->id;
+            $this->updateChildModels($medicationRequest, $body, ['identifier', 'category', 'reason', 'basedOn', 'insurance', 'note'], 'med_req_id', $requestId);
+            $this->updateNestedInstances($medicationRequest, 'dosage', $body, 'med_req_id', $requestId, ['additionalnstruction', 'doseRate'], 'med_req_id');
             $this->createResourceContent(MedicationRequestResource::class, $resource);
 
-            return response()->json($resource->medicationRequest->first(), 201);
+            return response()->json($resource->medicationRequest->first(), 200);
         });
     }
 }

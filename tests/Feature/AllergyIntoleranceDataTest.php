@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\AllergyIntolerance;
-use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -51,7 +49,7 @@ class AllergyIntoleranceDataTest extends TestCase
         $response = $this->json('POST', '/api/allergyintolerance/create', $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('allergy_intolerance', $data['allergy_intolerance']);
+        $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
         $this->assertManyData('allergy_intolerance_identifier', $data['identifier']);
         $this->assertManyData('allergy_intolerance_note', $data['note']);
         $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
@@ -86,9 +84,9 @@ class AllergyIntoleranceDataTest extends TestCase
         $response = $this->json('POST', '/api/allergyintolerance/create', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['allergy_intolerance']['id'] = $newData['id'];
-        $data['allergy_intolerance']['resource_id'] = $newData['resource_id'];
-        $data['allergy_intolerance']['type'] = 'intolerance';
+        $data['allergyIntolerance']['id'] = $newData['id'];
+        $data['allergyIntolerance']['resource_id'] = $newData['resource_id'];
+        $data['allergyIntolerance']['type'] = 'intolerance';
         $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
         $data['identifier'][0]['allergy_id'] = $newData['identifier'][0]['allergy_id'];
         $data['identifier'][0]['value'] = "5234341";
@@ -102,7 +100,7 @@ class AllergyIntoleranceDataTest extends TestCase
         $response = $this->json('PUT', '/api/allergyintolerance/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('allergy_intolerance', $data['allergy_intolerance']);
+        $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
         $this->assertManyData('allergy_intolerance_identifier', $data['identifier']);
         $this->assertManyData('allergy_intolerance_note', $data['note']);
         $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [

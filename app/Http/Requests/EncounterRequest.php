@@ -30,7 +30,7 @@ class EncounterRequest extends FhirRequest
             $this->diagnosisDataRules(),
             $this->hospitalizationDataRules(),
             $this->getCodeableConceptDataRules('hospitalization.*.diet.*.', EncounterHospitalizationDiet::PREFERENCE_CODE),
-            $this->getCodeableConceptDataRules('hospitalization.*.special_arrangement.*.', EncounterHospitalizationSpecialArrangement::CODE),
+            $this->getCodeableConceptDataRules('hospitalization.*.specialArrangement.*.', EncounterHospitalizationSpecialArrangement::CODE),
         );
     }
 
@@ -39,8 +39,8 @@ class EncounterRequest extends FhirRequest
         return [
             'encounter' => 'required|array',
             'identifier' => 'required|array',
-            'status_history' => 'required|array',
-            'class_history' => 'nullable|array',
+            'statusHistory' => 'required|array',
+            'classHistory' => 'nullable|array',
             'participant' => 'required|array',
             'reason' => 'nullable|array',
             'diagnosis' => 'nullable|array',
@@ -70,18 +70,18 @@ class EncounterRequest extends FhirRequest
     private function statusHistoryDataRules(): array
     {
         return [
-            'status_history.*.status' => ['required', Rule::in(Encounter::STATUS_CODE)],
-            'status_history.*.period_start' => 'required|date',
-            'status_history.*.period_end' => 'nullable|date',
+            'statusHistory.*.status' => ['required', Rule::in(Encounter::STATUS_CODE)],
+            'statusHistory.*.period_start' => 'required|date',
+            'statusHistory.*.period_end' => 'nullable|date',
         ];
     }
 
     private function classHistoryDataRules(): array
     {
         return [
-            'class_history.*.class' => ['required', Rule::in(Encounter::CLASS_CODE)],
-            'class_history.*.period_start' => 'required|date',
-            'class_history.*.period_end' => 'nullable|date',
+            'classHistory.*.class' => ['required', Rule::in(Encounter::CLASS_CODE)],
+            'classHistory.*.period_start' => 'required|date',
+            'classHistory.*.period_end' => 'nullable|date',
         ];
     }
 
@@ -141,11 +141,11 @@ class EncounterRequest extends FhirRequest
             'identifier.*.use.required' => 'Identifier use harus diisi',
             'identifier.*.value.required' => 'Identifier value harus diisi',
 
-            'status_history.*.status.required' => 'Data status kunjungan historis harus diisi',
-            'status_history.*.period_start.required' => 'Data historis status waktu mulainya kunjungan harus diisi',
+            'statusHistory.*.status.required' => 'Data status kunjungan historis harus diisi',
+            'statusHistory.*.period_start.required' => 'Data historis status waktu mulainya kunjungan harus diisi',
 
-            'class_history.*.class.required' => 'Data jenis kunjungan historis harus diisi',
-            'class_history.*.period_start.required' => 'Data historis kelas waktu mulainya kunjungan harus diisi',
+            'classHistory.*.class.required' => 'Data jenis kunjungan historis harus diisi',
+            'classHistory.*.period_start.required' => 'Data historis kelas waktu mulainya kunjungan harus diisi',
 
             'participant.*.type.required' => 'Data tipe tenaga kesehatan yang bertugas harus diisi',
             'participant.*.individual.required' => 'Data ID tenaga kesehatan yang bertugas harus diisi',
@@ -155,14 +155,14 @@ class EncounterRequest extends FhirRequest
 
             'hospitalization.*.diet.*.code.required' => 'Data kode pantangan konsumsi pasien harus diisi',
 
-            'hospitalization.*.special_arrangement.*.code.required' => 'Data kode kebutuhan khusus pasien harus diisi',
+            'hospitalization.*.specialArrangement.*.code.required' => 'Data kode kebutuhan khusus pasien harus diisi',
 
             //Untuk Rule::in
             'encounter.status.in' => 'Harus termasuk "planned", "arrived", "triaged", "in-progress", "onleave", "finished", "cancelled", "entered-in-error", atau "unknown"',
 
             'identifier.*.use.in' => 'Harus termasuk "usual", "official", "temp", "secondary", atau "old"',
 
-            'status_history.*.status.in' => 'Harus termasuk "planned", "arrived", "triaged", "in-progress", "onleave", "finished", "cancelled", "entered-in-error", atau "unknown"',
+            'statusHistory.*.status.in' => 'Harus termasuk "planned", "arrived", "triaged", "in-progress", "onleave", "finished", "cancelled", "entered-in-error", atau "unknown"',
 
             //Untuk gte
             'encounter.service_type.gte' => 'Nilai tipe layanan tidak boleh negatif',
@@ -180,7 +180,7 @@ class EncounterRequest extends FhirRequest
             'encounter.class.max' => 'Data jenis kunjungan maksimal 6 karakter',
             'encounter.priority.max' => 'Data prioritas kunjungan maksimal 3 karakter',
 
-            'class_history.*.class.max' => 'Data jenis kunjungan historis maksimal 6 karakter',
+            'classHistory.*.class.max' => 'Data jenis kunjungan historis maksimal 6 karakter',
 
             'participant.*.type.max' => 'Data tipe tenaga kesehatan yang bertugas maksimal 10 karakter'
         ];

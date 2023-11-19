@@ -1,5 +1,5 @@
 {
-    "medication_request": {
+    "medicationRequest": {
         "status": "active",
         "status_reason": "altchoice",
         "intent": "proposal",
@@ -74,7 +74,7 @@
             "reference": "Condition/10"
         }
     ],
-    "based_on": [
+    "basedOn": [
         {
             "reference": "ServiceRequest/10000004"
         }
@@ -175,14 +175,14 @@
                 "max_dose_per_lifetime_system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
                 "max_dose_per_lifetime_code": "TAB"
             },
-            "additional_instruction": [
+            "additionalInstruction": [
                 {
                     "system": "http://snomed.info/sct",
                     "code": "311501008",
                     "display": "Half to one hour before food"
                 }
             ],
-            "dose_rate": [
+            "doseRate": [
                 {
                     "system": "https://hl7.org/FHIR/codesystem-dose-rate-type.html",
                     "code": "calculated",

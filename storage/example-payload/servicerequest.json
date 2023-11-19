@@ -1,5 +1,5 @@
 {
-    "service_request": {
+    "serviceRequest": {
         "requisition_system": "http://sys-ids.kemkes.go.id/servicerequest/10080017",
         "requisition_use": "official",
         "requisition_value": "00001",
@@ -133,7 +133,7 @@
             "value": "00001"
         }
     ],
-    "based_on": [
+    "basedOn": [
         {
             "reference": "CarePlan/null"
         },
@@ -156,7 +156,7 @@
             "display": "Laboratory test"
         }
     ],
-    "order_detail": [
+    "orderDetail": [
         {
             "system": "http://snomed.info/sct",
             "code": "47545007",
@@ -213,7 +213,7 @@
             "reference": "ClaimResponse/null"
         }
     ],
-    "supporting_info": [
+    "supportingInfo": [
         {
             "reference": "Resource/null"
         }
@@ -223,7 +223,7 @@
             "reference": "Specimen/null"
         }
     ],
-    "body_site": [
+    "bodySite": [
         {
             "system": "http://snomed.info/sct",
             "code": "273000",
@@ -242,7 +242,7 @@
             "text": "# Catatan<br>## Subbab"
         }
     ],
-    "relevant_history": [
+    "relevantHistory": [
         {
             "reference": "Provenance/null"
         }

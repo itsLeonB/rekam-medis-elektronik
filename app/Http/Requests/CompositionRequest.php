@@ -4,11 +4,8 @@ namespace App\Http\Requests;
 
 use App\Models\Composition;
 use App\Models\CompositionAttester;
-use App\Models\CompositionEvent;
-use App\Models\CompositionEventCode;
 use App\Models\CompositionRelatesTo;
 use App\Models\CompositionSection;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class CompositionRequest extends FhirRequest
@@ -26,7 +23,7 @@ class CompositionRequest extends FhirRequest
             $this->getCodeableConceptDataRules('category.*.'),
             $this->getReferenceDataRules('author.*.'),
             $this->attesterDataRules('attester.*.'),
-            $this->relatesToDataRules('relates_to.*.'),
+            $this->relatesToDataRules('relatesTo.*.'),
             $this->eventDataRules('event.*.'),
             $this->sectionDataRules('section.*.')
         );
@@ -39,7 +36,7 @@ class CompositionRequest extends FhirRequest
             'category' => 'nullable|array',
             'author' => 'required|array',
             'attester' => 'nullable|array',
-            'relates_to' => 'nullable|array',
+            'relatesTo' => 'nullable|array',
             'event' => 'nullable|array',
             'section' => 'nullable|array'
         ];

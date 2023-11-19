@@ -1,5 +1,5 @@
 {
-    "allergy_intolerance": {
+    "allergyIntolerance": {
         "clinical_status": "active",
         "verification_status": "unconfirmed",
         "type": "allergy",

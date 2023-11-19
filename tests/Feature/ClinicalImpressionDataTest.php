@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\ClinicalImpression;
-use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -50,7 +48,7 @@ class ClinicalImpressionDataTest extends TestCase
         $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('clinical_impression', $data['clinical_impression']);
+        $this->assertMainData('clinical_impression', $data['clinicalImpression']);
         $this->assertManyData('clinical_impression_identifier', $data['identifier']);
         $this->assertManyData('clinical_impression_problem', $data['problem']);
         $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [
@@ -81,9 +79,9 @@ class ClinicalImpressionDataTest extends TestCase
         $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['clinical_impression']['id'] = $newData['id'];
-        $data['clinical_impression']['resource_id'] = $newData['resource_id'];
-        $data['clinical_impression']['status'] = 'completed';
+        $data['clinicalImpression']['id'] = $newData['id'];
+        $data['clinicalImpression']['resource_id'] = $newData['resource_id'];
+        $data['clinicalImpression']['status'] = 'completed';
         $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
         $data['identifier'][0]['impression_id'] = $newData['identifier'][0]['impression_id'];
         $data['identifier'][0]['value'] = "5234341";
@@ -97,7 +95,7 @@ class ClinicalImpressionDataTest extends TestCase
         $response = $this->json('PUT', '/api/clinicalimpression/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('clinical_impression', $data['clinical_impression']);
+        $this->assertMainData('clinical_impression', $data['clinicalImpression']);
         $this->assertManyData('clinical_impression_identifier', $data['identifier']);
         $this->assertManyData('clinical_impression_problem', $data['problem']);
         $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [

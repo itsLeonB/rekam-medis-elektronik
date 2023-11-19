@@ -20,14 +20,14 @@ class ProcedureRequest extends FhirRequest
             $this->baseAttributeRules(),
             $this->baseDataRules(),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRules('based_on.*.'),
-            $this->getReferenceDataRules('part_of.*.'),
+            $this->getReferenceDataRules('basedOn.*.'),
+            $this->getReferenceDataRules('partOf.*.'),
             $this->performerDataRules(),
             $this->reasonDataRules(),
-            $this->getCodeableConceptDataRules('body_site.*.'),
+            $this->getCodeableConceptDataRules('bodySite.*.'),
             $this->getReferenceDataRules('report.*.'),
             $this->complicationDataRules(),
-            $this->getCodeableConceptDataRules('follow_up.*.', ProcedureFollowUp::CODE),
+            $this->getCodeableConceptDataRules('followUp.*.', ProcedureFollowUp::CODE),
             $this->getAnnotationDataRules('note.*.'),
             $this->focalDeviceDataRules(),
             $this->itemUsedDataRules()
@@ -39,17 +39,17 @@ class ProcedureRequest extends FhirRequest
         return [
             'procedure' => 'required|array',
             'identifier' => 'nullable|array',
-            'based_on' => 'nullable|array',
-            'part_of' => 'nullable|array',
+            'basedOn' => 'nullable|array',
+            'partOf' => 'nullable|array',
             'performer' => 'nullable|array',
             'reason' => 'nullable|array',
-            'body_site' => 'nullable|array',
+            'bodySite' => 'nullable|array',
             'report' => 'nullable|array',
             'complication' => 'nullable|array',
-            'follow_up' => 'nullable|array',
+            'followUp' => 'nullable|array',
             'note' => 'nullable|array',
-            'focal_device' => 'nullable|array',
-            'item_used' => 'nullable|array'
+            'focalDevice' => 'nullable|array',
+            'itemUsed' => 'nullable|array'
         ];
     }
 
@@ -103,16 +103,16 @@ class ProcedureRequest extends FhirRequest
     private function focalDeviceDataRules(): array
     {
         return array_merge(
-            $this->getCodeableConceptDataRules('focal_device.*.'),
-            $this->getReferenceDataRules('focal_device.*.')
+            $this->getCodeableConceptDataRules('focalDevice.*.'),
+            $this->getReferenceDataRules('focalDevice.*.')
         );
     }
 
     private function itemUsedDataRules(): array
     {
         return array_merge(
-            $this->getCodeableConceptDataRules('item_used.*.'),
-            $this->getReferenceDataRules('item_used.*.')
+            $this->getCodeableConceptDataRules('itemUsed.*.'),
+            $this->getReferenceDataRules('itemUsed.*.')
         );
     }
 }
