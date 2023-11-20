@@ -5,45 +5,51 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientRequest;
 use App\Http\Resources\PatientResource;
-use App\Models\GeneralPractitioner;
-use App\Models\Patient;
-use App\Models\PatientAddress;
-use App\Models\PatientContact;
-use App\Models\PatientContactTelecom;
-use App\Models\PatientIdentifier;
-use App\Models\PatientTelecom;
 use App\Services\FhirService;
 
 class PatientController extends Controller
 {
-    public function postPatient(PatientRequest $request, FhirService $fhirService)
+    /**
+     * Store a new patient record.
+     *
+     * @param PatientRequest $request The request object containing the patient data.
+     * @param FhirService $fhirService The FHIR service used to insert the data.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the newly created patient record.
+     */
+    public function store(PatientRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-
         return $fhirService->insertData(function () use ($body) {
-            [$resource, $resourceKey] = $this->createResource('Patient');
-
-            $patient = Patient::create(array_merge($resourceKey, $body['patient']));
-
-            $patientKey = ['patient_id' => $patient->id];
-
-            $this->createInstances(PatientIdentifier::class, $patientKey, $body, 'identifier');
-            $this->createInstances(PatientTelecom::class, $patientKey, $body, 'telecom');
-            $this->createInstances(PatientAddress::class, $patientKey, $body, 'address');
-            $this->createInstances(GeneralPractitioner::class, $patientKey, $body, 'general_practitioner');
-            if (isset($body['contact']) && !empty($body['contact'])) {
-                $this->createNestedInstances(PatientContact::class, $patientKey, $body, 'contact', [
-                    [
-                        'model' => PatientContactTelecom::class,
-                        'key' => 'contact_id',
-                        'bodyKey' => 'telecom'
-                    ]
-                ]);
-            }
-
+            $resource = $this->createResource('Patient');
+            $patient = $resource->patient()->create($body['patient']);
+            $this->createChildModels($patient, $body, ['identifier', 'telecom', 'address', 'generalPractitioner']);
+            $this->createNestedInstances($patient, 'contact', $body, ['telecom']);
             $this->createResourceContent(PatientResource::class, $resource);
-
             return response()->json($resource->patient->first(), 201);
+        });
+    }
+
+
+    /**
+     * Update a patient record.
+     *
+     * @param PatientRequest $request The request object containing the patient data.
+     * @param int $res_id The ID of the resource.
+     * @param FhirService $fhirService The FhirService instance for inserting data.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the updated patient data.
+     */
+    public function update(PatientRequest $request, int $res_id, FhirService $fhirService)
+    {
+        $body = $this->retrieveJsonPayload($request);
+        return $fhirService->insertData(function () use ($body, $res_id) {
+            $resource = $this->updateResource($res_id);
+            $patient = $resource->patient()->first();
+            $patient->update($body['patient']);
+            $patientId = $patient->id;
+            $this->updateChildModels($patient, $body, ['identifier', 'telecom', 'address', 'generalPractitioner'], 'patient_id', $patientId);
+            $this->updateNestedInstances($patient, 'contact', $body, 'patient_id', $patientId, ['telecom'], 'contact_id');
+            $this->createResourceContent(PatientResource::class, $resource);
+            return response()->json($resource->patient->first(), 200);
         });
     }
 }

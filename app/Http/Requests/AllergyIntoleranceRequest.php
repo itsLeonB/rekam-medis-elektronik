@@ -28,7 +28,7 @@ class AllergyIntoleranceRequest extends FhirRequest
     private function baseAttributeRules(): array
     {
         return [
-            'allergy_intolerance' => 'required|array',
+            'allergyIntolerance' => 'required|array',
             'identifier' => 'nullable|array',
             'note' => 'nullable|array',
             'reaction' => 'nullable|array',
@@ -39,25 +39,25 @@ class AllergyIntoleranceRequest extends FhirRequest
     {
         return array_merge(
             [
-                'allergy_intolerance.clinical_status' => ['nullable', Rule::in(AllergyIntolerance::CLINICAL_STATUS_CODE)],
-                'allergy_intolerance.verification_status' => ['nullable', Rule::in(AllergyIntolerance::VERIFICATION_STATUS_CODE)],
-                'allergy_intolerance.type' => ['nullable', Rule::in(AllergyIntolerance::TYPE_CODE)],
-                'allergy_intolerance.category_food' => 'required|boolean',
-                'allergy_intolerance.category_medication' => 'required|boolean',
-                'allergy_intolerance.category_environment' => 'required|boolean',
-                'allergy_intolerance.category_biologic' => 'required|boolean',
-                'allergy_intolerance.criticality' => ['nullable', Rule::in(AllergyIntolerance::CRITICALITY_CODE)],
-                'allergy_intolerance.code_system' => 'nullable|string',
-                'allergy_intolerance.code_code' => 'required|string',
-                'allergy_intolerance.code_display' => 'nullable|string',
-                'allergy_intolerance.patient' => 'required|string',
-                'allergy_intolerance.encounter' => 'nullable|string',
-                'allergy_intolerance.recorded_date' => 'nullable|date',
-                'allergy_intolerance.recorder' => 'nullable|string',
-                'allergy_intolerance.asserter' => 'nullable|string',
-                'allergy_intolerance.last_occurence' => 'nullable|date',
+                'allergyIntolerance.clinical_status' => ['nullable', Rule::in(AllergyIntolerance::CLINICAL_STATUS_CODE)],
+                'allergyIntolerance.verification_status' => ['nullable', Rule::in(AllergyIntolerance::VERIFICATION_STATUS_CODE)],
+                'allergyIntolerance.type' => ['nullable', Rule::in(AllergyIntolerance::TYPE_CODE)],
+                'allergyIntolerance.category_food' => 'required|boolean',
+                'allergyIntolerance.category_medication' => 'required|boolean',
+                'allergyIntolerance.category_environment' => 'required|boolean',
+                'allergyIntolerance.category_biologic' => 'required|boolean',
+                'allergyIntolerance.criticality' => ['nullable', Rule::in(AllergyIntolerance::CRITICALITY_CODE)],
+                'allergyIntolerance.code_system' => 'nullable|string',
+                'allergyIntolerance.code_code' => 'required|string',
+                'allergyIntolerance.code_display' => 'nullable|string',
+                'allergyIntolerance.patient' => 'required|string',
+                'allergyIntolerance.encounter' => 'nullable|string',
+                'allergyIntolerance.recorded_date' => 'nullable|date',
+                'allergyIntolerance.recorder' => 'nullable|string',
+                'allergyIntolerance.asserter' => 'nullable|string',
+                'allergyIntolerance.last_occurence' => 'nullable|date',
             ],
-            $this->getOnsetAttributeDataRules('allergy_intolerance.'),
+            $this->getOnsetAttributeDataRules('allergyIntolerance.'),
         );
     }
 
@@ -89,12 +89,12 @@ class AllergyIntoleranceRequest extends FhirRequest
         // create the corresponding validation error message according to the rules above
         return [
             //Untuk required
-            'allergy_intolerance.category_food.required' => 'Keterangan intoleransi/alergi makanan harus diisi',
-            'allergy_intolerance.category_medication.required' => 'Keterangan intoleransi/alergi medikasi harus diisi',
-            'allergy_intolerance.category_environment.required' => 'Keterangan intoleransi/alergi lingkungan harus diisi',
-            'allergy_intolerance.category_biologic.required' => 'Keterangan intoleransi/alergi biologis harus diisi',
-            'allergy_intolerance.code_code.required' => 'Kode intoleransi/alergi harus diisi',
-            'allergy_intolerance.patient.required' => 'Data pasien harus diisi',
+            'allergyIntolerance.category_food.required' => 'Keterangan intoleransi/alergi makanan harus diisi',
+            'allergyIntolerance.category_medication.required' => 'Keterangan intoleransi/alergi medikasi harus diisi',
+            'allergyIntolerance.category_environment.required' => 'Keterangan intoleransi/alergi lingkungan harus diisi',
+            'allergyIntolerance.category_biologic.required' => 'Keterangan intoleransi/alergi biologis harus diisi',
+            'allergyIntolerance.code_code.required' => 'Kode intoleransi/alergi harus diisi',
+            'allergyIntolerance.patient.required' => 'Data pasien harus diisi',
 
             'identifier.*.system.required' => 'Sistem identifier harus diisi',
             'identifier.*.use.required' => 'Identifier use harus diisi',
@@ -106,11 +106,11 @@ class AllergyIntoleranceRequest extends FhirRequest
             'reaction.*.note.*.text.required' => 'Teks untuk catatan reaksi intoleransi/alergi harus diisi',
 
             //Untuk rule::in
-            'allergy_intolerance.clinical_status.in' => 'Harus termasuk "active", "inactive", atau "resolved"',
-            'allergy_intolerance.verification_status.in' => 'Harus termasuk "unconfirmed", "confirmed", "refuted", atau "entered-in-error"',
-            'allergy_intolerance.type.in' => 'Harus termasuk "allergy" atau "intolerance"',
-            'allergy_intolerance.criticality.in' => 'Harus termasuk "low", "high", atau "unable-to-assess"',
-            'allergy_intolerance.onset.onsetAge.comparator.in' => 'Harus termasuk "<", "<=", ">=", atau ">"',
+            'allergyIntolerance.clinical_status.in' => 'Harus termasuk "active", "inactive", atau "resolved"',
+            'allergyIntolerance.verification_status.in' => 'Harus termasuk "unconfirmed", "confirmed", "refuted", atau "entered-in-error"',
+            'allergyIntolerance.type.in' => 'Harus termasuk "allergy" atau "intolerance"',
+            'allergyIntolerance.criticality.in' => 'Harus termasuk "low", "high", atau "unable-to-assess"',
+            'allergyIntolerance.onset.onsetAge.comparator.in' => 'Harus termasuk "<", "<=", ">=", atau ">"',
 
             'identifier.*.use.in' => 'Harus termasuk "usual", "official", "temp", "secondary", atau "old"',
 
@@ -118,9 +118,9 @@ class AllergyIntoleranceRequest extends FhirRequest
             'reaction.*.manifestation.*.code.in' => 'Harus termasuk "1985008", "4386001", "9826008", "23924001", "24079001", "31996006", "39579001", "41291007", "43116000", "49727002", "51599000", "62315008", "70076002", "73442001", "76067001", "91175000", "126485001", "162290004", "195967001", "247472004", "267036007", "271757001", "271759003", "271807003", "410430005", "418363000", "422587007", "698247007", "702809001", "768962006"',
 
             //Untuk decimal
-            'allergy_intolerance.onset.onsetAge.value.decimal' => 'Onset age harus berbentuk desimal',
-            'allergy_intolerance.onset.onsetRange.low.value.decimal' => 'Low value onset range harus berbentuk desimal',
-            'allergy_intolerance.onset.onsetRange.high.value.decimal' => 'High value onset range harus berbentuk desimal'
+            'allergyIntolerance.onset.onsetAge.value.decimal' => 'Onset age harus berbentuk desimal',
+            'allergyIntolerance.onset.onsetRange.low.value.decimal' => 'Low value onset range harus berbentuk desimal',
+            'allergyIntolerance.onset.onsetRange.high.value.decimal' => 'High value onset range harus berbentuk desimal'
         ];
     }
 }

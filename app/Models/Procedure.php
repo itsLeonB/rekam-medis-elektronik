@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Procedure extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($procedure) {
+            $orgId = config('organization_id');
+
+            $identifier = new ProcedureIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/procedure/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $procedure->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $procedure->identifier()->save($identifier);
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://hl7.org/fhir/eventstatus';
     public const STATUS_CODE = ['preparation', 'in-progress', 'not-done', 'on-hold', 'stopped', 'completed', 'entered-in-error', 'unknown'];
     public const STATUS_DISPLAY = ['preparation' => 'Persiapan', 'in-progress' => 'Berlangsung', 'not-done' => 'Tidak dilakukan', 'on-hold' => 'Tertahan', 'stopped' => 'Berhenti', 'completed' => 'Selesai', 'entered-in-error' => 'Salah masuk', 'unknown' => 'Tidak diketahui'];

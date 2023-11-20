@@ -20,13 +20,6 @@
         "batch_expiration_date": "2025-11-16",
         "type": "NC"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/medication/10000004/",
-            "use": "official",
-            "value": "R100005"
-        }
-    ],
     "ingredient": [
         {
             "system": "http://sys-ids.kemkes.go.id/kfa",

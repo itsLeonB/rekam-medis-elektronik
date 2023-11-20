@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Encounter;
-use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -19,24 +18,20 @@ class EncounterDataTest extends TestCase
      */
     public function test_users_can_view_encounter_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('encounter');
 
-        $resource = Resource::create(
-            [
-                'satusehat_id' => '000001',
-                'res_type' => 'Encounter',
-                'res_ver' => 1
-            ]
-        );
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/encounter', $data, $headers);
+        $newData = json_decode($response->getContent(), true);
 
-        $encounterData = array_merge(['resource_id' => $resource->id], $data['encounter']);
-
-        Encounter::create($encounterData);
-
-        $response = $this->json('GET', 'api/encounter/000001');
+        $response = $this->json('GET', 'api/encounter/' . $newData['resource_id']);
         $response->assertStatus(200);
     }
 
@@ -46,6 +41,8 @@ class EncounterDataTest extends TestCase
      */
     public function test_users_can_create_new_encounter_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -53,13 +50,12 @@ class EncounterDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/encounter/create', $data, $headers);
+        $response = $this->json('POST', '/api/encounter', $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('encounter', $data['encounter']);
-        $this->assertManyData('encounter_identifier', $data['identifier']);
-        $this->assertManyData('encounter_status_history', $data['status_history']);
-        $this->assertManyData('encounter_class_history', $data['class_history']);
+        $this->assertManyData('encounter_status_history', $data['statusHistory']);
+        $this->assertManyData('encounter_class_history', $data['classHistory']);
         $this->assertManyData('encounter_participant', $data['participant']);
         $this->assertManyData('encounter_reason', $data['reason']);
         $this->assertManyData('encounter_diagnosis', $data['diagnosis']);
@@ -70,8 +66,57 @@ class EncounterDataTest extends TestCase
             ],
             [
                 'table' => 'encounter_hospitalization_spc_arr',
-                'data' => 'special_arrangement'
+                'data' => 'specialArrangement'
             ]
         ]);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('encounter_identifier', ['system' => 'http://sys-ids.kemkes.go.id/encounter/' . $orgId, 'use' => 'official']);
+    }
+
+
+    /**
+     * Test apakah user dapat memperbarui data kunjungan pasien
+     */
+    public function test_users_can_update_encounter_data()
+    {
+        Config::set('organization_id', env('organization_id'));
+
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $data = $this->getExampleData('encounter');
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', '/api/encounter', $data, $headers);
+        $newData = json_decode($response->getContent(), true);
+
+        $data['encounter']['id'] = $newData['id'];
+        $data['encounter']['resource_id'] = $newData['resource_id'];
+        $data['encounter']['status'] = 'planned';
+        $response = $this->json('PUT', '/api/encounter/' . $newData['resource_id'], $data, $headers);
+        $response->assertStatus(200);
+        $updatedResponse = $this->json('GET', '/api/encounter/' . $newData['resource_id']);
+        $updatedData = json_decode($updatedResponse->getContent(), true);
+        $this->assertEquals('planned', $updatedData['status']);
+
+        $this->assertMainData('encounter', $data['encounter']);
+        $this->assertManyData('encounter_status_history', $data['statusHistory']);
+        $this->assertManyData('encounter_class_history', $data['classHistory']);
+        $this->assertManyData('encounter_participant', $data['participant']);
+        $this->assertManyData('encounter_reason', $data['reason']);
+        $this->assertManyData('encounter_diagnosis', $data['diagnosis']);
+        $this->assertNestedData('encounter_hospitalization', $data['hospitalization'], 'hospitalization_data', [
+            [
+                'table' => 'encounter_hospitalization_diet',
+                'data' => 'diet'
+            ],
+            [
+                'table' => 'encounter_hospitalization_spc_arr',
+                'data' => 'specialArrangement'
+            ]
+        ]);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('encounter_identifier', ['system' => 'http://sys-ids.kemkes.go.id/encounter/' . $orgId, 'use' => 'official']);
     }
 }

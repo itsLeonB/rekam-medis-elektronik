@@ -1,5 +1,5 @@
 {
-    "clinical_impression": {
+    "clinicalImpression": {
         "status": "in-progress",
         "status_reason_system": "http://hl7.org/fhir/sid/icd-10",
         "status_reason_code": "A15.0",
@@ -23,13 +23,6 @@
         "previous": "ClinicalImpression/null",
         "summary": "Prognosis terhadap gejala klinis dan terkonfirmasi Tuberculosis"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/clinicallimpression/10000001",
-            "use": "official",
-            "value": "5234342"
-        }
-    ],
     "problem": [
         {
             "reference": "Condition/null"

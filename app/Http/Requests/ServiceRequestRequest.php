@@ -18,44 +18,44 @@ class ServiceRequestRequest extends FhirRequest
     {
         return array_merge(
             $this->baseAttributeRules(),
-            $this->baseDataRules('service_request.'),
+            $this->baseDataRules('serviceRequest.'),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRules('based_on.*.'),
+            $this->getReferenceDataRules('basedOn.*.'),
             $this->getReferenceDataRules('replaces.*.'),
             $this->getCodeableConceptDataRules('category.*.', ServiceRequestCategory::CODE),
-            $this->getCodeableConceptDataRules('order_detail.*.', ServiceRequestOrderDetail::CODE),
+            $this->getCodeableConceptDataRules('orderDetail.*.', ServiceRequestOrderDetail::CODE),
             $this->getReferenceDataRules('performer.*.'),
             $this->getCodeableConceptDataRules('location.*.'),
             $this->getReferenceDataRules('location.*.'),
             $this->getCodeableConceptDataRules('reason.*.'),
             $this->getReferenceDataRules('reason.*.'),
             $this->getReferenceDataRules('insurance.*.'),
-            $this->getReferenceDataRules('supporting_info.*.'),
+            $this->getReferenceDataRules('supportingInfo.*.'),
             $this->getReferenceDataRules('specimen.*.'),
-            $this->getCodeableConceptDataRules('body_site.*.'),
+            $this->getCodeableConceptDataRules('bodySite.*.'),
             $this->getAnnotationDataRules('note.*.'),
-            $this->getReferenceDataRules('relevant_history.*.')
+            $this->getReferenceDataRules('relevantHistory.*.')
         );
     }
 
     private function baseAttributeRules(): array
     {
         return [
-            'service_request' => 'required|array',
+            'serviceRequest' => 'required|array',
             'identifier' => 'nullable|array',
-            'based_on' => 'nullable|array',
+            'basedOn' => 'nullable|array',
             'replaces' => 'nullable|array',
             'category' => 'nullable|array',
-            'order_detail' => 'nullable|array',
+            'orderDetail' => 'nullable|array',
             'performer' => 'nullable|array',
             'location' => 'nullable|array',
             'reason' => 'nullable|array',
             'insurance' => 'nullable|array',
-            'supporting_info' => 'nullable|array',
+            'supportingInfo' => 'nullable|array',
             'specimen' => 'nullable|array',
-            'body_site' => 'nullable|array',
+            'bodySite' => 'nullable|array',
             'note' => 'nullable|array',
-            'relevant_history' => 'nullable|array'
+            'relevantHistory' => 'nullable|array'
         ];
     }
 

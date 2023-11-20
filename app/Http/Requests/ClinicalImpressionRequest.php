@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Models\ClinicalImpression;
 use App\Models\ClinicalImpressionInvestigation;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class ClinicalImpressionRequest extends FhirRequest
@@ -18,7 +17,7 @@ class ClinicalImpressionRequest extends FhirRequest
     {
         return array_merge(
             $this->baseAttributeRules(),
-            $this->baseDataRules('clinical_impression.'),
+            $this->baseDataRules('clinicalImpression.'),
             $this->getIdentifierDataRules('identifier.*.'),
             $this->getReferenceDataRules('problem.*.'),
             $this->investigationDataRules('investigation.*.'),
@@ -30,7 +29,7 @@ class ClinicalImpressionRequest extends FhirRequest
             ],
             $this->getCodeableConceptDataRules('prognosis.*.'),
             $this->getReferenceDataRules('prognosis.*.'),
-            $this->getReferenceDataRules('supporting_info.*.'),
+            $this->getReferenceDataRules('supportingInfo.*.'),
             $this->getAnnotationDataRules('note.*.'),
         );
     }
@@ -38,14 +37,14 @@ class ClinicalImpressionRequest extends FhirRequest
     private function baseAttributeRules(): array
     {
         return [
-            'clinical_impression' => 'required|array',
+            'clinicalImpression' => 'required|array',
             'identifier' => 'nullable|array',
             'problem' => 'nullable|array',
             'investigation' => 'nullable|array',
             'protocol' => 'nullable|array',
             'finding' => 'nullable|array',
             'prognosis' => 'required|array',
-            'supporting_info' => 'nullable|array',
+            'supportingInfo' => 'nullable|array',
             'note' => 'nullable|array'
         ];
     }

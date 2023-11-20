@@ -2,14 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
 {
-    use HasFactory;
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($organization) {
+            $orgId = config('organization_id');
+
+            $identifier = new OrganizationIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/organization/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $organization->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $organization->identifier()->save($identifier);
+        });
+    }
 
     protected $table = 'organization';
 

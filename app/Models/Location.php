@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Location extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($location) {
+            $orgId = config('organization_id');
+
+            $identifier = new LocationIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/location/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $location->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $location->identifier()->save($identifier);
+        });
+    }
+
     protected $table = 'location';
 
     protected $casts = [

@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ImagingStudy extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($imagingStudy) {
+            $orgId = config('organization_id');
+
+            $identifier = new ImagingStudyIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/acsn/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $imagingStudy->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $imagingStudy->identifier()->save($identifier);
+        });
+    }
+
     protected $table = 'imaging_study';
     protected $casts = ['started' => 'datetime'];
     public $timestamps = false;

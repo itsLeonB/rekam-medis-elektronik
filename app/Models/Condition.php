@@ -8,6 +8,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Condition extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($condition) {
+            $orgId = config('organization_id');
+
+            $identifier = new ConditionIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/condition/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $condition->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $condition->identifier()->save($identifier);
+        });
+    }
+
     public const CLINICAL_STATUS_SYSTEM = 'http://terminology.hl7.org/CodeSystem/condition-clinical';
     public const CLINICAL_STATUS_CODE = ['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved'];
     public const CLINICAL_STATUS_DISPLAY = ['active' => 'Active', 'recurrence' => 'Recurrence', 'relapse' => 'Relapse', 'inactive' => 'Inactive', 'remission' => 'Remission', 'resolved' => 'Resolved'];

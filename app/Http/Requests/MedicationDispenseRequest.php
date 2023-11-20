@@ -20,10 +20,10 @@ class MedicationDispenseRequest extends FhirRequest
             $this->baseAttributeRules(),
             $this->baseDataRules(),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRules('part_of.*.'),
+            $this->getReferenceDataRules('partOf.*.'),
             $this->performerDataRules(),
-            $this->getReferenceDataRules('authorizing_prescription.*.'),
-            $this->getDosageDataRules('dosage_instruction.*.'),
+            $this->getReferenceDataRules('authorizingPrescription.*.'),
+            $this->getDosageDataRules('dosage.*.'),
             $this->substitutionDataRules()
         );
     }
@@ -31,12 +31,12 @@ class MedicationDispenseRequest extends FhirRequest
     private function baseAttributeRules(): array
     {
         return [
-            'medication_dispense' => 'required|array',
+            'medicationDispense' => 'required|array',
             'identifier' => 'nullable|array',
-            'part_of' => 'nullable|array',
+            'partOf' => 'nullable|array',
             'performer' => 'nullable|array',
-            'authorizing_prescription' => 'nullable|array',
-            'dosage_instruction' => 'nullable|array',
+            'authorizingPrescription' => 'nullable|array',
+            'dosage' => 'nullable|array',
             'substitution' => 'nullable|array'
         ];
     }
@@ -45,17 +45,17 @@ class MedicationDispenseRequest extends FhirRequest
     {
         return array_merge(
             [
-                'medication_dispense.status' => ['required', Rule::in(MedicationDispense::STATUS_CODE)],
-                'medication_dispense.category' => ['nullable', Rule::in(MedicationDispense::CATEGORY_CODE)],
-                'medication_dispense.medication' => 'required|string',
-                'medication_dispense.subject' => 'required|string',
-                'medication_dispense.context' => 'nullable|string',
-                'medication_dispense.location' => 'nullable|string',
-                'medication_dispense.when_prepared' => 'nullable|date',
-                'medication_dispense.when_handed_over' => 'nullable|date',
+                'medicationDispense.status' => ['required', Rule::in(MedicationDispense::STATUS_CODE)],
+                'medicationDispense.category' => ['nullable', Rule::in(MedicationDispense::CATEGORY_CODE)],
+                'medicationDispense.medication' => 'required|string',
+                'medicationDispense.subject' => 'required|string',
+                'medicationDispense.context' => 'nullable|string',
+                'medicationDispense.location' => 'nullable|string',
+                'medicationDispense.when_prepared' => 'nullable|date',
+                'medicationDispense.when_handed_over' => 'nullable|date',
             ],
-            $this->getQuantityDataRules('medication_dispense.quantity_', true),
-            $this->getQuantityDataRules('medication_dispense.days_supply_', true)
+            $this->getQuantityDataRules('medicationDispense.quantity_', true),
+            $this->getQuantityDataRules('medicationDispense.days_supply_', true)
         );
     }
 
@@ -75,12 +75,12 @@ class MedicationDispenseRequest extends FhirRequest
             [
                 'substitution.*.substitution_data' => 'required|array',
                 'substitution.*.reason' => 'nullable|array',
-                'substitution.*.responsible_party' => 'nullable|array',
+                'substitution.*.responsibleParty' => 'nullable|array',
                 'substitution.*.substitution_data.was_substituted' => 'required|boolean',
             ],
             $this->getCodeableConceptDataRules('substitution.*.substitution_data.type_', MedicationDispenseSubstitution::TYPE_CODE),
             $this->getCodeableConceptDataRules('substitution.*.reason.*.', MedicationDispenseSubstitution::REASON_CODE),
-            $this->getReferenceDataRules('substitution.*.responsible_party.*.')
+            $this->getReferenceDataRules('substitution.*.responsibleParty.*.')
         );
     }
 }

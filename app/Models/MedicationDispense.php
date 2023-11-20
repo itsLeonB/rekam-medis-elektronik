@@ -9,6 +9,23 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MedicationDispense extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($medicationDispense) {
+            $orgId = config('organization_id');
+
+            $identifier = new MedicationDispenseIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/medicationdispense/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $medicationDispense->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $medicationDispense->identifier()->save($identifier);
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://terminology.hl7.org/CodeSystem/medicationdispense-status';
     public const STATUS_CODE = ['preparation', 'in-progress', 'cancelled', 'on-hold', 'completed', 'entered-in-error', 'stopped', 'declined', 'unknown'];
     public const STATUS_DISPLAY = ["preparation" => "Persiapan", "in-progress" => "Dalam proses", "cancelled" => "Dibatalkan", "on-hold" => "Tertahan", "completed" => "Lengkap", "entered-in-error" => "Salah", "stopped" => "Dihentikan", "declined" => "Ditolak", "unknown" => "Tidak diketahui"];
@@ -30,6 +47,7 @@ class MedicationDispense extends Model
         'when_handed_over' => 'datetime'
     ];
     public $timestamps = false;
+    protected $with = ['identifier', 'partOf', 'performer', 'authorizingPrescription', 'dosage', 'substitution'];
 
     public function resource(): BelongsTo
     {
@@ -56,7 +74,7 @@ class MedicationDispense extends Model
         return $this->hasMany(MedicationDispenseAuthorizingPrescription::class, 'dispense_id');
     }
 
-    public function dosageInstruction(): HasMany
+    public function dosage(): HasMany
     {
         return $this->hasMany(MedicationDispenseDosageInstruction::class, 'dispense_id');
     }

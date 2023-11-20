@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Config;
 
 class AllergyIntolerance extends Model
 {
@@ -104,5 +104,23 @@ class AllergyIntolerance extends Model
     public function reaction(): HasMany
     {
         return $this->hasMany(AllergyIntoleranceReaction::class, 'allergy_id');
+    }
+
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($allergyIntolerance) {
+            $orgId = Config::get('organization_id');
+
+            $identifier = new AllergyIntoleranceIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/allergy/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $allergyIntolerance->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $allergyIntolerance->identifier()->save($identifier);
+        });
     }
 }

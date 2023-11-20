@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Encounter extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($encounter) {
+            $orgId = config('organization_id');
+
+            $identifier = new EncounterIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/encounter/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $encounter->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $encounter->identifier()->save($identifier);
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://terminology.hl7.org/CodeSystem/v2-0203';
     public const STATUS_CODE = ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled'];
     public const STATUS_DISPLAY = ['planned' => 'Sudah direncanakan', 'arrived' => 'Sudah datang', 'triaged' => 'Triase', 'in-progress' => 'Sedang berlangsung', 'onleave' => 'Sedang pergi', 'finished' => 'Sudah selesai', 'cancelled' => 'Dibatalkan'];
@@ -44,6 +60,7 @@ class Encounter extends Model
     ];
     protected $guarded = ['id'];
     public $timestamps = false;
+    protected $with = ['identifier', 'statusHistory', 'classHistory', 'participant', 'reason', 'diagnosis', 'hospitalization'];
 
     public function resource(): BelongsTo
     {

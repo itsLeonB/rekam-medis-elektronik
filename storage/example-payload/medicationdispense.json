@@ -1,5 +1,5 @@
 {
-    "medication_dispense": {
+    "medicationDispense": {
         "status": "preparation",
         "category": "inpatient",
         "medication": "Medication/3dedcec9-885d-435e-9ac5-58853cb216bb",
@@ -17,19 +17,7 @@
         "when_prepared": "2023-11-11T21:05:00+07:00",
         "when_handed_over": "2023-11-11T22:05:00+07:00"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/medicationdispense/10000004/",
-            "use": "official",
-            "value": "R100005"
-        },
-        {
-            "system": "http://sys-ids.kemkes.go.id/medicationdispense-item/10000004/",
-            "use": "official",
-            "value": "R100005"
-        }
-    ],
-    "part_of": [
+    "partOf": [
         {
             "reference": "Procedure/3dedcec9-885d-435e-9ac5-58853cb216bb"
         }
@@ -42,7 +30,7 @@
             "actor": "Practitioner/N10000001"
         }
     ],
-    "authorizing_prescription": [
+    "authorizingPrescription": [
         {
             "reference": "MedicationRequest/9b5f6db0-8717-11ec-a8a3-0242ac120002"
         }
@@ -128,14 +116,14 @@
                 "max_dose_per_lifetime_system": "http://unitsofmeasure.org",
                 "max_dose_per_lifetime_code": "TAB"
             },
-            "additional_instruction": [
+            "additionalInstruction": [
                 {
                     "system": "http://snomed.info/sct",
                     "code": "311501008",
                     "display": "Half to one hour before food"
                 }
             ],
-            "dose_rate": [
+            "doseRate": [
                 {
                     "system": "https://hl7.org/FHIR/codesystem-dose-rate-type.html",
                     "code": "calculated",
@@ -219,7 +207,7 @@
                     "display": "Continuing therapy"
                 }
             ],
-            "responsible_party": [
+            "responsibleParty": [
                 {
                     "reference": "Practitioner/100000030009"
                 }

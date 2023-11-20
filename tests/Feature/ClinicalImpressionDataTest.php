@@ -2,10 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\ClinicalImpression;
-use App\Models\Resource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -19,6 +18,8 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_view_clinical_impression_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -27,7 +28,7 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $response = $this->json('GET', 'api/clinicalimpression/' . $newData['resource_id']);
@@ -40,6 +41,8 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_create_new_clinical_impression_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -47,11 +50,10 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('clinical_impression', $data['clinical_impression']);
-        $this->assertManyData('clinical_impression_identifier', $data['identifier']);
+        $this->assertMainData('clinical_impression', $data['clinicalImpression']);
         $this->assertManyData('clinical_impression_problem', $data['problem']);
         $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [
             [
@@ -64,6 +66,8 @@ class ClinicalImpressionDataTest extends TestCase
         $this->assertManyData('clinical_impression_prognosis', $data['prognosis']);
         $this->assertManyData('clinical_impression_support_info', $data['supportingInfo']);
         $this->assertManyData('clinical_impression_note', $data['note']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('clinical_impression_identifier', ['system' => 'http://sys-ids.kemkes.go.id/clinicalimpression/' . $orgId, 'use' => 'official']);
     }
 
     /**
@@ -71,6 +75,8 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_update_clinical_impression_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -78,27 +84,16 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression/create', $data, $headers);
+        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['clinical_impression']['id'] = $newData['id'];
-        $data['clinical_impression']['resource_id'] = $newData['resource_id'];
-        $data['clinical_impression']['status'] = 'completed';
-        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
-        $data['identifier'][0]['impression_id'] = $newData['identifier'][0]['impression_id'];
-        $data['identifier'][0]['value'] = "5234341";
-
-        $data['identifier'][] = [
-            'system' => 'http://loinc.org',
-            'use' => 'official',
-            'value' => '1234567890'
-        ];
-
+        $data['clinicalImpression']['id'] = $newData['id'];
+        $data['clinicalImpression']['resource_id'] = $newData['resource_id'];
+        $data['clinicalImpression']['status'] = 'completed';
         $response = $this->json('PUT', '/api/clinicalimpression/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('clinical_impression', $data['clinical_impression']);
-        $this->assertManyData('clinical_impression_identifier', $data['identifier']);
+        $this->assertMainData('clinical_impression', $data['clinicalImpression']);
         $this->assertManyData('clinical_impression_problem', $data['problem']);
         $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [
             [
@@ -111,5 +106,7 @@ class ClinicalImpressionDataTest extends TestCase
         $this->assertManyData('clinical_impression_prognosis', $data['prognosis']);
         $this->assertManyData('clinical_impression_support_info', $data['supportingInfo']);
         $this->assertManyData('clinical_impression_note', $data['note']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('clinical_impression_identifier', ['system' => 'http://sys-ids.kemkes.go.id/clinicalimpression/' . $orgId, 'use' => 'official']);
     }
 }

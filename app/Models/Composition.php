@@ -2,13 +2,24 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Composition extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($composition) {
+            $orgId = config('organization_id');
+            $composition->identifier_system = 'http://sys-ids.kemkes.go.id/composition/' . $orgId;
+            $composition->identifier_use = 'official';
+            $composition->identifier_value = $composition->max('identifier_value') + 1;
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://hl7.org/fhir/composition-status';
     public const STATUS_CODE = ['preliminary', 'final', 'amended', 'entered-in-error'];
     public const STATUS_DISPLAY = ["preliminary" => "Dokumen initial atau interim. Konten masih belum lengkap atau belum terverifikasi", "final" => "Versi dokumen sudah komplit dan diverifikasi", "amended" => "Konten dimodifikasi setelah status “final”", "entered-in-error" => "Konten error, bisa dianggap tidak valid"];

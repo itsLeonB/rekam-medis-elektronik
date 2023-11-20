@@ -8,6 +8,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MedicationRequest extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($medicationRequest) {
+            $orgId = config('organization_id');
+
+            $identifier = new MedicationRequestIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/prescription/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $medicationRequest->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $medicationRequest->identifier()->save($identifier);
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://hl7.org/fhir/CodeSystem/medicationrequest-status';
     public const STATUS_CODE = ['active', 'on-hold', 'cancelled', 'completed', 'entered-in-error', 'stopped', 'draft', 'unknown'];
     public const STATUS_DISPLAY = ["active" => "Aktif", "on-hold" => "Tertahan", "cancelled" => "Dibatalkan", "completed" => "Komplit", "entered-in-error" => "Salah", "stopped" => "Dihentikan", "draft" => "Draft/butuh verifikasi", "unknown" => "Tidak diketahui"];
@@ -56,6 +73,7 @@ class MedicationRequest extends Model
         'substitution_allowed' => 'array'
     ];
     public $timestamps = false;
+    protected $with = ['identifier', 'category', 'reason', 'basedOn', 'insurance', 'note', 'dosage'];
 
     public function resource(): BelongsTo
     {

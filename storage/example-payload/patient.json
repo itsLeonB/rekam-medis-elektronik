@@ -135,7 +135,7 @@
             ]
         }
     ],
-    "general_practitioner": [
+    "generalPractitioner": [
         {
             "reference": "Practitioner/N10000001"
         },

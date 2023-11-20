@@ -185,4 +185,15 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+
+    /**
+     * SATUSEHAT credentials
+     */
+    'auth_url' => env('auth_url'),
+    'base_url' => env('base_url'),
+    'consent_url' => env('consent_url'),
+    'client_id' => env('client_id'),
+    'client_secret' => env('client_secret'),
+    'organization_id' => env('organization_id'),
+
 ];

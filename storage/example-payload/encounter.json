@@ -16,21 +16,14 @@
         "service_provider": "Organization/RSPARA",
         "part_of": "Encounter/null"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/encounter/RSPARA",
-            "use": "official",
-            "value": "000001"
-        }
-    ],
-    "status_history": [
+    "statusHistory": [
         {
             "status": "arrived",
             "period_start": "2023-10-31T10:49:00+07:00",
             "period_end": "2023-11-16T10:49:00+07:00"
         }
     ],
-    "class_history": [
+    "classHistory": [
         {
             "class": "AMB",
             "period_start": "2023-10-31T10:49:00+07:00",
@@ -82,7 +75,7 @@
                     "display": "Vegetarian"
                 }
             ],
-            "special_arrangement": [
+            "specialArrangement": [
                 {
                     "system": "http://terminology.hl7.org/CodeSystem/encounter-special-arrangements",
                     "code": "wheel",

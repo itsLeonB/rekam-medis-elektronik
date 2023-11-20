@@ -49,42 +49,52 @@ Route::get('/{res_type}', [ResourceController::class, 'index']);
 Route::get('/{res_type}/{res_id}', [ResourceController::class, 'show']);
 
 // Patient resource endpoint
-Route::post('/patient/create', [PatientController::class, 'store']);
+Route::post('/patient', [PatientController::class, 'store']);
+Route::put('/patient/{res_id}', [PatientController::class, 'update']);
 
 // Encounter resource endpoint
-Route::post('/encounter/create', [EncounterController::class, 'store']);
+Route::post('/encounter', [EncounterController::class, 'store']);
+Route::put('/encounter/{res_id}', [EncounterController::class, 'update']);
 
 // Condition resource endpoint
-Route::post('/condition/create', [ConditionController::class, 'store']);
+Route::post('/condition', [ConditionController::class, 'store']);
+Route::put('/condition/{res_id}', [ConditionController::class, 'update']);
 
 // AllergyIntolerance resource endpoint
-Route::post('/allergyintolerance/create', [AllergyIntoleranceController::class, 'store']);
+Route::post('/allergyintolerance', [AllergyIntoleranceController::class, 'store']);
 Route::put('/allergyintolerance/{res_id}', [AllergyIntoleranceController::class, 'update']);
 
 // Observation resource endpoint
-Route::post('/observation/create', [ObservationController::class, 'store']);
+Route::post('/observation', [ObservationController::class, 'store']);
+Route::put('/observation/{res_id}', [ObservationController::class, 'update']);
 
 // Procedure resource endpoint
-Route::post('/procedure/create', [ProcedureController::class, 'store']);
+Route::post('/procedure', [ProcedureController::class, 'store']);
+Route::put('/procedure/{res_id}', [ProcedureController::class, 'update']);
 
 // Medication resource endpoint
-Route::post('/medication/create', [MedicationController::class, 'store']);
+Route::post('/medication', [MedicationController::class, 'store']);
+Route::put('/medication/{res_id}', [MedicationController::class, 'update']);
 
 // MedicationRequest resource endpoint
-Route::post('/medicationrequest/create', [MedicationRequestController::class, 'store']);
+Route::post('/medicationrequest', [MedicationRequestController::class, 'store']);
+Route::put('/medicationrequest/{res_id}', [MedicationRequestController::class, 'update']);
 
 // MedicationDispense resource endpoint
-Route::post('/medicationdispense/create', [MedicationDispenseController::class, 'store']);
+Route::post('/medicationdispense', [MedicationDispenseController::class, 'store']);
+Route::put('/medicationdispense/{res_id}', [MedicationDispenseController::class, 'update']);
 
 // Composition resource endpoint
-Route::post('/composition/create', [CompositionController::class, 'store']);
+Route::post('/composition', [CompositionController::class, 'store']);
+Route::put('/composition/{res_id}', [CompositionController::class, 'update']);
 
 // ClinicalImpression resource endpoint
-Route::post('/clinicalimpression/create', [ClinicalImpressionController::class, 'store']);
+Route::post('/clinicalimpression', [ClinicalImpressionController::class, 'store']);
 Route::put('/clinicalimpression/{res_id}', [ClinicalImpressionController::class, 'update']);
 
 // ServiceRequest resource endpoint
-Route::post('/servicerequest/create', [ServiceRequestController::class, 'store']);
+Route::post('/servicerequest', [ServiceRequestController::class, 'store']);
+Route::put('/servicerequest/{res_id}', [ServiceRequestController::class, 'update']);
 
 // Testing endpoint
 Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);
@@ -96,5 +106,5 @@ Route::get('/test-get/medication/{satusehat_id}', [TestController::class, 'testM
 Route::get('/test-get/procedure/{satusehat_id}', [TestController::class, 'testProcedureResource']);
 Route::get('/test-get/allergyintolerance/{satusehat_id}', [TestController::class, 'testAllergyIntoleranceResource']);
 Route::get('/test-get/observation/{satusehat_id}', [TestController::class, 'testObservationResource']);
-Route::get('/test-create/encounter/create', [TestController::class, 'testCreateEncounter']);
-Route::get('/test-create/condition/create', [TestController::class, 'testCreateCondition']);
+Route::get('/test/encounter', [TestController::class, 'tesEncounter']);
+Route::get('/test/condition', [TestController::class, 'tesCondition']);
