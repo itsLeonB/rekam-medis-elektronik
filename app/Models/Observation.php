@@ -8,6 +8,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Observation extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($observation) {
+            $orgId = config('organization_id');
+
+            $identifier = new ObservationIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/observation/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $observation->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $observation->identifier()->save($identifier);
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://hl7.org/fhir/observation-status';
     public const STATUS_CODE = ['registered', 'preliminary', 'final', 'amended', 'corrected', 'cancelled', 'entered-in-error', 'unknown'];
     public const STATUS_DEFINITION = [

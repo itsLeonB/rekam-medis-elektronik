@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -17,6 +18,8 @@ class ConditionDataTest extends TestCase
      */
     public function test_users_can_view_condition_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -38,6 +41,8 @@ class ConditionDataTest extends TestCase
      */
     public function test_users_can_create_new_condition_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -49,7 +54,6 @@ class ConditionDataTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertMainData('condition', $data['condition']);
-        $this->assertManyData('condition_identifier', $data['identifier']);
         $this->assertManyData('condition_category', $data['category']);
         $this->assertManyData('condition_body_site', $data['bodySite']);
         $this->assertNestedData('condition_stage', $data['stage'], 'stage_data', [
@@ -60,6 +64,8 @@ class ConditionDataTest extends TestCase
         ]);
         $this->assertManyData('condition_evidence', $data['evidence']);
         $this->assertManyData('condition_note', $data['note']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('condition_identifier', ['system' => 'http://sys-ids.kemkes.go.id/condition/' . $orgId, 'use' => 'official']);
     }
 
 
@@ -68,6 +74,8 @@ class ConditionDataTest extends TestCase
      */
     public function test_users_can_update_condition_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -81,21 +89,10 @@ class ConditionDataTest extends TestCase
         $data['condition']['id'] = $newData['id'];
         $data['condition']['resource_id'] = $newData['resource_id'];
         $data['condition']['verification_status'] = 'confirmed';
-        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
-        $data['identifier'][0]['condition_id'] = $newData['identifier'][0]['condition_id'];
-        $data['identifier'][0]['value'] = "5234341";
-
-        $data['identifier'][] = [
-            'system' => 'http://loinc.org',
-            'use' => 'official',
-            'value' => '1234567890'
-        ];
-
         $response = $this->json('PUT', '/api/condition/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('condition', $data['condition']);
-        $this->assertManyData('condition_identifier', $data['identifier']);
         $this->assertManyData('condition_category', $data['category']);
         $this->assertManyData('condition_body_site', $data['bodySite']);
         $this->assertNestedData('condition_stage', $data['stage'], 'stage_data', [
@@ -106,5 +103,7 @@ class ConditionDataTest extends TestCase
         ]);
         $this->assertManyData('condition_evidence', $data['evidence']);
         $this->assertManyData('condition_note', $data['note']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('condition_identifier', ['system' => 'http://sys-ids.kemkes.go.id/condition/' . $orgId, 'use' => 'official']);
     }
 }

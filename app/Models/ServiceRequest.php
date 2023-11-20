@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ServiceRequest extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($serviceRequest) {
+            $orgId = config('organization_id');
+
+            $identifier = new ServiceRequestIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $serviceRequest->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $serviceRequest->identifier()->save($identifier);
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://hl7.org/fhir/request-status';
     public const STATUS_CODE = ['draft', 'active', 'on-hold', 'revoked', 'completed', 'entered-in-error', 'unknown'];
     public const STATUS_DISPLAY = ["draft" => "Permintaan yang telah dibuat namun belum selesai atau belum siap untuk dilakukan", "active" => "Permintaan yang berlaku dan siap untuk dilakukan", "on-hold" => "Permintaan (dan setiap hak implisit untuk bertindak) yang telah ditarik/dihentikan sementara namun diharapkan untuk dilanjutkan nanti", "revoked" => "Permintaan (dan setiap hak implisit untuk bertindak) yang telah dihentikan secara penuh dari rencana. Tidak ada aktivitas lanjutan yang harus diteruskan", "completed" => "Aktivitas yang dideskripsikan oleh permintaan yang telah selesai. Tidak ada aktivitas lanjutan yang harus diteruskan", "entered-in-error" => "Permintaan yang seharusnya tidak ada dan sebaiknya dikosongi. (hal ini mungkin berdasarkan keputusan di lapangan. Jika kondisi aktivitas telah terjadi, maka status harus menjadi “revoked” daripada “entered-in-error”)", "unknown" => "Sistem pembuat/sumber tidak mengetahui status mana yang saat ini berlaku untuk permintaan tersebut. Catatan: Konsep ini tidak digunakan untuk “lainnya”, salah satu status yang terdaftar dianggap berlaku namun sistem pembuat/sumber yang tidak dapat mengidentifikasi"];

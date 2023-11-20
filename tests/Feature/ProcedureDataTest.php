@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -17,6 +18,8 @@ class ProcedureDataTest extends TestCase
      */
     public function test_users_can_view_procedure_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -39,6 +42,8 @@ class ProcedureDataTest extends TestCase
      */
     public function test_users_can_create_new_procedure_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -50,7 +55,6 @@ class ProcedureDataTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertMainData('procedure', $data['procedure']);
-        $this->assertManyData('procedure_identifier', $data['identifier']);
         $this->assertManyData('procedure_based_on', $data['basedOn']);
         $this->assertManyData('procedure_part_of', $data['partOf']);
         $this->assertManyData('procedure_performer', $data['performer']);
@@ -62,6 +66,8 @@ class ProcedureDataTest extends TestCase
         $this->assertManyData('procedure_note', $data['note']);
         $this->assertManyData('procedure_focal_device', $data['focalDevice']);
         $this->assertManyData('procedure_item_used', $data['itemUsed']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
     }
 
 
@@ -70,6 +76,8 @@ class ProcedureDataTest extends TestCase
      */
     public function test_users_can_update_procedure_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -83,21 +91,10 @@ class ProcedureDataTest extends TestCase
         $data['procedure']['id'] = $newData['id'];
         $data['procedure']['resource_id'] = $newData['resource_id'];
         $data['procedure']['subject'] = 'Patient/234234';
-        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
-        $data['identifier'][0]['procedure_id'] = $newData['identifier'][0]['procedure_id'];
-        $data['identifier'][0]['value'] = "5234341";
-
-        $data['identifier'][] = [
-            'system' => 'http://loinc.org',
-            'use' => 'official',
-            'value' => '1234567890'
-        ];
-
         $response = $this->json('PUT', '/api/procedure/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('procedure', $data['procedure']);
-        $this->assertManyData('procedure_identifier', $data['identifier']);
         $this->assertManyData('procedure_based_on', $data['basedOn']);
         $this->assertManyData('procedure_part_of', $data['partOf']);
         $this->assertManyData('procedure_performer', $data['performer']);
@@ -109,5 +106,7 @@ class ProcedureDataTest extends TestCase
         $this->assertManyData('procedure_note', $data['note']);
         $this->assertManyData('procedure_focal_device', $data['focalDevice']);
         $this->assertManyData('procedure_item_used', $data['itemUsed']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
     }
 }

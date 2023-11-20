@@ -68,13 +68,6 @@
         "recorder": "Practitioner/1000400104",
         "asserter": "Practitioner-1000400104"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/condition/10000004",
-            "use": "official",
-            "value": "5234342"
-        }
-    ],
     "category": [
         {
             "system": "http://terminology.hl7.org/CodeSystem/condition-category",

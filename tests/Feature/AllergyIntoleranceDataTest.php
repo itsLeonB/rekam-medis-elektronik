@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -17,6 +18,8 @@ class AllergyIntoleranceDataTest extends TestCase
      */
     public function test_users_can_view_allergy_intolerance_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -38,6 +41,8 @@ class AllergyIntoleranceDataTest extends TestCase
      */
     public function test_users_can_create_new_allergy_intolerance_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -50,7 +55,6 @@ class AllergyIntoleranceDataTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
-        $this->assertManyData('allergy_intolerance_identifier', $data['identifier']);
         $this->assertManyData('allergy_intolerance_note', $data['note']);
         $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
             [
@@ -62,6 +66,8 @@ class AllergyIntoleranceDataTest extends TestCase
                 'data' => 'note'
             ]
         ]);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('allergy_intolerance_identifier', ['system' => 'http://sys-ids.kemkes.go.id/allergy/' . $orgId, 'use' => 'official']);
     }
 
 
@@ -70,6 +76,8 @@ class AllergyIntoleranceDataTest extends TestCase
      */
     public function test_users_can_update_allergy_intolerance_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -83,21 +91,11 @@ class AllergyIntoleranceDataTest extends TestCase
         $data['allergyIntolerance']['id'] = $newData['id'];
         $data['allergyIntolerance']['resource_id'] = $newData['resource_id'];
         $data['allergyIntolerance']['type'] = 'intolerance';
-        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
-        $data['identifier'][0]['allergy_id'] = $newData['identifier'][0]['allergy_id'];
-        $data['identifier'][0]['value'] = "5234341";
-
-        $data['identifier'][] = [
-            'system' => 'http://loinc.org',
-            'use' => 'official',
-            'value' => '1234567890'
-        ];
 
         $response = $this->json('PUT', '/api/allergyintolerance/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
-        $this->assertManyData('allergy_intolerance_identifier', $data['identifier']);
         $this->assertManyData('allergy_intolerance_note', $data['note']);
         $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
             [
@@ -109,24 +107,7 @@ class AllergyIntoleranceDataTest extends TestCase
                 'data' => 'note'
             ]
         ]);
-    }
-
-
-    public function test_identifier_is_auto_incremented_on_create()
-    {
-        $user = User::factory()->create();
-        $this->actingAs($user);
-
-        $data = $this->getExampleData('allergyintolerance');
-        unset($data['identifier']);
         $orgId = env('organization_id');
-
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/allergyintolerance', $data, $headers);
-
-        $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
         $this->assertDatabaseHas('allergy_intolerance_identifier', ['system' => 'http://sys-ids.kemkes.go.id/allergy/' . $orgId, 'use' => 'official']);
     }
 }

@@ -44,13 +44,6 @@
         "location": "Location-dc01c797-547a-4e4d-97cd-4ece0630e380",
         "outcome": "385670004"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/procedure/1000001",
-            "use": "official",
-            "value": "5234342"
-        }
-    ],
     "basedOn": [
         {
             "reference": "ServiceRequest/cc52bfcd-6cb2-4c0a-87a7-d5906f74bed9"

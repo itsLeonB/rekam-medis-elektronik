@@ -47,18 +47,6 @@
         },
         "substitution_reason": "CT"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/prescription/10000004/",
-            "use": "official",
-            "value": "R100005"
-        },
-        {
-            "system": "http://sys-ids.kemkes.go.id/prescription-item/10000004/",
-            "use": "official",
-            "value": "R100005"
-        }
-    ],
     "category": [
         {
             "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",

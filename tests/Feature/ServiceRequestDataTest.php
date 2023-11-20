@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -17,6 +18,8 @@ class ServiceRequestDataTest extends TestCase
      */
     public function test_users_can_view_service_request_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -38,6 +41,8 @@ class ServiceRequestDataTest extends TestCase
      */
     public function test_users_can_create_new_service_request_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -49,7 +54,6 @@ class ServiceRequestDataTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
-        $this->assertManyData('service_request_identifier', $data['identifier']);
         $this->assertManyData('service_request_based_on', $data['basedOn']);
         $this->assertManyData('service_request_replaces', $data['replaces']);
         $this->assertManyData('service_request_category', $data['category']);
@@ -63,6 +67,8 @@ class ServiceRequestDataTest extends TestCase
         $this->assertManyData('service_request_body_site', $data['bodySite']);
         $this->assertManyData('service_request_note', $data['note']);
         $this->assertManyData('service_request_relevant_history', $data['relevantHistory']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('service_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId, 'use' => 'official']);
     }
 
 
@@ -71,6 +77,8 @@ class ServiceRequestDataTest extends TestCase
      */
     public function test_users_can_update_service_request_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -84,21 +92,10 @@ class ServiceRequestDataTest extends TestCase
         $data['serviceRequest']['id'] = $newData['id'];
         $data['serviceRequest']['resource_id'] = $newData['resource_id'];
         $data['serviceRequest']['priority'] = 'stat';
-        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
-        $data['identifier'][0]['request_id'] = $newData['identifier'][0]['request_id'];
-        $data['identifier'][0]['value'] = "5234341";
-
-        $data['identifier'][] = [
-            'system' => 'http://loinc.org',
-            'use' => 'official',
-            'value' => '1234567890'
-        ];
-
         $response = $this->json('PUT', '/api/servicerequest/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
-        $this->assertManyData('service_request_identifier', $data['identifier']);
         $this->assertManyData('service_request_based_on', $data['basedOn']);
         $this->assertManyData('service_request_replaces', $data['replaces']);
         $this->assertManyData('service_request_category', $data['category']);
@@ -112,5 +109,7 @@ class ServiceRequestDataTest extends TestCase
         $this->assertManyData('service_request_body_site', $data['bodySite']);
         $this->assertManyData('service_request_note', $data['note']);
         $this->assertManyData('service_request_relevant_history', $data['relevantHistory']);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('service_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId, 'use' => 'official']);
     }
 }

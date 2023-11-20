@@ -136,13 +136,6 @@
         "specimen": "Specimen/null",
         "device": "Device/null"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/observation/1000001",
-            "use": "official",
-            "value": "R100005"
-        }
-    ],
     "basedOn": [
         {
             "reference": "ServiceRequest/2e261ca8-0025-11ed-b939-0242ac120002"

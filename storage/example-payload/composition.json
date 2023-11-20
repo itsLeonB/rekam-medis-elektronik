@@ -1,8 +1,5 @@
 {
     "composition": {
-        "identifier_system": "http://sys-ids.kemkes.go.id/composition/10000001",
-        "identifier_use": "official",
-        "identifier_value": "5234342",
         "status": "preliminary",
         "type_system": "http://loinc.org",
         "type_code": "18842-5",

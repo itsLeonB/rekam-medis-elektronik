@@ -16,13 +16,6 @@
         "service_provider": "Organization/RSPARA",
         "part_of": "Encounter/null"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/encounter/RSPARA",
-            "use": "official",
-            "value": "000001"
-        }
-    ],
     "statusHistory": [
         {
             "status": "arrived",

@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClinicalImpression extends Model
 {
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($clinicalImpression) {
+            $orgId = config('organization_id');
+
+            $identifier = new ClinicalImpressionIdentifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/clinicalimpression/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = $clinicalImpression->identifier()->max('value') + 1;
+
+            // Save the identifier through the relationship
+            $clinicalImpression->identifier()->save($identifier);
+        });
+    }
+
     public const STATUS_SYSTEM = 'http://hl7.org/fhir/eventstatus';
     public const STATUS_CODE = ['in-progress', 'completed', 'entered-in-error'];
     public const STATUS_DISPLAY = ["in-progress" => "Proses asesmen sedang berlangsung", "completed" => "Proses asesmen sudah selesai atau final", "entered-in-error" => "Kesalahan dalam input data"];

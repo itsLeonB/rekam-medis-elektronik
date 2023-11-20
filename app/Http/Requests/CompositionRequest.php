@@ -45,7 +45,6 @@ class CompositionRequest extends FhirRequest
     private function baseDataRules(string $prefix = null): array
     {
         return array_merge(
-            $this->getIdentifierDataRules($prefix . 'identifier_'),
             $this->getCodeableConceptDataRules($prefix . 'type_'),
             [
                 $prefix . 'status' => ['required', Rule::in(Composition::STATUS_CODE)],

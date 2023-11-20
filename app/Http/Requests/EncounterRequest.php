@@ -38,7 +38,7 @@ class EncounterRequest extends FhirRequest
     {
         return [
             'encounter' => 'required|array',
-            'identifier' => 'required|array',
+            'identifier' => 'nullable|array',
             'statusHistory' => 'required|array',
             'classHistory' => 'nullable|array',
             'participant' => 'required|array',

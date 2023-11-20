@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -17,6 +18,8 @@ class CompositionDataTest extends TestCase
      */
     public function test_users_can_view_composition_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -38,6 +41,8 @@ class CompositionDataTest extends TestCase
      */
     public function test_users_can_create_new_composition_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -73,6 +78,8 @@ class CompositionDataTest extends TestCase
                 'data' => 'entry'
             ],
         ]);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
     }
 
 
@@ -81,6 +88,8 @@ class CompositionDataTest extends TestCase
      */
     public function test_users_can_update_composition_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -93,7 +102,6 @@ class CompositionDataTest extends TestCase
 
         $data['composition']['id'] = $newData['id'];
         $data['composition']['resource_id'] = $newData['resource_id'];
-        $data['composition']['identifier_value'] = '55555';
         $data['author'][0]['id'] = $newData['author'][0]['id'];
         $data['author'][0]['composition_id'] = $newData['author'][0]['composition_id'];
         $data['author'][0]['reference'] = "Practitioner/00001";
@@ -130,5 +138,7 @@ class CompositionDataTest extends TestCase
                 'data' => 'entry'
             ],
         ]);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
     }
 }

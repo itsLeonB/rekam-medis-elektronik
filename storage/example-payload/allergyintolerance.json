@@ -47,13 +47,6 @@
         "asserter": "Practitioner-1000400104",
         "last_occurence": "2023-11-02T10:31:00+07:00"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/allergy/10000004",
-            "use": "official",
-            "value": "5234342"
-        }
-    ],
     "note": [
         {
             "author": {

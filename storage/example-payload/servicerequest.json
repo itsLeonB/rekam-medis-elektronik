@@ -126,13 +126,6 @@
         "performer_type_display": "Specialized surgeon",
         "patient_instruction": "Kontrol setelah 1 bulan minum obat anti tuberkulosis. Dalam keadaan darurat dapat menghubungi hotline RS di nomor 14045"
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/servicerequest/10080017",
-            "use": "official",
-            "value": "00001"
-        }
-    ],
     "basedOn": [
         {
             "reference": "CarePlan/null"

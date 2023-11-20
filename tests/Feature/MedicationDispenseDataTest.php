@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
@@ -17,6 +18,8 @@ class MedicationDispenseDataTest extends TestCase
      */
     public function test_users_can_view_medication_dispense_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -38,6 +41,8 @@ class MedicationDispenseDataTest extends TestCase
      */
     public function test_users_can_create_new_medication_dispense_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -49,7 +54,6 @@ class MedicationDispenseDataTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertMainData('medication_dispense', $data['medicationDispense']);
-        $this->assertManyData('medication_dispense_identifier', $data['identifier']);
         $this->assertManyData('medication_dispense_part_of', $data['partOf']);
         $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizingPrescription']);
         $this->assertNestedData('medication_dispense_dosage', $data['dosage'], 'dosage_data', [
@@ -72,6 +76,8 @@ class MedicationDispenseDataTest extends TestCase
                 'data' => 'responsibleParty'
             ]
         ]);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('medication_dispense_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medicationdispense/' . $orgId, 'use' => 'official']);
     }
 
 
@@ -80,6 +86,8 @@ class MedicationDispenseDataTest extends TestCase
      */
     public function test_users_can_update_medication_dispense_data()
     {
+        Config::set('organization_id', env('organization_id'));
+
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -93,21 +101,10 @@ class MedicationDispenseDataTest extends TestCase
         $data['medicationDispense']['id'] = $newData['id'];
         $data['medicationDispense']['resource_id'] = $newData['resource_id'];
         $data['medicationDispense']['status'] = 'completed';
-        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
-        $data['identifier'][0]['dispense_id'] = $newData['identifier'][0]['dispense_id'];
-        $data['identifier'][0]['value'] = "5234341";
-
-        $data['identifier'][] = [
-            'system' => 'http://loinc.org',
-            'use' => 'official',
-            'value' => '1234567890'
-        ];
-
         $response = $this->json('PUT', '/api/medicationdispense/' . $newData['resource_id'], $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('medication_dispense', $data['medicationDispense']);
-        $this->assertManyData('medication_dispense_identifier', $data['identifier']);
         $this->assertManyData('medication_dispense_part_of', $data['partOf']);
         $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizingPrescription']);
         $this->assertNestedData('medication_dispense_dosage', $data['dosage'], 'dosage_data', [
@@ -130,5 +127,7 @@ class MedicationDispenseDataTest extends TestCase
                 'data' => 'responsibleParty'
             ]
         ]);
+        $orgId = env('organization_id');
+        $this->assertDatabaseHas('medication_dispense_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medicationdispense/' . $orgId, 'use' => 'official']);
     }
 }
