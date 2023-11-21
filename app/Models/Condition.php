@@ -13,7 +13,7 @@ class Condition extends Model
         parent::boot();
 
         static::created(function ($condition) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new ConditionIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/condition/' . $orgId;

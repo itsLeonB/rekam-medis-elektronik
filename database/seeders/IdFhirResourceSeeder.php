@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Resource;
-use App\Models\ResourceContent;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -29,12 +27,171 @@ class IdFhirResourceSeeder extends Seeder
                 ]
             );
 
-            ResourceContent::create(
+            $res->content()->create(
                 [
-                    'resource_id' => $res->id,
-                    'res_text' => $resText
+                    'res_text' => $resText,
+                    'res_ver' => 1
                 ]
             );
+
+            switch ($resType) {
+                case 'Specimen':
+                    $this->seedSpecimen($res, $resText);
+                    break;
+                default:
+                    break;
+            }
         }
+    }
+
+    private function seedSpecimen($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $collections = returnAttribute($resourceContent, ['collection']);
+        $containers = returnAttribute($resourceContent, ['container']);
+
+        $specimenData = [
+            'accession_identifier_system' => returnAttribute($resourceContent, ['accessionIdentifier', 'system']),
+            'accession_identifier_use' => returnAttribute($resourceContent, ['accessionIdentifier', 'use']),
+            'accession_identifier_value' => returnAttribute($resourceContent, ['accessionIdentifier', 'value']),
+            'status' => returnAttribute($resourceContent, ['status'], 'entered-in-error'),
+            'type_system' => returnAttribute($resourceContent, ['type', 'coding', 0, 'system']),
+            'type_code' => returnAttribute($resourceContent, ['type', 'coding', 0, 'code']),
+            'type_display' => returnAttribute($resourceContent, ['type', 'coding', 0, 'display']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'received_time' => returnAttribute($resourceContent, ['receivedTime']),
+            'collection_collector' => returnAttribute($collections, ['collector', 'reference']),
+            'collection_collected' => returnVariableAttribute($collections, 'collected', ['DateTime', 'Period']),
+            'collection_duration_value' => returnAttribute($collections, ['duration', 'value']),
+            'collection_duration_comparator' => returnAttribute($collections, ['duration', 'comparator']),
+            'collection_duration_unit' => returnAttribute($collections, ['duration', 'unit']),
+            'collection_duration_system' => returnAttribute($collections, ['duration', 'system']),
+            'collection_duration_code' => returnAttribute($collections, ['duration', 'code']),
+            'collection_quantity_value' => returnAttribute($collections, ['quantity', 'value']),
+            'collection_quantity_unit' => returnAttribute($collections, ['quantity', 'unit']),
+            'collection_quantity_system' => returnAttribute($collections, ['quantity', 'system']),
+            'collection_quantity_code' => returnAttribute($collections, ['quantity', 'code']),
+            'collection_method' => returnAttribute($collections, ['method', 'coding', 0, 'code']),
+            'collection_body_site_system' => returnAttribute($collections, ['bodySite', 'coding', 0, 'system']),
+            'collection_body_site_code' => returnAttribute($collections, ['bodySite', 'coding', 0, 'code']),
+            'collection_body_site_display' => returnAttribute($collections, ['bodySite', 'coding', 0, 'display']),
+            'collection_fasting_status' => returnVariableAttribute($collections, 'fastingStatus', ['CodeableConcept', 'Duration']),
+        ];
+
+        $specimen = $resource->specimen()->create($specimenData);
+        $specimen->identifier()->createMany($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $specimen->parent()->createMany($this->returnReference(returnAttribute($resourceContent, ['parent'])));
+        $specimen->request()->createMany($this->returnReference(returnAttribute($resourceContent, ['request'])));
+        $specimen->processing()->createMany($this->returnProcessing(returnAttribute($resourceContent, ['processing'])));
+
+        if (!empty($containers)) {
+            foreach ($containers as $c) {
+                $container = $specimen->container()->create([
+                    'description' => returnAttribute($c, ['description']),
+                    'type' => returnAttribute($c, ['type', 'coding', 0, 'code']),
+                    'capacity_value' => returnAttribute($c, ['capacity', 'value']),
+                    'capacity_unit' => returnAttribute($c, ['capacity', 'unit']),
+                    'capacity_system' => returnAttribute($c, ['capacity', 'system']),
+                    'capacity_code' => returnAttribute($c, ['capacity', 'code']),
+                    'specimen_quantity_value' => returnAttribute($c, ['specimenQuantity', 'value']),
+                    'specimen_quantity_unit' => returnAttribute($c, ['specimenQuantity', 'unit']),
+                    'specimen_quantity_system' => returnAttribute($c, ['specimenQuantity', 'system']),
+                    'specimen_quantity_code' => returnAttribute($c, ['specimenQuantity', 'code']),
+                    'additive' => returnAttribute($c, ['additive'])
+                ]);
+                $container->identifier()->createMany($this->returnIdentifier(returnAttribute($c, ['identifier'])));
+            }
+        }
+        $specimen->condition()->createMany($this->returnCodeableConcept(returnAttribute($resourceContent, ['condition'])));
+        $specimen->note()->createMany($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+    }
+
+
+    private function returnIdentifier($identifiers): array
+    {
+        $identifier = [];
+
+        if (!empty($identifiers)) {
+            foreach ($identifiers as $i) {
+                $identifier[] = [
+                    'system' => returnAttribute($i, ['system']),
+                    'use' => returnAttribute($i, ['use']),
+                    'value' => returnAttribute($i, ['value'])
+                ];
+            }
+        }
+        return $identifier;
+    }
+
+
+    private function returnReference($references): array
+    {
+        $reference = [];
+
+        if (!empty($references)) {
+            foreach ($references as $r) {
+                $reference[] = [
+                    'reference' => returnAttribute($r, ['reference'])
+                ];
+            }
+        }
+
+        return $reference;
+    }
+
+
+    private function returnProcessing($processings): array
+    {
+        $processing = [];
+
+        if (!empty($processings)) {
+            foreach ($processings as $p) {
+                $processing[] = [
+                    'description' => returnAttribute($p, ['description']),
+                    'procedure' => returnAttribute($p, ['procedure', 'coding', 0, 'code']),
+                    'additive' => returnAttribute($p, ['additive']),
+                    'time' => returnVariableAttribute($p, 'time', ['DateTime', 'Period'])
+                ];
+            }
+        }
+
+        return $processing;
+    }
+
+
+    private function returnCodeableConcept($codeableConcepts): array
+    {
+        $codeableConcept = [];
+
+        if (!empty($codeableConcepts)) {
+            foreach ($codeableConcepts as $cc) {
+                $codeableConcept[] = [
+                    'system' => returnAttribute($cc, ['coding', 0, 'system']),
+                    'code' => returnAttribute($cc, ['coding', 0, 'code']),
+                    'display' => returnAttribute($cc, ['coding', 0, 'display'])
+                ];
+            }
+        }
+
+        return $codeableConcept;
+    }
+
+
+    private function returnAnnotation($annotations): array
+    {
+        $annotation = [];
+
+        if (!empty($annotations)) {
+            foreach ($annotations as $a) {
+                $annotation[] = [
+                    'author' => returnVariableAttribute($a, 'author', ['String', 'Reference']),
+                    'time' => returnAttribute($a, ['time']),
+                    'text' => returnAttribute($a, ['text'])
+                ];
+            }
+        }
+
+        return $annotation;
     }
 }

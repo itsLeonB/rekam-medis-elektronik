@@ -13,7 +13,7 @@ class Encounter extends Model
         parent::boot();
 
         static::created(function ($encounter) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new EncounterIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/encounter/' . $orgId;

@@ -13,7 +13,7 @@ class Medication extends Model
         parent::boot();
 
         static::created(function ($medication) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new MedicationIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/medication/' . $orgId;

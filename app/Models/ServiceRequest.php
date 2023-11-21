@@ -13,7 +13,7 @@ class ServiceRequest extends Model
         parent::boot();
 
         static::created(function ($serviceRequest) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new ServiceRequestIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId;

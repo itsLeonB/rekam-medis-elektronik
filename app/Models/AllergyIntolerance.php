@@ -112,7 +112,7 @@ class AllergyIntolerance extends Model
         parent::boot();
 
         static::created(function ($allergyIntolerance) {
-            $orgId = Config::get('organization_id');
+            $orgId = Config::get('app.organization_id');
 
             $identifier = new AllergyIntoleranceIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/allergy/' . $orgId;

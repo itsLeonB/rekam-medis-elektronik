@@ -13,7 +13,7 @@ class Location extends Model
         parent::boot();
 
         static::created(function ($location) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new LocationIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/location/' . $orgId;
