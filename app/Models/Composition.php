@@ -13,7 +13,7 @@ class Composition extends Model
         parent::boot();
 
         static::creating(function ($composition) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
             $composition->identifier_system = 'http://sys-ids.kemkes.go.id/composition/' . $orgId;
             $composition->identifier_use = 'official';
             $composition->identifier_value = $composition->max('identifier_value') + 1;

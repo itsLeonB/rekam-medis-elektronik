@@ -13,7 +13,7 @@ class ClinicalImpression extends Model
         parent::boot();
 
         static::created(function ($clinicalImpression) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new ClinicalImpressionIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/clinicalimpression/' . $orgId;

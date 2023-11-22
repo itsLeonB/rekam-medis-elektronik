@@ -13,7 +13,7 @@ class Observation extends Model
         parent::boot();
 
         static::created(function ($observation) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new ObservationIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/observation/' . $orgId;

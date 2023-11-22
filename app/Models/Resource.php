@@ -108,4 +108,9 @@ class Resource extends Model
     {
         return $this->hasMany(ClinicalImpression::class);
     }
+
+    public function specimen(): HasMany
+    {
+        return $this->hasMany(Specimen::class);
+    }
 }

@@ -13,7 +13,7 @@ class Procedure extends Model
         parent::boot();
 
         static::created(function ($procedure) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new ProcedureIdentifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/procedure/' . $orgId;

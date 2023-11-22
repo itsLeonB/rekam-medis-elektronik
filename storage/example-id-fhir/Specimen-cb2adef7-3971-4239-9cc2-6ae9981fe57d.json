@@ -1,0 +1,45 @@
+{
+    "resourceType": "Specimen",
+    "id": "cb2adef7-3971-4239-9cc2-6ae9981fe57d",
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/specimen/10000004",
+            "value": "00001",
+            "assigner": {
+                "reference": "Organization/10000004"
+            }
+        }
+    ],
+    "status": "unsatisfactory",
+    "type": {
+        "coding": [
+            {
+                "system": "http://snomed.info/sct",
+                "code": "119297000",
+                "display": "Blood specimen"
+            }
+        ]
+    },
+    "collection": {
+        "method": {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "82078001",
+                    "display": "Collection of blood specimen for laboratory"
+                }
+            ]
+        },
+        "collectedDateTime": "2022-06-14T08:15:00+07:00"
+    },
+    "subject": {
+        "reference": "Patient/100000030009",
+        "display": "Budi Santoso"
+    },
+    "request": [
+        {
+            "reference": "ServiceRequest/65b8a884-7a79-41e1-96ab-3fc30837ac66"
+        }
+    ],
+    "receivedTime": "2022-06-14T08:25:00+07:00"
+}
