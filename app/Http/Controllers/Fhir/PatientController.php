@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Fhir;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientRequest;

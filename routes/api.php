@@ -1,22 +1,25 @@
 <?php
 
-use App\Http\Controllers\AllergyIntoleranceController;
-use App\Http\Controllers\ClinicalImpressionController;
-use App\Http\Controllers\CompositionController;
-use App\Http\Controllers\ConditionController;
-use App\Http\Controllers\EncounterController;
-use App\Http\Controllers\MedicationController;
-use App\Http\Controllers\MedicationDispenseController;
-use App\Http\Controllers\MedicationRequestController;
-use App\Http\Controllers\ObservationController;
+use App\Http\Controllers\Fhir\{
+    AllergyIntoleranceController,
+    ClinicalImpressionController,
+    CompositionController,
+    ConditionController,
+    DiagnosticReportController,
+    EncounterController,
+    MedicationController,
+    MedicationDispenseController,
+    MedicationRequestController,
+    ObservationController,
+    PatientController,
+    ProcedureController,
+    ResourceController,
+    ServiceRequestController,
+    SpecimenController
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PatientController;
-use App\Http\Controllers\ProcedureController;
-use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SatusehatController;
-use App\Http\Controllers\ServiceRequestController;
-use App\Http\Controllers\SpecimenController;
 use App\Http\Controllers\TestController;
 
 /*
@@ -100,6 +103,10 @@ Route::put('/servicerequest/{res_id}', [ServiceRequestController::class, 'update
 // Specimen resource endpoint
 Route::post('/specimen', [SpecimenController::class, 'store']);
 Route::put('/specimen/{res_id}', [SpecimenController::class, 'update']);
+
+// DiagnosticReport resource endpoint
+Route::post('/diagnosticreport', [DiagnosticReportController::class, 'store']);
+Route::put('/diagnosticreport/{res_id}', [DiagnosticReportController::class, 'update']);
 
 // Testing endpoint
 Route::get('/test-get/specimen/{satusehat_id}', [TestController::class, 'testSpecimenResource']);

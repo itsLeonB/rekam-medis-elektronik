@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Fhir;
 
+use App\Http\Controllers\Controller;
 use App\Models\ResourceContent;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ResourceContentController extends Controller
