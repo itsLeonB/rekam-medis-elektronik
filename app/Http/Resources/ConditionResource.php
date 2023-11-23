@@ -36,7 +36,7 @@ class ConditionResource extends FhirResource
                         [
                             'system' => $condition->clinical_status ? Condition::CLINICAL_STATUS_SYSTEM : null,
                             'code' => $condition->clinical_status,
-                            'display' => $condition->clinical_status ? Condition::CLINICAL_STATUS_DISPLAY[$condition->clinical_status] : null
+                            'display' => $condition->clinical_status ? Condition::CLINICAL_STATUS_DISPLAY[$condition->clinical_status] ?? null : null
                         ],
                     ],
                 ],
@@ -45,7 +45,7 @@ class ConditionResource extends FhirResource
                         [
                             'system' => $condition->verification_status ? Condition::VERIFICATION_STATUS_SYSTEM : null,
                             'code' => $condition->verification_status,
-                            'display' => $condition->verification_status ? Condition::VERIFICATION_STATUS_DISPLAY[$condition->verification_status] : null
+                            'display' => $condition->verification_status ? Condition::VERIFICATION_STATUS_DISPLAY[$condition->verification_status] ?? null : null
                         ],
                     ],
                 ],
@@ -55,7 +55,7 @@ class ConditionResource extends FhirResource
                         [
                             'system' => $condition->severity ? Condition::SEVERITY_SYSTEM : null,
                             'code' => $condition->severity,
-                            'display' => $condition->severity ? Condition::SEVERITY_DISPLAY[$condition->severity] : null
+                            'display' => $condition->severity ? Condition::SEVERITY_DISPLAY[$condition->severity] ?? null : null
                         ]
                     ]
                 ],

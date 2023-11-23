@@ -38,11 +38,62 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Specimen':
                     $this->seedSpecimen($res, $resText);
                     break;
+                case 'DiagnosticReport':
+                    $this->seedDiagnosticReport($res, $resText);
+                    break;
                 default:
                     break;
             }
         }
     }
+
+
+    private function seedDiagnosticReport($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $diagnosticData = [
+            'based_on' => $this->returnMultiReference(returnAttribute($resourceContent, ['basedOn'])),
+            'status' => returnAttribute($resourceContent, ['status']),
+            'category' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['category'])),
+            'code' => returnAttribute($resourceContent, ['code', 'coding', 0, 'code']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'effective' => returnVariableAttribute($resourceContent, 'effective', ['DateTime', 'Period']),
+            'issued' => returnAttribute($resourceContent, ['issued']),
+            'performer' => $this->returnMultiReference(returnAttribute($resourceContent, ['performer'])),
+            'results_interpreter' => $this->returnMultiReference(returnAttribute($resourceContent, ['resultsInterpreter'])),
+            'specimen' => $this->returnMultiReference(returnAttribute($resourceContent, ['specimen'])),
+            'result' => $this->returnMultiReference(returnAttribute($resourceContent, ['result'])),
+            'imaging_study' => $this->returnMultiReference(returnAttribute($resourceContent, ['imagingStudy'])),
+            'conclusion' => returnAttribute($resourceContent, ['conclusion'])
+        ];
+
+        $diagnosticData = removeEmptyValues($diagnosticData);
+
+        $diagnostic = $resource->diagnostic()->createQuietly($diagnosticData);
+        $diagnostic->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $diagnostic->media()->createManyQuietly($this->returnMedia(returnAttribute($resourceContent, ['media'])));
+        $diagnostic->conclusionCode()->createManyQuietly($this->returnCodeableConcept(returnAttribute($resourceContent, ['conclusionCode'])));
+    }
+
+
+    private function returnMedia($medias): array
+    {
+        $media = [];
+
+        if (!empty($medias)) {
+            foreach ($medias as $m) {
+                $media[] = [
+                    'comment' => returnAttribute($m, ['comment']),
+                    'link' => returnAttribute($m, ['link'])
+                ];
+            }
+        }
+
+        return $media;
+    }
+
 
     private function seedSpecimen($resource, $resourceText)
     {
@@ -79,15 +130,15 @@ class IdFhirResourceSeeder extends Seeder
             'collection_fasting_status' => returnVariableAttribute($collections, 'fastingStatus', ['CodeableConcept', 'Duration']),
         ];
 
-        $specimen = $resource->specimen()->create($specimenData);
-        $specimen->identifier()->createMany($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
-        $specimen->parent()->createMany($this->returnReference(returnAttribute($resourceContent, ['parent'])));
-        $specimen->request()->createMany($this->returnReference(returnAttribute($resourceContent, ['request'])));
-        $specimen->processing()->createMany($this->returnProcessing(returnAttribute($resourceContent, ['processing'])));
+        $specimen = $resource->specimen()->createQuietly($specimenData);
+        $specimen->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $specimen->parent()->createManyQuietly($this->returnReference(returnAttribute($resourceContent, ['parent'])));
+        $specimen->request()->createManyQuietly($this->returnReference(returnAttribute($resourceContent, ['request'])));
+        $specimen->processing()->createManyQuietly($this->returnProcessing(returnAttribute($resourceContent, ['processing'])));
 
         if (!empty($containers)) {
             foreach ($containers as $c) {
-                $container = $specimen->container()->create([
+                $container = $specimen->container()->createQuietly([
                     'description' => returnAttribute($c, ['description']),
                     'type' => returnAttribute($c, ['type', 'coding', 0, 'code']),
                     'capacity_value' => returnAttribute($c, ['capacity', 'value']),
@@ -100,11 +151,39 @@ class IdFhirResourceSeeder extends Seeder
                     'specimen_quantity_code' => returnAttribute($c, ['specimenQuantity', 'code']),
                     'additive' => returnAttribute($c, ['additive'])
                 ]);
-                $container->identifier()->createMany($this->returnIdentifier(returnAttribute($c, ['identifier'])));
+                $container->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($c, ['identifier'])));
             }
         }
-        $specimen->condition()->createMany($this->returnCodeableConcept(returnAttribute($resourceContent, ['condition'])));
-        $specimen->note()->createMany($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+        $specimen->condition()->createManyQuietly($this->returnCodeableConcept(returnAttribute($resourceContent, ['condition'])));
+        $specimen->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+    }
+
+
+    private function returnMultiCodeableConcept($codeableConcepts): array
+    {
+        $codeableConcept = [];
+
+        if (!empty($codeableConcepts)) {
+            foreach ($codeableConcepts as $cc) {
+                $codeableConcept[] = returnAttribute($cc, ['coding', 0, 'code']);
+            }
+        }
+
+        return $codeableConcept;
+    }
+
+
+    private function returnMultiReference($references): array
+    {
+        $reference = [];
+
+        if (!empty($references)) {
+            foreach ($references as $r) {
+                $reference[] = returnAttribute($r, ['reference']);
+            }
+        }
+
+        return $reference;
     }
 
 

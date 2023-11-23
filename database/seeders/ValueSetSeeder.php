@@ -37,7 +37,6 @@ class ValueSetSeeder extends Seeder
             ProcedureFocalDeviceSeeder::class,
             ProcedurePerformerTypeSeeder::class,
             ProcedureReasonCodeSeeder::class,
-            ProcedureReasonCodeSeeder::class,
             ProcedureStatusReasonSeeder::class,
             SpecimenContainerTypeSeeder::class,
             SpecimenTypeSeeder::class,

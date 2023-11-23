@@ -31,7 +31,7 @@ class SpecimenDataTest extends TestCase
         $response = $this->json('POST', '/api/specimen', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/specimen/' . $newData['resource_id']);
+        $response = $this->json('GET', '/api/specimen/' . $newData['resource_id']);
         $response->assertStatus(200);
     }
 
