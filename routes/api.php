@@ -16,6 +16,7 @@ use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\ServiceRequestController;
+use App\Http\Controllers\SpecimenController;
 use App\Http\Controllers\TestController;
 
 /*
@@ -96,7 +97,12 @@ Route::put('/clinicalimpression/{res_id}', [ClinicalImpressionController::class,
 Route::post('/servicerequest', [ServiceRequestController::class, 'store']);
 Route::put('/servicerequest/{res_id}', [ServiceRequestController::class, 'update']);
 
+// Specimen resource endpoint
+Route::post('/specimen', [SpecimenController::class, 'store']);
+Route::put('/specimen/{res_id}', [SpecimenController::class, 'update']);
+
 // Testing endpoint
+Route::get('/test-get/specimen/{satusehat_id}', [TestController::class, 'testSpecimenResource']);
 Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);
 Route::get('/test-get/clinicalimpression/{satusehat_id}', [TestController::class, 'testClinicalImpressionResource']);
 Route::get('/test-get/composition/{satusehat_id}', [TestController::class, 'testCompositionResource']);
@@ -106,5 +112,3 @@ Route::get('/test-get/medication/{satusehat_id}', [TestController::class, 'testM
 Route::get('/test-get/procedure/{satusehat_id}', [TestController::class, 'testProcedureResource']);
 Route::get('/test-get/allergyintolerance/{satusehat_id}', [TestController::class, 'testAllergyIntoleranceResource']);
 Route::get('/test-get/observation/{satusehat_id}', [TestController::class, 'testObservationResource']);
-Route::get('/test/encounter', [TestController::class, 'tesEncounter']);
-Route::get('/test/condition', [TestController::class, 'tesCondition']);

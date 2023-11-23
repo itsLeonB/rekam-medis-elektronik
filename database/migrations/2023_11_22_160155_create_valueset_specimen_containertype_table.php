@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valueset_procedure_statusreason', function (Blueprint $table) {
-            $table->char('code', 17)->primary();
-            $table->string('display', 124);
+        Schema::create('valueset_specimen_containertype', function (Blueprint $table) {
+            $table->string('code', 10)->primary();
+            $table->string('display', 101);
+            $table->string('definition', 119);
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valueset_procedure_statusreason');
+        Schema::dropIfExists('valueset_specimen_containertype');
     }
 };

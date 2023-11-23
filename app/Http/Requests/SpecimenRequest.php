@@ -104,11 +104,14 @@ class SpecimenRequest extends FhirRequest
                 $prefix . 'container_data.description' => 'nullable|string',
                 $prefix . 'container_data.type' => 'nullable|string|exists:valueset_specimen_containertype,code',
                 $prefix . 'container_data.additive' => 'nullable|array',
+                $prefix . 'container_data.additive.additiveCodeableConcept' => 'nullable|array',
+                $prefix . 'container_data.additive.additiveCodeableConcept.coding' => 'nullable|array',
+                $prefix . 'container_data.additive.additiveReference' => 'nullable|array',
             ],
             $this->getQuantityDataRules($prefix . 'container_data.capacity_', true),
             $this->getQuantityDataRules($prefix . 'container_data.specimen_quantity_', true),
             $this->getCodeableConceptDataRules($prefix . 'container_data.additive.additiveCodeableConcept.coding.*.', SpecimenContainer::ADDITIVE_CODE),
-            $this->getReferenceDataRules($prefix . 'container_data.additive.additiveReference.*.'),
+            $this->getReferenceDataRules($prefix . 'container_data.additive.additiveReference.'),
             $this->getIdentifierDataRules($prefix . 'identifier.*.')
         );
     }

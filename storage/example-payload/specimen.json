@@ -17,12 +17,12 @@
                 "end": "2022-12-30"
             }
         },
-        "collection_duration_value": 10,
+        "collection_duration_value": "10",
         "collection_duration_comparator": ">=",
         "collection_duration_unit": "minutes",
         "collection_duration_system": "http://unitsofmeasure.org",
         "collection_duration_code": "min",
-        "collection_quantity_value": 10,
+        "collection_quantity_value": "10",
         "collection_quantity_unit": "mL",
         "collection_quantity_system": "http://unitsofmeasure.org",
         "collection_quantity_code": "mL",
@@ -49,13 +49,6 @@
             }
         }
     },
-    "identifier": [
-        {
-            "system": "http://sys-ids.kemkes.go.id/specimen/10000004",
-            "use": "official",
-            "value": "00001"
-        }
-    ],
     "parent": [
         {
             "reference": "Specimen/100000030009"
@@ -85,11 +78,11 @@
             "container_data": {
                 "description": "botol beling",
                 "type": "22566001",
-                "capacity_value": 10,
+                "capacity_value": "10",
                 "capacity_unit": "mL",
                 "capacity_system": "http://unitsofmeasure.org",
                 "capacity_code": "mL",
-                "specimen_quantity_value": 10,
+                "specimen_quantity_value": "10",
                 "specimen_quantity_unit": "mL",
                 "specimen_quantity_system": "http://unitsofmeasure.org",
                 "specimen_quantity_code": "mL",
@@ -107,14 +100,7 @@
                         "reference": "Substance/100000030009"
                     }
                 }
-            },
-            "identifier": [
-                {
-                    "system": "http://sys-ids.kemkes.go.id/container/10000004",
-                    "use": "official",
-                    "value": "00001"
-                }
-            ]
+            }
         }
     ],
     "condition": [

@@ -123,12 +123,8 @@ class Controller extends BaseController
 
     public function createInstances(object $parent, string $child, array $data)
     {
-        try {
-            if (!empty($data[$child])) {
-                $parent->$child()->createMany($data[$child]);
-            }
-        } catch (Exception $e) {
-            return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
+        if (!empty($data[$child])) {
+            $parent->$child()->createMany($data[$child]);
         }
     }
 

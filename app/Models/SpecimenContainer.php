@@ -13,10 +13,10 @@ class SpecimenContainer extends Model
         parent::boot();
 
         static::created(function ($container) {
-            $orgId = config('organization_id');
+            $orgId = config('app.organization_id');
 
             $identifier = new SpecimenContainerIdentifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/specimen/' . $orgId;
+            $identifier->system = 'http://sys-ids.kemkes.go.id/container/' . $orgId;
             $identifier->use = 'official';
             $identifier->value = $container->identifier()->max('value') + 1;
 

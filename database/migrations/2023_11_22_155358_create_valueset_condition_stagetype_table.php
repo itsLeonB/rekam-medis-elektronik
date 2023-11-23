@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valueset_procedure_statusreason', function (Blueprint $table) {
-            $table->char('code', 17)->primary();
-            $table->string('display', 124);
+        Schema::create('valueset_condition_stagetype', function (Blueprint $table) {
+            $table->string('code', 16)->primary();
+            $table->string('display', 182);
+            $table->string('definition', 201);
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valueset_procedure_statusreason');
+        Schema::dropIfExists('valueset_condition_stagetype');
     }
 };
