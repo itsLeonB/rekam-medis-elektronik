@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('valueset_procedure_statusreason', function (Blueprint $table) {
-            $table->char('code', 9)->primary();
-            $table->string('display');
+            $table->char('code', 17)->primary();
+            $table->string('display', 124);
         });
     }
 

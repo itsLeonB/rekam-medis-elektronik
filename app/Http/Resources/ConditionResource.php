@@ -34,18 +34,18 @@ class ConditionResource extends FhirResource
                 'clinicalStatus' => [
                     'coding' => [
                         [
-                            'system' => 'http://terminology.hl7.org/CodeSystem/condition-clinical',
+                            'system' => $condition->clinical_status ? Condition::CLINICAL_STATUS_SYSTEM : null,
                             'code' => $condition->clinical_status,
-                            'display' => clinicalStatus($condition->clinical_status)->display
+                            'display' => $condition->clinical_status ? Condition::CLINICAL_STATUS_DISPLAY[$condition->clinical_status] ?? null : null
                         ],
                     ],
                 ],
                 'verificationStatus' => [
                     'coding' => [
                         [
-                            'system' => 'http://terminology.hl7.org/CodeSystem/condition-ver-status',
+                            'system' => $condition->verification_status ? Condition::VERIFICATION_STATUS_SYSTEM : null,
                             'code' => $condition->verification_status,
-                            'display' => verificationStatus($condition->verification_status)->display
+                            'display' => $condition->verification_status ? Condition::VERIFICATION_STATUS_DISPLAY[$condition->verification_status] ?? null : null
                         ],
                     ],
                 ],
@@ -53,9 +53,9 @@ class ConditionResource extends FhirResource
                 'severity' => [
                     'coding' => [
                         [
-                            'system' => 'http://snomed.info/sct',
+                            'system' => $condition->severity ? Condition::SEVERITY_SYSTEM : null,
                             'code' => $condition->severity,
-                            'display' => Condition::SEVERITY_DISPLAY[$condition->severity] ?? null
+                            'display' => $condition->severity ? Condition::SEVERITY_DISPLAY[$condition->severity] ?? null : null
                         ]
                     ]
                 ],

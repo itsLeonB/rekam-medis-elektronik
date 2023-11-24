@@ -2,6 +2,14 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Codesystems\{
+    AdministrativeCodeSeeder,
+    EncounterReasonSeeder,
+    ICD10Seeder,
+    ICD9CMProcedureSeeder,
+    LoincSeeder,
+    ServiceTypeSeeder,
+};
 use Illuminate\Database\Seeder;
 
 class CodeSystemSeeder extends Seeder
@@ -12,16 +20,12 @@ class CodeSystemSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            CodeSystemAdmitSourceSeeder::class,
-            CodeSystemClinicalStatusSeeder::class,
-            CodeSystemDischargeDispositionSeeder::class,
-            CodeSystemEncounterReasonSeeder::class,
-            CodeSystemICD10Seeder::class,
-            CodeSystemParticipantTypeSeeder::class,
-            CodeSystemServiceTypeSeeder::class,
-            CodeSystemVerificationStatusSeeder::class,
-            CodeSystemLoincSeeder::class,
-            CodeSystemICD9CMProcedureSeeder::class,
+            AdministrativeCodeSeeder::class,
+            EncounterReasonSeeder::class,
+            ICD9CMProcedureSeeder::class,
+            ICD10Seeder::class,
+            LoincSeeder::class,
+            ServiceTypeSeeder::class,
         ]);
     }
 }

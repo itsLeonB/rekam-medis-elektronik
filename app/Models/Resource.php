@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Resource extends Model
 {
-    use HasFactory;
-
     const VALID_RESOURCE_TYPES = [
-        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'imagingstudy', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression'
+        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'imagingstudy', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression', 'specimen', 'diagnosticreport'
     ];
 
     protected $table = 'resource';
@@ -112,5 +108,10 @@ class Resource extends Model
     public function specimen(): HasMany
     {
         return $this->hasMany(Specimen::class);
+    }
+
+    public function diagnosticReport(): HasMany
+    {
+        return $this->hasMany(DiagnosticReport::class);
     }
 }
