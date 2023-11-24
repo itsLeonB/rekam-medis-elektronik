@@ -41,10 +41,116 @@ class IdFhirResourceSeeder extends Seeder
                 case 'DiagnosticReport':
                     $this->seedDiagnosticReport($res, $resText);
                     break;
+                case 'ImagingStudy':
+                    $this->seedImagingStudy($res, $resText);
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+
+    private function seedImagingStudy($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+        $series = returnAttribute($resourceContent, ['series']);
+
+        $imagingStudyData = [
+            'status' => returnAttribute($resourceContent, ['status']),
+            'modality' => $this->returnMultiCoding(returnAttribute($resourceContent, ['modality'])),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'started' => returnAttribute($resourceContent, ['started']),
+            'based_on' => $this->returnMultiReference(returnAttribute($resourceContent, ['basedOn'])),
+            'referrer' => returnAttribute($resourceContent, ['referrer', 'reference']),
+            'interpreter' => $this->returnMultiReference(returnAttribute($resourceContent, ['interpreter'])),
+            'endpoint' => $this->returnMultiReference(returnAttribute($resourceContent, ['endpoint'])),
+            'series_num' => returnAttribute($resourceContent, ['numberOfSeries']),
+            'instances_num' => returnAttribute($resourceContent, ['numberOfInstances']),
+            'procedure_reference' => returnAttribute($resourceContent, ['procedureReference', 'reference']),
+            'procedure_code' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['procedureCode'])),
+            'reason_reference' => $this->returnMultiReference(returnAttribute($resourceContent, ['reasonReference'])),
+            'description' => returnAttribute($resourceContent, ['description']),
+        ];
+
+        $imagingStudyData = removeEmptyValues($imagingStudyData);
+
+        $imagingStudy = $resource->imagingStudy()->createQuietly($imagingStudyData);
+        $imagingStudy->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $imagingStudy->reasonCode()->createManyQuietly($this->returnCodeableConcept(returnAttribute($resourceContent, ['reasonCode'])));
+        $imagingStudy->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+
+        if (!empty($series)) {
+            foreach ($series as $s) {
+                $imgSeries = $imagingStudy->series()->createQuietly([
+                    'uid' => returnAttribute($s, ['uid']),
+                    'number' => returnAttribute($s, ['number']),
+                    'modality' => returnAttribute($s, ['modality', 'code']),
+                    'description' => returnAttribute($s, ['description']),
+                    'num_instances' => returnAttribute($s, ['numberOfInstances']),
+                    'endpoint' => $this->returnMultiReference(returnAttribute($s, ['endpoint'])),
+                    'body_site_system' => returnAttribute($s, ['bodySite', 'system']),
+                    'body_site_code' => returnAttribute($s, ['bodySite', 'code']),
+                    'body_site_display' => returnAttribute($s, ['bodySite', 'display']),
+                    'laterality' => returnAttribute($s, ['laterality', 'code']),
+                    'specimen' => $this->returnMultiReference(returnAttribute($s, ['specimen'])),
+                    'started' => returnAttribute($s, ['started']),
+                    'performer' => $this->returnSeriesPerformer(returnAttribute($s, ['performer'])),
+                ]);
+                $imgSeries->instance()->createManyQuietly($this->returnSeriesInstance(returnAttribute($s, ['instance'])));
+            }
+        }
+    }
+
+
+    private function returnSeriesInstance($instances): array
+    {
+        $instance = [];
+
+        if (!empty($instances)) {
+            foreach ($instances as $i) {
+                $instance[] = [
+                    'uid' => returnAttribute($i, ['uid']),
+                    'sop_class' => returnAttribute($i, ['sopClass', 'code']),
+                    'number' => returnAttribute($i, ['number']),
+                    'title' => returnAttribute($i, ['title'])
+                ];
+            }
+        }
+
+        return $instance;
+    }
+
+
+    private function returnSeriesPerformer($performers): array
+    {
+        $performer = [];
+
+        if (!empty($performers)) {
+            foreach ($performers as $p) {
+                $performer[] = [
+                    'function' => returnAttribute($p, ['function', 'coding', 0, 'code']),
+                    'actor' => returnAttribute($p, ['actor', 'reference'])
+                ];
+            }
+        }
+
+        return $performer;
+    }
+
+
+    private function returnMultiCoding($codings): array
+    {
+        $coding = [];
+
+        if (!empty($codings)) {
+            foreach ($codings as $c) {
+                $coding[] = returnAttribute($c, ['code']);
+            }
+        }
+
+        return $coding;
     }
 
 

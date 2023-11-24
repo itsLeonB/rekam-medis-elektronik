@@ -12,13 +12,13 @@ class DiagnosticReportController extends Controller
     public function store(DiagnosticReportRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('DiagnosticReport');
             $diagnostic = $resource->diagnosticReport()->create($body['diagnostic']);
             $this->createChildModels($diagnostic, $body, ['media', 'conclusionCode']);
             $this->createResourceContent(DiagnosticReportResource::class, $resource);
             return response()->json($resource->diagnosticReport()->first(), 201);
-        // });
+        });
     }
 
 

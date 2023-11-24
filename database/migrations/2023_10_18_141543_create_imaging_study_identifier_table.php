@@ -16,8 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('imaging_id');
             $table->index('imaging_id');
             $table->foreign('imaging_id')->references('id')->on('imaging_study')->onDelete('cascade');
-            $table->string('system');
-            $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old']);
+            $table->string('system')->nullable();
+            $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old'])->nullable();
             $table->string('value');
         });
     }
