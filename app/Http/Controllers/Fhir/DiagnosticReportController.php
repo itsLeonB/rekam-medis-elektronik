@@ -12,13 +12,13 @@ class DiagnosticReportController extends Controller
     public function store(DiagnosticReportRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body) {
+        // return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('DiagnosticReport');
-            $diagnostic = $resource->diagnostic()->create($body['diagnostic']);
+            $diagnostic = $resource->diagnosticReport()->create($body['diagnostic']);
             $this->createChildModels($diagnostic, $body, ['media', 'conclusionCode']);
             $this->createResourceContent(DiagnosticReportResource::class, $resource);
-            return response()->json($resource->diagnostic()->first(), 201);
-        });
+            return response()->json($resource->diagnosticReport()->first(), 201);
+        // });
     }
 
 
@@ -27,12 +27,12 @@ class DiagnosticReportController extends Controller
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body, $res_id) {
             $resource = $this->updateResource($res_id);
-            $diagnostic = $resource->diagnostic()->first();
+            $diagnostic = $resource->diagnosticReport()->first();
             $diagnostic->update($body['diagnostic']);
             $diagnosticId = $diagnostic->id;
             $this->updateChildModels($diagnostic, $body, ['media', 'conclusionCode'], 'diagnostic_id', $diagnosticId);
             $this->createResourceContent(DiagnosticReportResource::class, $resource);
-            return response()->json($resource->diagnostic()->first(), 200);
+            return response()->json($resource->diagnosticReport()->first(), 200);
         });
     }
 }

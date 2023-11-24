@@ -15,7 +15,7 @@ class DiagnosticReportResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $diagnostic = $this->getData('diagnostic');
+        $diagnostic = $this->getData('diagnosticReport');
 
         $data = $this->resourceStructure($diagnostic);
 

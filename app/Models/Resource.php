@@ -110,7 +110,7 @@ class Resource extends Model
         return $this->hasMany(Specimen::class);
     }
 
-    public function diagnostic(): HasMany
+    public function diagnosticReport(): HasMany
     {
         return $this->hasMany(DiagnosticReport::class);
     }

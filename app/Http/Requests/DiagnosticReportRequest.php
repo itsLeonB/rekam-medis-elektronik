@@ -38,7 +38,7 @@ class DiagnosticReportRequest extends FhirRequest
         return array_merge(
             [
                 $prefix . 'status' => ['required', Rule::in(DiagnosticReport::STATUS_CODE)],
-                $prefix . 'code' => 'required|string|exists:code_system_loinc,code',
+                $prefix . 'code' => 'required|string|exists:codesystem_loinc,code',
                 $prefix . 'subject' => 'required|string',
                 $prefix . 'encounter' => 'required|string',
                 $prefix . 'issued' => 'nullable|date',
