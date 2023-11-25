@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('body_site_system')->nullable();
             $table->string('body_site_code')->nullable();
             $table->string('body_site_display')->nullable();
-            $table->enum('laterality', [419161000, 419465000, 51440002])->nullable();
+            $table->enum('laterality', ['419161000', '419465000', '51440002'])->nullable();
             $table->json('specimen')->nullable();
             $table->dateTime('started')->nullable();
             $table->json('performer')->nullable();

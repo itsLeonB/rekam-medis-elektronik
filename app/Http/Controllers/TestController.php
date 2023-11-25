@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ClinicalImpressionResource;
 use App\Http\Resources\CompositionResource;
-use App\Http\Resources\ConditionResource;
-use App\Http\Resources\EncounterResource;
+use App\Http\Resources\ImagingStudyResource;
 use App\Http\Resources\MedicationDispenseResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;
@@ -16,11 +15,16 @@ use App\Http\Resources\ProcedureResource;
 use App\Http\Resources\ServiceRequestResource;
 use App\Http\Resources\SpecimenResource;
 use App\Models\Resource;
-use Tests\Traits\FhirTest;
 
 class TestController extends Controller
 {
-    use FhirTest;
+    public function testImagingStudyResource($satusehat_id)
+    {
+        return response()->json(new ImagingStudyResource(Resource::where([
+            ['satusehat_id', '=', $satusehat_id],
+            ['res_type', '=', 'ImagingStudy']
+        ])->firstOrFail()), 200);
+    }
 
     public function testSpecimenResource($satusehat_id)
     {

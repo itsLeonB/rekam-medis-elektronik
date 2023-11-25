@@ -177,7 +177,7 @@ class IdFhirResourceSeeder extends Seeder
 
         $diagnosticData = removeEmptyValues($diagnosticData);
 
-        $diagnostic = $resource->diagnostic()->createQuietly($diagnosticData);
+        $diagnostic = $resource->diagnosticReport()->createQuietly($diagnosticData);
         $diagnostic->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
         $diagnostic->media()->createManyQuietly($this->returnMedia(returnAttribute($resourceContent, ['media'])));
         $diagnostic->conclusionCode()->createManyQuietly($this->returnCodeableConcept(returnAttribute($resourceContent, ['conclusionCode'])));

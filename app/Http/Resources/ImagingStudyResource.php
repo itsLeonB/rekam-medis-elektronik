@@ -132,13 +132,13 @@ class ImagingStudyResource extends FhirResource
                         'coding' => [
                             [
                                 'system' => $p ? ImagingStudySeries::PERFORMER_FUNCTION_SYSTEM : null,
-                                'code' => $p->function,
-                                'display' => $p ? ImagingStudySeries::PERFORMER_FUNCTION_DISPLAY[$p->function] : null
+                                'code' => $p['function'],
+                                'display' => $p ? ImagingStudySeries::PERFORMER_FUNCTION_DISPLAY[$p['function']] : null
                             ]
                         ]
                     ],
                     'actor' => [
-                        'reference' => $p->actor
+                        'reference' => $p['actor']
                     ]
                 ];
             }

@@ -18,7 +18,7 @@ class EncounterDataTest extends TestCase
      */
     public function test_users_can_view_encounter_data()
     {
-        Config::set('organization_id', env('organization_id'));
+        Config::set('app.organization_id', env('organization_id'));
 
         $user = User::factory()->create();
         $this->actingAs($user);
