@@ -7,6 +7,7 @@ use App\Http\Controllers\Fhir\{
     ConditionController,
     DiagnosticReportController,
     EncounterController,
+    ImagingStudyController,
     MedicationController,
     MedicationDispenseController,
     MedicationRequestController,
@@ -108,7 +109,12 @@ Route::put('/specimen/{res_id}', [SpecimenController::class, 'update']);
 Route::post('/diagnosticreport', [DiagnosticReportController::class, 'store']);
 Route::put('/diagnosticreport/{res_id}', [DiagnosticReportController::class, 'update']);
 
+// ImagingStudy resource endpoint
+Route::post('/imagingstudy', [ImagingStudyController::class, 'store']);
+Route::put('/imagingstudy/{res_id}', [ImagingStudyController::class, 'update']);
+
 // Testing endpoint
+Route::get('/test-get/imagingstudy/{satusehat_id}', [TestController::class, 'testImagingStudyResource']);
 Route::get('/test-get/specimen/{satusehat_id}', [TestController::class, 'testSpecimenResource']);
 Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);
 Route::get('/test-get/clinicalimpression/{satusehat_id}', [TestController::class, 'testClinicalImpressionResource']);

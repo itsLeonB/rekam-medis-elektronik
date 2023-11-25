@@ -13,6 +13,7 @@ class ResourceController extends Controller
     {
         // Validate the resource type
         if (!in_array($res_type, Resource::VALID_RESOURCE_TYPES)) {
+            Log::error('Invalid resource type requested: ' . $res_type);
             return response()->json(['error' => 'Invalid resource type.'], 400);
         }
 
@@ -22,6 +23,7 @@ class ResourceController extends Controller
     public function show($res_type, $res_id)
     {
         if (!in_array($res_type, Resource::VALID_RESOURCE_TYPES)) {
+            Log::error('Invalid resource type requested: ' . $res_type);
             return response()->json(['error' => 'Invalid resource type.'], 400);
         }
 

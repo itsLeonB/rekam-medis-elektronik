@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('imaging_study_based_on', function (Blueprint $table) {
+        Schema::create('imaging_study_reason_code', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('imaging_id');
             $table->index('imaging_id');
             $table->foreign('imaging_id')->references('id')->on('imaging_study')->onDelete('cascade');
-            $table->string('reference');
+            $table->string('system')->nullable();
+            $table->string('code');
+            $table->string('display')->nullable();
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('imaging_study_based_on');
+        Schema::dropIfExists('imaging_study_reason_code');
     }
 };

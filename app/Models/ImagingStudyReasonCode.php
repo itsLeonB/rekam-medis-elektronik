@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ImagingStudyBasedOn extends Model
+class ImagingStudyReasonCode extends Model
 {
-    protected $table = 'imaging_study_based_on';
+    protected $table = 'imaging_study_reason_code';
     public $timestamps = false;
 
     public function imagingStudy(): BelongsTo

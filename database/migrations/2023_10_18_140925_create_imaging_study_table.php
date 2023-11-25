@@ -17,14 +17,20 @@ return new class extends Migration
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->enum('status', ['registered', 'available', 'cancelled', 'entered-in-error', 'unknown']);
+            $table->json('modality');
             $table->string('subject');
             $table->string('encounter')->nullable();
             $table->dateTime('started')->nullable();
+            $table->json('based_on');
             $table->string('referrer')->nullable();
+            $table->json('interpreter')->nullable();
+            $table->json('endpoint')->nullable();
             $table->unsignedInteger('series_num')->nullable();
             $table->unsignedInteger('instances_num')->nullable();
             $table->string('procedure_reference')->nullable();
+            $table->json('procedure_code')->nullable();
             $table->string('location')->nullable();
+            $table->json('reason_reference')->nullable();
             $table->text('description')->nullable();
         });
     }
