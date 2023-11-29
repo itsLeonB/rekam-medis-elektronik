@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants;
 use App\Models\Resource;
 use Exception;
 use Illuminate\Database\Seeder;
@@ -51,8 +52,80 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Location':
                     $this->seedLocation($res, $resText);
                     break;
+                case 'Practitioner':
+                    $this->seedPractitioner($res, $resText);
+                    break;
                 default:
                     break;
+            }
+        }
+    }
+
+
+    private function seedPractitioner($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+        $identifiers = returnAttribute($resourceContent, ['identifier']);
+        $name = returnHumanName(returnAttribute($resourceContent, ['name']));
+
+        $practitionerData = [
+            'nik' => $this->returnNik($identifiers),
+            'nakes_id' => $this->returnNakesId($identifiers),
+            'active' => returnAttribute($resourceContent, ['active']),
+            'name' => $name['name'],
+            'prefix' => $name['prefix'],
+            'suffix' => $name['suffix'],
+            'gender' => returnAttribute($resourceContent, ['gender'], 'unknown'),
+            'birth_date' => returnAttribute($resourceContent, ['birthDate']),
+            'communication' => returnAttribute($resourceContent, ['communication'])
+        ];
+
+        $practitioner = $resource->practitioner()->createQuietly($practitionerData);
+        $practitioner->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
+        $practitioner->address()->createManyQuietly($this->returnAddress(returnAttribute($resourceContent, ['address'])));
+        $practitioner->qualification()->createManyQuietly($this->returnQualification(returnAttribute($resourceContent, ['qualification'])));
+    }
+
+
+    private function returnQualification($qualifications): array
+    {
+        $qualification = [];
+
+        if (!empty($qualifications)) {
+            foreach ($qualifications as $q) {
+                $qualification[] = [
+                    'identifier' => returnAttribute($q, ['identifier']),
+                    'code' => returnAttribute($q, ['code']),
+                    'period_start' => returnAttribute($q, ['period', 'start']),
+                    'period_end' => returnAttribute($q, ['period', 'end']),
+                    'issuer' => returnAttribute($q, ['issuer', 'reference'])
+                ];
+            }
+        }
+
+        return $qualification;
+    }
+
+
+    private function returnNik($identifiers)
+    {
+        if (!empty($identifiers)) {
+            foreach ($identifiers as $i) {
+                if ($i['system'] == Constants::NIK_SYSTEM) {
+                    return $i['value'];
+                }
+            }
+        }
+    }
+
+
+    private function returnNakesId($identifiers)
+    {
+        if (!empty($identifiers)) {
+            foreach ($identifiers as $i) {
+                if ($i['system'] == Constants::NAKES_SYSTEM) {
+                    return $i['value'];
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ClinicalImpressionResource;
 use App\Http\Resources\CompositionResource;
 use App\Http\Resources\ImagingStudyResource;
+use App\Http\Resources\LocationResource;
 use App\Http\Resources\MedicationDispenseResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;
@@ -24,6 +25,15 @@ class TestController extends Controller
         return response()->json(new OrganizationResource(Resource::where([
             ['satusehat_id', '=', $satusehat_id],
             ['res_type', '=', 'Organization']
+        ])->firstOrFail()), 200);
+    }
+
+
+    public function testLocationResource($satusehat_id)
+    {
+        return response()->json(new LocationResource(Resource::where([
+            ['satusehat_id', '=', $satusehat_id],
+            ['res_type', '=', 'Location']
         ])->firstOrFail()), 200);
     }
 

@@ -1,0 +1,54 @@
+code,display,definition
+ar-SA,Arabic,Arabic (Saudi Arabia)
+bn-BD,Bangla,Bangla (Bangladesh)
+bn-IN,Bangla,Bangla (India)
+cs-CZ,Czech,Czech (Czech Republic)
+da-DK,Danish,Danish (Denmark)
+de-AT,German,Austrian German
+de-CH,German,"""Swiss"" German"
+de-DE,German,Standard German (as spoken in Germany)
+el-GR,Greek,Modern Greek
+en-AU,English,Australian English
+en-CA,English,Canadian English
+en-GB,English,British English
+en-IE,English,Irish English
+en-IN,English,Indian English
+en-NZ,English,New Zealand English
+en-US,English,US English
+en-ZA,English,English (South Africa)
+es-AR,Spanish,Argentine Spanish
+es-CL,Spanish,Chilean Spanish
+es-CO,Spanish,Colombian Spanish
+es-ES,Spanish,Castilian Spanish (as spoken in Central-Northern Spain)
+es-MX,Spanish,Mexican Spanish
+es-US,Spanish,American Spanish
+fi-FI,Finnish,Finnish (Finland)
+fr-BE,French,Belgian French
+fr-CA,French,Canadian French
+fr-CH,French,"""Swiss"" French"
+fr-FR,French,Standard French (especially in France)
+he-IL,Hebrew,Hebrew (Israel)
+hi-IN,Hindi,Hindi (India)
+hu-HU,Hungarian,Hungarian (Hungary)
+id-ID,Indonesian,Indonesian (Indonesia)
+it-CH,Italian,"""Swiss"" Italian"
+it-IT,Italian,Standard Italian (as spoken in Italy)
+ja-JP,Japanese,Japanese (Japan)
+ko-KR,Korean,Korean (Republic of Korea)
+nl-BE,Dutch,Belgian Dutch
+nl-NL,Dutch,Standard Dutch (as spoken in The Netherlands)
+no-NO,Norwegian,Norwegian (Norway)
+pl-PL,Polish,Polish (Poland)
+pt-BR,Portugese,Brazilian Portuguese
+pt-PT,Portugese,European Portuguese (as written and spoken in Portugal)
+ro-RO,Romanian,Romanian (Romania)
+ru-RU,Russian,Russian (Russian Federation)
+sk-SK,Slovak,Slovak (Slovakia)
+sv-SE,Swedish,Swedish (Sweden)
+ta-IN,Tamil,Indian Tamil
+ta-LK,Tamil,Sri Lankan Tamil
+th-TH,Thai,Thai (Thailand)
+tr-TR,Turkish,Turkish (Turkey)
+zh-CN,Chinese,"Mainland China, simplified characters"
+zh-HK,Chinese,"Hong Kong, traditional characters"
+zh-TW,Chinese,"Taiwan, traditional characters"

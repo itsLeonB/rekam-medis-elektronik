@@ -125,6 +125,7 @@ Route::put('/imagingstudy/{res_id}', [ImagingStudyController::class, 'update']);
 
 // Testing endpoint
 Route::get('/test-get/organization/{satusehat_id}', [TestController::class, 'testOrganizationResource']);
+Route::get('/test-get/location/{satusehat_id}', [TestController::class, 'testLocationResource']);
 Route::get('/test-get/imagingstudy/{satusehat_id}', [TestController::class, 'testImagingStudyResource']);
 Route::get('/test-get/specimen/{satusehat_id}', [TestController::class, 'testSpecimenResource']);
 Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);
