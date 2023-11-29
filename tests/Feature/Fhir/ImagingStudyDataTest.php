@@ -33,7 +33,7 @@ class ImagingStudyDataTest extends TestCase
         $response = $this->json('POST', '/api/imagingstudy', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/imagingstudy/' . $newData['resource_id']);
+        $response = $this->json('GET', '/api/imagingstudy/' . $newData['resource_id']);
         $response->assertStatus(200);
     }
 

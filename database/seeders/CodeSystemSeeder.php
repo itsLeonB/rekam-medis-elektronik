@@ -7,6 +7,7 @@ use Database\Seeders\Codesystems\{
     EncounterReasonSeeder,
     ICD10Seeder,
     ICD9CMProcedureSeeder,
+    ISO3166Seeder,
     LoincSeeder,
     ServiceTypeSeeder,
 };
@@ -26,6 +27,7 @@ class CodeSystemSeeder extends Seeder
             ICD10Seeder::class,
             LoincSeeder::class,
             ServiceTypeSeeder::class,
+            ISO3166Seeder::class
         ]);
     }
 }

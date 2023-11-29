@@ -18,7 +18,7 @@ class PatientDataTest extends TestCase
      */
     public function test_users_can_view_patient_data()
     {
-        Config::set('organization_id', env('organization_id'));
+        Config::set('app.organization_id', env('organization_id'));
 
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -41,7 +41,7 @@ class PatientDataTest extends TestCase
      */
     public function test_users_can_create_new_patient_data()
     {
-        Config::set('organization_id', env('organization_id'));
+        Config::set('app.organization_id', env('organization_id'));
 
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -73,7 +73,7 @@ class PatientDataTest extends TestCase
      */
     public function test_users_can_update_patient_data()
     {
-        Config::set('organization_id', env('organization_id'));
+        Config::set('app.organization_id', env('organization_id'));
 
         $user = User::factory()->create();
         $this->actingAs($user);

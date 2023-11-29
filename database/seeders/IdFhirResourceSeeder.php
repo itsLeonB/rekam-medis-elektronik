@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Resource;
+use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -44,10 +45,143 @@ class IdFhirResourceSeeder extends Seeder
                 case 'ImagingStudy':
                     $this->seedImagingStudy($res, $resText);
                     break;
+                case 'Organization':
+                    $this->seedOrganization($res, $resText);
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+
+    private function seedOrganization($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+        $contactData = returnAttribute($resourceContent, ['contact']);
+
+        $organizationData = [
+            'active' => returnAttribute($resourceContent, ['active'], false),
+            'type' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['type'])),
+            'name' => returnAttribute($resourceContent, ['name'], 'unknown'),
+            'alias' => returnAttribute($resourceContent, ['alias']),
+            'part_of' => returnAttribute($resourceContent, ['partOf', 'reference']),
+            'endpoint' => $this->returnMultiReference(returnAttribute($resourceContent, ['endpoint'])),
+        ];
+
+        $organizationData = removeEmptyValues($organizationData);
+        $organization = $resource->organization()->createQuietly($organizationData);
+        try {
+        $organization->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        } catch (Exception $e) {
+            dd(returnAttribute($resourceContent, ['identifier']));
+        }
+        $organization->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
+        $organization->address()->createManyQuietly($this->returnAddress(returnAttribute($resourceContent, ['address'])));
+
+        if (!empty($contactData)) {
+            foreach ($contactData as $c) {
+                $addressDetails = [
+                    'province' => 0,
+                    'city' => 0,
+                    'district' => 0,
+                    'village' => 0,
+                    'rw' => 0,
+                    'rt' => 0,
+                ];
+                $extensionData = returnAttribute($c, ['address', 'extension', 0, 'extension'], null);
+
+                if (!empty($extensionData)) {
+                    foreach ($extensionData as $extension) {
+                        $url = $extension['url'];
+                        $value = (int)preg_replace("/[^0-9]/", "", $extension['valueCode']);
+                        $addressDetails[$url] = $value;
+                    }
+                }
+
+                $line = returnAttribute($c, ['address', 'line']) ? returnAttribute($c, ['address', 'line']) : returnAttribute($c, ['address', 'text'], '');
+
+                $contactArray = array_merge(
+                    $addressDetails,
+                    [
+                        'purpose' => returnAttribute($c, ['purpose', 'coding', 0, 'code']),
+                        'name_use' => returnAttribute($c, ['name', 'use']),
+                        'name_text' => returnAttribute($c, ['name', 'text']),
+                        'address_use' => returnAttribute($c, ['address', 'use']),
+                        'address_type' => returnAttribute($c, ['address', 'type']),
+                        'address_line' => $line,
+                        'country' => returnAttribute($c, ['address', 'country'], 'ID'),
+                        'postal_code' => returnAttribute($c, ['address', 'postalCode']),
+                    ],
+                );
+                // try {
+                $contact = $organization->contact()->createQuietly($contactArray);
+                $contact->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($c, ['telecom'])));
+                // } catch (Exception $e) {
+                //     dd($contactArray);
+                // }
+            }
+        }
+    }
+
+
+    private function returnAddress($addresses): array
+    {
+        $address = [];
+        $addressDetails = [
+            'province' => 0,
+            'city' => 0,
+            'district' => 0,
+            'village' => 0,
+            'rw' => 0,
+            'rt' => 0,
+        ];
+
+        if (!empty($addresses)) {
+            foreach ($addresses as $a) {
+                $extensionData = returnAttribute($a, ['extension', 0, 'extension'], null);
+
+                if (!empty($extensionData)) {
+                    foreach ($extensionData as $extension) {
+                        $url = $extension['url'];
+                        $value = (int)preg_replace("/[^0-9]/", "", $extension['valueCode']);
+                        $addressDetails[$url] = $value;
+                    }
+                }
+
+                $line = returnAttribute($a, ['line']) ? returnAttribute($a, ['line']) : returnAttribute($a, ['text']);
+
+                $address[] = array_merge(
+                    $addressDetails,
+                    [
+                        'use' => returnAttribute($a, ['use']),
+                        'line' => $line,
+                        'country' => returnAttribute($a, ['country'], 'ID'),
+                        'postal_code' => returnAttribute($a, ['postalCode']),
+                    ],
+                );
+            }
+        }
+
+        return $address;
+    }
+
+
+    private function returnTelecom($telecoms): array
+    {
+        $telecom = [];
+
+        if (!empty($telecoms)) {
+            foreach ($telecoms as $t) {
+                $telecom[] = [
+                    'system' => returnAttribute($t, ['system']),
+                    'use' => returnAttribute($t, ['use']),
+                    'value' => returnAttribute($t, ['value'])
+                ];
+            }
+        }
+
+        return $telecom;
     }
 
 
@@ -300,7 +434,7 @@ class IdFhirResourceSeeder extends Seeder
         if (!empty($identifiers)) {
             foreach ($identifiers as $i) {
                 $identifier[] = [
-                    'system' => returnAttribute($i, ['system']),
+                    'system' => returnAttribute($i, ['system'], 'unknown'),
                     'use' => returnAttribute($i, ['use']),
                     'value' => returnAttribute($i, ['value'])
                 ];

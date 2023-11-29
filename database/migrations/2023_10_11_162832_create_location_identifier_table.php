@@ -17,7 +17,7 @@ return new class extends Migration
             $table->index('location_id');
             $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade');
             $table->string('system');
-            $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old']);
+            $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old'])->nullable();
             $table->string('value');
         });
     }

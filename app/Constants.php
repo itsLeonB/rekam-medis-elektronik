@@ -4,6 +4,10 @@ namespace App;
 
 class Constants
 {
+    public const NAME_USE_SYSTEM = 'http://hl7.org/fhir/name-use';
+    public const NAME_USE_CODE = ['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'];
+    public const NAME_USE_DISPLAY = ['usual' => 'Usual', 'official' => 'Official', 'temp' => 'Temp', 'nickname' => 'Nickname', 'anonymous' => 'Anonymous', 'old' => 'Old', 'maiden' => 'Name changed for Marriage'];
+
     public const IDENTIFIER_USE = ['usual', 'official', 'temp', 'secondary', 'old'];
     public const IDENTIFIER_USE_DISPLAY = [
         'usual' => 'Identifier yang direkomendasikan digunakan untuk interaksi dunia nyata',
@@ -28,10 +32,14 @@ class Constants
     public const ADDRESS_USE_DISPLAY = ['home' => 'Home', 'work' => 'Work', 'temp' => 'Temporary', 'old' => 'Old / Incorrect', 'billing' => 'Billing'];
     public const ADDRESS_USE_DEFINITION = ["home" => "A communication address at a home.", "work" => "An office address. First choice for business related contacts during business hours.", "temp" => "A temporary address. The period can provide more detailed information.", "old" => "This address is no longer in use (or was never correct but retained for records).", "billing" => "An address to be used to send bills, invoices, receipts etc."];
 
+    public const ADDRESS_TYPE_SYSTEM = 'http://hl7.org/fhir/address-type';
+    public const ADDRESS_TYPE_CODE = ['postal', 'physical', 'both'];
+    public const ADDRESS_TYPE_DISPLAY = ['postal' => 'Alamat surat', 'physical' => 'Alamat fisik yang dapat dikunjungi', 'both' => 'Alamat yang bersifat fisik dan surat'];
+
     public const GENDER = ['male', 'female', 'other', 'unknown'];
     public const COMPARATOR = ['<', '<=', '>=', '>'];
     public const PERIOD_UNIT = ['s', 'min', 'h', 'd', 'wk', 'mo', 'a'];
-    public const DAY_OF_WEEK = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+    public const DAYS_OF_WEEK = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
     public const TIMING_EVENT_SYSTEM = 'http://terminology.hl7.org/CodeSystem/v3-TimingEvent';
     public const TIMING_EVENT_CODE = ['AC', 'ACD', 'ACM', 'ACV', 'C', 'CD', 'CM', 'CV', 'HS', 'IC', 'ICD', 'ICM', 'ICV', 'PC', 'PCD', 'PCM', 'PCV', 'WAKE'];
@@ -61,5 +69,4 @@ class Constants
     public const DOSERATE_TYPE_CODE = ['calculated', 'ordered'];
     public const DOSERATE_TYPE_DISPLAY = ["calculated" => "Calculated", "ordered" => "Ordered"];
     public const DOSERATE_TYPE_DEFINITION = ["calculated" => "Dosis yang ditentukan dihitung oleh sistem atau yang meresepkan obat", "ordered" => "Dosis yang ditentukan seperti yang diminta oleh peresep obat"];
-
 }

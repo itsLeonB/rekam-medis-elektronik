@@ -16,6 +16,10 @@ class PatientContact extends Model
 
     public $timestamps = false;
 
+    protected $casts = [
+        'address_line' => 'array'
+    ];
+
     protected $guarded = ['id'];
 
     public function patient(): BelongsTo

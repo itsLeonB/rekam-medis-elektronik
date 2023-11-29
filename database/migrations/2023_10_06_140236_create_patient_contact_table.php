@@ -22,15 +22,15 @@ return new class extends Migration
             $table->string('suffix')->nullable();
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing']);
-            $table->string('address_line');
+            $table->json('address_line');
             $table->string('country');
             $table->string('postal_code');
-            $table->integer('province')->unsigned();
-            $table->integer('city')->unsigned();
-            $table->bigInteger('district')->unsigned();
-            $table->bigInteger('village')->unsigned();
-            $table->integer('rw')->unsigned();
-            $table->integer('rt')->unsigned();
+            $table->integer('province')->unsigned()->nullable();
+            $table->integer('city')->unsigned()->nullable();
+            $table->bigInteger('district')->unsigned()->nullable();
+            $table->bigInteger('village')->unsigned()->nullable();
+            $table->integer('rw')->unsigned()->nullable();
+            $table->integer('rt')->unsigned()->nullable();
         });
     }
 

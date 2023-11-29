@@ -17,9 +17,11 @@ return new class extends Migration
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->boolean('active');
+            $table->json('type')->nullable();
             $table->string('name');
-            $table->string('alias')->nullable();
+            $table->json('alias')->nullable();
             $table->string('part_of')->nullable();
+            $table->json('endpoint')->nullable();
         });
     }
 

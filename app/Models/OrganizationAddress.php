@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrganizationAddress extends Model
 {
     protected $table = 'organization_address';
+    protected $casts = ['line' => 'array'];
     public $timestamps = false;
 
     public function organization(): BelongsTo

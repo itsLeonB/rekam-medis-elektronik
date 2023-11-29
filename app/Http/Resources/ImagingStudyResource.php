@@ -37,7 +37,7 @@ class ImagingStudyResource extends FhirResource
             'modality' => $this->createModalityArray($imagingStudy->modality),
             'subject' => $imagingStudy->subject,
             'encounter' => $imagingStudy->encounter,
-            'started' => $imagingStudy->started,
+            'started' => $this->parseDateFhir($imagingStudy->started),
             'basedOn' => $this->referenceArray($imagingStudy->based_on),
             'referrer' => $imagingStudy->referrer,
             'interpreter' => $this->referenceArray($imagingStudy->interpreter),
@@ -87,7 +87,7 @@ class ImagingStudyResource extends FhirResource
                         'code' => $s->laterality,
                         'display' => $s->laterality ? ImagingStudySeries::LATERALITY_DISPLAY[$s->laterality] : null
                     ],
-                    'started' => $s->started,
+                    'started' => $this->parseDateFhir($s->started),
                     'performer' => $this->createPerformerArray($s->performer),
                     'instance' => $this->createInstanceArray($s->instance)
                 ];

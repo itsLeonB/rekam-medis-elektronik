@@ -1,0 +1,86 @@
+{
+    "organization": {
+        "active": true,
+        "type": ["prov", "dept"],
+        "name": "Rumah Sakit Unipdu Medika",
+        "alias": ["RS Unipdu Medika", "RS Unipdu", "RSUM"],
+        "part_of": "Organization/1",
+        "endpoint": ["Endpoint/null", "Endpoint/null1"]
+    },
+    "identifier": [
+        {
+            "use": "official",
+            "system": "http://sys-ids.kemkes.go.id/organization/1000079374",
+            "value": "Pos Imunisasi LUBUK BATANG"
+        }
+    ],
+    "telecom": [
+        {
+            "system": "phone",
+            "value": "+6221-783042654",
+            "use": "work"
+        },
+        {
+            "system": "email",
+            "value": "rs-satusehat@gmail.com",
+            "use": "work"
+        },
+        {
+            "system": "url",
+            "value": "www.rs-satusehat@gmail.com",
+            "use": "work"
+        }
+    ],
+    "address": [
+        {
+            "use": "work",
+            "type": "both",
+            "line": ["Jalan Jati Asih"],
+            "country": "ID",
+            "postal_code": "55292",
+            "province": 11,
+            "city": 1101,
+            "district": 110101,
+            "village": 1101012001,
+            "rw": "1",
+            "rt": "1"
+        }
+    ],
+    "contact": [
+        {
+            "contact_data": {
+                "purpose": "BILL",
+                "name_use": "usual",
+                "name_text": "Dadang Sujatmiko",
+                "address_use": "home",
+                "address_type": "both",
+                "address_line": ["Jalan Jati Asih"],
+                "country": "ID",
+                "postal_code": "55292",
+                "province": 11,
+                "city": 1101,
+                "district": 110101,
+                "village": 1101012001,
+                "rw": "1",
+                "rt": "1"
+            },
+            "telecom": [
+                {
+                    "system": "phone",
+                    "value": "+6221-783042654",
+                    "use": "work"
+                },
+                {
+                    "system": "email",
+                    "value": "rs-satusehat@gmail.com",
+                    "use": "work"
+                },
+                {
+                    "system": "url",
+                    "value": "www.rs-satusehat@gmail.com",
+                    "use": "work"
+                }
+            ]
+        }
+    ]
+}

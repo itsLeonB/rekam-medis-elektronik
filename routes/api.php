@@ -12,6 +12,7 @@ use App\Http\Controllers\Fhir\{
     MedicationDispenseController,
     MedicationRequestController,
     ObservationController,
+    OrganizationController,
     PatientController,
     ProcedureController,
     ResourceController,
@@ -52,6 +53,10 @@ Route::group(['middleware' => ['web']], function () {
 // Local DB resource endpoint
 Route::get('/{res_type}', [ResourceController::class, 'index']);
 Route::get('/{res_type}/{res_id}', [ResourceController::class, 'show']);
+
+// Organization resource endpoint
+Route::post('/organization', [OrganizationController::class, 'store']);
+Route::put('/organization/{res_id}', [OrganizationController::class, 'update']);
 
 // Patient resource endpoint
 Route::post('/patient', [PatientController::class, 'store']);
@@ -114,6 +119,7 @@ Route::post('/imagingstudy', [ImagingStudyController::class, 'store']);
 Route::put('/imagingstudy/{res_id}', [ImagingStudyController::class, 'update']);
 
 // Testing endpoint
+Route::get('/test-get/organization/{satusehat_id}', [TestController::class, 'testOrganizationResource']);
 Route::get('/test-get/imagingstudy/{satusehat_id}', [TestController::class, 'testImagingStudyResource']);
 Route::get('/test-get/specimen/{satusehat_id}', [TestController::class, 'testSpecimenResource']);
 Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);

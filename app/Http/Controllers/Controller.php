@@ -123,9 +123,13 @@ class Controller extends BaseController
 
     public function createInstances(object $parent, string $child, array $data)
     {
+        try {
         if (!empty($data[$child])) {
             $parent->$child()->createMany($data[$child]);
         }
+    } catch (Exception $e) {
+        dd($data[$child]);
+    }
     }
 
     public function createNestedInstances(object $parent, string $child, array $data, array $descendants)
