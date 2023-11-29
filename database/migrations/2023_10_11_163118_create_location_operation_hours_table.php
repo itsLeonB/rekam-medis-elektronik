@@ -16,13 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('location_id');
             $table->index('location_id');
             $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade');
-            $table->boolean('mon');
-            $table->boolean('tue');
-            $table->boolean('wed');
-            $table->boolean('thu');
-            $table->boolean('fri');
-            $table->boolean('sat');
-            $table->boolean('sun');
+            $table->json('days_of_week')->nullable();
+            $table->boolean('all_day')->default(false);
             $table->time('opening_time');
             $table->time('closing_time');
         });

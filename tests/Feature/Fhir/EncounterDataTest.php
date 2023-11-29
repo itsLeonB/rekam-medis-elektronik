@@ -31,7 +31,7 @@ class EncounterDataTest extends TestCase
         $response = $this->json('POST', '/api/encounter', $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/encounter/' . $newData['resource_id']);
+        $response = $this->json('GET', '/api/encounter/' . $newData['resource_id']);
         $response->assertStatus(200);
     }
 

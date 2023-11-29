@@ -101,7 +101,7 @@ class FhirResource extends JsonResource
             foreach ($addressAttribute as $a) {
                 $addressData[] = [
                     'use' => $a->use,
-                    'line' => [$a->line],
+                    'line' => $a->line,
                     'country' => $a->country,
                     'postalCode' => $a->postal_code,
                     'extension' => [
@@ -109,27 +109,27 @@ class FhirResource extends JsonResource
                             'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
                             'extension' => [
                                 [
-                                    'url' => 'province',
+                                    'url' => $a->province ? 'province' : null,
                                     'valueCode' => $a->province == 0 ? null : $a->province,
                                 ],
                                 [
-                                    'url' => 'city',
+                                    'url' => $a->city ? 'city' : null,
                                     'valueCode' => $a->city == 0 ? null : $a->city,
                                 ],
                                 [
-                                    'url' => 'district',
+                                    'url' => $a->district ? 'district' : null,
                                     'valueCode' => $a->district == 0 ? null : $a->district,
                                 ],
                                 [
-                                    'url' => 'village',
+                                    'url' => $a->village ? 'village' : null,
                                     'valueCode' => $a->village == 0 ? null : $a->village,
                                 ],
                                 [
-                                    'url' => 'rt',
+                                    'url' => $a->rt ? 'rt' : null,
                                     'valueCode' => $a->rt == 0 ? null : $a->rt,
                                 ],
                                 [
-                                    'url' => 'rw',
+                                    'url' => $a->rw ? 'rw' : null,
                                     'valueCode' => $a->rw == 0 ? null : $a->rw,
                                 ],
                             ]

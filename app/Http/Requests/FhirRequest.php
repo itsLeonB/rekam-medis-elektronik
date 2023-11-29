@@ -56,7 +56,7 @@ class FhirRequest extends FormRequest
                 $prefix . 'repeat.periodMax' => 'nullable|numeric',
                 $prefix . 'repeat.periodUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
                 $prefix . 'repeat.dayOfWeek' => 'nullable|array',
-                $prefix . 'repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAY_OF_WEEK)],
+                $prefix . 'repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAYS_OF_WEEK)],
                 $prefix . 'repeat.timeOfDay' => 'nullable|array',
                 $prefix . 'repeat.timeOfDay.*' => 'nullable|date_format:H:i:s',
                 $prefix . 'repeat.when' => 'nullable|array',
@@ -310,7 +310,7 @@ class FhirRequest extends FormRequest
             $prefix . 'effective.effectiveTiming.repeat.periodMax' => 'nullable|numeric',
             $prefix . 'effective.effectiveTiming.repeat.periodUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
             $prefix . 'effective.effectiveTiming.repeat.dayOfWeek' => 'nullable|array',
-            $prefix . 'effective.effectiveTiming.repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAY_OF_WEEK)],
+            $prefix . 'effective.effectiveTiming.repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAYS_OF_WEEK)],
             $prefix . 'effective.effectiveTiming.repeat.timeOfDay' => 'nullable|array',
             $prefix . 'effective.effectiveTiming.repeat.timeOfDay.*' => 'nullable|date_format:H:i:s',
             $prefix . 'effective.effectiveTiming.repeat.when' => 'nullable|array',
@@ -416,16 +416,18 @@ class FhirRequest extends FormRequest
     public function getAddressDataRules($prefix = null): array
     {
         return [
-            $prefix . 'use' => ['required', 'string', Rule::in(Constants::ADDRESS_USE_CODE)],
-            $prefix . 'line' => 'required|string',
-            $prefix . 'country' => 'required|string|max:255',
-            $prefix . 'postal_code' => 'required|string|max:255',
-            $prefix . 'province' => 'required|integer|gte:0|digits:2',
-            $prefix . 'city' => 'required|integer|gte:0|digits:4',
-            $prefix . 'district' => 'required|integer|gte:0|digits:6',
-            $prefix . 'village' => 'required|integer|gte:0|digits:10',
-            $prefix . 'rt' => 'required|integer|gte:0|max_digits:2',
-            $prefix . 'rw' => 'required|integer|gte:0|max_digits:2',
+            $prefix . 'use' => ['nullable', 'string', Rule::in(Constants::ADDRESS_USE_CODE)],
+            $prefix . 'type' => ['nullable', 'string', Rule::in(Constants::ADDRESS_TYPE_CODE)],
+            $prefix . 'line' => 'nullable|array',
+            $prefix . 'line.*' => 'nullable|string',
+            $prefix . 'country' => 'nullable|string|max:255',
+            $prefix . 'postal_code' => 'nullable|string|max:255',
+            $prefix . 'province' => 'nullable|integer|gte:0|digits:2|exists:codesystem_administrativecode,kode',
+            $prefix . 'city' => 'nullable|integer|gte:0|digits:4|exists:codesystem_administrativecode,kode',
+            $prefix . 'district' => 'nullable|integer|gte:0|digits:6|exists:codesystem_administrativecode,kode',
+            $prefix . 'village' => 'nullable|integer|gte:0|digits:10|exists:codesystem_administrativecode,kode',
+            $prefix . 'rt' => 'nullable|integer|gte:0|max_digits:2',
+            $prefix . 'rw' => 'nullable|integer|gte:0|max_digits:2',
         ];
     }
 

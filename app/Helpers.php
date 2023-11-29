@@ -1141,6 +1141,9 @@ function returnAttribute($array, $keys, $defaultValue = null)
             return $defaultValue;
         }
     }
+    if ($value === null) {
+        return $defaultValue;
+    }
     return $value;
 }
 

@@ -16,16 +16,17 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->index('organization_id');
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
-            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing']);
-            $table->string('line');
+            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing'])->nullable();
+            $table->enum('type', ['postal', 'physical', 'both'])->nullable();
+            $table->json('line')->nullable();
             $table->string('country');
-            $table->string('postal_code');
-            $table->integer('province')->unsigned();
-            $table->integer('city')->unsigned();
-            $table->bigInteger('district')->unsigned();
-            $table->bigInteger('village')->unsigned();
-            $table->integer('rw')->unsigned();
-            $table->integer('rt')->unsigned();
+            $table->string('postal_code')->nullable();
+            $table->integer('province')->unsigned()->nullable();
+            $table->integer('city')->unsigned()->nullable();
+            $table->bigInteger('district')->unsigned()->nullable();
+            $table->bigInteger('village')->unsigned()->nullable();
+            $table->integer('rw')->unsigned()->nullable();
+            $table->integer('rt')->unsigned()->nullable();
         });
     }
 

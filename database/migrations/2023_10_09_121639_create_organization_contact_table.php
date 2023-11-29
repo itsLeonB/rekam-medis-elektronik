@@ -16,20 +16,20 @@ return new class extends Migration
             $table->unsignedBigInteger('organization_id');
             $table->index('organization_id');
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
-            $table->string('purpose_system')->nullable();
-            $table->string('purpose_code')->nullable();
-            $table->string('purpose_display')->nullable();
-            $table->string('name');
-            $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing']);
-            $table->string('address_line');
+            $table->enum('purpose', ['BILL', 'ADMIN', 'HR', 'PAYOR', 'PATINF', 'PRESS'])->nullable();
+            $table->enum('name_use', ['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'])->nullable();
+            $table->string('name_text');
+            $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing'])->nullable();
+            $table->enum('address_type', ['postal', 'physical', 'both'])->nullable();
+            $table->json('address_line');
             $table->string('country');
-            $table->string('postal_code');
-            $table->integer('province')->unsigned();
-            $table->integer('city')->unsigned();
-            $table->bigInteger('district')->unsigned();
-            $table->bigInteger('village')->unsigned();
-            $table->integer('rw')->unsigned();
-            $table->integer('rt')->unsigned();
+            $table->string('postal_code')->nullable();
+            $table->integer('province')->unsigned()->nullable();
+            $table->integer('city')->unsigned()->nullable();
+            $table->bigInteger('district')->unsigned()->nullable();
+            $table->bigInteger('village')->unsigned()->nullable();
+            $table->integer('rw')->unsigned()->nullable();
+            $table->integer('rt')->unsigned()->nullable();
         });
     }
 
