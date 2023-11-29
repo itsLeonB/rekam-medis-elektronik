@@ -1,0 +1,62 @@
+{
+    "location": {
+        "status": "active",
+        "operational_status": "C",
+        "name": "RS Unipdu Medika",
+        "alias": ["RSUM", "RS Unipdu"],
+        "description": "Ruang 1A, Poliklinik Bedah Rawat Jalan Terpadu, Lantai 2, Gedung G",
+        "mode": "instance",
+        "type": ["RT0001", "RT0002"],
+        "address_use": "work",
+        "address_line": ["Jalan Jogoroto-Peterongan"],
+        "country": "ID",
+        "postal_code": "60345",
+        "province": 11,
+        "city": 1101,
+        "district": 110101,
+        "village": 1101012001,
+        "rw": "1",
+        "rt": "1",
+        "physical_type": "si",
+        "longitude": -6.23115426275766,
+        "latitude": 106.83239885393944,
+        "altitude": 0,
+        "managing_organization": "Organization/org_id",
+        "part_of": "Organization/org_id",
+        "availability_exceptions": "terbatas saat hari raya",
+        "endpoint": ["Endpoint/null", "Endpoint/null2"],
+        "service_class": "vip"
+    },
+    "identifier": [
+        {
+            "use": "official",
+            "system": "http://sys-ids.kemkes.go.id/location/1000001",
+            "value": "G-2-R-1A"
+        },
+        {
+            "use": "official",
+            "system": "http://sys-ids.kemkes.go.id/location/1000001",
+            "value": "G-2-R-1B"
+        }
+    ],
+    "telecom": [
+        {
+            "system": "phone",
+            "use": "work",
+            "value": "+6221-783042654"
+        },
+        {
+            "system": "phone",
+            "use": "work",
+            "value": "+6221-783042655"
+        }
+    ],
+    "operationHours": [
+        {
+            "days_of_week": ["mon", "tue", "wed", "thu", "fri"],
+            "all_day": false,
+            "opening_time": "07:00:00",
+            "closing_time": "17:00:00"
+        }
+    ]
+}

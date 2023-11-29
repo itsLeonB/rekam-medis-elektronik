@@ -12,14 +12,14 @@ class OrganizationController extends Controller
     public function store(OrganizationRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('Organization');
             $organization = $resource->organization()->create($body['organization']);
             $this->createChildModels($organization, $body, ['identifier', 'telecom', 'address']);
             $this->createNestedInstances($organization, 'contact', $body, ['telecom']);
             $this->createResourceContent(OrganizationResource::class, $resource);
             return response()->json($resource->organization()->first(), 201);
-        // });
+        });
     }
 
 

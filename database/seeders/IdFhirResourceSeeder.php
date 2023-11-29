@@ -48,10 +48,106 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Organization':
                     $this->seedOrganization($res, $resText);
                     break;
+                case 'Location':
+                    $this->seedLocation($res, $resText);
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+
+    private function seedLocation($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $addressDetails = [];
+        $extensionData = returnAttribute($resourceContent, ['address', 'extension', 0, 'extension'], null);
+
+        if (!empty($extensionData)) {
+            foreach ($extensionData as $extension) {
+                $url = $extension['url'];
+                $value = (int)preg_replace("/[^0-9]/", "", $extension['valueCode']);
+                $addressDetails[$url] = $value;
+            }
+        }
+
+        $locationData = array_merge(
+            [
+                'status' => returnAttribute($resourceContent, ['status']),
+                'operational_status' => returnAttribute($resourceContent, ['operationalStatus', 'code']),
+                'name' => returnAttribute($resourceContent, ['name'], 'unknown'),
+                'alias' => returnAttribute($resourceContent, ['alias']),
+                'description' => returnAttribute($resourceContent, ['description']),
+                'mode' => returnAttribute($resourceContent, ['mode']),
+                'type' => $this->returnLocationType(returnAttribute($resourceContent, ['type'])),
+                'address_use' => returnAttribute($resourceContent, ['address', 'use']),
+                'address_line' => returnAttribute($resourceContent, ['address', 'line']),
+                'country' => returnAttribute($resourceContent, ['address', 'country']),
+                'postal_code' => returnAttribute($resourceContent, ['address', 'postalCode']),
+                'physical_type' => returnAttribute($resourceContent, ['physicalType', 'coding', 0, 'code']),
+                'longitude' => returnAttribute($resourceContent, ['position', 'longitude']),
+                'latitude' => returnAttribute($resourceContent, ['position', 'latitude']),
+                'altitude' => returnAttribute($resourceContent, ['position', 'altitude']),
+                'managing_organization' => returnAttribute($resourceContent, ['managingOrganization', 'reference']),
+                'part_of' => returnAttribute($resourceContent, ['partOf', 'reference']),
+                'availability_exceptions' => returnAttribute($resourceContent, ['availabilityExceptions']),
+                'endpoint' => $this->returnMultiReference(returnAttribute($resourceContent, ['endpoint'])),
+                'service_class' => $this->returnLocationServiceClass(returnAttribute($resourceContent, ['extension']))
+            ],
+            $addressDetails
+        );
+
+        $location = $resource->location()->createQuietly($locationData);
+        $location->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $location->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
+        $location->operationHours()->createManyQuietly($this->returnOperationHours(returnAttribute($resourceContent, ['hoursOfOperation'])));
+    }
+
+
+    private function returnOperationHours($operationHours): array
+    {
+        $hour = [];
+
+        if (!empty($operationHours)) {
+            foreach ($operationHours as $o) {
+                $hour[] = [
+                    'days_of_week' => returnAttribute($o, ['daysOfWeek']),
+                    'all_day' => returnAttribute($o, ['allDay']),
+                    'opening_time' => returnAttribute($o, ['openingTime']),
+                    'closing_time' => returnAttribute($o, ['closingTime'])
+                ];
+            }
+        }
+
+        return $hour;
+    }
+
+
+    private function returnLocationServiceClass($extension)
+    {
+        if (!empty($extension)) {
+            foreach ($extension as $e) {
+                if ($e['url'] == "https://fhir.kemkes.go.id/r4/StructureDefinition/LocationServiceClass") {
+                    return returnAttribute($e, ['valueCodeableConcept', 'coding', 0, 'code']);
+                }
+            }
+        }
+    }
+
+
+    private function returnLocationType($types): array
+    {
+        $type = [];
+
+        if (!empty($types)) {
+            foreach ($types as $t) {
+                $type[] = returnAttribute($t, ['coding', 0, 'code']);
+            }
+        }
+
+        return $type;
     }
 
 
@@ -71,24 +167,13 @@ class IdFhirResourceSeeder extends Seeder
 
         $organizationData = removeEmptyValues($organizationData);
         $organization = $resource->organization()->createQuietly($organizationData);
-        try {
         $organization->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
-        } catch (Exception $e) {
-            dd(returnAttribute($resourceContent, ['identifier']));
-        }
         $organization->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
         $organization->address()->createManyQuietly($this->returnAddress(returnAttribute($resourceContent, ['address'])));
 
         if (!empty($contactData)) {
             foreach ($contactData as $c) {
-                $addressDetails = [
-                    'province' => 0,
-                    'city' => 0,
-                    'district' => 0,
-                    'village' => 0,
-                    'rw' => 0,
-                    'rt' => 0,
-                ];
+                $addressDetails = [];
                 $extensionData = returnAttribute($c, ['address', 'extension', 0, 'extension'], null);
 
                 if (!empty($extensionData)) {
@@ -114,12 +199,8 @@ class IdFhirResourceSeeder extends Seeder
                         'postal_code' => returnAttribute($c, ['address', 'postalCode']),
                     ],
                 );
-                // try {
                 $contact = $organization->contact()->createQuietly($contactArray);
                 $contact->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($c, ['telecom'])));
-                // } catch (Exception $e) {
-                //     dd($contactArray);
-                // }
             }
         }
     }
@@ -128,14 +209,7 @@ class IdFhirResourceSeeder extends Seeder
     private function returnAddress($addresses): array
     {
         $address = [];
-        $addressDetails = [
-            'province' => 0,
-            'city' => 0,
-            'district' => 0,
-            'village' => 0,
-            'rw' => 0,
-            'rt' => 0,
-        ];
+        $addressDetails = [];
 
         if (!empty($addresses)) {
             foreach ($addresses as $a) {

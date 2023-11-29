@@ -1,11 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;

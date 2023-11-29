@@ -8,6 +8,7 @@ use App\Http\Controllers\Fhir\{
     DiagnosticReportController,
     EncounterController,
     ImagingStudyController,
+    LocationController,
     MedicationController,
     MedicationDispenseController,
     MedicationRequestController,
@@ -57,6 +58,10 @@ Route::get('/{res_type}/{res_id}', [ResourceController::class, 'show']);
 // Organization resource endpoint
 Route::post('/organization', [OrganizationController::class, 'store']);
 Route::put('/organization/{res_id}', [OrganizationController::class, 'update']);
+
+// Location resource endpoint
+Route::post('/location', [LocationController::class, 'store']);
+Route::put('/location/{res_id}', [LocationController::class, 'update']);
 
 // Patient resource endpoint
 Route::post('/patient', [PatientController::class, 'store']);
