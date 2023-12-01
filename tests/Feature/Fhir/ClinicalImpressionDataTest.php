@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class ClinicalImpressionDataTest extends TestCase
+class ClinicalImpressionDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,8 +17,6 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_view_clinical_impression_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -41,8 +38,6 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_create_new_clinical_impression_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -75,8 +70,6 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_update_clinical_impression_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 

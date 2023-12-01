@@ -5,10 +5,11 @@ namespace Tests\Feature\Fhir;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Config;
+use Tests\FhirTestCase;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class ObservationDataTest extends TestCase
+class ObservationDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,8 +19,6 @@ class ObservationDataTest extends TestCase
      */
     public function test_users_can_view_observation_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -41,8 +40,6 @@ class ObservationDataTest extends TestCase
      */
     public function test_users_can_create_new_observation_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -84,8 +81,6 @@ class ObservationDataTest extends TestCase
      */
     public function test_users_can_update_observation_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 

@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class PatientDataTest extends TestCase
+class PatientDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,8 +17,6 @@ class PatientDataTest extends TestCase
      */
     public function test_users_can_view_patient_data()
     {
-        Config::set('app.organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -41,8 +38,6 @@ class PatientDataTest extends TestCase
      */
     public function test_users_can_create_new_patient_data()
     {
-        Config::set('app.organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 

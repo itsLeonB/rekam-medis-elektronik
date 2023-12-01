@@ -4,6 +4,18 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const QuestionnaireAnswerCodes = [
+        'lokasiKecelakaan' => Codesystems::AdministrativeArea,
+        'poliTujuan' => Codesystems::ClinicalSpecialty,
+        'other' => 'SNOMED-CT'
+    ];
+
+    public const QuestionnaireResponseStatus = [
+        'system' => 'http://hl7.org/fhir/questionnaire-answers-status',
+        'code' => ['in-progress', 'completed', 'amended', 'entered-in-error', 'stopped'],
+        'display' => ["in-progress" => "Dalam proses pengisian, terisi parsial", "completed" => "Telah selesai diisi", "amended" => "Setelah selesai, direvisi kembali", "entered-in-error" => "Kesalahan input", "stopped" => "Pengisian dihentikan, terisi parsial"],
+    ];
+
     public const LinkType = [
         'system' => 'http://hl7.org/fhir/link-type',
         'code' => ['replaced-by', 'replaces', 'refer', 'seealso'],

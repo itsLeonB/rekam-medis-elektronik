@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class EncounterDataTest extends TestCase
+class EncounterDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,8 +17,6 @@ class EncounterDataTest extends TestCase
      */
     public function test_users_can_view_encounter_data()
     {
-        Config::set('app.organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -41,8 +38,6 @@ class EncounterDataTest extends TestCase
      */
     public function test_users_can_create_new_encounter_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -79,8 +74,6 @@ class EncounterDataTest extends TestCase
      */
     public function test_users_can_update_encounter_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 

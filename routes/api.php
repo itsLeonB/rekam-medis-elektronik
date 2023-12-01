@@ -5,9 +5,7 @@ use App\Http\Controllers\Fhir\{
     ClinicalImpressionController,
     CompositionController,
     ConditionController,
-    DiagnosticReportController,
     EncounterController,
-    ImagingStudyController,
     LocationController,
     MedicationController,
     MedicationDispenseController,
@@ -19,7 +17,6 @@ use App\Http\Controllers\Fhir\{
     ProcedureController,
     ResourceController,
     ServiceRequestController,
-    SpecimenController
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -110,18 +107,6 @@ Route::put('/clinicalimpression/{res_id}', [ClinicalImpressionController::class,
 // ServiceRequest resource endpoint
 Route::post('/servicerequest', [ServiceRequestController::class, 'store']);
 Route::put('/servicerequest/{res_id}', [ServiceRequestController::class, 'update']);
-
-// Specimen resource endpoint
-Route::post('/specimen', [SpecimenController::class, 'store']);
-Route::put('/specimen/{res_id}', [SpecimenController::class, 'update']);
-
-// DiagnosticReport resource endpoint
-Route::post('/diagnosticreport', [DiagnosticReportController::class, 'store']);
-Route::put('/diagnosticreport/{res_id}', [DiagnosticReportController::class, 'update']);
-
-// ImagingStudy resource endpoint
-Route::post('/imagingstudy', [ImagingStudyController::class, 'store']);
-Route::put('/imagingstudy/{res_id}', [ImagingStudyController::class, 'update']);
 
 // MedicationStatement resource endpoint
 Route::post('/medicationstatement', [MedicationStatementController::class, 'store']);

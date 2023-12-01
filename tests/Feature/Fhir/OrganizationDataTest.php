@@ -4,10 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class OrganizationDataTest extends TestCase
+class OrganizationDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
