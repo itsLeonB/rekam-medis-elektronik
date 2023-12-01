@@ -41,7 +41,7 @@ class PasswordResetLinkController extends Controller
         );
 
         if ($status == Password::RESET_LINK_SENT) {
-            return back()->with('status', __($status));
+            return back()->with('status', __("Tautan untuk melakukan reset password akun Anda telah kami kirimkan ke email yang terdaftar pada akun Anda."));
         }
 
         throw ValidationException::withMessages([

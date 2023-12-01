@@ -19,5 +19,12 @@ class UserSeeder extends Seeder
             'password' => '12345678',
             'remember_token' => Str::random(10)
         ]);
+
+        User::create([
+            'name' => 'Yushi',
+            'email' => 'armandorizqy2326@gmail.com',
+            'password' => '12345678',
+            'remember_token' => Str::random(10)
+        ]);
     }
 }

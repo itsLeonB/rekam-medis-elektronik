@@ -26,8 +26,19 @@ Route::get('/', function () {
     ]);
 })->middleware([RedirectIfAuthenticated::class, 'guest']);;
 
-Route::get('/dashboard', [DaftarRekamMedisController::class, 'index'])
-    ->middleware(['auth', 'verified'])->name('dashboard.index');
+Route::get('/home', [DaftarRekamMedisController::class, 'index'])
+    ->middleware(['auth'])->name('home.index');
+
+// Route::get('/rawat-jalan', function () {
+//     return Inertia::render('RawatJalan/RawatJalan');
+// })->middleware(['auth', 'verified'])->name('rawatjalan');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+   Route::get('/rawat-jalan', function () {return Inertia::render('RawatJalan/RawatJalan');})->name('rawatjalan');
+   Route::get('/rawat-inap', function () {return Inertia::render('RawatInap/RawatInap');})->name('rawatinap');
+   Route::get('/rekam-medis', function () {return Inertia::render('RekamMedis/RekamMedis');})->name('rekammedis');
+   
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

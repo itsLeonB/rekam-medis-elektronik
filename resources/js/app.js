@@ -6,7 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
-const appName = "Rekam Medis Elektronik RS Unipdu Medika";
+const appName = "RME RS Unipdu Medika";
 
 createInertiaApp({
     title: (title) => `${title}${appName}`,
