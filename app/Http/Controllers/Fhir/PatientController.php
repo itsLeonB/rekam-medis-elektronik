@@ -28,28 +28,4 @@ class PatientController extends Controller
             return response()->json($resource->patient->first(), 201);
         });
     }
-
-
-    /**
-     * Update a patient record.
-     *
-     * @param PatientRequest $request The request object containing the patient data.
-     * @param int $res_id The ID of the resource.
-     * @param FhirService $fhirService The FhirService instance for inserting data.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the updated patient data.
-     */
-    public function update(PatientRequest $request, int $res_id, FhirService $fhirService)
-    {
-        $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $patient = $resource->patient()->first();
-            $patient->update($body['patient']);
-            $patientId = $patient->id;
-            $this->updateChildModels($patient, $body, ['identifier', 'telecom', 'address', 'generalPractitioner'], 'patient_id', $patientId);
-            $this->updateNestedInstances($patient, 'contact', $body, 'patient_id', $patientId, ['telecom'], 'contact_id');
-            $this->createResourceContent(PatientResource::class, $resource);
-            return response()->json($resource->patient->first(), 200);
-        });
-    }
 }

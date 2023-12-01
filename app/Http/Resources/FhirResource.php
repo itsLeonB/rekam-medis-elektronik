@@ -4,11 +4,34 @@ namespace App\Http\Resources;
 
 use DateTime;
 use DateTimeZone;
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class FhirResource extends JsonResource
 {
+    public function querySnomedCode($code): array
+    {
+        $client = new Client();
+
+        $response = $client->request('GET', 'https://browser.ihtsdotools.org/snowstorm/snomed-ct/MAIN/concepts/' . $code, [
+            'headers' => [
+                'accept' => 'application/json',
+                'Accept-Language' => 'en-X-900000000000509007,en-X-900000000000508004,en',
+            ],
+        ]);
+
+        $body = $response->getBody();
+        $data = json_decode($body, true);
+
+        return [
+            'system' => 'http://snomed.info/sct',
+            'code' => $code,
+            'display' => $data['fsn']['term'],
+        ];
+    }
+
+
     /**
      * Get the data of a specific resource type.
      *

@@ -47,8 +47,8 @@ class LocationResource extends FhirResource
                 'use' => $location->address_use,
                 'line' => $location->address_line,
                 'country' => $location->country,
-                'postal_code' => $location->postal_code,
-                'city' => $location->city ? AdministrativeCode::where('kode', $location->city)->first() ?? null : null,
+                'postalCode' => $location->postal_code,
+                'city' => $location->city ? AdministrativeCode::where('kode', $location->city)->first()->nama ?? null : null,
                 'extension' => [
                     [
                         'url' => AdministrativeCode::URL,
@@ -106,7 +106,7 @@ class LocationResource extends FhirResource
             'endpoint' => $this->referenceArray($location->endpoint),
             'extension' => [
                 [
-                    'url' => Location::SERVICE_CLASS_URL,
+                    'url' => $location->service_class ? Location::SERVICE_CLASS_URL : null,
                     'valueCodeableConcept' => [
                         'coding' => [
                             [

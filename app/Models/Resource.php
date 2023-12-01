@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Resource extends Model
 {
     const VALID_RESOURCE_TYPES = [
-        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'imagingstudy', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression', 'specimen', 'diagnosticreport'
+        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'imagingstudy', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression', 'specimen', 'diagnosticreport', 'medicationstatement'
     ];
 
     protected $table = 'resource';
@@ -113,5 +113,10 @@ class Resource extends Model
     public function diagnosticReport(): HasMany
     {
         return $this->hasMany(DiagnosticReport::class);
+    }
+
+    public function medicationStatement(): HasMany
+    {
+        return $this->hasMany(MedicationStatement::class);
     }
 }

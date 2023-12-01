@@ -17,6 +17,7 @@ class PatientContact extends Model
     public $timestamps = false;
 
     protected $casts = [
+        'relationship' => 'array',
         'address_line' => 'array'
     ];
 
@@ -29,6 +30,6 @@ class PatientContact extends Model
 
     public function telecom(): HasMany
     {
-        return $this->hasMany(PatientContactTelecom::class, 'contact_id', 'id');
+        return $this->hasMany(PatientContactTelecom::class, 'contact_id');
     }
 }

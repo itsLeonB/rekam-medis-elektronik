@@ -5,17 +5,17 @@ namespace App\Models;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ObservationNote extends Model
+class MedicationStatementNote extends Model
 {
-    protected $table = 'observation_note';
+    protected $table = 'medication_statement_note';
     protected $casts = [
         'author' => 'array',
         'time' => 'datetime'
     ];
     public $timestamps = false;
 
-    public function observation(): BelongsTo
+    public function medicationStatement(): BelongsTo
     {
-        return $this->belongsTo(Observation::class);
+        return $this->belongsTo(MedicationStatement::class, 'statement_id');
     }
 }

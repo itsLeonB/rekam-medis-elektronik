@@ -12,6 +12,7 @@ use App\Http\Controllers\Fhir\{
     MedicationController,
     MedicationDispenseController,
     MedicationRequestController,
+    MedicationStatementController,
     ObservationController,
     OrganizationController,
     PatientController,
@@ -65,7 +66,6 @@ Route::put('/location/{res_id}', [LocationController::class, 'update']);
 
 // Patient resource endpoint
 Route::post('/patient', [PatientController::class, 'store']);
-Route::put('/patient/{res_id}', [PatientController::class, 'update']);
 
 // Encounter resource endpoint
 Route::post('/encounter', [EncounterController::class, 'store']);
@@ -122,6 +122,10 @@ Route::put('/diagnosticreport/{res_id}', [DiagnosticReportController::class, 'up
 // ImagingStudy resource endpoint
 Route::post('/imagingstudy', [ImagingStudyController::class, 'store']);
 Route::put('/imagingstudy/{res_id}', [ImagingStudyController::class, 'update']);
+
+// MedicationStatement resource endpoint
+Route::post('/medicationstatement', [MedicationStatementController::class, 'store']);
+Route::put('/medicationstatement/{res_id}', [MedicationStatementController::class, 'update']);
 
 // Testing endpoint
 Route::get('/test-get/organization/{satusehat_id}', [TestController::class, 'testOrganizationResource']);

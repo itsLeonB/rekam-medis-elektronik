@@ -4,12 +4,13 @@ namespace Database\Seeders;
 
 use App\Constants;
 use App\Models\Resource;
-use Exception;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
 class IdFhirResourceSeeder extends Seeder
 {
+    use WithoutModelEvents;
     /**
      * Run the database seeds.
      */
@@ -55,10 +56,124 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Practitioner':
                     $this->seedPractitioner($res, $resText);
                     break;
+                case 'Patient':
+                    $this->seedPatient($res, $resText);
+                    break;
                 default:
                     break;
             }
         }
+    }
+
+
+    private function seedPatient($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+        $name = returnHumanName(returnAttribute($resourceContent, ['name', 0]));
+        $extension = returnAttribute($resourceContent, ['extension']);
+        $birthPlace = $this->returnBirthPlace($extension);
+        $contacts = returnAttribute($resourceContent, ['contact']);
+
+        $patientData = [
+            'active' => returnAttribute($resourceContent, ['active']),
+            'name' => $name['name'],
+            'prefix' => $name['prefix'],
+            'suffix' => $name['suffix'],
+            'gender' => returnAttribute($resourceContent, ['gender'], 'unknown'),
+            'birth_date' => returnAttribute($resourceContent, ['birthDate']),
+            'deceased' => returnVariableAttribute($resourceContent, 'deceased', ['Boolean', 'DateTime']),
+            'marital_status' => returnAttribute($resourceContent, ['maritalStatus', 'coding', 0, 'code']),
+            'multiple_birth' => returnVariableAttribute($resourceContent, 'multipleBirth', ['Boolean', 'Integer']),
+            'communication' => $this->returnCommunication(returnAttribute($resourceContent, ['communication'])),
+            'general_practitioner' => $this->returnMultiReference(returnAttribute($resourceContent, ['generalPractitioner'])),
+            'managing_organization' => returnAttribute($resourceContent, ['managingOrganization', 'reference']),
+            'link' => $this->returnLink(returnAttribute($resourceContent, ['link'])),
+            'birth_city' => $birthPlace['city'],
+            'birth_country' => $birthPlace['country']
+        ];
+
+        $patient = $resource->patient()->createQuietly($patientData);
+        $patient->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $patient->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
+        $patient->address()->createManyQuietly($this->returnAddress(returnAttribute($resourceContent, ['address'])));
+
+        if (!empty($contacts)) {
+            foreach ($contacts as $c) {
+                $contactName = returnHumanName(returnAttribute($c, ['name']));
+                $addressExtension = $this->returnAdministrativeAddress(returnAttribute($c, ['address', 'extension']));
+
+                $contactData = merge_array(
+                    [
+                        'relationship' => $this->returnMultiCodeableConcept(returnAttribute($c, ['relationship'])),
+                        'name' => $contactName['name'],
+                        'prefix' => $contactName['prefix'],
+                        'suffix' => $contactName['suffix'],
+                        'gender' => returnAttribute($c, ['gender'], 'unknown'),
+                        'address_use' => returnAttribute($c, ['address', 'use']),
+                        'address_line' => returnAttribute($c, ['address', 'line']),
+                        'country' => returnAttribute($c, ['address', 'country']),
+                        'postal_code' => returnAttribute($c, ['address', 'postalCode']),
+                    ],
+                    $addressExtension
+                );
+
+                $contact = $patient->contact()->createQuietly($contactData);
+                $contact->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($c, ['telecom'])));
+            }
+        }
+    }
+
+
+    private function returnBirthPlace($extensions): array
+    {
+        $birthPlace = [
+            'city' => null,
+            'country' => null
+        ];
+
+        if (!empty($extensions)) {
+            foreach ($extensions as $e) {
+                if ($e['url'] == "https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace") {
+                    $birthPlace = [
+                        'city' => returnAttribute($e, ['valueAddress', 'city']),
+                        'country' => returnAttribute($e, ['valueAddress', 'country'])
+                    ];
+                }
+            }
+        }
+
+        return $birthPlace;
+    }
+
+
+    private function returnLink($links): array
+    {
+        $link = [];
+
+        if (!empty($links)) {
+            foreach ($links as $l) {
+                $link[] = [
+                    'other' => returnAttribute($l, ['other', 'reference']),
+                    'type' => returnAttribute($l, ['type'])
+                ];
+            }
+        }
+
+        return $link;
+    }
+
+
+    private function returnCommunication($communications): array
+    {
+        $comms = [];
+
+        if (!empty($communications)) {
+            foreach ($communications as $c) {
+                $comms[] = returnAttribute($c, ['coding', 0, 'code']);
+            }
+        }
+
+        return $comms;
     }
 
 
@@ -128,6 +243,22 @@ class IdFhirResourceSeeder extends Seeder
                 }
             }
         }
+    }
+
+
+    private function returnAdministrativeAddress($addressExtension): array
+    {
+        $addressDetails = [];
+
+        if (!empty($addressExtension)) {
+            foreach ($addressExtension as $extension) {
+                $url = $extension['url'];
+                $value = (int)preg_replace("/[^0-9]/", "", $extension['valueCode']);
+                $addressDetails[$url] = $value;
+            }
+        }
+
+        return $addressDetails;
     }
 
 

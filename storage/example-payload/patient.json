@@ -6,15 +6,30 @@
         "suffix": "S.Kom., M.Kom.",
         "gender": "male",
         "birth_date": "2000-10-10",
-        "birth_place": "Surabaya",
         "deceased": {
-            "deceasedBoolean": false
+            "deceasedBoolean": false,
+            "deceasedDateTime": "2020-10-10T00:00:00+07:00"
         },
         "marital_status": "M",
         "multiple_birth": {
-            "multipleBirthBoolean": false
+            "multipleBirthBoolean": false,
+            "multipleBirthInteger": 1
         },
-        "language": "id"
+        "communication": ["id-ID", "en-US"],
+        "general_practitioner": ["Organization/RSUM", "Practitioenr/N10000001", "PractitionerRole/null"],
+        "managing_organization": "Organization/RSUM",
+        "link": [
+            {
+                "other": "Patient/N10000001",
+                "type": "replaced-by"
+            },
+            {
+                "other": "Patient/N10000001",
+                "type": "refer"
+            }
+        ],
+        "birth_city": "Surabaya",
+        "birth_country": "ID"
     },
     "identifier": [
         {
@@ -23,7 +38,17 @@
             "value": "3578020356038885"
         },
         {
-            "system": "https://fhir.kemkes.go.id/id/ihs-number",
+            "system": "https://fhir.kemkes.go.id/id/kk",
+            "use": "official",
+            "value": "3578020356038885"
+        },
+        {
+            "system": "https://fhir.kemkes.go.id/id/paspor",
+            "use": "official",
+            "value": "3578020356038885"
+        },
+        {
+            "system": "https://fhir.kemkes.go.id/id/patient-ihs-number",
             "use": "official",
             "value": "P92029102723"
         },
@@ -74,7 +99,7 @@
     "contact": [
         {
             "contact_data": {
-                "relationship": "C",
+                "relationship": ["C", "F"],
                 "name": "Banyak Pahala",
                 "prefix": "Prof. Dr.",
                 "suffix": "S.Kom., M.Kom.",
@@ -105,7 +130,7 @@
         },
         {
             "contact_data": {
-                "relationship": "C",
+                "relationship": ["C"],
                 "name": "Budi Ajaib",
                 "prefix": "Prof. Dr.",
                 "suffix": "S.Kom., M.Kom.",
@@ -133,14 +158,6 @@
                     "value": "budi.pekerti@kantor.com"
                 }
             ]
-        }
-    ],
-    "generalPractitioner": [
-        {
-            "reference": "Practitioner/N10000001"
-        },
-        {
-            "reference": "Practitioner/N10000001"
         }
     ]
 }

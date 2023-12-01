@@ -15,21 +15,19 @@ class Patient extends Model
 
     protected $table = 'patient';
 
-    protected $attributes = [
-        'active' => true,
-        'language' => 'id-ID'
-    ];
-
     protected $casts = [
         'active' => 'boolean',
         'birth_date' => 'date',
-        'deceased' => 'json',
-        'multiple_birth' => 'json'
+        'deceased' => 'array',
+        'multiple_birth' => 'array',
+        'communication' => 'array',
+        'general_practitioner' => 'array',
+        'link' => 'array',
     ];
 
     protected $guarded = ['id'];
 
-    protected $with = ['identifier', 'telecom', 'address', 'contact', 'generalPractitioner'];
+    protected $with = ['identifier', 'telecom', 'address', 'contact'];
 
     public $timestamps = false;
 
@@ -56,10 +54,5 @@ class Patient extends Model
     public function contact(): HasMany
     {
         return $this->hasMany(PatientContact::class);
-    }
-
-    public function generalPractitioner(): HasMany
-    {
-        return $this->hasMany(GeneralPractitioner::class);
     }
 }
