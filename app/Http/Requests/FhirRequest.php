@@ -23,6 +23,36 @@ class FhirRequest extends FormRequest
         return true;
     }
 
+
+    public function getCodingDataRules(string $prefix = null): array
+    {
+        return [
+            $prefix => 'nullable|array',
+            $prefix . '.system' => 'nullable|string',
+            $prefix . '.version' => 'nullable|string',
+            $prefix . '.code' => 'nullable|string',
+            $prefix . '.display' => 'nullable|string',
+            $prefix . '.userSelected' => 'nullable|boolean',
+        ];
+    }
+
+
+    public function getAttachmentDataRules(string $prefix = null): array
+    {
+        return [
+            $prefix => 'nullable|array',
+            $prefix . '.contentType' => 'nullable|string',
+            $prefix . '.language' => 'nullable|string|exists:codesystem_bcp47,code',
+            $prefix . '.data' => 'nullable|string',
+            $prefix . '.url' => 'nullable|string',
+            $prefix . '.size' => 'nullable|integer|gte:0',
+            $prefix . '.hash' => 'nullable|string',
+            $prefix . '.title' => 'nullable|string',
+            $prefix . '.creation' => 'nullable|datetime',
+        ];
+    }
+
+
     public function getNarrativeDataRules(string $prefix = null, bool $nullable = false): array
     {
         if ($nullable) {

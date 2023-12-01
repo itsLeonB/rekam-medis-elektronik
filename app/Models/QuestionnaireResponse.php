@@ -41,8 +41,6 @@ class QuestionnaireResponse extends Model
 
             // Increment the value and set it
             $questionnaireResponse->identifier_value = $maxIdentifierValue + 1;
-
-            $questionnaireResponse->save();
         });
     }
 

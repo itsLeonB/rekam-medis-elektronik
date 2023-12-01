@@ -50,8 +50,49 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Patient':
                     $this->seedPatient($res, $resText);
                     break;
+                case 'QuestionnaireResponse':
+                    $this->seedQuestionnaireResponse($res, $resText);
+                    break;
                 default:
                     break;
+            }
+        }
+    }
+
+
+    private function seedQuestionnaireResponse($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+        $items = returnAttribute($resourceContent, ['item']);
+
+        $questionnaireData = [
+            'identifier_system' => returnAttribute($resourceContent, ['identifier', 'system']),
+            'identifier_use' => returnAttribute($resourceContent, ['identifier', 'use']),
+            'identifier_value' => returnAttribute($resourceContent, ['identifier', 'value']),
+            'based_on' => $this->returnMultiReference(returnAttribute($resourceContent, ['basedOn'])),
+            'part_of' => $this->returnMultiReference(returnAttribute($resourceContent, ['partOf'])),
+            'questionnaire' => returnAttribute($resourceContent, ['questionnaire']),
+            'status' => returnAttribute($resourceContent, ['status']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'authored' => returnAttribute($resourceContent, ['authored']),
+            'author' => returnAttribute($resourceContent, ['author', 'reference']),
+            'source' => returnAttribute($resourceContent, ['source', 'reference']),
+        ];
+
+        $questionnaireResponse = $resource->questionnaireResponse()->createQuietly($questionnaireData);
+
+        if (!empty($items)) {
+            foreach ($items as $i) {
+                $itemData = [
+                    'link_id' => returnAttribute($i, ['linkId']),
+                    'definition' => returnAttribute($i, ['definition']),
+                    'text' => returnAttribute($i, ['text']),
+                    'answer' => returnAttribute($i, ['answer']),
+                    'item' => returnAttribute($i, ['item'])
+                ];
+
+                $questionnaireResponse->item()->createQuietly($itemData);
             }
         }
     }

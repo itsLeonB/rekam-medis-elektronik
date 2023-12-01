@@ -22,13 +22,11 @@ class OrganizationDataTest extends FhirTestCase
 
         $data = $this->getExampleData('organization');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/organization', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('organization.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/organization/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'organization', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -43,10 +41,8 @@ class OrganizationDataTest extends FhirTestCase
 
         $data = $this->getExampleData('organization');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/organization', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('organization.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('organization', $data['organization']);
@@ -71,10 +67,8 @@ class OrganizationDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('organization');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/organization', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('organization.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['organization']['id'] = $newData['id'];
@@ -90,7 +84,7 @@ class OrganizationDataTest extends FhirTestCase
             'value' => '1234567890'
         ];
 
-        $response = $this->json('PUT', '/api/organization/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('organization.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('organization', $data['organization']);

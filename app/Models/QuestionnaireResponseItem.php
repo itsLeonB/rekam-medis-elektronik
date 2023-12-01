@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Fhir\Valuesets;
-use Illuminate\Database\Eloquent\Model;
+use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class QuestionnaireResponseItem extends Model

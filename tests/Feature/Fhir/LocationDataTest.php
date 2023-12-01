@@ -22,13 +22,11 @@ class LocationDataTest extends FhirTestCase
 
         $data = $this->getExampleData('location');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/location', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('location.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/location/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'location', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -42,10 +40,8 @@ class LocationDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('location');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/location', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('location.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('location', $data['location']);
@@ -64,16 +60,14 @@ class LocationDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('location');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/location', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('location.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['location']['id'] = $newData['id'];
         $data['location']['resource_id'] = $newData['resource_id'];
         $data['location']['status'] = 'inactive';
-        $response = $this->json('PUT', '/api/location/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('location.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('location', $data['location']);

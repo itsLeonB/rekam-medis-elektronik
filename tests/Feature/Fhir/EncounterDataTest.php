@@ -22,13 +22,11 @@ class EncounterDataTest extends FhirTestCase
 
         $data = $this->getExampleData('encounter');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/encounter', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('encounter.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', '/api/encounter/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'encounter', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -42,10 +40,8 @@ class EncounterDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('encounter');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/encounter', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('encounter.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('encounter', $data['encounter']);
@@ -78,18 +74,16 @@ class EncounterDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('encounter');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/encounter', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('encounter.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['encounter']['id'] = $newData['id'];
         $data['encounter']['resource_id'] = $newData['resource_id'];
         $data['encounter']['status'] = 'planned';
-        $response = $this->json('PUT', '/api/encounter/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('encounter.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
-        $updatedResponse = $this->json('GET', '/api/encounter/' . $newData['resource_id']);
+        $updatedResponse = $this->json('GET', route('resource.show', ['res_type' => 'encounter', 'res_id' => $newData['resource_id']]));
         $updatedData = json_decode($updatedResponse->getContent(), true);
         $this->assertEquals('planned', $updatedData['status']);
 

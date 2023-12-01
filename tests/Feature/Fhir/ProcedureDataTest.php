@@ -22,13 +22,11 @@ class ProcedureDataTest extends FhirTestCase
 
         $data = $this->getExampleData('procedure');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/procedure', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('procedure.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/procedure/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'procedure', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -43,10 +41,8 @@ class ProcedureDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('procedure');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/procedure', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('procedure.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('procedure', $data['procedure']);
@@ -75,16 +71,14 @@ class ProcedureDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('procedure');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/procedure', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('procedure.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['procedure']['id'] = $newData['id'];
         $data['procedure']['resource_id'] = $newData['resource_id'];
         $data['procedure']['subject'] = 'Patient/234234';
-        $response = $this->json('PUT', '/api/procedure/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('procedure.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('procedure', $data['procedure']);

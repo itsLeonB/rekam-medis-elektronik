@@ -22,13 +22,11 @@ class CompositionDataTest extends FhirTestCase
 
         $data = $this->getExampleData('composition');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/composition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('composition.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/composition/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'composition', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -42,10 +40,8 @@ class CompositionDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('composition');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/composition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('composition.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('composition', $data['composition']);
@@ -87,10 +83,8 @@ class CompositionDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('composition');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/composition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('composition.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['composition']['id'] = $newData['id'];
@@ -99,11 +93,9 @@ class CompositionDataTest extends FhirTestCase
         $data['author'][0]['composition_id'] = $newData['author'][0]['composition_id'];
         $data['author'][0]['reference'] = "Practitioner/00001";
 
-        $data['author'][] = [
-            'reference' => 'Practitioner/00002'
-        ];
+        $data['author'][] = ['reference' => 'Practitioner/00002'];
 
-        $response = $this->json('PUT', '/api/composition/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('composition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('composition', $data['composition']);

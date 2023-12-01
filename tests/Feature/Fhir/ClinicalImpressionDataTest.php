@@ -25,10 +25,10 @@ class ClinicalImpressionDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
+        $response = $this->json('POST', route('clinicalimpression.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/clinicalimpression/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'clinicalimpression', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -45,7 +45,7 @@ class ClinicalImpressionDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
+        $response = $this->json('POST', route('clinicalimpression.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('clinical_impression', $data['clinicalImpression']);
@@ -77,13 +77,13 @@ class ClinicalImpressionDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
+        $response = $this->json('POST', route('clinicalimpression.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['clinicalImpression']['id'] = $newData['id'];
         $data['clinicalImpression']['resource_id'] = $newData['resource_id'];
         $data['clinicalImpression']['status'] = 'completed';
-        $response = $this->json('PUT', '/api/clinicalimpression/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('clinicalimpression.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('clinical_impression', $data['clinicalImpression']);

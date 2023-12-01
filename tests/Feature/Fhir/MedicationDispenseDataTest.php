@@ -4,9 +4,7 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
 use Tests\FhirTestCase;
-use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
 class MedicationDispenseDataTest extends FhirTestCase
@@ -24,13 +22,11 @@ class MedicationDispenseDataTest extends FhirTestCase
 
         $data = $this->getExampleData('medicationdispense');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/medicationdispense', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('medicationdispense.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/medicationdispense/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'medicationdispense', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -44,10 +40,8 @@ class MedicationDispenseDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('medicationdispense');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/medicationdispense', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('medicationdispense.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('medication_dispense', $data['medicationDispense']);
@@ -87,16 +81,14 @@ class MedicationDispenseDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('medicationdispense');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/medicationdispense', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('medicationdispense.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['medicationDispense']['id'] = $newData['id'];
         $data['medicationDispense']['resource_id'] = $newData['resource_id'];
         $data['medicationDispense']['status'] = 'completed';
-        $response = $this->json('PUT', '/api/medicationdispense/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('medicationdispense.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('medication_dispense', $data['medicationDispense']);

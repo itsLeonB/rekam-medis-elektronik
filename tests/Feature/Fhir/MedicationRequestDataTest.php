@@ -22,13 +22,11 @@ class MedicationRequestDataTest extends FhirTestCase
 
         $data = $this->getExampleData('medicationrequest');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/medicationrequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/medicationrequest/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'medicationrequest', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -42,10 +40,8 @@ class MedicationRequestDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('medicationrequest');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/medicationrequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('medication_request', $data['medicationRequest']);
@@ -78,17 +74,15 @@ class MedicationRequestDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('medicationrequest');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/medicationrequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['medicationRequest']['id'] = $newData['id'];
         $data['medicationRequest']['resource_id'] = $newData['resource_id'];
         $data['medicationRequest']['priority'] = 'stat';
 
-        $response = $this->json('PUT', '/api/medicationrequest/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('medicationrequest.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('medication_request', $data['medicationRequest']);

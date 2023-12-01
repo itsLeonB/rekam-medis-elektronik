@@ -22,13 +22,11 @@ class PatientDataTest extends FhirTestCase
 
         $data = $this->getExampleData('patient');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/patient', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('patient.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', '/api/patient/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'patient', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -43,9 +41,7 @@ class PatientDataTest extends FhirTestCase
 
         $data = $this->getExampleData('patient');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
+        $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', '/api/patient', $data, $headers);
         $response->assertStatus(201);
 

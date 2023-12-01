@@ -25,10 +25,10 @@ class AllergyIntoleranceDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/allergyintolerance', $data, $headers);
+        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/allergyintolerance/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'allergyintolerance', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -46,7 +46,7 @@ class AllergyIntoleranceDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/allergyintolerance', $data, $headers);
+        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
@@ -78,14 +78,14 @@ class AllergyIntoleranceDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/allergyintolerance', $data, $headers);
+        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['allergyIntolerance']['id'] = $newData['id'];
         $data['allergyIntolerance']['resource_id'] = $newData['resource_id'];
         $data['allergyIntolerance']['type'] = 'intolerance';
 
-        $response = $this->json('PUT', '/api/allergyintolerance/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('allergyintolerance.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);

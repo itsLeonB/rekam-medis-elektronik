@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Resource extends Model
 {
     const VALID_RESOURCE_TYPES = [
-        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'imagingstudy', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression', 'specimen', 'diagnosticreport', 'medicationstatement'
+        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression', 'medicationstatement', 'questionnaireresponse'
     ];
 
     protected $table = 'resource';
@@ -60,11 +60,6 @@ class Resource extends Model
         return $this->hasMany(Observation::class);
     }
 
-    public function imagingStudy(): HasMany
-    {
-        return $this->hasMany(ImagingStudy::class);
-    }
-
     public function procedure(): HasMany
     {
         return $this->hasMany(Procedure::class);
@@ -105,18 +100,13 @@ class Resource extends Model
         return $this->hasMany(ClinicalImpression::class);
     }
 
-    public function specimen(): HasMany
-    {
-        return $this->hasMany(Specimen::class);
-    }
-
-    public function diagnosticReport(): HasMany
-    {
-        return $this->hasMany(DiagnosticReport::class);
-    }
-
     public function medicationStatement(): HasMany
     {
         return $this->hasMany(MedicationStatement::class);
+    }
+
+    public function questionnaireResponse(): HasMany
+    {
+        return $this->hasMany(QuestionnaireResponse::class);
     }
 }

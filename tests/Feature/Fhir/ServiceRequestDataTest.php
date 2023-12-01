@@ -22,13 +22,11 @@ class ServiceRequestDataTest extends FhirTestCase
 
         $data = $this->getExampleData('servicerequest');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/servicerequest/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'servicerequest', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -42,10 +40,8 @@ class ServiceRequestDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('servicerequest');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
@@ -76,16 +72,14 @@ class ServiceRequestDataTest extends FhirTestCase
         $this->actingAs($user);
 
         $data = $this->getExampleData('servicerequest');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['serviceRequest']['id'] = $newData['id'];
         $data['serviceRequest']['resource_id'] = $newData['resource_id'];
         $data['serviceRequest']['priority'] = 'stat';
-        $response = $this->json('PUT', '/api/servicerequest/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('servicerequest.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
