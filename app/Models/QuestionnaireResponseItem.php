@@ -15,7 +15,7 @@ class QuestionnaireResponseItem extends Model
         'item' => 'array'
     ];
 
-    public function request(): BelongsTo
+    public function questionnaireResponse(): BelongsTo
     {
         return $this->belongsTo(QuestionnaireResponse::class, 'questionnaire_id');
     }

@@ -65,7 +65,6 @@ class QuestionnaireResponseRequest extends FhirRequest
                 $prefix . 'answer.*.valueInteger' => 'nullable|integer',
                 $prefix . 'answer.*.valueDate' => 'nullable|date',
                 $prefix . 'answer.*.valueDateTime' => 'nullable|date',
-                $prefix . 'answer.*.valueDateTime' => 'nullable|date',
                 $prefix . 'answer.*.valueTime' => 'nullable|date|date_format:H:i:s',
                 $prefix . 'answer.*.valueString' => 'nullable|string',
                 $prefix . 'answer.*.valueUri' => 'nullable|string',

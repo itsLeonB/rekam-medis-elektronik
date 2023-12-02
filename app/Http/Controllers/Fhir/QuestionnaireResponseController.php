@@ -12,13 +12,13 @@ class QuestionnaireResponseController extends Controller
     public function store(QuestionnaireResponseRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('QuestionnaireResponse');
             $questionnaireResponse = $resource->questionnaireResponse()->create($body['questionnaireResponse']);
             $this->createChildModels($questionnaireResponse, $body, ['item']);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
             return response()->json($resource->questionnaireResponse()->first(), 201);
-        // });
+        });
     }
 
 
