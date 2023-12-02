@@ -12,8 +12,8 @@ class LocationOperationHours extends Model
     protected $casts = [
         'days_of_week' => 'array',
         'all_day' => 'boolean',
-        'opening_time' => 'time',
-        'closing_time' => 'time',
+        'opening_time' => 'datetime',
+        'closing_time' => 'datetime',
     ];
 
     public $timestamps = false;

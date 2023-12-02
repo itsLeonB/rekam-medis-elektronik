@@ -16,6 +16,8 @@ class Constants
         'secondary' => 'Identifier yang ditugaskan dalam penggunaan sekunder ini berfungsi untuk mengidentifikasi objek dalam konteks relatif, tetapi tidak dapat secara konsisten ditugaskan ke objek yang sama lagi dalam konteks yang berbeda.',
         'old' => 'Id identifier sudah dianggap tidak valid, tetapi masih memungkinkan relevan untuk kebutuhan pencarian.'
     ];
+    public const NAKES_SYSTEM = "https://fhir.kemkes.go.id/id/nakes-id";
+    public const NIK_SYSTEM = "https://fhir.kemkes.go.id/id/nik";
 
     public const TELECOM_SYSTEM_SYSTEM = 'http://hl7.org/fhir/contact-point-system';
     public const TELECOM_SYSTEM_CODE = ['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other'];

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('status', ['active', 'suspended', 'inactive'])->nullable();
             $table->enum('operational_status', ['C', 'H', 'I', 'K', 'O', 'U'])->nullable();
             $table->string('name');
-            $table->string('alias')->nullable();
+            $table->json('alias')->nullable();
             $table->string('description')->nullable();
             $table->enum('mode', ['instance', 'kind'])->nullable();
             $table->json('type')->nullable();

@@ -8,22 +8,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Location extends Model
 {
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::created(function ($location) {
-            $orgId = config('app.organization_id');
+    //     static::created(function ($location) {
+    //         $orgId = config('app.organization_id');
 
-            $identifier = new LocationIdentifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/location/' . $orgId;
-            $identifier->use = 'official';
-            $identifier->value = $location->identifier()->max('value') + 1;
+    //         $identifier = new LocationIdentifier();
+    //         $identifier->system = 'http://sys-ids.kemkes.go.id/location/' . $orgId;
+    //         $identifier->use = 'official';
+    //         $identifier->value = $location->identifier()->max('value') + 1;
 
-            // Save the identifier through the relationship
-            $location->identifier()->save($identifier);
-        });
-    }
+    //         // Save the identifier through the relationship
+    //         $location->identifier()->save($identifier);
+    //     });
+    // }
 
     public const STATUS_SYSTEM = 'http://hl7.org/fhir/location-status';
     public const STATUS_CODE = ['active', 'suspended', 'inactive'];
@@ -43,6 +43,7 @@ class Location extends Model
     public const PHYSICAL_TYPE_DISPLAY = ['si' => 'Site', 'bu' => 'Building', 'wi' => 'Wing', 'wa' => 'Ward', 'lvl' => 'Level', 'co' => 'Corridor', 'ro' => 'Room', 'bd' => 'Bed', 've' => 'Vehicle', 'ho' => 'House', 'ca' => 'Cabinet', 'rd' => 'Road', 'area' => 'Area', 'jdn' => 'Jurisdiction', 'vir' => 'Virtual'];
     public const PHYSICAL_TYPE_DEFINITION = ['si' => 'Kumpulan bangunan atau lokasi lain seperti kompleks atau kampus.', 'bu' => 'Setiap Bangunan atau struktur.', 'wi' => 'Sayap di dalam Gedung, sering berisi lantai, kamar, dan koridor.', 'wa' => 'Bangsal adalah bagian dari fasilitas medis yang mungkin berisi kamar dan jenis lokasi lainnya', 'lvl' => 'Lantai di Gedung/Struktur', 'co' => 'Setiap koridor di dalam Gedung, yang dapat menghubungkan kamar-kamar', 'ro' => 'Sebuah ruang yang dialokasikan sebagai ruangan', 'bd' => 'Tempat tidur yang dapat ditempati', 've' => 'Alat transportasi', 'ho' => 'Rumah', 'ca' => 'Wadah yang dapat menyimpan barang, peralatan, obat-obatan atau barang lainnya.', 'rd' => 'Jalan', 'area' => 'Area (contoh : zona risiko banjir, wilayah, wilayah kodepos)', 'jdn' => 'Negara, Provinsi', 'vir' => 'Virtual'];
 
+    public const SERVICE_CLASS_URL = "https://fhir.kemkes.go.id/r4/StructureDefinition/LocationServiceClass";
     public const SERVICE_CLASS_SYSTEM = ['1' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '2' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '3' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vvip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'reguler' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient', 'eksekutif' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient'];
     public const SERVICE_CLASS_CODE = ['1', '2', '3', 'vip', 'vvip', 'reguler', 'eksekutif'];
     public const SERVICE_CLASS_DISPLAY = ['1' => 'Kelas 1', '2' => 'Kelas 2', '3' => 'Kelas 3', 'vip' => 'Kelas VIP', 'vvip' => 'Kelas VVIP', 'reguler' => 'Kelas Reguler', 'eksekutif' => 'Kelas Eksekutif'];
@@ -54,6 +55,7 @@ class Location extends Model
 
     protected $table = 'location';
     protected $casts = [
+        'alias' => 'array',
         'type' => 'array',
         'address_line' => 'array',
         'longitude' => 'double',

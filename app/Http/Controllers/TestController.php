@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ClinicalImpressionResource;
 use App\Http\Resources\CompositionResource;
-use App\Http\Resources\ImagingStudyResource;
+use App\Http\Resources\LocationResource;
 use App\Http\Resources\MedicationDispenseResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;
@@ -14,7 +14,6 @@ use App\Http\Resources\ObservationResource;
 use App\Http\Resources\OrganizationResource;
 use App\Http\Resources\ProcedureResource;
 use App\Http\Resources\ServiceRequestResource;
-use App\Http\Resources\SpecimenResource;
 use App\Models\Resource;
 
 class TestController extends Controller
@@ -28,19 +27,11 @@ class TestController extends Controller
     }
 
 
-    public function testImagingStudyResource($satusehat_id)
+    public function testLocationResource($satusehat_id)
     {
-        return response()->json(new ImagingStudyResource(Resource::where([
+        return response()->json(new LocationResource(Resource::where([
             ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'ImagingStudy']
-        ])->firstOrFail()), 200);
-    }
-
-    public function testSpecimenResource($satusehat_id)
-    {
-        return response()->json(new SpecimenResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'Specimen']
+            ['res_type', '=', 'Location']
         ])->firstOrFail()), 200);
     }
 

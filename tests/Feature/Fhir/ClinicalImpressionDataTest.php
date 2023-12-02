@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class ClinicalImpressionDataTest extends TestCase
+class ClinicalImpressionDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,8 +17,6 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_view_clinical_impression_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -28,10 +25,10 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
+        $response = $this->json('POST', route('clinicalimpression.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/clinicalimpression/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'clinicalimpression', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -41,8 +38,6 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_create_new_clinical_impression_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -50,7 +45,7 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
+        $response = $this->json('POST', route('clinicalimpression.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('clinical_impression', $data['clinicalImpression']);
@@ -75,8 +70,6 @@ class ClinicalImpressionDataTest extends TestCase
      */
     public function test_users_can_update_clinical_impression_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -84,13 +77,13 @@ class ClinicalImpressionDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/clinicalimpression', $data, $headers);
+        $response = $this->json('POST', route('clinicalimpression.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['clinicalImpression']['id'] = $newData['id'];
         $data['clinicalImpression']['resource_id'] = $newData['resource_id'];
         $data['clinicalImpression']['status'] = 'completed';
-        $response = $this->json('PUT', '/api/clinicalimpression/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('clinicalimpression.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('clinical_impression', $data['clinicalImpression']);

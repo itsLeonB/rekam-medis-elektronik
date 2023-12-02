@@ -2,25 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Practitioner extends Model
 {
-    use HasFactory;
-
     protected $table = 'practitioner';
 
-    protected $attributes = [
-        'nik' => 9999999999999999,
-        'ihs_number' => 'N10000000',
-        'active' => 1
-    ];
-
     protected $casts = [
-        'birth_date' => 'date'
+        'active' => 'boolean',
+        'birth_date' => 'date',
+        'communication' => 'array'
     ];
 
     public function telecom(): HasMany

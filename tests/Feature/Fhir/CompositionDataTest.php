@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class CompositionDataTest extends TestCase
+class CompositionDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,20 +17,16 @@ class CompositionDataTest extends TestCase
      */
     public function test_users_can_view_composition_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('composition');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/composition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('composition.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/composition/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'composition', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -41,16 +36,12 @@ class CompositionDataTest extends TestCase
      */
     public function test_users_can_create_new_composition_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('composition');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/composition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('composition.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('composition', $data['composition']);
@@ -88,16 +79,12 @@ class CompositionDataTest extends TestCase
      */
     public function test_users_can_update_composition_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('composition');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/composition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('composition.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['composition']['id'] = $newData['id'];
@@ -106,11 +93,9 @@ class CompositionDataTest extends TestCase
         $data['author'][0]['composition_id'] = $newData['author'][0]['composition_id'];
         $data['author'][0]['reference'] = "Practitioner/00001";
 
-        $data['author'][] = [
-            'reference' => 'Practitioner/00002'
-        ];
+        $data['author'][] = ['reference' => 'Practitioner/00002'];
 
-        $response = $this->json('PUT', '/api/composition/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('composition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('composition', $data['composition']);

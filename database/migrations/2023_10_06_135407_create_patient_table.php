@@ -22,11 +22,15 @@ return new class extends Migration
             $table->string('suffix')->nullable();
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->date('birth_date')->nullable();
-            $table->string('birth_place')->nullable();
             $table->json('deceased')->nullable();
             $table->enum('marital_status', ['A', 'D', 'I', 'L', 'M', 'P', 'S', 'T', 'U', 'W'])->nullable();
             $table->json('multiple_birth');
-            $table->string('language')->nullable();
+            $table->json('communication')->nullable();
+            $table->json('general_practitioner')->nullable();
+            $table->string('managing_organization')->nullable();
+            $table->json('link')->nullable();
+            $table->string('birth_city')->nullable();
+            $table->string('birth_country')->nullable();
         });
     }
 

@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class AllergyIntoleranceDataTest extends TestCase
+class AllergyIntoleranceDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,8 +17,6 @@ class AllergyIntoleranceDataTest extends TestCase
      */
     public function test_users_can_view_allergy_intolerance_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -28,10 +25,10 @@ class AllergyIntoleranceDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/allergyintolerance', $data, $headers);
+        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/allergyintolerance/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'allergyintolerance', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -41,8 +38,6 @@ class AllergyIntoleranceDataTest extends TestCase
      */
     public function test_users_can_create_new_allergy_intolerance_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -51,7 +46,7 @@ class AllergyIntoleranceDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/allergyintolerance', $data, $headers);
+        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
@@ -76,8 +71,6 @@ class AllergyIntoleranceDataTest extends TestCase
      */
     public function test_users_can_update_allergy_intolerance_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
@@ -85,14 +78,14 @@ class AllergyIntoleranceDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', '/api/allergyintolerance', $data, $headers);
+        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['allergyIntolerance']['id'] = $newData['id'];
         $data['allergyIntolerance']['resource_id'] = $newData['resource_id'];
         $data['allergyIntolerance']['type'] = 'intolerance';
 
-        $response = $this->json('PUT', '/api/allergyintolerance/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('allergyintolerance.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);

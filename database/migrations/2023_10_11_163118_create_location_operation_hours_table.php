@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreign('location_id')->references('id')->on('location')->onDelete('cascade');
             $table->json('days_of_week')->nullable();
             $table->boolean('all_day')->default(false);
-            $table->time('opening_time');
-            $table->time('closing_time');
+            $table->time('opening_time')->nullable();
+            $table->time('closing_time')->nullable();
         });
     }
 

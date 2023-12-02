@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CodeSystemSeeder::class,
             ValueSetSeeder::class,
-            IdFhirResourceSeeder::class,
+            // IdFhirResourceSeeder::class,
         ]);
     }
 }

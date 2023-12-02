@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class ServiceRequestDataTest extends TestCase
+class ServiceRequestDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,20 +17,16 @@ class ServiceRequestDataTest extends TestCase
      */
     public function test_users_can_view_service_request_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('servicerequest');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/servicerequest/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'servicerequest', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -41,16 +36,12 @@ class ServiceRequestDataTest extends TestCase
      */
     public function test_users_can_create_new_service_request_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('servicerequest');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
@@ -77,22 +68,18 @@ class ServiceRequestDataTest extends TestCase
      */
     public function test_users_can_update_service_request_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('servicerequest');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/servicerequest', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['serviceRequest']['id'] = $newData['id'];
         $data['serviceRequest']['resource_id'] = $newData['resource_id'];
         $data['serviceRequest']['priority'] = 'stat';
-        $response = $this->json('PUT', '/api/servicerequest/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('servicerequest.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('service_request', $data['serviceRequest']);

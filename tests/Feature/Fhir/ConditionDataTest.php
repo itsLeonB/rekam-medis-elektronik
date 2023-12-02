@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class ConditionDataTest extends TestCase
+class ConditionDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,20 +17,16 @@ class ConditionDataTest extends TestCase
      */
     public function test_users_can_view_condition_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('condition');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/condition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('condition.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/condition/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'condition', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -41,16 +36,12 @@ class ConditionDataTest extends TestCase
      */
     public function test_users_can_create_new_condition_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('condition');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/condition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('condition.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('condition', $data['condition']);
@@ -74,22 +65,18 @@ class ConditionDataTest extends TestCase
      */
     public function test_users_can_update_condition_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('condition');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/condition', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('condition.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['condition']['id'] = $newData['id'];
         $data['condition']['resource_id'] = $newData['resource_id'];
         $data['condition']['verification_status'] = 'confirmed';
-        $response = $this->json('PUT', '/api/condition/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('condition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('condition', $data['condition']);

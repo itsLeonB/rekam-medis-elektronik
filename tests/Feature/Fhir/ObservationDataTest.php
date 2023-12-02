@@ -4,11 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Config;
-use Tests\TestCase;
+use Tests\FhirTestCase;
 use Tests\Traits\FhirTest;
 
-class ObservationDataTest extends TestCase
+class ObservationDataTest extends FhirTestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -18,20 +17,16 @@ class ObservationDataTest extends TestCase
      */
     public function test_users_can_view_observation_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('observation');
 
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/observation', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('observation.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', 'api/observation/' . $newData['resource_id']);
+        $response = $this->json('GET', route('resource.show', ['res_type' => 'observation', 'res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -41,16 +36,12 @@ class ObservationDataTest extends TestCase
      */
     public function test_users_can_create_new_observation_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('observation');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/observation', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('observation.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertMainData('observation', $data['observation']);
@@ -84,23 +75,19 @@ class ObservationDataTest extends TestCase
      */
     public function test_users_can_update_observation_data()
     {
-        Config::set('organization_id', env('organization_id'));
-
         $user = User::factory()->create();
         $this->actingAs($user);
 
         $data = $this->getExampleData('observation');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', '/api/observation', $data, $headers);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route('observation.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $data['observation']['id'] = $newData['id'];
         $data['observation']['resource_id'] = $newData['resource_id'];
         $data['observation']['subject'] = 'Patient/10001';
 
-        $response = $this->json('PUT', '/api/observation/' . $newData['resource_id'], $data, $headers);
+        $response = $this->json('PUT', route('observation.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('observation', $data['observation']);

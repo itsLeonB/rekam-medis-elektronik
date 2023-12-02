@@ -14,6 +14,7 @@
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {
+        "brianium/paratest": "^7.2",
         "fakerphp/faker": "^1.9.1",
         "jeroenzwart/laravel-csv-seeder": "^1.6",
         "laravel/breeze": "^1.23",

@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PatientResource extends FhirResource
 {
@@ -34,7 +35,8 @@ class PatientResource extends FhirResource
                     [
                         'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace',
                         'valueAddress' => [
-                            'city' => $patient->birth_place,
+                            'city' => $patient->birth_city,
+                            'country' => $patient->birth_country,
                         ]
                     ],
                 ],
@@ -60,24 +62,77 @@ class PatientResource extends FhirResource
                         ]
                     ],
                 ],
-                'communication' => [
-                    [
-                        'language' => [
-                            'coding' => [
-                                [
-                                    'system' => 'urn:ietf:bcp:47',
-                                    'code' => $patient->language
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                'generalPractitioner' => $this->createGeneralPractitionerArray($patient->generalPractitioner),
+                'communication' => $this->createCommunicationArray($patient->communication),
+                'generalPractitioner' => $this->referenceArray($patient->general_practitioner),
+                'link' => $this->createLinkArray($patient->link)
             ],
             $patient->deceased,
             $patient->multiple_birth
         );
     }
+
+
+    private function createLinkArray($links): array
+    {
+        $link = [];
+
+        if (!empty($links)) {
+            foreach ($links as $l) {
+                $link[] = [
+                    'other' => [
+                        'reference' => $l['other'],
+                    ],
+                    'type' => $l['type'],
+                ];
+            }
+        }
+
+        return $link;
+    }
+
+
+    private function createCommunicationArray($comms): array
+    {
+        $communication = [];
+
+        if (!empty($comms)) {
+            foreach ($comms as $c) {
+                $communication[] = [
+                    'language' => [
+                        'coding' => [
+                            [
+                                'system' => $c ? 'urn:ietf:bcp:47' : null,
+                                'code' => $c,
+                                'display' => $c ? DB::table('codesystem_bcp47')
+                                    ->select('display')
+                                    ->where('code', $c)
+                                    ->first() ?? null : null
+                            ],
+                        ],
+                    ],
+                ];
+            }
+        }
+
+        return $communication;
+    }
+
+
+    private function referenceArray($references): array
+    {
+        $reference = [];
+
+        if (!empty($references)) {
+            foreach ($references as $r) {
+                $reference[] = [
+                    'reference' => $r,
+                ];
+            }
+        }
+
+        return $reference;
+    }
+
 
     private function createContactArray(Collection $contactAttribute)
     {

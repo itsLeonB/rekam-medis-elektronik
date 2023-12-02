@@ -16,13 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('practitioner_id');
             $table->index('practitioner_id');
             $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
-            $table->string('code');
-            $table->string('code_system');
-            $table->string('display');
-            $table->string('identifier')->nullable();
-            $table->string('issuer')->nullable();
+            $table->json('identifier')->nullable();
+            $table->json('code');
             $table->date('period_start')->nullable();
             $table->date('period_end')->nullable();
+            $table->string('issuer')->nullable();
         });
     }
 
