@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valueset_condition_code_keluhanutama', function (Blueprint $table) {
-            $table->unsignedBigInteger('code')->primary();
-            $table->string('display');
-            $table->string('definition');
+        Schema::create('valueset_riwayatpenyakitkeluarga', function (Blueprint $table) {
+            $table->string('code', 18)->primary();
+            $table->string('display', 110);
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valueset_condition_code_keluhanutama');
+        Schema::dropIfExists('valueset_riwayatpenyakitkeluarga');
     }
 };

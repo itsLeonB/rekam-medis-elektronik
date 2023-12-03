@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Constants;
+use App\Models\Condition;
 use App\Models\Resource;
+use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -50,11 +52,168 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Patient':
                     $this->seedPatient($res, $resText);
                     break;
+                case 'Encounter':
+                    $this->seedEncounter($res, $resText);
+                    break;
+                case 'Condition':
+                    $this->seedCondition($res, $resText);
+                    break;
                 case 'QuestionnaireResponse':
                     $this->seedQuestionnaireResponse($res, $resText);
                     break;
                 default:
                     break;
+            }
+        }
+    }
+
+
+    private function seedCondition($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $conditionData = [
+            'clinical_status' => returnAttribute($resourceContent, ['clinicalStatus', 'coding', 0, 'code']),
+            'verification_status' => returnAttribute($resourceContent, ['verificationStatus', 'coding', 0, 'code']),
+            'category' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['category'])),
+            'severity' => returnAttribute($resourceContent, ['severity', 'coding', 0, 'code']),
+            'code_system' => returnAttribute($resourceContent, ['code', 'coding', 0, 'system']),
+            'code_code' => returnAttribute($resourceContent, ['code', 'coding', 0, 'code']),
+            'code_display' => returnAttribute($resourceContent, ['code', 'coding', 0, 'display']),
+            'body_site' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['bodySite'])),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'onset' => returnVariableAttribute($resourceContent, Condition::ONSET),
+            'abatement' => returnVariableAttribute($resourceContent, Condition::ABATEMENT),
+            'recorded_date' => returnAttribute($resourceContent, ['recordedDate']),
+            'recorder' => returnAttribute($resourceContent, ['recorder', 'reference']),
+            'asserter' => returnAttribute($resourceContent, ['asserter', 'reference'])
+        ];
+
+        $condition = $resource->condition()->createQuietly($conditionData);
+        $condition->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+
+        $stageData = returnAttribute($resourceContent, ['stage']);
+        if (!empty($stageData)) {
+            foreach ($stageData as $s) {
+                $stage = [
+                    'summary' => returnAttribute($s, ['summary', 'coding', 0, 'code']),
+                    'assessment' => $this->returnMultiReference(returnAttribute($s, ['assessment'])),
+                    'type' => returnAttribute($s, ['type', 'coding', 0, 'code'])
+                ];
+                $condition->stage()->createQuietly($stage);
+            }
+        }
+
+        $evidenceData = returnAttribute($resourceContent, ['evidence']);
+        if (!empty($evidenceData)) {
+            foreach ($evidenceData as $e) {
+                $evidence = [
+                    'code' => $this->returnMultiCodeableConcept(returnAttribute($e, ['code'])),
+                    'detail' => $this->returnMultiReference(returnAttribute($e, ['detail']))
+                ];
+                $condition->evidence()->createQuietly($evidence);
+            }
+        }
+
+        $condition->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+    }
+
+
+    private function seedEncounter($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $encounterData = [
+            'status' => returnAttribute($resourceContent, ['status']),
+            'class' => returnAttribute($resourceContent, ['class', 'code']),
+            'type' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['type'])),
+            'service_type' => returnAttribute($resourceContent, ['serviceType', 'coding', 0, 'code']),
+            'priority' => returnAttribute($resourceContent, ['priority', 'coding', 0, 'code']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'episode_of_care' => $this->returnMultiReference(returnAttribute($resourceContent, ['episodeOfCare'])),
+            'based_on' => $this->returnMultiReference(returnAttribute($resourceContent, ['basedOn'])),
+            'period_start' => returnAttribute($resourceContent, ['period', 'start']),
+            'period_end' => returnAttribute($resourceContent, ['period', 'end']),
+            'length_value' => returnAttribute($resourceContent, ['length', 'value']),
+            'length_comparator' => returnAttribute($resourceContent, ['length', 'comparator']),
+            'length_unit' => returnAttribute($resourceContent, ['length', 'unit']),
+            'length_system' => returnAttribute($resourceContent, ['length', 'system']),
+            'length_code' => returnAttribute($resourceContent, ['length', 'code']),
+            'reason_code' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['reasonCode'])),
+            'reason_reference' => $this->returnMultiReference(returnAttribute($resourceContent, ['reasonReference'])),
+            'account' => $this->returnMultiReference(returnAttribute($resourceContent, ['account'])),
+            'hospitalization_preadmission_identifier_system' => returnAttribute($resourceContent, ['hospitalization', 'preAdmissionIdentifier', 'system']),
+            'hospitalization_preadmission_identifier_use' => returnAttribute($resourceContent, ['hospitalization', 'preAdmissionIdentifier', 'use']),
+            'hospitalization_preadmission_identifier_value' => returnAttribute($resourceContent, ['hospitalization', 'preAdmissionIdentifier', 'value']),
+            'hospitalization_origin' => returnAttribute($resourceContent, ['hospitalization', 'origin', 'reference']),
+            'hospitalization_admit_source' => returnAttribute($resourceContent, ['hospitalization', 'admitSource', 'coding', 0, 'code']),
+            'hospitalization_re_admission' => returnAttribute($resourceContent, ['hospitalization', 'reAdmission', 'coding', 0, 'code']),
+            'hospitalization_diet_preference' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['hospitalization', 'dietPreference'])),
+            'hospitalization_special_arrangement' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['hospitalization', 'specialArrangement'])),
+            'hospitalization_destination' => returnAttribute($resourceContent, ['hospitalization', 'destination', 'reference']),
+            'hospitalization_discharge_disposition' => returnAttribute($resourceContent, ['hospitalization', 'dischargeDisposition', 'coding', 0, 'code']),
+            'service_provider' => returnAttribute($resourceContent, ['serviceProvider', 'reference']),
+            'part_of' => returnAttribute($resourceContent, ['partOf', 'reference'])
+        ];
+
+        $encounter = $resource->encounter()->createQuietly($encounterData);
+        $encounter->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+
+        $statusHistories = returnAttribute($resourceContent, ['statusHistory']);
+        if (!empty($statusHistories)) {
+            foreach ($statusHistories as $sh) {
+                $statusHistoryData = [
+                    'status' => returnAttribute($sh, ['status']),
+                    'period_start' => returnAttribute($sh, ['period', 'start']),
+                    'period_end' => returnAttribute($sh, ['period', 'end'])
+                ];
+                $encounter->statusHistory()->createQuietly($statusHistoryData);
+            }
+        }
+
+        $classHistories = returnAttribute($resourceContent, ['classHistory']);
+        if (!empty($classHistories)) {
+            foreach ($classHistories as $ch) {
+                $classHistory = [
+                    'status' => returnAttribute($ch, ['status']),
+                    'period_start' => returnAttribute($ch, ['period', 'start']),
+                    'period_end' => returnAttribute($ch, ['period', 'end'])
+                ];
+                $encounter->classHistory()->createQuietly($classHistory);
+            }
+        }
+
+        $participants = returnAttribute($resourceContent, ['participant']);
+        if (!empty($participants)) {
+            foreach ($participants as $p) {
+                $participant = [
+                    'type' => $this->returnMultiCodeableConcept(returnAttribute($p, ['type'])),
+                    'individual' => returnAttribute($p, ['individual', 'reference'])
+                ];
+                $encounter->participant()->createQuietly($participant);
+            }
+        }
+
+        $diagnoses = returnAttribute($resourceContent, ['diagnosis']);
+        if (!empty($diagnoses)) {
+            foreach ($diagnoses as $d) {
+                $diagnosis = [
+                    'condition' => returnAttribute($d, ['condition', 'reference']),
+                    'use' => returnAttribute($d, ['use', 'coding', 0, 'code']),
+                    'rank' => returnAttribute($d, ['rank']),
+                ];
+                $encounter->diagnosis()->createQuietly($diagnosis);
+            }
+        }
+
+        $locations = returnAttribute($resourceContent, ['location']);
+        if (!empty($locations)) {
+            foreach ($locations as $l) {
+                $location = [
+                    'location' => returnAttribute($l, ['location', 'reference']),
+                ];
+                $encounter->location()->createQuietly($location);
             }
         }
     }
@@ -113,9 +272,9 @@ class IdFhirResourceSeeder extends Seeder
             'suffix' => $name['suffix'],
             'gender' => returnAttribute($resourceContent, ['gender'], 'unknown'),
             'birth_date' => returnAttribute($resourceContent, ['birthDate']),
-            'deceased' => returnVariableAttribute($resourceContent, 'deceased', ['Boolean', 'DateTime']),
+            'deceased' => returnVariableAttribute($resourceContent, ['deceasedBoolean', 'deceasedDateTime']),
             'marital_status' => returnAttribute($resourceContent, ['maritalStatus', 'coding', 0, 'code']),
-            'multiple_birth' => returnVariableAttribute($resourceContent, 'multipleBirth', ['Boolean', 'Integer']),
+            'multiple_birth' => returnVariableAttribute($resourceContent, ['multipleBirthBoolean', 'multipleBirthInteger']),
             'communication' => $this->returnCommunication(returnAttribute($resourceContent, ['communication'])),
             'general_practitioner' => $this->returnMultiReference(returnAttribute($resourceContent, ['generalPractitioner'])),
             'managing_organization' => returnAttribute($resourceContent, ['managingOrganization', 'reference']),
@@ -124,7 +283,11 @@ class IdFhirResourceSeeder extends Seeder
             'birth_country' => $birthPlace['country']
         ];
 
+        // try {
         $patient = $resource->patient()->createQuietly($patientData);
+        // } catch (Exception $e) {
+        //     dd($patientData);
+        // }
         $patient->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
         $patient->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
         $patient->address()->createManyQuietly($this->returnAddress(returnAttribute($resourceContent, ['address'])));
@@ -260,8 +423,6 @@ class IdFhirResourceSeeder extends Seeder
             foreach ($identifiers as $i) {
                 if ($i['system'] == Constants::NIK_SYSTEM) {
                     return $i['value'];
-                } else {
-                    return null;
                 }
             }
         } else {
@@ -276,8 +437,6 @@ class IdFhirResourceSeeder extends Seeder
             foreach ($identifiers as $i) {
                 if ($i['system'] == Constants::NAKES_SYSTEM) {
                     return $i['value'];
-                } else {
-                    return null;
                 }
             }
         } else {
@@ -578,7 +737,7 @@ class IdFhirResourceSeeder extends Seeder
                     'description' => returnAttribute($p, ['description']),
                     'procedure' => returnAttribute($p, ['procedure', 'coding', 0, 'code']),
                     'additive' => returnAttribute($p, ['additive']),
-                    'time' => returnVariableAttribute($p, 'time', ['DateTime', 'Period'])
+                    'time' => returnVariableAttribute($p, ['timeDateTime', 'timePeriod'])
                 ];
             }
         }

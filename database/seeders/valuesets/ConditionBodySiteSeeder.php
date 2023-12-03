@@ -1,16 +1,16 @@
 <?php
 
-namespace Database\Seeders\Codesystems;
+namespace Database\Seeders\Valuesets;
 
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class EncounterReasonSeeder extends CsvSeeder
+class ConditionBodySiteSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/codesystems/encounterreason.csv';
-        $this->tablename = 'codesystem_encounterreason';
+        $this->file = '/database/seeders/csvs/valuesets/condition_bodysite.csv';
+        $this->tablename = 'valueset_conditionbodysite';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

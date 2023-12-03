@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('codesystem_encounterreason', function (Blueprint $table) {
-            $table->unsignedBigInteger('code')->primary();
-            $table->string('display');
+        Schema::create('valueset_conditionbodysite', function (Blueprint $table) {
+            $table->string('code', 17)->primary();
+            $table->string('display', 143);
         });
     }
 
@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('codesystem_encounterreason');
+        Schema::dropIfExists('valueset_conditionbodysite');
     }
 };

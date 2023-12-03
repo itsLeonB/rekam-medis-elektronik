@@ -3,10 +3,9 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Valuesets\{
-    ConditionCodeKeluhanUtamaSeeder,
-    ConditionCodeRiwayatPenyakitKeluargaSeeder,
-    ConditionCodeRiwayatPenyakitPribadiSeeder,
+    ConditionBodySiteSeeder,
     ConditionStageTypeSeeder,
+    EncounterReasonCodeSeeder,
     MedicationIngredientStrengthDenominatorSeeder,
     ObservationRefRangeAppliesToSeeder,
     ObservationValueQuantitySeeder,
@@ -14,8 +13,8 @@ use Database\Seeders\Valuesets\{
     ProcedurePerformerTypeSeeder,
     ProcedureReasonCodeSeeder,
     ProcedureStatusReasonSeeder,
-    SpecimenContainerTypeSeeder,
-    SpecimenTypeSeeder,
+    RiwayatPenyakitKeluargaSeeder,
+    RiwayatPenyakitPribadiSeeder,
 };
 use Illuminate\Database\Seeder;
 
@@ -27,10 +26,9 @@ class ValueSetSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            ConditionCodeKeluhanUtamaSeeder::class,
-            ConditionCodeRiwayatPenyakitKeluargaSeeder::class,
-            ConditionCodeRiwayatPenyakitPribadiSeeder::class,
+            ConditionBodySiteSeeder::class,
             ConditionStageTypeSeeder::class,
+            EncounterReasonCodeSeeder::class,
             MedicationIngredientStrengthDenominatorSeeder::class,
             ObservationRefRangeAppliesToSeeder::class,
             ObservationValueQuantitySeeder::class,
@@ -38,8 +36,8 @@ class ValueSetSeeder extends Seeder
             ProcedurePerformerTypeSeeder::class,
             ProcedureReasonCodeSeeder::class,
             ProcedureStatusReasonSeeder::class,
-            SpecimenContainerTypeSeeder::class,
-            SpecimenTypeSeeder::class,
+            RiwayatPenyakitKeluargaSeeder::class,
+            RiwayatPenyakitPribadiSeeder::class,
         ]);
     }
 }

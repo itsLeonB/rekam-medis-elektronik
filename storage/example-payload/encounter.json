@@ -2,17 +2,32 @@
     "encounter": {
         "status": "arrived",
         "class": "AMB",
+        "type": ["ADMS", "OKI"],
         "service_type": 117,
         "priority": "A",
         "subject": "Patient/100000030009",
-        "episode_of_care": "EpisodeOfCare/null",
-        "based_on": "ServiceRequest/null",
+        "episode_of_care": ["EpisodeOfCare/null"],
+        "based_on": ["ServiceRequest/null"],
         "period_start": "2023-10-31T10:49:00+07:00",
         "period_end": "2023-11-16T10:49:00+07:00",
-        "account": "Account/null",
-        "location": "Location/dc01c797-547a-4e4d-97cd-4ece0630e380",
-        "service_class": "vvip",
-        "upgrade_class": "kelas-tetap",
+        "length_value": 15,
+        "length_comparator": "<",
+        "length_unit": "minutes",
+        "length_system": "http://unitsofmeasure.org",
+        "length_code": "min",
+        "reason_code": ["109006", "129007"],
+        "reason_reference": ["Condition/1", "Procedure/1", "Observation/1"],
+        "account": ["Account/null"],
+        "hospitalization_preadmission_identifier_system": "http://sys-ids.kemkes.go.id/encounter/RSPARA",
+        "hospitalization_preadmission_identifier_use": "official",
+        "hospitalization_preadmission_identifier_value": "000001",
+        "hospitalization_origin": "Location/null",
+        "hospitalization_admit_source": "hosp-trans",
+        "hospitalization_re_admission": "R",
+        "hopsitalization_diet_preference": ["vegetarian", "halal"],
+        "hospitalization_special_arrangement": ["wheel", "int"],
+        "hospitalization_destination": "Location/4adccec5-776d-435e-9ac5-98763cb216bb",
+        "hospitalization_discharge_disposition": "rehab",
         "service_provider": "Organization/RSPARA",
         "part_of": "Encounter/null"
     },
@@ -32,56 +47,27 @@
     ],
     "participant": [
         {
-            "type": "ATND",
+            "type": ["ATND", "ADM"],
             "individual": "Practitioner/1000400104"
-        }
-    ],
-    "reason": [
-        {
-            "code": 160303001,
-            "reference": "Condition/ba0dd351-c30a-4659-994e-0013797b545b"
         }
     ],
     "diagnosis": [
         {
-            "condition_reference": "Condition/null",
-            "condition_display": "Sakit parah",
+            "condition": "Condition/1",
             "use": "AD",
             "rank": 1
         },
         {
-            "condition_reference": "Procedure/null",
-            "condition_display": "Sakit parah",
+            "condition_reference": "Procedure/2",
             "use": "AD",
             "rank": 2
         }
     ],
-    "hospitalization": [
+    "location": [
         {
-            "hospitalization_data": {
-                "preadmission_identifier_system": "http://sys-ids.kemkes.go.id/encounter/RSPARA",
-                "preadmission_identifier_use": "official",
-                "preadmission_identifier_value": "000001",
-                "origin": "Location/null",
-                "admit_source": "hosp-trans",
-                "re_admission": "R",
-                "destination": "Location/4adccec5-776d-435e-9ac5-98763cb216bb",
-                "discharge_disposition": "rehab"
-            },
-            "diet": [
-                {
-                    "system": "http://terminology.hl7.org/CodeSystem/diet",
-                    "code": "vegetarian",
-                    "display": "Vegetarian"
-                }
-            ],
-            "specialArrangement": [
-                {
-                    "system": "http://terminology.hl7.org/CodeSystem/encounter-special-arrangements",
-                    "code": "wheel",
-                    "display": "Wheelchair"
-                }
-            ]
+            "location": "Location/4adccec5-776d-435e-9ac5-98763cb216bb",
+            "service_class": "1",
+            "upgrade_class": "kelas-tetap"
         }
     ]
 }

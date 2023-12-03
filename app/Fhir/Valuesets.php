@@ -4,6 +4,95 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const ManifestationAndSymptomCodes = [
+        'system' => 'http://snomed.info/sct',
+        'ecl' => '<< 404684003'
+    ];
+
+    public const ConditionStageType = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_conditionstagetype'
+    ];
+
+    public const ConditionStage = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['425213009', '425037004', '422985007', '422581008', '422375001', '409727001', '409726005', '409725009', '409724008', '409723002', '409722007', '409721000', '405964009', '405963003', '405962008', '405961001', '405960000', '405959005', '405958002', '405957007', '405919007', '405918004', '405917009', '399605004', '399517007', '396913004', '396912009', '396911002', '396910001', '396909006', '396908003', '396907008', '396535002', '396534003', '396533009', '396532004', '394943000', '394942005', '394941003', '394940002', '394939004', '385389007', '385376001', '385374003', '385372004', '385370007', '385368003', '385366004', '385364001', '385362002', '385360005', '385358008', '112241002', '89487002', '84633001', '78607009', '78199001', '76422004', '75339006', '74053007', '73055006', '66445009', '60333009', '57605004', '57306005', '56944001', '56769006', '54498006', '53173007', '50283003', '44255004', '31747005', '30440004', '13104003', '5701003', '2640006'],
+        'display' => ["425213009" => "Carcinoma of colon, stage I (finding)", "425037004" => "Low grade lymphoma, stage 1 (finding)", "422985007" => "Carcinoma of colon, stage IV (finding)", "422581008" => "Carcinoma of colon, stage II (finding)", "422375001" => "Carcinoma of colon, stage III (finding)", "409727001" => "International neuroblastoma staging system stage 4S (finding)", "409726005" => "International neuroblastoma staging system stage 4 (finding)", "409725009" => "International neuroblastoma staging system stage 3 (finding)", "409724008" => "International neuroblastoma staging system stage 2B (finding)", "409723002" => "International neuroblastoma staging system stage 2A (finding)", "409722007" => "International neuroblastoma staging system stage 1 (finding)", "409721000" => "International neuroblastoma staging system stage finding (finding)", "405964009" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IV: Any size primary tumor, with or without regional lymph node involvement, with distant metastases, without respect to surgical approach to primary tumor (finding)", "405963003" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IIIB: Localized or locally extensive tumor, gross residual disease after major resection (greater than 50 percent debulking) (finding)", "405962008" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IIIA: Localized or locally extensive tumor, gross residual disease after biopsy only (finding)", "405961001" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IIC: Locally extensive tumor (spread to regional lymph nodes), gross total resection, but microscopic residual disease (finding)", "405960000" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IIB: Locally extensive tumor (spread to regional lymph nodes), completely resected (finding)", "405959005" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IIA: localized tumor, gross total resection, but with microscopic residual disease (finding)", "405958002" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IB: localized tumor, infiltrating beyond site of origin, completely resected (finding)", "405957007" => "Intergroup rhabdomyosarcoma study post-surgical clinical group IA: localized tumor, confined to site of origin, completely resected (finding)", "405919007" => "Intergroup rhabdomyosarcoma study post-surgical clinical group cannot be assessed (finding)", "405918004" => "Intergroup rhabdomyosarcoma study post-surgical clinical group not applicable (finding)", "405917009" => "Intergroup rhabdomyosarcoma study post-surgical clinical group finding (finding)", "399605004" => "International Federation of Gynecology and Obstetrics stage finding for fallopian tube tumor (finding)", "399517007" => "Tumor stage cannot be determined (finding)", "396913004" => "Stage IVb: Hematogenous or lymphatic dissemination (thymus gland) (finding)", "396912009" => "Stage IVa: Pleural or pericardial dissemination (thymus gland) (finding)", "396911002" => "Stage III: Macroscopic invasion of neighboring organs (thymus gland) (finding)", "396910001" => "Stage IIb: Macroscopic capsular invasion into thymic or surrounding fat, or grossly adherent to, but not breaking through, mediastinal pleura or pericardium (thymus gland) (finding)", "396909006" => "Stage IIa: Microscopic transcapsular invasion (thymus gland) (finding)", "396908003" => "Stage I: Grossly and microscopically encapsulated (thymus gland) (finding)", "396907008" => "Thymic epithelial neoplasm stage finding (finding)", "396535002" => "Stage IV: Distant metastasis or extension into other organs (adrenal cortical carcinoma) (finding)", "396534003" => "Stage III: Extraglandular extension of tumor without other organ involvement (adrenal cortical carcinoma) (finding)", "396533009" => "Stage II: Tumor confined to gland, greater than 5 cm (adrenal cortical carcinoma) (finding)", "396532004" => "Stage I: Tumor confined to gland, 5 cm or less (adrenal cortical carcinoma) (finding)", "394943000" => "Dukes stage D (finding)", "394942005" => "Dukes stage C2 (finding)", "394941003" => "Dukes stage C1 (finding)", "394940002" => "Dukes stage B (finding)", "394939004" => "Dukes stage A (finding)", "385389007" => "Lymphoma stage finding (finding)", "385376001" => "International Federation of Gynecology and Obstetrics stage finding for endometrial carcinoma (finding)", "385374003" => "International Federation of Gynecology and Obstetrics uterine tumor stage finding (finding)", "385372004" => "International Federation of Gynecology and Obstetrics stage finding for vulvar melanoma (finding)", "385370007" => "International Federation of Gynecology and Obstetrics stage finding for vulvar carcinoma (finding)", "385368003" => "International Federation of Gynecology and Obstetrics stage finding for cervical carcinoma (finding)", "385366004" => "International Federation of Gynecology and Obstetrics stage finding for epithelial tumor of ovary (finding)", "385364001" => "International Federation of Gynecology and Obstetrics ovarian tumor stage finding (finding)", "385362002" => "International Federation of Gynecology and Obstetrics stage finding for gynecological malignancy (finding)", "385360005" => "Modified Dukes stage finding (finding)", "385358008" => "Dukes stage finding (finding)", "112241002" => "Lymphoma stage III 1 (finding)", "89487002" => "Lymphoma stage Ie (finding)", "84633001" => "Lymphoma stage IIIse (finding)", "78607009" => "Epithelial ovarian tumor, International Federation of Gynecology and Obstetrics stage II (finding)", "78199001" => "Epithelial ovarian tumor, International Federation of Gynecology and Obstetrics stage IIC (finding)", "76422004" => "Lymphoma stage II (finding)", "75339006" => "Lymphoma stage III 2 (finding)", "74053007" => "Lymphoma stage IIIs (finding)", "73055006" => "International Federation of Gynecology and Obstetrics vulvar melanoma stage V (finding)", "66445009" => "Lymphoma stage IV (finding)", "60333009" => "Clinical stage II (finding)", "57605004" => "Modified Dukes stage D (finding)", "57306005" => "Modified Dukes stage C2 (finding)", "56944001" => "Lymphoma stage III (finding)", "56769006" => "Modified Dukes stage A (finding)", "54498006" => "Modified Dukes stage C1 (finding)", "53173007" => "Modified Dukes stage B2 (finding)", "50283003" => "Clinical stage III (finding)", "44255004" => "Lymphoma stage IIIe (finding)", "31747005" => "Modified Dukes stage B1 (finding)", "30440004" => "Lymphoma stage I (finding)", "13104003" => "Clinical stage I (finding)", "5701003" => "Lymphoma stage IIe (finding)", "2640006" => "Clinical stage IV (finding)"],
+    ];
+
+    public const ConditionBodySite = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_conditionbodysite'
+    ];
+
+    public const ConditionProblemDiagnosisCodes = [
+        'Diagnosis pasien saat kunjungan' => Codesystems::ICD10,
+        'Kondisi saat meninggalkan rumah sakit' => Valuesets::KondisiMeninggalkanRumahSakit,
+        'Keluhan utama, kondisi pasien, temuan pemeriksaan klinis' => [Codesystems::SNOMEDCT, '< 404684003 |Clinical finding (finding)|'],
+        'Riwayat penyakit pribadi' => Valuesets::RiwayatPenyakitPribadi,
+        'Riwayat penyakit keluarga' => Valuesets::RiwayatPenyakitKeluarga,
+    ];
+
+    public const RiwayatPenyakitPribadi = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_riwayatpenyakitpribadi'
+    ];
+
+    public const RiwayatPenyakitKeluarga = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_riwayatpenyakitkeluarga'
+    ];
+
+    public const KondisiMeninggalkanRumahSakit = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['359746009', '162668006', '268910001'],
+        'display' => ['359746009' => "Patient's condition stable", '162668006' => "Patient's condition unstable", '268910001' => "Patient's condition improved"],
+    ];
+
+    public const ConditionDiagnosisSeverity = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['24484000', '6736007', '255604002', '442452003'],
+        'display' => ['24484000' => 'Severe', '6736007' => 'Moderate', '255604002' => 'Mild', '442452003' => 'Life threatening severity'],
+    ];
+
+    public const LocationServiceClass = [
+        'system' => ['1' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '2' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '3' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vvip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'reguler' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient', 'eksekutif' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient'],
+        'code' => ['1', '2', '3', 'vip', 'vvip', 'reguler', 'eksekutif'],
+        'display' => ['1' => 'Kelas 1', '2' => 'Kelas 2', '3' => 'Kelas 3', 'vip' => 'Kelas VIP', 'vvip' => 'Kelas VVIP', 'reguler' => 'Kelas Reguler', 'eksekutif' => 'Kelas Eksekutif'],
+        'definition' => ["1" => "Perawatan Kelas 1", "2" => "Perawatan Kelas 2", "3" => "Perawatan Kelas 3", "vip" => "Perawatan Kelas VIP", "vvip" => "Perawatan Kelas VVIP", "reguler" => "Perawatan Kelas Reguler", "eksekutif" => "Perawatan Kelas Eksekutif"]
+    ];
+
+    public const EncounterReasonCode = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_encounterreasoncode'
+    ];
+
+    public const EncounterParticipantType = [
+        'system' => ['ADM' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'ATND' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'CALLBCK' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'CON' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'DIS' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'ESC' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'REF' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'SPRF' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'PPRF' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'PART' => 'http://terminology.hl7.org/CodeSystem/v3-ParticipationType', 'translator' => 'http://terminology.hl7.org/CodeSystem/participant-type', 'emergency' => 'http://terminology.hl7.org/CodeSystem/participant-type'],
+        'code' => ['ADM', 'ATND', 'CALLBCK', 'CON', 'DIS', 'ESC', 'REF', 'SPRF', 'PPRF', 'PART', 'translator', 'emergency'],
+        'display' => ['ADM' => 'admitter', 'ATND' => 'attender', 'CALLBCK' => 'callback contact', 'CON' => 'consultant', 'DIS' => 'discharger', 'ESC' => 'escort', 'REF' => 'referrer', 'SPRF' => 'secondaryperformer', 'PPRF' => 'primary performer', 'PART' => 'Participation', 'translator' => 'Translator', 'emergency' => 'Emergency'],
+        'definition' => ["ADM" => "Tenaga kesehatan yang berperan memasukkan pasien ke dalam suatu kunjungan", "ATND" => "Tenaga kesehatan yang bertanggung jawab untuk mengawasi perawatan pasien selama kunjungan", "CALLBCK" => "Seseorang atau organisasi yang dapat dikontak untuk pertanyaan tidak lanjut", "CON" => "Penasihat berpartisipasi dalam layanan dengan melakukan evaluasi dan membuat rekomendasi.", "DIS" => "Tenaga kesehatan yang berperan dalam discharge atau memulangkan seorang pasien.", "ESC" => "Hanya dengan jasa Transportasi. Orang yang mengantar pasien.", "REF" => "Seseorang yang merujuk subjek layanan kepada pelaku (dokter perujuk). Biasanya, dokter yang merujuk akan menerima laporan.", "SPRF" => "Seseorang yang membantu dalam suatu tindakan melalui kehadiran dan keterlibatannya yang substansial Ini termasuk: asisten, teknisi, rekanan, atau apa pun jabatannya.", "PPRF" => "Pelaku utama dari tindakan tersebut.", "PART" => "Menunjukkan bahwa seorang individu terlibat dalam suatu perbuatan, tetapi tidak memenuhi syarat yang jelas.", "translator" => "Seorang penerjemah yang memfasilitasi komunikasi dengan pasien selama pertemuan.", "emergency" => "Seseorang yang dapat dihubungi dalam keadaan darurat selama kunjungan terjadi"]
+    ];
+
+    public const EncounterPriority = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActPriority',
+        'code' => ['A', 'CR', 'CS', 'CSP', 'CSR', 'EL', 'EM', 'P', 'PRN', 'R', 'RR', 'S', 'T', 'UD', 'UR'],
+        'display' => ['A' => 'ASAP', 'CR' => 'callback results', 'CS' => 'callback for scheduling', 'CSP' => 'callback placer for scheduling', 'CSR' => 'contact recipient for scheduling', 'EL' => 'elective', 'EM' => 'emergency', 'P' => 'preop', 'PRN' => 'as needed', 'R' => 'routine', 'RR' => 'rush reporting', 'S' => 'stat', 'T' => 'timing critical', 'UD' => 'use as directed', 'UR' => 'urgent']
+    ];
+
+    public const EncounterClass = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+        'code' => ['AMB', 'EMER', 'FLD', 'HH', 'IMP', 'ACUTE', 'NONAC', 'OBSENC', 'PRENC', 'SS', 'VR'],
+        'display' => ['AMB' => 'ambulatory', 'EMER' => 'emergency', 'FLD' => 'field', 'HH' => 'home health', 'IMP' => 'inpatientencounter', 'ACUTE' => 'inpatient acute', 'NONAC' => 'inpatientnon-acute', 'OBSENC' => 'observationencounter', 'PRENC' => 'pre-admission', 'SS' => 'short stay', 'VR' => 'virtual'],
+        'definition' => ["AMB" => "Digunakan untuk kunjungan Rawat Jalan", "EMER" => "Digunakan untuk kunjungan instalasi gawat darurat", "FLD" => "Digunakan untuk kunjungan lapangan", "HH" => "Digunakan untuk kunjungan ke rumah", "IMP" => "Digunakan untuk kunjungan rawat inap", "ACUTE" => "Digunakan untuk kunjungan rawat inap akut", "NONAC" => "Digunakan untuk kunjungan rawat inap non-akut", "OBSENC" => "Digunakan untuk kunjungan observasi", "PRENC" => "Digunakan untuk kunjungan preadmisi", "SS" => "Digunakan untuk kunjungan pendek", "VR" => "Digunakan untuk kunjungan dimana pasien dan tenaga kesehatan tidak berada dalam satu tempat, seperti telefon, email, chat, televideo konferensi"],
+    ];
+
+    public const EncounterStatus = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v2-0203',
+        'code' => ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled'],
+        'display' => ['planned' => 'Sudah direncanakan', 'arrived' => 'Sudah datang', 'triaged' => 'Triase', 'in-progress' => 'Sedang berlangsung', 'onleave' => 'Sedang pergi', 'finished' => 'Sudah selesai', 'cancelled' => 'Dibatalkan'],
+    ];
+
     public const QuestionnaireAnswerCodes = [
         'lokasiKecelakaan' => Codesystems::AdministrativeArea,
         'poliTujuan' => Codesystems::ClinicalSpecialty,
@@ -21,12 +110,6 @@ class Valuesets
         'code' => ['replaced-by', 'replaces', 'refer', 'seealso'],
         'display' => ["replaced-by" => "Replaced-by", "replaces" => "Replaces", "refer" => "Refer", "seealso" => "See also"],
         'description' => ["replaced-by" => "The patient resource containing this link must no longer be used. The link points forward to another patient resource that must be used in lieu of the patient resource that contains this link.", "replaces" => "The patient resource containing this link is the current active patient record. The link points back to an inactive patient resource that has been merged into this resource, and should be consulted to retrieve additional referenced information.", "refer" => "The patient resource containing this link is in use and valid but not considered the main source of information about a patient. The link points forward to another patient resource that should be consulted to retrieve additional patient information.", "seealso" => "The patient resource containing this link is in use and valid, but points to another patient resource that is known to contain data about the same person. Data in this resource might overlap or contradict information found in the other patient resource. This link does not indicate any relative importance of the resources concerned, and both should be regarded as equally valid."],
-    ];
-    public const ConditionProblemDiagnosisCodes = [
-        'system' => 'http://snomed.info/sct',
-        'ecl' => ['<<404684003'],
-        'code' => ['160245001'],
-        'display' => ["160245001" => "No current problems or disability"],
     ];
 
     public const SNOMEDCTMedicationCodes = [

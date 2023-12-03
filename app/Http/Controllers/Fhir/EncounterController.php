@@ -22,10 +22,9 @@ class EncounterController extends Controller
         return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource('Encounter');
             $encounter = $resource->encounter()->create($body['encounter']);
-            $this->createChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'reason', 'diagnosis']);
-            $this->createNestedInstances($encounter, 'hospitalization', $body, ['diet', 'specialArrangement']);
+            $this->createChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location']);
             $this->createResourceContent(EncounterResource::class, $resource);
-            return response()->json($resource->encounter->first(), 201);
+            return response()->json($resource->encounter()->first(), 201);
         });
     }
 
@@ -46,10 +45,9 @@ class EncounterController extends Controller
             $encounter = $resource->encounter()->first();
             $encounter->update($body['encounter']);
             $encounterId = $encounter->id;
-            $this->updateChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'reason', 'diagnosis'], 'encounter_id', $encounterId);
-            $this->updateNestedInstances($encounter, 'hospitalization', $body, 'encounter_id', $encounterId, ['diet', 'specialArrangement'], 'enc_hosp_id');
+            $this->updateChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location'], 'encounter_id', $encounterId);
             $this->createResourceContent(EncounterResource::class, $resource);
-            return response()->json($resource->encounter->first(), 200);
+            return response()->json($resource->encounter()->first(), 200);
         });
     }
 }

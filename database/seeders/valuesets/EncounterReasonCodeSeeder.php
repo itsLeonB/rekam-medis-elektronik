@@ -5,12 +5,12 @@ namespace Database\Seeders\Valuesets;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ConditionCodeKeluhanUtamaSeeder extends CsvSeeder
+class EncounterReasonCodeSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/valuesets/condition_code_keluhanutama.csv';
-        $this->tablename = 'valueset_condition_code_keluhanutama';
+        $this->file = '/database/seeders/csvs/valuesets/encounter_reasoncode.csv';
+        $this->tablename = 'valueset_encounterreasoncode';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

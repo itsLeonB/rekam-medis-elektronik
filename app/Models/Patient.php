@@ -17,6 +17,8 @@ class Patient extends Model
 
     protected $casts = [
         'active' => 'boolean',
+        'prefix' => 'array',
+        'suffix' => 'array',
         'birth_date' => 'date',
         'deceased' => 'array',
         'multiple_birth' => 'array',

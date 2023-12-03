@@ -45,8 +45,8 @@ class PatientResource extends FhirResource
                 'name' => [[
                     'use' => 'official',
                     'text' => $patient->name,
-                    'prefix' => $patient->prefix == '' ? null : explode(' ', $patient->prefix),
-                    'suffix' => $patient->suffix == '' ? null : explode(' ', $patient->suffix),
+                    'prefix' => $patient->prefix,
+                    'suffix' => $patient->suffix,
                 ]],
                 'telecom' => $this->createTelecomArray($patient->telecom),
                 'gender' => $patient->gender,
@@ -134,24 +134,65 @@ class PatientResource extends FhirResource
     }
 
 
+    private function createRelationshipArray($relations): array
+    {
+        $relationship = [];
+
+        if (!empty($relations)) {
+            foreach ($relations as $r) {
+                $relationship[] = [
+                    'coding' => [
+                        [
+                            'system' => $r ? 'http://terminology.hl7.org/CodeSystem/v2-0131' : null,
+                            'code' => $r,
+                            'display' => $r ? relationshipDisplay($r) : null
+                        ],
+                    ],
+                ];
+            }
+        }
+
+        return $relationship;
+    }
+
+
     private function createContactArray(Collection $contactAttribute)
     {
         $contact = [];
 
         if (is_array($contactAttribute) || is_object($contactAttribute)) {
             foreach ($contactAttribute as $c) {
-                $contact[] = [
-                    'relationship' => [
-                        [
-                            'coding' => [
-                                [
-                                    'system' => 'http://terminology.hl7.org/CodeSystem/v2-0131',
-                                    'code' => $c->relationship,
-                                    'display' => relationshipDisplay($c->relationship)
-                                ],
-                            ],
-                        ],
+                $extAddress = [
+                    [
+                        'url' => $c->province ? 'province' : null,
+                        'valueCode' => $c->province == 0 ? null : $c->province,
                     ],
+                    [
+                        'url' => $c->city ? 'city' : null,
+                        'valueCode' => $c->city == 0 ? null : $c->city
+                    ],
+                    [
+                        'url' => $c->district ? 'district' : null,
+                        'valueCode' => $c->district == 0 ? null : $c->district
+                    ],
+                    [
+                        'url' => $c->village ? 'village' : null,
+                        'valueCode' => $c->village == 0 ? null : $c->village
+                    ],
+                    [
+                        'url' => $c->rt ? 'rt' : null,
+                        'valueCode' => $c->rt == 0 ? null : $c->rt
+                    ],
+                    [
+                        'url' => $c->rw ? 'rw' : null,
+                        'valueCode' => $c->rw == 0 ? null : $c->rw
+                    ],
+                ];
+
+                $extAddress = removeEmptyValues($extAddress);
+
+                $contact[] = [
+                    'relationship' => $this->createRelationshipArray($c->relationship),
                     'name' => [
                         'use' => 'official',
                         'text' => $c->name,
@@ -166,33 +207,8 @@ class PatientResource extends FhirResource
                         'country' => $c->country,
                         'extension' => [
                             [
-                                'extension' => [
-                                    [
-                                        'url' => 'province',
-                                        'valueCode' => $c->province == 0 ? null : $c->province,
-                                    ],
-                                    [
-                                        'url' => 'city',
-                                        'valueCode' => $c->city == 0 ? null : $c->city
-                                    ],
-                                    [
-                                        'url' => 'district',
-                                        'valueCode' => $c->district == 0 ? null : $c->district
-                                    ],
-                                    [
-                                        'url' => 'village',
-                                        'valueCode' => $c->village == 0 ? null : $c->village
-                                    ],
-                                    [
-                                        'url' => 'rt',
-                                        'valueCode' => $c->rt == 0 ? null : $c->rt
-                                    ],
-                                    [
-                                        'url' => 'rw',
-                                        'valueCode' => $c->rw == 0 ? null : $c->rw
-                                    ],
-                                ],
-                                'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode'
+                                'extension' => $extAddress,
+                                'url' => $extAddress ? 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode' : null
                             ]
                         ]
                     ],
@@ -202,20 +218,5 @@ class PatientResource extends FhirResource
         }
 
         return $contact;
-    }
-
-    private function createGeneralPractitionerArray(Collection $generalPractitionerAttribute)
-    {
-        $generalPractitioner = [];
-
-        if (is_array($generalPractitionerAttribute) || is_object($generalPractitionerAttribute)) {
-            foreach ($generalPractitionerAttribute as $g) {
-                $generalPractitioner[] = [
-                    'reference' => $g->reference,
-                ];
-            }
-        }
-
-        return $generalPractitioner;
     }
 }

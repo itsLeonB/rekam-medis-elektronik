@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('encounter_reason', function (Blueprint $table) {
+        Schema::create('encounter_location', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('encounter_id');
             $table->index('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
-            $table->unsignedBigInteger('code')->nullable();
-            $table->string('reference')->nullable();
+            $table->string('location');
+            $table->enum('service_class', ['1', '2', '3', 'vip', 'vvip', 'reguler', 'eksekutif'])->nullable();
+            $table->enum('upgrade_class', ['kelas-tetap', 'naik-kelas', 'turun-kelas', 'titip-rawat'])->nullable();
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('encounter_reason');
+        Schema::dropIfExists('encounter_location');
     }
 };

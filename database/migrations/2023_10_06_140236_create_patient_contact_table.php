@@ -21,10 +21,10 @@ return new class extends Migration
             $table->string('prefix')->nullable();
             $table->string('suffix')->nullable();
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
-            $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing']);
-            $table->json('address_line');
-            $table->string('country');
-            $table->string('postal_code');
+            $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing'])->nullable();
+            $table->json('address_line')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
             $table->integer('province')->unsigned()->nullable();
             $table->integer('city')->unsigned()->nullable();
             $table->bigInteger('district')->unsigned()->nullable();

@@ -18,13 +18,13 @@ return new class extends Migration
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->boolean('active');
             $table->string('name');
-            $table->string('prefix')->nullable();
-            $table->string('suffix')->nullable();
+            $table->json('prefix')->nullable();
+            $table->json('suffix')->nullable();
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->date('birth_date')->nullable();
             $table->json('deceased')->nullable();
             $table->enum('marital_status', ['A', 'D', 'I', 'L', 'M', 'P', 'S', 'T', 'U', 'W'])->nullable();
-            $table->json('multiple_birth');
+            $table->json('multiple_birth')->nullable();
             $table->json('communication')->nullable();
             $table->json('general_practitioner')->nullable();
             $table->string('managing_organization')->nullable();

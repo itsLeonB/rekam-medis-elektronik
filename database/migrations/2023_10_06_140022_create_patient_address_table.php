@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('use', ['home', 'work', 'temp', 'old', 'billing']);
             $table->json('line');
             $table->string('country');
-            $table->string('postal_code');
+            $table->string('postal_code')->nullable();
             $table->integer('province')->unsigned()->nullable();
             $table->integer('city')->unsigned()->nullable();
             $table->bigInteger('district')->unsigned()->nullable();

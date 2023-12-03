@@ -43,8 +43,10 @@ class PatientRequest extends FhirRequest
         return [
             $prefix . 'active' => 'required|boolean',
             $prefix . 'name' => 'required|string',
-            $prefix . 'prefix' => 'nullable|string',
-            $prefix . 'suffix' => 'nullable|string',
+            $prefix . 'prefix' => 'nullable|array',
+            $prefix . 'prefix.*' => 'required|string',
+            $prefix . 'suffix' => 'nullable|array',
+            $prefix . 'suffix.*' => 'required|string',
             $prefix . 'gender' => ['required', Rule::in(Constants::GENDER)],
             $prefix . 'birth_date' => 'nullable|date',
             $prefix . 'deceased' => 'nullable|array',

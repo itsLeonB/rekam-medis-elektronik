@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('encounter_id');
             $table->index('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
-            $table->string('type');
+            $table->json('type')->nullable();
             $table->string('individual');
         });
     }

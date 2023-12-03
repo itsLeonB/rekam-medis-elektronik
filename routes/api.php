@@ -118,16 +118,7 @@ Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, '
 Route::put('/questionnaireresponse/{res_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
 
 // Testing endpoint
-Route::get('/test-get/organization/{satusehat_id}', [TestController::class, 'testOrganizationResource']);
-Route::get('/test-get/location/{satusehat_id}', [TestController::class, 'testLocationResource']);
-Route::get('/test-get/imagingstudy/{satusehat_id}', [TestController::class, 'testImagingStudyResource']);
-Route::get('/test-get/specimen/{satusehat_id}', [TestController::class, 'testSpecimenResource']);
-Route::get('/test-get/servicerequest/{satusehat_id}', [TestController::class, 'testServiceRequestResource']);
-Route::get('/test-get/clinicalimpression/{satusehat_id}', [TestController::class, 'testClinicalImpressionResource']);
-Route::get('/test-get/composition/{satusehat_id}', [TestController::class, 'testCompositionResource']);
-Route::get('/test-get/medicationdispense/{satusehat_id}', [TestController::class, 'testMedicationDispenseResource']);
-Route::get('/test-get/medicationrequest/{satusehat_id}', [TestController::class, 'testMedicationRequestResource']);
-Route::get('/test-get/medication/{satusehat_id}', [TestController::class, 'testMedicationResource']);
-Route::get('/test-get/procedure/{satusehat_id}', [TestController::class, 'testProcedureResource']);
-Route::get('/test-get/allergyintolerance/{satusehat_id}', [TestController::class, 'testAllergyIntoleranceResource']);
-Route::get('/test-get/observation/{satusehat_id}', [TestController::class, 'testObservationResource']);
+Route::get('/test/get/organization', [TestController::class, 'testOrganization']);
+Route::get('/test/get/location', [TestController::class, 'testLocation']);
+Route::get('/test/get/patient', [TestController::class, 'testPatient']);
+Route::get('/test/get/encounter', [TestController::class, 'testEncounter']);

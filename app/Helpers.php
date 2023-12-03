@@ -1238,14 +1238,13 @@ function returnCodeableConcept($attribute, $prefix = null)
     }
 }
 
-function returnVariableAttribute($resource, $var, $variableAttributes)
+function returnVariableAttribute($resource, $variableAttributes)
 {
     $variableAttribute = [];
 
     foreach ($variableAttributes as $va) {
-        $vaKey = $var . $va;
-        if (isset($resource[$vaKey]) && !empty($resource[$vaKey])) {
-            $variableAttribute[$vaKey] = $resource[$vaKey];
+        if (!empty($resource[$va])) {
+            $variableAttribute[$va] = $resource[$va];
         }
     }
 

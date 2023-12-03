@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valueset_condition_stagetype', function (Blueprint $table) {
+        Schema::create('valueset_conditionstagetype', function (Blueprint $table) {
             $table->string('code', 16)->primary();
-            $table->string('display', 182);
-            $table->string('definition', 201);
+            $table->string('display', 201);
         });
     }
 

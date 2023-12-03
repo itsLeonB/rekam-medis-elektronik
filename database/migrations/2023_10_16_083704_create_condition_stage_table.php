@@ -16,12 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('condition_id');
             $table->index('condition_id');
             $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
-            $table->string('summary_system')->nullable();
-            $table->string('summary_code')->nullable();
-            $table->string('summary_display')->nullable();
-            $table->string('type_system')->nullable();
-            $table->string('type_code')->nullable();
-            $table->string('type_display')->nullable();
+            $table->string('summary')->nullable();
+            $table->json('assessment')->nullable();
+            $table->string('type')->nullable();
         });
     }
 
