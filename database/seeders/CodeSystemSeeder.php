@@ -10,6 +10,7 @@ use Database\Seeders\Codesystems\{
     ISO3166Seeder,
     LoincSeeder,
     ServiceTypeSeeder,
+    UCUMSeeder,
 };
 use Illuminate\Database\Seeder;
 
@@ -28,6 +29,7 @@ class CodeSystemSeeder extends Seeder
             ISO3166Seeder::class,
             LoincSeeder::class,
             ServiceTypeSeeder::class,
+            UCUMSeeder::class,
         ]);
     }
 }

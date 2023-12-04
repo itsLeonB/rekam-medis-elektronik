@@ -2,37 +2,53 @@
 
 namespace App\Fhir;
 
-use GuzzleHttp\Client;
-
 class Codesystems
 {
-    public function searchSnomed(string $ecl, string $term, Client $client)
-    {
-        $client = new Client();
+    public const ObservationReferenceRangeMeaningCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/referencerange-meaning',
+        'code' => ['type', 'normal', 'recommended', 'treatment', 'therapeutic', 'pre', 'post', 'endocrine', 'pre-puberty', 'follicular', 'midcycle', 'luteal', 'postmenopausal'],
+        'display' => ["type" => "Type", "normal" => "Normal Range", "recommended" => "Recommended Range", "treatment" => "Treatment Range", "therapeutic" => "Therapeutic Desired Level", "pre" => "Pre Therapeutic Desired Level", "post" => "Post Therapeutic Desired Level", "endocrine" => "Endocrine", "pre-puberty" => "Pre-Puberty", "follicular" => "Follicular Stage", "midcycle" => "MidCycle", "luteal" => "Luteal", "postmenopausal" => "Post-Menopause"],
+        'definition' => ["type" => "General types of reference range.", "normal" => "Values expected for a normal member of the relevant control population being measured. Typically each results producer such as a laboratory has specific normal ranges and they are usually defined as within two standard deviations from the mean and account for 95.45% of this population.", "recommended" => "The range that is recommended by a relevant professional body.", "treatment" => "The range at which treatment would/should be considered.", "therapeutic" => "The optimal range for best therapeutic outcomes.", "pre" => "The optimal range for best therapeutic outcomes for a specimen taken immediately before administration.", "post" => "The optimal range for best therapeutic outcomes for a specimen taken immediately after administration.", "endocrine" => "Endocrine related states that change the expected value.", "pre-puberty" => "An expected range in an individual prior to puberty.", "follicular" => "An expected range in an individual during the follicular stage of the cycle.", "midcycle" => "An expected range in an individual during the midcycle stage of the cycle.", "luteal" => "An expected range in an individual during the luteal stage of the cycle.", "postmenopausal" => "An expected range in an individual post-menopause."]
+    ];
 
-        $headers = [
-            'Accept' => 'application/json',
-            'Accept-Language' => 'en-X-900000000000509007,en-X-900000000000508004,en',
-        ];
+    public const DataAbsentReason = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/data-absent-reason',
+        'code' => ['unknown', 'asked-unknown', 'temp-unknown', 'not-asked', 'asked-declined', 'masked', 'not-applicable', 'unsupported', 'as-text', 'error', 'not-a-number', 'negative-infinity', 'positive-infinity', 'not-performed', 'not-permitted'],
+        'display' => ['unknown' => 'Unknown', 'asked-unknown' => 'Asked But Unknown', 'temp-unknown' => 'Temporarily Unknown', 'not-asked' => 'Not Asked', 'asked-declined' => 'Asked But Declined', 'masked' => 'Masked', 'not-applicable' => 'Not Applicable', 'unsupported' => 'Unsupported', 'as-text' => 'As Text', 'error' => 'Error', 'not-a-number' => 'Not a Number (NaN)', 'negative-infinity' => 'Negative Infinity (NINF)', 'positive-infinity' => 'Positive Infinity (PINF)', 'not-performed' => 'Not Performed', 'not-permitted' => 'Not Permitted'],
+        'definition' => ['unknown' => 'Nilainya diharapkan ada tetapi tidak diketahui.', 'asked-unknown' => 'Sudah ditanyakan tapi tidak diketahui nilainya.', 'temp-unknown' => 'Ada alasan untuk mengharapkan (dari alur kerja) bahwa nilainya dapat diketahui.', 'not-asked' => 'Hasil observasi tidak ditanyakan', 'asked-declined' => 'Sumber data ditanya tetapi menolak untuk menjawab.', 'masked' => 'Informasi tidak tersedia karena alasan keamanan, privasi, atau alasan lain terkait.', 'not-applicable' => 'Tidak ada nilai yang tepat untuk elemen ini (misalnya periode menstruasi terakhir untuk pria).', 'unsupported' => 'Sistem tidak mampu mendukung pencatatan elemen ini.', 'as-text' => 'Hasil observasi direpresentasikan dalam naratif', 'error' => 'Ketidaktersediaan data akibat kesalahan dalam sistem ataupun alur kerja', 'not-a-number' => 'Nilai numerik tidak ditentukan atau tidak dapat direpresentasikan karena kesalahan pemrosesan floating point.', 'negative-infinity' => 'Nilai numerik terlalu rendah dan tidak dapat direpresentasikan karena kesalahan pemrosesan floating point.', 'positive-infinity' => 'Nilai numerik terlalu tinggi dan tidak dapat direpresentasikan karena kesalahan pemrosesan floating point.', 'not-performed' => 'Hasil observasi tidak tersedia karena prosedur observasi tidak dilakukan', 'not-permitted' => 'Hasil observasi tidak diizinkan dalam konteks ini (contoh : akibat profile FHIR atau tipe data)']
+    ];
 
-        $query = [
-            'term' => $term,
-            'ecl' => $ecl,
-            'includeLeafFlag' => 'false',
-            'form' => 'inferred',
-            'offset' => 0,
-            'limit' => 50,
-        ];
+    public const UCUM = [
+        'system' => 'http://unitsofmeasure.org',
+        'table' => 'codesystem_ucum',
+    ];
 
-        $response = $client->request('GET', Codesystems::SNOMEDCT['url'], [
-            'headers' => $headers,
-            'query' => $query,
-        ]);
+    public const LOINC = [
+        'system' => 'http://loinc.org',
+        'table' => 'codesystem_loinc',
+    ];
 
-        $body = json_decode($response->getBody()->getContents(), true);
+    public const ObservationCategoryCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/observation-category',
+        'code' => ['social-history', 'vital-signs', 'imaging', 'laboratory', 'procedure', 'survey', 'exam', 'therapy', 'activity'],
+        'display' => ['social-history' => 'Social History', 'vital-signs' => 'Vital Signs', 'imaging' => 'Imaging', 'laboratory' => 'Laboratory', 'procedure' => 'Procedure', 'survey' => 'Survey', 'exam' => 'Exam', 'therapy' => 'Therapy', 'activity' => 'Activity'],
+        'definition' => ['social-history' => 'Digunakan ketika melaporkan pekerjaan pasien, riwayat sosial pasien, keluarga, kondisi lingkungan, dan faktor risiko kesehatan yang berdampak pada kesehatan pasien.', 'vital-signs' => 'Digunakan ketika melaporkan berkaitan dengan hasil pengukuran fungsi dasar tubuh seperti tekanan darah, denyut nadi, laju pernapasan, tinggi badan, berat badan, body mass index (BMI), lingkar kepala, saturasi oksigen, suhu tubuh, dan luas permukaan tubuh', 'imaging' => 'Digunakan ketika melaporkan berkaitan dengan pencitraan tubuh yang meliputi X-ray, ultrasound, CT Scan, MRI, angiografi, EKG, dan kedokteran nuklir.', 'laboratory' => 'Digunakan ketika melaporkan berkaitan dengan hasil analisis spesimen yang dikeluarkan oleh laboratorium yaitu kimia klinik, hematologi, serologi, histologi, sitologi, patologi anatomi (termasuk patologi digital), mikrobiologi, dan atau virologi.', 'procedure' => 'Digunakan ketika melaporkan hasil observasi yang dihasilkan dari prosedur lain. Kategori ini termasuk observasi dari tindakan intervensi dan non-intervensi di luar laboratorium dan imaging (contoh kateterisasi jantung, endoskopi, elektrodiagnostik). Contoh : dokter penyakit dalam melaporkan ukuran polip yang didapatkan melalui pemeriksaan kolonoskopi.', 'survey' => 'Digunakan ketika melaporkan berkaitan dengan alat asesmen maupun survei alat observasi seperti Skor APGAR, Montreal Cognitive Assessment (MoCA), dll).', 'exam' => 'Berkaitan dengan observasi fisik yang dilakukan langsung oleh tenaga kesehatan dan menggunakan alat sederhana.', 'therapy' => 'Berkaitan dengan protokol terapi non-intervensi seperti terapi okupasi, terapi fisik, terapi radiasi, terapi nutrisi, dan terapi medis.', 'activity' => 'Berkaitan dengan pengukuran aktivitas tubuh guna meningkatkan/memelihara kondisi fisik dan seluruh kesehatan dan tidak berkaitan dengan supervisi praktisi. Observasi tidak dibawah pengawasan langsung praktisi seperti ahli terapi fisik (contoh: jumlah putaran berenang, langkah kaki, data terkait tidur).'],
+    ];
 
-        return $body;
-    }
+    public const ObservationStatus = [
+        'system' => 'http://hl7.org/fhir/observation-status',
+        'code' => ['registered', 'preliminary', 'final', 'amended', 'corrected', 'cancelled', 'entered-in-error', 'unknown'],
+        'display' => [
+            'registered' => 'Data observasi sudah di registrasi, namun belum ada hasil observasi yang tersedia',
+            'preliminary' => 'Hasil observasi awal atau sementara; data mungkin tidak lengkap atau belum diverifikasi',
+            'final' => 'Hasil observasi sudah selesai dan tidak memerlukan tindakan lebih lanjut.',
+            'amended' => 'Setelah status "final", hasil observasi diubah untuk memperbarui, menambahkan informasi, dan koreksi hasil pemeriksaan',
+            'corrected' => 'Setelah status "final", hasil observasi dimodifikasi untuk membenarkan error/kesalahan dari hasil pemeriksaan',
+            'cancelled' => 'Hasil observasi tidak tersedia karena pemeriksaan dibatalkan',
+            'entered-in-error' => 'Hasil observasi ditarik setelah dirilis "final" sebelumnya. Status ini seharusnya tidak boleh ada. Dalam kasus nyata, bila hasil observasi ditarik, status sebaiknya diisi dengan “cancelled” dibandingkan “entered-in error”',
+            'unknown' => 'Sistem tidak mengetahui status dari data observasi'
+        ],
+    ];
 
     public const SNOMEDCT = [
         'system' => 'http://snomed.info/sct',

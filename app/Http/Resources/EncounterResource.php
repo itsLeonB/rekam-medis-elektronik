@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
 use App\Models\CodeSystemEncounterReason;
+use App\Models\Encounter;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -350,9 +351,12 @@ class EncounterResource extends FhirResource
         if (is_array($reasonCodeAttribute) || is_object($reasonCodeAttribute)) {
             foreach ($reasonCodeAttribute as $r) {
                 $reasonCode[] = [
-                    'system' => $r ? CodeSystemEncounterReason::SYSTEM : null,
+                    'system' => $r ? Encounter::REASON_CODE['binding']['valueset']['system'] : null,
                     'code' => $r,
-                    'display' => $r ? CodeSystemEncounterReason::where('code', $r->code)->first()->display : null
+                    'display' => $r ? DB::table(Encounter::REASON_CODE['binding']['valueset']['table'])
+                        ->select('display')
+                        ->where('code', '=', $r)
+                        ->first() ?? null : null
                 ];
             }
         }

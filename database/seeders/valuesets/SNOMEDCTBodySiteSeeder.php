@@ -5,12 +5,12 @@ namespace Database\Seeders\Valuesets;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ConditionBodySiteSeeder extends CsvSeeder
+class SNOMEDCTBodySiteSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/valuesets/condition_bodysite.csv';
-        $this->tablename = 'valueset_conditionbodysite';
+        $this->file = '/database/seeders/csvs/valuesets/snomedctbodysite.csv';
+        $this->tablename = 'valueset_snomedctbodysite';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

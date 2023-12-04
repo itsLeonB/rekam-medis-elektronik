@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('observation_part_of', function (Blueprint $table) {
+        Schema::create('codesystem_ucum', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('observation_id');
-            $table->index('observation_id');
-            $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
-            $table->string('reference');
+            $table->string('code', 20)->index();
+            $table->string('unit', 72);
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('observation_part_of');
+        Schema::dropIfExists('codesystem_ucum');
     }
 };

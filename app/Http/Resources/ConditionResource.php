@@ -3,8 +3,11 @@
 namespace App\Http\Resources;
 
 use App\Models\Condition;
+use App\Models\ConditionEvidence;
+use App\Models\ConditionStage;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ConditionResource extends FhirResource
 {
@@ -34,41 +37,41 @@ class ConditionResource extends FhirResource
                 'clinicalStatus' => [
                     'coding' => [
                         [
-                            'system' => $condition->clinical_status ? Condition::CLINICAL_STATUS_SYSTEM : null,
+                            'system' => $condition->clinical_status ? Condition::CLINICAL_STATUS['binding']['valueset']['system'] : null,
                             'code' => $condition->clinical_status,
-                            'display' => $condition->clinical_status ? Condition::CLINICAL_STATUS_DISPLAY[$condition->clinical_status] ?? null : null
+                            'display' => $condition->clinical_status ? Condition::CLINICAL_STATUS['binding']['valueset']['display'][$condition->clinical_status] ?? null : null
                         ],
                     ],
                 ],
                 'verificationStatus' => [
                     'coding' => [
                         [
-                            'system' => $condition->verification_status ? Condition::VERIFICATION_STATUS_SYSTEM : null,
+                            'system' => $condition->verification_status ? Condition::VERIFICATION_STATUS['binding']['valueset']['system'] : null,
                             'code' => $condition->verification_status,
-                            'display' => $condition->verification_status ? Condition::VERIFICATION_STATUS_DISPLAY[$condition->verification_status] ?? null : null
+                            'display' => $condition->verification_status ? Condition::VERIFICATION_STATUS['binding']['valueset']['display'][$condition->verification_status] ?? null : null
                         ],
                     ],
                 ],
-                'category' => $this->createCodeableConceptArray($condition->category),
+                'category' => $this->createCategoryArray($condition->category),
                 'severity' => [
                     'coding' => [
                         [
-                            'system' => $condition->severity ? Condition::SEVERITY_SYSTEM : null,
+                            'system' => $condition->severity ? Condition::SEVERITY['binding']['valueset']['system'] : null,
                             'code' => $condition->severity,
-                            'display' => $condition->severity ? Condition::SEVERITY_DISPLAY[$condition->severity] ?? null : null
+                            'display' => $condition->severity ? Condition::SEVERITY['binding']['valueset']['display'][$condition->severity] ?? null : null
                         ]
                     ]
                 ],
                 'code' => [
                     'coding' => [
                         [
-                            'system' => 'http://hl7.org/fhir/sid/icd-10',
-                            'code' => $condition->code,
-                            'display' => icd10Display($condition->code)
+                            'system' => $condition->code_system,
+                            'code' => $condition->code_code,
+                            'display' => $condition->code_display
                         ]
                     ]
                 ],
-                'bodySite' => $this->createCodeableConceptArray($condition->body_site),
+                'bodySite' => $this->createBodySiteArray($condition->body_site),
                 'subject' => [
                     'reference' => $condition->subject
                 ],
@@ -91,6 +94,54 @@ class ConditionResource extends FhirResource
         );
     }
 
+
+    private function createBodySiteArray($bodySites): array
+    {
+        $bodySite = [];
+
+        if (!empty($bodySites)) {
+            foreach ($bodySites as $bs) {
+                $bodySite[] = [
+                    'coding' => [
+                        [
+                            'system' => $bs ? Condition::BODY_SITE['binding']['valueset']['system'] : null,
+                            'code' => $bs,
+                            'display' => $bs ? DB::table(Condition::BODY_SITE['binding']['valueset']['table'])
+                                ->select('display')
+                                ->where('code', '=', $bs)
+                                ->first() ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $bodySite;
+    }
+
+
+    private function createCategoryArray($categories): array
+    {
+        $category = [];
+
+        if (!empty($categories)) {
+            foreach ($categories as $c) {
+                $category[] = [
+                    'coding' => [
+                        [
+                            'system' => $c ? Condition::CATEGORY['binding']['valueset']['system'] : null,
+                            'code' => $c,
+                            'display' => $c ? Condition::CATEGORY['binding']['valueset']['display'][$c] ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $category;
+    }
+
+
     private function createStageArray(Collection $stageAttribute): array
     {
         $stageArray = [];
@@ -101,9 +152,9 @@ class ConditionResource extends FhirResource
                     'summary' => [
                         'coding' => [
                             [
-                                'system' => $s->summary_system,
-                                'code' => $s->summary_code,
-                                'display' => $s->summary_display
+                                'system' => $s->summary ? ConditionStage::SUMMARY['binding']['valueset']['system'] : null,
+                                'code' => $s->summary,
+                                'display' => $s->summary ? ConditionStage::SUMMARY['binding']['valueset']['display'][$s->summary] ?? null : null
                             ]
                         ]
                     ],
@@ -111,9 +162,12 @@ class ConditionResource extends FhirResource
                     'type' => [
                         'coding' => [
                             [
-                                'system' => $s->type_system,
-                                'code' => $s->type_code,
-                                'display' => $s->type_display
+                                'system' => $s->type ? ConditionStage::TYPE['binding']['valueset']['system'] : null,
+                                'code' => $s->type,
+                                'display' => $s->type ? DB::table(ConditionStage::TYPE['binding']['valueset']['table'])
+                                    ->select('display')
+                                    ->where('code', '=', $s->type)
+                                    ->first() ?? null : null
                             ]
                         ]
                     ]
@@ -131,26 +185,34 @@ class ConditionResource extends FhirResource
         if (is_array($evidenceAttribute) || is_object($evidenceAttribute)) {
             foreach ($evidenceAttribute as $e) {
                 $evidenceArray[] = [
-                    'code' => [
+                    'code' => $this->createCodeArray($e->code),
+                    'detail' => $this->createReferenceArray($e->detail)
+                ];
+            }
+        }
+
+        return $evidenceArray;
+    }
+
+
+    private function createCodeArray($codes): array
+    {
+        $code = [];
+
+        if (!empty($codes)) {
+            foreach ($codes as $c) {
+                $code[] = [
+                    'coding' => [
                         [
-                            'coding' => [
-                                [
-                                    'system' => $e->system,
-                                    'code' => $e->code,
-                                    'display' => $e->display,
-                                ]
-                            ]
-                        ]
-                    ],
-                    'detail' => [
-                        [
-                            'reference' => $e->detail_reference
+                            'system' => $c ? ConditionEvidence::CODE['binding']['valueset']['system'] : null,
+                            'code' => $c,
+                            'display' => $c ? $this->querySnomedCode($c) ?? null : null
                         ]
                     ]
                 ];
             }
         }
 
-        return $evidenceArray;
+        return $code;
     }
 }

@@ -920,6 +920,6 @@ http://terminology.hl7.org/CodeSystem/v3-Race,2126-1,Afghanistani,Afghanistani
 http://terminology.hl7.org/CodeSystem/v3-Race,2127-9,Israeili,Israeili
 http://terminology.hl7.org/CodeSystem/v3-Race,2129-5,Arab,Arab
 http://terminology.hl7.org/CodeSystem/v3-Race,2131-1,Other Race,"Note that this term remains in the table for completeness, even though within HL7, the notion of Other code is deprecated."
-http://snomed.info/sct,248153007,Male,Male (finding)
-http://snomed.info/sct,248152002,Female,Female (finding)
-http://snomed.info/sct,77386006,Pregnancy,Pregnancy (finding)
+http://snomed.info/sct,248153007,Male (finding),
+http://snomed.info/sct,248152002,Female (finding),
+http://snomed.info/sct,77386006,Pregnancy (finding),

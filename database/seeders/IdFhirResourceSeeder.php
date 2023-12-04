@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Constants;
 use App\Models\Condition;
+use App\Models\Observation;
+use App\Models\ObservationComponent;
 use App\Models\Resource;
 use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -58,11 +60,107 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Condition':
                     $this->seedCondition($res, $resText);
                     break;
+                case 'Observation':
+                    $this->seedObservation($res, $resText);
+                    break;
                 case 'QuestionnaireResponse':
                     $this->seedQuestionnaireResponse($res, $resText);
                     break;
                 default:
                     break;
+            }
+        }
+    }
+
+
+    private function seedObservation($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $observationData = [
+            'based_on' => $this->returnMultiReference(returnAttribute($resourceContent, ['basedOn'])),
+            'part_of' => $this->returnMultiReference(returnAttribute($resourceContent, ['partOf'])),
+            'status' => returnAttribute($resourceContent, ['status']),
+            'category' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['category'])),
+            'code' => returnAttribute($resourceContent, ['code', 'coding', 0, 'code']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'focus' => $this->returnMultiReference(returnAttribute($resourceContent, ['focus'])),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'effective' => returnVariableAttribute($resourceContent, Observation::EFFECTIVE['variableTypes']),
+            'issued' => returnAttribute($resourceContent, ['issued']),
+            'performer' => $this->returnMultiReference(returnAttribute($resourceContent, ['performer'])),
+            'value' => returnVariableAttribute($resourceContent, Observation::VALUE['variableTypes']),
+            'data_absent_reason' => returnAttribute($resourceContent, ['dataAbsentReason', 'coding', 0, 'code']),
+            'interpretation' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['interpretation'])),
+            'body_site' => returnAttribute($resourceContent, ['bodySite', 'coding', 0, 'code']),
+            'method' => returnAttribute($resourceContent, ['method', 'coding', 0, 'code']),
+            'specimen' => returnAttribute($resourceContent, ['specimen', 'reference']),
+            'device' => returnAttribute($resourceContent, ['device', 'reference']),
+            'has_member' => $this->returnMultiReference(returnAttribute($resourceContent, ['hasMember'])),
+            'derived_from' => $this->returnMultiReference(returnAttribute($resourceContent, ['derivedFrom'])),
+        ];
+
+        $observation = $resource->observation()->createQuietly($observationData);
+        $observation->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $observation->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+
+        $refRanges = returnAttribute($resourceContent, ['referenceRange']);
+        if (!empty($refRanges)) {
+            foreach ($refRanges as $rr) {
+                $refRangeData = [
+                    'low_value' => returnAttribute($rr, ['low', 'value']),
+                    'low_unit' => returnAttribute($rr, ['low', 'unit']),
+                    'low_system' => returnAttribute($rr, ['low', 'system']),
+                    'low_code' => returnAttribute($rr, ['low', 'code']),
+                    'high_value' => returnAttribute($rr, ['high', 'value']),
+                    'high_unit' => returnAttribute($rr, ['high', 'unit']),
+                    'high_system' => returnAttribute($rr, ['high', 'system']),
+                    'high_code' => returnAttribute($rr, ['high', 'code']),
+                    'type' => returnAttribute($rr, ['type', 'coding', 0, 'code']),
+                    'applies_to' => $this->returnMultiCodeableConcept(returnAttribute($rr, ['appliesTo'])),
+                    'age_low' => returnAttribute($rr, ['age', 'low', 'value']),
+                    'age_high' => returnAttribute($rr, ['age', 'high', 'value']),
+                    'text' => returnAttribute($rr, ['text']),
+                ];
+
+                $observation->referenceRange()->createQuietly($refRangeData);
+            }
+        }
+
+        $components = returnAttribute($resourceContent, ['component']);
+        if (!empty($components)) {
+            foreach ($components as $c) {
+                $componentData = [
+                    'code' => returnAttribute($c, ['code', 'coding', 0, 'code']),
+                    'value' => returnVariableAttribute($c, ObservationComponent::VALUE['variableTypes']),
+                    'data_absent_reason' => returnAttribute($c, ['dataAbsentReason', 'coding', 0, 'code']),
+                    'interpretation' => $this->returnMultiCodeableConcept(returnAttribute($c, ['interpretation'])),
+                ];
+
+                $component = $observation->component()->createQuietly($componentData);
+
+                $refRanges = returnAttribute($c, ['referenceRange']);
+                if (!empty($refRanges)) {
+                    foreach ($refRanges as $rr) {
+                        $refRangeData = [
+                            'low_value' => returnAttribute($rr, ['low', 'value']),
+                            'low_unit' => returnAttribute($rr, ['low', 'unit']),
+                            'low_system' => returnAttribute($rr, ['low', 'system']),
+                            'low_code' => returnAttribute($rr, ['low', 'code']),
+                            'high_value' => returnAttribute($rr, ['high', 'value']),
+                            'high_unit' => returnAttribute($rr, ['high', 'unit']),
+                            'high_system' => returnAttribute($rr, ['high', 'system']),
+                            'high_code' => returnAttribute($rr, ['high', 'code']),
+                            'type' => returnAttribute($rr, ['type', 'coding', 0, 'code']),
+                            'applies_to' => $this->returnMultiCodeableConcept(returnAttribute($rr, ['appliesTo'])),
+                            'age_low' => returnAttribute($rr, ['age', 'low', 'value']),
+                            'age_high' => returnAttribute($rr, ['age', 'high', 'value']),
+                            'text' => returnAttribute($rr, ['text']),
+                        ];
+
+                        $component->referenceRange()->createQuietly($refRangeData);
+                    }
+                }
             }
         }
     }
@@ -283,11 +381,7 @@ class IdFhirResourceSeeder extends Seeder
             'birth_country' => $birthPlace['country']
         ];
 
-        // try {
         $patient = $resource->patient()->createQuietly($patientData);
-        // } catch (Exception $e) {
-        //     dd($patientData);
-        // }
         $patient->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
         $patient->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
         $patient->address()->createManyQuietly($this->returnAddress(returnAttribute($resourceContent, ['address'])));

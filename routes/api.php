@@ -122,3 +122,5 @@ Route::get('/test/get/organization', [TestController::class, 'testOrganization']
 Route::get('/test/get/location', [TestController::class, 'testLocation']);
 Route::get('/test/get/patient', [TestController::class, 'testPatient']);
 Route::get('/test/get/encounter', [TestController::class, 'testEncounter']);
+Route::get('/test/get/condition', [TestController::class, 'testCondition']);
+Route::get('/test/get/observation', [TestController::class, 'testObservation']);

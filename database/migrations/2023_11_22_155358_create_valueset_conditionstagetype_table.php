@@ -22,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valueset_condition_stagetype');
+        Schema::dropIfExists('valueset_conditionstagetype');
     }
 };

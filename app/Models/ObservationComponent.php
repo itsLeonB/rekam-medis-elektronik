@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ObservationComponent extends Model
 {
     protected $table = 'observation_component';
-    protected $casts = ['value' => 'array'];
+    protected $casts = [
+        'value' => 'array',
+        'interpretation' => 'array'
+    ];
     public $timestamps = false;
 
     public function observation(): BelongsTo
@@ -19,13 +22,42 @@ class ObservationComponent extends Model
         return $this->belongsTo(Observation::class);
     }
 
-    public function interpretation(): HasMany
-    {
-        return $this->hasMany(ObservationComponentInterpretation::class, 'obs_comp_id');
-    }
-
     public function referenceRange(): HasMany
     {
         return $this->hasMany(ObservationComponentReferenceRange::class, 'obs_comp_id');
     }
+
+    public const CODE = [
+        'binding' => [
+            'valueset' => Codesystems::LOINC
+        ]
+    ];
+
+    public const VALUE = [
+        'variableTypes' => ['valueQuantity', 'valueCodeableConcept', 'valueString', 'valueBoolean', 'valueInteger', 'valueRange', 'valueRatio', 'valueSampledData', 'valueTime', 'valueDateTime', 'valuePeriod']
+    ];
+
+    public const VALUE_QUANTITY = [
+        'binding' => [
+            'valueset' => Codesystems::UCUM
+        ]
+    ];
+
+    public const VALUE_CODEABLE_CONCEPT = [
+        'binding' => [
+            'valueset' => [Codesystems::SNOMEDCT, Codesystems::LOINC]
+        ]
+    ];
+
+    public const DATA_ABSENT_REASON = [
+        'binding' => [
+            'valueset' => Codesystems::DataAbsentReason
+        ]
+    ];
+
+    public const INTERPRETATION = [
+        'binding' => [
+            'valueset' => Valuesets::ObservationInterpretationCodes
+        ]
+    ];
 }

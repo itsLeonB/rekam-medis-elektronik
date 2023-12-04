@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -76,4 +78,10 @@ class Encounter extends Model
     {
         return $this->hasMany(EncounterLocation::class);
     }
+
+    public const REASON_CODE = [
+        'binding' => [
+            'valueset' => Valuesets::EncounterReasonCode
+        ]
+    ];
 }

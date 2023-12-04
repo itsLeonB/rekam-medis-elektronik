@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
             $table->json('author')->nullable();
             $table->dateTime('time')->nullable();
-            $table->string('text');
+            $table->text('text');
         });
     }
 

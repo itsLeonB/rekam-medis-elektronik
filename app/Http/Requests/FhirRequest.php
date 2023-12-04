@@ -270,6 +270,7 @@ class FhirRequest extends FormRequest
     public function getAbatementAttributeDataRules(string $prefix = null): array
     {
         return [
+            $prefix . 'abatement' => 'nullable|array',
             $prefix . 'abatement.abatementDateTime' => 'nullable|date',
             $prefix . 'abatement.abatementAge' => 'nullable|array',
             $prefix . 'abatement.abatementAge.value' => 'nullable|numeric',

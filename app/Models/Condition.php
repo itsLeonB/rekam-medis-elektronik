@@ -59,7 +59,7 @@ class Condition extends Model
 
     public const BODY_SITE = [
         'binding' => [
-            'valueset' => Valuesets::ConditionBodySite
+            'valueset' => Valuesets::SNOMEDCTBodySite
         ]
     ];
 

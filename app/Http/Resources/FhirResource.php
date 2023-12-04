@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Fhir\Codesystems;
 use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
@@ -10,6 +11,32 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class FhirResource extends JsonResource
 {
+    public function searchSnomed(string $ecl, string $term, Client $client)
+    {
+        $headers = [
+            'Accept' => 'application/json',
+            'Accept-Language' => 'en-X-900000000000509007,en-X-900000000000508004,en',
+        ];
+
+        $query = [
+            'term' => $term,
+            'ecl' => $ecl,
+            'includeLeafFlag' => 'false',
+            'form' => 'inferred',
+            'offset' => 0,
+            'limit' => 50,
+        ];
+
+        $response = $client->request('GET', Codesystems::SNOMEDCT['url'], [
+            'headers' => $headers,
+            'query' => $query,
+        ]);
+
+        $body = json_decode($response->getBody()->getContents(), true);
+
+        return $body;
+    }
+
     public function querySnomedCode($code): array
     {
         $client = new Client();
@@ -24,11 +51,7 @@ class FhirResource extends JsonResource
         $body = $response->getBody();
         $data = json_decode($body, true);
 
-        return [
-            'system' => 'http://snomed.info/sct',
-            'code' => $code,
-            'display' => $data['fsn']['term'],
-        ];
+        return $data['fsn']['term'];
     }
 
 
@@ -172,7 +195,7 @@ class FhirResource extends JsonResource
         if (is_array($referenceAttribute) || is_object($referenceAttribute)) {
             foreach ($referenceAttribute as $ref) {
                 $reference[] = [
-                    'reference' => $ref->reference,
+                    'reference' => $ref,
                 ];
             }
         }

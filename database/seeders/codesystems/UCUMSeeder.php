@@ -1,16 +1,16 @@
 <?php
 
-namespace Database\Seeders\Valuesets;
+namespace Database\Seeders\Codesystems;
 
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ObservationValueQuantitySeeder extends CsvSeeder
+class UCUMSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/valuesets/observation_valuequantity.csv';
-        $this->tablename = 'valueset_observation_valuequantity';
+        $this->file = '/database/seeders/csvs/codesystems/ucum.csv';
+        $this->tablename = 'codesystem_ucum';
         $this->timestamps = false;
         $this->delimiter = ',';
     }
