@@ -174,7 +174,7 @@ class ObservationResource extends FhirResource
                 'type' => [
                     'coding' => [
                         [
-                            'system' => $r->type ? ObservationReferenceRange::TYPE['binding']['valuset']['system'] : null,
+                            'system' => $r->type ? ObservationReferenceRange::TYPE['binding']['valueset']['system'] : null,
                             'code' => $r->type,
                             'display' => $r->type ? ObservationReferenceRange::TYPE['binding']['valueset']['display'][$r->type] ?? null : null,
                         ]

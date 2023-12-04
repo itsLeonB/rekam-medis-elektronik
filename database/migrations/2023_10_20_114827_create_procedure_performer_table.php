@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('procedure_id');
             $table->index('procedure_id');
             $table->foreign('procedure_id')->references('id')->on('procedure')->onDelete('cascade');
-            $table->unsignedBigInteger('function')->nullable();
+            $table->string('function')->nullable();
             $table->string('actor');
             $table->string('on_behalf_of')->nullable();
         });

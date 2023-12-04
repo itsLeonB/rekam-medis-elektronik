@@ -5,11 +5,6 @@ namespace App\Http\Requests;
 use App\Constants;
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
-use App\Models\Encounter;
-use App\Models\EncounterDiagnosis;
-use App\Models\EncounterHospitalization;
-use App\Models\EncounterHospitalizationDiet;
-use App\Models\EncounterHospitalizationSpecialArrangement;
 use Illuminate\Validation\Rule;
 
 class EncounterRequest extends FhirRequest
@@ -64,7 +59,7 @@ class EncounterRequest extends FhirRequest
                 $prefix . 'period_start' => 'required|date',
                 $prefix . 'period_end' => 'nullable|date',
                 $prefix . 'reason_code' => 'nullable|array',
-                $prefix . 'reason_code.*' => 'required|exists:codesystem_encounterreasoncode,code',
+                $prefix . 'reason_code.*' => 'required|integer|gte:0',
                 $prefix . 'reason_reference' => 'nullable|array',
                 $prefix . 'reason_reference.*' => 'required|string',
                 $prefix . 'account' => 'nullable|array',

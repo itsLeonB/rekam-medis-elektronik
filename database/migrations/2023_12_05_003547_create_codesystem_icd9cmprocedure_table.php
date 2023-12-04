@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('valueset_procedure_focaldevice', function (Blueprint $table) {
-            $table->char('code', 15)->primary();
-            $table->string('display', 86);
+        Schema::create('codesystem_icd9cmprocedure', function (Blueprint $table) {
+            $table->string('code', 5)->primary();
+            $table->string('display', 24);
+            $table->string('definition', 163);
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('valueset_procedure_focaldevice');
+        Schema::dropIfExists('codesystem_icd9cmprocedure');
     }
 };

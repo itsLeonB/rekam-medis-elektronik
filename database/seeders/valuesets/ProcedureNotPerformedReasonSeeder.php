@@ -5,12 +5,12 @@ namespace Database\Seeders\Valuesets;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ProcedureReasonCodeSeeder extends CsvSeeder
+class ProcedureNotPerformedReasonSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/valuesets/procedure_reasoncode.csv';
-        $this->tablename = 'valueset_procedure_reasoncode';
+        $this->file = '/database/seeders/csvs/valuesets/procedurenotperformedreason.csv';
+        $this->tablename = 'valueset_procedurenotperformedreason';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

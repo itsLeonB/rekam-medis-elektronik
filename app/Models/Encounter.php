@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -81,7 +80,7 @@ class Encounter extends Model
 
     public const REASON_CODE = [
         'binding' => [
-            'valueset' => Valuesets::EncounterReasonCode
+            'valueset' => Valuesets::EncounterReasonCodes
         ]
     ];
 }

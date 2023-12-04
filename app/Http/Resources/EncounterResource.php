@@ -150,7 +150,7 @@ class EncounterResource extends FhirResource
                     ],
                     'extension' => [
                         [
-                            'url' => $l->servicec_class ? "https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass" : null,
+                            'url' => $l->service_class ? "https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass" : null,
                             'valueCodeableConcept' => [
                                 'coding' => [
                                     [
@@ -327,7 +327,7 @@ class EncounterResource extends FhirResource
         $type = [];
 
         if (!empty($types)) {
-            foreach ($type as $t) {
+            foreach ($types as $t) {
                 $type[] = [
                     'coding' => [
                         [
@@ -368,7 +368,7 @@ class EncounterResource extends FhirResource
     {
         $diagnosis = [];
 
-        if (isset($diagnosisAttribute)) {
+        if (!empty($diagnosisAttribute)) {
             foreach ($diagnosisAttribute as $d) {
                 $diagnosis[] = [
                     'condition' => [

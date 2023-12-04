@@ -16,10 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('procedure_id');
             $table->index('procedure_id');
             $table->foreign('procedure_id')->references('id')->on('procedure')->onDelete('cascade');
-            $table->string('system')->nullable();
-            $table->string('code')->nullable();
-            $table->string('display')->nullable();
-            $table->string('reference');
+            $table->string('action')->nullable();
+            $table->string('manipulated');
         });
     }
 

@@ -4,6 +4,17 @@ namespace App\Fhir;
 
 class Codesystems
 {
+    public const ICD9CMProcedure = [
+        'system' => 'http://hl7.org/fhir/sid/icd-9-cm',
+        'table' => 'codesystem_icd9cmprocedure',
+    ];
+
+    public const EventStatus = [
+        'system' => 'http://hl7.org/fhir/eventstatus',
+        'code' => ['preparation', 'in-progress', 'not-done', 'on-hold', 'stopped', 'completed', 'entered-in-error', 'unknown'],
+        'display' => ['preparation' => 'Persiapan', 'in-progress' => 'Berlangsung', 'not-done' => 'Tidak dilakukan', 'on-hold' => 'Tertahan', 'stopped' => 'Berhenti', 'completed' => 'Selesai', 'entered-in-error' => 'Salah masuk', 'unknown' => 'Tidak diketahui'],
+    ];
+
     public const ObservationReferenceRangeMeaningCodes = [
         'system' => 'http://terminology.hl7.org/CodeSystem/referencerange-meaning',
         'code' => ['type', 'normal', 'recommended', 'treatment', 'therapeutic', 'pre', 'post', 'endocrine', 'pre-puberty', 'follicular', 'midcycle', 'luteal', 'postmenopausal'],

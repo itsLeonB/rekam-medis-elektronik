@@ -4,6 +4,44 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const FHIRDeviceTypes = [
+        'system' => 'http://snomed.info/sct',
+        'ecl' => '< 49062001'
+    ];
+
+    public const ProcedureDeviceActionCodes = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_proceduredeviceactioncodes'
+    ];
+
+    public const ProcedureFollowUpCodes = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['18949003', '30549001', '241031001', '35963001', '225164002', '447346005', '229506003', '274441001', '394725008', '359825008'],
+        'display' => ["18949003" => "Change of dressing", "30549001" => "Removal of suture", "241031001" => "Removal of drain", "35963001" => "Removal of staples", "225164002" => "Removal of ligature", "447346005" => "Cardiopulmonary exercise test", "229506003" => "Scar tissue massage", "274441001" => "Suction drainage", "394725008" => "Diabetes medication review", "359825008" => "Cytopathology, review of bronchioalveolar lavage specimen"]
+    ];
+
+    public const ProcedureOutcomeCodes = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['385669000', '385671000', '385670004'],
+        'display' => ['385669000' => 'Successful', '385671000' => 'Unsuccessful', '385670004' => 'Partially successful']
+    ];
+
+    public const ProcedurePerformerRoleCodes = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_procedureperformerrolecodes'
+    ];
+
+    public const ProcedureCategoryCodes = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['24642003', '409063005', '409073007', '387713003', '103693007', '46947000', '410606002', '277132007'],
+        'display' => ['24642003' => 'Psychiatry procedure or service', '409063005' => 'Counselling', '409073007' => 'Education', '387713003' => 'Surgical procedure', '103693007' => 'Diagnostic procedure', '46947000' => 'Chiropractic manipulation', '410606002' => 'Social service procedure', '277132007' => 'Therapeutic procedure'],
+    ];
+
+    public const ProcedureNotPerformedReason = [
+        'system' => 'http://snomed.info/sct',
+        'table' => 'valueset_procedurenotperformedreason'
+    ];
+
     public const ObservationReferenceRangeAppliesToCodes = [
         'table' => 'valueset_observation_refrangeappliesto'
     ];
@@ -45,6 +83,18 @@ class Valuesets
         'table' => 'valueset_snomedctbodysite'
     ];
 
+    public const ProcedureCodes = [
+        'Tindakan atau prosedur medis untuk keperluan klaim' => Codesystems::ICD9CMProcedure,
+        'Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir' => [Codesystems::SNOMEDCT, '< 71388002 |Procedure (procedure)|'],
+        'Lainnya' => Valuesets::KemkesClinicalTerm
+    ];
+
+    public const KemkesClinicalTerm = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/clinical-term',
+        'code' => ['ED000008', 'ED000009', 'ED000010', 'ED000011', 'ED000012', 'PC000001', 'PC000002', 'PC000003'],
+        'display' => ['ED000008' => 'Edukasi Tanda Bahaya Kehamilan, Bersalin dan Nifas', 'ED000009' => 'Edukasi IMD dan ASI Eksklusif', 'ED000010' => 'Edukasi PHBS', 'ED000011' => 'Edukasi KB pasca salin', 'ED000012' => 'Edukasi lainnya', 'PC000001' => 'Perawatan tali pusat', 'PC000002' => 'Pemberian salep antibiotik mata', 'PC000003' => 'Manajemen Terpadu Bayi Muda (MTBM)'],
+    ];
+
     public const ConditionProblemDiagnosisCodes = [
         'Diagnosis pasien saat kunjungan' => Codesystems::ICD10,
         'Kondisi saat meninggalkan rumah sakit' => Valuesets::KondisiMeninggalkanRumahSakit,
@@ -82,9 +132,9 @@ class Valuesets
         'definition' => ["1" => "Perawatan Kelas 1", "2" => "Perawatan Kelas 2", "3" => "Perawatan Kelas 3", "vip" => "Perawatan Kelas VIP", "vvip" => "Perawatan Kelas VVIP", "reguler" => "Perawatan Kelas Reguler", "eksekutif" => "Perawatan Kelas Eksekutif"]
     ];
 
-    public const EncounterReasonCode = [
+    public const EncounterReasonCodes = [
         'system' => 'http://snomed.info/sct',
-        'table' => 'valueset_encounterreasoncode'
+        'ecl' => ['< 404684003', '< 71388002', '< 243796009', '< 272379006']
     ];
 
     public const EncounterParticipantType = [

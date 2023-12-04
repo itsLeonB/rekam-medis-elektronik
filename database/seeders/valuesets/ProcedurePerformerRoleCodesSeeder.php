@@ -5,12 +5,12 @@ namespace Database\Seeders\Valuesets;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ProcedurePerformerTypeSeeder extends CsvSeeder
+class ProcedurePerformerRoleCodesSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/valuesets/procedure_performertype.csv';
-        $this->tablename = 'valueset_procedure_performertype';
+        $this->file = '/database/seeders/csvs/valuesets/procedureperformerrolecodes.csv';
+        $this->tablename = 'valueset_procedureperformerrolecodes';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

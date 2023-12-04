@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,4 +15,10 @@ class ProcedureFocalDevice extends Model
     {
         return $this->belongsTo(Procedure::class);
     }
+
+    public const ACTION = [
+        'binding' => [
+            'valueset' => Valuesets::ProcedureDeviceActionCodes
+        ]
+    ];
 }
