@@ -25,7 +25,7 @@ class MedicationResource extends FhirResource
 
     private function resourceStructure($medication): array
     {
-        return $data = [
+        return [
             'resourceType' => 'Medication',
             'id' => $this->satusehat_id,
             'extension' => [
@@ -34,9 +34,9 @@ class MedicationResource extends FhirResource
                     'valueCodeableConcept' => [
                         'coding' => [
                             [
-                                'system' => Medication::TYPE_SYSTEM,
-                                'code' => $medication->type,
-                                'display' => Medication::TYPE_DISPLAY[$medication->type] ?? null,
+                                'system' => $medication->medication_type ? Medication::MEDICATION_TYPE['binding']['valueset']['system'] : null,
+                                'code' => $medication->medication_type,
+                                'display' => $medication->medication_type ? Medication::MEDICATION_TYPE['binding']['valueset']['display'][$medication->medication_type] ?? null : null
                             ]
                         ]
                     ]
@@ -59,9 +59,9 @@ class MedicationResource extends FhirResource
             'form' => [
                 'coding' => [
                     [
-                        'system' => Medication::FORM_SYSTEM,
+                        'system' => $medication->form ? Medication::FORM['binding']['valueset']['system'] : null,
                         'code' => $medication->form,
-                        'display' => Medication::FORM_DISPLAY[$medication->form] ?? null,
+                        'display' => $medication->form ? Medication::FORM['binding']['valueset']['display'][$medication->form] ?? null : null
                     ]
                 ]
             ],
@@ -95,7 +95,6 @@ class MedicationResource extends FhirResource
 
         if (is_array($ingredientAttribute) || is_object($ingredientAttribute)) {
             foreach ($ingredientAttribute as $i) {
-                // dd($i);
                 $ingredient[] = [
                     'itemCodeableConcept' => [
                         'coding' => [

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,4 +21,22 @@ class MedicationIngredient extends Model
     {
         return $this->belongsTo(Medication::class);
     }
+
+    public const ITEM = [
+        'binding' => [
+            'valueset' => Codesystems::KFA
+        ]
+    ];
+
+    public const STRENGTH_NUMERATOR = [
+        'binding' => [
+            'valueset' => Codesystems::UCUM
+        ]
+    ];
+
+    public const STRENGTH_DENOMINATOR = [
+        'binding' => [
+            'valueset' => [Codesystems::UCUM, Valuesets::MedicationIngredientStrengthDenominator]
+        ]
+    ];
 }

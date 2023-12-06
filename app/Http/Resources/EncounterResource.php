@@ -207,7 +207,7 @@ class EncounterResource extends FhirResource
 
         if (!empty($diets)) {
             foreach ($diets as $d) {
-                $diets[] = [
+                $diet[] = [
                     'coding' => [
                         [
                             'system' => $d ? Codesystems::Diet['system'] : null,
@@ -261,7 +261,7 @@ class EncounterResource extends FhirResource
     }
 
 
-    private function createStatusHistoryArray(Collection $statusHistoryAttribute): array
+    private function createStatusHistoryArray($statusHistoryAttribute): array
     {
         $statusHistory = [];
 
@@ -280,7 +280,7 @@ class EncounterResource extends FhirResource
         return $statusHistory;
     }
 
-    private function createClassHistoryArray(Collection $classHistoryAttribute): array
+    private function createClassHistoryArray($classHistoryAttribute): array
     {
         $classHistory = [];
 
@@ -303,7 +303,7 @@ class EncounterResource extends FhirResource
         return $classHistory;
     }
 
-    private function createParticipantArray(Collection $participantAttribute): array
+    private function createParticipantArray($participantAttribute): array
     {
         $participant = [];
 
@@ -389,60 +389,5 @@ class EncounterResource extends FhirResource
         }
 
         return $diagnosis;
-    }
-
-    private function createHospitalizationArray($hospitalizationAttribute): array
-    {
-        $hospitalization = [];
-
-        if (is_array($hospitalizationAttribute) || is_object($hospitalizationAttribute)) {
-            foreach ($hospitalizationAttribute as $h) {
-                $hospitalization[] = [
-                    'preAdmissionIdentifier' => [
-                        'system' => $h->preadmission_identifier_system,
-                        'use' => $h->preadmission_identifier_use,
-                        'value' => $h->preadmission_identifier_value
-                    ],
-                    'origin' => [
-                        'reference' => $h->origin
-                    ],
-                    'admitSource' => [
-                        'coding' => [
-                            [
-                                'system' => $h->admit_source ? Codesystems::AdmitSource['system'] : null,
-                                'code' => $h->admit_source,
-                                'display' => $h->admit_source ? Codesystems::AdmitSource['display'][$h->admit_source] ?? null : null
-                            ],
-                        ],
-                    ],
-                    'reAdmission' => [
-                        'coding' => [
-                            [
-                                'system' => $h->re_admission ? Codesystems::v20092['system'] : null,
-                                'code' => $h->re_admission,
-                                'display' => $h->re_admission ? Codesystems::v20092['display'] : null
-                            ],
-                        ],
-                    ],
-                    'dietPreference' => $this->createCodeableConceptArray($h->diet),
-                    'specialArrangement' => $this->createCodeableConceptArray($h->specialArrangement),
-                    'destination' => [
-                        'reference' => $h->destination
-                    ],
-                    'dischargeDisposition' => [
-                        'coding' => [
-                            [
-                                'system' => $h->discharge_disposition ? Codesystems::DischargeDisposition['system'] : null,
-                                'code' => $h->discharge_disposition,
-                                'display' => $h->discharge_disposition ? Codesystems::DischargeDisposition['display'][$h->discharge_disposition] ?? null : null
-                            ],
-                        ],
-                    ],
-
-                ];
-            }
-        }
-
-        return $hospitalization;
     }
 }

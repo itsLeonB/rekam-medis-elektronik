@@ -6,13 +6,40 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
 use App\Http\Resources\LocationResource;
+use App\Http\Resources\MedicationRequestResource;
+use App\Http\Resources\MedicationResource;
 use App\Http\Resources\ObservationResource;
 use App\Http\Resources\OrganizationResource;
 use App\Http\Resources\PatientResource;
+use App\Http\Resources\ProcedureResource;
 use App\Models\Resource;
 
 class TestController extends Controller
 {
+    public function testMedicationRequest()
+    {
+        return response()
+            ->json(new MedicationRequestResource(Resource::where('res_type', '=', 'MedicationRequest')
+                ->firstOrFail()), 200);
+    }
+
+
+    public function testMedication()
+    {
+        return response()
+            ->json(new MedicationResource(Resource::where('res_type', '=', 'Medication')
+                ->firstOrFail()), 200);
+    }
+
+
+    public function testProcedure()
+    {
+        return response()
+            ->json(new ProcedureResource(Resource::where('res_type', '=', 'Procedure')
+                ->firstOrFail()), 200);
+    }
+
+
     public function testObservation()
     {
         return response()

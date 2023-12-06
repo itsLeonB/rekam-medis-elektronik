@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -20,32 +22,17 @@ class Composition extends Model
         });
     }
 
-    public const STATUS_SYSTEM = 'http://hl7.org/fhir/composition-status';
-    public const STATUS_CODE = ['preliminary', 'final', 'amended', 'entered-in-error'];
-    public const STATUS_DISPLAY = ["preliminary" => "Dokumen initial atau interim. Konten masih belum lengkap atau belum terverifikasi", "final" => "Versi dokumen sudah komplit dan diverifikasi", "amended" => "Konten dimodifikasi setelah status “final”", "entered-in-error" => "Konten error, bisa dianggap tidak valid"];
-
-    public const CONFIDENTIALITY_SYSTEM = 'http://terminology.hl7.org/CodeSystem/v3-Confidentiality';
-    public const CONFIDENTIALITY_CODE = ['U', 'L', 'M', 'N', 'R', 'V'];
-    public const CONFIDENTIALITY_DISPLAY = ["U" => "unrestricted", "L" => "low", "M" => "moderate", "N" => "normal", "R" => "restricted", "V" => "very restricted"];
-    public const CONFIDENTIALITY_DEFINITION = ["U" => "Informasi tidak diklasifikasikan sebagai sensitif.", "L" => "Informasi telah dide-identifikasi dan sudah ada langkah mitigasi untuk mencegah reidentifikasi. Informasi memerlukan proteksi dengan tingkat sensitivitas rendah.", "M" => "Informasi dengan tingkat sensitivitas menengah.", "N" => "Informasi tipikal, informasi kesehatan yang tidak menimbulkan stigma.", "R" => "Informasi dengan tingkat sensitivitas tinggi, berpotensi menimbulkan stigma.", "V" => "Informasi dengan tingkat sensitivitas sangat tinggi dan menimbulkan stigma."];
-
     protected $table = 'composition';
-    protected $casts = ['date' => 'datetime'];
+    protected $casts = [
+        'category' => 'array',
+        'date' => 'datetime',
+        'author' => 'array',
+    ];
     public $timestamps = false;
 
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class);
-    }
-
-    public function category(): HasMany
-    {
-        return $this->hasMany(CompositionCategory::class);
-    }
-
-    public function author(): HasMany
-    {
-        return $this->hasMany(CompositionAuthor::class);
     }
 
     public function attester(): HasMany
@@ -67,4 +54,28 @@ class Composition extends Model
     {
         return $this->hasMany(CompositionSection::class);
     }
+
+    public const STATUS = [
+        'binding' => [
+            'valueset' => Codesystems::CompositionStatus
+        ]
+    ];
+
+    public const TYPE = [
+        'binding' => [
+            'valueset' => Valuesets::FHIRDocumentTypeCodes
+        ]
+    ];
+
+    public const CATEGORY = [
+        'binding' => [
+            'valueset' => Valuesets::DocumentClassValueSet
+        ]
+    ];
+
+    public const CONFIDENTIALITY = [
+        'binding' => [
+            'valueset' => Valuesets::v3ConfidentialityClassification
+        ]
+    ];
 }

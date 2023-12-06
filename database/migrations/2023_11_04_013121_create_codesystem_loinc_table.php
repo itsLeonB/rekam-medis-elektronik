@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('codesystem_loinc', function (Blueprint $table) {
             $table->string('code', 8)->primary();
-            $table->string('display');
-            $table->text('definition')->nullable();
+            $table->string('display', 246);
+            $table->string('scale_typ', 7);
         });
     }
 

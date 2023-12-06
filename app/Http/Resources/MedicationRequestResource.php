@@ -2,10 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Medication;
 use App\Models\MedicationRequest;
-use App\Models\ValueSetProcedurePerformerType;
+use App\Models\Resource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MedicationRequestResource extends FhirResource
 {
@@ -16,7 +16,7 @@ class MedicationRequestResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $medicationRequest = $this->getData('medicationrequest');
+        $medicationRequest = $this->getData('medicationRequest');
 
         $data = $this->resourceStructure($medicationRequest);
 
@@ -27,7 +27,7 @@ class MedicationRequestResource extends FhirResource
 
     private function resourceStructure($medicationRequest): array
     {
-        return $data = [
+        return [
             'resourceType' => 'MedicationRequest',
             'id' => $this->satusehat_id,
             'identifier' => $this->createIdentifierArray($medicationRequest->identifier),
@@ -35,14 +35,14 @@ class MedicationRequestResource extends FhirResource
             'statusReason' => [
                 'coding' => [
                     [
-                        'system' => $medicationRequest->status_reason ? MedicationRequest::STATUS_REASON_SYSTEM : null,
+                        'system' => $medicationRequest->status_reason ? MedicationRequest::STATUS_REASON['binding']['valueset']['system'] ?? null : null,
                         'code' => $medicationRequest->status_reason,
-                        'display' => MedicationRequest::STATUS_REASON_DISPLAY[$medicationRequest->status_reason] ?? null,
+                        'display' => $medicationRequest->status_reason ? MedicationRequest::STATUS_REASON['binding']['valueset']['display'][$medicationRequest->status_reason] ?? null : null,
                     ]
                 ]
             ],
             'intent' => $medicationRequest->intent,
-            'category' => $this->createCodeableConceptArray($medicationRequest->category),
+            'category' => $this->createCategoryArray($medicationRequest->category),
             'priority' => $medicationRequest->priority,
             'doNotPerform' => $medicationRequest->do_not_perform,
             'reportedBoolean' => $medicationRequest->reported,
@@ -55,6 +55,7 @@ class MedicationRequestResource extends FhirResource
             'encounter' => [
                 'reference' => $medicationRequest->encounter
             ],
+            'supportingInformation' => $this->createReferenceArray($medicationRequest->supporting_information),
             'authoredOn' => $this->parseDateFhir($medicationRequest->authored_on),
             'requester' => [
                 'reference' => $medicationRequest->requester
@@ -65,24 +66,27 @@ class MedicationRequestResource extends FhirResource
             'performerType' => [
                 'coding' => [
                     [
-                        'system' => $medicationRequest->performer_type ? ValueSetProcedurePerformerType::SYSTEM : null,
+                        'system' => $medicationRequest->performer_type ? MedicationRequest::PERFORMER_TYPE['binding']['valueset']['system'] : null,
                         'code' => $medicationRequest->performer_type,
-                        'display' => ValueSetProcedurePerformerType::where('code', $medicationRequest->performer_type)->first()->display ?? null,
+                        'display' => $medicationRequest->performer_type ? DB::table(MedicationRequest::PERFORMER_TYPE['binding']['valueset']['table'])
+                            ->select('display')
+                            ->where('code', $medicationRequest->performer_type)
+                            ->first()->display ?? null : null
                     ]
                 ]
             ],
             'recorder' => [
                 'reference' => $medicationRequest->recorder
             ],
-            'reasonCode' => $this->createCodeableConceptArray($medicationRequest->reason),
-            'reasonReference' => $this->createReferenceArray($medicationRequest->reason),
-            'basedOn' => $this->createReferenceArray($medicationRequest->basedOn),
+            'reasonCode' => $this->createReasonCodeArray($medicationRequest->reason_code),
+            'reasonReference' => $this->createReferenceArray($medicationRequest->reason_reference),
+            'basedOn' => $this->createReferenceArray($medicationRequest->based_on),
             'courseOfTherapyType' => [
                 'coding' => [
                     [
-                        'system' => MedicationRequest::COURSE_OF_THERAPY_SYSTEM,
+                        'system' => $medicationRequest->course_of_therapy ? MedicationRequest::COURSE_OF_THERAPY_TYPE['binding']['valueset']['system'] : null,
                         'code' => $medicationRequest->course_of_therapy,
-                        'display' => MedicationRequest::COURSE_OF_THERAPY_DISPLAY[$medicationRequest->course_of_therapy] ?? null
+                        'display' => $medicationRequest->course_of_therapy ? MedicationRequest::COURSE_OF_THERAPY_TYPE['binding']['valueset']['display'][$medicationRequest->course_of_therapy] ?? null : null
                     ]
                 ]
             ],
@@ -98,8 +102,8 @@ class MedicationRequestResource extends FhirResource
                     'code' => $medicationRequest->dispense_interval_code
                 ],
                 'validityPeriod' => [
-                    'start' => $medicationRequest->validity_period_start,
-                    'end' => $medicationRequest->validity_period_end
+                    'start' => $this->parseDateFhir($medicationRequest->validity_period_start),
+                    'end' => $this->parseDateFhir($medicationRequest->validity_period_end)
                 ],
                 'numberOfRepeatsAllowed' => $medicationRequest->repeats_allowed,
                 'quantity' => [
@@ -124,13 +128,60 @@ class MedicationRequestResource extends FhirResource
                 'reason' => [
                     'coding' => [
                         [
-                            'system' => $medicationRequest->substitution_reason ? MedicationRequest::SUBSTITUTION_REASON_SYSTEM : null,
+                            'system' => $medicationRequest->substitution_reason ? MedicationRequest::SUBSTITUTION_REASON['binding']['valueset']['system'] : null,
                             'code' => $medicationRequest->substitution_reason,
-                            'display' => MedicationRequest::SUBSTITUTION_REASON_DISPLAY[$medicationRequest->substitution_reason] ?? null
+                            'display' => $medicationRequest->substitution_reason ? MedicationRequest::SUBSTITUTION_REASON['binding']['valueset']['display'][$medicationRequest->substitution_reason] ?? null : null
                         ]
                     ]
                 ]
             ]
         ];
+    }
+
+
+    private function createReasonCodeArray($reasonCodes): array
+    {
+        $reasonCode = [];
+
+        if (!empty($reasonCodes)) {
+            foreach ($reasonCodes as $rc) {
+                $reasonCode[] = [
+                    'coding' => [
+                        [
+                            'system' => $rc ? MedicationRequest::REASON_CODE['binding']['valueset']['system'] : null,
+                            'code' => $rc,
+                            'display' => $rc ? DB::table(MedicationRequest::REASON_CODE['binding']['valueset']['table'])
+                                ->select('display_en')
+                                ->where('code', '=', $rc)
+                                ->first()->display_en ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $reasonCode;
+    }
+
+
+    private function createCategoryArray($categories): array
+    {
+        $category = [];
+
+        if (!empty($categories)) {
+            foreach ($categories as $c) {
+                $category[] = [
+                    'coding' => [
+                        [
+                            'system' => $c ? MedicationRequest::CATEGORY['binding']['valueset']['system'] : null,
+                            'code' => $c,
+                            'display' => $c ? MedicationRequest::CATEGORY['binding']['valueset']['display'][$c] : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $category;
     }
 }

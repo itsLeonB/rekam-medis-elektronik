@@ -4,8 +4,10 @@ namespace Database\Seeders;
 
 use App\Constants;
 use App\Models\Condition;
+use App\Models\MedicationRequest;
 use App\Models\Observation;
 use App\Models\ObservationComponent;
+use App\Models\Procedure;
 use App\Models\Resource;
 use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -42,32 +44,292 @@ class IdFhirResourceSeeder extends Seeder
             );
 
             switch ($resType) {
-                case 'Organization':
-                    $this->seedOrganization($res, $resText);
-                    break;
-                case 'Location':
-                    $this->seedLocation($res, $resText);
-                    break;
-                case 'Practitioner':
-                    $this->seedPractitioner($res, $resText);
-                    break;
-                case 'Patient':
-                    $this->seedPatient($res, $resText);
-                    break;
-                case 'Encounter':
-                    $this->seedEncounter($res, $resText);
-                    break;
-                case 'Condition':
-                    $this->seedCondition($res, $resText);
-                    break;
-                case 'Observation':
-                    $this->seedObservation($res, $resText);
+                // case 'Organization':
+                //     $this->seedOrganization($res, $resText);
+                //     break;
+                // case 'Location':
+                //     $this->seedLocation($res, $resText);
+                //     break;
+                // case 'Practitioner':
+                //     $this->seedPractitioner($res, $resText);
+                //     break;
+                // case 'Patient':
+                //     $this->seedPatient($res, $resText);
+                //     break;
+                // case 'Encounter':
+                //     $this->seedEncounter($res, $resText);
+                //     break;
+                // case 'Condition':
+                //     $this->seedCondition($res, $resText);
+                //     break;
+                // case 'Observation':
+                //     $this->seedObservation($res, $resText);
+                //     break;
+                // case 'Procedure':
+                //     $this->seedProcedure($res, $resText);
+                //     break;
+                // case 'Medication':
+                //     $this->seedMedication($res, $resText);
+                //     break;
+                case 'MedicationRequest':
+                    $this->seedMedicationRequest($res, $resText);
                     break;
                 case 'QuestionnaireResponse':
                     $this->seedQuestionnaireResponse($res, $resText);
                     break;
                 default:
                     break;
+            }
+        }
+    }
+
+
+    private function returnDoseAndRate($doseRates): array
+    {
+        $doseRateData = [];
+
+        if (!empty($doseRates)) {
+            foreach ($doseRates as $dr) {
+                $doseRateData[] = [
+                    'type' => returnAttribute($dr, ['type', 'coding', 0, 'code']),
+                    'dose' => returnVariableAttribute($dr, ['doseRange', 'doseQuantity']),
+                    'rate' => returnVariableAttribute($dr, ['rateRatio', 'rateRange', 'rateQuantity']),
+                ];
+            }
+        }
+
+        return $doseRateData;
+    }
+
+
+    private function returnDosage($dosageData): array
+    {
+        $dosage = null;
+        if (!empty($dosageData)) {
+            $dosage = [
+                'sequence' => returnAttribute($dosageData, ['sequence']),
+                'text' => returnAttribute($dosageData, ['text']),
+                'additional_instruction' => $this->returnMultiCodeableConcept(returnAttribute($dosageData, ['additionalInstruction'])),
+                'patient_instruction' => returnAttribute($dosageData, ['patientInstruction']),
+                'timing_event' => returnAttribute($dosageData, ['timing', 'event']),
+                'timing_repeat' => returnAttribute($dosageData, ['timing', 'repeat']),
+                'timing_code' => returnAttribute($dosageData, ['timing', 'code', 'coding', 0, 'code']),
+                'site' => returnAttribute($dosageData, ['site', 'coding', 0, 'code']),
+                'route' => returnAttribute($dosageData, ['route', 'coding', 0, 'code']),
+                'method' => returnAttribute($dosageData, ['method', 'coding', 0, 'code']),
+                'max_dose_per_period_numerator_value' => returnAttribute($dosageData, ['maxDosePerPeriod', 'numerator', 'value']),
+                'max_dose_per_period_numerator_comparator' => returnAttribute($dosageData, ['maxDosePerPeriod', 'numerator', 'comparator']),
+                'max_dose_per_period_numerator_unit' => returnAttribute($dosageData, ['maxDosePerPeriod', 'numerator', 'unit']),
+                'max_dose_per_period_numerator_system' => returnAttribute($dosageData, ['maxDosePerPeriod', 'numerator', 'system']),
+                'max_dose_per_period_numerator_code' => returnAttribute($dosageData, ['maxDosePerPeriod', 'numerator', 'code']),
+                'max_dose_per_period_denominator_value' => returnAttribute($dosageData, ['maxDosePerPeriod', 'denominator', 'value']),
+                'max_dose_per_period_denominator_comparator' => returnAttribute($dosageData, ['maxDosePerPeriod', 'denominator', 'comparator']),
+                'max_dose_per_period_denominator_unit' => returnAttribute($dosageData, ['maxDosePerPeriod', 'denominator', 'unit']),
+                'max_dose_per_period_denominator_system' => returnAttribute($dosageData, ['maxDosePerPeriod', 'denominator', 'system']),
+                'max_dose_per_period_denominator_code' => returnAttribute($dosageData, ['maxDosePerPeriod', 'denominator', 'code']),
+                'max_dose_per_administration_value' => returnAttribute($dosageData, ['maxDosePerAdministration', 'value']),
+                'max_dose_per_administration_unit' => returnAttribute($dosageData, ['maxDosePerAdministration', 'unit']),
+                'max_dose_per_administration_system' => returnAttribute($dosageData, ['maxDosePerAdministration', 'system']),
+                'max_dose_per_administration_code' => returnAttribute($dosageData, ['maxDosePerAdministration', 'code']),
+                'max_dose_per_lifetime_value' => returnAttribute($dosageData, ['maxDosePerLifetime', 'value']),
+                'max_dose_per_lifetime_unit' => returnAttribute($dosageData, ['maxDosePerLifetime', 'unit']),
+                'max_dose_per_lifetime_system' => returnAttribute($dosageData, ['maxDosePerLifetime', 'system']),
+                'max_dose_per_lifetime_code' => returnAttribute($dosageData, ['maxDosePerLifetime', 'code']),
+            ];
+        }
+
+        return $dosage;
+    }
+
+
+    private function seedMedicationRequest($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $medicationRequestData = [
+            'status' => returnAttribute($resourceContent, ['status']),
+            'status_reason' => returnAttribute($resourceContent, ['statusReason', 'coding', 0, 'code']),
+            'intent' => returnAttribute($resourceContent, ['intent']),
+            'category' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['category'])),
+            'priority' => returnAttribute($resourceContent, ['priority']),
+            'do_not_perform' => returnAttribute($resourceContent, ['doNotPerform']),
+            'reported' => returnAttribute($resourceContent, ['reportedBoolean']),
+            'medication' => returnAttribute($resourceContent, ['medicationReference', 'reference']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'supporting_information' => $this->returnMultiReference(returnAttribute($resourceContent, ['supportingInformation'])),
+            'authored_on' => returnAttribute($resourceContent, ['authoredOn']),
+            'requester' => returnAttribute($resourceContent, ['requester', 'reference']),
+            'performer' => returnAttribute($resourceContent, ['performer', 'reference']),
+            'performer_type' => returnAttribute($resourceContent, ['performerType', 'coding', 0, 'code']),
+            'recorder' => returnAttribute($resourceContent, ['recorder', 'reference']),
+            'reason_code' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['reasonCode'])),
+            'reason_reference' => $this->returnMultiReference(returnAttribute($resourceContent, ['reasonReference'])),
+            'based_on' => $this->returnMultiReference(returnAttribute($resourceContent, ['basedOn'])),
+            'course_of_therapy' => returnAttribute($resourceContent, ['courseOfTherapyType', 'coding', 0, 'code']),
+            'insurance' => $this->returnMultiReference(returnAttribute($resourceContent, ['insurance'])),
+            'dispense_interval_value' => returnAttribute($resourceContent, ['dispenseRequest', 'dispenseInterval', 'value']),
+            'dispense_interval_comparator' => returnAttribute($resourceContent, ['dispenseRequest', 'dispenseInterval', 'comparator']),
+            'dispense_interval_unit' => returnAttribute($resourceContent, ['dispenseRequest', 'dispenseInterval', 'unit']),
+            'dispense_interval_system' => returnAttribute($resourceContent, ['dispenseRequest', 'dispenseInterval', 'system']),
+            'dispense_interval_code' => returnAttribute($resourceContent, ['dispenseRequest', 'dispenseInterval', 'code']),
+            'validity_period_start' => returnAttribute($resourceContent, ['dispenseRequest', 'validityPeriod', 'start']),
+            'validity_period_end' => returnAttribute($resourceContent, ['dispenseRequest', 'validityPeriod', 'end']),
+            'repeats_allowed' => returnAttribute($resourceContent, ['dispenseRequest', 'numberOfRepeatsAllowed']),
+            'quantity_value' => returnAttribute($resourceContent, ['dispenseRequest', 'quantity', 'value']),
+            'quantity_unit' => returnAttribute($resourceContent, ['dispenseRequest', 'quantity', 'unit']),
+            'quantity_system' => returnAttribute($resourceContent, ['dispenseRequest', 'quantity', 'system']),
+            'quantity_code' => returnAttribute($resourceContent, ['dispenseRequest', 'quantity', 'code']),
+            'supply_duration_value' => returnAttribute($resourceContent, ['dispenseRequest', 'expectedSupplyDuration', 'value']),
+            'supply_duration_comparator' => returnAttribute($resourceContent, ['dispenseRequest', 'expectedSupplyDuration', 'comparator']),
+            'supply_duration_unit' => returnAttribute($resourceContent, ['dispenseRequest', 'expectedSupplyDuration', 'unit']),
+            'supply_duration_system' => returnAttribute($resourceContent, ['dispenseRequest', 'expectedSupplyDuration', 'system']),
+            'supply_duration_code' => returnAttribute($resourceContent, ['dispenseRequest', 'expectedSupplyDuration', 'code']),
+            'dispense_performer' => returnAttribute($resourceContent, ['dispenseRequest', 'performer', 'reference']),
+            'substitution_allowed' => returnVariableAttribute($resourceContent, MedicationRequest::SUBSTITUTION_ALLOWED['variableTypes']),
+            'substitution_reason' => returnAttribute($resourceContent, ['substitution', 'reason', 'coding', 0, 'code']),
+        ];
+
+        $medicationRequestData = removeEmptyValues($medicationRequestData);
+
+        $medicationRequest = $resource->medicationRequest()->createQuietly($medicationRequestData);
+        $medicationRequest->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $medicationRequest->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+
+        $dosages = returnAttribute($resourceContent, ['dosageInstruction']);
+        if (!empty($dosages)) {
+            foreach ($dosages as $d) {
+                $dosageData = $this->returnDosage($d);
+                $dosage = $medicationRequest->dosage()->createQuietly($dosageData);
+                $dosage->doseRate()->createManyQuietly($this->returnDoseAndRate(returnAttribute($d, ['doseAndRate'])));
+            }
+        }
+    }
+
+
+    private function seedMedication($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+        $extension = returnAttribute($resourceContent, ['extension']);
+        $medicationType = null;
+        if (!empty($extension)) {
+            foreach ($extension as $e) {
+                if ($e['url'] == "https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType") {
+                    $medicationType = returnAttribute($e, ['valueCodeableConcept', 'coding', 0, 'code']);
+                }
+            }
+        }
+
+        $medicationData = [
+            'system' => returnAttribute($resourceContent, ['code', 'coding', 0, 'system']),
+            'code' => returnAttribute($resourceContent, ['code', 'coding', 0, 'code']),
+            'display' => returnAttribute($resourceContent, ['code', 'coding', 0, 'display']),
+            'status' => returnAttribute($resourceContent, ['status']),
+            'manufacturer' => returnAttribute($resourceContent, ['manufacturer', 'reference']),
+            'form' => returnAttribute($resourceContent, ['form', 'coding', 0, 'code']),
+            'amount_numerator_value' => returnAttribute($resourceContent, ['amount', 'numerator', 'value']),
+            'amount_numerator_comparator' => returnAttribute($resourceContent, ['amount', 'numerator', 'comparator']),
+            'amount_numerator_unit' => returnAttribute($resourceContent, ['amount', 'numerator', 'unit']),
+            'amount_numerator_system' => returnAttribute($resourceContent, ['amount', 'numerator', 'system']),
+            'amount_numerator_code' => returnAttribute($resourceContent, ['amount', 'numerator', 'code']),
+            'amount_denominator_value' => returnAttribute($resourceContent, ['amount', 'denominator', 'value']),
+            'amount_denominator_comparator' => returnAttribute($resourceContent, ['amount', 'denominator', 'comparator']),
+            'amount_denominator_unit' => returnAttribute($resourceContent, ['amount', 'denominator', 'unit']),
+            'amount_denominator_system' => returnAttribute($resourceContent, ['amount', 'denominator', 'system']),
+            'amount_denominator_code' => returnAttribute($resourceContent, ['amount', 'denominator', 'code']),
+            'batch_lot_number' => returnAttribute($resourceContent, ['batch', 'lotNumber']),
+            'batch_expiration_date' => returnAttribute($resourceContent, ['batch', 'expirationDate']),
+            'medication_type' => $medicationType
+        ];
+
+        $medication = $resource->medication()->createQuietly($medicationData);
+        $medication->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+
+        $ingredients = returnAttribute($resourceContent, ['ingredient']);
+
+        if (!empty($ingredients)) {
+            foreach ($ingredients as $i) {
+                $ingredientData = [
+                    'system' => returnAttribute($i, ['itemCodeableConcept', 'coding', 0, 'system']),
+                    'code' => returnAttribute($i, ['itemCodeableConcept', 'coding', 0, 'code']),
+                    'display' => returnAttribute($i, ['itemCodeableConcept', 'coding', 0, 'display']),
+                    'is_active' => returnAttribute($i, ['isActive']),
+                    'strength_numerator_value' => returnAttribute($i, ['strength', 'numerator', 'value']),
+                    'strength_numerator_comparator' => returnAttribute($i, ['strength', 'numerator', 'comparator']),
+                    'strength_numerator_unit' => returnAttribute($i, ['strength', 'numerator', 'unit']),
+                    'strength_numerator_system' => returnAttribute($i, ['strength', 'numerator', 'system']),
+                    'strength_numerator_code' => returnAttribute($i, ['strength', 'numerator', 'code']),
+                    'strength_denominator_value' => returnAttribute($i, ['strength', 'denominator', 'value']),
+                    'strength_denominator_comparator' => returnAttribute($i, ['strength', 'denominator', 'comparator']),
+                    'strength_denominator_unit' => returnAttribute($i, ['strength', 'denominator', 'unit']),
+                    'strength_denominator_system' => returnAttribute($i, ['strength', 'denominator', 'system']),
+                    'strength_denominator_code' => returnAttribute($i, ['strength', 'denominator', 'code']),
+                ];
+
+                $medication->ingredient()->createQuietly($ingredientData);
+            }
+        }
+    }
+
+
+    private function seedProcedure($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $procedureData = [
+            'based_on' => $this->returnMultiReference(returnAttribute($resourceContent, ['basedOn'])),
+            'part_of' => $this->returnMultiReference(returnAttribute($resourceContent, ['partOf'])),
+            'status' => returnAttribute($resourceContent, ['status']),
+            'status_reason' => returnAttribute($resourceContent, ['statusReason', 'coding', 0, 'code']),
+            'category' => returnAttribute($resourceContent, ['category', 'coding', 0, 'code']),
+            'code_system' => returnAttribute($resourceContent, ['code', 'coding', 0, 'system']),
+            'code_code' => returnAttribute($resourceContent, ['code', 'coding', 0, 'code']),
+            'code_display' => returnAttribute($resourceContent, ['code', 'coding', 0, 'display']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'performed' => returnVariableAttribute($resourceContent, Procedure::PERFORMED['variableTypes']),
+            'recorder' => returnAttribute($resourceContent, ['recorder', 'reference']),
+            'asserter' => returnAttribute($resourceContent, ['asserter', 'reference']),
+            'location' => returnAttribute($resourceContent, ['location', 'reference']),
+            'reason_code' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['reasonCode'])),
+            'reason_reference' => $this->returnMultiReference(returnAttribute($resourceContent, ['reasonReference'])),
+            'body_site' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['bodySite'])),
+            'outcome' => returnAttribute($resourceContent, ['outcome', 'coding', 0, 'code']),
+            'report' => $this->returnMultiReference(returnAttribute($resourceContent, ['report'])),
+            'complication' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['complication'])),
+            'complication_detail' => $this->returnMultiReference(returnAttribute($resourceContent, ['complicationDetail'])),
+            'follow_up' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['followUp'])),
+            'used_reference' => $this->returnMultiReference(returnAttribute($resourceContent, ['usedReference'])),
+            'used_code' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['usedCode'])),
+        ];
+
+        $procedure = $resource->procedure()->createQuietly($procedureData);
+        $procedure->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+
+        $performers = returnAttribute($resourceContent, ['performer']);
+        if (!empty($performers)) {
+            foreach ($performers as $p) {
+                $performerData = [
+                    'function' => returnAttribute($p, ['function', 'coding', 0, 'code']),
+                    'actor' => returnAttribute($p, ['actor', 'reference']),
+                    'on_behalf_of' => returnAttribute($p, ['onBehalfOf', 'reference'])
+                ];
+
+                $procedure->performer()->createQuietly($performerData);
+            }
+        }
+
+        $procedure->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+
+        $focalDevices = returnAttribute($resourceContent, ['focalDevice']);
+        if (!empty($focalDevices)) {
+            foreach ($focalDevices as $fd) {
+                $deviceData = [
+                    'action' => returnAttribute($fd, ['action', 'coding', 0, 'code']),
+                    'manipulated' => returnAttribute($fd, ['manipulated', 'reference'])
+                ];
+
+                $procedure->focalDevice()->createQuietly($deviceData);
             }
         }
     }
@@ -865,7 +1127,7 @@ class IdFhirResourceSeeder extends Seeder
         if (!empty($annotations)) {
             foreach ($annotations as $a) {
                 $annotation[] = [
-                    'author' => returnVariableAttribute($a, 'author', ['String', 'Reference']),
+                    'author' => returnVariableAttribute($a, ['authorString', 'authorReference']),
                     'time' => returnAttribute($a, ['time']),
                     'text' => returnAttribute($a, ['text'])
                 ];

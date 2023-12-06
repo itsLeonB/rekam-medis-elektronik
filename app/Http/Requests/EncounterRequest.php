@@ -48,7 +48,7 @@ class EncounterRequest extends FhirRequest
                 $prefix . 'status' => ['required', Rule::in(Valuesets::EncounterStatus['code'])],
                 $prefix . 'class' => ['required', Rule::in(Valuesets::EncounterClass['code'])],
                 $prefix . 'type' => 'nullable|array',
-                $prefix . 'type.*' => ['required', RUle::in(Codesystems::EncounterType['code'])],
+                $prefix . 'type.*' => ['required', Rule::in(Codesystems::EncounterType['code'])],
                 $prefix . 'service_type' => 'nullable|exists:codesystem_servicetype,code',
                 $prefix . 'priority' => ['nullable', Rule::in(Valuesets::EncounterPriority['code'])],
                 $prefix . 'subject' => 'required|string',

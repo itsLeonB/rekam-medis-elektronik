@@ -4,6 +4,65 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const DocumentSectionCodes = [
+        'system' => 'http://loinc.org',
+        'code' => ['10154-3', '10157-6', '10160-0', '10164-2', '10183-2', '10184-0', '10187-3', '10210-3', '10216-0', '10218-6', '10223-6', '10222-8', '11329-0', '11348-0', '11369-6', '57852-6', '11493-4', '11535-2', '11537-8', '18776-5', '18841-7', '29299-5', '29545-1', '29549-3', '29554-3', '29762-2', '30954-2', '42344-2', '42346-7', '42348-3', '42349-1', '46240-8', '46241-6', '46264-8', '47420-5', '47519-4', '48765-2', '48768-6', '51848-0', '55109-3', '55122-6', '59768-2', '59769-0', '59770-8', '59771-6', '59772-4', '59773-2', '59775-7', '59776-5', '61149-1', '61150-9', '69730-0', '8648-8', '8653-8', '8716-3'],
+        'display' => ["10154-3" => "Chief complaint Narrative - Reported", "10157-6" => "History of family member diseases Narrative", "10160-0" => "History of medication use Narrative", "10164-2" => "History of present illness Narrative", "10183-2" => "Hospital discharge medications Narrative", "10184-0" => "Hospital discharge physical findings Narrative", "10187-3" => "Review of systems Narrative - Reported", "10210-3" => "Physical findings of General status Narrative", "10216-0" => "Surgical operation note fluids Narrative", "10218-6" => "Surgical operation note postoperative diagnosis Narrative", "10223-6" => "Surgical operation note surgical procedure Narrative", "10222-8" => "Surgical operation note surgical complications [interpretation] Narrative", "11329-0" => "History general Narrative - Reported", "11348-0" => "History of past illness Narrative", "11369-6" => "History of immunization Narrative", "57852-6" => "Problem list Narrative - Reported", "11493-4" => "Hospital discharge studies summary Narrative", "11535-2" => "Hospital discharge Dx Narrative", "11537-8" => "Surgical drains Narrative", "18776-5" => "Plan of treatment (narrative)", "18841-7" => "Hospital consultations Document", "29299-5" => "Reason for visit Narrative", "29545-1" => "Physical findings Narrative", "29549-3" => "Medication administered Narrative", "29554-3" => "Procedure Narrative", "29762-2" => "Social history Narrative", "30954-2" => "Relevant diagnostic tests/laboratory data Narrative", "42344-2" => "Discharge diet (narrative)", "42346-7" => "Medications on admission (narrative)", "42348-3" => "Advance directives (narrative)", "42349-1" => "Reason for referral (narrative)", "46240-8" => "History of hospitalizations+History of outpatient visits Narrative", "46241-6" => "Hospital admission diagnosis Narrative Reported", "46264-8" => "History of medical device use", "47420-5" => "Functional status assessment note", "47519-4" => "History of Procedures Document", "48765-2" => "Allergies and adverse reactions Document", "48768-6" => "Payment sources Document", "51848-0" => "Evaluation note", "55109-3" => "Complications Document", "55122-6" => "Surgical operation note implants Narrative", "59768-2" => "Procedure indications [interpretation] Narrative", "59769-0" => "Postprocedure diagnosis Narrative", "59770-8" => "Procedure estimated blood loss Narrative", "59771-6" => "Procedure implants Narrative", "59772-4" => "Planned procedure Narrative", "59773-2" => "Procedure specimens taken Narrative", "59775-7" => "Procedure disposition Narrative", "59776-5" => "Procedure findings Narrative", "61149-1" => "Objective Narrative", "61150-9" => "Subjective Narrative", "69730-0" => "Instructions", "8648-8" => "Hospital course Narrative", "8653-8" => "Hospital Discharge instructions", "8716-3" => "Vital signs"]
+    ];
+
+    public const v3ConfidentialityClassification = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-Confidentiality',
+        'code' => ['U', 'L', 'M', 'N', 'R', 'V'],
+        'display' => ["U" => "unrestricted", "L" => "low", "M" => "moderate", "N" => "normal", "R" => "restricted", "V" => "very restricted"],
+        'definition' => ["U" => "Informasi tidak diklasifikasikan sebagai sensitif.", "L" => "Informasi telah dide-identifikasi dan sudah ada langkah mitigasi untuk mencegah reidentifikasi. Informasi memerlukan proteksi dengan tingkat sensitivitas rendah.", "M" => "Informasi dengan tingkat sensitivitas menengah.", "N" => "Informasi tipikal, informasi kesehatan yang tidak menimbulkan stigma.", "R" => "Informasi dengan tingkat sensitivitas tinggi, berpotensi menimbulkan stigma.", "V" => "Informasi dengan tingkat sensitivitas sangat tinggi dan menimbulkan stigma."]
+    ];
+
+    public const DocumentClassValueSet = [
+        'system' => 'http://loinc.org',
+        'code' => ['11369-6', '11485-0', '11486-8', '11488-4', '11506-3', '11543-6', '15508-5', '18726-0', '18761-7', '18842-5', '26436-6', '26441-6', '26442-4', '27895-2', '27896-0', '27897-8', '27898-6', '28570-0', '28619-5', '28634-4', '29749-9', '29750-7', '29751-5', '29752-3', '34109-9', '34117-2', '34121-4', '34122-2', '34133-9', '34140-4', '34748-4', '34775-7', '47039-3', '47042-7', '47045-0', '47046-8', '47049-2', '57017-6', '57016-8', '56445-0', '53576-5', '56447-6', '18748-4', '11504-8', '57133-1', 'LP173387-4', 'LP173388-2', 'LP173389-0', 'LP412176-2', 'LP173390-8', 'LP173391-6', 'LP173392-4', 'LP173393-2', 'LP267921-7', 'LP173394-0', 'LP173395-7', 'LP173396-5', 'LP267939-9', 'LP173397-3', 'LP267417-6', 'LP173398-1', 'LP173399-9', 'LP173400-5', 'LP416139-6', 'LP173401-3', 'LP173402-1', 'LP173403-9', 'LP193873-9', 'LP173404-7', 'LP173405-4', 'LP173406-2', 'LP173407-0', 'LP200113-1', 'LP416137-0', 'LP173408-8', 'LP248740-5', 'LP181089-6', 'LP181085-4', 'LP173409-6', 'LP173410-4', 'LP173411-2', 'LP173412-0', 'LP173413-8', 'LP200111-5', 'LP267279-0', 'LP173414-6', 'LP173415-3', 'LP181112-6', 'LP204180-6', 'LP416138-8', 'LP416137-0', 'LP181116-7', 'LP181119-1', 'LP173754-5', 'LP420133-3', 'LP173755-2', 'LP173756-0', 'LP173757-8', 'LP173758-6', 'LP173759-4', 'LP173765-1', 'LP173766-9', 'LP173760-2', 'LP173761-0', 'LP173762-8', 'LP173763-6', 'LP173764-4', 'LP173118-3', 'LP173417-9', 'LP200113-1', 'LP204161-6', 'LP181534-1', 'LP173418-7', 'LP173419-5', 'LP173420-3', 'LP181207-4', 'LP416137-0', 'LP181204-1', 'LP181529-1', 'LP181530-9', 'LP181190-2', 'LP181531-7', 'LP181532-5', 'LP181533-3', 'LP181534-1', 'LP181231-4', 'LP173421-1', 'LP183503-4', 'LP183502-6'],
+        'display' => ["11369-6" => "History of Immunization", "11485-0" => "Anesthesia records", "11486-8" => "Chemotherapy records", "11488-4" => "Consult Note", "11506-3" => "Provider-unspecified progress note", "11543-6" => "Nursery records", "15508-5" => "Labor and delivery records", "18726-0" => "Radiology studies (set)", "18761-7" => "Provider-unspecified transfer summary", "18842-5" => "Discharge summary", "26436-6" => "Laboratory Studies (set)", "26441-6" => "Cardiology studies (set)", "26442-4" => "Obstetrical studies (set)", "27895-2" => "Gastroenterology endoscopy studies (set)", "27896-0" => "Pulmonary studies (set)", "27897-8" => "Neuromuscular electrophysiology studies (set)", "27898-6" => "Pathology studies (set)", "28570-0" => "Provider-unspecified procedure note", "28619-5" => "Ophthalmology/optometry studies (set)", "28634-4" => "Miscellaneous studies (set)", "29749-9" => "Dialysis records", "29750-7" => "Neonatal intensive care records", "29751-5" => "Critical care records", "29752-3" => "Perioperative records", "34109-9" => "Evaluation and management note", "34117-2" => "Provider-unspecified, History and physical note", "34121-4" => "Interventional procedure note", "34122-2" => "Pathology procedure note", "34133-9" => "Summarization of episode note", "34140-4" => "Transfer of care referral note", "34748-4" => "Telephone encounter note", "34775-7" => "General surgery Pre-operative evaluation and management note", "47039-3" => "Inpatient Admission history and physical note", "47042-7" => "Counseling note", "47045-0" => "Study report Document", "47046-8" => "Summary of death", "47049-2" => "Non-patient Communication", "57017-6" => "Privacy Policy Organization Document", "57016-8" => "Privacy Policy Acknowledgment Document", "56445-0" => "Medication Summary Document", "53576-5" => "Personal health monitoring report Document", "56447-6" => "Plan of care note", "18748-4" => "Diagnostic imaging study", "11504-8" => "Surgical operation note", "57133-1" => "Referral note", "LP173387-4" => "Administrative note", "LP173388-2" => "Against medical advice note", "LP173389-0" => "Agreement", "LP412176-2" => "Controlled substance agreement", "LP173390-8" => "Certificate", "LP173391-6" => "Birth certificate", "LP173392-4" => "Death certificate", "LP173393-2" => "Evaluation of mental and physical incapacity certificate", "LP267921-7" => "Proof of encounter certificate", "LP173394-0" => "Consent", "LP173395-7" => "Abortion consent", "LP173396-5" => "Anesthesia consent", "LP267939-9" => "Blood or blood product transfusion consent", "LP173397-3" => "Hysterectomy consent", "LP267417-6" => "Long-term opioid therapy for pain consent", "LP173398-1" => "Organ donation consent", "LP173399-9" => "Procedure consent", "LP173400-5" => "Release of information consent", "LP416139-6" => "Research study consent", "LP173401-3" => "Sterilization consent", "LP173402-1" => "Surgical operation consent", "LP173403-9" => "Contract", "LP193873-9" => "Driver license", "LP173404-7" => "Health insurance card", "LP173405-4" => "Health insurance-related form", "LP173406-2" => "Health record cover sheet", "LP173407-0" => "Legal document", "LP200113-1" => "Legal letter", "LP416137-0" => "Portable medical order form", "LP173408-8" => "Power of attorney", "LP248740-5" => "Medical clearance note", "LP181089-6" => "Request", "LP181085-4" => "Prescription request", "LP173409-6" => "Advance directives", "LP173410-4" => "Do not resuscitate", "LP173411-2" => "Rescinded do not resuscitate", "LP173412-0" => "Living will", "LP173413-8" => "Rescinded advance directive", "LP200111-5" => "Checklist", "LP267279-0" => "Discharge checklist", "LP173414-6" => "Diagram", "LP173415-3" => "Flowsheet", "LP181112-6" => "Form", "LP204180-6" => "Mandatory reporting form", "LP416138-8" => "Medical history screening form", "LP181116-7" => "Instructions", "LP181119-1" => "Action plan", "LP173754-5" => "ADHD action plan", "LP420133-3" => "Adrenal insufficiency emergency action plan", "LP173755-2" => "Anaphylaxis action plan", "LP173756-0" => "Asthma action plan", "LP173757-8" => "Autism action plan", "LP173758-6" => "Complex medical conditions action plan", "LP173759-4" => "Cystic fibrosis action plan", "LP173765-1" => "Diabetes type I action plan", "LP173766-9" => "Diabetes type II action plan", "LP173760-2" => "Heart disease action plan", "LP173761-0" => "Inflammatory bowel disease action plan", "LP173762-8" => "Multiple sclerosis action plan", "LP173763-6" => "Muscular dystrophy action plan", "LP173764-4" => "Seizure disorder action plan", "LP173118-3" => "Discharge instructions", "LP173417-9" => "Letter", "LP204161-6" => "List", "LP181534-1" => "Prescription list", "LP173418-7" => "Note", "LP173419-5" => "Adverse event note", "LP173420-3" => "Alert", "LP181207-4" => "Order", "LP181204-1" => "Prescription", "LP181529-1" => "Prescription for diagnostic or specialist care", "LP181530-9" => "Prescription for durable medical equipment attachment", "LP181190-2" => "Prescription for eyewear", "LP181531-7" => "Prescription for medical equipment or product", "LP181532-5" => "Prescription for medication", "LP181533-3" => "Prescription for rehabilitation", "LP181231-4" => "Photographic image", "LP173421-1" => "Report", "LP183503-4" => "Case report", "LP183502-6" => "Registry report"]
+    ];
+
+    public const FHIRDocumentTypeCodes = [
+        [
+            'system' => Codesystems::LOINC,
+            'query' => ['scale_typ', '=', 'Doc']
+        ],
+        [
+            'system' => Codesystems::SNOMEDCT,
+            'ecl' => '< 71388002 |Procedure (procedure)|'
+        ]
+    ];
+
+    public const MedicationRequestSubstitutionReason = [
+        'system' => 'https://terminology.hl7.org/3.1.0/CodeSystem-v3-ActReason.html',
+        'code' => ['CT', 'FP', 'OS', 'RR'],
+        'display' => ["CT" => "Continuing therapy", "FP" => "Formulary policy", "OS" => "Out of stock", "RR" => "Regulatory requirement"],
+        'definition' => ["CT" => "Mengindikasikan bahwa keputusan untuk mengganti/tidak mengganti didasari oleh keinginan untuk menjaga konsistensi terapi pre-existing. pe", "FP" => "Mengindikasikan bahwa keputusan untuk mengganti/tidak mengganti didasari oleh kebijakan dalam formularium", "OS" => "Mengindikasikan penggantian terjadi karena persediaan obat yang diminta tidak ada atau tidak diganti apabila obat yang direncanakan sebagai pengganti tidak ada stok", "RR" => "Mengindikasikan keputusan untuk mengganti/tidak mengganti didasari oleh persyaratan regulasi yuridis yang mengamanatkan atau melarang substitusi"]
+    ];
+
+    public const MedicationRequestQuantity = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['413516001', '419672006'],
+        'display' => ['413516001' => 'Ampule - unit of product usage', '419672006' => 'Bottle - unit of product usage'],
+    ];
+
+    public const MedicationRequestSupplyDuration = [
+        'system' => 'http://unitsofmeasure.org',
+        'code' => ['ms', 's', 'min', 'h', 'd', 'wk', 'mo', 'a'],
+        'display' => ["ms" => "milliseconds", "s" => "seconds", "min" => "minutes", "h" => "hours", "d" => "days", "wk" => "weeks", "mo" => "months", "a" => "years"]
+    ];
+
+    public const MedicationRequestDispenseInterval = [
+        'system' => 'http://unitsofmeasure.org',
+        'code' => ['ms', 's', 'min', 'h', 'd', 'wk', 'mo', 'a'],
+        'display' => ["ms" => "milliseconds", "s" => "seconds", "min" => "minutes", "h" => "hours", "d" => "days", "wk" => "weeks", "mo" => "months", "a" => "years"]
+    ];
+
+    public const MedicationIngredientStrengthDenominator = [
+        'table' => 'valueset_medication_ingredientstrengthdenominator'
+    ];
+
     public const FHIRDeviceTypes = [
         'system' => 'http://snomed.info/sct',
         'ecl' => '< 49062001'
@@ -183,7 +242,7 @@ class Valuesets
     ];
 
     public const SNOMEDCTMedicationCodes = [
-        'system' => 'http://snomed.info/sct',
+        'system' => Codesystems::SNOMEDCT,
         'ecl' => ['<<410942007', '<<373873005', '<<106181007']
     ];
 
@@ -270,5 +329,12 @@ class Valuesets
         'code' => ['calculated', 'ordered'],
         'display' => ["calculated" => "Calculated", "ordered" => "Ordered"],
         'description' => ["calculated" => "The dose specified is calculated by the prescriber or the system.", "ordered" => "The dose specified is as ordered by the prescriber."],
+    ];
+
+    public const DosageRoute = [
+        'system' => 'http://www.whocc.no/atc',
+        'code' => ['implant', 'Inhal', 'Instill', 'N', 'O', 'P', 'R', 'SL', 'TD', 'V', 'Inhal.powder', 'Inhal.aerosol', 'Inhal.solution', 'urethral', 'TD patch', 'intravesical', 'Instill.solution', 'lamella', 'oral aerosol', 's.c. implant', 'ocular', 'otic', 'cutaneous', 'inj.subcutaneous', 'inj.intramuscular', 'inj.intravenous', 'inj.intrathecal', 'Chewing Gum', 'ointment', 'stomatologic'],
+        'display' => ["implant" => "Implant", "Inhal" => "Inhalation", "Instill" => "Instillation", "N" => "Nasal", "O" => "Oral", "P" => "Parenteral", "R" => "Rectal", "SL" => "Sublingual/Buccal/Oro mucosal", "TD" => "Transdermal", "V" => "Vaginal", "Inhal.powder" => "Inhalation Powder", "Inhal.aerosol" => "Inhalation Aerosol", "Inhal.solution" => "Inhalation Solution", "urethral" => "Urethral", "TD patch" => "Transdermal Patch", "intravesical" => "Intravesical", "Instill.solution" => "Instillation Solution", "lamella" => "Lamella", "oral aerosol" => "Oral Aerosol", "s.c. implant" => "S.C. Implant", "ocular" => "Ocular", "otic" => "Otic", "cutaneous" => "Cutaneous", "inj.subcutaneous" => "Injection Subcutaneous", "inj.intramuscular" => "Injection Intramuscular", "inj.intravenous" => "Injection Intravenous", "inj.intrathecal" => "Injection Intrathecal", "Chewing Gum" => "Chewing Gum", "ointment" => "Ointment", "stomatologic" => "stomatologic"],
+        'description' => ["implant" => "Implant", "Inhal" => "Inhalasi (dihirup)", "Instill" => "Instillation", "N" => "Nasal", "O" => "Oral", "P" => "Parenteral", "R" => "Rektum", "SL" => "Sublingual (di bawah lidah) / bukal (diantara gusi & pipi)", "TD" => "Transdermal", "V" => "Vagina", "Inhal.powder" => "Bubuk inhalasi", "Inhal.aerosol" => "Aerosol inhalasi", "Inhal.solution" => "Larutan inhalasi", "urethral" => "Uretra", "TD patch" => "Transdermal patch", "intravesical" => "Intravesical", "Instill.solution" => "Instillation solution", "lamella" => "Ophtalmic", "oral aerosol" => "Aerosol oral", "s.c. implant" => "S.C. implant", "ocular" => "Ocular (mata)", "otic" => "Otic (telinga)", "cutaneous" => "Kutanea (kulit)", "inj.subcutaneous" => "Subkutan Injeksi (di bawah kulit)", "inj.intramuscular" => "Intramuskular Injeksi (di dalam otot)", "inj.intravenous" => "Intravena Injeksi (ke pembuluh darah)", "inj.intrathecal" => "Intratekal Injeksi (sekitar sumsum tulang belakang)", "Chewing Gum" => "Dikunyah", "ointment" => "Topikal", "stomatologic" => "stomatologic"],
     ];
 }

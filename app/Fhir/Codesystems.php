@@ -4,6 +4,124 @@ namespace App\Fhir;
 
 class Codesystems
 {
+    public const ListEmptyReasons = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/list-empty-reason',
+        'code' => ['nilknown', 'notasked', 'withheld', 'unavailable', 'notstarted', 'closed'],
+        'display' => ["nilknown" => "Nil Known", "notasked" => "Not Asked", "withheld" => "Information Withheld", "unavailable" => "Unavailable", "notstarted" => "Not Started", "closed" => "Closed"],
+        'definition' => ["nilknown" => "Tidak diketahui", "notasked" => "Tidak ditanyakan", "withheld" => "Konten tidak tersedia karena masalah privasi dan kerahasiaan.", "unavailable" => "Informasi tidak tersedia karena tidak bisa didapatkan. Contoh: pasien tidak sadarkan diri", "notstarted" => "Langkah untuk melengkapi informasi belum dimulai", "closed" => "Daftar sudah ditutup atau sudah tidak relevan"]
+    ];
+
+    public const ListOrderCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/list-order',
+        'code' => ['user', 'system', 'event-date', 'entry-date', 'priority', 'alphabetic', 'category', 'patient'],
+        'display' => ["user" => "Sorted by User", "system" => "Sorted by System", "event-date" => "Sorted by Event Date", "entry-date" => "Sorted by Item Date", "priority" => "Sorted by Priority", "alphabetic" => "Sorted Alphabetically", "category" => "Sorted by Category", "patient" => "Sorted by Patient"],
+        'definition' => ["user" => "Diurutkan berdasarkan User.", "system" => "Diurutkan berdasarkan System.", "event-date" => "Diurutkan berdasarkan Event Date.", "entry-date" => "Diurutkan berdasarkan Item Date.", "priority" => "Diurutkan berdasarkan prioritas.", "alphabetic" => "Diurutkan berdasarkan alfabet.", "category" => "Diurutkan berdasarkan kategori.", "patient" => "Diurutkan berdasarkan pasien."]
+    ];
+
+    public const ListMode = [
+        'system' => 'http://hl7.org/fhir/list-mode',
+        'code' => ['working', 'snapshot', 'changes'],
+        'display' => ["working" => "Daftar ini merupakan daftar utama/master list dimana akan dipelihara dengan pembaruan rutin yang terjadi di dunia nyata", "snapshot" => "Daftar ini disiapkan sebagai snapshot. Tidak boleh dianggap sebagai kondisi saat ini.", "changes" => "Daftar sewaktu yang menunjukkan perubahan telah dibuat atau direkomendasikan. Misalnya. daftar obat keluar yang menunjukkan apa yang ditambahkan dan dihapus selama kunjungan."]
+    ];
+
+    public const NarrativeStatus = [
+        'system' => 'http://hl7.org/fhir/narrative-status',
+        'code' => ['generated', 'extensions', 'additional', 'empty'],
+        'display' => ["generated" => "Isi keseluruhan narasi dihasilkan dari elemen inti dalam konten", "extensions" => "Isi keseluruhan narasi dihasilkan dari elemen inti dalam konten dan beberapa konten berasal dari extension. Narasi HARUS merefleksikan dampak dari seluruh modifier extension", "additional" => "Isi narasi dapat berisikan informasi tambahan yang tidak ditemukan dalam struktur data. Perhatikan bahwa tidak ada cara yang dapat dihitung untuk menentukan informasi tambahan kecuali oleh inspeksi seseorang", "empty" => "Isi narasi merupakan beberapa hal yang setara dengan “tidak ada teks yang dapat dibaca yang tersedia dalam kasus ini”"]
+    ];
+
+    public const v3ActCode = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+        'table' => 'codesystem_v3actcode'
+    ];
+
+    public const DocumentRelationshipType = [
+        'system' => 'http://hl7.org/fhir/document-relationship-type',
+        'code' => ['replaces', 'transforms', 'signs', 'appends'],
+        'display' => ["replaces" => "Menggantikan dokumen target", "transforms" => "Dokumen dihasilkan dari transformasi dokumen target (contoh : translasi)", "signs" => "Tanda tangan dari dokumen target", "appends" => "Informasi tambahan dari dokumen target"]
+    ];
+
+    public const CompositionAttestationMode = [
+        'system' => 'http://hl7.org/fhir/composition-attestation-mode',
+        'code' => ['personal', 'professional', 'legal', 'official'],
+        'display' => ["personal" => "Autentikasi dalam kapasitas personal", "professional" => "Autentikasi dalam kapasitas profesional", "legal" => "Autentikasi dalam kapasitas legal", "official" => "Organisasi mengautentikasi sesuai dengan kebijakan dan prosedur"]
+    ];
+
+    public const CompositionStatus = [
+        'system' => 'http://hl7.org/fhir/composition-status',
+        'code' => ['preliminary', 'final', 'amended', 'entered-in-error'],
+        'display' => ["preliminary" => "Dokumen initial atau interim. Konten masih belum lengkap atau belum terverifikasi", "final" => "Versi dokumen sudah komplit dan diverifikasi", "amended" => "Konten dimodifikasi setelah status “final”", "entered-in-error" => "Konten error, bisa dianggap tidak valid"]
+    ];
+
+    public const v3SubstanceAdminSubstitution = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-substanceAdminSubstitution',
+        'code' => ['(_ActSubstanceAdminSubstitutionCode) Abstract', 'E', 'EC', 'BC', 'G', 'TE', 'TB', 'TG', 'F', 'N'],
+        'display' => ["(_ActSubstanceAdminSubstitutionCode) Abstract" => "null", "E" => "equivalent", "EC" => "equivalent composition", "BC" => "brand composition", "G" => "generic composition", "TE" => "therapeutic alternative", "TB" => "therapeutic brand", "TG" => "therapeutic generic", "F" => "formulary", "N" => "none"],
+        'definition' => ["(_ActSubstanceAdminSubstitutionCode) Abstract" => "Substitusi terjadi atau diperbolehkan dengan produk lain yang kemungkinan memiliki perbedaan kandungan zat tetapi memiliki efek biologis dan terapetik yang sama", "E" => "Substitusi terjadi atau diperbolehkan dengan produk lain yang bioekivalen dan efek terapi sama.", "EC" => "Substitusi terjadi atau diperbolehkan dengan produk lain dimana a. Pharmaceutical alternative : memiliki kandungan zat aktif yang sama tetapi berbeda formulasi/bentuk garam. Contoh : Erythromycin Ethylsuccinate dengan Erythromycin Stearate b. Pharmaceutical equivalent : memiliki kandungan zat aktif, kekuatan, dan rute administrasi yang sama. Contoh Lisonpril for Zestril", "BC" => "Substitusi terjadi atau diperbolehkan antara brand yang ekuivalen tetapi bukan generik. Contoh : Zestril dengan Prinivil", "G" => "Substitusi terjadi atau diperbolehkan antara generik yang ekuivalen tetapi bukan brand. Contoh : Lisnopril (Lupin Corp) dengan Lisnopril (Wockhardt Corp)", "TE" => "Substitusi terjadi atau diperbolehkan dengan produk lain yang memiliki tujuan terapetik dan profil keamanan yang sama. Contoh : ranitidine dengan or Tagamet", "TB" => "Substitusi terjadi atau diperbolehkan antara brand dengan efek terapeutik ekuivalen, tetapi bukan generik. Contoh : Zantac for Tagamet", "TG" => "Substitusi terjadi atau diperbolehkan antara generik dengan efek terapeutik ekuivalen, tetapi bukan brand. Contoh : Ranitidine for cimetidine", "F" => "Substitusi terjadi atau diperbolehkan berdasarkan pedoman formularium", "N" => "Substitusi tidak terjadi atau diperbolehkan"]
+    ];
+
+    public const MedicationRequestCourseOfTherapyCodes = [
+        'system' => 'https://hl7.org/FHIR/codesystem-medicationrequest-course-of-therapy.html',
+        'code' => ['continuous', 'acute', 'seasonal'],
+        'display' => ["continuous" => "Continuing long term therapy", "acute" => "Short course (acute) therapy", "seasonal" => "Seasonal"],
+        'definition' => ["continuous" => "Pengobatan yang diharapkan berlanjut hingga permintaan selanjutnya dan pasien harus diasumsikan mengonsumsinya kecuali jika dihentikan secara eksplisit", "acute" => "Pengobatan pasien yang diharapkan dikonsumsi pada durasi pemberian tertentu dan tidak diberikan lagi", "seasonal" => "Pengobatan yang diharapkan digunakan pada waktu tertentu pada waktu yang telah dijadwalkan dalam setahun"]
+    ];
+
+    public const RequestPriority = [
+        'system' => 'http://hl7.org/fhir/request-priority',
+        'code' => ['routine', 'urgent', 'asap', 'stat'],
+        'display' => ["routine" => "Permintaan prioritas normal", "urgent" => "Permintaan yang harus dilakukan segera ditindaklanjuti/lebih prioritas daripada Routine", "asap" => "Permintaan yang harus dilakukan sesegera mungkin/lebih prioritas daripada Urgent", "stat" => "Permintaan yang harus dilakukan diberikan saat itu juga/lebih prioritas daripada ASAP"]
+    ];
+
+    public const MedicationRequestCategoryCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/medicationrequest-category',
+        'code' => ['inpatient', 'outpatient', 'community', 'discharge'],
+        'display' => ["inpatient" => "Inpatient", "outpatient" => "Outpatient", "community" => "Community", "discharge" => "Discharge"],
+        'definition' => ["inpatient" => "Peresepan untuk diadministrasikan atau dikonsumsi saat rawat inap", "outpatient" => "Peresepan untuk diadministrasikan atau dikonsumsi saat rawat jalan (cth. IGD, poliklinik rawat jalan, bedah rawat jalan, dll)", "community" => "Peresepan untuk diadministrasikan atau dikonsumsi di rumah (long term care atau nursing home, atau hospices)", "discharge" => "Peresepan obat yang dibuat ketika pasien dipulangkan dari fasilitas kesehatan"]
+    ];
+
+    public const MedicationRequestIntent = [
+        'system' => 'http://hl7.org/fhir/CodeSystem/medicationrequest-intent',
+        'code' => ['proposal', 'plan', 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order', 'unknown'],
+        'display' => ["proposal" => "Permintaan yang diusulkan oleh seseorang yang bertujuan untuk menjamin pengobatan dilakukan tanpa memerlukan hak untuk bertindak", "plan" => "Permintaan yang menggambarkan tujuan untuk menjamin pengobatan dilakukan tanpa memberikan hak yang lain untuk bertindak", "order" => "Permintaan yang menunjukkan kebutuhan dan hak untuk bertindak", "original-order" => "Permintaan yang menggambarkan hak asli untuk meminta pengobatan", "reflex-order" => "Permintaan yang menggambarkan hak tambahan yang dibuat untuk tindakan berdasarkan otorisasi bersama dengan hasil awal tindakan yang merujuk pada otorisasi tersebut", "filler-order" => "Permintaan tersebut mewakili pandangan otorisasi yang dibuat oleh sistem pemenuhan yang mewakili rincian niat pemenuhan untuk bertindak atas permintaan yang diajukan", "instance-order" => "Permintaan yang menggambarkan contoh tertentu, misal catatan pemberian obat", "unknown" => "Permintaan yang menggambarkan opsi untuk RequestGroup"]
+    ];
+
+    public const MedicationRequestStatusReasonCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/medicationrequest-status-reason',
+        'code' => ['altchoice', 'clarif', 'drughigh', 'hospadm', 'labint', 'non-avail', 'preg', 'salg', 'sddi', 'sdupther', 'sintol', 'surg', 'washout'],
+        'display' => ["altchoice" => "Try another treatment first", "clarif" => "Prescription requires clarification", "drughigh" => "Drug level too high", "hospadm" => "Admission to hospital", "labint" => "Lab interference issues", "non-avail" => "Patient not available", "preg" => "Parent is pregnant/breast feeding", "salg" => "Allergy", "sddi" => "Drug interacts with another drug", "sdupther" => "Duplicate therapy", "sintol" => "Suspected intolerance", "surg" => "Patient scheduled for surgery.", "washout" => "Waiting for old drug to wash out"]
+    ];
+
+    public const MedicationRequestStatus = [
+        'system' => 'http://hl7.org/fhir/CodeSystem/medicationrequest-status',
+        'code' => ['active', 'on-hold', 'cancelled', 'completed', 'entered-in-error', 'stopped', 'draft', 'unknown'],
+        'display' => ["active" => "Aktif", "on-hold" => "Tertahan", "cancelled" => "Dibatalkan", "completed" => "Komplit", "entered-in-error" => "Salah", "stopped" => "Dihentikan", "draft" => "Draft/butuh verifikasi", "unknown" => "Tidak diketahui"]
+    ];
+
+    public const MedicationType = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
+        'code' => ['NC', 'SD', 'EP'],
+        'display' => ["NC" => "Non-compound", "SD" => "Gives of such doses", "EP" => "Divide into equal parts"],
+        'definition' => ["NC" => "Obat non-racikan", "SD" => "Obat racikan dengan instruksi berikan dalam dosis demikian/d.t.d", "EP" => "Obat racikan non-d.t.d"]
+    ];
+
+    public const MedicationForm = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
+        'code' => ['BS001', 'BS002', 'BS003', 'BS004', 'BS005', 'BS006', 'BS007', 'BS008', 'BS009', 'BS010', 'BS011', 'BS012', 'BS013', 'BS014', 'BS015', 'BS016', 'BS017', 'BS018', 'BS019', 'BS020', 'BS021', 'BS022', 'BS023', 'BS024', 'BS025', 'BS026', 'BS027', 'BS028', 'BS029', 'BS030', 'BS031', 'BS032', 'BS033', 'BS034', 'BS035', 'BS036', 'BS037', 'BS038', 'BS039', 'BS040', 'BS041', 'BS042', 'BS043', 'BS044', 'BS045', 'BS046', 'BS047', 'BS048', 'BS049', 'BS050', 'BS051', 'BS052', 'BS053', 'BS054', 'BS055', 'BS056', 'BS057', 'BS058', 'BS059', 'BS060', 'BS061', 'BS062', 'BS063', 'BS064', 'BS065', 'BS066', 'BS067', 'BS068', 'BS069', 'BS070', 'BS071', 'BS072', 'BS073', 'BS074', 'BS075', 'BS076', 'BS077', 'BS078', 'BS079', 'BS080', 'BS081', 'BS082', 'BS083', 'BS084', 'BS085', 'BS086', 'BS087', 'BS088', 'BS089', 'BS090', 'BS091', 'BS092', 'BS093', 'BS094', 'BS095', 'BS096', 'BS097'],
+        'display' => ["BS001" => "Aerosol Foam", "BS002" => "Aerosol Metered Dose", "BS003" => "Aerosol Spray", "BS004" => "Oral Spray", "BS005" => "Buscal Spray", "BS006" => "Transdermal Spray", "BS007" => "Topical Spray", "BS008" => "Serbuk Spray", "BS009" => "Eliksir", "BS010" => "Emulsi", "BS011" => "Enema", "BS012" => "Gas", "BS013" => "Gel", "BS014" => "Gel Mata", "BS015" => "Granul Effervescent", "BS016" => "Granula", "BS017" => "Intra Uterine Device (IUD)", "BS018" => "Implant", "BS019" => "Kapsul", "BS020" => "Kapsul Lunak", "BS021" => "Kapsul Pelepasan Lambat", "BS022" => "Kaplet", "BS023" => "Kaplet Salut Selaput", "BS024" => "Kaplet Salut Enterik", "BS025" => "Kaplet Salut Gula", "BS026" => "Kaplet Pelepasan Lambat", "BS027" => "Kaplet Pelepasan Cepat", "BS028" => "Kaplet Kunyah", "BS029" => "Kaplet Kunyah Salut Selaput", "BS030" => "Krim", "BS031" => "Krim Lemak", "BS032" => "Larutan", "BS033" => "Larutan Inhalasi", "BS034" => "Larutan Injeksi", "BS035" => "Infus", "BS036" => "Obat Kumur", "BS037" => "Ovula", "BS038" => "Pasta", "BS039" => "Pil", "BS040" => "Patch", "BS041" => "Pessary", "BS042" => "Salep", "BS043" => "Salep Mata", "BS044" => "Sampo", "BS045" => "Semprot Hidung", "BS046" => "Serbuk Aerosol", "BS047" => "Serbuk Oral", "BS048" => "Serbuk Inhaler", "BS049" => "Serbuk Injeksi", "BS050" => "Serbuk Injeksi Liofilisasi", "BS051" => "Serbuk Infus", "BS052" => "Serbuk Obat Luar / Serbuk Tabur", "BS053" => "Serbuk Steril", "BS054" => "Serbuk Effervescent", "BS055" => "Sirup", "BS056" => "Sirup Kering", "BS057" => "Sirup Kering Pelepasan Lambat", "BS058" => "Subdermal Implants", "BS059" => "Supositoria", "BS060" => "Suspensi", "BS061" => "Suspensi Injeksi", "BS062" => "Suspensi / Cairan Obat Luar", "BS063" => "Cairan Steril", "BS064" => "Cairan Mata", "BS065" => "Cairan Diagnostik", "BS066" => "Tablet", "BS067" => "Tablet Effervescent", "BS068" => "Tablet Hisap", "BS069" => "Tablet Kunyah", "BS070" => "Tablet Pelepasan Cepat", "BS071" => "Tablet Pelepasan Lambat", "BS072" => "Tablet Disintegrasi Oral", "BS073" => "Tablet Dispersibel", "BS074" => "Tablet Cepat Larut", "BS075" => "Tablet Salut Gula", "BS076" => "Tablet Salut Enterik", "BS077" => "Tablet Salut Selaput", "BS078" => "Tablet Sublingual", "BS079" => "Tablet Sublingual Pelepasan Lambat", "BS080" => "Tablet Vaginal", "BS081" => "Tablet Lapis", "BS082" => "Tablet Lapis Lepas Lambat", "BS083" => "Chewing Gum", "BS084" => "Tetes Mata", "BS085" => "Tetes Hidung", "BS086" => "Tetes Telinga", "BS087" => "Tetes Oral (Oral Drops)", "BS088" => "Tetes Mata Dan Telinga", "BS089" => "Transdermal", "BS090" => "Transdermal Urethral", "BS091" => "Tulle/Plester Obat", "BS092" => "Vaginal Cream", "BS093" => "Vaginal Gel", "BS094" => "Vaginal Douche", "BS095" => "Vaginal Ring", "BS096" => "Vaginal Tissue", "BS097" => "Suspensi Inhalasi"]
+    ];
+
+    public const MedicationStatusCodes = [
+        'system' => 'http://hl7.org/fhir/CodeSystem/medication-status',
+        'code' => ['active', 'inactive', 'entered-in-error'],
+        'display' => ["active" => "Obat tersedia untuk digunakan", "inactive" => "Obat tidak tersedia", "entered-in-error" => "Obat yang dimasukkan salah"]
+    ];
+
+    public const KFA = [
+        'system' => 'http://sys-ids.kemkes.go.id/kfa',
+        'url' => 'https://api-satusehat-dev.dto.kemkes.go.id/kfa-v2'
+    ];
+
     public const ICD9CMProcedure = [
         'system' => 'http://hl7.org/fhir/sid/icd-9-cm',
         'table' => 'codesystem_icd9cmprocedure',

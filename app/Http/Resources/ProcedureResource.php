@@ -3,9 +3,12 @@
 namespace App\Http\Resources;
 
 use App\Models\Procedure;
+use App\Models\ProcedureFocalDevice;
+use App\Models\ProcedurePerformer;
 use App\Models\ValueSetProcedurePerformerType;
 use App\Models\ValueSetProcedureReasonCode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProcedureResource extends FhirResource
 {
@@ -38,23 +41,27 @@ class ProcedureResource extends FhirResource
                 'statusReason' => [
                     'coding' => [
                         [
-                            'system' => $procedure->status_reason ? ValueSetProcedureReasonCode::SYSTEM : null,
+                            'system' => $procedure->status_reason ? Procedure::STATUS_REASON['binding']['valueset']['system'] : null,
                             'code' => $procedure->status_reason,
-                            'display' => ValueSetProcedureReasonCode::where('code', $procedure->status_reason)->first()->display ?? null
+                            'display' => $procedure->status_reason ? DB::table(Procedure::STATUS_REASON['binding']['valueset']['table'])
+                                ->select('display')
+                                ->where('code', $procedure->status_reason)
+                                ->first()
+                                ->display ?? null : null
                         ]
                     ]
                 ],
                 'category' => [
                     'coding' => [
                         [
-                            'system' => Procedure::CATEGORY_SYSTEM,
+                            'system' => $procedure->category ? Procedure::CATEGORY['binding']['valueset']['system'] : null,
                             'code' => $procedure->category,
-                            'display' => Procedure::CATEGORY_DISPLAY[$procedure->category] ?? null
+                            'display' =>  $procedure->category ? Procedure::CATEGORY['binding']['valueset']['display'][$procedure->category] ?? null : null
                         ]
                     ]
                 ],
                 'code' => [
-                    'code' => [
+                    'coding' => [
                         [
                             'system' => $procedure->code_system,
                             'code' => $procedure->code_code,
@@ -78,30 +85,153 @@ class ProcedureResource extends FhirResource
                 'location' => [
                     'reference' => $procedure->location
                 ],
-                'reasonCode' => $this->createCodeableConceptArray($procedure->reason),
-                'reasonReference' => $this->createReferenceArray($procedure->reason),
-                'bodySite' => $this->createCodeableConceptArray($procedure->body_site),
+                'reasonCode' => $this->createReasonCodeArray($procedure->reason_code),
+                'reasonReference' => $this->createReferenceArray($procedure->reason_reference),
+                'bodySite' => $this->createBodySiteArray($procedure->body_site),
                 'outcome' => [
                     'coding' => [
                         [
-                            'system' => $procedure->outcome ? Procedure::OUTCOME_SYSTEM : null,
+                            'system' => $procedure->outcome ? Procedure::OUTCOME['binding']['valueset']['system'] : null,
                             'code' => $procedure->outcome,
-                            'display' => Procedure::OUTCOME_DISPLAY[$procedure->outcome] ?? null
+                            'display' => $procedure->outcome ? Procedure::OUTCOME['binding']['valueset']['display'][$procedure->outcome] ?? null : null
                         ]
                     ]
                 ],
                 'report' => $this->createReferenceArray($procedure->report),
-                'complication' => $this->createCodeableConceptArray($procedure->complication),
+                'complication' => $this->createComplicationArray($procedure->complication),
                 'complicationDetail' => $this->createReferenceArray($procedure->complication),
-                'followUp' => $this->createCodeableConceptArray($procedure->followUp),
+                'followUp' => $this->createFollowUpArray($procedure->followUp),
                 'note' => $this->createAnnotationArray($procedure->note),
                 'focalDevice' => $this->createFocalDeviceArray($procedure->focalDevice),
                 'usedReference' => $this->createReferenceArray($procedure->itemUsed),
-                'usedCode' => $this->createCodeableConceptArray($procedure->itemUsed)
+                'usedCode' => $this->createUsedCodeArray($procedure->itemUsed)
             ],
             $procedure->performed
         );
     }
+
+
+    private function createUsedCodeArray($usedCodes): array
+    {
+        $usedCode = [];
+
+        if (!empty($usedCodes)) {
+            foreach ($usedCodes as $uc) {
+                $usedCode[] = [
+                    'coding' => [
+                        [
+                            'system' => $uc ? Procedure::USED_CODE['binding']['valueset']['system'] : null,
+                            'code' => $uc,
+                            'display' => $uc ? $this->querySnomedCode($uc) ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $usedCode;
+    }
+
+
+    private function createFollowUpArray($followUps): array
+    {
+        $followUp = [];
+
+        if (!empty($followUps)) {
+            foreach ($followUps as $fu) {
+                $followUp[] = [
+                    'coding' => [
+                        [
+                            'system' => $fu ? Procedure::FOLLOW_UP['binding']['valueset']['system'] : null,
+                            'code' => $fu,
+                            'display' => $fu ? Procedure::FOLLOW_UP['binding']['valueset']['display'][$fu] ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $followUp;
+    }
+
+
+    private function createComplicationArray($complications): array
+    {
+        $complication = [];
+
+        if (!empty($complications)) {
+            foreach ($complications as $c) {
+                $complication[] = [
+                    'coding' => [
+                        [
+                            'system' => $c ? Procedure::COMPLICATION['binding']['valueset']['system'] : null,
+                            'code' => $c,
+                            'display' => $c ? DB::table(Procedure::COMPLICATION['binding']['valueset']['table'])
+                                ->select('display')
+                                ->where('code', $c)
+                                ->first()
+                                ->display ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $complication;
+    }
+
+
+    private function createBodySiteArray($bodySites): array
+    {
+        $bodySite = [];
+
+        if (!empty($bodySites)) {
+            foreach ($bodySites as $bs) {
+                $bodySite[] = [
+                    'coding' => [
+                        [
+                            'system' => $bs ? Procedure::BODY_SITE['binding']['valueset']['system'] : null,
+                            'code' => $bs,
+                            'display' => $bs ? DB::table(Procedure::BODY_SITE['binding']['valueset']['table'])
+                                ->select('display')
+                                ->where('code', $bs)
+                                ->first()
+                                ->display ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $bodySite;
+    }
+
+
+    private function createReasonCodeArray($reasonCodes): array
+    {
+        $reasonCode = [];
+
+        if (!empty($reasonCodes)) {
+            foreach ($reasonCodes as $rc) {
+                $reasonCode[] = [
+                    'coding' => [
+                        [
+                            'system' => $rc ? Procedure::REASON_CODE['binding']['valueset']['system'] : null,
+                            'code' => $rc,
+                            'display' => $rc ? DB::table(Procedure::REASON_CODE['binding']['valueset']['table'])
+                                ->select('display_en')
+                                ->where('code', $rc)
+                                ->first()
+                                ->display_en ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $reasonCode;
+    }
+
 
     private function createPerformerArray($performerAttribute): array
     {
@@ -113,9 +243,13 @@ class ProcedureResource extends FhirResource
                     'function' => [
                         'coding' => [
                             [
-                                'system' => $p->function ? ValueSetProcedurePerformerType::SYSTEM : null,
+                                'system' => $p->function ? ProcedurePerformer::FUNCTION['binding']['valueset']['system'] : null,
                                 'code' => $p->function,
-                                'display' => ValueSetProcedurePerformerType::where('code', $p->function)->first()->display ?? null
+                                'display' => $p->function ? DB::table(ProcedurePerformer::FUNCTION['binding']['valueset']['table'])
+                                    ->select('display')
+                                    ->where('code', $p->function)
+                                    ->first()
+                                    ->display ?? null : null
                             ]
                         ]
                     ],
@@ -142,9 +276,13 @@ class ProcedureResource extends FhirResource
                     'action' => [
                         'coding' => [
                             [
-                                'system' => $fd->system,
-                                'code' => $fd->code,
-                                'display' => $fd->display
+                                'system' => $fd->action ? ProcedureFocalDevice::ACTION['binding']['valueset']['system'] : null,
+                                'code' => $fd->action,
+                                'display' => $fd->action ? DB::table(ProcedureFocalDevice::ACTION['binding']['valueset']['table'])
+                                    ->select('display')
+                                    ->where('code', $fd->action)
+                                    ->first()
+                                    ->display ?? null : null
                             ]
                         ]
                     ],

@@ -16,9 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('med_req_dosage_id');
             $table->index('med_req_dosage_id');
             $table->foreign('med_req_dosage_id')->references('id')->on('medication_request_dosage')->onDelete('cascade');
-            $table->string('system')->nullable();
-            $table->string('code')->nullable();
-            $table->string('display')->nullable();
+            $table->enum('type', ['calculated', 'ordered'])->nullable();
             $table->json('dose')->nullable();
             $table->json('rate')->nullable();
         });

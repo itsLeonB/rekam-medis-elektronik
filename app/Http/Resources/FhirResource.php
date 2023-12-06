@@ -3,11 +3,15 @@
 namespace App\Http\Resources;
 
 use App\Fhir\Codesystems;
+use App\Fhir\Dosage;
+use App\Fhir\Timing;
+use App\Models\MedicationRequestDosage;
 use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class FhirResource extends JsonResource
 {
@@ -247,12 +251,12 @@ class FhirResource extends JsonResource
     {
         $dosage = [];
 
-        if (is_array($dosageAttribute) || is_object($dosageAttribute)) {
+        if (!empty($dosageAttribute)) {
             foreach ($dosageAttribute as $d) {
                 $dosage[] = [
                     'sequence' => $d->sequence,
                     'text' => $d->text,
-                    'additionalInstruction' => $this->createCodeableConceptArray($d->additionalInstruction),
+                    'additionalInstruction' => $this->createAdditionalInstructionArray($d->additional_instruction),
                     'patientInstruction' => $d->patient_instruction,
                     'timing' => [
                         'event' => $d->timing_event,
@@ -260,9 +264,9 @@ class FhirResource extends JsonResource
                         'code' => [
                             'coding' => [
                                 [
-                                    'system' => $d->timing_system,
+                                    'system' => $d->timing_code ? Timing::CODE['binding']['valueset']['system'] : null,
                                     'code' => $d->timing_code,
-                                    'display' => $d->timing_display
+                                    'display' => $d->timing_code ? Timing::CODE['binding']['valueset']['display'][$d->timing_code] ?? null : null
                                 ]
                             ]
                         ]
@@ -270,27 +274,30 @@ class FhirResource extends JsonResource
                     'site' => [
                         'coding' => [
                             [
-                                'system' => $d->site_system,
-                                'code' => $d->site_code,
-                                'display' => $d->site_display
+                                'system' => $d->site ? Dosage::SITE['binding']['valueset']['system'] : null,
+                                'code' => $d->site,
+                                'display' => $d->site ? DB::table(Dosage::SITE['binding']['valueset']['table'])
+                                    ->select('display')
+                                    ->where('code', $d->site)
+                                    ->first()->display ?? null : null
                             ]
                         ]
                     ],
                     'route' => [
                         'coding' => [
                             [
-                                'system' => $d->route_system,
-                                'code' => $d->route_code,
-                                'display' => $d->route_display
+                                'system' => $d->route ? MedicationRequestDosage::ROUTE['binding']['valueset']['system'] : null,
+                                'code' => $d->route,
+                                'display' => $d->route ? MedicationRequestDosage::ROUTE['binding']['valueset']['display'][$d->route] ?? null : null
                             ]
                         ]
                     ],
                     'method' => [
                         'coding' => [
                             [
-                                'system' => $d->method_system,
-                                'code' => $d->method_code,
-                                'display' => $d->method_display
+                                'system' => $d->method ? Dosage::METHOD['binding']['valueset']['system'] : null,
+                                'code' => $d->method,
+                                'display' => $d->method ? Dosage::METHOD['binding']['valueset']['display'][$d->method] ?? null : null
                             ]
                         ]
                     ],
@@ -329,6 +336,29 @@ class FhirResource extends JsonResource
 
         return $dosage;
     }
+
+
+    private function createAdditionalInstructionArray($additionalInstructionAttribute): array
+    {
+        $additionalInstruction = [];
+
+        if (is_array($additionalInstructionAttribute) || is_object($additionalInstructionAttribute)) {
+            foreach ($additionalInstructionAttribute as $ai) {
+                $additionalInstruction[] = [
+                    'coding' => [
+                        [
+                            'system' => $ai ? Dosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['system'] : null,
+                            'code' => $ai,
+                            'display' => $ai ? Dosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['display'][$ai] ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $additionalInstruction;
+    }
+
 
     public function createDoseRateArray($doseRateAttribute): array
     {

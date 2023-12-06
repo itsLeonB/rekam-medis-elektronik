@@ -61,7 +61,7 @@ class ObservationRequest extends FhirRequest
                 $prefix . 'data_absent_reason' => ['nullable', Rule::in(Observation::DATA_ABSENT_REASON['binding']['valueset']['code'])],
                 $prefix . 'interpretation' => 'nullable|array',
                 $prefix . 'interpretation.*' => 'required|string',
-                $prefix . 'body_site' => ['nullable', Rule::exist(Observation::BODY_SITE['binding']['valueset']['table'], 'code')],
+                $prefix . 'body_site' => ['nullable', Rule::exists(Observation::BODY_SITE['binding']['valueset']['table'], 'code')],
                 $prefix . 'method' => 'nullable|integer|gte:0',
                 $prefix . 'specimen' => 'nullable|string',
                 $prefix . 'device' => 'nullable|string',

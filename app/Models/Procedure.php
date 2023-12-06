@@ -93,6 +93,10 @@ class Procedure extends Model
         ]
     ];
 
+    public const PERFORMED = [
+        'variableTypes' => ['performedDateTime', 'performedPeriod', 'performedString', 'performedAge', 'performedRange']
+    ];
+
     public const REASON_CODE = [
         'binding' => [
             'valueset' => Codesystems::ICD10
@@ -113,7 +117,7 @@ class Procedure extends Model
 
     public const COMPLICATION = [
         'binding' => [
-            'valueset' => Valuesets::ConditionProblemDiagnosisCodes
+            'valueset' => Codesystems::ICD10
         ]
     ];
 

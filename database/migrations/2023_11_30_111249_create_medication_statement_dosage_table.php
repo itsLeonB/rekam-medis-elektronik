@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('patient_instruction')->nullable();
             $table->json('timing_event')->nullable();
             $table->json('timing_repeat')->nullable();
-            $table->enum('timing_code', ['BID', 'TID', 'QID', 'AM', 'PM', 'QD', 'QOD', 'Q1H', 'Q2H', 'Q3H', 'Q4H', 'Q6H', 'Q8H', 'BED', 'WK', 'MO'])->nullable();
+            $table->string('timing_code')->nullable();
             $table->json('as_needed')->nullable();
             $table->string('site')->nullable();
             $table->string('route')->nullable();

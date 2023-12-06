@@ -3,18 +3,24 @@
         "status": "active",
         "status_reason": "altchoice",
         "intent": "proposal",
+        "category": ["inpatient", "outpatient"],
         "priority": "routine",
         "do_not_perform": false,
         "reported": true,
         "medication": "Medication/8f299a19-5887-4b8e-90a2-c2c15ecbe1d1",
         "subject": "Patient/100000030009",
         "encounter": "Encounter/3dedcec9-885d-435e-9ac5-58853cb216bb",
+        "supporting_information": ["Resource/any"],
         "authored_on": "2023-11-08T17:02:00+07:00",
         "requester": "Practitioner/N10000001",
         "performer": "Practitioner/N10000001",
         "performer_type": "158994007",
         "recorder": "Practitioner/N10000001",
+        "reason_code": ["E10.9", "A15.0"],
+        "reason_reference": ["Condition/10", "Observation/11"],
+        "based_on": ["CarePlan/null", "MedicationRequest/1", "ServiceRequest/1", "ImmunizationRecommendation/null"],
         "course_of_therapy": "acute",
+        "insurance": ["Coverage/null", "ClaimResponse/null"],
         "dispense_interval_value": 100,
         "dispense_interval_comparator": ">",
         "dispense_interval_unit": "d",
@@ -47,31 +53,6 @@
         },
         "substitution_reason": "CT"
     },
-    "category": [
-        {
-            "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
-            "code": "inpatient",
-            "display": "Inpatient"
-        }
-    ],
-    "reason": [
-        {
-            "system": "http://hl7.org/fhir/sid/icd-10",
-            "code": "E10.9",
-            "display": "Insulin-dependent diabetes mellitus without complications",
-            "reference": "Condition/10"
-        }
-    ],
-    "basedOn": [
-        {
-            "reference": "ServiceRequest/10000004"
-        }
-    ],
-    "insurance": [
-        {
-            "reference": "Coverage/null"
-        }
-    ],
     "note": [
         {
             "author": {
@@ -89,6 +70,7 @@
             "dosage_data": {
                 "sequence": 1,
                 "text": "4 tablet per hari",
+                "additional_instruction": ["1287353006", "1287351008"],
                 "patient_instruction": "4 tablet perhari, diminum setiap hari tanpa jeda sampai prose pengobatan berakhir",
                 "timing_event": ["2023-11-08T17:02:00+07:00"],
                 "timing_repeat": {
@@ -132,18 +114,10 @@
                     "when": ["CD"],
                     "offset": "2"
                 },
-                "timing_system": "http://terminology.hl7.org/3.1.0/CodeSystem-v3-GTSAbbreviation.html",
                 "timing_code": "BID",
-                "timing_display": "BID",
-                "site_system": "http://snomed.info/sct",
-                "site_code": "206007",
-                "site_display": "Gluteus maximus muscle",
-                "route_system": "http://www.whocc.no/atc",
-                "route_code": "Inhal",
-                "route_display": "Inhalation",
-                "method_system": "http://snomed.info/sct",
-                "method_code": "417924000",
-                "method_display": "Apply",
+                "site": "206007",
+                "route": "Inhal",
+                "method": "417924000",
                 "max_dose_per_period_numerator_value": 1,
                 "max_dose_per_period_numerator_comparator": ">",
                 "max_dose_per_period_numerator_unit": "TAB",
@@ -163,18 +137,9 @@
                 "max_dose_per_lifetime_system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
                 "max_dose_per_lifetime_code": "TAB"
             },
-            "additionalInstruction": [
-                {
-                    "system": "http://snomed.info/sct",
-                    "code": "311501008",
-                    "display": "Half to one hour before food"
-                }
-            ],
             "doseRate": [
                 {
-                    "system": "https://hl7.org/FHIR/codesystem-dose-rate-type.html",
-                    "code": "calculated",
-                    "display": "Calculated",
+                    "type": "calculated",
                     "dose": {
                         "doseRange": {
                             "low": {

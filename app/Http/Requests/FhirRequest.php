@@ -92,11 +92,11 @@ class FhirRequest extends FormRequest
                 $prefix . 'repeat.when' => 'nullable|array',
                 $prefix . 'repeat.when.*' => ['nullable', Rule::in(Constants::TIMING_REPEAT_WHEN_CODE)],
                 $prefix . 'repeat.offset' => 'nullable|integer|gte:0',
+                $prefix . 'code' => ['nullable', Rule::in(Constants::TIMING_ABBREVIATION_CODE)],
             ],
             $this->getDurationDataRules($prefix . 'repeat.boundsDuration.'),
             $this->getRangeDataRules($prefix . 'repeat.boundsRange.'),
             $this->getPeriodDataRules($prefix . 'repeat.boundsPeriod.'),
-            $this->getCodeableConceptDataRules($prefix . 'code.coding.*.', Constants::TIMING_ABBREVIATION_CODE),
         );
     }
 
@@ -125,28 +125,32 @@ class FhirRequest extends FormRequest
         return array_merge(
             [
                 $prefix . 'dosage_data' => 'required|array',
-                $prefix . 'additional_instruction' => 'nullable|array',
-                $prefix . 'dose_rate' => 'nullable|array',
                 $prefix . 'dosage_data.sequence' => 'nullable|integer',
                 $prefix . 'dosage_data.text' => 'nullable|string',
+                $prefix . 'dosage_data.additional_instruction' => 'nullable|array',
+                $prefix . 'dosage_data.additional_instruction.*' => ['nullable', Rule::in(MedicationRequestDosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['code'])],
                 $prefix . 'dosage_data.patient_instruction' => 'nullable|string',
+                $prefix . 'dosage_data.site' => ['nullable', Rule::exists(MedicationRequestDosage::SITE['binding']['valueset']['table'], 'code')],
+                $prefix . 'dosage_data.route' => ['nullable', Rule::in(MedicationRequestDosage::ROUTE['binding']['valueset']['code'])],
+                $prefix . 'dosage_data.method' => ['nullable', Rule::in(MedicationRequestDosage::METHOD['binding']['valueset']['code'])],
+                $prefix . 'doseRate' => 'nullable|array',
+                $prefix . 'doseRate.*.type' => ['nullable', Rule::in(MedicationRequestDosageDoseRate::TYPE['binding']['valueset']['code'])],
+                $prefix . 'doseRate.*.dose' => 'nullable|array',
+                $prefix . 'doseRate.*.rate' => 'nullable|array',
             ],
             $this->getTimingDataRules($prefix . 'dosage_data.timing_'),
-            $this->getCodeableConceptDataRules($prefix . 'dosage_data.site_'),
-            $this->getCodeableConceptDataRules($prefix . 'dosage_data.route_', Constants::DOSAGE_ROUTE_CODE),
-            $this->getCodeableConceptDataRules($prefix . 'dosage_data.method_', MedicationRequestDosage::METHOD_CODE),
-            $this->getRatioDataRules($prefix . 'dosage_data.max_dose_per_period_', false),
+            $this->getRatioDataRules($prefix . 'dosage_data.max_dose_per_period_'),
             $this->getQuantityDataRules($prefix . 'dosage_data.max_dose_per_administration_', true),
             $this->getQuantityDataRules($prefix . 'dosage_data.max_dose_per_lifetime_', true),
-            $this->getCodeableConceptDataRules($prefix . 'additional_instruction.*.', MedicationRequestDosageAdditionalInstruction::CODE),
-            $this->getCodeableConceptDataRules($prefix . 'dose_rate.*.', Constants::DOSERATE_TYPE_CODE),
-            $this->getRangeDataRules($prefix . 'dose_rate.*.dose.doseRange.'),
-            $this->getQuantityDataRules($prefix . 'dose_rate.*.dose.doseQuantity.', true),
-            $this->getRatioDataRules($prefix . 'dose_rate.*.rate.rateRatio.', true),
-            $this->getRangeDataRules($prefix . 'dose_rate.*.rate.rateRange.'),
-            $this->getQuantityDataRules($prefix . 'dose_rate.*.rate.rateQuantity.', true),
+            $this->getRangeDataRules($prefix . 'doseRate.*.dose.doseRange.'),
+            $this->getQuantityDataRules($prefix . 'doseRate.*.dose.doseQuantity.', true),
+            $this->getRatioDataRules($prefix . 'doseRate.*.rate.rateRatio.', true),
+            $this->getRangeDataRules($prefix . 'doseRate.*.rate.rateRange.'),
+            $this->getQuantityDataRules($prefix . 'doseRate.*.rate.rateQuantity.', true),
         );
     }
+
+
 
     /**
      * Returns an array of validation rules for quantity data.

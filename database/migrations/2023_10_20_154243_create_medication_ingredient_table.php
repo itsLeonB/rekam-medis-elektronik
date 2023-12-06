@@ -17,7 +17,7 @@ return new class extends Migration
             $table->index('medication_id');
             $table->foreign('medication_id')->references('id')->on('medication')->onDelete('cascade');
             $table->string('system')->nullable();
-            $table->unsignedBigInteger('code');
+            $table->string('code');
             $table->string('display')->nullable();
             $table->boolean('is_active')->nullable();
             $table->decimal('strength_numerator_value')->nullable();

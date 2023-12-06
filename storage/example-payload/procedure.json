@@ -1,10 +1,16 @@
 {
     "procedure": {
+        "based_on": ["CarePlan/null", "ServiceRequest/1"],
+        "part_of": [
+            "Procedure/1",
+            "Observation/1",
+            "MedicationAdministration/null"
+        ],
         "status": "preparation",
         "status_reason": "183932001",
         "category": "387713003",
         "code_system": "http://hl7.org/fhir/sid/icd-9-cm",
-        "code_code": "8744",
+        "code_code": "87.44",
         "code_display": "Routine chest x-ray, so described",
         "subject": "Patient/P00030004",
         "encounter": "Encounter/2823ed1d-3e3e-434e-9a5b-9c579d192787",
@@ -42,58 +48,32 @@
         "recorder": "Practitioner-1000400104",
         "asserter": "Practitioner-1000400104",
         "location": "Location-dc01c797-547a-4e4d-97cd-4ece0630e380",
-        "outcome": "385670004"
+        "reason_code": ["A15.0", "A15.1"],
+        "reason_reference": [
+            "Condition/1",
+            "Observation/1",
+            "Procedure/1",
+            "DiagnosticReport/null",
+            "DocumentReference/null"
+        ],
+        "body_site": ["302551006"],
+        "outcome": "385670004",
+        "report": [
+            "DiagnosticReport/null",
+            "DocumentReference/null",
+            "Composition/1"
+        ],
+        "complication": ["A41.9", "A41.8"],
+        "complication_detail": ["Condition/1"],
+        "follow_up": ["35963001", "359629005"],
+        "used_reference": ["Device/null", "Medication/1", "Substance/null"],
+        "used_code": ["716314000", "716314000"]
     },
-    "basedOn": [
-        {
-            "reference": "ServiceRequest/cc52bfcd-6cb2-4c0a-87a7-d5906f74bed9"
-        }
-    ],
-    "partOf": [
-        {
-            "reference": "Procedure/1a2b3c4d5e6f7g8h9i0j"
-        }
-    ],
     "performer": [
         {
             "function": "106289002",
             "actor": "Practitioner/N10000001",
             "on_behalf_of": "Organization/1000004"
-        }
-    ],
-    "reason": [
-        {
-            "system": "http://hl7.org/fhir/sid/icd-10",
-            "code": "A15.0",
-            "display": "Tuberculosis of lung, confirmed by sputum microscopy with or without culture",
-            "reference": "Condition-f2bc12fe-0ab2-4e5c-a3cd-32c66150cbe9"
-        }
-    ],
-    "bodySite": [
-        {
-            "system": "http://snomed.info/sct",
-            "code": "302551006",
-            "display": "Entire Thorax"
-        }
-    ],
-    "report": [
-        {
-            "reference": "Composition-e511fb00-3641-4816-a9fd-db2a55d1897d"
-        }
-    ],
-    "complication": [
-        {
-            "system": "http://hl7.org/fhir/sid/icd-10",
-            "code": "A41.9",
-            "display": "Sepsis, unspecified",
-            "reference": "Condition-f2bc12fe-0ab2-4e5c-a3cd-32c66150cbe9"
-        }
-    ],
-    "followUp": [
-        {
-            "system": "http://snomed.info/sct",
-            "code": "35963001",
-            "display": "Removal of staples"
         }
     ],
     "note": [
@@ -110,18 +90,8 @@
     ],
     "focalDevice": [
         {
-            "system": "http://snomed.info/sct",
-            "code": "360325005",
-            "display": "Simple removal - action",
-            "reference": "Device/null"
-        }
-    ],
-    "itemUsed": [
-        {
-            "system": "http://snomed.info/sct",
-            "code": "716314000",
-            "display": "Manual stander and exerciser",
-            "reference": "Device/null"
+            "action": "360325005",
+            "manipulated": "Device/null"
         }
     ]
 }

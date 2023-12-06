@@ -21,7 +21,9 @@ return new class extends Migration
             $table->string('status')->default('unknown');
             $table->string('status_reason')->nullable();
             $table->string('category')->nullable();
-            $table->string('code');
+            $table->string('code_system')->nullable();
+            $table->string('code_code');
+            $table->string('code_display')->nullable();
             $table->string('subject');
             $table->string('encounter');
             $table->json('performed')->nullable();
