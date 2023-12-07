@@ -9,7 +9,7 @@ defineProps({
 
 <template>
     <AuthenticatedLayout>
-        <!-- Search bar -->
+        <!-- Search bar
         <div class="max-w-full mx-auto sm:px-6 lg:px-8 mb-5">
             <form>
                 <div class="relative p-0 rounded-full border-none text-neutral-black-300">
@@ -24,7 +24,7 @@ defineProps({
                         class="pl-9 h-9 block w-full border border-none outline-none focus:border-original-teal-300 focus:ring-original-teal-300 rounded-full shadow" />
                 </div>
             </form>
-        </div>
+        </div> -->
 
         <!-- Main content -->
         <div class="max-w-full mx-auto sm:px-6 lg:px-8">
@@ -33,7 +33,7 @@ defineProps({
                     <!-- <h2 class="text-lg font-medium text-gray-900">Halaman Rawat Jalan</h2> -->
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-umum.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -42,7 +42,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-neurologi.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -51,7 +51,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-obgyn.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -60,7 +60,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-gigi.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -69,7 +69,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-kulit-kelamin.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -78,7 +78,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-ortopedi.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -87,7 +87,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-penyakit-dalam.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -96,7 +96,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-bedah.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
@@ -105,7 +105,7 @@ defineProps({
                     </CardwithButton>
                     <CardwithButton>
                         <template #cardimage>
-                            <img src="storage/images/welcome-doctor.png" class="h-full mx-auto" alt="">
+                            <img src="storage/images/poli-anak.png" class="h-full mx-auto" alt="">
                         </template>
 
                         <template #cardbutton>
