@@ -1,13 +1,12 @@
 {
     "clinicalImpression": {
         "status": "in-progress",
-        "status_reason_system": "http://hl7.org/fhir/sid/icd-10",
         "status_reason_code": "A15.0",
-        "status_reason_display": "Tuberculosis of lung, confirmed by sputum microscopy with or without culture",
         "status_reason_text": "Bapak Budi Santoso terdiagnosa TB, dan tidak menunjukkan adanya resistensi obat",
         "code_system": null,
         "code_code": null,
         "code_display": null,
+        "code_text": "Code belum ada terminologinya",
         "description": "Bapak Budi Santoso terdiagnosa TB, dan tidak menunjukkan adanya resistensi obat",
         "subject": "Patient/100000030009",
         "encounter": "Encounter/4c4d890d-fd63-49e0-bad6-7df4dc443125",
@@ -21,59 +20,33 @@
         "date": "2022-06-14T15:15:31+07:00",
         "assessor": "Practitioner/N10000001",
         "previous": "ClinicalImpression/null",
-        "summary": "Prognosis terhadap gejala klinis dan terkonfirmasi Tuberculosis"
+        "problem": ["Condition/1", "AllergyIntolerance/1"],
+        "protocol": ["http://null.com"],
+        "summary": "Prognosis terhadap gejala klinis dan terkonfirmasi Tuberculosis",
+        "prognosis_codeable_concept": ["170968001", "65872000"],
+        "prognosis_reference": ["RiskAssessment/null"],
+        "supporting_info": ["Resource/any"]
     },
-    "problem": [
-        {
-            "reference": "Condition/null"
-        },
-        {
-            "reference": "AllergyIntolerance/null"
-        }
-    ],
     "investigation": [
         {
-            "investigation_data": {
-                "system": "http://snomed.info/sct",
-                "code": "271336007",
-                "display": "Examination / signs",
-                "text": "Pemeriksaan Sputum BTA"
-            },
+            "code": "271336007",
+            "code_text": "Pemeriksaan Sputum BTA",
             "item": [
-                {
-                    "reference": "DiagnosticReport/a0fa6244-7638-43ba-bbc2-2af954761540"
-                },
-                {
-                    "reference": "Observation/56819f05-28b9-43c2-b0d1-3785768aa886"
-                }
+                "Observation/1",
+                "QuestionnaireResponse/1",
+                "FamilyMemberHistory/null",
+                "DiagnosticReport/null",
+                "RiskAssessment/null",
+                "ImagingStudy/null",
+                "Media/null"
             ]
-        }
-    ],
-    "protocol": [
-        {
-            "uri": "http://null.com"
         }
     ],
     "finding": [
         {
-            "system": "http://hl7.org/fhir/sid/icd-10",
-            "code": "R40.0",
-            "display": "Somnolence",
-            "reference": "Condition/null",
+            "item_codeable_concept": "R40.0",
+            "item_reference": "Condition/null",
             "basis": "Ada sesuatu di Jogja"
-        }
-    ],
-    "prognosis": [
-        {
-            "system": "http://snomed.info/sct",
-            "code": "170968001",
-            "display": "Prognosis good",
-            "reference": "RiskAssessment/null"
-        }
-    ],
-    "supportingInfo": [
-        {
-            "reference": "Resource/null"
         }
     ],
     "note": [

@@ -39,14 +39,27 @@ class ServiceRequest extends Model
 
     protected $table = 'service_request';
     protected $casts = [
+        'based_on' => 'array',
+        'replaces' => 'array',
+        'category' => 'array',
         'do_not_perform' => 'boolean',
+        'order_detail' => 'array',
         'quantity' => 'array',
         'occurrence' => 'array',
         'as_needed' => 'array',
-        'authored_on' => 'datetime'
+        'authored_on' => 'datetime',
+        'performer' => 'array',
+        'location_code' => 'array',
+        'location_reference' => 'array',
+        'reason_code' => 'array',
+        'reason_reference' => 'array',
+        'insurance' => 'array',
+        'supporting_info' => 'array',
+        'specimen' => 'array',
+        'body_site' => 'array',
+        'relevant_history' => 'array',
     ];
     public $timestamps = false;
-    protected $with = ['identifier', 'basedOn', 'replaces', 'category', 'orderDetail', 'performer', 'location', 'reason', 'insurance', 'supportingInfo', 'specimen', 'bodySite', 'note', 'relevantHistory'];
 
     public function resource(): BelongsTo
     {
@@ -58,68 +71,8 @@ class ServiceRequest extends Model
         return $this->hasMany(ServiceRequestIdentifier::class, 'request_id');
     }
 
-    public function basedOn(): HasMany
-    {
-        return $this->hasMany(ServiceRequestBasedOn::class, 'request_id');
-    }
-
-    public function replaces(): HasMany
-    {
-        return $this->hasMany(ServiceRequestReplaces::class, 'request_id');
-    }
-
-    public function category(): HasMany
-    {
-        return $this->hasMany(ServiceRequestCategory::class, 'request_id');
-    }
-
-    public function orderDetail(): HasMany
-    {
-        return $this->hasMany(ServiceRequestOrderDetail::class, 'request_id');
-    }
-
-    public function performer(): HasMany
-    {
-        return $this->hasMany(ServiceRequestPerformer::class, 'request_id');
-    }
-
-    public function location(): HasMany
-    {
-        return $this->hasMany(ServiceRequestLocation::class, 'request_id');
-    }
-
-    public function reason(): HasMany
-    {
-        return $this->hasMany(ServiceRequestReason::class, 'request_id');
-    }
-
-    public function insurance(): HasMany
-    {
-        return $this->hasMany(ServiceRequestInsurance::class, 'request_id');
-    }
-
-    public function supportingInfo(): HasMany
-    {
-        return $this->hasMany(ServiceRequestSupportingInfo::class, 'request_id');
-    }
-
-    public function specimen(): HasMany
-    {
-        return $this->hasMany(ServiceRequestSpecimen::class, 'request_id');
-    }
-
-    public function bodySite(): HasMany
-    {
-        return $this->hasMany(ServiceRequestBodySite::class, 'request_id');
-    }
-
     public function note(): HasMany
     {
         return $this->hasMany(ServiceRequestNote::class, 'request_id');
-    }
-
-    public function relevantHistory(): HasMany
-    {
-        return $this->hasMany(ServiceRequestRelevantHistory::class, 'request_id');
     }
 }

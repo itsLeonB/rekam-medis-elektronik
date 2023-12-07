@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\ClinicalImpression;
+use App\Models\ClinicalImpressionFinding;
 use App\Models\ClinicalImpressionInvestigation;
 use Illuminate\Validation\Rule;
 
@@ -19,17 +20,8 @@ class ClinicalImpressionRequest extends FhirRequest
             $this->baseAttributeRules(),
             $this->baseDataRules('clinicalImpression.'),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRules('problem.*.'),
             $this->investigationDataRules('investigation.*.'),
-            ['protocol.*.uri' => 'required|string'],
-            $this->getCodeableConceptDataRules('finding.*.'),
-            [
-                'finding.*.reference' => 'nullable|string',
-                'finding.*.basis' => 'nullable|string'
-            ],
-            $this->getCodeableConceptDataRules('prognosis.*.'),
-            $this->getReferenceDataRules('prognosis.*.'),
-            $this->getReferenceDataRules('supportingInfo.*.'),
+            $this->findingDataRules('finding.*.'),
             $this->getAnnotationDataRules('note.*.'),
         );
     }
@@ -39,12 +31,8 @@ class ClinicalImpressionRequest extends FhirRequest
         return [
             'clinicalImpression' => 'required|array',
             'identifier' => 'nullable|array',
-            'problem' => 'nullable|array',
             'investigation' => 'nullable|array',
-            'protocol' => 'nullable|array',
             'finding' => 'nullable|array',
-            'prognosis' => 'required|array',
-            'supportingInfo' => 'nullable|array',
             'note' => 'nullable|array'
         ];
     }
@@ -52,14 +40,13 @@ class ClinicalImpressionRequest extends FhirRequest
     private function baseDataRules(string $prefix = null): array
     {
         return [
-            $prefix . 'status' => ['required', Rule::in(ClinicalImpression::STATUS_CODE)],
-            $prefix . 'status_reason_system' => 'nullable|string',
-            $prefix . 'status_reason_code' => 'nullable|string',
-            $prefix . 'status_reason_display' => 'nullable|string',
+            $prefix . 'status' => ['required', Rule::in(ClinicalImpression::STATUS['binding']['valueset']['code'])],
+            $prefix . 'status_reason_code' => ['nullable', Rule::exists(ClinicalImpression::STATUS_REASON_CODE['binding']['valueset']['table'], 'code')],
             $prefix . 'status_reason_text' => 'nullable|string',
             $prefix . 'code_system' => 'nullable|string',
             $prefix . 'code_code' => 'nullable|string',
             $prefix . 'code_display' => 'nullable|string',
+            $prefix . 'code_text' => 'nullable|string',
             $prefix . 'description' => 'nullable|string',
             $prefix . 'subject' => 'required|string',
             $prefix . 'encounter' => 'required|string',
@@ -71,22 +58,37 @@ class ClinicalImpressionRequest extends FhirRequest
             $prefix . 'date' => 'nullable|date',
             $prefix . 'assessor' => 'nullable|string',
             $prefix . 'previous' => 'nullable|string',
+            $prefix . 'problem' => 'nullable|array',
+            $prefix . 'problem.*' => 'nullable|string',
+            $prefix . 'protocol' => 'nullable|array',
+            $prefix . 'protocol.*' => 'nullable|string',
             $prefix . 'summary' => 'nullable|string',
+            $prefix . 'prognosis_codeable_concept' => 'nullable|array',
+            $prefix . 'prognosis_codeable_concept.*' => ['required', Rule::in(ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['code'])],
+            $prefix . 'prognosis_reference' => 'nullable|array',
+            $prefix . 'prognosis_reference.*' => 'required|string',
+            $prefix . 'supporting_info' => 'nullable|array',
+            $prefix . 'supporting_info.*' => 'required|string'
         ];
     }
 
     private function investigationDataRules(string $prefix = null): array
     {
-        return array_merge(
-            [
-                $prefix . 'investigation_data' => 'required|array',
-                $prefix . 'investigation_data.system' => 'nullable|string',
-                $prefix . 'investigation_data.code' => ['nullable', Rule::in(ClinicalImpressionInvestigation::CODE)],
-                $prefix . 'investigation_data.display' => 'nullable|string',
-                $prefix . 'investigation_data.text' => 'nullable|string',
-                $prefix . 'item' => 'nullable|array'
-            ],
-            $this->getReferenceDataRules($prefix . 'item.*.')
-        );
+        return [
+            $prefix . 'code' => ['nullable', Rule::in(ClinicalImpressionInvestigation::CODE['binding']['valueset']['code'])],
+            $prefix . 'code_text' => 'nullable|string',
+            $prefix . 'item' => 'nullable|array',
+            $prefix . 'item.*' => 'required|string'
+        ];
+    }
+
+
+    private function findingDataRules(string $prefix = null): array
+    {
+        return [
+            $prefix . 'item_codeable_concept' => ['nullable', Rule::exists(ClinicalImpressionFinding::ITEM_CODEABLE_CONCEPT['binding']['valueset']['table'], 'code')],
+            $prefix . 'item_reference' => 'nullable|string',
+            $prefix . 'basis' => 'nullable|string'
+        ];
     }
 }

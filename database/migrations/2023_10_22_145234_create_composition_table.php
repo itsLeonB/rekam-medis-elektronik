@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('identifier_use')->nullable();
             $table->string('identifier_value')->nullable();
             $table->enum('status', ['preliminary', 'final', 'amended', 'entered-in-error']);
-            $table->string('type');
+            $table->string('type_system');
+            $table->string('type_code');
+            $table->string('type_display');
             $table->json('category')->nullable();
             $table->string('subject');
             $table->string('encounter')->nullable();

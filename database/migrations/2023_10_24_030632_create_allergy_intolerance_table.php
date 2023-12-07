@@ -19,14 +19,11 @@ return new class extends Migration
             $table->enum('clinical_status', ['active', 'inactive', 'resolved'])->nullable();
             $table->enum('verification_status', ['unconfirmed', 'confirmed', 'refuted', 'entered-in-error'])->nullable();
             $table->enum('type', ['allergy', 'intolerance'])->nullable();
-            $table->boolean('category_food');
-            $table->boolean('category_medication');
-            $table->boolean('category_environment');
-            $table->boolean('category_biologic');
+            $table->json('category');
             $table->enum('criticality', ['low', 'high', 'unable-to-assess'])->nullable();
-            $table->string('code_system')->nullable();
+            $table->string('code_system');
             $table->string('code_code');
-            $table->string('code_display')->nullable();
+            $table->string('code_display');
             $table->string('patient');
             $table->string('encounter')->nullable();
             $table->json('onset')->nullable();

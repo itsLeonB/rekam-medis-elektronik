@@ -19,12 +19,11 @@ return new class extends Migration
             $table->string('substance_system')->nullable();
             $table->string('substance_code')->nullable();
             $table->string('substance_display')->nullable();
+            $table->json('manifestation');
             $table->text('description')->nullable();
             $table->dateTime('onset')->nullable();
             $table->enum('severity', ['mild', 'moderate', 'severe'])->nullable();
-            $table->string('exposure_route_system')->nullable();
-            $table->string('exposure_route_code')->nullable();
-            $table->string('exposure_route_display')->nullable();
+            $table->string('exposure_route')->nullable();
         });
     }
 

@@ -16,10 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('impression_id');
             $table->index('impression_id');
             $table->foreign('impression_id')->references('id')->on('clinical_impression')->onDelete('cascade');
-            $table->string('system')->nullable();
-            $table->string('code')->nullable();
-            $table->string('display')->nullable();
-            $table->string('reference')->nullable();
+            $table->string('item_codeable_concept')->nullable();
+            $table->string('item_reference')->nullable();
             $table->string('basis')->nullable();
         });
     }

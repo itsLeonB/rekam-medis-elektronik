@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('codesystem_v3actcode', function (Blueprint $table) {
             $table->string('code', 42)->primary();
-            $table->string('display', 71);
-            $table->string('definition', 1868)->nullable();
+            $table->string('display', 89)->nullable();
+            $table->string('definition', 2402)->nullable();
         });
     }
 

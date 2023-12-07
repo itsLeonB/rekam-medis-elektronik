@@ -4,6 +4,39 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const ClinicalImpressionPrognosis = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['170968001', '65872000', '67334001', '170969009'],
+        'display' => ["170968001" => "Prognosis good", "65872000" => "Fair prognosis", "67334001" => "Guarded prognosis", "170969009" => "Prognosis bad"]
+    ];
+
+    public const InvestigationType = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['271336007', '160237006'],
+        'display' => ["271336007" => "Examination / signs", "160237006" => "History/symptoms"]
+    ];
+
+    public const ClinicalImpressionStatus = [
+        'system' => 'http://hl7.org/fhir/eventstatus',
+        'code' => ['in-progress', 'completed', 'entered-in-error'],
+        'display' => ["in-progress" => "Proses asesmen sedang berlangsung", "completed" => "Proses asesmen sudah selesai atau final", "entered-in-error" => "Kesalahan dalam input data"]
+    ];
+
+    public const SNOMEDCTClinicalFindings = [
+        'system' => 'http://snomed.info/sct',
+        'code' => ['1985008', '4386001', '9826008', '23924001', '24079001', '31996006', '39579001', '41291007', '43116000', '49727002', '51599000', '62315008', '70076002', '73442001', '76067001', '91175000', '126485001', '162290004', '195967001', '247472004', '267036007', '271757001', '271759003', '271807003', '410430005', '418363000', '422587007', '698247007', '702809001', '768962006'],
+        'display' => ["1985008" => "Vomitus", "4386001" => "Bronchospasm", "9826008" => "Conjunctivitis", "23924001" => "Tight chest", "24079001" => "Atopic dermatitis", "31996006" => "Vasculitis", "39579001" => "Anaphylaxis", "41291007" => "Angioedema", "43116000" => "Eczema", "49727002" => "Cough", "51599000" => "Edema of larynx", "62315008" => "Diarrhea", "70076002" => "Rhinitis", "73442001" => "Stevens-Johnson syndrome", "76067001" => "Sneezing", "91175000" => "Seizure", "126485001" => "Urticaria", "162290004" => "Dry eyes", "195967001" => "Asthma", "247472004" => "Wheal", "267036007" => "Dyspnea", "271757001" => "Papular eruption", "271759003" => "Bullous eruption", "271807003" => "Eruption of skin", "410430005" => "Cardiorespiratory arrest", "418363000" => "Itching of skin", "422587007" => "Nausea", "698247007" => "Cardiac arrhythmia", "702809001" => "Drug reaction with eosinophilia and systemic symptoms", "768962006" => "Lyell syndrome"],
+    ];
+
+    public const AllergyIntoleranceSubstanceProductConditionAndNegationCodes = [
+        'Alergen berupa obat dan vaksin (Kode bahan zat aktif (BZA), produk obat virtual (POV), produk obat aktual (POA))' => Codesystems::KFA,
+        'Apabila dibutuhkan informasi alergi terhadap golongan obat' => Codesystems::WHOATC,
+        'Jenis alergen makanan, lingkungan, dan kondisi tidak diketahui alergen yang dimiliki' => [
+            Codesystems::SNOMEDCT,
+            'ecl' => "( < 105590001 |Substance (substance)| MINUS ( << 410942007 |Drug or medicament (substance)| OR (<< 787859002 |Vaccine product (medicinal product)| . 127489000 |Has active ingredient|) ) ) OR (<< 716186003 |No known allergy (situation)| : { 408729009 |Finding context (attribute)| = 410516002 |Known absent (qualifier value)| })"
+        ]
+    ];
+
     public const DocumentSectionCodes = [
         'system' => 'http://loinc.org',
         'code' => ['10154-3', '10157-6', '10160-0', '10164-2', '10183-2', '10184-0', '10187-3', '10210-3', '10216-0', '10218-6', '10223-6', '10222-8', '11329-0', '11348-0', '11369-6', '57852-6', '11493-4', '11535-2', '11537-8', '18776-5', '18841-7', '29299-5', '29545-1', '29549-3', '29554-3', '29762-2', '30954-2', '42344-2', '42346-7', '42348-3', '42349-1', '46240-8', '46241-6', '46264-8', '47420-5', '47519-4', '48765-2', '48768-6', '51848-0', '55109-3', '55122-6', '59768-2', '59769-0', '59770-8', '59771-6', '59772-4', '59773-2', '59775-7', '59776-5', '61149-1', '61150-9', '69730-0', '8648-8', '8653-8', '8716-3'],

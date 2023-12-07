@@ -4,6 +4,49 @@ namespace App\Fhir;
 
 class Codesystems
 {
+    public const AllergyIntoleranceSeverity = [
+        'system' => 'http://hl7.org/fhir/reaction-event-severity',
+        'code' => ['mild', 'moderate', 'severe'],
+        'display' => ['mild' => 'Menyebabkan efek fisiologis ringan', 'moderate' => 'Menyebabkan efek fisiologis sedang', 'severe' => 'Menyebabkan efek fisiologis berat']
+    ];
+
+    public const WHOATC = [
+        // TODO: Cari API / beli resmi WHO $200
+        // https://github.com/fabkury/atcd/blob/master/WHO%20ATC-DDD%202021-12-03.csv
+        // https://www.who.int/tools/atc-ddd-toolkit/atc-classification
+    ];
+    public const AllergyIntoleranceCriticality = [
+        'system' => 'http://hl7.org/fhir/allergy-intolerance-criticality',
+        'code' => ['low', 'high', 'unable-to-assess'],
+        'display' => ["low" => "Tidak mengancam jiwa atau berpotensi tinggi untuk kegagalan sistem organ", "high" => "Mengancam jiwa atau berpotensi menyebabkan kegagalan sistem organ", "unable-to-assess" => "Tidak dapat dikaji potensi bahaya klinis pada paparan mendatang"],
+    ];
+
+    public const AllergyIntoleranceCategory = [
+        'system' => 'http://hl7.org/fhir/allergy-intolerance-category',
+        'code' => ['food', 'medication', 'environment', 'biologic'],
+        'display' => ["food" => "Segala zat atau substansi yang dikonsumsi untuk nutrisi bagi tubuh", "medication" => "Substansi yang diberikan untuk mencapai efek fisiologis (Obat)", "environment" => "Setiap substansi yang berasal atau ditemukan dari lingkungan, termasuk substansi yang tidak dikategorikan sebagai makanan, medikasi/obat, dan biologis", "biologic" => "Sediaan yang disintesis dari organisme hidup atau produknya, terutama manusia atau protein hewan, seperti hormon atau antitoksin, yang digunakan sebagai agen diagnostik, preventif, atau terapeutik. Contoh obat biologis meliputi: vaksin; ekstrak alergi, yang digunakan untuk diagnosis dan pengobatan (misalnya, suntikan alergi); terapi gen; terapi seluler. Ada produk biologis lain, seperti jaringan, yang biasanya tidak terkait dengan alergi."],
+    ];
+
+    public const AllergyIntoleranceType = [
+        'system' => 'http://hl7.org/fhir/allergy-intolerance-type',
+        'code' => ['allergy', 'intolerance'],
+        'display' => ["allergy" => "Kecenderungan reaksi hipersensitif pada zat tertentu yang seringnya disebabkan oleh hipersensitivitas tipe I ditambah reaksi seperti alergi lain, termasuk pseudoallergy", "intolerance" => "Kecenderungan reaksi tidak diinginkan terhadap suatu zat yang tidak diidentifikasi sebagai alergi atau reaksi seperti alergi. Reaksi ini terkait non-imun dan terdapat beberapa derajat idiosinkratik dan/atau"],
+    ];
+
+    public const AllergyIntoleranceVerificationStatusCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification',
+        'code' => ['unconfirmed', 'confirmed', 'refuted', 'entered-in-error'],
+        'display' => ["unconfirmed" => "Unconfirmed", "confirmed" => "Confirmed", "refuted" => "Refuted", "entered-in-error" => "Entered in Error"],
+        'description' => ["unconfirmed" => "Belum terkonfirmasi secara klinis.Tingkat kepastian rendah tentang kecenderungan reaksi terhadap suatu zat.", "confirmed" => "Terkonfirmasi secara klinis. Tingkat kepastian yang tinggi tentang kecenderungan reaksi pada suatu zat yang dapat dibuktikan secara klinis melalui tes atau rechallenge", "refuted" => "Disangkal atau tidak terbukti. Reaksi terhadap suatu zat disangkal atau tidak terbukti berdasarkan bukti klinis. Hal ini dapat termasuk/tidak termasuk pengujian", "entered-in-error" => "Pernyataan yang dimasukkan sebagai error atau tidak valid"],
+    ];
+
+    public const AllergyIntoleranceClinicalStatusCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical',
+        'code' => ['active', 'inactive', 'resolved'],
+        'display' => ['active' => 'Active', 'inactive' => 'Inactive', 'resolved' => 'Resolved'],
+        'definition' => ['active' => 'Subjek saat ini mengalami atau dalam risiko reaksi terhadap suatu zat', 'inactive' => 'Subjek saat ini tidak berisiko reaksi terhadap suatu zat', 'resolved' => 'Reaksi pada zat telah dikaji ulang secara klinis melalui pengujian atau paparan ulang dan dianggap sudah tidak ada lagi. Paparan ulang dapat bersifat tidak sengaja, tidak terencana, atau di luar dari tatanan klinis'],
+    ];
+
     public const ListEmptyReasons = [
         'system' => 'http://terminology.hl7.org/CodeSystem/list-empty-reason',
         'code' => ['nilknown', 'notasked', 'withheld', 'unavailable', 'notstarted', 'closed'],

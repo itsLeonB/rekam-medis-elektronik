@@ -3,10 +3,8 @@
 namespace App\Models;
 
 use App\Fhir\Codesystems;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class CompositionEvent extends Model
 {

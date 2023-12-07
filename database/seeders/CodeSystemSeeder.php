@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Codesystems\{
+    AdministrativeAreaSeeder,
     AdministrativeCodeSeeder,
     BCP47Seeder,
     ClinicalSpecialtySeeder,

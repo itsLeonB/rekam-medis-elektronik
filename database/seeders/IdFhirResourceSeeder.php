@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Constants;
+use App\Models\AllergyIntolerance;
+use App\Models\ClinicalImpression;
 use App\Models\Condition;
 use App\Models\MedicationRequest;
 use App\Models\Observation;
@@ -44,41 +46,245 @@ class IdFhirResourceSeeder extends Seeder
             );
 
             switch ($resType) {
-                // case 'Organization':
-                //     $this->seedOrganization($res, $resText);
-                //     break;
-                // case 'Location':
-                //     $this->seedLocation($res, $resText);
-                //     break;
-                // case 'Practitioner':
-                //     $this->seedPractitioner($res, $resText);
-                //     break;
-                // case 'Patient':
-                //     $this->seedPatient($res, $resText);
-                //     break;
-                // case 'Encounter':
-                //     $this->seedEncounter($res, $resText);
-                //     break;
-                // case 'Condition':
-                //     $this->seedCondition($res, $resText);
-                //     break;
-                // case 'Observation':
-                //     $this->seedObservation($res, $resText);
-                //     break;
-                // case 'Procedure':
-                //     $this->seedProcedure($res, $resText);
-                //     break;
-                // case 'Medication':
-                //     $this->seedMedication($res, $resText);
-                //     break;
-                case 'MedicationRequest':
-                    $this->seedMedicationRequest($res, $resText);
+                    // case 'Organization':
+                    //     $this->seedOrganization($res, $resText);
+                    //     break;
+                    // case 'Location':
+                    //     $this->seedLocation($res, $resText);
+                    //     break;
+                    // case 'Practitioner':
+                    //     $this->seedPractitioner($res, $resText);
+                    //     break;
+                    // case 'Patient':
+                    //     $this->seedPatient($res, $resText);
+                    //     break;
+                    // case 'Encounter':
+                    //     $this->seedEncounter($res, $resText);
+                    //     break;
+                    // case 'Condition':
+                    //     $this->seedCondition($res, $resText);
+                    //     break;
+                    // case 'Observation':
+                    //     $this->seedObservation($res, $resText);
+                    //     break;
+                    // case 'Procedure':
+                    //     $this->seedProcedure($res, $resText);
+                    //     break;
+                    // case 'Medication':
+                    //     $this->seedMedication($res, $resText);
+                    //     break;
+                    // case 'MedicationRequest':
+                    //     $this->seedMedicationRequest($res, $resText);
+                    //     break;
+                    // case 'Composition':
+                    //     $this->seedComposition($res, $resText);
+                    //     break;
+                    // case 'AllergyIntolerance':
+                    //     $this->seedAllergyIntolerance($res, $resText);
+                    //     break;
+                case 'ClinicalImpression':
+                    $this->seedClinicalImpression($res, $resText);
                     break;
                 case 'QuestionnaireResponse':
                     $this->seedQuestionnaireResponse($res, $resText);
                     break;
                 default:
                     break;
+            }
+        }
+    }
+
+
+    private function seedClinicalImpression($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $clinicalImpressionData = [
+            'status' => returnAttribute($resourceContent, ['status']),
+            'status_reason_code' => returnAttribute($resourceContent, ['statusReason', 'coding', 0, 'code']),
+            'status_reason_text' => returnAttribute($resourceContent, ['statusReason', 'text']),
+            'code_system' => returnAttribute($resourceContent, ['code', 'coding', 0, 'system']),
+            'code_code' => returnAttribute($resourceContent, ['code', 'coding', 0, 'code']),
+            'code_display' => returnAttribute($resourceContent, ['code', 'coding', 0, 'display']),
+            'code_text' => returnAttribute($resourceContent, ['code', 'text']),
+            'description' => returnAttribute($resourceContent, ['description']),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'effective' => returnVariableAttribute($resourceContent, ClinicalImpression::EFFECTIVE['variableTypes']),
+            'date' => returnAttribute($resourceContent, ['date']),
+            'assessor' => returnAttribute($resourceContent, ['assessor', 'reference']),
+            'previous' => returnAttribute($resourceContent, ['previous', 'reference']),
+            'problem' => $this->returnMultiReference(returnAttribute($resourceContent, ['problem'])),
+            'protocol' => returnAttribute($resourceContent, ['protocol']),
+            'summary' => returnAttribute($resourceContent, ['summary']),
+            'prognosis_codeable_concept' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['prognosisCodeableConcept'])),
+            'prognosis_reference' => $this->returnMultiReference(returnAttribute($resourceContent, ['prognosisReference'])),
+            'supporting_info' => $this->returnMultiReference(returnAttribute($resourceContent, ['supportingInfo'])),
+        ];
+
+        $clinicalImpressionData = removeEmptyValues($clinicalImpressionData);
+
+        $clinicalImpression = $resource->clinicalImpression()->createQuietly($clinicalImpressionData);
+        $clinicalImpression->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+
+        $investigations = returnAttribute($resourceContent, ['investigation']);
+        if (!empty($investigations)) {
+            foreach ($investigations as $i) {
+                $investigationData = [
+                    'code' => returnAttribute($i, ['code', 'coding', 0, 'code']),
+                    'code_text' => returnAttribute($i, ['code', 'text']),
+                    'item' => $this->returnMultiReference(returnAttribute($i, ['item'])),
+                ];
+
+                $clinicalImpression->investigation()->createQuietly($investigationData);
+            }
+        }
+
+        $findings = returnAttribute($resourceContent, ['finding']);
+        if (!empty($findings)) {
+            foreach ($findings as $f) {
+                $findingData = [
+                    'item_codeable_concept' => returnAttribute($f, ['itemCodeableConcept', 'coding', 0, 'code']),
+                    'item_reference' => returnAttribute($f, ['itemReference', 'reference']),
+                    'basis' => returnAttribute($f, ['basis']),
+                ];
+
+                $clinicalImpression->finding()->createQuietly($findingData);
+            }
+        }
+
+        $clinicalImpression->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+    }
+
+
+    private function seedAllergyIntolerance($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $allergyIntoleranceData = [
+            'clinical_status' => returnAttribute($resourceContent, ['clinicalStatus', 'coding', 0, 'code']),
+            'verification_status' => returnAttribute($resourceContent, ['verificationStatus', 'coding', 0, 'code']),
+            'type' => returnAttribute($resourceContent, ['type', 'coding', 0, 'code']),
+            'category' => returnAttribute($resourceContent, ['category']),
+            'criticality' => returnAttribute($resourceContent, ['criticality']),
+            'code_system' => returnAttribute($resourceContent, ['code', 'coding', 0, 'system']),
+            'code_code' => returnAttribute($resourceContent, ['code', 'coding', 0, 'code']),
+            'code_display' => returnAttribute($resourceContent, ['code', 'coding', 0, 'display']),
+            'patient' => returnAttribute($resourceContent, ['patient', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'onset' => returnVariableAttribute($resourceContent, AllergyIntolerance::ONSET['variableTypes']),
+            'recorded_date' => returnAttribute($resourceContent, ['recordedDate']),
+            'recorder' => returnAttribute($resourceContent, ['recorder', 'reference']),
+            'asserter' => returnAttribute($resourceContent, ['asserter', 'reference']),
+            'last_occurence' => returnAttribute($resourceContent, ['lastOccurence']),
+        ];
+
+        $allergyIntoleranceData = removeEmptyValues($allergyIntoleranceData);
+        $allergyIntolerance = $resource->allergyIntolerance()->createQuietly($allergyIntoleranceData);
+
+        $allergyIntolerance->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $allergyIntolerance->note()->createManyQuietly($this->returnAnnotation(returnAttribute($resourceContent, ['note'])));
+
+        $reactions = returnAttribute($resourceContent, ['reaction']);
+        if (!empty($reactions)) {
+            foreach ($reactions as $r) {
+                $reactionData = [
+                    'substance_system' => returnAttribute($r, ['substance', 'coding', 0, 'system']),
+                    'substance_code' => returnAttribute($r, ['substance', 'coding', 0, 'code']),
+                    'substance_display' => returnAttribute($r, ['substance', 'coding', 0, 'display']),
+                    'manifestation' => $this->returnMultiCodeableConcept(returnAttribute($r, ['manifestation'])),
+                    'description' => returnAttribute($r, ['description']),
+                    'onset' => returnAttribute($r, ['onset']),
+                    'severity' => returnAttribute($r, ['severity']),
+                    'exposure_route' => returnAttribute($r, ['exposureRoute', 'coding', 0, 'code']),
+                ];
+
+                $reaction = $allergyIntolerance->reaction()->createQuietly($reactionData);
+                $reaction->note()->createManyQuietly($this->returnAnnotation(returnAttribute($r, ['note'])));
+            }
+        }
+    }
+
+
+    private function seedComposition($resource, $resourceText)
+    {
+        $resourceContent = json_decode($resourceText, true);
+
+        $compositionData = [
+            'identifier_system' => returnAttribute($resourceContent, ['identifier', 'system']),
+            'identifier_use' => returnAttribute($resourceContent, ['identifier', 'use']),
+            'identifier_value' => returnAttribute($resourceContent, ['identifier', 'value']),
+            'status' => returnAttribute($resourceContent, ['status']),
+            'type_system' => returnAttribute($resourceContent, ['type', 'coding', 0, 'system']),
+            'type_code' => returnAttribute($resourceContent, ['type', 'coding', 0, 'code']),
+            'type_display' => returnAttribute($resourceContent, ['type', 'coding', 0, 'display']),
+            'category' => $this->returnMultiCodeableConcept(returnAttribute($resourceContent, ['category'])),
+            'subject' => returnAttribute($resourceContent, ['subject', 'reference']),
+            'encounter' => returnAttribute($resourceContent, ['encounter', 'reference']),
+            'date' => returnAttribute($resourceContent, ['date']),
+            'author' => $this->returnMultiReference(returnAttribute($resourceContent, ['author'])),
+            'title' => returnAttribute($resourceContent, ['title']),
+            'confidentiality' => returnAttribute($resourceContent, ['confidentiality']),
+            'custodian' => returnAttribute($resourceContent, ['custodian', 'reference']),
+        ];
+
+        $composition = $resource->composition()->createQuietly($compositionData);
+
+        $attester = returnAttribute($resourceContent, ['attester']);
+        if (!empty($attester)) {
+            foreach ($attester as $a) {
+                $attesterData = [
+                    'mode' => returnAttribute($a, ['mode']),
+                    'time' => returnAttribute($a, ['time']),
+                    'party' => returnAttribute($a, ['party', 'reference']),
+                ];
+
+                $composition->attester()->createQuietly($attesterData);
+            }
+        }
+
+        $relatesTo = returnAttribute($resourceContent, ['relatesTo']);
+        if (!empty($relatesTo)) {
+            foreach ($relatesTo as $r) {
+                $relatesToData = [
+                    'code' => returnAttribute($r, ['code']),
+                    'target' => returnVariableAttribute($r, ['targetIdentifier', 'targetReference']),
+                ];
+
+                $composition->relatesTo()->createQuietly($relatesToData);
+            }
+        }
+
+        $event = returnAttribute($resourceContent, ['event']);
+        if (!empty($event)) {
+            $eventData = [
+                'code' => $this->returnMultiCodeableConcept(returnAttribute($event, ['code'])),
+                'period_start' => returnAttribute($event, ['period', 'start']),
+                'period_end' => returnAttribute($event, ['period', 'end']),
+                'detail' => $this->returnMultiReference(returnAttribute($event, ['detail'])),
+            ];
+
+            $composition->event()->createQuietly($eventData);
+        }
+
+        $section = returnAttribute($resourceContent, ['section']);
+        if (!empty($section)) {
+            foreach ($section as $s) {
+                $sectionData = [
+                    'title' => returnAttribute($s, ['title']),
+                    'code' => returnAttribute($s, ['code', 'coding', 0, 'code']),
+                    'author' => $this->returnMultiReference(returnAttribute($s, ['author'])),
+                    'focus' => returnAttribute($s, ['focus', 'reference']),
+                    'text_status' => returnAttribute($s, ['text', 'status']),
+                    'text_div' => returnAttribute($s, ['text', 'div']),
+                    'mode' => returnAttribute($s, ['mode']),
+                    'ordered_by' => returnAttribute($s, ['orderedBy', 'coding', 0, 'code']),
+                    'entry' => $this->returnMultiReference(returnAttribute($s, ['entry'])),
+                    'empty_reason' => returnAttribute($s, ['emptyReason', 'coding', 0, 'code']),
+                    'section' => returnAttribute($s, ['section']),
+                ];
+
+                $composition->section()->createQuietly($sectionData);
             }
         }
     }
@@ -1050,16 +1256,16 @@ class IdFhirResourceSeeder extends Seeder
     }
 
 
-    private function returnIdentifier($identifiers): array
+    private function returnIdentifier(array $identifiers, string $prefix = null): array
     {
         $identifier = [];
 
         if (!empty($identifiers)) {
             foreach ($identifiers as $i) {
                 $identifier[] = [
-                    'system' => returnAttribute($i, ['system'], 'unknown'),
-                    'use' => returnAttribute($i, ['use']),
-                    'value' => returnAttribute($i, ['value'])
+                    $prefix . 'system' => returnAttribute($i, ['system'], 'unknown'),
+                    $prefix . 'use' => returnAttribute($i, ['use']),
+                    $prefix . 'value' => returnAttribute($i, ['value'])
                 ];
             }
         }
