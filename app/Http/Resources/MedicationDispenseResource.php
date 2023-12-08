@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\MedicationDispense;
+use App\Models\MedicationDispensePerformer;
 use Illuminate\Http\Request;
 
 class MedicationDispenseResource extends FhirResource
@@ -34,9 +35,9 @@ class MedicationDispenseResource extends FhirResource
             'category' => [
                 'coding' => [
                     [
-                        'system' => $data->category ? MedicationDispense::CATEGORY_SYSTEM : null,
+                        'system' => $data->category ? MedicationDispense::CATEGORY['binding']['valueset']['system'] : null,
                         'code' => $data->category,
-                        'display' => MedicationDispense::CATEGORY_DISPLAY[$data->category] ?? null
+                        'display' => $data->category ? MedicationDispense::CATEGORY['binding']['valueset']['display'][$data->category] ?? null : null
                     ]
                 ]
             ],
@@ -53,7 +54,7 @@ class MedicationDispenseResource extends FhirResource
             'location' => [
                 'reference' => $data->location
             ],
-            'authorizingPrescription' => $this->createReferenceArray($data->authorizingPrescription),
+            'authorizingPrescription' => $this->createReferenceArray($data->authorizing_prescription),
             'quantity' => [
                 'value' => $data->quantity_value,
                 'unit' => $data->quantity_unit,
@@ -71,21 +72,44 @@ class MedicationDispenseResource extends FhirResource
             'note' => $this->createAnnotationArray($data->note),
             'dosageInstruction' => $this->createDosageArray($data->dosageInstruction),
             'substitution' => [
-                'wasSubstituted' => $data->substitution->was_substituted ?? null,
+                'wasSubstituted' => $data->substitution_was_substituted,
                 'type' => [
                     'coding' => [
                         [
-                            'system' => $data->substitution->type_system ?? null,
-                            'code' => $data->substitution->type_code ?? null,
-                            'display' => $data->substitution->type_display ?? null
+                            'system' => $data->substitution_type ? MedicationDispense::SUBSTITUTION_TYPE['binding']['valueset']['system'] : null,
+                            'code' => $data->substitution_type,
+                            'display' => $data->substitution_type ? MedicationDispense::SUBSTITUTION_TYPE['binding']['valueset']['display'][$data->substitution_type] ?? null : null
                         ]
                     ]
                 ],
-                'reason' => $this->createCodeableConceptArray($data->substitution->reason ?? null),
-                'responsibleParty' => $this->createReferenceArray($data->substitution->responsibleParty ?? null)
+                'reason' => $this->createReasonArray($data->substitution->reason ?? null),
+                'responsibleParty' => $this->createReferenceArray($data->substitution_responsible_party ?? null)
             ]
         ];
     }
+
+
+    private function createReasonArray($reasons): array
+    {
+        $reason = [];
+
+        if (is_array($reasons) || is_object($reasons)) {
+            foreach ($reasons as $r) {
+                $reason[] = [
+                    'coding' => [
+                        [
+                            'system' => $r ? MedicationDispense::SUBSTITUTION_REASON['binding']['valueset']['system'] : null,
+                            'code' => $r,
+                            'display' => $r ? MedicationDispense::SUBSTITUTION_REASON['binding']['valueset']['display'][$r] ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $reason;
+    }
+
 
     private function createPerformerArray($performerAttribute): array
     {
@@ -97,9 +121,9 @@ class MedicationDispenseResource extends FhirResource
                     'function' => [
                         'coding' => [
                             [
-                                'system' => $p->function_system,
-                                'code' => $p->function_code,
-                                'display' => $p->function_display
+                                'system' => $p->function ? MedicationDispensePerformer::FUNCTION['binding']['valueset']['system'] : null,
+                                'code' => $p->function,
+                                'display' => $p->function ? MedicationDispensePerformer::FUNCTION['binding']['valueset']['display'][$p->function] ?? null : null
                             ]
                         ]
                     ],

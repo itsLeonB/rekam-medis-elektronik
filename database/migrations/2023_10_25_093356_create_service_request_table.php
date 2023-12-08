@@ -26,7 +26,9 @@ return new class extends Migration
             $table->json('category')->nullable();
             $table->string('priority')->nullable();
             $table->boolean('do_not_perform')->nullable();
-            $table->string('code');
+            $table->string('code_system');
+            $table->string('code_code');
+            $table->string('code_display');
             $table->json('order_detail')->nullable();
             $table->json('quantity')->nullable();
             $table->string('subject');

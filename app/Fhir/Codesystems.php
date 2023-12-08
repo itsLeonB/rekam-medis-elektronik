@@ -4,6 +4,90 @@ namespace App\Fhir;
 
 class Codesystems
 {
+    public const AddressUse = [
+        'system' => 'http://hl7.org/fhir/address-use',
+        'code' => ['home', 'work', 'temp', 'old', 'billing'],
+        'display' => ['home' => 'Home', 'work' => 'Work', 'temp' => 'Temporary', 'old' => 'Old / Incorrect', 'billing' => 'Billing'],
+        'definition' => ["home" => "A communication address at a home.", "work" => "An office address. First choice for business related contacts during business hours.", "temp" => "A temporary address. The period can provide more detailed information.", "old" => "This address is no longer in use (or was never correct but retained for records).", "billing" => "An address to be used to send bills, invoices, receipts etc."]
+    ];
+
+    public const AddressType = [
+        'system' => 'http://hl7.org/fhir/address-type',
+        'code' => ['postal', 'physical', 'both'],
+        'display' => ['postal' => 'Alamat surat', 'physical' => 'Alamat fisik yang dapat dikunjungi', 'both' => 'Alamat yang bersifat fisik dan surat']
+    ];
+
+    public const ContactPointUse = [
+        'system' => 'http://hl7.org/fhir/contact-point-use',
+        'code' => ['home', 'work', 'temp', 'old', 'mobile'],
+        'display' => ['home' => 'Home', 'work' => 'Work', 'temp' => 'Temp', 'old' => 'Old', 'mobile' => 'Mobile'],
+        'definition' => ["home" => "A communication contact point at a home; attempted contacts for business purposes might intrude privacy and chances are one will contact family or other household members instead of the person one wishes to call. Typically used with urgent cases, or if no other contacts are available.", "work" => "An office contact point. First choice for business related contacts during business hours.", "temp" => "A temporary contact point. The period can provide more detailed information.", "old" => "This contact point is no longer in use (or was never correct, but retained for records).", "mobile" => "A telecommunication device that moves and stays with its owner. May have characteristics of all other use codes, suitable for urgent matters, not the first choice for routine business."]
+    ];
+
+    public const ContactPointSystem = [
+        'system' => 'http://hl7.org/fhir/contact-point-system',
+        'code' => ['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other'],
+        'display' => ['phone' => 'Phone', 'fax' => 'Fax', 'email' => 'Email', 'pager' => 'Pager', 'url' => 'URL', 'sms' => 'SMS', 'other' => 'Other'],
+        'definition' => ["phone" => "The value is a telephone number used for voice calls. Use of full international numbers starting with + is recommended to enable automatic dialing support but not required.", "fax" => "The value is a fax machine. Use of full international numbers starting with + is recommended to enable automatic dialing support but not required.", "email" => "The value is an email address.", "pager" => "The value is a pager number. These may be local pager numbers that are only usable on a particular pager system.", "url" => "A contact that is not a phone, fax, pager or email address and is expressed as a URL. This is intended for various institutional or personal contacts including web sites, blogs, Skype, Twitter, Facebook, etc. Do not use for email addresses.", "sms" => "A contact that can be used for sending an sms message (e.g. mobile phones, some landlines).", "other" => 'A contact that is not a phone, fax, page or email address and is not expressible as a URL. E.g. Internal mail address. This SHOULD NOT be used for contacts that are expressible as a URL (e.g. Skype, Twitter, Facebook, etc.) Extensions may be used to distinguish "other" contact types.']
+    ];
+
+    public const BCP47 = [
+        'system' => 'urn:ietf:bcp:47',
+        'table' => 'codesystem_bcp47'
+    ];
+
+    public const AdministrativeGender = ['male', 'female', 'other', 'unknown'];
+
+    public const NameUse = [
+        'system' => 'http://hl7.org/fhir/name-use',
+        'code' => ['usual', 'official', 'temp', 'nickname', 'anonymous', 'old', 'maiden'],
+        'display' => ['usual' => 'Usual', 'official' => 'Official', 'temp' => 'Temp', 'nickname' => 'Nickname', 'anonymous' => 'Anonymous', 'old' => 'Old', 'maiden' => 'Name changed for Marriage']
+    ];
+
+    public const MedicationDispensePerformerFunctionCodes = [
+        'system' => 'http://www.hl7.org/fhir/codesystem-medicationdispense-performer-function.html',
+        'code' => ['dataenterer', 'packager', 'checker', 'finachecker'],
+        'display' => ["dataenterer" => "Data Enterer", "packager" => "Packager", "checker" => "Checker", "finachecker" => "Final Checker"],
+        'definition' => ["dataenterer" => "Yang memasukkan data", "packager" => "Pengemas", "checker" => "Pengecek", "finachecker" => "Pengecek akhir"]
+    ];
+
+    public const MedicationDispenseCategoryCodes = [
+        'system' => 'http://terminology.hl7.org/fhir/CodeSystem/medicationdispense-category',
+        'code' => ['inpatient', 'outpatient', 'community', 'discharge'],
+        'display' => ["inpatient" => "Inpatient", "outpatient" => "Outpatient", "community" => "Community", "discharge" => "Discharge"],
+        'definition' => ["inpatient" => "Pemberian obat untuk diadministrasikan atau dikonsumsi saat rawat inap", "outpatient" => "Pemberian obat untuk diadministrasikan atau dikonsumsi saat rawat jalan (cth. IGD, poliklinik rawat jalan, bedah rawat jalan, dll)", "community" => "Pemberian obat untuk diadministrasikan atau dikonsumsi di rumah (long term care atau nursing home, atau hospices)", "discharge" => "Pemberian obat yang dibuat ketika pasien dipulangkan dari fasilitas kesehatan"]
+    ];
+
+    public const MedicationDispenseStatusCodes = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/medicationdispense-status',
+        'code' => ['preparation', 'in-progress', 'cancelled', 'on-hold', 'completed', 'entered-in-error', 'stopped', 'declined', 'unknown'],
+        'display' => ["preparation" => "Persiapan", "in-progress" => "Dalam proses", "cancelled" => "Dibatalkan", "on-hold" => "Tertahan", "completed" => "Lengkap", "entered-in-error" => "Salah", "stopped" => "Dihentikan", "declined" => "Ditolak", "unknown" => "Tidak diketahui"]
+    ];
+
+    public const IdentifierUse = [
+        'system' => 'http://hl7.org/fhir/identifier-use',
+        'code' => ['usual', 'official', 'temp', 'secondary', 'old'],
+        'display' => [
+            'usual' => 'Identifier yang direkomendasikan digunakan untuk interaksi dunia nyata',
+            'official' => 'Identifier yang dianggap paling terpercaya. Terkadang juga dikenal sebagai "primer" dan "utama". Penentuan "resmi" bersifat subyektif dan panduan implementasi seringkali memberikan panduan tambahan untuk digunakan.',
+            'temp' => 'Identifier sementara',
+            'secondary' => 'Identifier yang ditugaskan dalam penggunaan sekunder ini berfungsi untuk mengidentifikasi objek dalam konteks relatif, tetapi tidak dapat secara konsisten ditugaskan ke objek yang sama lagi dalam konteks yang berbeda.',
+            'old' => 'Id identifier sudah dianggap tidak valid, tetapi masih memungkinkan relevan untuk kebutuhan pencarian.'
+        ]
+    ];
+
+    public const RequestIntent = [
+        'system' => 'http://hl7.org/fhir/request-intent',
+        'code' => ['proposal', 'plan', 'directive', 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order', 'option'],
+        'display' => ["proposal" => "Permintaan berupa usulan yang dibuat oleh seseorang yang tidak memiliki keinginan untuk menjamin permintaan dilaksanakan dan tanpa memberikan otorisasi untuk bertindak", "plan" => "Permintaan yang merepresentasikan niat untuk menjamin sesuatu terjadi tanpa memberikan otorisasi bagi orang lain untuk bertindak", "directive" => "Permintaan yang merepresentasikan secara legal terkait permintaan yang dilakukan oleh Patient (Pasien) atau RelatedPerson.", "order" => "Permintaan yang merepresentasikan permintaan dan otorisasi yang dilakukan oleh Practitioner (tenaga kesehatan)", "original-order" => "Permintaan yang merepresentasikan otorisasi asli untuk bertindak (permintaan asli)", "reflex-order" => "Permintaan yang dilakukan sebagai tambahan permintaan terhadap hasil awal yang membutuhkan tambahan tindakan (permintaan tambahan)", "filler-order" => "Permintaan yang merepresentasikan pandangan tentang otorisasi yang dibuat oleh sistem fulfilling yang mewakili rincian keinginan pemberi tindakan atas perintah yang diberikan", "instance-order" => "Perintah yang dibuat untuk pemenuhan lebih permintaan lebih luas yang merepresentasikan hak untuk aktivitas tunggal. Misalnya: pemberian dosis obat tinggal", "option" => "Permintaan yang merepresentasikan komponen atau opsi untuk RequestGroup yang membentuk waktu, kondisionalitas, dan/atau konstrain pada kumpulan permintaan. Merujuk pada [[[RequestGroup]]] untuk informasi tambahan mengenai bagaimana status ini dibuat"]
+    ];
+
+    public const RequestStatus = [
+        'system' => 'http://hl7.org/fhir/request-status',
+        'code' => ['draft', 'active', 'on-hold', 'revoked', 'completed', 'entered-in-error', 'unknown'],
+        'display' => ["draft" => "Permintaan yang telah dibuat namun belum selesai atau belum siap untuk dilakukan", "active" => "Permintaan yang berlaku dan siap untuk dilakukan", "on-hold" => "Permintaan (dan setiap hak implisit untuk bertindak) yang telah ditarik/dihentikan sementara namun diharapkan untuk dilanjutkan nanti", "revoked" => "Permintaan (dan setiap hak implisit untuk bertindak) yang telah dihentikan secara penuh dari rencana. Tidak ada aktivitas lanjutan yang harus diteruskan", "completed" => "Aktivitas yang dideskripsikan oleh permintaan yang telah selesai. Tidak ada aktivitas lanjutan yang harus diteruskan", "entered-in-error" => "Permintaan yang seharusnya tidak ada dan sebaiknya dikosongi. (hal ini mungkin berdasarkan keputusan di lapangan. Jika kondisi aktivitas telah terjadi, maka status harus menjadi “revoked” daripada “entered-in-error”)", "unknown" => "Sistem pembuat/sumber tidak mengetahui status mana yang saat ini berlaku untuk permintaan tersebut. Catatan: Konsep ini tidak digunakan untuk “lainnya”, salah satu status yang terdaftar dianggap berlaku namun sistem pembuat/sumber yang tidak dapat mengidentifikasi"]
+    ];
+
     public const AllergyIntoleranceSeverity = [
         'system' => 'http://hl7.org/fhir/reaction-event-severity',
         'code' => ['mild', 'moderate', 'severe'],

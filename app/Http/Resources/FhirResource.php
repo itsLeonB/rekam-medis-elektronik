@@ -15,6 +15,52 @@ use Illuminate\Support\Facades\DB;
 
 class FhirResource extends JsonResource
 {
+    public function createPhotoArray($photos): array
+    {
+        $photo = [];
+
+        if (is_array($photos) || is_object($photos)) {
+            foreach ($photos as $p) {
+                $photo[] = [
+                    'data' => $p->data,
+                    'url' => $p->url,
+                    'size' => $p->size,
+                    'hash' => $p->hash,
+                    'title' => $p->title,
+                    'creation' => $this->parseDateFhir($p->creation),
+                ];
+            }
+        }
+
+        return $photo;
+    }
+
+
+    public function createHumanNameArray($names): array
+    {
+        $humanName = [];
+
+        if (is_array($names) || is_object($names)) {
+            foreach ($names as $name) {
+                $humanName[] = [
+                    'use' => $name->use,
+                    'text' => $name->text,
+                    'family' => $name->family,
+                    'given' => $name->given,
+                    'prefix' => $name->prefix,
+                    'suffix' => $name->suffix,
+                    'period' => [
+                        'start' => $this->parseDateFhir($name->period_start),
+                        'end' => $this->parseDateFhir($name->period_end),
+                    ]
+                ];
+            }
+        }
+
+        return $humanName;
+    }
+
+
     public function searchSnomed(string $ecl, string $term, Client $client)
     {
         $headers = [

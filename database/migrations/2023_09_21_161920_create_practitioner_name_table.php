@@ -11,18 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('practitioner_qualification', function (Blueprint $table) {
+        Schema::create('practitioner_name', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('practitioner_id');
             $table->index('practitioner_id');
             $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
-            $table->json('identifier')->nullable();
-            $table->string('code_system')->nullable();
-            $table->string('code_code')->nullable();
-            $table->string('code_display')->nullable();
-            $table->date('period_start')->nullable();
-            $table->date('period_end')->nullable();
-            $table->string('issuer')->nullable();
+            $table->string('use')->nullable();
+            $table->string('text')->nullable();
+            $table->string('family')->nullable();
+            $table->json('given')->nullable();
+            $table->json('prefix')->nullable();
+            $table->json('suffix')->nullable();
+            $table->dateTime('period_start')->nullable();
+            $table->dateTime('period_end')->nullable();
         });
     }
 
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('practitioner_qualification');
+        Schema::dropIfExists('practitioner_name');
     }
 };

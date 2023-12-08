@@ -120,6 +120,7 @@ Route::put('/questionnaireresponse/{res_id}', [QuestionnaireResponseController::
 // Testing endpoint
 Route::get('/test/get/organization', [TestController::class, 'testOrganization']);
 Route::get('/test/get/location', [TestController::class, 'testLocation']);
+Route::get('/test/get/practitioner', [TestController::class, 'testPractitioner']);
 Route::get('/test/get/patient', [TestController::class, 'testPatient']);
 Route::get('/test/get/encounter', [TestController::class, 'testEncounter']);
 Route::get('/test/get/condition', [TestController::class, 'testCondition']);
@@ -130,3 +131,5 @@ Route::get('/test/get/medicationrequest', [TestController::class, 'testMedicatio
 Route::get('/test/get/composition', [TestController::class, 'testComposition']);
 Route::get('/test/get/allergyintolerance', [TestController::class, 'testAllergyIntolerance']);
 Route::get('/test/get/clinicalimpression', [TestController::class, 'testClinicalImpression']);
+Route::get('/test/get/servicerequest', [TestController::class, 'testServiceRequest']);
+Route::get('/test/get/medicationdispense', [TestController::class, 'testMedicationDispense']);

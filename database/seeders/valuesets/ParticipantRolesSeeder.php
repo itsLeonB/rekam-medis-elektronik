@@ -1,17 +1,16 @@
 <?php
 
-namespace Database\Seeders\Codesystems;
+namespace Database\Seeders\Valuesets;
 
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-
-class AdministrativeCodeSeeder extends CsvSeeder
+class ParticipantRolesSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/codesystems/administrativecode.csv';
-        $this->tablename = 'codesystem_administrativecode';
+        $this->file = '/database/seeders/csvs/valuesets/participantroles.csv';
+        $this->tablename = 'valueset_participantroles';
         $this->timestamps = false;
         $this->delimiter = ',';
     }
