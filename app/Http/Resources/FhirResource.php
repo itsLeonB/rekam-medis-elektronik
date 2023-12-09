@@ -281,7 +281,7 @@ class FhirResource extends JsonResource
 
         if (is_array($annotationAttribute) || is_object($annotationAttribute)) {
             foreach ($annotationAttribute as $a) {
-                $annotation[] = merge_array(
+                $annotation[] = $this->mergeArray(
                     $a->author,
                     [
                         'time' => $this->parseDateFhir($a->time),
@@ -413,7 +413,7 @@ class FhirResource extends JsonResource
 
         if (is_array($doseRateAttribute) || is_object($doseRateAttribute)) {
             foreach ($doseRateAttribute as $dr) {
-                $doseRate[] = merge_array(
+                $doseRate[] = $this->mergeArray(
                     [
                         'type' => [
                             'coding' => [
@@ -432,5 +432,29 @@ class FhirResource extends JsonResource
         }
 
         return $doseRate;
+    }
+
+
+    public function mergeArray(...$arrays)
+    {
+        $arr = [];
+
+        foreach ($arrays as $a) {
+            if ($a != null) {
+                $arr = array_merge($arr, $a);
+            }
+        }
+
+        return $arr;
+    }
+
+    public function removeEmptyValues($array)
+    {
+        return array_filter($array, function ($value) {
+            if (is_array($value)) {
+                return !empty($this->removeEmptyValues($value));
+            }
+            return $value !== null && $value !== "" && !(is_array($value) && empty($value));
+        });
     }
 }

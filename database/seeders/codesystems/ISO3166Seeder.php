@@ -5,7 +5,7 @@ namespace Database\Seeders\Codesystems;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ISO3166Seeder extends CsvSeeder
+class Iso3166Seeder extends CsvSeeder
 {
     public function __construct()
     {

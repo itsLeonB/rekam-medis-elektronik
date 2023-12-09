@@ -23,14 +23,14 @@ class ObservationResource extends FhirResource
 
         $data = $this->resourceStructure($observation);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($observation): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'Observation',
                 'id' => $this->satusehat_id,
@@ -232,7 +232,7 @@ class ObservationResource extends FhirResource
         $component = [];
 
         foreach ($componentAttribute as $c) {
-            $component[] = merge_array(
+            $component[] = $this->mergeArray(
                 [
                     'code' => [
                         'coding' => [

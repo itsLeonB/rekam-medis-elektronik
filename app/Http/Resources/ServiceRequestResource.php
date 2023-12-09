@@ -19,14 +19,14 @@ class ServiceRequestResource extends FhirResource
 
         $data = $this->resourceStructure($serviceRequest);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($serviceRequest): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'ServiceRequest',
                 'id' => $this->satusehat_id,

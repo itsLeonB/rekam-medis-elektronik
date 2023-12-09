@@ -15,7 +15,7 @@ class QuestionnaireResponseResource extends FhirResource
     {
         $questionnaireResponse = $this->getData('questionnaireResponse');
         $data = $this->resourceStructure($questionnaireResponse);
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
         return $data;
     }
 

@@ -20,14 +20,14 @@ class AllergyIntoleranceResource extends FhirResource
 
         $data = $this->resourceStructure($allergy);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($allergy): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'AllergyIntolerance',
                 'id' => $this->satusehat_id,

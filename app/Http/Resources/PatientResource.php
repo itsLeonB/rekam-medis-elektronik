@@ -23,14 +23,14 @@ class PatientResource extends FhirResource
 
         $data = $this->resourceStructure($patient);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($patient): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'Patient',
                 'id' => $this->satusehat_id,
@@ -55,9 +55,9 @@ class PatientResource extends FhirResource
                 'maritalStatus' => [
                     'coding' => [
                         [
-                            'system' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+                            'system' => $patient->marital_status ? Patient::MARITAL_STATUS['binding']['valueset']['system'] : null,
                             'code' => $patient->marital_status,
-                            'display' => maritalStatusDisplay($patient->marital_status)
+                            'display' => $patient->marital_status ? Patient::MARITAL_STATUS['binding']['valueset']['display'][$patient->marital_status] ?? null : null
                         ]
                     ],
                 ],
@@ -172,7 +172,7 @@ class PatientResource extends FhirResource
                     ],
                 ];
 
-                $extAddress = removeEmptyValues($extAddress);
+                $extAddress = $this->removeEmptyValues($extAddress);
 
                 $contact[] = [
                     'relationship' => $this->createRelationshipArray($c->relationship),

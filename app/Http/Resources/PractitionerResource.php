@@ -18,7 +18,7 @@ class PractitionerResource extends FhirResource
 
         $data = $this->resourceStructure($practitioner);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }

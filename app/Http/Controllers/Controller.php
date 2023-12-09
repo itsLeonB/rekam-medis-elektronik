@@ -121,7 +121,7 @@ class Controller extends BaseController
             return response()->json(['error' => 'Empty request body'], 400);
         }
 
-        $body = removeEmptyValues($body);
+        $body = $this->removeEmptyValues($body);
 
         return $body;
     }
@@ -198,5 +198,16 @@ class Controller extends BaseController
         } catch (Exception $e) {
             return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
         }
+    }
+
+
+    public function removeEmptyValues($array)
+    {
+        return array_filter($array, function ($value) {
+            if (is_array($value)) {
+                return !empty($this->removeEmptyValues($value));
+            }
+            return $value !== null && $value !== "" && !(is_array($value) && empty($value));
+        });
     }
 }

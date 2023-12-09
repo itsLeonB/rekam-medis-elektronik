@@ -19,7 +19,7 @@ class LocationResource extends FhirResource
 
         $data = $this->resourceStructure($location);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }

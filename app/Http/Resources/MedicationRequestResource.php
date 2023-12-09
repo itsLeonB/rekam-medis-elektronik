@@ -20,7 +20,7 @@ class MedicationRequestResource extends FhirResource
 
         $data = $this->resourceStructure($medicationRequest);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }

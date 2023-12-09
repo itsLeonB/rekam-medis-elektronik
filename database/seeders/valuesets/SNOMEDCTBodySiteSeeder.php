@@ -5,7 +5,7 @@ namespace Database\Seeders\Valuesets;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class SNOMEDCTBodySiteSeeder extends CsvSeeder
+class SnomedCtBodySiteSeeder extends CsvSeeder
 {
     public function __construct()
     {

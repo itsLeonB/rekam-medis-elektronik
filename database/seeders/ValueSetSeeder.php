@@ -13,7 +13,7 @@ use Database\Seeders\Valuesets\{
     ProcedurePerformerRoleCodesSeeder,
     RiwayatPenyakitKeluargaSeeder,
     RiwayatPenyakitPribadiSeeder,
-    SNOMEDCTBodySiteSeeder,
+    SnomedCtBodySiteSeeder,
 };
 use Illuminate\Database\Seeder;
 
@@ -35,7 +35,7 @@ class ValueSetSeeder extends Seeder
             ProcedurePerformerRoleCodesSeeder::class,
             RiwayatPenyakitKeluargaSeeder::class,
             RiwayatPenyakitPribadiSeeder::class,
-            SNOMEDCTBodySiteSeeder::class,
+            SnomedCtBodySiteSeeder::class,
         ]);
     }
 }

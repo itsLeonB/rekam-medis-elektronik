@@ -22,14 +22,14 @@ class ConditionResource extends FhirResource
 
         $data = $this->resourceStructure($condition);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($condition): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'Condition',
                 'id' => $this->satusehat_id,

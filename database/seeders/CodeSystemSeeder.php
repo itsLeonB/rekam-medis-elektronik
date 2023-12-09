@@ -4,14 +4,14 @@ namespace Database\Seeders;
 
 use Database\Seeders\Codesystems\{
     AdministrativeAreaSeeder,
-    BCP47Seeder,
+    Bcp47Seeder,
     ClinicalSpecialtySeeder,
-    ICD10Seeder,
-    ICD9CMProcedureSeeder,
-    ISO3166Seeder,
+    Icd10Seeder,
+    Icd9CmProcedureSeeder,
+    Iso3166Seeder,
     LoincSeeder,
     ServiceTypeSeeder,
-    UCUMSeeder,
+    UcumSeeder,
     V3ActCodeSeeder,
 };
 use Illuminate\Database\Seeder;
@@ -25,14 +25,14 @@ class CodeSystemSeeder extends Seeder
     {
         $this->call([
             AdministrativeAreaSeeder::class,
-            BCP47Seeder::class,
+            Bcp47Seeder::class,
             ClinicalSpecialtySeeder::class,
-            ICD9CMProcedureSeeder::class,
-            ICD10Seeder::class,
-            ISO3166Seeder::class,
+            Icd9CmProcedureSeeder::class,
+            Icd10Seeder::class,
+            Iso3166Seeder::class,
             LoincSeeder::class,
             ServiceTypeSeeder::class,
-            UCUMSeeder::class,
+            UcumSeeder::class,
             V3ActCodeSeeder::class,
         ]);
     }

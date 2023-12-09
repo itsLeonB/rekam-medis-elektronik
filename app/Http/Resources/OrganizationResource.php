@@ -21,7 +21,7 @@ class OrganizationResource extends FhirResource
 
         $data = $this->resourceStructure($observation);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }

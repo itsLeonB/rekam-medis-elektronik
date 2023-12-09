@@ -21,14 +21,14 @@ class ProcedureResource extends FhirResource
 
         $data = $this->resourceStructure($procedure);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($procedure): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'Procedure',
                 'id' => $this->satusehat_id,

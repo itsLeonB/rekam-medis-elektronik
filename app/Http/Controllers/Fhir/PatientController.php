@@ -33,13 +33,13 @@ class PatientController extends Controller
     public function store(PatientRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body) {
+        // return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource(self::RESOURCE_TYPE);
             $patient = $resource->patient()->create($body['patient']);
             $this->createChildModels($patient, $body, ['identifier', 'name', 'telecom', 'address', 'photo', 'communication', 'link']);
             $this->createNestedInstances($patient, 'contact', $body, ['telecom']);
             $this->createResourceContent(PatientResource::class, $resource);
             return response()->json($patient, 201);
-        });
+        // });
     }
 }

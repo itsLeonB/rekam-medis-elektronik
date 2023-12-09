@@ -5,7 +5,7 @@ namespace Database\Seeders\Codesystems;
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class ICD10Seeder extends CsvSeeder
+class Icd10Seeder extends CsvSeeder
 {
     public function __construct()
     {
