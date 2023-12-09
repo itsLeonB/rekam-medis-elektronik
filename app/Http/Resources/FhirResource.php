@@ -197,6 +197,7 @@ class FhirResource extends JsonResource
             foreach ($addressAttribute as $a) {
                 $addressData[] = [
                     'use' => $a->use,
+                    'type' => $a->type,
                     'line' => $a->line,
                     'country' => $a->country,
                     'postalCode' => $a->postal_code,

@@ -50,8 +50,11 @@
         {
             "contact_data": {
                 "purpose": "BILL",
-                "name_use": "usual",
                 "name_text": "Dadang Sujatmiko",
+                "name_family": "Sujatmiko",
+                "name_given": ["Dadang"],
+                "name_prefix": ["Mr."],
+                "name_suffix": ["S.Kom."],
                 "address_use": "home",
                 "address_type": "both",
                 "address_line": ["Jalan Jati Asih"],

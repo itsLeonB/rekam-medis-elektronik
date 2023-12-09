@@ -4,6 +4,38 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const LocationPhysicalType = [
+        'system' => ['si' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'bu' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'wi' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'wa' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'lvl' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'co' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'ro' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'bd' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 've' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'ho' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'ca' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'rd' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'area' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'jdn' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'vir' => 'http://terminology.kemkes.go.id/CodeSystem/location-physical-type'],
+        'code' => ['si', 'bu', 'wi', 'wa', 'lvl', 'co', 'ro', 'bd', 've', 'ho', 'ca', 'rd', 'area', 'jdn', 'vir'],
+        'display' => ['si' => 'Site', 'bu' => 'Building', 'wi' => 'Wing', 'wa' => 'Ward', 'lvl' => 'Level', 'co' => 'Corridor', 'ro' => 'Room', 'bd' => 'Bed', 've' => 'Vehicle', 'ho' => 'House', 'ca' => 'Cabinet', 'rd' => 'Road', 'area' => 'Area', 'jdn' => 'Jurisdiction', 'vir' => 'Virtual'],
+        'definition' => ['si' => 'Kumpulan bangunan atau lokasi lain seperti kompleks atau kampus.', 'bu' => 'Setiap Bangunan atau struktur.', 'wi' => 'Sayap di dalam Gedung, sering berisi lantai, kamar, dan koridor.', 'wa' => 'Bangsal adalah bagian dari fasilitas medis yang mungkin berisi kamar dan jenis lokasi lainnya', 'lvl' => 'Lantai di Gedung/Struktur', 'co' => 'Setiap koridor di dalam Gedung, yang dapat menghubungkan kamar-kamar', 'ro' => 'Sebuah ruang yang dialokasikan sebagai ruangan', 'bd' => 'Tempat tidur yang dapat ditempati', 've' => 'Alat transportasi', 'ho' => 'Rumah', 'ca' => 'Wadah yang dapat menyimpan barang, peralatan, obat-obatan atau barang lainnya.', 'rd' => 'Jalan', 'area' => 'Area (contoh : zona risiko banjir, wilayah, wilayah kodepos)', 'jdn' => 'Negara, Provinsi', 'vir' => 'Virtual']
+    ];
+
+    public const PatientContactRelationship = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v2-0131',
+        'code' => ['C', 'E', 'F', 'I', 'N', 'S', 'U'],
+        'display' => ['C' => 'Emergency Contact', 'E' => 'Employer', 'F' => 'Federal Agency', 'I' => 'Insurance Company', 'N' => 'Next-of-Kin', 'S' => 'State Agency', 'U' => 'Unknown']
+    ];
+
+    public const MaritalStatusCodes = [
+        'system' => [
+            'A' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'D' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'I' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'L' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'M' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'P' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'S' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'T' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'U' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'W' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+            'UNK' => 'http://terminology.hl7.org/CodeSystem/v3-NullFlavor'
+        ],
+        'code' => ['A', 'D', 'I', 'L', 'M', 'P', 'S', 'T', 'U', 'W', 'UNK'],
+        'display' => ['A' => 'Annulled', 'D' => 'Divorced', 'I' => 'Interlocutory', 'L' => 'Legally Separated', 'M' => 'Married', 'P' => 'Polygamous', 'S' => 'Never Married', 'T' => 'Domestic partner', 'U' => 'unmarried', 'W' => 'Widowed', 'UNK' => 'unknown'],
+        'definition' => ["A" => "Marriage contract has been declared null and to not have existed", "D" => "Marriage contract has been declared dissolved and inactive", "I" => "Subject to an Interlocutory Decree.", "L" => "Legally Separated", "M" => "A current marriage contract is active", "P" => "More than 1 current spouse", "S" => "No marriage contract has ever been entered", "T" => "Person declares that a domestic partner relationship exists.", "U" => "Currently not in a marriage contract.", "W" => "The spouse has died", "UNK" => "The marital status of the person is not known."]
+    ];
+
     public const v3SubstanceAdminSubstitutionReason = [
         'system' => 'https://terminology.hl7.org/3.1.0/CodeSystem-v3-ActReason.html',
         'code' => ['CT', 'FP', 'OS', 'RR'],

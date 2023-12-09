@@ -2,26 +2,25 @@
 
 namespace App\Models;
 
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PatientContact extends Model
 {
-    public const RELATIONSHIP_SYSTEM = 'http://terminology.hl7.org/CodeSystem/v2-0131';
-    public const RELATIONSHIP_CODE = ['C', 'E', 'F', 'I', 'N', 'S', 'U'];
-    public const RELATIONSHIP_DISPLAY = ['C' => 'Emergency Contact', 'E' => 'Employer', 'F' => 'Federal Agency', 'I' => 'Insurance Company', 'N' => 'Next-of-Kin', 'S' => 'State Agency', 'U' => 'Unknown'];
-
     protected $table = 'patient_contact';
-
-    public $timestamps = false;
-
     protected $casts = [
         'relationship' => 'array',
-        'address_line' => 'array'
+        'name_given' => 'array',
+        'name_prefix' => 'array',
+        'name_suffix' => 'array',
+        'address_line' => 'array',
+        'period_start' => 'datetime',
+        'period_end' => 'datetime'
     ];
-
-    protected $guarded = ['id'];
+    public $timestamps = false;
 
     public function patient(): BelongsTo
     {
@@ -32,4 +31,40 @@ class PatientContact extends Model
     {
         return $this->hasMany(PatientContactTelecom::class, 'contact_id');
     }
+
+    public const RELATIONSHIP = [
+        'binding' => [
+            'valueset' => Valuesets::PatientContactRelationship
+        ]
+    ];
+
+    public const GENDER = [
+        'binding' => [
+            'valueset' => Codesystems::AdministrativeGender
+        ]
+    ];
+
+    public const ADDRESS_USE = [
+        'binding' => [
+            'valueset' => Codesystems::AddressUse
+        ]
+    ];
+
+    public const ADDRESS_TYPE = [
+        'binding' => [
+            'valueset' => Codesystems::AddressType
+        ]
+    ];
+
+    public const COUNTRY = [
+        'binding' => [
+            'valueset' => Codesystems::ISO3166
+        ]
+    ];
+
+    public const ADMINISTRATIVE_CODE = [
+        'binding' => [
+            'valueset' => Codesystems::AdministrativeArea
+        ]
+    ];
 }

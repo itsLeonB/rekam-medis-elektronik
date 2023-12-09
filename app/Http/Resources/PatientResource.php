@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Patient;
+use App\Models\PatientCommunication;
+use App\Models\PatientContact;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -33,7 +36,7 @@ class PatientResource extends FhirResource
                 'id' => $this->satusehat_id,
                 'extension' => [
                     [
-                        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace',
+                        'url' => $patient->birth_city || $patient->birth_country ? 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace' : null,
                         'valueAddress' => [
                             'city' => $patient->birth_city,
                             'country' => $patient->birth_country,
@@ -42,17 +45,13 @@ class PatientResource extends FhirResource
                 ],
                 'identifier' => $this->createIdentifierArray($patient->identifier),
                 'active' => $patient->active,
-                'name' => [[
-                    'use' => 'official',
-                    'text' => $patient->name,
-                    'prefix' => $patient->prefix,
-                    'suffix' => $patient->suffix,
-                ]],
+                'name' => $this->createHumanNameArray($patient->name),
                 'telecom' => $this->createTelecomArray($patient->telecom),
                 'gender' => $patient->gender,
                 'birthDate' => Carbon::parse($patient->birth_date)->format('Y-m-d'),
                 'address' => $this->createAddressArray($patient->address),
                 'contact' => $this->createContactArray($patient->contact),
+                'photo' => $this->createPhotoArray($patient->photo),
                 'maritalStatus' => [
                     'coding' => [
                         [
@@ -63,7 +62,7 @@ class PatientResource extends FhirResource
                     ],
                 ],
                 'communication' => $this->createCommunicationArray($patient->communication),
-                'generalPractitioner' => $this->referenceArray($patient->general_practitioner),
+                'generalPractitioner' => $this->createReferenceArray($patient->general_practitioner),
                 'link' => $this->createLinkArray($patient->link)
             ],
             $patient->deceased,
@@ -80,9 +79,9 @@ class PatientResource extends FhirResource
             foreach ($links as $l) {
                 $link[] = [
                     'other' => [
-                        'reference' => $l['other'],
+                        'reference' => $l->other,
                     ],
-                    'type' => $l['type'],
+                    'type' => $l->type,
                 ];
             }
         }
@@ -101,36 +100,20 @@ class PatientResource extends FhirResource
                     'language' => [
                         'coding' => [
                             [
-                                'system' => $c ? 'urn:ietf:bcp:47' : null,
-                                'code' => $c,
-                                'display' => $c ? DB::table('codesystem_bcp47')
-                                    ->select('display')
-                                    ->where('code', $c)
-                                    ->first() ?? null : null
+                                'system' => $c->language ? PatientCommunication::LANGUAGE['binding']['valueset']['system'] : null,
+                                'code' => $c->language,
+                                'display' => $c->language ? DB::table(PatientCommunication::LANGUAGE['binding']['valueset']['table'])
+                                    ->where('code', $c->language)
+                                    ->value('display') : null,
                             ],
                         ],
                     ],
+                    'preferred' => $c->preferred,
                 ];
             }
         }
 
         return $communication;
-    }
-
-
-    private function referenceArray($references): array
-    {
-        $reference = [];
-
-        if (!empty($references)) {
-            foreach ($references as $r) {
-                $reference[] = [
-                    'reference' => $r,
-                ];
-            }
-        }
-
-        return $reference;
     }
 
 
@@ -143,9 +126,9 @@ class PatientResource extends FhirResource
                 $relationship[] = [
                     'coding' => [
                         [
-                            'system' => $r ? 'http://terminology.hl7.org/CodeSystem/v2-0131' : null,
+                            'system' => $r ? PatientContact::RELATIONSHIP['binding']['valueset']['system'] : null,
                             'code' => $r,
-                            'display' => $r ? relationshipDisplay($r) : null
+                            'display' => $r ? PatientContact::RELATIONSHIP['binding']['valueset']['display'][$r] ?? null : null,
                         ],
                     ],
                 ];
@@ -194,14 +177,16 @@ class PatientResource extends FhirResource
                 $contact[] = [
                     'relationship' => $this->createRelationshipArray($c->relationship),
                     'name' => [
-                        'use' => 'official',
                         'text' => $c->name,
-                        'prefix' => $c->prefix == '' ? null : explode(' ', $c->prefix),
-                        'suffix' => $c->suffix == '' ? null : explode(' ', $c->suffix),
+                        'family' => $c->family,
+                        'given' => $c->given,
+                        'prefix' => $c->prefix,
+                        'suffix' => $c->suffix,
                     ],
                     'telecom' => $this->createTelecomArray($c->telecom),
                     'address' => [
                         'use' => $c->address_use,
+                        'type' => $c->address_type,
                         'line' => [$c->address_line],
                         'postalCode' => $c->postal_code,
                         'country' => $c->country,
@@ -212,7 +197,14 @@ class PatientResource extends FhirResource
                             ]
                         ]
                     ],
-                    'gender' => $c->gender
+                    'gender' => $c->gender,
+                    'organization' => [
+                        'reference' => $c->organization,
+                    ],
+                    'period' => [
+                        'start' => $this->parseDateFhir($c->period_start),
+                        'end' => $this->parseDateFhir($c->period_end),
+                    ],
                 ];
             }
         }

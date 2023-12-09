@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('mode', ['instance', 'kind'])->nullable();
             $table->json('type')->nullable();
             $table->enum('address_use', ['home', 'work', 'temp', 'old', 'billing'])->nullable();
+            $table->enum('address_type', ['postal', 'physical', 'both'])->nullable();
             $table->json('address_line')->nullable();
             $table->string('country')->nullable();
             $table->string('postal_code')->nullable();

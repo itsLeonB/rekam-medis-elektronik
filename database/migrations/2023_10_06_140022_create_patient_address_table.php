@@ -16,9 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->index('patient_id');
             $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
-            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing']);
-            $table->json('line');
-            $table->string('country');
+            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing'])->nullable();
+            $table->enum('type', ['postal', 'physical', 'both'])->nullable();
+            $table->json('line')->nullable();
+            $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
             $table->integer('province')->unsigned()->nullable();
             $table->integer('city')->unsigned()->nullable();

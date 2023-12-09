@@ -6,9 +6,10 @@ use App\Fhir\Codesystems;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class PatientIdentifier extends Model
+class PatientCommunication extends Model
 {
-    protected $table = 'patient_identifier';
+    protected $table = 'patient_communication';
+    protected $casts = ['preferred' => 'boolean'];
     public $timestamps = false;
 
     public function patient(): BelongsTo
@@ -16,9 +17,9 @@ class PatientIdentifier extends Model
         return $this->belongsTo(Patient::class);
     }
 
-    public const USE = [
+    public const LANGUAGE = [
         'binding' => [
-            'valueset' => Codesystems::IdentifierUse
+            'valueset' => Codesystems::BCP47
         ]
     ];
 }

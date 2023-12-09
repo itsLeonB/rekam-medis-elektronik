@@ -4,6 +4,58 @@ namespace App\Fhir;
 
 class Codesystems
 {
+    public const LocationServiceClass = [
+        'url' => "https://fhir.kemkes.go.id/r4/StructureDefinition/LocationServiceClass",
+        'system' => ['1' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '2' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '3' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vvip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'reguler' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient', 'eksekutif' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient'],
+        'code' => ['1', '2', '3', 'vip', 'vvip', 'reguler', 'eksekutif'],
+        'display' => ['1' => 'Kelas 1', '2' => 'Kelas 2', '3' => 'Kelas 3', 'vip' => 'Kelas VIP', 'vvip' => 'Kelas VVIP', 'reguler' => 'Kelas Reguler', 'eksekutif' => 'Kelas Eksekutif'],
+        'definition' => ['1' => 'Perawatan Kelas 1', '2' => 'Perawatan Kelas 2', '3' => 'Perawatan Kelas 3', 'vip' => 'Perawatan Kelas VIP', 'vvip' => 'Perawatan Kelas VVIP', 'reguler' => 'Perawatan Kelas Reguler', 'eksekutif' => 'Perawatan Kelas Eksekutif']
+    ];
+
+    public const LocationType = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/location-type',
+        'code' => ['RT0001', 'RT0002', 'RT0003', 'RT0004', 'RT0005', 'RT0006', 'RT0007', 'RT0008', 'RT0009', 'RT0010', 'RT0011', 'RT0012', 'RT0013', 'RT0014', 'RT0015', 'RT0016', 'RT0017', 'RT0018', 'RT0019', 'RT0020', 'RT0021', 'RT0022', 'RT0023', 'RT0024', 'RT0025', 'RT0026', 'RT0027', 'RT0028', 'RT0029', 'RT0030', 'RT0031', 'RT0032', 'RT0033'],
+        'display' => ['RT0001' => 'Wahana PIDI', 'RT0002' => 'Wahana PIDGI', 'RT0003' => 'RS Pendidikan', 'RT0004' => 'Tempat Tidur', 'RT0005' => 'Bank Darah', 'RT0006' => 'Instalasi Gawat Darurat', 'RT0007' => 'Ruang Perawatan Intensif Umum (ICU)', 'RT0008' => 'Ruangan Persalinan', 'RT0009' => 'Ruang Perawatan Intensif', 'RT0010' => 'Daerah Rawat Pasien ICU/ICCU/HCU/ PICU', 'RT0011' => 'Ruangan Perawatan Intensif Pediatrik (PICU)', 'RT0012' => 'Ruangan Perawatan Intensif Neonatus(NICU)', 'RT0013' => 'High Care Unit (HCU)', 'RT0014' => 'Intensive Cardiology Care Unit (ICCU)', 'RT0015' => 'Respiratory Intensive Care Unit (RICU)', 'RT0016' => 'Ruang Rawat Inap', 'RT0017' => 'Ruangan Perawatan (Post Partum)', 'RT0018' => 'Ruangan Perawatan Isolasi', 'RT0019' => 'Ruangan Perawatan Neonatus Infeksius/ Isolasi', 'RT0020' => 'Ruangan Perawatan Neonatus Non Infeksius', 'RT0021' => 'Ruangan Perawatan Pasien Paska Terapi', 'RT0022' => 'Ruangan Rawat Pasca Persalinan', 'RT0023' => 'Ruangan/ Daerah Rawat Pasien Isolasi', 'RT0024' => 'Ruangan/ Daerah Rawat Pasien Non Isolasi', 'RT0025' => 'Ruang Operasi', 'RT0026' => 'Ruangan Observasi', 'RT0027' => 'Ruangan Resusitasi', 'RT0028' => 'Ruangan Tindakan Anak', 'RT0029' => 'Ruangan Tindakan Bedah', 'RT0030' => 'Ruangan Tindakan Kebidanan', 'RT0031' => 'Ruangan Tindakan Non-Bedah', 'RT0032' => 'Ruangan Triase', 'RT0033' => 'Ruangan Ultra Sonografi (USG)']
+    ];
+
+    public const LocationMode = [
+        'system' => 'http://hl7.org/fhir/location-mode',
+        'code ' => ['instance', 'kind'],
+        'display' => ['instance' => 'Merepresentasikan lokasi spesifik', 'kind' => 'Merepresentasikan kelompok/kelas lokasi'],
+    ];
+
+    public const v20116 = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v2-0116',
+        'code' => ['C', 'H', 'I', 'K', 'O', 'U'],
+        'display' => ['C' => 'Closed', 'H' => 'Housekeeping', 'I' => 'Isolated', 'K' => 'Contaminated', 'O' => 'Occupied', 'U' => 'Unoccupied'],
+        'definition' => ['C' => 'Tutup', 'H' => 'Dalam pembersihan', 'I' => 'Isolasi', 'K' => 'Terkontaminasi', 'O' => 'Terisi', 'U' => 'Tidak terisi'],
+    ];
+
+    public const LocationStatus = [
+        'system' => 'http://hl7.org/fhir/location-status',
+        'code' => ['active', 'suspended', 'inactive'],
+        'display' => ['active' => 'Lokasi sedang beroperasi', 'suspended' => 'Lokasi ditutup sementara', 'inactive' => 'Lokasi tidak lagi digunakan'],
+    ];
+
+    public const ContactEntityType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/contactentity-PURPOSE',
+        'code' => ['BILL', 'ADMIN', 'HR', 'PAYOR', 'PATINF', 'PRESS'],
+        'display' => ['BILL' => 'Billing', 'ADMIN' => 'Administrative', 'HR' => 'Human Resource', 'PAYOR' => 'Payor', 'PATINF' => 'Patient', 'PRESS' => 'Press'],
+        'definition' => ['BILL' => 'Billing', 'ADMIN' => 'Administratif', 'HR' => 'SDM seperti informasi staf/tenaga kesehatan', 'PAYOR' => 'Klaim asuransi, pembayaran', 'PATINF' => 'Informasi umum untuk pasien', 'PRESS' => 'Pertanyaan terkait press']
+    ];
+
+    public const OrganizationType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/organization-type',
+        'code' => ['prov', 'dept', 'team', 'govt', 'ins', 'pay', 'edu', 'reli', 'crs', 'cg', 'bus', 'other'],
+        'display' => ['prov' => 'Healthcare Provider', 'dept' => 'Hospital Department', 'team' => 'Organizational team', 'govt' => 'Government', 'ins' => 'Insurance Company', 'pay' => 'Payer', 'edu' => 'Educational Institute', 'reli' => 'Religious Institution', 'crs' => 'Clinical Research Sponsor', 'cg' => 'Community Group', 'bus' => 'Non-Healthcare Business or Corporation', 'other' => 'Other'],
+        'definition' => ['prov' => 'Fasilitas Pelayanan Kesehatan', 'dept' => 'Departemen dalam Rumah Sakit', 'team' => 'Kelompok praktisi/tenaga kesehatan yang menjalankan fungsi tertentu dalam suatu organisasi', 'govt' => 'Organisasi Pemerintah', 'ins' => 'Perusahaan Asuransi', 'pay' => 'Badan Penjamin', 'edu' => 'Institusi Pendidikan/Penelitian', 'reli' => 'Organisasi Keagamaan', 'crs' => 'Sponsor penelitian klinis', 'cg' => 'Kelompok Masyarakat', 'bus' => 'Perusahaan diluar bidang kesehatan', 'other' => 'Lain-lain'],
+    ];
+
+    public const ISO3166 = [
+        'system' => 'urn:iso:std:iso:3166',
+        'table' => 'codesystem_iso3166'
+    ];
+
     public const AddressUse = [
         'system' => 'http://hl7.org/fhir/address-use',
         'code' => ['home', 'work', 'temp', 'old', 'billing'],

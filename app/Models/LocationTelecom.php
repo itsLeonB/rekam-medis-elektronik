@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Fhir\Codesystems;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,4 +15,16 @@ class LocationTelecom extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public const SYSTEM = [
+        'binding' => [
+            'valueset' => Codesystems::ContactPointSystem
+        ]
+    ];
+
+    public const USE = [
+        'binding' => [
+            'valueset' => Codesystems::ContactPointUse
+        ]
+    ];
 }

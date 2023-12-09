@@ -9,6 +9,7 @@ use App\Models\Condition;
 use App\Models\MedicationRequest;
 use App\Models\Observation;
 use App\Models\ObservationComponent;
+use App\Models\Patient;
 use App\Models\Procedure;
 use App\Models\Resource;
 use App\Models\ServiceRequest;
@@ -47,18 +48,18 @@ class IdFhirResourceSeeder extends Seeder
             );
 
             switch ($resType) {
-                    // case 'Organization':
-                    //     $this->seedOrganization($res, $resText);
-                    //     break;
-                    // case 'Location':
-                    //     $this->seedLocation($res, $resText);
-                    //     break;
+                case 'Organization':
+                    $this->seedOrganization($res, $resText);
+                    break;
+                case 'Location':
+                    $this->seedLocation($res, $resText);
+                    break;
                 case 'Practitioner':
                     $this->seedPractitioner($res, $resText);
                     break;
-                    // case 'Patient':
-                    //     $this->seedPatient($res, $resText);
-                    //     break;
+                case 'Patient':
+                    $this->seedPatient($res, $resText);
+                    break;
                     //     case 'Encounter':
                     //         $this->seedEncounter($res, $resText);
                     //         break;
@@ -983,56 +984,83 @@ class IdFhirResourceSeeder extends Seeder
     private function seedPatient($resource, $resourceText)
     {
         $resourceContent = json_decode($resourceText, true);
-        $name = returnHumanName(returnAttribute($resourceContent, ['name', 0]));
         $extension = returnAttribute($resourceContent, ['extension']);
         $birthPlace = $this->returnBirthPlace($extension);
-        $contacts = returnAttribute($resourceContent, ['contact']);
 
         $patientData = [
             'active' => returnAttribute($resourceContent, ['active']),
-            'name' => $name['name'],
-            'prefix' => $name['prefix'],
-            'suffix' => $name['suffix'],
             'gender' => returnAttribute($resourceContent, ['gender'], 'unknown'),
             'birth_date' => returnAttribute($resourceContent, ['birthDate']),
-            'deceased' => returnVariableAttribute($resourceContent, ['deceasedBoolean', 'deceasedDateTime']),
+            'deceased' => returnVariableAttribute($resourceContent, Patient::DECEASED['variableTypes']),
             'marital_status' => returnAttribute($resourceContent, ['maritalStatus', 'coding', 0, 'code']),
-            'multiple_birth' => returnVariableAttribute($resourceContent, ['multipleBirthBoolean', 'multipleBirthInteger']),
-            'communication' => $this->returnCommunication(returnAttribute($resourceContent, ['communication'])),
+            'multiple_birth' => [
+                'multipleBirthBoolean' => false
+            ],
             'general_practitioner' => $this->returnMultiReference(returnAttribute($resourceContent, ['generalPractitioner'])),
             'managing_organization' => returnAttribute($resourceContent, ['managingOrganization', 'reference']),
-            'link' => $this->returnLink(returnAttribute($resourceContent, ['link'])),
             'birth_city' => $birthPlace['city'],
             'birth_country' => $birthPlace['country']
         ];
 
         $patient = $resource->patient()->createQuietly($patientData);
         $patient->identifier()->createManyQuietly($this->returnIdentifier(returnAttribute($resourceContent, ['identifier'])));
+        $patient->name()->createManyQuietly($this->returnHumanName(returnAttribute($resourceContent, ['name'])));
         $patient->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($resourceContent, ['telecom'])));
         $patient->address()->createManyQuietly($this->returnAddress(returnAttribute($resourceContent, ['address'])));
+        $patient->photo()->createManyQuietly($this->returnPhoto(returnAttribute($resourceContent, ['photo'])));
 
+        $contacts = returnAttribute($resourceContent, ['contact']);
         if (!empty($contacts)) {
             foreach ($contacts as $c) {
-                $contactName = returnHumanName(returnAttribute($c, ['name']));
                 $addressExtension = $this->returnAdministrativeAddress(returnAttribute($c, ['address', 'extension']));
 
                 $contactData = merge_array(
                     [
                         'relationship' => $this->returnMultiCodeableConcept(returnAttribute($c, ['relationship'])),
-                        'name' => $contactName['name'],
-                        'prefix' => $contactName['prefix'],
-                        'suffix' => $contactName['suffix'],
+                        'name_text' => returnAttribute($c, ['name', 'text']),
+                        'name_family' => returnAttribute($c, ['name', 'family']),
+                        'name_given' => returnAttribute($c, ['name', 'given']),
+                        'name_prefix' => returnAttribute($c, ['name', 'prefix']),
+                        'name_suffix' => returnAttribute($c, ['name', 'suffix']),
                         'gender' => returnAttribute($c, ['gender'], 'unknown'),
                         'address_use' => returnAttribute($c, ['address', 'use']),
+                        'address_type' => returnAttribute($c, ['address', 'type']),
                         'address_line' => returnAttribute($c, ['address', 'line']),
                         'country' => returnAttribute($c, ['address', 'country']),
                         'postal_code' => returnAttribute($c, ['address', 'postalCode']),
+                        'organization' => returnAttribute($c, ['organization', 'reference']),
+                        'period_start' => returnAttribute($c, ['period', 'start']),
+                        'period_end' => returnAttribute($c, ['period', 'end']),
                     ],
                     $addressExtension
                 );
 
                 $contact = $patient->contact()->createQuietly($contactData);
                 $contact->telecom()->createManyQuietly($this->returnTelecom(returnAttribute($c, ['telecom'])));
+            }
+        }
+
+        $communications = returnAttribute($resourceContent, ['communication']);
+        if (!empty($communications)) {
+            foreach ($communications as $c) {
+                $communicationData = [
+                    'language' => returnAttribute($c, ['language', 'coding', 0, 'code']),
+                    'preferred' => returnAttribute($c, ['preferred'])
+                ];
+
+                $patient->communication()->createQuietly($communicationData);
+            }
+        }
+
+        $links = returnAttribute($resourceContent, ['link']);
+        if (!empty($links)) {
+            foreach ($links as $l) {
+                $linkData = [
+                    'other' => returnAttribute($l, ['other', 'reference']),
+                    'type' => returnAttribute($l, ['type'])
+                ];
+
+                $patient->link()->createQuietly($linkData);
             }
         }
     }
@@ -1261,6 +1289,7 @@ class IdFhirResourceSeeder extends Seeder
                 'mode' => returnAttribute($resourceContent, ['mode']),
                 'type' => $this->returnLocationType(returnAttribute($resourceContent, ['type'])),
                 'address_use' => returnAttribute($resourceContent, ['address', 'use']),
+                'address_type' => returnAttribute($resourceContent, ['address', 'type']),
                 'address_line' => returnAttribute($resourceContent, ['address', 'line']),
                 'country' => returnAttribute($resourceContent, ['address', 'country']),
                 'postal_code' => returnAttribute($resourceContent, ['address', 'postalCode']),
@@ -1372,8 +1401,11 @@ class IdFhirResourceSeeder extends Seeder
                     $addressDetails,
                     [
                         'purpose' => returnAttribute($c, ['purpose', 'coding', 0, 'code']),
-                        'name_use' => returnAttribute($c, ['name', 'use']),
                         'name_text' => returnAttribute($c, ['name', 'text']),
+                        'name_family' => returnAttribute($c, ['name', 'family']),
+                        'name_given' => returnAttribute($c, ['name', 'given']),
+                        'name_prefix' => returnAttribute($c, ['name', 'prefix']),
+                        'name_suffix' => returnAttribute($c, ['name', 'suffix']),
                         'address_use' => returnAttribute($c, ['address', 'use']),
                         'address_type' => returnAttribute($c, ['address', 'type']),
                         'address_line' => $line,
@@ -1411,6 +1443,7 @@ class IdFhirResourceSeeder extends Seeder
                     $addressDetails,
                     [
                         'use' => returnAttribute($a, ['use']),
+                        'type' => returnAttribute($a, ['type']),
                         'line' => $line,
                         'country' => returnAttribute($a, ['country'], 'ID'),
                         'postal_code' => returnAttribute($a, ['postalCode']),

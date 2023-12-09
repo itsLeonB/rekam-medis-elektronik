@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_photo', function (Blueprint $table) {
+        Schema::create('patient_communication', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
             $table->index('patient_id');
             $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
-            $table->string('data')->nullable();
-            $table->string('url')->nullable();
-            $table->unsignedInteger('size')->nullable();
-            $table->string('hash')->nullable();
-            $table->string('title')->nullable();
-            $table->dateTime('creation')->nullable();
+            $table->string('language');
+            $table->boolean('preferred')->nullable();
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient_photo');
+        Schema::dropIfExists('patient_communication');
     }
 };

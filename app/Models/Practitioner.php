@@ -39,17 +39,17 @@ class Practitioner extends Model
 
     public function address(): HasMany
     {
-        return $this->HasMany(PractitionerAddress::class);
+        return $this->hasMany(PractitionerAddress::class);
     }
 
     public function photo(): HasMany
     {
-        return $this->HasMany(PractitionerPhoto::class);
+        return $this->hasMany(PractitionerPhoto::class);
     }
 
     public function qualification(): HasMany
     {
-        return $this->HasMany(PractitionerQualification::class);
+        return $this->hasMany(PractitionerQualification::class);
     }
 
     public function userProfile(): BelongsTo

@@ -6,7 +6,7 @@ use App\Models\Codesystems\AdministrativeCode;
 use App\Models\Organization;
 use App\Models\OrganizationContact;
 use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class OrganizationResource extends FhirResource
 {
@@ -43,24 +43,8 @@ class OrganizationResource extends FhirResource
                 'reference' => $organization->part_of
             ],
             'contact' => $this->createContactArray($organization->contact),
-            'endpoint' => $this->referenceArray($organization->endpoint)
+            'endpoint' => $this->createReferenceArray($organization->endpoint)
         ];
-    }
-
-
-    private function referenceArray($references): array
-    {
-        $reference = [];
-
-        if (!empty($references)) {
-            foreach ($references as $r) {
-                $reference[] = [
-                    'reference' => $r
-                ];
-            }
-        }
-
-        return $reference;
     }
 
 
@@ -74,15 +58,18 @@ class OrganizationResource extends FhirResource
                     'purpose' => [
                         'coding' => [
                             [
-                                'system' => $c->purpose ? OrganizationContact::PURPOSE_SYSTEM : null,
+                                'system' => $c->purpose ? OrganizationContact::PURPOSE['binding']['valueset']['system'] : null,
                                 'code' => $c->purpose,
-                                'display' => $c->purpose ? OrganizationContact::PURPOSE_DISPLAY[$c->purpose] : null
+                                'display' => $c->purpose ? OrganizationContact::PURPOSE['binding']['valueset']['display'][$c->purpose] ?? null : null
                             ]
                         ]
                     ],
                     'name' => [
-                        'use' => $c->name_use,
-                        'text' => $c->name_text
+                        'text' => $c->name_text,
+                        'family' => $c->name_family,
+                        'given' => $c->name_given,
+                        'prefix' => $c->name_prefix,
+                        'suffix' => $c->name_suffix
                     ],
                     'telecom' => $this->createTelecomArray($c->telecom),
                     'address' => [
@@ -91,7 +78,7 @@ class OrganizationResource extends FhirResource
                         'line' => $c->address_line,
                         'country' => $c->country,
                         'postalCode' => $c->postal_code,
-                        'city' => AdministrativeCode::where('kode', $c->city)->first()->nama ?? null,
+                        'city' => DB::table(OrganizationContact::ADMINISTRATIVE_CODE['binding']['valueset']['table'])->where('nama_kabko', $c->city)->value('display') ?? null,
                         'extension' => [
                             [
                                 'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
@@ -137,9 +124,9 @@ class OrganizationResource extends FhirResource
                 $type[] = [
                     'coding' => [
                         [
-                            'system' => $t ? Organization::TYPE_SYSTEM : null,
+                            'system' => $t ? Organization::TYPE['binding']['valueset']['system'] : null,
                             'code' => $t,
-                            'display' => $t ? Organization::TYPE_DISPLAY[$t] : null
+                            'display' => $t ? Organization::TYPE['binding']['valueset']['display'][$t] ?? null : null
                         ]
                     ]
                 ];

@@ -8,6 +8,7 @@
         "mode": "instance",
         "type": ["RT0001", "RT0002"],
         "address_use": "work",
+        "address_type": "physical",
         "address_line": ["Jalan Jogoroto-Peterongan"],
         "country": "ID",
         "postal_code": "60345",
