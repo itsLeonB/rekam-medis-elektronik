@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Codesystems;
 
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
@@ -9,8 +9,8 @@ class AdministrativeAreaSeeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/codesystems/administrativeare.csv';
-        $this->tablename = 'codesystem_administrativeare';
+        $this->file = '/database/seeders/csvs/codesystems/administrativearea.csv';
+        $this->tablename = 'codesystem_administrativearea';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

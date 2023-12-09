@@ -12,6 +12,8 @@ class ObservationDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'observation';
+
     /**
      * Test apakah user dapat menlihat data observasi
      */
@@ -20,13 +22,15 @@ class ObservationDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('observation');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('observation.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'observation', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -45,21 +49,9 @@ class ObservationDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('observation', $data['observation']);
-        $this->assertManyData('observation_based_on', $data['basedOn']);
-        $this->assertManyData('observation_part_of', $data['partOf']);
-        $this->assertManyData('observation_category', $data['category']);
-        $this->assertManyData('observation_focus', $data['focus']);
-        $this->assertManyData('observation_performer', $data['performer']);
-        $this->assertManyData('observation_interpretation', $data['interpretation']);
         $this->assertManyData('observation_note', $data['note']);
         $this->assertManyData('observation_ref_range', $data['referenceRange']);
-        $this->assertManyData('observation_member', $data['member']);
-        $this->assertManyData('observation_derived_from', $data['derivedFrom']);
         $this->assertNestedData('observation_component', $data['component'], 'component_data', [
-            [
-                'table' => 'obs_comp_interpret',
-                'data' => 'interpretation'
-            ],
             [
                 'table' => 'obs_comp_ref_range',
                 'data' => 'referenceRange'
@@ -91,21 +83,9 @@ class ObservationDataTest extends FhirTestCase
         $response->assertStatus(200);
 
         $this->assertMainData('observation', $data['observation']);
-        $this->assertManyData('observation_based_on', $data['basedOn']);
-        $this->assertManyData('observation_part_of', $data['partOf']);
-        $this->assertManyData('observation_category', $data['category']);
-        $this->assertManyData('observation_focus', $data['focus']);
-        $this->assertManyData('observation_performer', $data['performer']);
-        $this->assertManyData('observation_interpretation', $data['interpretation']);
         $this->assertManyData('observation_note', $data['note']);
         $this->assertManyData('observation_ref_range', $data['referenceRange']);
-        $this->assertManyData('observation_member', $data['member']);
-        $this->assertManyData('observation_derived_from', $data['derivedFrom']);
         $this->assertNestedData('observation_component', $data['component'], 'component_data', [
-            [
-                'table' => 'obs_comp_interpret',
-                'data' => 'interpretation'
-            ],
             [
                 'table' => 'obs_comp_ref_range',
                 'data' => 'referenceRange'

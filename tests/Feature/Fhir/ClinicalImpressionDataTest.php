@@ -12,6 +12,8 @@ class ClinicalImpressionDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'clinicalimpression';
+
     /**
      * Test apakah user dapat menlihat data prognosis
      */
@@ -20,15 +22,15 @@ class ClinicalImpressionDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('clinicalimpression');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route('clinicalimpression.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'clinicalimpression', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -49,17 +51,8 @@ class ClinicalImpressionDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('clinical_impression', $data['clinicalImpression']);
-        $this->assertManyData('clinical_impression_problem', $data['problem']);
-        $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [
-            [
-                'table' => 'clinic_impress_investigate_item',
-                'data' => 'item'
-            ]
-        ]);
-        $this->assertManyData('clinical_impression_protocol', $data['protocol']);
+        $this->assertManyData('clinical_impression_investigation', $data['investigation']);
         $this->assertManyData('clinical_impression_finding', $data['finding']);
-        $this->assertManyData('clinical_impression_prognosis', $data['prognosis']);
-        $this->assertManyData('clinical_impression_support_info', $data['supportingInfo']);
         $this->assertManyData('clinical_impression_note', $data['note']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('clinical_impression_identifier', ['system' => 'http://sys-ids.kemkes.go.id/clinicalimpression/' . $orgId, 'use' => 'official']);
@@ -87,17 +80,8 @@ class ClinicalImpressionDataTest extends FhirTestCase
         $response->assertStatus(200);
 
         $this->assertMainData('clinical_impression', $data['clinicalImpression']);
-        $this->assertManyData('clinical_impression_problem', $data['problem']);
-        $this->assertNestedData('clinical_impression_investigation', $data['investigation'], 'investigation_data', [
-            [
-                'table' => 'clinic_impress_investigate_item',
-                'data' => 'item'
-            ]
-        ]);
-        $this->assertManyData('clinical_impression_protocol', $data['protocol']);
+        $this->assertManyData('clinical_impression_investigation', $data['investigation']);
         $this->assertManyData('clinical_impression_finding', $data['finding']);
-        $this->assertManyData('clinical_impression_prognosis', $data['prognosis']);
-        $this->assertManyData('clinical_impression_support_info', $data['supportingInfo']);
         $this->assertManyData('clinical_impression_note', $data['note']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('clinical_impression_identifier', ['system' => 'http://sys-ids.kemkes.go.id/clinicalimpression/' . $orgId, 'use' => 'official']);

@@ -5,19 +5,40 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QuestionnaireResponseRequest;
 use App\Http\Resources\QuestionnaireResponseResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class QuestionnaireResponseController extends Controller
 {
+    const RESOURCE_TYPE = 'QuestionnaireResponse';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new QuestionnaireResponseResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(QuestionnaireResponseRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('QuestionnaireResponse');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $questionnaireResponse = $resource->questionnaireResponse()->create($body['questionnaireResponse']);
             $this->createChildModels($questionnaireResponse, $body, ['item']);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
-            return response()->json($resource->questionnaireResponse()->first(), 201);
+            return response()->json($questionnaireResponse, 201);
         });
     }
 
@@ -29,10 +50,9 @@ class QuestionnaireResponseController extends Controller
             $resource = $this->updateResource($res_id);
             $questionnaireResponse = $resource->questionnaireResponse()->first();
             $questionnaireResponse->update($body['questionnaireResponse']);
-            $questionnaireResponseId = $questionnaireResponse->id;
-            $this->updateChildModels($questionnaireResponse, $body, ['item'], 'questionnaire_id', $questionnaireResponseId);
+            $this->updateChildModels($questionnaireResponse, $body, ['item']);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
-            return response()->json($resource->questionnaireResponse()->first(), 200);
+            return response()->json($questionnaireResponse, 200);
         });
     }
 }

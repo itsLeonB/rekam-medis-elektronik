@@ -2,20 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PatientPhoto extends Model
 {
-    use HasFactory;
-
     protected $table = 'patient_photo';
-
-    protected $casts = [
-        'creation' => 'datetime'
-    ];
-
+    protected $casts = ['creation' => 'datetime'];
     public $timestamps = false;
 
     public function patient(): BelongsTo

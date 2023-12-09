@@ -4,7 +4,9 @@ namespace App\Http\Requests;
 
 use App\Models\Condition;
 use App\Models\ConditionCategory;
+use App\Models\ConditionEvidence;
 use App\Models\ConditionStage;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class ConditionRequest extends FhirRequest
@@ -18,12 +20,10 @@ class ConditionRequest extends FhirRequest
     {
         return array_merge(
             $this->baseAttributeRules(),
-            $this->baseDataRules(),
+            $this->baseDataRules('condition.'),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getCodeableConceptDataRules('category.*.', ConditionCategory::CATEGORY_CODE),
-            $this->getCodeableConceptDataRules('bodySite.*.'),
-            $this->stageDataRules(),
-            $this->evidenceDataRules(),
+            $this->stageDataRules('stage.*.'),
+            $this->evidenceDataRules('evidence.*.'),
             $this->getAnnotationDataRules('note.*.')
         );
     }
@@ -33,108 +33,107 @@ class ConditionRequest extends FhirRequest
         return [
             'condition' => 'required|array',
             'identifier' => 'nullable|array',
-            'category' => 'nullable|array',
-            'bodySite' => 'nullable|array',
             'stage' => 'nullable|array',
             'evidence' => 'nullable|array',
             'note' => 'nullable|array',
         ];
     }
 
-    private function baseDataRules(): array
+    private function baseDataRules($prefix): array
     {
         return array_merge(
             [
-                'condition.clinical_status' => ['nullable', Rule::in(Condition::CLINICAL_STATUS_CODE)],
-                'condition.verification_status' => ['nullable', Rule::in(Condition::VERIFICATION_STATUS_CODE)],
-                'condition.severity' => ['nullable', Rule::in(Condition::SEVERITY_CODE)],
-                'condition.code' => 'required|string|exists:codesystem_icd10,code',
-                'condition.subject' => 'required|string',
-                'condition.encounter' => 'required|string',
-                'condition.abatement' => 'nullable|array',
-                'condition.recorded_date' => 'nullable|date',
-                'condition.recorder' => 'nullable|string',
-                'condition.asserter' => 'nullable|string',
+                $prefix . 'clinical_status' => ['nullable', Rule::in(Condition::CLINICAL_STATUS['binding']['valueset']['code'])],
+                $prefix . 'verification_status' => ['nullable', Rule::in(Condition::VERIFICATION_STATUS['binding']['valueset']['code'])],
+                $prefix . 'category' => 'nullable|array',
+                $prefix . 'category.*' => ['required', Rule::in(Condition::CATEGORY['binding']['valueset']['code'])],
+                $prefix . 'severity' => ['nullable', Rule::in(Condition::SEVERITY['binding']['valueset']['code'])],
+                $prefix . 'code_system' => 'required|string',
+                $prefix . 'code_code' => 'required|string',
+                $prefix . 'code_display' => 'required|string',
+                $prefix . 'body_site' => 'nullable|array',
+                $prefix . 'body_site.*' => ['required', Rule::exists(Condition::BODY_SITE['binding']['valueset']['table'], 'code')],
+                $prefix . 'subject' => 'required|string',
+                $prefix . 'encounter' => 'required|string',
+                $prefix . 'recorded_date' => 'nullable|date',
+                $prefix . 'recorder' => 'nullable|string',
+                $prefix . 'asserter' => 'nullable|string',
             ],
-            $this->getOnsetAttributeDataRules('condition.'),
-            $this->getAbatementAttributeDataRules('condition.')
+            $this->getOnsetAttributeDataRules($prefix),
+            $this->getAbatementAttributeDataRules($prefix)
         );
     }
 
-    private function stageDataRules(): array
+    private function stageDataRules($prefix): array
     {
         return [
-            'stage.*.stage_data' => 'required|array',
-            'stage.*.stage_data.summary_system' => 'nullable|string',
-            'stage.*.stage_data.summary_code' => ['nullable', Rule::in(ConditionStage::SUMMARY_CODE)],
-            'stage.*.stage_data.summary_display' => 'nullable|string',
-            'stage.*.stage_data.type_system' => 'nullable|string',
-            'stage.*.stage_data.type_code' => 'nullable|string',
-            'stage.*.stage_data.type_display' => 'nullable|string',
-            'stage.*.assessment' => 'nullable|array',
-            'stage.*.assessment.*.reference' => 'required|string',
+            $prefix . 'summary' => ['nullable', Rule::in(ConditionStage::SUMMARY['binding']['valueset']['code'])],
+            $prefix . 'assessment' => 'nullable|array',
+            $prefix . 'assessment.*' => 'required|string',
+            $prefix . 'type' => ['nullable', Rule::exists(ConditionStage::TYPE['binding']['valueset']['table'], 'code')],
         ];
     }
 
-    private function evidenceDataRules(): array
+    private function evidenceDataRules($prefix): array
     {
         return [
-            'evidence.*.system' => 'nullable|string',
-            'evidence.*.code' => 'nullable|integer|gte:0',
-            'evidence.*.display' => 'nullable|string',
-            'evidence.*.detail_reference' => 'nullable|string',
+            $prefix . 'code' => 'nullable|array',
+            $prefix . 'code.*' => 'required|integer|gte:0',
+            $prefix . 'detail' => 'nullable|array',
+            $prefix . 'detail.*' => 'required|string',
         ];
     }
 
-    public function messages(): array
-    {
-        // create the corresponding validation error message according to the rules above
-        return [
-            //Untuk required
-            'condition.code.required' => 'Kode harus diisi',
-            'condition.subject.required' => 'Subjek harus diisi',
-            'condition.encounter.required' => 'Encounter harus diisi',
+    // TODO
+    // public function messages(): array
+    // {
+    //     // create the corresponding validation error message according to the rules above
+    //     return [
+    //         //Untuk required
+    //         $prefix . 'code.required' => 'Kode harus diisi',
+    //         $prefix . 'subject.required' => 'Subjek harus diisi',
+    //         $prefix . 'encounter.required' => 'Encounter harus diisi',
 
-            'identifier.*.system.required' => 'System identifier harus diisi',
-            'identifier.*.use.required' => 'Identifier use harus diisi',
-            'identifier.*.value.required' => 'Identifier value harus diisi',
+    //         'identifier.*.system.required' => 'System identifier harus diisi',
+    //         'identifier.*.use.required' => 'Identifier use harus diisi',
+    //         'identifier.*.value.required' => 'Identifier value harus diisi',
 
-            'category.*.system.required' => 'Sistem data kategori harus diisi',
-            'category.*.code.required' => 'Kode data kategori harus diisi',
-            'category.*.display.required' => 'Display data kategori harus diisi',
+    //         'category.*.system.required' => 'Sistem data kategori harus diisi',
+    //         'category.*.code.required' => 'Kode data kategori harus diisi',
+    //         'category.*.display.required' => 'Display data kategori harus diisi',
 
-            'bodySite.*.system.required' => 'Sistem data body site harus diisi',
-            'bodySite.*.code.required' => 'Kode data body site harus diisi',
-            'bodySite.*.display.required' => 'Display untuk data body site harus diisi',
+    //         'bodySite.*.system.required' => 'Sistem data body site harus diisi',
+    //         'bodySite.*.code.required' => 'Kode data body site harus diisi',
+    //         'bodySite.*.display.required' => 'Display untuk data body site harus diisi',
 
-            'stage.*.stage_data.required' => 'Data tahapan kondisi harus diisi',
-            'stage.*.assessment.*.reference.required' => 'Referensi data uji kondisi harus diisi',
+    //         $prefix . 'required' => 'Data tahapan kondisi harus diisi',
+    //         $prefix . 'assessment.*.reference.required' => 'Referensi data uji kondisi harus diisi',
 
-            //Untuk Rule::in
-            'condition.clinical_status.in' => 'Harus termasuk "active", "recurrence", "relapse", "inactive", "remission", atau "resolved"',
-            'condition.verification_status.in' => 'Harus termasuk "unconfirmed", "provisional", "differential", "confirmed", "refuted", atau "entered-in-error"',
-            'condition.severity.in' => 'Harus termasuk "24484000", "6736007", atau "255604002"',
+    //         //Untuk Rule::in
+    //         $prefix . 'clinical_status.in' => 'Harus termasuk "active", "recurrence", "relapse", "inactive", "remission", atau "resolved"',
+    //         $prefix . 'verification_status.in' => 'Harus termasuk "unconfirmed", "provisional", "differential", "confirmed", "refuted", atau "entered-in-error"',
+    //         $prefix . 'severity.in' => 'Harus termasuk "24484000", "6736007", atau "255604002"',
 
-            'condition.onset.onsetAge.comparator.in' => 'Harus termasuk "<", "<=", ">=", atau ">"',
-            'condition.abatement.abatementAge.comparator.in' => 'Harus termasuk "<", "<=", ">=", atau ">"',
+    //         $prefix . 'onset.onsetAge.comparator.in' => 'Harus termasuk "<", "<=", ">=", atau ">"',
+    //         $prefix . 'abatement.abatementAge.comparator.in' => 'Harus termasuk "<", "<=", ">=", atau ">"',
 
-            'identifier.*.use.in' => 'Harus termasuk "usual", "official", "temp", "secondary", atau "old"',
+    //         'identifier.*.use.in' => 'Harus termasuk "usual", "official", "temp", "secondary", atau "old"',
 
-            'category.*.code.in' => 'Harus termasuk "problem-list-item" atau "encounter-diagnosis"',
+    //         'category.*.code.in' => 'Harus termasuk "problem-list-item" atau "encounter-diagnosis"',
 
-            //Untuk exists
-            'condition.code.exists' => 'Harus merupakan kode ICD-10',
+    //         //Untuk exists
+    //         $prefix . 'code.exists' => 'Harus merupakan kode ICD-10',
 
-            //Untuk gte
-            'evidence.*.code.gte' => 'Nilai kode evidence tidak boleh negatif',
+    //         //Untuk gte
+    //         $prefix . 'code.gte' => 'Nilai kode evidence tidak boleh negatif',
 
-            //Untuk decimal
-            'condition.onset.onsetAge.value.decimal' => 'Nilai onset age harus berbentuk desimal',
-            'condition.onset.onsetRange.low.value.decimal' => 'Nilai low value dalam onset range harus berbentuk desimal',
-            'condition.onset.onsetRange.high.value.decimal' => 'Nilai high value dalam onset range harus berbentuk desimal',
-            'condition.abatement.abatementAge.value.decimal' => 'Nilai abatement age harus berbentuk desimal',
-            'condition.abatement.abatementRange.low.value.decimal' => 'Nilai low value dalam abatement range harus berbentuk desimal',
-            'condition.abatement.abatementRange.high.value.decimal' => 'Nilai high value dalam abatement range harus berbentuk desimal'
-        ];
-    }
+    //         //Untuk decimal
+    //         $prefix . 'onset.onsetAge.value.decimal' => 'Nilai onset age harus berbentuk desimal',
+    //         $prefix . 'onset.onsetRange.low.value.decimal' => 'Nilai low value dalam onset range harus berbentuk desimal',
+    //         $prefix . 'onset.onsetRange.high.value.decimal' => 'Nilai high value dalam onset range harus berbentuk desimal',
+    //         $prefix . 'abatement.abatementAge.value.decimal' => 'Nilai abatement age harus berbentuk desimal',
+    //         $prefix . 'abatement.abatementRange.low.value.decimal' => 'Nilai low value dalam abatement range harus berbentuk desimal',
+    //         $prefix . 'abatement.abatementRange.high.value.decimal' => 'Nilai high value dalam abatement range harus berbentuk desimal'
+    //     ];
+    // }
 }

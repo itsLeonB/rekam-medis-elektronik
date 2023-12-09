@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Constants;
+use App\Fhir\Codesystems;
 use App\Models\CompositionSection;
 use App\Models\MedicationRequestDosage;
 use App\Models\MedicationRequestDosageAdditionalInstruction;
@@ -53,51 +54,71 @@ class FhirRequest extends FormRequest
     }
 
 
-    public function getNarrativeDataRules(string $prefix = null, bool $nullable = false): array
+    public function getTimingDataRules(string $prefix = null, bool $isArray = false): array
     {
-        if ($nullable) {
-            return [
-                $prefix . 'status' => ['nullable', Rule::in(CompositionSection::TEXT_STATUS_CODE)],
-                $prefix . 'div' => 'nullable|string',
-            ];
+        if ($isArray) {
+            return array_merge(
+                [
+                    $prefix . 'event' => 'nullable|array',
+                    $prefix . 'event.*' => 'nullable|date',
+                    $prefix . 'repeat' => 'nullable|array',
+                    $prefix . 'repeat.count' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.countMax' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.duration' => 'nullable|numeric',
+                    $prefix . 'repeat.durationMax' => 'nullable|numeric',
+                    $prefix . 'repeat.durationUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
+                    $prefix . 'repeat.frequency' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.frequencyMax' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.period' => 'nullable|numeric',
+                    $prefix . 'repeat.periodMax' => 'nullable|numeric',
+                    $prefix . 'repeat.periodUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
+                    $prefix . 'repeat.dayOfWeek' => 'nullable|array',
+                    $prefix . 'repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAYS_OF_WEEK)],
+                    $prefix . 'repeat.timeOfDay' => 'nullable|array',
+                    $prefix . 'repeat.timeOfDay.*' => 'nullable|date_format:H:i:s',
+                    $prefix . 'repeat.when' => 'nullable|array',
+                    $prefix . 'repeat.when.*' => ['nullable', Rule::in(Constants::TIMING_REPEAT_WHEN_CODE)],
+                    $prefix . 'repeat.offset' => 'nullable|integer|gte:0',
+                    $prefix . 'code' => 'nullable|array',
+                    $prefix . 'code.coding' => 'nullable|array',
+                    $prefix . 'code.coding.*.system' => 'nullable|string',
+                    $prefix . 'code.coding.*.code' => ['nullable', Rule::in(Constants::TIMING_ABBREVIATION_CODE)],
+                    $prefix . 'code.coding.*.display' => 'nullable|string',
+                ],
+                $this->getDurationDataRules($prefix . 'repeat.boundsDuration.'),
+                $this->getRangeDataRules($prefix . 'repeat.boundsRange.'),
+                $this->getPeriodDataRules($prefix . 'repeat.boundsPeriod.'),
+            );
         } else {
-            return [
-                $prefix . 'status' => ['required', Rule::in(CompositionSection::TEXT_STATUS_CODE)],
-                $prefix . 'div' => 'required|string',
-            ];
+            return array_merge(
+                [
+                    $prefix . 'event' => 'nullable|array',
+                    $prefix . 'event.*' => 'nullable|date',
+                    $prefix . 'repeat' => 'nullable|array',
+                    $prefix . 'repeat.count' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.countMax' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.duration' => 'nullable|numeric',
+                    $prefix . 'repeat.durationMax' => 'nullable|numeric',
+                    $prefix . 'repeat.durationUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
+                    $prefix . 'repeat.frequency' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.frequencyMax' => 'nullable|integer|gte:0',
+                    $prefix . 'repeat.period' => 'nullable|numeric',
+                    $prefix . 'repeat.periodMax' => 'nullable|numeric',
+                    $prefix . 'repeat.periodUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
+                    $prefix . 'repeat.dayOfWeek' => 'nullable|array',
+                    $prefix . 'repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAYS_OF_WEEK)],
+                    $prefix . 'repeat.timeOfDay' => 'nullable|array',
+                    $prefix . 'repeat.timeOfDay.*' => 'nullable|date_format:H:i:s',
+                    $prefix . 'repeat.when' => 'nullable|array',
+                    $prefix . 'repeat.when.*' => ['nullable', Rule::in(Constants::TIMING_REPEAT_WHEN_CODE)],
+                    $prefix . 'repeat.offset' => 'nullable|integer|gte:0',
+                    $prefix . 'code' => ['nullable', Rule::in(Constants::TIMING_ABBREVIATION_CODE)],
+                ],
+                $this->getDurationDataRules($prefix . 'repeat.boundsDuration.'),
+                $this->getRangeDataRules($prefix . 'repeat.boundsRange.'),
+                $this->getPeriodDataRules($prefix . 'repeat.boundsPeriod.'),
+            );
         }
-    }
-
-    public function getTimingDataRules(string $prefix = null): array
-    {
-        return array_merge(
-            [
-                $prefix . 'event' => 'nullable|array',
-                $prefix . 'event.*' => 'nullable|date',
-                $prefix . 'repeat' => 'nullable|array',
-                $prefix . 'repeat.count' => 'nullable|integer|gte:0',
-                $prefix . 'repeat.countMax' => 'nullable|integer|gte:0',
-                $prefix . 'repeat.duration' => 'nullable|numeric',
-                $prefix . 'repeat.durationMax' => 'nullable|numeric',
-                $prefix . 'repeat.durationUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
-                $prefix . 'repeat.frequency' => 'nullable|integer|gte:0',
-                $prefix . 'repeat.frequencyMax' => 'nullable|integer|gte:0',
-                $prefix . 'repeat.period' => 'nullable|numeric',
-                $prefix . 'repeat.periodMax' => 'nullable|numeric',
-                $prefix . 'repeat.periodUnit' => ['nullable', Rule::in(Constants::PERIOD_UNIT)],
-                $prefix . 'repeat.dayOfWeek' => 'nullable|array',
-                $prefix . 'repeat.dayOfWeek.*' => ['nullable', Rule::in(Constants::DAYS_OF_WEEK)],
-                $prefix . 'repeat.timeOfDay' => 'nullable|array',
-                $prefix . 'repeat.timeOfDay.*' => 'nullable|date_format:H:i:s',
-                $prefix . 'repeat.when' => 'nullable|array',
-                $prefix . 'repeat.when.*' => ['nullable', Rule::in(Constants::TIMING_REPEAT_WHEN_CODE)],
-                $prefix . 'repeat.offset' => 'nullable|integer|gte:0',
-            ],
-            $this->getDurationDataRules($prefix . 'repeat.boundsDuration.'),
-            $this->getRangeDataRules($prefix . 'repeat.boundsRange.'),
-            $this->getPeriodDataRules($prefix . 'repeat.boundsPeriod.'),
-            $this->getCodeableConceptDataRules($prefix . 'code.coding.*.', Constants::TIMING_ABBREVIATION_CODE),
-        );
     }
 
     /**
@@ -125,28 +146,32 @@ class FhirRequest extends FormRequest
         return array_merge(
             [
                 $prefix . 'dosage_data' => 'required|array',
-                $prefix . 'additional_instruction' => 'nullable|array',
-                $prefix . 'dose_rate' => 'nullable|array',
                 $prefix . 'dosage_data.sequence' => 'nullable|integer',
                 $prefix . 'dosage_data.text' => 'nullable|string',
+                $prefix . 'dosage_data.additional_instruction' => 'nullable|array',
+                $prefix . 'dosage_data.additional_instruction.*' => ['nullable', Rule::in(MedicationRequestDosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['code'])],
                 $prefix . 'dosage_data.patient_instruction' => 'nullable|string',
+                $prefix . 'dosage_data.site' => ['nullable', Rule::exists(MedicationRequestDosage::SITE['binding']['valueset']['table'], 'code')],
+                $prefix . 'dosage_data.route' => ['nullable', Rule::in(MedicationRequestDosage::ROUTE['binding']['valueset']['code'])],
+                $prefix . 'dosage_data.method' => ['nullable', Rule::in(MedicationRequestDosage::METHOD['binding']['valueset']['code'])],
+                $prefix . 'doseRate' => 'nullable|array',
+                $prefix . 'doseRate.*.type' => ['nullable', Rule::in(MedicationRequestDosageDoseRate::TYPE['binding']['valueset']['code'])],
+                $prefix . 'doseRate.*.dose' => 'nullable|array',
+                $prefix . 'doseRate.*.rate' => 'nullable|array',
             ],
             $this->getTimingDataRules($prefix . 'dosage_data.timing_'),
-            $this->getCodeableConceptDataRules($prefix . 'dosage_data.site_'),
-            $this->getCodeableConceptDataRules($prefix . 'dosage_data.route_', Constants::DOSAGE_ROUTE_CODE),
-            $this->getCodeableConceptDataRules($prefix . 'dosage_data.method_', MedicationRequestDosage::METHOD_CODE),
-            $this->getRatioDataRules($prefix . 'dosage_data.max_dose_per_period_', false),
+            $this->getRatioDataRules($prefix . 'dosage_data.max_dose_per_period_'),
             $this->getQuantityDataRules($prefix . 'dosage_data.max_dose_per_administration_', true),
             $this->getQuantityDataRules($prefix . 'dosage_data.max_dose_per_lifetime_', true),
-            $this->getCodeableConceptDataRules($prefix . 'additional_instruction.*.', MedicationRequestDosageAdditionalInstruction::CODE),
-            $this->getCodeableConceptDataRules($prefix . 'dose_rate.*.', Constants::DOSERATE_TYPE_CODE),
-            $this->getRangeDataRules($prefix . 'dose_rate.*.dose.doseRange.'),
-            $this->getQuantityDataRules($prefix . 'dose_rate.*.dose.doseQuantity.', true),
-            $this->getRatioDataRules($prefix . 'dose_rate.*.rate.rateRatio.', true),
-            $this->getRangeDataRules($prefix . 'dose_rate.*.rate.rateRange.'),
-            $this->getQuantityDataRules($prefix . 'dose_rate.*.rate.rateQuantity.', true),
+            $this->getRangeDataRules($prefix . 'doseRate.*.dose.doseRange.'),
+            $this->getQuantityDataRules($prefix . 'doseRate.*.dose.doseQuantity.', true),
+            $this->getRatioDataRules($prefix . 'doseRate.*.rate.rateRatio.', true),
+            $this->getRangeDataRules($prefix . 'doseRate.*.rate.rateRange.'),
+            $this->getQuantityDataRules($prefix . 'doseRate.*.rate.rateQuantity.', true),
         );
     }
+
+
 
     /**
      * Returns an array of validation rules for quantity data.
@@ -216,7 +241,7 @@ class FhirRequest extends FormRequest
     {
         return [
             $prefix . 'system' => 'required|string',
-            $prefix . 'use' => ['required', Rule::in(Constants::IDENTIFIER_USE)],
+            $prefix . 'use' => ['required', Rule::in(Codesystems::IdentifierUse['code'])],
             $prefix . 'value' => 'required|string',
         ];
     }
@@ -270,6 +295,7 @@ class FhirRequest extends FormRequest
     public function getAbatementAttributeDataRules(string $prefix = null): array
     {
         return [
+            $prefix . 'abatement' => 'nullable|array',
             $prefix . 'abatement.abatementDateTime' => 'nullable|date',
             $prefix . 'abatement.abatementAge' => 'nullable|array',
             $prefix . 'abatement.abatementAge.value' => 'nullable|numeric',
@@ -437,8 +463,8 @@ class FhirRequest extends FormRequest
     public function getTelecomDataRules($prefix = null): array
     {
         return [
-            $prefix . 'system' => ['required', 'string', Rule::in(Constants::TELECOM_SYSTEM_CODE)],
-            $prefix . 'use' => ['required', 'string', Rule::in(Constants::TELECOM_USE_CODE)],
+            $prefix . 'system' => ['required', 'string', Rule::in(Codesystems::ContactPointSystem['code'])],
+            $prefix . 'use' => ['required', 'string', Rule::in(Codesystems::ContactPointUse['code'])],
             $prefix . 'value' => 'required|string|max:255',
         ];
     }
@@ -446,16 +472,16 @@ class FhirRequest extends FormRequest
     public function getAddressDataRules($prefix = null): array
     {
         return [
-            $prefix . 'use' => ['nullable', 'string', Rule::in(Constants::ADDRESS_USE_CODE)],
-            $prefix . 'type' => ['nullable', 'string', Rule::in(Constants::ADDRESS_TYPE_CODE)],
+            $prefix . 'use' => ['nullable', 'string', Rule::in(Codesystems::AddressUse['code'])],
+            $prefix . 'type' => ['nullable', 'string', Rule::in(Codesystems::AddressType['code'])],
             $prefix . 'line' => 'nullable|array',
             $prefix . 'line.*' => 'nullable|string',
             $prefix . 'country' => 'nullable|string|max:255',
             $prefix . 'postal_code' => 'nullable|string|max:255',
-            $prefix . 'province' => 'nullable|integer|gte:0|digits:2|exists:codesystem_administrativecode,kode',
-            $prefix . 'city' => 'nullable|integer|gte:0|digits:4|exists:codesystem_administrativecode,kode',
-            $prefix . 'district' => 'nullable|integer|gte:0|digits:6|exists:codesystem_administrativecode,kode',
-            $prefix . 'village' => 'nullable|integer|gte:0|digits:10|exists:codesystem_administrativecode,kode',
+            $prefix . 'province' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_provinsi')],
+            $prefix . 'city' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_kabko')],
+            $prefix . 'district' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_kecamatan')],
+            $prefix . 'village' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_kelurahan')],
             $prefix . 'rt' => 'nullable|integer|gte:0|max_digits:2',
             $prefix . 'rw' => 'nullable|integer|gte:0|max_digits:2',
         ];

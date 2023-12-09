@@ -16,12 +16,14 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
+            $table->json('part_of')->nullable();
             $table->enum('status', ['preparation', 'in-progress', 'cancelled', 'on-hold', 'completed', 'entered-in-error', 'stopped', 'declined', 'unknown']);
             $table->enum('category', ['inpatient', 'outpatient', 'community', 'discharge'])->nullable();
             $table->string('medication');
             $table->string('subject');
             $table->string('context')->nullable();
             $table->string('location')->nullable();
+            $table->json('authorizing_prescription')->nullable();
             $table->decimal('quantity_value')->nullable();
             $table->string('quantity_unit')->nullable();
             $table->string('quantity_system')->nullable();
@@ -32,6 +34,10 @@ return new class extends Migration
             $table->string('days_supply_code')->nullable();
             $table->dateTime('when_prepared')->nullable();
             $table->dateTime('when_handed_over')->nullable();
+            $table->boolean('substitution_was_substituted')->nullable();
+            $table->string('substitution_type')->nullable();
+            $table->json('substitution_reason')->nullable();
+            $table->json('substitution_responsible_party')->nullable();
         });
     }
 

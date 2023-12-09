@@ -16,15 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->bigInteger('nik')->unsigned()->unique();
-            $table->string('nakes_id')->unique();
             $table->boolean('active')->nullable();
-            $table->string('name');
-            $table->string('prefix')->nullable();
-            $table->string('suffix')->nullable();
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->date('birth_date')->nullable();
-            $table->string('photo')->nullable();
             $table->json('communication')->nullable();
         });
     }

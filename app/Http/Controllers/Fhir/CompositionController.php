@@ -5,40 +5,44 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompositionRequest;
 use App\Http\Resources\CompositionResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class CompositionController extends Controller
 {
-    /**
-     * Store a new composition.
-     *
-     * @param CompositionRequest $request The request object.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
+    const RESOURCE_TYPE = 'Composition';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new CompositionResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(CompositionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('Composition');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $composition = $resource->composition()->create($body['composition']);
-            $this->createChildModels($composition, $body, ['category', 'author', 'attester', 'relatesTo']);
-            $this->createNestedInstances($composition, 'event', $body, ['code', 'detail']);
-            $this->createNestedInstances($composition, 'section', $body, ['author', 'entry']);
+            $this->createChildModels($composition, $body, ['attester', 'relatesTo', 'event', 'section']);
             $this->createResourceContent(CompositionResource::class, $resource);
-            return response()->json($resource->composition->first(), 201);
+            return response()->json($composition, 201);
         });
     }
 
 
-    /**
-     * Update a composition.
-     *
-     * @param CompositionRequest $request The request object.
-     * @param int $res_id The resource ID.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
     public function update(CompositionRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -46,12 +50,9 @@ class CompositionController extends Controller
             $resource = $this->updateResource($res_id);
             $composition = $resource->composition()->first();
             $composition->update($body['composition']);
-            $compositionId = $composition->id;
-            $this->updateChildModels($composition, $body, ['category', 'author', 'attester', 'relatesTo'], 'composition_id', $compositionId);
-            $this->updateNestedInstances($composition, 'event', $body, 'composition_id', $compositionId, ['code', 'detail'], 'composition_event_id');
-            $this->updateNestedInstances($composition, 'section', $body, 'composition_id', $compositionId, ['author', 'entry'], 'composition_section_id');
+            $this->updateChildModels($composition, $body, ['attester', 'relatesTo', 'event', 'section']);
             $this->createResourceContent(CompositionResource::class, $resource);
-            return response()->json($resource->composition->first(), 200);
+            return response()->json($composition, 200);
         });
     }
 }

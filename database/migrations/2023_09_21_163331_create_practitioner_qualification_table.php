@@ -17,7 +17,9 @@ return new class extends Migration
             $table->index('practitioner_id');
             $table->foreign('practitioner_id')->references('id')->on('practitioner')->onDelete('cascade');
             $table->json('identifier')->nullable();
-            $table->json('code');
+            $table->string('code_system')->nullable();
+            $table->string('code_code')->nullable();
+            $table->string('code_display')->nullable();
             $table->date('period_start')->nullable();
             $table->date('period_end')->nullable();
             $table->string('issuer')->nullable();

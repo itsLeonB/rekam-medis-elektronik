@@ -34,10 +34,10 @@ class MedicationStatementResource extends FhirResource
                 'resourceType' => 'MedicationStatement',
                 'id' => $this->satusehat_id,
                 'identifier' => $this->createIdentifierArray($medicationStatement->identifier),
-                'basedOn' => $this->referenceArray($medicationStatement->based_on),
-                'partOf' => $this->referenceArray($medicationStatement->part_of),
+                'basedOn' => $this->createReferenceArray($medicationStatement->based_on),
+                'partOf' => $this->createReferenceArray($medicationStatement->part_of),
                 'status' => $medicationStatement->status,
-                'statusReason' => $this->createSnomedConceptArray($medicationStatement->status_reason),
+                'statusReason' => $this->createStatusReasonArray($medicationStatement->status_reason),
                 'category' => [
                     'coding' => [
                         [
@@ -57,15 +57,59 @@ class MedicationStatementResource extends FhirResource
                 'informationSource' => [
                     'reference' => $medicationStatement->information_source
                 ],
-                'derivedFrom' => $this->referenceArray($medicationStatement->derived_from),
-                'reasonCode' => $this->createSnomedConceptArray($medicationStatement->reason_code),
-                'reasonReference' => $this->referenceArray($medicationStatement->reason_reference),
+                'derivedFrom' => $this->createReferenceArray($medicationStatement->derived_from),
+                'reasonCode' => $this->createReasonCodeArray($medicationStatement->reasonCode),
+                'reasonReference' => $this->createReferenceArray($medicationStatement->reason_reference),
                 'note' => $this->createAnnotationArray($medicationStatement->note),
                 'dosage' => $this->dosageArray($medicationStatement->dosage),
             ],
             $medicationStatement->medication,
             $medicationStatement->effective,
         );
+    }
+
+
+    private function createReasonCodeArray($reasonCodes): array
+    {
+        $reasonCode = [];
+
+        if (!empty($reasonCodes)) {
+            foreach ($reasonCodes as $rc) {
+                $reasonCode[] = [
+                    'coding' => [
+                        [
+                            'system' => $rc->system,
+                            'code' => $rc->code,
+                            'display' => $rc->display
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $reasonCode;
+    }
+
+
+    private function createStatusReasonArray($statusReasons): array
+    {
+        $statusReason = [];
+
+        if (!empty($statusReasons)) {
+            foreach ($statusReasons as $sr) {
+                $statusReason[] = [
+                    'coding' => [
+                        [
+                            'system' => $sr ? MedicationStatement::STATUS_REASON['binding']['valueset']['system'] ?? null : null,
+                            'code' => $sr,
+                            'display' => $sr ? MedicationStatement::STATUS_REASON['binding']['valueset']['display'][$sr] ?? null : null
+                        ]
+                    ]
+                ];
+            }
+        }
+
+        return $statusReason;
     }
 
 
@@ -208,38 +252,5 @@ class MedicationStatementResource extends FhirResource
         }
 
         return $additionalInstruction;
-    }
-
-
-    private function createSnomedConceptArray($snomedCodes): array
-    {
-        $snomedArray = [];
-
-        if (!empty($snomedCodes)) {
-            foreach ($snomedCodes as $sc) {
-                $arr = $this->querySnomedCode($sc);
-                $snomedArray[] = [
-                    'coding' => [$arr]
-                ];
-            }
-        }
-
-        return $snomedArray;
-    }
-
-
-    private function referenceArray($references): array
-    {
-        $reference = [];
-
-        if (!empty($references)) {
-            foreach ($references as $r) {
-                $reference[] = [
-                    'reference' => $r
-                ];
-            }
-        }
-
-        return $reference;
     }
 }

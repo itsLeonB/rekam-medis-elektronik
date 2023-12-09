@@ -50,6 +50,11 @@ class MedicationStatement extends Model
         return $this->hasMany(MedicationStatementIdentifier::class, 'statement_id');
     }
 
+    public function reasonCode(): HasMany
+    {
+        return $this->hasMany(MedicationStatementReasonCode::class, 'statement_id');
+    }
+
     public function note(): HasMany
     {
         return $this->hasMany(MedicationStatementNote::class, 'statement_id');
@@ -213,17 +218,6 @@ class MedicationStatement extends Model
         ],
         'requirements' => null,
         'comments' => 'Likely references would be to MedicationRequest, MedicationDispense, Claim, Observation or QuestionnaireAnswers. The most common use cases for deriving a MedicationStatement comes from creating a MedicationStatement from a MedicationRequest or from a lab observation or a claim. it should be noted that the amount of information that is available varies from the type resource that you derive the MedicationStatement from.',
-    ];
-
-    public const REASON_CODE = [
-        'definition' => 'A reason for why the medication is being/was taken.',
-        'cardinality' => '0...*',
-        'binding' => [
-            'desc' => 'A coded concept identifying why the medication is being taken.',
-            'valueset' => Valuesets::ConditionProblemDiagnosisCodes
-        ],
-        'requirements' => null,
-        'comments' => 'This could be a diagnosis code. If a full condition record exists or additional detail is needed, use reasonForUseReference.',
     ];
 
     public const REASON_REFERENCE = [

@@ -3,11 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Constants;
-use App\Models\Encounter;
-use App\Models\EncounterDiagnosis;
-use App\Models\EncounterHospitalization;
-use App\Models\EncounterHospitalizationDiet;
-use App\Models\EncounterHospitalizationSpecialArrangement;
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use Illuminate\Validation\Rule;
 
 class EncounterRequest extends FhirRequest
@@ -21,16 +18,13 @@ class EncounterRequest extends FhirRequest
     {
         return array_merge(
             $this->baseAttributeRules(),
-            $this->baseDataRules(),
+            $this->baseDataRules('encounter.'),
             $this->getIdentifierDataRules('identifier.*.'),
             $this->statusHistoryDataRules(),
             $this->classHistoryDataRules(),
             $this->participantDataRules(),
-            $this->reasonDataRules(),
             $this->diagnosisDataRules(),
-            $this->hospitalizationDataRules(),
-            $this->getCodeableConceptDataRules('hospitalization.*.diet.*.', EncounterHospitalizationDiet::PREFERENCE_CODE),
-            $this->getCodeableConceptDataRules('hospitalization.*.specialArrangement.*.', EncounterHospitalizationSpecialArrangement::CODE),
+            $this->locationDataRules('location.*.'),
         );
     }
 
@@ -42,35 +36,57 @@ class EncounterRequest extends FhirRequest
             'statusHistory' => 'required|array',
             'classHistory' => 'nullable|array',
             'participant' => 'required|array',
-            'reason' => 'nullable|array',
             'diagnosis' => 'nullable|array',
-            'hospitalization' => 'nullable|array',
+            'location' => 'required|array',
         ];
     }
 
-    private function baseDataRules(): array
+    private function baseDataRules($prefix): array
     {
-        return [
-            'encounter.status' => ['required', 'string', Rule::in(Encounter::STATUS_CODE)],
-            'encounter.class' => 'required|string|max:6',
-            'encounter.service_type' => 'nullable|integer|gte:0',
-            'encounter.priority' => 'nullable|string|max:3',
-            'encounter.subject' => 'required|string',
-            'encounter.episode_of_care' => 'nullable|string',
-            'encounter.based_on' => 'nullable|string',
-            'encounter.period_start' => 'required|date',
-            'encounter.period_end' => 'nullable|date',
-            'encounter.account' => 'nullable|string',
-            'encounter.location' => 'required|string',
-            'encounter.service_provider' => 'required|string',
-            'encounter.part_of' => 'nullable|string',
-        ];
+        return array_merge(
+            [
+                $prefix . 'status' => ['required', Rule::in(Valuesets::EncounterStatus['code'])],
+                $prefix . 'class' => ['required', Rule::in(Valuesets::EncounterClass['code'])],
+                $prefix . 'type' => 'nullable|array',
+                $prefix . 'type.*' => ['required', Rule::in(Codesystems::EncounterType['code'])],
+                $prefix . 'service_type' => 'nullable|exists:codesystem_servicetype,code',
+                $prefix . 'priority' => ['nullable', Rule::in(Valuesets::EncounterPriority['code'])],
+                $prefix . 'subject' => 'required|string',
+                $prefix . 'episode_of_care' => 'nullable|array',
+                $prefix . 'episode_of_care.*' => 'required|string',
+                $prefix . 'based_on' => 'nullable|array',
+                $prefix . 'based_on.*' => 'required|string',
+                $prefix . 'period_start' => 'required|date',
+                $prefix . 'period_end' => 'nullable|date',
+                $prefix . 'reason_code' => 'nullable|array',
+                $prefix . 'reason_code.*' => 'required|integer|gte:0',
+                $prefix . 'reason_reference' => 'nullable|array',
+                $prefix . 'reason_reference.*' => 'required|string',
+                $prefix . 'account' => 'nullable|array',
+                $prefix . 'account.*' => 'required|string',
+                $prefix . 'hospitalization_preadmission_identifier_system' => 'nullable|string',
+                $prefix . 'hospitalization_preadmission_identifier_use' => ['nullable', Rule::in(Codesystems::IdentifierUse['code'])],
+                $prefix . 'hospitalization_preadmission_identifier_value' => 'nullable|string',
+                $prefix . 'hospitalization_origin' => 'nullable|string',
+                $prefix . 'hospitalization_admit_source' => ['nullable', Rule::in(Codesystems::AdmitSource['code'])],
+                $prefix . 'hospitalization_re_admission' => ['nullable', Rule::in(Codesystems::v20092['code'])],
+                $prefix . 'hospitalization_diet_preference' => 'nullable|array',
+                $prefix . 'hospitalization_diet_preference.*' => ['required', Rule::in(Codesystems::Diet['code'])],
+                $prefix . 'hospitalization_special_arrangement' => 'nullable|array',
+                $prefix . 'hospitalization_special_arrangement.*' => ['required', Rule::in(Codesystems::SpecialArrangements['code'])],
+                $prefix . 'hospitalization_destination' => 'nullable|string',
+                $prefix . 'hospitalization_discharge_disposition' => ['nullable', Rule::in(Codesystems::DischargeDisposition['code'])],
+                $prefix . 'service_provider' => 'required|string',
+                $prefix . 'part_of' => 'nullable|string',
+            ],
+            $this->getDurationDataRules($prefix . 'length_'),
+        );
     }
 
     private function statusHistoryDataRules(): array
     {
         return [
-            'statusHistory.*.status' => ['required', Rule::in(Encounter::STATUS_CODE)],
+            'statusHistory.*.status' => ['required', Rule::in(Valuesets::EncounterStatus['code'])],
             'statusHistory.*.period_start' => 'required|date',
             'statusHistory.*.period_end' => 'nullable|date',
         ];
@@ -79,110 +95,102 @@ class EncounterRequest extends FhirRequest
     private function classHistoryDataRules(): array
     {
         return [
-            'classHistory.*.class' => ['required', Rule::in(Encounter::CLASS_CODE)],
+            'classHistory.*.class' => ['required', Rule::in(Valuesets::EncounterClass['code'])],
             'classHistory.*.period_start' => 'required|date',
             'classHistory.*.period_end' => 'nullable|date',
         ];
     }
 
+
     private function participantDataRules(): array
     {
         return [
-            'participant.*.type' => 'required|string|max:10',
-            'participant.*.individual' => 'required|string',
+            'participant.*.type' => 'nullable|array',
+            'participant.*.type.*' => ['required', Rule::in(Valuesets::EncounterParticipantType['code'])],
+            'participant.*.individual' => 'nullable|string',
         ];
     }
 
-    private function reasonDataRules(): array
-    {
-        return [
-            'reason.*.code' => 'nullable|integer|gte:0',
-            'reason.*.reference' => 'nullable|string',
-        ];
-    }
 
     private function diagnosisDataRules(): array
     {
         return [
-            'diagnosis.*.condition_reference' => 'required|string',
-            'diagnosis.*.condition_display' => 'required|string',
-            'diagnosis.*.use' => ['nullable', Rule::in(EncounterDiagnosis::USE_CODE)],
+            'diagnosis.*.condition' => 'required|string',
+            'diagnosis.*.use' => ['nullable', Rule::in(Codesystems::DiagnosisRole['code'])],
             'diagnosis.*.rank' => 'nullable|integer',
         ];
     }
 
-    private function hospitalizationDataRules(): array
+
+    private function locationDataRules($prefix): array
     {
         return [
-            'hospitalization.*.hospitalization_data.preadmission_identifier_system' => 'nullable|string',
-            'hospitalization.*.hospitalization_data.preadmission_identifier_use' => ['nullable', Rule::in(Constants::IDENTIFIER_USE)],
-            'hospitalization.*.hospitalization_data.preadmission_identifier_value' => 'nullable|string',
-            'hospitalization.*.hospitalization_data.origin' => 'nullable|string',
-            'hospitalization.*.hospitalization_data.admit_source' => 'nullable|string',
-            'hospitalization.*.hospitalization_data.re_admission' => ['nullable', Rule::in(EncounterHospitalization::READMISSION_CODE)],
-            'hospitalization.*.hospitalization_data.destination' => 'nullable|string',
-            'hospitalization.*.hospitalization_data.discharge_disposition' => 'nullable|string',
+            $prefix . 'location' => 'required|string',
+            $prefix . 'service_class' => ['nullable', Rule::in(Valuesets::LocationServiceClass['code'])],
+            $prefix . 'upgrade_class' => ['nullable', Rule::in(Codesystems::LocationUpgradeClass['code'])],
         ];
     }
 
-    public function messages(): array
-    {
-        // create the corresponding validation error message according to the rules above
-        return [
-            //Untuk required
-            'encounter.status.required' => 'Status kunjungan pasien harus diisi',
-            'encounter.class.required' => 'Jenis kunjungan pasien harus diisi',
-            'encounter.subject.required' => 'Data pasien harus diisi',
-            'encounter.period_start.required' => 'Data waktu mulainya kunjungan pasien harus diisi',
-            'encounter.location.required' => 'Data lokasi kunjungan pasien harus diisi',
-            'encounter.service_provider.required' => 'Data fasyankes yang dikunjungi pasien harus diisi',
 
-            'identifier.*.system.required' => 'Identifier system harus diisi',
-            'identifier.*.use.required' => 'Identifier use harus diisi',
-            'identifier.*.value.required' => 'Identifier value harus diisi',
 
-            'statusHistory.*.status.required' => 'Data status kunjungan historis harus diisi',
-            'statusHistory.*.period_start.required' => 'Data historis status waktu mulainya kunjungan harus diisi',
+    // public function messages(): array
+    // {
+    //     // create the corresponding validation error message according to the rules above
+    //     return [
+    //         //Untuk required
+    //         $prefix . 'status.required' => 'Status kunjungan pasien harus diisi',
+    //         $prefix . 'class.required' => 'Jenis kunjungan pasien harus diisi',
+    //         $prefix . 'subject.required' => 'Data pasien harus diisi',
+    //         $prefix . 'period_start.required' => 'Data waktu mulainya kunjungan pasien harus diisi',
+    //         $prefix . 'location.required' => 'Data lokasi kunjungan pasien harus diisi',
+    //         $prefix . 'service_provider.required' => 'Data fasyankes yang dikunjungi pasien harus diisi',
 
-            'classHistory.*.class.required' => 'Data jenis kunjungan historis harus diisi',
-            'classHistory.*.period_start.required' => 'Data historis kelas waktu mulainya kunjungan harus diisi',
+    //         'identifier.*.system.required' => 'Identifier system harus diisi',
+    //         'identifier.*.use.required' => 'Identifier use harus diisi',
+    //         'identifier.*.value.required' => 'Identifier value harus diisi',
 
-            'participant.*.type.required' => 'Data tipe tenaga kesehatan yang bertugas harus diisi',
-            'participant.*.individual.required' => 'Data ID tenaga kesehatan yang bertugas harus diisi',
+    //         'statusHistory.*.status.required' => 'Data status kunjungan historis harus diisi',
+    //         'statusHistory.*.period_start.required' => 'Data historis status waktu mulainya kunjungan harus diisi',
 
-            'diagnosis.*.condition_reference.required' => 'Data ID keluhan pasien harus diisi',
-            'diagnosis.*.condition_rdisplay.required' => 'Data tertulis keluhan pasien harus diisi',
+    //         'classHistory.*.class.required' => 'Data jenis kunjungan historis harus diisi',
+    //         'classHistory.*.period_start.required' => 'Data historis kelas waktu mulainya kunjungan harus diisi',
 
-            'hospitalization.*.diet.*.code.required' => 'Data kode pantangan konsumsi pasien harus diisi',
+    //         'participant.*.type.required' => 'Data tipe tenaga kesehatan yang bertugas harus diisi',
+    //         'participant.*.individual.required' => 'Data ID tenaga kesehatan yang bertugas harus diisi',
 
-            'hospitalization.*.specialArrangement.*.code.required' => 'Data kode kebutuhan khusus pasien harus diisi',
+    //         'diagnosis.*.condition_reference.required' => 'Data ID keluhan pasien harus diisi',
+    //         'diagnosis.*.condition_rdisplay.required' => 'Data tertulis keluhan pasien harus diisi',
 
-            //Untuk Rule::in
-            'encounter.status.in' => 'Harus termasuk "planned", "arrived", "triaged", "in-progress", "onleave", "finished", "cancelled", "entered-in-error", atau "unknown"',
+    //         'hospitalization.*.diet.*.code.required' => 'Data kode pantangan konsumsi pasien harus diisi',
 
-            'identifier.*.use.in' => 'Harus termasuk "usual", "official", "temp", "secondary", atau "old"',
+    //         'hospitalization.*.specialArrangement.*.code.required' => 'Data kode kebutuhan khusus pasien harus diisi',
 
-            'statusHistory.*.status.in' => 'Harus termasuk "planned", "arrived", "triaged", "in-progress", "onleave", "finished", "cancelled", "entered-in-error", atau "unknown"',
+    //         //Untuk Rule::in
+    //         $prefix . 'status.in' => 'Harus termasuk "planned", "arrived", "triaged", "in-progress", "onleave", "finished", "cancelled", "entered-in-error", atau "unknown"',
 
-            //Untuk gte
-            'encounter.service_type.gte' => 'Nilai tipe layanan tidak boleh negatif',
+    //         'identifier.*.use.in' => 'Harus termasuk "usual", "official", "temp", "secondary", atau "old"',
 
-            'reason.*.code.gte' => 'Nilai kode alasan kunjungan tidak boleh negatif',
+    //         'statusHistory.*.status.in' => 'Harus termasuk "planned", "arrived", "triaged", "in-progress", "onleave", "finished", "cancelled", "entered-in-error", atau "unknown"',
 
-            //Untuk integer
-            'encounter.service_type.integer' => 'Data tipe layanan harus berbentuk angka',
+    //         //Untuk gte
+    //         $prefix . 'service_type.gte' => 'Nilai tipe layanan tidak boleh negatif',
 
-            'reason.*.code.integer' => 'Data kode alasan kunjungan harus berbentuk angka',
+    //         'reason.*.code.gte' => 'Nilai kode alasan kunjungan tidak boleh negatif',
 
-            'diagnosis.*.rank.integer' => 'Data peringkat diagnosis harus berbentuk angka',
+    //         //Untuk integer
+    //         $prefix . 'service_type.integer' => 'Data tipe layanan harus berbentuk angka',
 
-            //Untuk max
-            'encounter.class.max' => 'Data jenis kunjungan maksimal 6 karakter',
-            'encounter.priority.max' => 'Data prioritas kunjungan maksimal 3 karakter',
+    //         'reason.*.code.integer' => 'Data kode alasan kunjungan harus berbentuk angka',
 
-            'classHistory.*.class.max' => 'Data jenis kunjungan historis maksimal 6 karakter',
+    //         'diagnosis.*.rank.integer' => 'Data peringkat diagnosis harus berbentuk angka',
 
-            'participant.*.type.max' => 'Data tipe tenaga kesehatan yang bertugas maksimal 10 karakter'
-        ];
-    }
+    //         //Untuk max
+    //         $prefix . 'class.max' => 'Data jenis kunjungan maksimal 6 karakter',
+    //         $prefix . 'priority.max' => 'Data prioritas kunjungan maksimal 3 karakter',
+
+    //         'classHistory.*.class.max' => 'Data jenis kunjungan historis maksimal 6 karakter',
+
+    //         'participant.*.type.max' => 'Data tipe tenaga kesehatan yang bertugas maksimal 10 karakter'
+    //     ];
+    // }
 }

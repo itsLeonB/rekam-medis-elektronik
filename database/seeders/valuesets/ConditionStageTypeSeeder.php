@@ -10,7 +10,7 @@ class ConditionStageTypeSeeder extends CsvSeeder
     public function __construct()
     {
         $this->file = '/database/seeders/csvs/valuesets/condition_stagetype.csv';
-        $this->tablename = 'valueset_condition_stagetype';
+        $this->tablename = 'valueset_conditionstagetype';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

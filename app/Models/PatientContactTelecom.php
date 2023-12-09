@@ -2,22 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Fhir\Codesystems;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PatientContactTelecom extends Model
 {
-    use HasFactory;
-
     protected $table = 'patient_contact_telecom';
-
     public $timestamps = false;
-
-    protected $guarded = ['id'];
 
     public function patient(): BelongsTo
     {
         return $this->belongsTo(PatientContact::class, 'patient_contact_id');
     }
+
+    public const SYSTEM = [
+        'binding' => [
+            'valueset' => Codesystems::ContactPointSystem
+        ]
+    ];
+
+    public const USE = [
+        'binding' => [
+            'valueset' => Codesystems::ContactPointUse
+        ]
+    ];
 }

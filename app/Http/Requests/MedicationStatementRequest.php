@@ -19,6 +19,8 @@ class MedicationStatementRequest extends FhirRequest
         return array_merge(
             $this->baseAttributeRules(),
             $this->baseDataRules('medicationStatement.'),
+            $this->getIdentifierDataRules('identifier.*.'),
+            $this->getCodeableConceptDataRules('reasonCode.*.'),
             $this->getAnnotationDataRules('note.*.'),
             $this->dosageDataRules('dosage.*.'),
         );

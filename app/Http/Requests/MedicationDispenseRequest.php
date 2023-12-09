@@ -18,13 +18,10 @@ class MedicationDispenseRequest extends FhirRequest
     {
         return array_merge(
             $this->baseAttributeRules(),
-            $this->baseDataRules(),
+            $this->baseDataRules('medicationDispense.'),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRules('partOf.*.'),
-            $this->performerDataRules(),
-            $this->getReferenceDataRules('authorizingPrescription.*.'),
+            $this->performerDataRules('performer.*.'),
             $this->getDosageDataRules('dosage.*.'),
-            $this->substitutionDataRules()
         );
     }
 
@@ -33,54 +30,44 @@ class MedicationDispenseRequest extends FhirRequest
         return [
             'medicationDispense' => 'required|array',
             'identifier' => 'nullable|array',
-            'partOf' => 'nullable|array',
             'performer' => 'nullable|array',
-            'authorizingPrescription' => 'nullable|array',
             'dosage' => 'nullable|array',
-            'substitution' => 'nullable|array'
         ];
     }
 
-    private function baseDataRules(): array
+    private function baseDataRules(string $prefix): array
     {
         return array_merge(
             [
-                'medicationDispense.status' => ['required', Rule::in(MedicationDispense::STATUS_CODE)],
-                'medicationDispense.category' => ['nullable', Rule::in(MedicationDispense::CATEGORY_CODE)],
-                'medicationDispense.medication' => 'required|string',
-                'medicationDispense.subject' => 'required|string',
-                'medicationDispense.context' => 'nullable|string',
-                'medicationDispense.location' => 'nullable|string',
-                'medicationDispense.when_prepared' => 'nullable|date',
-                'medicationDispense.when_handed_over' => 'nullable|date',
+                $prefix . 'part_of' => 'nullable|array',
+                $prefix . 'part_of.*' => 'sometimes|string',
+                $prefix . 'status' => ['required', Rule::in(MedicationDispense::STATUS['binding']['valueset']['code'])],
+                $prefix . 'category' => ['nullable', Rule::in(MedicationDispense::CATEGORY['binding']['valueset']['code'])],
+                $prefix . 'medication' => 'required|string',
+                $prefix . 'subject' => 'required|string',
+                $prefix . 'context' => 'nullable|string',
+                $prefix . 'location' => 'nullable|string',
+                $prefix . 'authorizing_prescription' => 'nullable|array',
+                $prefix . 'authorizing_prescription.*' => 'sometimes|string',
+                $prefix . 'when_prepared' => 'nullable|date',
+                $prefix . 'when_handed_over' => 'nullable|date',
+                $prefix . 'substitution_was_substituted' => 'nullable|boolean',
+                $prefix . 'substitution_type' => ['nullable', Rule::in(MedicationDispense::SUBSTITUTION_TYPE['binding']['valueset']['code'])],
+                $prefix . 'substitution_reason' => 'nullable|array',
+                $prefix . 'substitution_reason.*' => ['sometimes', Rule::in(MedicationDispense::SUBSTITUTION_REASON['binding']['valueset']['code'])],
+                $prefix . 'substitution_responsible_party' => 'nullable|array',
+                $prefix . 'substitution_responsible_party.*' => 'sometimes|string',
             ],
-            $this->getQuantityDataRules('medicationDispense.quantity_', true),
-            $this->getQuantityDataRules('medicationDispense.days_supply_', true)
+            $this->getQuantityDataRules($prefix . 'quantity_', true),
+            $this->getQuantityDataRules($prefix . 'days_supply_', true)
         );
     }
 
-    private function performerDataRules(): array
+    private function performerDataRules(string $prefix = null): array
     {
-        return array_merge(
-            $this->getCodeableConceptDataRules('performer.*.function_', MedicationDispensePerformer::FUNCTION_CODE),
-            [
-                'performer.*.actor' => 'required|string',
-            ]
-        );
-    }
-
-    private function substitutionDataRules(): array
-    {
-        return array_merge(
-            [
-                'substitution.*.substitution_data' => 'required|array',
-                'substitution.*.reason' => 'nullable|array',
-                'substitution.*.responsibleParty' => 'nullable|array',
-                'substitution.*.substitution_data.was_substituted' => 'required|boolean',
-            ],
-            $this->getCodeableConceptDataRules('substitution.*.substitution_data.type_', MedicationDispenseSubstitution::TYPE_CODE),
-            $this->getCodeableConceptDataRules('substitution.*.reason.*.', MedicationDispenseSubstitution::REASON_CODE),
-            $this->getReferenceDataRules('substitution.*.responsibleParty.*.')
-        );
+        return [
+            $prefix . 'function' => ['nullable', Rule::in(MedicationDispensePerformer::FUNCTION['binding']['valueset']['code'])],
+            $prefix . 'actor' => 'required|string',
+        ];
     }
 }

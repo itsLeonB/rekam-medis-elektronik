@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('code', 9)->primary();
             $table->string('system', 45);
             $table->string('display', 43);
-            $table->string('definition', 122);
+            $table->string('definition', 122)->nullable();
         });
     }
 

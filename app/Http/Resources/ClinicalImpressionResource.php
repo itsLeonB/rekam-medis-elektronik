@@ -2,7 +2,11 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ClinicalImpression;
+use App\Models\ClinicalImpressionFinding;
+use App\Models\ClinicalImpressionInvestigation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClinicalImpressionResource extends FhirResource
 {
@@ -33,9 +37,11 @@ class ClinicalImpressionResource extends FhirResource
                 'statusReason' => [
                     'coding' => [
                         [
-                            'system' => $clinicalImpression->status_reason_system,
+                            'system' => $clinicalImpression->status_reason_code ? ClinicalImpression::STATUS_REASON_CODE['binding']['valueset']['system'] : null,
                             'code' => $clinicalImpression->status_reason_code,
-                            'display' => $clinicalImpression->status_reason_display
+                            'display' => $clinicalImpression->status_reason_code ? DB::table(ClinicalImpression::STATUS_REASON_CODE['binding']['valueset']['table'])
+                                ->where('code', $clinicalImpression->status_reason_code)
+                                ->value('display_en') ?? null : null
                         ]
                     ],
                     'text' => $clinicalImpression->status_reason_text
@@ -47,7 +53,8 @@ class ClinicalImpressionResource extends FhirResource
                             'code' => $clinicalImpression->code_code,
                             'display' => $clinicalImpression->code_display
                         ]
-                    ]
+                    ],
+                    'text' => $clinicalImpression->code_text
                 ],
                 'description' => $clinicalImpression->description,
                 'subject' => [
@@ -65,17 +72,40 @@ class ClinicalImpressionResource extends FhirResource
                 ],
                 'problem' => $this->createReferenceArray($clinicalImpression->problem),
                 'investigation' => $this->createInvestigationArray($clinicalImpression->investigation),
-                'protocol' => $this->createProtocolArray($clinicalImpression->protocol),
+                'protocol' => $clinicalImpression->protocol,
                 'summary' => $clinicalImpression->summary,
                 'finding' => $this->createFindingArray($clinicalImpression->finding),
-                'prognosisCodeableConcept' => $this->createCodeableConceptArray($clinicalImpression->prognosis),
-                'prognosisReference' => $this->createReferenceArray($clinicalImpression->prognosis),
-                'supportingInfo' => $this->createReferenceArray($clinicalImpression->supportingInfo),
+                'prognosisCodeableConcept' => $this->createPrognosisArray($clinicalImpression->prognosis_codeable_concept),
+                'prognosisReference' => $this->createReferenceArray($clinicalImpression->prognosis_reference),
+                'supportingInfo' => $this->createReferenceArray($clinicalImpression->supporting_info),
                 'note' => $this->createAnnotationArray($clinicalImpression->note)
             ],
             $clinicalImpression->effective
         );
     }
+
+
+    private function createPrognosisArray($prognoses): array
+    {
+        $prognosis = [];
+
+        if (is_array($prognoses) || is_object($prognoses)) {
+            foreach ($prognoses as $p) {
+                $prognosis[] = [
+                    'coding' => [
+                        [
+                            'system' => $p ? ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['system'] : null,
+                            'code' => $p,
+                            'display' => $p ? ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['display'][$p] ?? null : null
+                        ]
+                    ],
+                ];
+            }
+        }
+
+        return $prognosis;
+    }
+
 
     private function createInvestigationArray($investigationAttribute): array
     {
@@ -87,12 +117,12 @@ class ClinicalImpressionResource extends FhirResource
                     'code' => [
                         'coding' => [
                             [
-                                'system' => $i->system,
+                                'system' => $i->code ? ClinicalImpressionInvestigation::CODE['binding']['valueset']['system'] : null,
                                 'code' => $i->code,
-                                'display' => $i->display
+                                'display' => $i->code ? ClinicalImpressionInvestigation::CODE['binding']['valueset']['display'][$i->code] ?? null : null
                             ]
                         ],
-                        'text' => $i->text
+                        'text' => $i->code_text
                     ],
                     'item' => $this->createReferenceArray($i->item)
                 ];
@@ -102,18 +132,6 @@ class ClinicalImpressionResource extends FhirResource
         return $investigation;
     }
 
-    private function createProtocolArray($protocolAttribute): array
-    {
-        $protocol = [];
-
-        if (is_array($protocolAttribute) || is_object($protocolAttribute)) {
-            foreach ($protocolAttribute as $p) {
-                $protocol[] = $p->uri;
-            }
-        }
-
-        return $protocol;
-    }
 
     private function createFindingArray($findingAttribute): array
     {
@@ -125,14 +143,16 @@ class ClinicalImpressionResource extends FhirResource
                     'itemCodeableConcept' => [
                         'coding' => [
                             [
-                                'system' => $f->system,
-                                'code' => $f->code,
-                                'display' => $f->display
+                                'system' => $f->item_codeable_concept ? ClinicalImpressionFinding::ITEM_CODEABLE_CONCEPT['binding']['valueset']['system'] : null,
+                                'code' => $f->item_codeable_concept,
+                                'display' => $f->item_codeable_concept ? DB::table(ClinicalImpressionFinding::ITEM_CODEABLE_CONCEPT['binding']['valueset']['table'])
+                                    ->where('code', $f->item_codeable_concept)
+                                    ->value('display_en') ?? null : null
                             ]
                         ]
                     ],
                     'itemReference' => [
-                        'reference' => $f->reference
+                        'reference' => $f->item_reference
                     ],
                     'basis' => $f->basis
                 ];

@@ -16,16 +16,17 @@ return new class extends Migration
             $table->unsignedBigInteger('patient_id');
             $table->index('patient_id');
             $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
-            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing']);
-            $table->json('line');
-            $table->string('country');
-            $table->string('postal_code');
-            $table->integer('province')->unsigned()->nullable();
-            $table->integer('city')->unsigned()->nullable();
-            $table->bigInteger('district')->unsigned()->nullable();
-            $table->bigInteger('village')->unsigned()->nullable();
-            $table->integer('rw')->unsigned()->nullable();
-            $table->integer('rt')->unsigned()->nullable();
+            $table->enum('use', ['home', 'work', 'temp', 'old', 'billing'])->nullable();
+            $table->enum('type', ['postal', 'physical', 'both'])->nullable();
+            $table->json('line')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->unsignedInteger('province')->nullable();
+            $table->unsignedInteger('city')->nullable();
+            $table->unsignedBigInteger('district')->nullable();
+            $table->unsignedBigInteger('village')->nullable();
+            $table->unsignedInteger('rw')->nullable();
+            $table->unsignedInteger('rt')->nullable();
         });
     }
 

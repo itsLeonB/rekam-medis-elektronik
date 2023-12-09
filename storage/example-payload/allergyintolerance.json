@@ -3,10 +3,7 @@
         "clinical_status": "active",
         "verification_status": "unconfirmed",
         "type": "allergy",
-        "category_food": true,
-        "category_medication": false,
-        "category_environment": false,
-        "category_biologic": false,
+        "category": ["food", "medication", "environment", "biologic"],
         "criticality": "low",
         "code_system": "http://snomed.info/sct",
         "code_code": "89811004",
@@ -65,20 +62,12 @@
                 "substance_system": "http://terminology.kemkes.go.id/CodeSystem/clinical-term",
                 "substance_code": "AL000024",
                 "substance_display": "Kuning telur",
-                "description": "Orang ini alergi kuning telur.",
+                "manifestation": ["195967001"],
+                "description": "Bersin-bersin ketika dekat dengan kucing",
                 "onset": "2023-11-02T10:45:00+07:00",
                 "severity": "mild",
-                "exposure_route_system": "http://snomed.info/sct",
-                "exposure_route_code": "6064005",
-                "exposure_route_display": "Topical route"
+                "exposure_route": "6064005"
             },
-            "manifestation": [
-                {
-                    "system": "http://snomed.info/sct",
-                    "code": "195967001",
-                    "display": "Asthma"
-                }
-            ],
             "note": [
                 {
                     "author": {

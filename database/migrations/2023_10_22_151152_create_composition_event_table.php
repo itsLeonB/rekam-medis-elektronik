@@ -16,8 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('composition_id');
             $table->index('composition_id');
             $table->foreign('composition_id')->references('id')->on('composition')->onDelete('cascade');
+            $table->json('code')->nullable();
             $table->dateTime('period_start')->nullable();
             $table->dateTime('period_end')->nullable();
+            $table->json('detail')->nullable();
         });
     }
 

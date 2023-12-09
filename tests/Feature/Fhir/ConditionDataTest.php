@@ -12,6 +12,8 @@ class ConditionDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'condition';
+
     /**
      * Test apakah user dapat menlihat data kondisi pasien
      */
@@ -20,13 +22,15 @@ class ConditionDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('condition');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('condition.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'condition', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -45,14 +49,7 @@ class ConditionDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('condition', $data['condition']);
-        $this->assertManyData('condition_category', $data['category']);
-        $this->assertManyData('condition_body_site', $data['bodySite']);
-        $this->assertNestedData('condition_stage', $data['stage'], 'stage_data', [
-            [
-                'table' => 'condition_stage_assessment',
-                'data' => 'assessment'
-            ]
-        ]);
+        $this->assertManyData('condition_stage', $data['stage']);
         $this->assertManyData('condition_evidence', $data['evidence']);
         $this->assertManyData('condition_note', $data['note']);
         $orgId = env('organization_id');
@@ -80,14 +77,7 @@ class ConditionDataTest extends FhirTestCase
         $response->assertStatus(200);
 
         $this->assertMainData('condition', $data['condition']);
-        $this->assertManyData('condition_category', $data['category']);
-        $this->assertManyData('condition_body_site', $data['bodySite']);
-        $this->assertNestedData('condition_stage', $data['stage'], 'stage_data', [
-            [
-                'table' => 'condition_stage_assessment',
-                'data' => 'assessment'
-            ]
-        ]);
+        $this->assertManyData('condition_stage', $data['stage']);
         $this->assertManyData('condition_evidence', $data['evidence']);
         $this->assertManyData('condition_note', $data['note']);
         $orgId = env('organization_id');

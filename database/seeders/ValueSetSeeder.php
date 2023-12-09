@@ -3,19 +3,17 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Valuesets\{
-    ConditionCodeKeluhanUtamaSeeder,
-    ConditionCodeRiwayatPenyakitKeluargaSeeder,
-    ConditionCodeRiwayatPenyakitPribadiSeeder,
     ConditionStageTypeSeeder,
+    EncounterReasonCodeSeeder,
     MedicationIngredientStrengthDenominatorSeeder,
     ObservationRefRangeAppliesToSeeder,
-    ObservationValueQuantitySeeder,
-    ProcedureFocalDeviceSeeder,
-    ProcedurePerformerTypeSeeder,
-    ProcedureReasonCodeSeeder,
-    ProcedureStatusReasonSeeder,
-    SpecimenContainerTypeSeeder,
-    SpecimenTypeSeeder,
+    ParticipantRolesSeeder,
+    ProcedureDeviceActionCodesSeeder,
+    ProcedureNotPerformedReasonSeeder,
+    ProcedurePerformerRoleCodesSeeder,
+    RiwayatPenyakitKeluargaSeeder,
+    RiwayatPenyakitPribadiSeeder,
+    SNOMEDCTBodySiteSeeder,
 };
 use Illuminate\Database\Seeder;
 
@@ -27,19 +25,17 @@ class ValueSetSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            ConditionCodeKeluhanUtamaSeeder::class,
-            ConditionCodeRiwayatPenyakitKeluargaSeeder::class,
-            ConditionCodeRiwayatPenyakitPribadiSeeder::class,
             ConditionStageTypeSeeder::class,
+            EncounterReasonCodeSeeder::class,
             MedicationIngredientStrengthDenominatorSeeder::class,
             ObservationRefRangeAppliesToSeeder::class,
-            ObservationValueQuantitySeeder::class,
-            ProcedureFocalDeviceSeeder::class,
-            ProcedurePerformerTypeSeeder::class,
-            ProcedureReasonCodeSeeder::class,
-            ProcedureStatusReasonSeeder::class,
-            SpecimenContainerTypeSeeder::class,
-            SpecimenTypeSeeder::class,
+            ParticipantRolesSeeder::class,
+            ProcedureDeviceActionCodesSeeder::class,
+            ProcedureNotPerformedReasonSeeder::class,
+            ProcedurePerformerRoleCodesSeeder::class,
+            RiwayatPenyakitKeluargaSeeder::class,
+            RiwayatPenyakitPribadiSeeder::class,
+            SNOMEDCTBodySiteSeeder::class,
         ]);
     }
 }

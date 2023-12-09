@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Procedure;
+use App\Models\ProcedureFocalDevice;
 use App\Models\ProcedureFollowUp;
 use App\Models\ProcedurePerformer;
 use Illuminate\Validation\Rule;
@@ -18,19 +19,11 @@ class ProcedureRequest extends FhirRequest
     {
         return array_merge(
             $this->baseAttributeRules(),
-            $this->baseDataRules(),
+            $this->baseDataRules('procedure.'),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->getReferenceDataRules('basedOn.*.'),
-            $this->getReferenceDataRules('partOf.*.'),
-            $this->performerDataRules(),
-            $this->reasonDataRules(),
-            $this->getCodeableConceptDataRules('bodySite.*.'),
-            $this->getReferenceDataRules('report.*.'),
-            $this->complicationDataRules(),
-            $this->getCodeableConceptDataRules('followUp.*.', ProcedureFollowUp::CODE),
+            $this->performerDataRules('performer.*.'),
             $this->getAnnotationDataRules('note.*.'),
-            $this->focalDeviceDataRules(),
-            $this->itemUsedDataRules()
+            $this->focalDeviceDataRules('focalDevice.*.'),
         );
     }
 
@@ -39,80 +32,70 @@ class ProcedureRequest extends FhirRequest
         return [
             'procedure' => 'required|array',
             'identifier' => 'nullable|array',
-            'basedOn' => 'nullable|array',
-            'partOf' => 'nullable|array',
             'performer' => 'nullable|array',
-            'reason' => 'nullable|array',
-            'bodySite' => 'nullable|array',
-            'report' => 'nullable|array',
-            'complication' => 'nullable|array',
-            'followUp' => 'nullable|array',
             'note' => 'nullable|array',
             'focalDevice' => 'nullable|array',
-            'itemUsed' => 'nullable|array'
         ];
     }
 
-    private function baseDataRules(): array
+    private function baseDataRules($prefix): array
     {
         return array_merge(
             [
-                'procedure.status' => ['required', Rule::in(Procedure::STATUS_CODE)],
-                'procedure.status_reason' => 'nullable|integer',
-                'procedure.category' => ['nullable', Rule::in(Procedure::CATEGORY_CODE)],
-                'procedure.code_system' => 'required|string',
-                'procedure.code_code' => 'required|string',
-                'procedure.code_display' => 'required|string',
-                'procedure.subject' => 'required|string',
-                'procedure.encounter' => 'required|string',
-                'procedure.recorder' => 'nullable|string',
-                'procedure.asserter' => 'nullable|string',
-                'procedure.location' => 'nullable|string',
-                'procedure.outcome' => ['nullable', Rule::in(Procedure::OUTCOME_CODE)],
+                $prefix . 'based_on' => 'nullable|array',
+                $prefix . 'based_on.*' => 'required|string',
+                $prefix . 'part_of' => 'nullable|array',
+                $prefix . 'part_of.*' => 'required|string',
+                $prefix . 'status' => ['required', Rule::in(Procedure::STATUS['binding']['valueset']['code'])],
+                $prefix . 'status_reason' => ['nullable', Rule::exists(Procedure::STATUS_REASON['binding']['valueset']['table'], 'code')],
+                $prefix . 'category' => ['nullable', Rule::in(Procedure::CATEGORY['binding']['valueset']['code'])],
+                $prefix . 'code_system' => 'nullable|string',
+                $prefix . 'code_code' => 'required|string',
+                $prefix . 'code_display' => 'nullable|string',
+                $prefix . 'subject' => 'required|string',
+                $prefix . 'encounter' => 'required|string',
+                $prefix . 'recorder' => 'nullable|string',
+                $prefix . 'asserter' => 'nullable|string',
+                $prefix . 'location' => 'nullable|string',
+                $prefix . 'reason_code' => 'nullable|array',
+                $prefix . 'reason_code.*' => ['required', Rule::exists(Procedure::REASON_CODE['binding']['valueset']['table'], 'code')],
+                $prefix . 'reason_reference' => 'nullable|array',
+                $prefix . 'reason_reference.*' => 'required|string',
+                $prefix . 'body_site' => 'nullable|array',
+                $prefix . 'body_site.*' => ['required', Rule::exists(Procedure::BODY_SITE['binding']['valueset']['table'], 'code')],
+                $prefix . 'outcome' => ['nullable', Rule::in(Procedure::OUTCOME['binding']['valueset']['code'])],
+                $prefix . 'report' => 'nullable|array',
+                $prefix . 'report.*' => 'required|string',
+                $prefix . 'complication' => 'nullable|array',
+                $prefix . 'complication.*' => ['required', Rule::exists(Procedure::COMPLICATION['binding']['valueset']['table'], 'code')],
+                $prefix . 'complication_detail' => 'nullable|array',
+                $prefix . 'complication_detail.*' => 'required|string',
+                $prefix . 'follow_up' => 'nullable|array',
+                $prefix . 'follow_up.*' => ['required', Rule::in(Procedure::FOLLOW_UP['binding']['valueset']['code'])],
+                $prefix . 'used_reference' => 'nullable|array',
+                $prefix . 'used_reference.*' => 'required|string',
+                $prefix . 'used_code' => 'nullable|array',
+                $prefix . 'used_code.*' => 'required|integer|gte:0',
 
             ],
-            $this->getPerformedDataRules('procedure.')
+            $this->getPerformedDataRules($prefix)
         );
     }
 
-    private function performerDataRules(): array
+    private function performerDataRules($prefix): array
     {
         return [
-            'performer.*.function' => 'nullable|integer|gte:0',
-            'performer.*.actor' => 'required|string',
-            'performer.*.on_behalf_of' => 'nullable|string',
+            $prefix . 'function' => ['nullable', Rule::exists(ProcedurePerformer::FUNCTION['binding']['valueset']['table'], 'code')],
+            $prefix . 'actor' => 'required|string',
+            $prefix . 'on_behalf_of' => 'nullable|string',
         ];
     }
 
-    private function reasonDataRules(): array
+    private function focalDeviceDataRules($prefix): array
     {
-        return array_merge(
-            $this->getCodeableConceptDataRules('reason.*.'),
-            $this->getReferenceDataRules('reason.*.')
-        );
-    }
-
-    private function complicationDataRules(): array
-    {
-        return array_merge(
-            $this->getCodeableConceptDataRules('complication.*.'),
-            $this->getReferenceDataRules('complication.*.')
-        );
-    }
-
-    private function focalDeviceDataRules(): array
-    {
-        return array_merge(
-            $this->getCodeableConceptDataRules('focalDevice.*.'),
-            $this->getReferenceDataRules('focalDevice.*.')
-        );
-    }
-
-    private function itemUsedDataRules(): array
-    {
-        return array_merge(
-            $this->getCodeableConceptDataRules('itemUsed.*.'),
-            $this->getReferenceDataRules('itemUsed.*.')
-        );
+        return [
+            $prefix . 'action' => ['nullable', Rule::exists(ProcedureFocalDevice::ACTION['binding']['valueset']['table'], 'code')],
+            $prefix . 'manipulated' => 'required|string',
+        ];
     }
 }

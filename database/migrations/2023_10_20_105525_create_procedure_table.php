@@ -16,19 +16,30 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->enum('status', ['preparation', 'in-progress', 'not-done', 'on-hold', 'stopped', 'completed', 'entered-in-error', 'unknown'])->default('unknown');
-            $table->unsignedBigInteger('status_reason')->nullable();
-            $table->enum('category', ['24642003', '409063005', '409073007', '387713003', '103693007', '46947000', '410606002'])->nullable();
-            $table->string('code_system');
+            $table->json('based_on')->nullable();
+            $table->json('part_of')->nullable();
+            $table->string('status')->default('unknown');
+            $table->string('status_reason')->nullable();
+            $table->string('category')->nullable();
+            $table->string('code_system')->nullable();
             $table->string('code_code');
-            $table->string('code_display');
+            $table->string('code_display')->nullable();
             $table->string('subject');
             $table->string('encounter');
             $table->json('performed')->nullable();
             $table->string('recorder')->nullable();
             $table->string('asserter')->nullable();
             $table->string('location')->nullable();
-            $table->enum('outcome', ['385669000', '385671000', '385670004'])->nullable();
+            $table->json('reason_code')->nullable();
+            $table->json('reason_reference')->nullable();
+            $table->json('body_site')->nullable();
+            $table->string('outcome')->nullable();
+            $table->json('report')->nullable();
+            $table->json('complication')->nullable();
+            $table->json('complication_detail')->nullable();
+            $table->json('follow_up')->nullable();
+            $table->json('used_reference')->nullable();
+            $table->json('used_code')->nullable();
         });
     }
 

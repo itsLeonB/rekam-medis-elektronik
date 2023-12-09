@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Codesystems\AdministrativeCode;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LocationResource extends FhirResource
 {
@@ -33,9 +33,9 @@ class LocationResource extends FhirResource
             'identifier' => $this->createIdentifierArray($location->identifier),
             'status' => $location->status,
             'operationalStatus' => [
-                'system' => $location->operational_status ? Location::OPERATIONAL_STATUS_SYSTEM : null,
+                'system' => $location->operational_status ? Location::OPERATIONAL_STATUS['binding']['valueset']['system'] : null,
                 'code' => $location->operational_status,
-                'display' => $location->operational_status ? Location::OPERATIONAL_STATUS_DISPLAY[$location->operational_status] ?? null : null
+                'display' => $location->operational_status ? Location::OPERATIONAL_STATUS['binding']['valueset']['code'][$location->operational_status] ?? null : null
             ],
             'name' => $location->name,
             'alias' => $location->alias,
@@ -45,13 +45,16 @@ class LocationResource extends FhirResource
             'telecom' => $this->createTelecomArray($location->telecom),
             'address' => [
                 'use' => $location->address_use,
+                'type' => $location->address_type,
                 'line' => $location->address_line,
                 'country' => $location->country,
                 'postalCode' => $location->postal_code,
-                'city' => $location->city ? AdministrativeCode::where('kode', $location->city)->first()->nama ?? null : null,
+                'city' => DB::table(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'])
+                    ->where('kode_kabko', $location->city)
+                    ->value('nama_kabko') ?? null,
                 'extension' => [
                     [
-                        'url' => AdministrativeCode::URL,
+                        'url' => Location::ADMINISTRATIVE_CODE['url'],
                         'extension' => [
                             [
                                 'url' => $location->province ? 'province' : null,
@@ -84,9 +87,9 @@ class LocationResource extends FhirResource
             'physicalType' => [
                 'coding' => [
                     [
-                        'system' => $location->physical_type ? Location::PHYSICAL_TYPE_SYSTEM[$location->physical_type] : null,
+                        'system' => $location->physical_type ? Location::PHYSICAL_TYPE['binding']['valueset']['system'][$location->physical_type] ?? null : null,
                         'code' => $location->physical_type,
-                        'display' => $location->physical_type ? Location::PHYSICAL_TYPE_DISPLAY[$location->physical_type] : null
+                        'display' => $location->physical_type ? Location::PHYSICAL_TYPE['binding']['valueset']['display'][$location->physical_type] ?? null : null
                     ]
                 ]
             ],
@@ -106,13 +109,13 @@ class LocationResource extends FhirResource
             'endpoint' => $this->referenceArray($location->endpoint),
             'extension' => [
                 [
-                    'url' => $location->service_class ? Location::SERVICE_CLASS_URL : null,
+                    'url' => $location->service_class ? Location::SERVICE_CLASS['binding']['valueset']['url'] : null,
                     'valueCodeableConcept' => [
                         'coding' => [
                             [
-                                'system' => $location->service_class ? Location::SERVICE_CLASS_SYSTEM[$location->service_class] ?? null : null,
+                                'system' => $location->service_class ? Location::SERVICE_CLASS['binding']['valueset']['system'][$location->service_class] ?? null : null,
                                 'code' => $location->service_class,
-                                'display' => $location->service_class ? Location::SERVICE_CLASS_DISPLAY[$location->service_class] ?? null : null
+                                'display' => $location->service_class ? Location::SERVICE_CLASS['binding']['valueset']['display'][$location->service_class] ?? null : null
                             ]
                         ]
                     ]
@@ -166,9 +169,9 @@ class LocationResource extends FhirResource
                 $type[] = [
                     'coding' => [
                         [
-                            'system' => $t ? Location::TYPE_SYSTEM : null,
+                            'system' => $t ? Location::TYPE['binding']['valueset']['system'] : null,
                             'code' => $t,
-                            'display' => $t ? Location::TYPE_DISPLAY[$t] ?? null : null
+                            'display' => $t ? Location::TYPE['binding']['valueset']['display'][$t] ?? null : null
                         ]
                     ]
                 ];

@@ -6,105 +6,136 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ClinicalImpressionResource;
 use App\Http\Resources\CompositionResource;
+use App\Http\Resources\ConditionResource;
+use App\Http\Resources\EncounterResource;
 use App\Http\Resources\LocationResource;
 use App\Http\Resources\MedicationDispenseResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;
 use App\Http\Resources\ObservationResource;
 use App\Http\Resources\OrganizationResource;
+use App\Http\Resources\PatientResource;
+use App\Http\Resources\PractitionerResource;
 use App\Http\Resources\ProcedureResource;
 use App\Http\Resources\ServiceRequestResource;
 use App\Models\Resource;
 
 class TestController extends Controller
 {
-    public function testOrganizationResource($satusehat_id)
+    public function testPractitioner()
     {
-        return response()->json(new OrganizationResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'Organization']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new PractitionerResource(Resource::where('res_type', '=', 'Practitioner')
+                ->firstOrFail()), 200);
     }
 
 
-    public function testLocationResource($satusehat_id)
+    public function testMedicationDispense()
     {
-        return response()->json(new LocationResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'Location']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new MedicationDispenseResource(Resource::where('res_type', '=', 'MedicationDispense')
+                ->firstOrFail()), 200);
     }
 
 
-    public function testServiceRequestResource($satusehat_id)
+    public function testServiceRequest()
     {
-        return response()->json(new ServiceRequestResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'ServiceRequest']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new ServiceRequestResource(Resource::where('res_type', '=', 'ServiceRequest')
+                ->firstOrFail()), 200);
     }
 
-    public function testClinicalImpressionResource($satusehat_id)
+
+    public function testClinicalImpression()
     {
-        return response()->json(new ClinicalImpressionResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'ClinicalImpression']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new ClinicalImpressionResource(Resource::where('res_type', '=', 'ClinicalImpression')
+                ->firstOrFail()), 200);
     }
 
-    public function testCompositionResource($satusehat_id)
+
+    public function testAllergyIntolerance()
     {
-        return response()->json(new CompositionResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'Composition']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new AllergyIntoleranceResource(Resource::where('res_type', '=', 'AllergyIntolerance')
+                ->firstOrFail()), 200);
     }
 
-    public function testMedicationDispenseResource($satusehat_id)
+    public function testComposition()
     {
-        return response()->json(new MedicationDispenseResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'MedicationDispense']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new CompositionResource(Resource::where('res_type', '=', 'Composition')
+                ->firstOrFail()), 200);
     }
 
-    public function testMedicationRequestResource($satusehat_id)
+    public function testMedicationRequest()
     {
-        return response()->json(new MedicationRequestResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'medicationrequest']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new MedicationRequestResource(Resource::where('res_type', '=', 'MedicationRequest')
+                ->firstOrFail()), 200);
     }
 
-    public function testMedicationResource($satusehat_id)
+
+    public function testMedication()
     {
-        return response()->json(new MedicationResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'medication']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new MedicationResource(Resource::where('res_type', '=', 'Medication')
+                ->firstOrFail()), 200);
     }
 
-    public function testProcedureResource($satusehat_id)
+
+    public function testProcedure()
     {
-        return response()->json(new ProcedureResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'procedure']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new ProcedureResource(Resource::where('res_type', '=', 'Procedure')
+                ->firstOrFail()), 200);
     }
 
-    public function testObservationResource($satusehat_id)
+
+    public function testObservation()
     {
-        return response()->json(new ObservationResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'observation']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new ObservationResource(Resource::where('res_type', '=', 'Observation')
+                ->firstOrFail()), 200);
     }
 
-    public function testAllergyIntoleranceResource($satusehat_id)
+
+    public function testCondition()
     {
-        return response()->json(new AllergyIntoleranceResource(Resource::where([
-            ['satusehat_id', '=', $satusehat_id],
-            ['res_type', '=', 'allergyintolerance']
-        ])->firstOrFail()), 200);
+        return response()
+            ->json(new ConditionResource(Resource::where('res_type', '=', 'Condition')
+                ->firstOrFail()), 200);
+    }
+
+
+    public function testEncounter()
+    {
+        return response()
+            ->json(new EncounterResource(Resource::where('res_type', '=', 'Encounter')
+                ->firstOrFail()), 200);
+    }
+
+
+    public function testOrganization()
+    {
+        return response()
+            ->json(new OrganizationResource(Resource::where('res_type', '=', 'Organization')
+                ->firstOrFail()), 200);
+    }
+
+
+    public function testLocation()
+    {
+        return response()
+            ->json(new LocationResource(Resource::where('res_type', '=', 'Location')
+                ->firstOrFail()), 200);
+    }
+
+
+    public function testPatient()
+    {
+        return response()
+            ->json(new PatientResource(Resource::where('res_type', '=', 'Patient')
+                ->firstOrFail()), 200);
     }
 }

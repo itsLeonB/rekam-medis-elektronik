@@ -2,17 +2,13 @@
 
 namespace App\Models;
 
+use App\Fhir\Codesystems;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
 {
-    public const TYPE_SYSTEM = 'http://terminology.hl7.org/CodeSystem/organization-type';
-    public const TYPE_CODE = ['prov', 'dept', 'team', 'govt', 'ins', 'pay', 'edu', 'reli', 'crs', 'cg', 'bus', 'other'];
-    public const TYPE_DISPLAY = ['prov' => 'Healthcare Provider', 'dept' => 'Hospital Department', 'team' => 'Organizational team', 'govt' => 'Government', 'ins' => 'Insurance Company', 'pay' => 'Payer', 'edu' => 'Educational Institute', 'reli' => 'Religious Institution', 'crs' => 'Clinical Research Sponsor', 'cg' => 'Community Group', 'bus' => 'Non-Healthcare Business or Corporation', 'other' => 'Other'];
-    public const TYPE_DEFINITION = ['prov' => 'Fasilitas Pelayanan Kesehatan', 'dept' => 'Departemen dalam Rumah Sakit', 'team' => 'Kelompok praktisi/tenaga kesehatan yang menjalankan fungsi tertentu dalam suatu organisasi', 'govt' => 'Organisasi Pemerintah', 'ins' => 'Perusahaan Asuransi', 'pay' => 'Badan Penjamin', 'edu' => 'Institusi Pendidikan/Penelitian', 'reli' => 'Organisasi Keagamaan', 'crs' => 'Sponsor penelitian klinis', 'cg' => 'Kelompok Masyarakat', 'bus' => 'Perusahaan diluar bidang kesehatan', 'other' => 'Lain-lain'];
-
     protected $table = 'organization';
     protected $casts = [
         'active' => 'boolean',
@@ -47,4 +43,10 @@ class Organization extends Model
     {
         return $this->hasMany(OrganizationContact::class);
     }
+
+    public const TYPE = [
+        'binding' => [
+            'valueset' => Codesystems::OrganizationType
+        ]
+    ];
 }

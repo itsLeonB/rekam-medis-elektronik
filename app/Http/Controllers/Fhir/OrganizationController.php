@@ -5,20 +5,41 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrganizationRequest;
 use App\Http\Resources\OrganizationResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class OrganizationController extends Controller
 {
+    const RESOURCE_TYPE = 'Organization';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new OrganizationResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(OrganizationRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('Organization');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $organization = $resource->organization()->create($body['organization']);
             $this->createChildModels($organization, $body, ['identifier', 'telecom', 'address']);
             $this->createNestedInstances($organization, 'contact', $body, ['telecom']);
             $this->createResourceContent(OrganizationResource::class, $resource);
-            return response()->json($resource->organization()->first(), 201);
+            return response()->json($organization, 201);
         });
     }
 
@@ -30,11 +51,10 @@ class OrganizationController extends Controller
             $resource = $this->updateResource($res_id);
             $organization = $resource->organization()->first();
             $organization->update($body['organization']);
-            $organizationId = $organization->id;
-            $this->updateChildModels($organization, $body, ['identifier', 'telecom', 'address'], 'organization_id', $organizationId);
-            $this->updateNestedInstances($organization, 'contact', $body, 'organization_id', $organizationId, ['telecom'], 'contact_id');
+            $this->updateChildModels($organization, $body, ['identifier', 'telecom', 'address']);
+            $this->updateNestedInstances($organization, 'contact', $body, ['telecom']);
             $this->createResourceContent(OrganizationResource::class, $resource);
-            return response()->json($resource->organization()->first(), 200);
+            return response()->json($organization, 200);
         });
     }
 }

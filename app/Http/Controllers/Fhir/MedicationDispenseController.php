@@ -5,40 +5,45 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MedicationDispenseRequest;
 use App\Http\Resources\MedicationDispenseResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class MedicationDispenseController extends Controller
 {
-    /**
-     * Store a new medication dispense.
-     *
-     * @param MedicationDispenseRequest $request The request object.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
+    const RESOURCE_TYPE = 'MedicationDispense';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new MedicationDispenseResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(MedicationDispenseRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('MedicationDispense');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $medicationDispense = $resource->medicationDispense()->create($body['medicationDispense']);
-            $this->createChildModels($medicationDispense, $body, ['identifier', 'partOf', 'performer', 'authorizingPrescription']);
-            $this->createNestedInstances($medicationDispense, 'dosage', $body, ['additionalInstruction', 'doseRate']);
-            $this->createNestedInstances($medicationDispense, 'substitution', $body, ['reason', 'responsibleParty']);
+            $this->createChildModels($medicationDispense, $body, ['identifier', 'performer']);
+            $this->createNestedInstances($medicationDispense, 'dosageInstruction', $body, ['doseRate']);
             $this->createResourceContent(MedicationDispenseResource::class, $resource);
-            return response()->json($resource->medicationDispense->first(), 201);
+            return response()->json($medicationDispense, 201);
         });
     }
 
 
-    /**
-     * Update a medication dispense resource.
-     *
-     * @param MedicationDispenseRequest $request The request object.
-     * @param int $res_id The resource ID.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
     public function update(MedicationDispenseRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -46,12 +51,10 @@ class MedicationDispenseController extends Controller
             $resource = $this->updateResource($res_id);
             $medicationDispense = $resource->medicationDispense()->first();
             $medicationDispense->update($body['medicationDispense']);
-            $dispenseId = $medicationDispense->id;
-            $this->updateChildModels($medicationDispense, $body, ['identifier', 'partOf', 'performer', 'authorizingPrescription'], 'dispense_id', $dispenseId);
-            $this->updateNestedInstances($medicationDispense, 'dosage', $body, 'dispense_id', $dispenseId, ['additionalInstruction', 'doseRate'], 'med_disp_dose_id');
-            $this->updateNestedInstances($medicationDispense, 'substitution', $body, 'dispense_id', $dispenseId, ['reason', 'responsibleParty'], 'med_disp_subs_id');
+            $this->updateChildModels($medicationDispense, $body, ['identifier', 'performer']);
+            $this->updateNestedInstances($medicationDispense, 'dosageInstruction', $body, ['doseRate']);
             $this->createResourceContent(MedicationDispenseResource::class, $resource);
-            return response()->json($resource->medicationDispense->first(), 200);
+            return response()->json($medicationDispense, 200);
         });
     }
 }

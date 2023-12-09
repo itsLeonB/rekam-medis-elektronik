@@ -42,13 +42,19 @@
         "date_asserted": "2018-01-01T00:00:00+07:00",
         "information_source": "Practitioner/medrx0321",
         "derived_from": ["MedicationRequest/medrx0321", "Resource/any"],
-        "reason_code": ["182862001"],
         "reason_reference": [
             "Condition/medrx0321",
             "Observation/medrx0321",
             "DiagnosticReport/null"
         ]
     },
+    "reasonCode": [
+        {
+            "system": "http://snomed.info/sct",
+            "code": "160245001",
+            "display": "No current problems or disability"
+        }
+    ],
     "note": [
         {
             "author": {
@@ -66,7 +72,7 @@
             "dosage_data": {
                 "sequence": 1,
                 "text": "4 tablet per hari",
-                "additional_instruction":  ["1287353006", "1287351008"],
+                "additional_instruction": ["1287353006", "1287351008"],
                 "patient_instruction": "4 tablet perhari, diminum setiap hari tanpa jeda sampai prose pengobatan berakhir",
                 "timing_event": ["2023-11-08T17:02:00+07:00"],
                 "timing_repeat": {

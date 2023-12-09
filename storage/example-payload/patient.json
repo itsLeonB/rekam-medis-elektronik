@@ -1,9 +1,6 @@
 {
     "patient": {
         "active": true,
-        "name": "Budi Pekerti",
-        "prefix": "Prof. Dr.",
-        "suffix": "S.Kom., M.Kom.",
         "gender": "male",
         "birth_date": "2000-10-10",
         "deceased": {
@@ -15,19 +12,12 @@
             "multipleBirthBoolean": false,
             "multipleBirthInteger": 1
         },
-        "communication": ["id-ID", "en-US"],
-        "general_practitioner": ["Organization/RSUM", "Practitioenr/N10000001", "PractitionerRole/null"],
-        "managing_organization": "Organization/RSUM",
-        "link": [
-            {
-                "other": "Patient/N10000001",
-                "type": "replaced-by"
-            },
-            {
-                "other": "Patient/N10000001",
-                "type": "refer"
-            }
+        "general_practitioner": [
+            "Organization/RSUM",
+            "Practitioenr/N10000001",
+            "PractitionerRole/null"
         ],
+        "managing_organization": "Organization/RSUM",
         "birth_city": "Surabaya",
         "birth_country": "ID"
     },
@@ -58,6 +48,48 @@
             "value": "110204"
         }
     ],
+    "name": [
+        {
+            "use": "official",
+            "text": "Budi Pekerti",
+            "family": "Pekerti",
+            "given": ["Budi"],
+            "prefix": ["Prof. Dr."],
+            "suffix": ["S.Kom., M.Kom."],
+            "period_start": "2020-10-10T00:00:00+07:00",
+            "period_end": "2020-10-10T00:00:00+07:00"
+        },
+        {
+            "use": "maiden",
+            "text": "Budi Pekerti",
+            "family": "Pekerti",
+            "given": ["Budi"],
+            "prefix": ["Prof. Dr."],
+            "suffix": ["S.Kom., M.Kom."],
+            "period_start": "2020-10-10T00:00:00+07:00",
+            "period_end": "2020-10-10T00:00:00+07:00"
+        },
+        {
+            "use": "nickname",
+            "text": "Budi Pekerti",
+            "family": "Pekerti",
+            "given": ["Budi"],
+            "prefix": ["Prof. Dr."],
+            "suffix": ["S.Kom., M.Kom."],
+            "period_start": "2020-10-10T00:00:00+07:00",
+            "period_end": "2020-10-10T00:00:00+07:00"
+        },
+        {
+            "use": "anonymous",
+            "text": "Budi Pekerti",
+            "family": "Pekerti",
+            "given": ["Budi"],
+            "prefix": ["Prof. Dr."],
+            "suffix": ["S.Kom., M.Kom."],
+            "period_start": "2020-10-10T00:00:00+07:00",
+            "period_end": "2020-10-10T00:00:00+07:00"
+        }
+    ],
     "telecom": [
         {
             "system": "phone",
@@ -73,6 +105,7 @@
     "address": [
         {
             "use": "home",
+            "type": "both",
             "line": ["Jalan Surabaya Nomor 6 Blok 9"],
             "country": "ID",
             "postal_code": "60255",
@@ -85,6 +118,7 @@
         },
         {
             "use": "work",
+            "type": "both",
             "line": ["Gedung DPRD Jawa Timur"],
             "country": "ID",
             "postal_code": "60255",
@@ -96,15 +130,28 @@
             "rt": 6
         }
     ],
+    "photo": [
+        {
+            "data": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAA",
+            "url": "https://example.com/photo.png",
+            "size": "100",
+            "hash": "sha256",
+            "title": "Photo",
+            "creation": "2020-10-10T00:00:00+07:00"
+        }
+    ],
     "contact": [
         {
             "contact_data": {
                 "relationship": ["C", "F"],
-                "name": "Banyak Pahala",
-                "prefix": "Prof. Dr.",
-                "suffix": "S.Kom., M.Kom.",
+                "name_text": "Banyak Pahala",
+                "name_family": "Pahala",
+                "name_given": ["Banyak"],
+                "name_prefix": ["Prof. Dr."],
+                "name_suffix": ["S.Kom., M.Kom."],
                 "gender": "unknown",
                 "address_use": "home",
+                "address_type": "both",
                 "address_line": ["Gedung DPRD Jawa Timur"],
                 "country": "ID",
                 "postal_code": "60255",
@@ -113,7 +160,10 @@
                 "district": 110101,
                 "village": 1101012001,
                 "rw": 9,
-                "rt": 6
+                "rt": 6,
+                "organization": "Organization/RSUM",
+                "period_start": "2020-10-10T00:00:00+07:00",
+                "period_end": "2020-10-10T00:00:00+07:00"
             },
             "telecom": [
                 {
@@ -127,37 +177,22 @@
                     "value": "budi.pekerti@kantor.com"
                 }
             ]
+        }
+    ],
+    "communication": [
+        {
+            "language": "id-ID",
+            "preferred": true
         },
         {
-            "contact_data": {
-                "relationship": ["C"],
-                "name": "Budi Ajaib",
-                "prefix": "Prof. Dr.",
-                "suffix": "S.Kom., M.Kom.",
-                "gender": "unknown",
-                "address_use": "home",
-                "address_line": ["Gedung DPRD Jawa Timur"],
-                "country": "ID",
-                "postal_code": "60255",
-                "province": 11,
-                "city": 1101,
-                "district": 110101,
-                "village": 1101012001,
-                "rw": 9,
-                "rt": 6
-            },
-            "telecom": [
-                {
-                    "system": "phone",
-                    "use": "mobile",
-                    "value": "082393751918"
-                },
-                {
-                    "system": "email",
-                    "use": "work",
-                    "value": "budi.pekerti@kantor.com"
-                }
-            ]
+            "language": "en-US",
+            "preferred": false
+        }
+    ],
+    "link": [
+        {
+            "other": "Patient/123",
+            "type": "seealso"
         }
     ]
 }

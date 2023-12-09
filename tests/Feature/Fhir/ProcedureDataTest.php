@@ -12,6 +12,8 @@ class ProcedureDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'procedure';
+
     /**
      * Test apakah user dapat menlihat data tindakan medis
      */
@@ -20,13 +22,15 @@ class ProcedureDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('procedure');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('procedure.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'procedure', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -46,17 +50,9 @@ class ProcedureDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('procedure', $data['procedure']);
-        $this->assertManyData('procedure_based_on', $data['basedOn']);
-        $this->assertManyData('procedure_part_of', $data['partOf']);
         $this->assertManyData('procedure_performer', $data['performer']);
-        $this->assertManyData('procedure_reason', $data['reason']);
-        $this->assertManyData('procedure_body_site', $data['bodySite']);
-        $this->assertManyData('procedure_report', $data['report']);
-        $this->assertManyData('procedure_complication', $data['complication']);
-        $this->assertManyData('procedure_follow_up', $data['followUp']);
         $this->assertManyData('procedure_note', $data['note']);
         $this->assertManyData('procedure_focal_device', $data['focalDevice']);
-        $this->assertManyData('procedure_item_used', $data['itemUsed']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
     }
@@ -82,17 +78,9 @@ class ProcedureDataTest extends FhirTestCase
         $response->assertStatus(200);
 
         $this->assertMainData('procedure', $data['procedure']);
-        $this->assertManyData('procedure_based_on', $data['basedOn']);
-        $this->assertManyData('procedure_part_of', $data['partOf']);
         $this->assertManyData('procedure_performer', $data['performer']);
-        $this->assertManyData('procedure_reason', $data['reason']);
-        $this->assertManyData('procedure_body_site', $data['bodySite']);
-        $this->assertManyData('procedure_report', $data['report']);
-        $this->assertManyData('procedure_complication', $data['complication']);
-        $this->assertManyData('procedure_follow_up', $data['followUp']);
         $this->assertManyData('procedure_note', $data['note']);
         $this->assertManyData('procedure_focal_device', $data['focalDevice']);
-        $this->assertManyData('procedure_item_used', $data['itemUsed']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
     }

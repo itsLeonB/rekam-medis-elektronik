@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -22,4 +24,10 @@ class LocationOperationHours extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public const DAYS_OF_WEEK = [
+        'binding' => [
+            'valueset' => Valuesets::DaysOfWeek
+        ]
+    ];
 }

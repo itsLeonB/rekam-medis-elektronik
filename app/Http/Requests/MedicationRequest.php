@@ -16,9 +16,9 @@ class MedicationRequest extends FhirRequest
     {
         return array_merge(
             $this->baseAttributeRules(),
-            $this->baseDataRules(),
+            $this->baseDataRules('medication.'),
             $this->getIdentifierDataRules('identifier.*.'),
-            $this->ingredientDataRules()
+            $this->ingredientDataRules('ingredient.*.')
         );
     }
 
@@ -31,27 +31,31 @@ class MedicationRequest extends FhirRequest
         ];
     }
 
-    private function baseDataRules(): array
+    private function baseDataRules($prefix): array
     {
         return array_merge(
-            $this->getCodeableConceptDataRules('medication.'),
-            $this->getRatioDataRules('medication.amount_'),
             [
-                'medication.status' => ['nullable', Rule::in(Medication::STATUS_CODE)],
-                'medication.manufacturer' => 'nullable|string',
-                'medication.form' => ['nullable', Rule::in(Medication::FORM_CODE)],
-            ]
+                $prefix . 'system' => 'nullable|string',
+                $prefix . 'code' => 'nullable|string',
+                $prefix . 'display' => 'nullable|string',
+                $prefix . 'status' => ['nullable', Rule::in(Medication::STATUS['binding']['valueset']['code'])],
+                $prefix . 'manufacturer' => 'nullable|string',
+                $prefix . 'form' => ['nullable', Rule::in(Medication::FORM['binding']['valueset']['code'])],
+            ],
+            $this->getRatioDataRules($prefix . 'amount_'),
         );
     }
 
-    private function ingredientDataRules(): array
+    private function ingredientDataRules($prefix): array
     {
         return array_merge(
-            $this->getCodeableConceptDataRules('ingredient.*.'),
-            $this->getRatioDataRules('ingredient.*.strength_'),
             [
-                'ingredient.*.isActive' => 'nullable|boolean',
-            ]
+                $prefix . 'system' => 'nullable|string',
+                $prefix . 'code' => 'nullable|string',
+                $prefix . 'display' => 'nullable|string',
+                $prefix . 'is_active' => 'nullable|boolean',
+            ],
+            $this->getRatioDataRules($prefix . 'strength_'),
         );
     }
 }

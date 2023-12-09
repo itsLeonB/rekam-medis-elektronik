@@ -12,6 +12,8 @@ class CompositionDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'composition';
+
     /**
      * Test apakah user dapat menlihat data diet pasien
      */
@@ -20,13 +22,15 @@ class CompositionDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('composition');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('composition.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'composition', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -45,30 +49,10 @@ class CompositionDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('composition', $data['composition']);
-        $this->assertManyData('composition_category', $data['category']);
-        $this->assertManyData('composition_author', $data['author']);
         $this->assertManyData('composition_attester', $data['attester']);
         $this->assertManyData('composition_relates_to', $data['relatesTo']);
-        $this->assertNestedData('composition_event', $data['event'], 'event_data', [
-            [
-                'table' => 'composition_event_code',
-                'data' => 'code'
-            ],
-            [
-                'table' => 'composition_event_detail',
-                'data' => 'detail'
-            ],
-        ]);
-        $this->assertNestedData('composition_section', $data['section'], 'section_data', [
-            [
-                'table' => 'composition_section_author',
-                'data' => 'author'
-            ],
-            [
-                'table' => 'composition_section_entry',
-                'data' => 'entry'
-            ],
-        ]);
+        $this->assertManyData('composition_event', $data['event']);
+        $this->assertManyData('composition_section', $data['section']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
     }
@@ -89,40 +73,17 @@ class CompositionDataTest extends FhirTestCase
 
         $data['composition']['id'] = $newData['id'];
         $data['composition']['resource_id'] = $newData['resource_id'];
-        $data['author'][0]['id'] = $newData['author'][0]['id'];
-        $data['author'][0]['composition_id'] = $newData['author'][0]['composition_id'];
-        $data['author'][0]['reference'] = "Practitioner/00001";
 
-        $data['author'][] = ['reference' => 'Practitioner/00002'];
+        $data['author'][] = 'Practitioner/00002';
 
         $response = $this->json('PUT', route('composition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
 
         $this->assertMainData('composition', $data['composition']);
-        $this->assertManyData('composition_category', $data['category']);
-        $this->assertManyData('composition_author', $data['author']);
         $this->assertManyData('composition_attester', $data['attester']);
         $this->assertManyData('composition_relates_to', $data['relatesTo']);
-        $this->assertNestedData('composition_event', $data['event'], 'event_data', [
-            [
-                'table' => 'composition_event_code',
-                'data' => 'code'
-            ],
-            [
-                'table' => 'composition_event_detail',
-                'data' => 'detail'
-            ],
-        ]);
-        $this->assertNestedData('composition_section', $data['section'], 'section_data', [
-            [
-                'table' => 'composition_section_author',
-                'data' => 'author'
-            ],
-            [
-                'table' => 'composition_section_entry',
-                'data' => 'entry'
-            ],
-        ]);
+        $this->assertManyData('composition_event', $data['event']);
+        $this->assertManyData('composition_section', $data['section']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
     }

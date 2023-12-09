@@ -16,16 +16,20 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
+            $table->json('based_on')->nullable();
+            $table->json('replaces')->nullable();
             $table->string('requisition_system')->nullable();
             $table->enum('requisition_use', ['usual', 'official', 'temp', 'secondary', 'old'])->nullable();
             $table->string('requisition_value')->nullable();
-            $table->enum('status', ['draft', 'active', 'on-hold', 'revoked', 'completed', 'entered-in-error', 'unknown']);
-            $table->enum('intent', ['proposal', 'plan', 'directive', 'order', 'original-order', 'reflex-order', 'filler-order', 'instance-order', 'option']);
-            $table->enum('priority', ['routine', 'urgent', 'asap', 'stat'])->nullable();
+            $table->string('status');
+            $table->string('intent');
+            $table->json('category')->nullable();
+            $table->string('priority')->nullable();
             $table->boolean('do_not_perform')->nullable();
-            $table->string('code_system')->nullable();
-            $table->string('code_code')->nullable();
-            $table->string('code_display')->nullable();
+            $table->string('code_system');
+            $table->string('code_code');
+            $table->string('code_display');
+            $table->json('order_detail')->nullable();
             $table->json('quantity')->nullable();
             $table->string('subject');
             $table->string('encounter');
@@ -33,10 +37,18 @@ return new class extends Migration
             $table->json('as_needed')->nullable();
             $table->dateTime('authored_on')->nullable();
             $table->string('requester')->nullable();
-            $table->string('performer_type_system')->nullable();
-            $table->string('performer_type_code')->nullable();
-            $table->string('performer_type_display')->nullable();
+            $table->string('performer_type')->nullable();
+            $table->json('performer')->nullable();
+            $table->json('location_code')->nullable();
+            $table->json('location_reference')->nullable();
+            $table->json('reason_code')->nullable();
+            $table->json('reason_reference')->nullable();
+            $table->json('insurance')->nullable();
+            $table->json('supporting_info')->nullable();
+            $table->json('specimen')->nullable();
+            $table->json('body_site')->nullable();
             $table->text('patient_instruction')->nullable();
+            $table->json('relevant_history')->nullable();
         });
     }
 

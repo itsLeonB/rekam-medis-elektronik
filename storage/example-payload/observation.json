@@ -1,10 +1,26 @@
 {
     "observation": {
+        "based_on": [
+            "CarePlan/null",
+            "DeviceRequest/null",
+            "ImmunizationRecommendation/null",
+            "MedicationRequest/1",
+            "NutritionOrder/null",
+            "ServiceRequest/2e261ca8-0025-11ed-b939-0242ac120002"
+        ],
+        "part_of": [
+            "MedicationAdministration/null",
+            "MedicationDispense/1",
+            "MedicationStatement/1",
+            "Procedure/1",
+            "Immunization/null",
+            "ImagingStudy/null"
+        ],
         "status": "registered",
-        "code_system": "http://loinc.org",
-        "code_code": "8480-6",
-        "code_display": "Systolic blood pressure",
+        "category": ["social-history", "vital-signs"],
+        "code": "8480-6",
         "subject": "Patient/100000030009",
+        "focus": ["Resource/any"],
         "encounter": "Encounter-3dedcec9-885d-435e-9ac5-58853cb216bb",
         "effective": {
             "effectiveDateTime": "2023-11-04T13:59:00+07:00",
@@ -53,6 +69,14 @@
             "effectiveInstant": "2023-11-04T13:59:00+07:00"
         },
         "issued": "2023-11-04T13:59:00+07:00",
+        "performer": [
+            "Practitioner/1000400104",
+            "PractitionerRole/null",
+            "Organization/RSPARA",
+            "CareTeam/null",
+            "Patient/1",
+            "RelatedPerson/null"
+        ],
         "value": {
             "valueQuantity": {
                 "value": 80,
@@ -127,64 +151,21 @@
             }
         },
         "data_absent_reason": "not-asked",
-        "body_site_system": "http://snomed.info/sct",
-        "body_site_code": "106004",
-        "body_site_display": "Posterior carpal region",
-        "method_system": "http://snomed.info/sct",
-        "method_code": "997199941000119102",
-        "method_display": "Fluoroscopic venography of left limb with contrast (procedure)",
+        "interpretation": ["B", "D"],
+        "body_site": "106004",
+        "method": "997199941000119102",
         "specimen": "Specimen/null",
-        "device": "Device/null"
+        "device": "Device/null",
+        "has_member": ["Observation/1", "QuestionnaireResponse/1"],
+        "derived_from": [
+            "DocumentReference/null",
+            "ImagingStudy/null",
+            "Media/null",
+            "QuestionnaireResponse/1",
+            "Observation/1",
+            "MolecularSequence/null"
+        ]
     },
-    "basedOn": [
-        {
-            "reference": "ServiceRequest/2e261ca8-0025-11ed-b939-0242ac120002"
-        }
-    ],
-    "partOf": [
-        {
-            "reference": "Procedure/eaf09a48-0025-11ed-b939-0242ac120002"
-        }
-    ],
-    "category": [
-        {
-            "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-            "code": "vital-signs",
-            "display": "Vital Signs"
-        }
-    ],
-    "focus": [
-        {
-            "reference": "Resource/null"
-        }
-    ],
-    "performer": [
-        {
-            "reference": "Practitioner/N10000001"
-        },
-        {
-            "reference": "PractitionerRole/null"
-        },
-        {
-            "reference": "Organization/RSPARA"
-        },
-        {
-            "reference": "CareTeam/null"
-        },
-        {
-            "reference": "Patient/null"
-        },
-        {
-            "reference": "RelatedPerson/null"
-        }
-    ],
-    "interpretation": [
-        {
-            "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
-            "code": "HU",
-            "display": "Significantly High"
-        }
-    ],
     "note": [
         {
             "author": {
@@ -199,65 +180,25 @@
     ],
     "referenceRange": [
         {
-            "value_low": 50,
-            "value_high": 160,
-            "unit": "beats/minute",
-            "system": "http://unitsofmeasure.org",
-            "code": "/min",
+            "low_value": 50,
+            "low_unit": "beats/minute",
+            "low_system": "http://unitsofmeasure.org",
+            "low_code": "/min",
+            "high_value": 160,
+            "high_unit": "beats/minute",
+            "high_system": "http://unitsofmeasure.org",
+            "high_code": "/min",
             "type": "normal",
-            "applies_to": [
-                {
-                    "coding": [
-                        {
-                            "system": "http://snomed.info/sct",
-                            "code": "248153007",
-                            "display": "Male"
-                        }
-                    ]
-                }
-            ],
+            "applies_to": ["248153007", "248152002", "77386006"],
             "age_low": 14,
             "age_high": 44,
             "text": "makin cerah makin buruk"
         }
     ],
-    "member": [
-        {
-            "reference": "Observation/100000030009"
-        },
-        {
-            "reference": "QuestionnaireResponse/null"
-        },
-        {
-            "reference": "MolecularSequence/null"
-        }
-    ],
-    "derivedFrom": [
-        {
-            "reference": "Observation/100000030009"
-        },
-        {
-            "reference": "QuestionnaireResponse/null"
-        },
-        {
-            "reference": "MolecularSequence/null"
-        },
-        {
-            "reference": "DocumentReference/null"
-        },
-        {
-            "reference": "ImagingStudy/1111"
-        },
-        {
-            "reference": "Media/null"
-        }
-    ],
     "component": [
         {
             "component_data": {
-                "code_system": "http://loinc.org",
-                "code_code": "8480-6",
-                "code_display": "Systolic blood pressure",
+                "code": "8480-6",
                 "value": {
                     "valueQuantity": {
                         "value": 80,
@@ -331,34 +272,21 @@
                         "end": "1957-07-13"
                     }
                 },
-                "data_absent_reason": "unknown"
+                "data_absent_reason": "unknown",
+                "interpretation": ["B", "D"]
             },
-            "interpretation": [
-                {
-                    "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation",
-                    "code": "HU",
-                    "display": "Significantly High"
-                }
-            ],
             "referenceRange": [
                 {
-                    "value_low": 50,
-                    "value_high": 160,
-                    "unit": "beats/minute",
-                    "system": "http://unitsofmeasure.org",
-                    "code": "/min",
+                    "low_value": 50,
+                    "low_unit": "beats/minute",
+                    "low_system": "http://unitsofmeasure.org",
+                    "low_code": "/min",
+                    "high_value": 160,
+                    "high_unit": "beats/minute",
+                    "high_system": "http://unitsofmeasure.org",
+                    "high_code": "/min",
                     "type": "normal",
-                    "applies_to": [
-                        {
-                            "coding": [
-                                {
-                                    "system": "http://snomed.info/sct",
-                                    "code": "248153007",
-                                    "display": "Male"
-                                }
-                            ]
-                        }
-                    ],
+                    "applies_to": ["248153007", "248152002", "77386006"],
                     "age_low": 14,
                     "age_high": 44,
                     "text": "makin cerah makin buruk"

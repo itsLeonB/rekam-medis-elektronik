@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Fhir\Valuesets;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -19,4 +19,22 @@ class MedicationDispenseDosageInstructionDoseRate extends Model
     {
         return $this->belongsTo(MedicationDispenseDosageInstruction::class, 'med_disp_dose_id');
     }
+
+    public const TYPE = [
+        'binding' => [
+            'valueset' => Valuesets::DoseAndRateType
+        ]
+    ];
+
+    public const DOSE = [
+        'binding' => [
+            'valueset' => MedicationIngredient::STRENGTH_DENOMINATOR['binding']['valueset']
+        ]
+    ];
+
+    public const RATE = [
+        'binding' => [
+            'valueset' => MedicationIngredient::STRENGTH_DENOMINATOR['binding']['valueset']
+        ]
+    ];
 }

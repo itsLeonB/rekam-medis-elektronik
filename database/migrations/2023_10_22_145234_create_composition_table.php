@@ -23,9 +23,11 @@ return new class extends Migration
             $table->string('type_system');
             $table->string('type_code');
             $table->string('type_display');
+            $table->json('category')->nullable();
             $table->string('subject');
             $table->string('encounter')->nullable();
             $table->dateTime('date');
+            $table->json('author')->nullable();
             $table->string('title');
             $table->enum('confidentiality', ['U', 'L', 'M', 'N', 'R', 'V'])->nullable();
             $table->string('custodian')->nullable();

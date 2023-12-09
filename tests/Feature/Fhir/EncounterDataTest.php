@@ -12,6 +12,8 @@ class EncounterDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'encounter';
+
     /**
      * Test apakah user dapat menlihat data kunjungan pasien
      */
@@ -20,13 +22,15 @@ class EncounterDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('encounter');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('encounter.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'encounter', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -48,18 +52,8 @@ class EncounterDataTest extends FhirTestCase
         $this->assertManyData('encounter_status_history', $data['statusHistory']);
         $this->assertManyData('encounter_class_history', $data['classHistory']);
         $this->assertManyData('encounter_participant', $data['participant']);
-        $this->assertManyData('encounter_reason', $data['reason']);
         $this->assertManyData('encounter_diagnosis', $data['diagnosis']);
-        $this->assertNestedData('encounter_hospitalization', $data['hospitalization'], 'hospitalization_data', [
-            [
-                'table' => 'encounter_hospitalization_diet',
-                'data' => 'diet'
-            ],
-            [
-                'table' => 'encounter_hospitalization_spc_arr',
-                'data' => 'specialArrangement'
-            ]
-        ]);
+        $this->assertManyData('encounter_location', $data['location']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('encounter_identifier', ['system' => 'http://sys-ids.kemkes.go.id/encounter/' . $orgId, 'use' => 'official']);
     }
@@ -83,26 +77,13 @@ class EncounterDataTest extends FhirTestCase
         $data['encounter']['status'] = 'planned';
         $response = $this->json('PUT', route('encounter.update', ['res_id' => $newData['resource_id']]), $data, $headers);
         $response->assertStatus(200);
-        $updatedResponse = $this->json('GET', route('resource.show', ['res_type' => 'encounter', 'res_id' => $newData['resource_id']]));
-        $updatedData = json_decode($updatedResponse->getContent(), true);
-        $this->assertEquals('planned', $updatedData['status']);
 
         $this->assertMainData('encounter', $data['encounter']);
         $this->assertManyData('encounter_status_history', $data['statusHistory']);
         $this->assertManyData('encounter_class_history', $data['classHistory']);
         $this->assertManyData('encounter_participant', $data['participant']);
-        $this->assertManyData('encounter_reason', $data['reason']);
         $this->assertManyData('encounter_diagnosis', $data['diagnosis']);
-        $this->assertNestedData('encounter_hospitalization', $data['hospitalization'], 'hospitalization_data', [
-            [
-                'table' => 'encounter_hospitalization_diet',
-                'data' => 'diet'
-            ],
-            [
-                'table' => 'encounter_hospitalization_spc_arr',
-                'data' => 'specialArrangement'
-            ]
-        ]);
+        $this->assertManyData('encounter_location', $data['location']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('encounter_identifier', ['system' => 'http://sys-ids.kemkes.go.id/encounter/' . $orgId, 'use' => 'official']);
     }

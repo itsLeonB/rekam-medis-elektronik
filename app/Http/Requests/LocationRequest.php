@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Constants;
 use App\Models\Location;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class LocationRequest extends FhirRequest
@@ -40,27 +39,28 @@ class LocationRequest extends FhirRequest
     private function baseDataRules($prefix): array
     {
         return [
-            $prefix . 'status' => ['nullable', Rule::in(Location::STATUS_CODE)],
-            $prefix . 'operational_status' => ['nullable', Rule::in(Location::OPERATIONAL_STATUS_CODE)],
+            $prefix . 'status' => ['nullable', Rule::in(Location::STATUS['binding']['valueset']['code'])],
+            $prefix . 'operational_status' => ['nullable', Rule::in(Location::OPERATIONAL_STATUS['binding']['valueset']['code'])],
             $prefix . 'name' => 'nullable|string',
             $prefix . 'alias' => 'nullable|array',
             $prefix . 'alias.*' => 'required|string',
             $prefix . 'description' => 'nullable|string',
-            $prefix . 'mode' => ['nullable', Rule::in(Location::MODE_CODE)],
+            $prefix . 'mode' => ['nullable', Rule::in(Location::MODE['binding']['valueset']['code'])],
             $prefix . 'type' => 'nullable|array',
-            $prefix . 'type.*' => ['nullable', Rule::in(Location::TYPE_CODE)],
-            $prefix . 'address_use' => ['nullable', Rule::in(Constants::ADDRESS_USE_CODE)],
+            $prefix . 'type.*' => ['nullable', Rule::in(Location::TYPE['binding']['valueset']['code'])],
+            $prefix . 'address_use' => ['nullable', Rule::in(Location::ADDRESS_USE['binding']['valueset']['code'])],
+            $prefix . 'address_type' => ['nullable', Rule::in(Location::ADDRESS_TYPE['binding']['valueset']['code'])],
             $prefix . 'address_line' => 'nullable|array',
             $prefix . 'address_line.*' => 'required|string',
-            $prefix . 'country' => 'nullable|string|exists:codesystem_iso3166,code',
+            $prefix . 'country' => ['nullable', Rule::exists(Location::COUNTRY['binding']['valueset']['table'], 'code')],
             $prefix . 'postal_code' => 'nullable|string',
-            $prefix . 'province' => 'nullable|integer|exists:codesystem_administrativecode,kode',
-            $prefix . 'city' => 'nullable|integer|exists:codesystem_administrativecode,kode',
-            $prefix . 'district' => 'nullable|integer|exists:codesystem_administrativecode,kode',
-            $prefix . 'village' => 'nullable|integer|exists:codesystem_administrativecode,kode',
+            $prefix . 'province' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_provinsi')],
+            $prefix . 'city' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_kabko')],
+            $prefix . 'district' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_kecamatan')],
+            $prefix . 'village' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_kelurahan')],
             $prefix . 'rw' => 'nullable|integer',
             $prefix . 'rt' => 'nullable|integer',
-            $prefix . 'physical_type' => ['nullable', Rule::in(Location::PHYSICAL_TYPE_CODE)],
+            $prefix . 'physical_type' => ['nullable', Rule::in(Location::PHYSICAL_TYPE['binding']['valueset']['code'])],
             $prefix . 'longitude' => 'nullable|numeric',
             $prefix . 'latitude' => 'nullable|numeric',
             $prefix . 'altitude' => 'nullable|numeric',
@@ -69,7 +69,7 @@ class LocationRequest extends FhirRequest
             $prefix . 'availability_exceptions' => 'nullable|string',
             $prefix . 'endpoint' => 'nullable|array',
             $prefix . 'endpoint.*' => 'required|string',
-            $prefix . 'service_class' => ['nullable', Rule::in(Location::SERVICE_CLASS_CODE)],
+            $prefix . 'service_class' => ['nullable', Rule::in(Location::SERVICE_CLASS['binding']['valueset']['code'])],
         ];
     }
 

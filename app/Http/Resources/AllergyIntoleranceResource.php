@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\AllergyIntolerance;
+use App\Models\AllergyIntoleranceReaction;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -15,70 +16,70 @@ class AllergyIntoleranceResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $allergyIntolerance = $this->getData('allergyIntolerance');
+        $allergy = $this->getData('allergyIntolerance');
 
-        $data = $this->resourceStructure($allergyIntolerance);
+        $data = $this->resourceStructure($allergy);
 
         $data = removeEmptyValues($data);
 
         return $data;
     }
 
-    private function resourceStructure($allergyIntolerance): array
+    private function resourceStructure($allergy): array
     {
         return merge_array(
             [
                 'resourceType' => 'AllergyIntolerance',
                 'id' => $this->satusehat_id,
-                'identifier' => $this->createIdentifierArray($allergyIntolerance->identifier),
+                'identifier' => $this->createIdentifierArray($allergy->identifier),
                 'clinicalStatus' => [
                     'coding' => [
                         [
-                            'system' => AllergyIntolerance::CLINICAL_STATUS_SYSTEM,
-                            'code' => $allergyIntolerance->clinical_status,
-                            'display' => AllergyIntolerance::CLINICAL_STATUS_DISPLAY_DEFINITION[$allergyIntolerance->clinical_status]['display'] ?? null
+                            'system' => $allergy->clinical_status ? AllergyIntolerance::CLINICAL_STATUS['binding']['valueset']['system'] : null,
+                            'code' => $allergy->clinical_status,
+                            'display' => $allergy->clinical_status ? AllergyIntolerance::CLINICAL_STATUS['binding']['valueset']['display'][$allergy->clinical_status] ?? null : null
                         ]
                     ],
                 ],
                 'verificationStatus' => [
                     'coding' => [
                         [
-                            'system' => AllergyIntolerance::VERIFICATION_STATUS_SYSTEM,
-                            'code' => $allergyIntolerance->verification_status,
-                            'display' => AllergyIntolerance::VERIFICATION_STATUS_DISPLAY_DEFINITION[$allergyIntolerance->verification_status]['display'] ?? null
+                            'system' => $allergy->verification_status ? AllergyIntolerance::VERIFICATION_STATUS['binding']['valueset']['system'] : null,
+                            'code' => $allergy->verification_status,
+                            'display' => $allergy->verification_status ? AllergyIntolerance::VERIFICATION_STATUS['binding']['valueset']['display'][$allergy->verification_status] ?? null : null
                         ]
                     ],
                 ],
-                'type' => $allergyIntolerance->type,
-                'category' => $this->createCategoryArray($allergyIntolerance),
-                'criticality' => $allergyIntolerance->criticality,
+                'type' => $allergy->type,
+                'category' => $allergy->category,
+                'criticality' => $allergy->criticality,
                 'code' => [
                     'coding' => [
                         [
-                            'system' => $allergyIntolerance->code_system,
-                            'code' => $allergyIntolerance->code_code,
-                            'display' => $allergyIntolerance->code_display
+                            'system' => $allergy->code_system,
+                            'code' => $allergy->code_code,
+                            'display' => $allergy->code_display
                         ]
                     ]
                 ],
                 'patient' => [
-                    'reference' => $allergyIntolerance->patient
+                    'reference' => $allergy->patient
                 ],
                 'encounter' => [
-                    'reference' => $allergyIntolerance->encounter
+                    'reference' => $allergy->encounter
                 ],
-                'recordedDate' => $this->parseDateFhir($allergyIntolerance->recorded_date),
+                'recordedDate' => $this->parseDateFhir($allergy->recorded_date),
                 'recorder' => [
-                    'reference' => $allergyIntolerance->recorder
+                    'reference' => $allergy->recorder
                 ],
                 'asserter' => [
-                    'reference' => $allergyIntolerance->asserter
+                    'reference' => $allergy->asserter
                 ],
-                'lastOcurrence' => $this->parseDateFhir($allergyIntolerance->last_occurence),
-                'note' => $this->createAnnotationArray($allergyIntolerance->note),
-                'reaction' => $this->createReactionArray($allergyIntolerance->reaction)
+                'lastOcurrence' => $this->parseDateFhir($allergy->last_occurence),
+                'note' => $this->createAnnotationArray($allergy->note),
+                'reaction' => $this->createReactionArray($allergy->reaction)
             ],
-            $allergyIntolerance->onset,
+            $allergy->onset,
         );
     }
 
@@ -98,16 +99,16 @@ class AllergyIntoleranceResource extends FhirResource
                             ]
                         ]
                     ],
-                    'manifestation' => $this->createCodeableConceptArray($r->manifestation),
+                    'manifestation' => $this->createManifestationArray($r->manifestation),
                     'description' => $r->description,
                     'onset' => $this->parseDateFhir($r->onset),
                     'severity' => $r->severity,
                     'exposureRoute' => [
                         'coding' => [
                             [
-                                'system' => $r->exposure_route_system,
-                                'code' => $r->exposure_route_code,
-                                'display' => $r->exposure_route_display
+                                'system' => $r->exposure_route ? AllergyIntoleranceReaction::EXPOSURE_ROUTE['binding']['valueset']['system'] : null,
+                                'code' => $r->exposure_route,
+                                'display' => $r->exposure_route ? AllergyIntoleranceReaction::EXPOSURE_ROUTE['binding']['valueset']['display'][$r->exposure_route] ?? null : null
                             ]
                         ]
                     ],
@@ -119,26 +120,25 @@ class AllergyIntoleranceResource extends FhirResource
         return $reaction;
     }
 
-    private function createCategoryArray($allergyIntolerance)
+
+    private function createManifestationArray($manifestations): array
     {
-        $category = [];
+        $manifestation = [];
 
-        if ($allergyIntolerance->category_food) {
-            $category[] = 'food';
+        if (is_array($manifestations) || is_object($manifestations)) {
+            foreach ($manifestations as $m) {
+                $manifestation[] = [
+                    'coding' => [
+                        [
+                            'system' => $m ? AllergyIntoleranceReaction::MANIFESTATION['binding']['valueset']['system'] : null,
+                            'code' => $m,
+                            'display' => $m ? AllergyIntoleranceReaction::MANIFESTATION['binding']['valueset']['display'][$m] ?? null : null
+                        ]
+                    ]
+                ];
+            }
         }
 
-        if ($allergyIntolerance->category_medication) {
-            $category[] = 'medication';
-        }
-
-        if ($allergyIntolerance->category_environment) {
-            $category[] = 'environment';
-        }
-
-        if ($allergyIntolerance->category_biologic) {
-            $category[] = 'biologic';
-        }
-
-        return $category;
+        return $manifestation;
     }
 }

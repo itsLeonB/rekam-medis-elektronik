@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Fhir\Codesystems;
 use App\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,4 +15,10 @@ class ClinicalImpressionFinding extends Model
     {
         return $this->belongsTo(ClinicalImpression::class, 'impression_id');
     }
+
+    public const ITEM_CODEABLE_CONCEPT = [
+        'binding' => [
+            'valueset' => Codesystems::ICD10
+        ],
+    ];
 }
