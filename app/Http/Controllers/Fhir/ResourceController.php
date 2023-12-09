@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Fhir;
 
 use App\Http\Controllers\Controller;
-use App\Models\Resource;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\Fhir\Resource;
 use Illuminate\Support\Facades\Log;
 
 class ResourceController extends Controller

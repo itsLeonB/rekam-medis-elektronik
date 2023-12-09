@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Fhir;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ConditionRequest;
+use App\Http\Requests\Fhir\ConditionRequest;
 use App\Http\Resources\ConditionResource;
-use App\Models\Resource;
+use App\Models\Fhir\Resource;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;

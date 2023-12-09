@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Fhir;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PractitionerResource;
-use App\Models\Resource;
+use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 

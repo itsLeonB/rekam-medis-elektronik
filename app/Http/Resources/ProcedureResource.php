@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Procedure;
-use App\Models\ProcedureFocalDevice;
-use App\Models\ProcedurePerformer;
+use App\Models\Fhir\{
+    Procedure,
+    ProcedureFocalDevice,
+    ProcedurePerformer
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,14 +23,14 @@ class ProcedureResource extends FhirResource
 
         $data = $this->resourceStructure($procedure);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($procedure): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'Procedure',
                 'id' => $this->satusehat_id,

@@ -2,11 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Patient;
-use App\Models\PatientCommunication;
-use App\Models\PatientContact;
+use App\Models\Fhir\{
+    Patient,
+    PatientCommunication,
+    PatientContact
+};
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,14 +24,14 @@ class PatientResource extends FhirResource
 
         $data = $this->resourceStructure($patient);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($patient): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'Patient',
                 'id' => $this->satusehat_id,
@@ -55,9 +56,9 @@ class PatientResource extends FhirResource
                 'maritalStatus' => [
                     'coding' => [
                         [
-                            'system' => 'http://terminology.hl7.org/CodeSystem/v3-MaritalStatus',
+                            'system' => $patient->marital_status ? Patient::MARITAL_STATUS['binding']['valueset']['system'] : null,
                             'code' => $patient->marital_status,
-                            'display' => maritalStatusDisplay($patient->marital_status)
+                            'display' => $patient->marital_status ? Patient::MARITAL_STATUS['binding']['valueset']['display'][$patient->marital_status] ?? null : null
                         ]
                     ],
                 ],
@@ -139,7 +140,7 @@ class PatientResource extends FhirResource
     }
 
 
-    private function createContactArray(Collection $contactAttribute)
+    private function createContactArray($contactAttribute)
     {
         $contact = [];
 
@@ -172,7 +173,7 @@ class PatientResource extends FhirResource
                     ],
                 ];
 
-                $extAddress = removeEmptyValues($extAddress);
+                $extAddress = $this->removeEmptyValues($extAddress);
 
                 $contact[] = [
                     'relationship' => $this->createRelationshipArray($c->relationship),

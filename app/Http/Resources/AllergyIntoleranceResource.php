@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\AllergyIntolerance;
-use App\Models\AllergyIntoleranceReaction;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Fhir\{
+    AllergyIntolerance,
+    AllergyIntoleranceReaction
+};
 use Illuminate\Http\Request;
 
 class AllergyIntoleranceResource extends FhirResource
@@ -20,14 +21,14 @@ class AllergyIntoleranceResource extends FhirResource
 
         $data = $this->resourceStructure($allergy);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($allergy): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'AllergyIntolerance',
                 'id' => $this->satusehat_id,
@@ -83,7 +84,7 @@ class AllergyIntoleranceResource extends FhirResource
         );
     }
 
-    private function createReactionArray(Collection $reactionAttribute)
+    private function createReactionArray($reactionAttribute)
     {
         $reaction = [];
 

@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Observation;
-use App\Models\ObservationComponent;
-use App\Models\ObservationReferenceRange;
-use Exception;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Fhir\{
+    Observation,
+    ObservationComponent,
+    ObservationReferenceRange
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,14 +23,14 @@ class ObservationResource extends FhirResource
 
         $data = $this->resourceStructure($observation);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($observation): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'Observation',
                 'id' => $this->satusehat_id,
@@ -151,7 +151,7 @@ class ObservationResource extends FhirResource
     }
 
 
-    private function createReferenceRangeArray(Collection $referenceRangeAttribute)
+    private function createReferenceRangeArray($referenceRangeAttribute)
     {
         $referenceRange = [];
 
@@ -232,7 +232,7 @@ class ObservationResource extends FhirResource
         $component = [];
 
         foreach ($componentAttribute as $c) {
-            $component[] = merge_array(
+            $component[] = $this->mergeArray(
                 [
                     'code' => [
                         'coding' => [

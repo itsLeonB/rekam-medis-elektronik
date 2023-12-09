@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Composition;
-use App\Models\CompositionEvent;
-use App\Models\CompositionSection;
+use App\Models\Fhir\{
+    Composition,
+    CompositionEvent,
+    CompositionSection
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +23,7 @@ class CompositionResource extends FhirResource
 
         $data = $this->resourceStructure($composition);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
@@ -115,7 +117,7 @@ class CompositionResource extends FhirResource
 
         if (is_array($relatesToAttribute) || is_object($relatesToAttribute)) {
             foreach ($relatesToAttribute as $rt) {
-                $relatesTo[] = merge_array(
+                $relatesTo[] = $this->mergeArray(
                     ['code' => $rt->code],
                     $rt->target
                 );
@@ -178,7 +180,7 @@ class CompositionResource extends FhirResource
 
         if (is_array($sectionAttribute) || is_object($sectionAttribute)) {
             foreach ($sectionAttribute as $s) {
-                $section[] = merge_array(
+                $section[] = $this->mergeArray(
                     [
                         'title' => $s->title,
                         'code' => [

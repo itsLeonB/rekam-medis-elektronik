@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Fhir\Dosage;
 use App\Fhir\Timing;
-use App\Models\MedicationStatement;
+use App\Models\Fhir\MedicationStatement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +21,7 @@ class MedicationStatementResource extends FhirResource
 
         $data = $this->resourceStructure($medicationStatement);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
@@ -29,7 +29,7 @@ class MedicationStatementResource extends FhirResource
 
     private function resourceStructure($medicationStatement): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'MedicationStatement',
                 'id' => $this->satusehat_id,
@@ -119,7 +119,7 @@ class MedicationStatementResource extends FhirResource
 
         if (!empty($doseRates)) {
             foreach ($doseRates as $dr) {
-                $doseRate[] = merge_array(
+                $doseRate[] = $this->mergeArray(
                     [
                         'type' => [
                             'coding' => [
@@ -147,7 +147,7 @@ class MedicationStatementResource extends FhirResource
 
         if (!empty($dosages)) {
             foreach ($dosages as $d) {
-                $dosage[] = merge_array(
+                $dosage[] = $this->mergeArray(
                     [
                         'sequence' => $d->sequence,
                         'text' => $d->text,

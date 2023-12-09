@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Fhir;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MedicationDispenseRequest;
+use App\Http\Requests\Fhir\MedicationDispenseRequest;
 use App\Http\Resources\MedicationDispenseResource;
-use App\Models\Resource;
+use App\Models\Fhir\Resource;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;

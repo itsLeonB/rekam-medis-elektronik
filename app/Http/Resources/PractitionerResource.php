@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Practitioner;
+use App\Models\Fhir\Practitioner;
 use Illuminate\Http\Request;
 
 class PractitionerResource extends FhirResource
@@ -18,7 +18,7 @@ class PractitionerResource extends FhirResource
 
         $data = $this->resourceStructure($practitioner);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }

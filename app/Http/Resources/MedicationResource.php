@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Medication;
+use App\Models\Fhir\Medication;
 use Illuminate\Http\Request;
 
 class MedicationResource extends FhirResource
@@ -18,7 +18,7 @@ class MedicationResource extends FhirResource
 
         $data = $this->resourceStructure($medication);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ClinicalImpression;
-use App\Models\ClinicalImpressionFinding;
-use App\Models\ClinicalImpressionInvestigation;
+use App\Models\Fhir\{
+    ClinicalImpression,
+    ClinicalImpressionFinding,
+    ClinicalImpressionInvestigation
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,14 +23,14 @@ class ClinicalImpressionResource extends FhirResource
 
         $data = $this->resourceStructure($clinicalImpression);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
 
     private function resourceStructure($clinicalImpression): array
     {
-        return merge_array(
+        return $this->mergeArray(
             [
                 'resourceType' => 'ClinicalImpression',
                 'id' => $this->satusehat_id,

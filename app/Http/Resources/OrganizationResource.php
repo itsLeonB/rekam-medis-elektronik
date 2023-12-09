@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Codesystems\AdministrativeCode;
-use App\Models\Organization;
-use App\Models\OrganizationContact;
+use App\Models\Fhir\{
+    Organization,
+    OrganizationContact
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +22,7 @@ class OrganizationResource extends FhirResource
 
         $data = $this->resourceStructure($observation);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }

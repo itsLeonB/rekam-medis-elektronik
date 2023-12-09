@@ -2,8 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\MedicationDispense;
-use App\Models\MedicationDispensePerformer;
+use App\Models\Fhir\{
+    MedicationDispense,
+    MedicationDispensePerformer
+};
 use Illuminate\Http\Request;
 
 class MedicationDispenseResource extends FhirResource
@@ -19,7 +21,7 @@ class MedicationDispenseResource extends FhirResource
 
         $data = $this->resourceStructure($medicationDispense);
 
-        $data = removeEmptyValues($data);
+        $data = $this->removeEmptyValues($data);
 
         return $data;
     }
