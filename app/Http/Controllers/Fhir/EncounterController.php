@@ -5,38 +5,44 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EncounterRequest;
 use App\Http\Resources\EncounterResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class EncounterController extends Controller
 {
-    /**
-     * Store a new encounter.
-     *
-     * @param EncounterRequest $request The encounter request object.
-     * @param FhirService $fhirService The FHIR service object.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the newly created encounter.
-     */
-    public function store(EncounterRequest $request, FhirService $fhirService)
+    const RESOURCE_TYPE = 'Encounter';
+
+
+    public function show($res_id)
     {
-        $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('Encounter');
-            $encounter = $resource->encounter()->create($body['encounter']);
-            $this->createChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location']);
-            $this->createResourceContent(EncounterResource::class, $resource);
-            return response()->json($resource->encounter()->first(), 201);
-        });
+        try {
+            return response()
+                ->json(new EncounterResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
     }
 
 
-    /**
-     * Update an encounter resource.
-     *
-     * @param EncounterRequest $request The request object.
-     * @param int $res_id The resource ID.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
+    public function store(EncounterRequest $request, FhirService $fhirService)
+    {
+        $body = $this->retrieveJsonPayload($request);
+        // return $fhirService->insertData(function () use ($body) {
+            $resource = $this->createResource(self::RESOURCE_TYPE);
+            $encounter = $resource->encounter()->create($body['encounter']);
+            $this->createChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location']);
+            $this->createResourceContent(EncounterResource::class, $resource);
+            return response()->json($encounter, 201);
+        // });
+    }
+
+
     public function update(EncounterRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -44,10 +50,9 @@ class EncounterController extends Controller
             $resource = $this->updateResource($res_id);
             $encounter = $resource->encounter()->first();
             $encounter->update($body['encounter']);
-            $encounterId = $encounter->id;
-            $this->updateChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location'], 'encounter_id', $encounterId);
+            $this->updateChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location']);
             $this->createResourceContent(EncounterResource::class, $resource);
-            return response()->json($resource->encounter()->first(), 200);
+            return response()->json($encounter, 200);
         });
     }
 }

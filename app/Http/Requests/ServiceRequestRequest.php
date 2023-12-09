@@ -74,7 +74,7 @@ class ServiceRequestRequest extends FhirRequest
                 $prefix . 'location_reference' => 'nullable|array',
                 $prefix . 'location_reference.*' => 'required|string',
                 $prefix . 'reason_code' => 'nullable|array',
-                $prefix . 'reason_code.*' => ['sometimes', Rule::exists(ServiceRequest::REASON_CODE['binding']['valueset']['table'])],
+                $prefix . 'reason_code.*' => ['sometimes', Rule::exists(ServiceRequest::REASON_CODE['binding']['valueset']['table'], 'code')],
                 $prefix . 'reason_reference' => 'nullable|array',
                 $prefix . 'reason_reference.*' => 'required|string',
                 $prefix . 'insurance' => 'nullable|array',
@@ -93,7 +93,7 @@ class ServiceRequestRequest extends FhirRequest
             $this->getRatioDataRules($prefix . 'quantity.quantityRatio.', true),
             $this->getRangeDataRules($prefix . 'quantity.quantityRange.'),
             $this->getPeriodDataRules($prefix . 'occurrence.occurrencePeriod.'),
-            $this->getTimingDataRules($prefix . 'occurrence.occurrenceTiming.'),
+            $this->getTimingDataRules($prefix . 'occurrence.occurrenceTiming.', true),
         );
     }
 }

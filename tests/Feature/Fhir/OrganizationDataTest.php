@@ -12,6 +12,8 @@ class OrganizationDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'organization';
+
     /**
      * Test apakah user dapat menlihat data organisasi
      */
@@ -20,13 +22,15 @@ class OrganizationDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('organization');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('organization.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'organization', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -74,9 +78,6 @@ class OrganizationDataTest extends FhirTestCase
         $data['organization']['id'] = $newData['id'];
         $data['organization']['resource_id'] = $newData['resource_id'];
         $data['organization']['name'] = 'Leon';
-        $data['identifier'][0]['id'] = $newData['identifier'][0]['id'];
-        $data['identifier'][0]['organization_id'] = $newData['identifier'][0]['organization_id'];
-        $data['identifier'][0]['value'] = "5234341";
 
         $data['identifier'][] = [
             'system' => 'http://loinc.org',

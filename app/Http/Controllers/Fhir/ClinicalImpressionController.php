@@ -5,39 +5,44 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClinicalImpressionRequest;
 use App\Http\Resources\ClinicalImpressionResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class ClinicalImpressionController extends Controller
 {
-    /**
-     * Store a new ClinicalImpression resource.
-     *
-     * @param ClinicalImpressionRequest $request The request object.
-     * @param FhirService $fhirService The FhirService instance.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the created ClinicalImpression resource.
-     */
+    const RESOURCE_TYPE = 'ClinicalImpression';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new ClinicalImpressionResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(ClinicalImpressionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('ClinicalImpression');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $clinicalImpression = $resource->clinicalImpression()->create($body['clinicalImpression']);
-            $this->createChildModels($clinicalImpression, $body, ['identifier', 'problem', 'protocol', 'finding', 'prognosis', 'supportingInfo', 'note']);
-            $this->createNestedInstances($clinicalImpression, 'investigation', $body, ['item']);
+            $this->createChildModels($clinicalImpression, $body, ['identifier', 'investigation', 'finding', 'note']);
             $this->createResourceContent(ClinicalImpressionResource::class, $resource);
-            return response()->json($resource->clinicalImpression->first(), 201);
+            return response()->json($clinicalImpression, 201);
         });
     }
 
 
-    /**
-     * Update a ClinicalImpression resource.
-     *
-     * @param ClinicalImpressionRequest $request The request object.
-     * @param int $res_id The resource ID.
-     * @param FhirService $fhirService The FhirService instance.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the updated ClinicalImpression resource.
-     */
     public function update(ClinicalImpressionRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -45,11 +50,9 @@ class ClinicalImpressionController extends Controller
             $resource = $this->updateResource($res_id);
             $clinicalImpression = $resource->clinicalImpression()->first();
             $clinicalImpression->update($body['clinicalImpression']);
-            $impressionId = $clinicalImpression->id;
-            $this->updateChildModels($clinicalImpression, $body, ['identifier', 'problem', 'protocol', 'finding', 'prognosis', 'supportingInfo', 'note'], 'impression_id', $impressionId);
-            $this->updateNestedInstances($clinicalImpression, 'investigation', $body, 'impression_id', $impressionId, ['item'], 'impress_investigate_id');
+            $this->updateChildModels($clinicalImpression, $body, ['identifier', 'investigation', 'finding', 'note']);
             $this->createResourceContent(ClinicalImpressionResource::class, $resource);
-            return response()->json($resource->clinicalImpression->first(), 200);
+            return response()->json($clinicalImpression, 200);
         });
     }
 }

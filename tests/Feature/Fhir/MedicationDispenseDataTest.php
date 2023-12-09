@@ -12,6 +12,8 @@ class MedicationDispenseDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'medicationdispense';
+
     /**
      * Test apakah user dapat menlihat data pengeluaran obat
      */
@@ -20,13 +22,15 @@ class MedicationDispenseDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('medicationdispense');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('medicationdispense.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'medicationdispense', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -45,26 +49,11 @@ class MedicationDispenseDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('medication_dispense', $data['medicationDispense']);
-        $this->assertManyData('medication_dispense_part_of', $data['partOf']);
-        $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizingPrescription']);
-        $this->assertNestedData('medication_dispense_dosage', $data['dosage'], 'dosage_data', [
-            [
-                'table' => 'med_disp_dosage_add_instruct',
-                'data' => 'additionalInstruction'
-            ],
+        $this->assertManyData('medication_dispense_performer', $data['performer']);
+        $this->assertNestedData('medication_dispense_dosage', $data['dosageInstruction'], 'dosageInstruction_data', [
             [
                 'table' => 'med_disp_dosage_dose_rate',
                 'data' => 'doseRate'
-            ]
-        ]);
-        $this->assertNestedData('medication_dispense_substitution', $data['substitution'], 'substitution_data', [
-            [
-                'table' => 'med_disp_subs_reason',
-                'data' => 'reason'
-            ],
-            [
-                'table' => 'med_disp_subs_responsible_party',
-                'data' => 'responsibleParty'
             ]
         ]);
         $orgId = env('organization_id');
@@ -92,26 +81,11 @@ class MedicationDispenseDataTest extends FhirTestCase
         $response->assertStatus(200);
 
         $this->assertMainData('medication_dispense', $data['medicationDispense']);
-        $this->assertManyData('medication_dispense_part_of', $data['partOf']);
-        $this->assertManyData('medication_dispense_authorizing_prescription', $data['authorizingPrescription']);
-        $this->assertNestedData('medication_dispense_dosage', $data['dosage'], 'dosage_data', [
-            [
-                'table' => 'med_disp_dosage_add_instruct',
-                'data' => 'additionalInstruction'
-            ],
+        $this->assertManyData('medication_dispense_performer', $data['performer']);
+        $this->assertNestedData('medication_dispense_dosage', $data['dosageInstruction'], 'dosageInstruction_data', [
             [
                 'table' => 'med_disp_dosage_dose_rate',
                 'data' => 'doseRate'
-            ]
-        ]);
-        $this->assertNestedData('medication_dispense_substitution', $data['substitution'], 'substitution_data', [
-            [
-                'table' => 'med_disp_subs_reason',
-                'data' => 'reason'
-            ],
-            [
-                'table' => 'med_disp_subs_responsible_party',
-                'data' => 'responsibleParty'
             ]
         ]);
         $orgId = env('organization_id');

@@ -70,7 +70,6 @@ class ObservationRequest extends FhirRequest
                 $prefix . 'derived_from' => 'nullable|array',
                 $prefix . 'derived_from.*' => 'required|string',
             ],
-            $this->getCodeableConceptDataRules($prefix . 'code_'),
             $this->getEffectiveDataRules($prefix),
             $this->getValueDataRules($prefix),
         );

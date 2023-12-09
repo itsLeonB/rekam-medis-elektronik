@@ -426,7 +426,7 @@ class Valuesets
 
     public const SNOMEDCTAnatomicalStructureForAdministrationSiteCodes = [
         'system' => 'http://snomed.info/sct',
-        'table' => 'valueset_dosage_site',
+        'table' => 'valueset_snomedctbodysite',
     ];
 
     public const SNOMEDCTRouteCodes = [

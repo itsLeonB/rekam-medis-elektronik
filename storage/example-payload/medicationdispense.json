@@ -34,9 +34,9 @@
             "actor": "Practitioner/N10000001"
         }
     ],
-    "dosage": [
+    "dosageInstruction": [
         {
-            "dosage_data": {
+            "dosageInstruction_data": {
                 "sequence": 1,
                 "text": "4 tablet per hari",
                 "additional_instruction": ["1287353006", "1287351008"],

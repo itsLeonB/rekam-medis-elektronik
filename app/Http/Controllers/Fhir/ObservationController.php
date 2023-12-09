@@ -5,39 +5,45 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ObservationRequest;
 use App\Http\Resources\ObservationResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class ObservationController extends Controller
 {
-    /**
-     * Store a new observation.
-     *
-     * @param ObservationRequest $request The observation request object.
-     * @param FhirService $fhirService The FHIR service object.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the newly created observation.
-     */
+    const RESOURCE_TYPE = 'Observation';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new ObservationResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(ObservationRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('Observation');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $observation = $resource->observation()->create($body['observation']);
-            $this->createChildModels($observation, $body, ['identifier', 'basedOn', 'partOf', 'category', 'focus', 'performer', 'interpretation', 'note', 'referenceRange', 'member', 'derivedFrom']);
-            $this->createNestedInstances($observation, 'component', $body, ['interpretation', 'referenceRange']);
+            $this->createChildModels($observation, $body, ['identifier', 'note', 'referenceRange']);
+            $this->createNestedInstances($observation, 'component', $body, ['referenceRange']);
             $this->createResourceContent(ObservationResource::class, $resource);
-            return response()->json($resource->observation->first(), 201);
+            return response()->json($observation, 201);
         });
     }
 
 
-    /**
-     * Update an observation.
-     *
-     * @param ObservationRequest $request The request object.
-     * @param int $res_id The resource ID.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
     public function update(ObservationRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -45,11 +51,10 @@ class ObservationController extends Controller
             $resource = $this->updateResource($res_id);
             $observation = $resource->observation()->first();
             $observation->update($body['observation']);
-            $observationId = $observation->id;
-            $this->updateChildModels($observation, $body, ['identifier', 'basedOn', 'partOf', 'category', 'focus', 'performer', 'interpretation', 'note', 'referenceRange', 'member', 'derivedFrom'], 'observation_id', $observationId);
-            $this->updateNestedInstances($observation, 'component', $body, 'observation_id', $observationId, ['interpretation', 'referenceRange'], 'obs_comp_id');
+            $this->updateChildModels($observation, $body, ['identifier', 'note', 'referenceRange']);
+            $this->updateNestedInstances($observation, 'component', $body, ['referenceRange']);
             $this->createResourceContent(ObservationResource::class, $resource);
-            return response()->json($resource->observation->first(), 200);
+            return response()->json($observation, 200);
         });
     }
 }

@@ -15,38 +15,44 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
 
-    public function updateChildModels(object $parent, array $data, array $children, string $foreignKey, int $fkValue)
+    public function updateChildModels(object $parent, array $data, array $children)
     {
-        foreach ($children as $c) {
-            $this->updateInstances($parent, $c, $data, $foreignKey, $fkValue);
+        // $foreignId = $parent->id;
+        foreach ($children as $child) {
+            if (!empty($data[$child])) {
+                foreach ($data[$child] as $c) {
+                    $id = isset($c['id']) ? $c['id'] : null;
+                    unset($c['id']);
+                    // unset($c[$foreignKey]);
+
+                    $parent->$child()->updateOrCreate(
+                        ['id' => $id],
+                        $c
+                        // array_merge($c, [$foreignKey => $foreignId])
+                    );
+                }
+            }
         }
     }
 
     public function createChildModels(object $parent, array $data, array $children)
     {
         foreach ($children as $c) {
-            $this->createInstances($parent, $c, $data);
+            if (!empty($data[$c])) {
+                $parent->$c()->createMany($data[$c]);
+            }
         }
     }
 
-    public function updateNestedInstances(object $parent, string $child, array $data, string $foreignKey, int $fkValue, array $descendants, string $descendantKey)
+    public function updateNestedInstances(object $parent, string $child, array $data, array $descendants)
     {
         if (!empty($data[$child])) {
             foreach ($data[$child] as $c) {
-                $id = isset($c[$child . '_data']['id']) ? $c[$child . '_data']['id'] : null;
-                unset($c[$child . '_data']['id']);
-                unset($c[$child . '_data'][$foreignKey]);
-
-                $instance = $parent->$child()->updateOrCreate(
-                    ['id' => $id],
-                    array_merge([$foreignKey => $fkValue], $c[$child . '_data'])
-                );
-
-                $instanceId = $instance->id;
-
-                foreach ($descendants as $d) {
-                    $this->updateInstances($instance, $d, $c, $descendantKey, $instanceId);
-                }
+                $childData = $c[$child . '_data'];
+                $id = isset($childData['id']) ? $childData['id'] : null;
+                unset($childData['id']);
+                $childInstance = $parent->$child()->updateOrCreate(['id' => $id], $childData);
+                $this->updateChildModels($childInstance, $c, $descendants);
             }
         }
     }
@@ -130,18 +136,11 @@ class Controller extends BaseController
 
     public function createNestedInstances(object $parent, string $child, array $data, array $descendants)
     {
-        try {
-            if (!empty($data[$child])) {
-                foreach ($data[$child] as $dc) {
-                    $instance = $parent->$child()->create($dc[$child . '_data']);
-
-                    foreach ($descendants as $d) {
-                        $this->createInstances($instance, $d, $dc);
-                    }
-                }
+        if (!empty($data[$child])) {
+            foreach ($data[$child] as $dc) {
+                $instance = $parent->$child()->create($dc[$child . '_data']);
+                $this->createChildModels($instance, $dc, $descendants);
             }
-        } catch (Exception $e) {
-            return response()->json(['error' => 'Error dalam input data baru: ' . $e->getMessage()], 500);
         }
     }
 

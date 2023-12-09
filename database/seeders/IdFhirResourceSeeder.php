@@ -60,45 +60,45 @@ class IdFhirResourceSeeder extends Seeder
                 case 'Patient':
                     $this->seedPatient($res, $resText);
                     break;
-                    //     case 'Encounter':
-                    //         $this->seedEncounter($res, $resText);
-                    //         break;
-                    //     case 'Condition':
-                    //         $this->seedCondition($res, $resText);
-                    //         break;
-                    //     case 'Observation':
-                    //         $this->seedObservation($res, $resText);
-                    //         break;
-                    //     case 'Procedure':
-                    //         $this->seedProcedure($res, $resText);
-                    //         break;
-                    //     case 'Medication':
-                    //         $this->seedMedication($res, $resText);
-                    //         break;
-                    //     case 'MedicationRequest':
-                    //         $this->seedMedicationRequest($res, $resText);
-                    //         break;
-                    //     case 'Composition':
-                    //         $this->seedComposition($res, $resText);
-                    //         break;
-                    //     case 'AllergyIntolerance':
-                    //         $this->seedAllergyIntolerance($res, $resText);
-                    //         break;
-                    //     case 'ClinicalImpression':
-                    //         $this->seedClinicalImpression($res, $resText);
-                    //         break;
-                    //     case 'ServiceRequest':
-                    //         $this->seedServiceRequest($res, $resText);
-                    //         break;
-                    // case 'MedicationDispense':
-                    //     $this->seedMedicationDispense($res, $resText);
-                    //     break;
-                    // case 'MedicationStatement':
-                    //     // $this->seedMedicationStatement($res, $resText);  // Not yet implemented
-                    //     break;
-                    // case 'QuestionnaireResponse':
-                    //     $this->seedQuestionnaireResponse($res, $resText);
-                    //     break;
+                case 'Encounter':
+                    $this->seedEncounter($res, $resText);
+                    break;
+                case 'Condition':
+                    $this->seedCondition($res, $resText);
+                    break;
+                case 'Observation':
+                    $this->seedObservation($res, $resText);
+                    break;
+                case 'Procedure':
+                    $this->seedProcedure($res, $resText);
+                    break;
+                case 'Medication':
+                    $this->seedMedication($res, $resText);
+                    break;
+                case 'MedicationRequest':
+                    $this->seedMedicationRequest($res, $resText);
+                    break;
+                case 'Composition':
+                    $this->seedComposition($res, $resText);
+                    break;
+                case 'AllergyIntolerance':
+                    $this->seedAllergyIntolerance($res, $resText);
+                    break;
+                case 'ClinicalImpression':
+                    $this->seedClinicalImpression($res, $resText);
+                    break;
+                case 'ServiceRequest':
+                    $this->seedServiceRequest($res, $resText);
+                    break;
+                case 'MedicationDispense':
+                    $this->seedMedicationDispense($res, $resText);
+                    break;
+                case 'MedicationStatement':
+                    // $this->seedMedicationStatement($res, $resText);  // Not yet implemented
+                    break;
+                case 'QuestionnaireResponse':
+                    $this->seedQuestionnaireResponse($res, $resText);
+                    break;
                 default:
                     break;
             }

@@ -49,9 +49,8 @@ class EncounterResource extends FhirResource
                         'system' => $encounter->service_type ? Codesystems::ServiceType['system'] : null,
                         'code' => $encounter->service_type,
                         'display' => $encounter->service_type ? DB::table(Codesystems::ServiceType['table'])
-                            ->select('display')
-                            ->where('code', '=', $encounter->service_type)
-                            ->first() ?? null : null
+                            ->where('code', $encounter->service_type)
+                            ->value('display') ?? null : null
                     ],
                 ],
             ],
@@ -353,10 +352,7 @@ class EncounterResource extends FhirResource
                 $reasonCode[] = [
                     'system' => $r ? Encounter::REASON_CODE['binding']['valueset']['system'] : null,
                     'code' => $r,
-                    'display' => $r ? DB::table(Encounter::REASON_CODE['binding']['valueset']['table'])
-                        ->select('display')
-                        ->where('code', '=', $r)
-                        ->first() ?? null : null
+                    'display' => $r ? $this->querySnomedCode($r) : null
                 ];
             }
         }

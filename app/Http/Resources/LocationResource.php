@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Codesystems\AdministrativeCode;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -110,7 +109,7 @@ class LocationResource extends FhirResource
             'endpoint' => $this->referenceArray($location->endpoint),
             'extension' => [
                 [
-                    'url' => $location->service_class ? Location::SERVICE_CLASS['url'] : null,
+                    'url' => $location->service_class ? Location::SERVICE_CLASS['binding']['valueset']['url'] : null,
                     'valueCodeableConcept' => [
                         'coding' => [
                             [

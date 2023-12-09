@@ -20,7 +20,7 @@ class Codesystems
 
     public const LocationMode = [
         'system' => 'http://hl7.org/fhir/location-mode',
-        'code ' => ['instance', 'kind'],
+        'code' => ['instance', 'kind'],
         'display' => ['instance' => 'Merepresentasikan lokasi spesifik', 'kind' => 'Merepresentasikan kelompok/kelas lokasi'],
     ];
 

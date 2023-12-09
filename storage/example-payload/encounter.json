@@ -24,7 +24,7 @@
         "hospitalization_origin": "Location/null",
         "hospitalization_admit_source": "hosp-trans",
         "hospitalization_re_admission": "R",
-        "hopsitalization_diet_preference": ["vegetarian", "halal"],
+        "hospitalization_diet_preference": ["vegetarian", "halal"],
         "hospitalization_special_arrangement": ["wheel", "int"],
         "hospitalization_destination": "Location/4adccec5-776d-435e-9ac5-98763cb216bb",
         "hospitalization_discharge_disposition": "rehab",
@@ -58,7 +58,7 @@
             "rank": 1
         },
         {
-            "condition_reference": "Procedure/2",
+            "condition": "Procedure/2",
             "use": "AD",
             "rank": 2
         }

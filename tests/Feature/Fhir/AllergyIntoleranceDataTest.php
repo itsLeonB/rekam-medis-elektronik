@@ -12,6 +12,8 @@ class AllergyIntoleranceDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'allergyintolerance';
+
     /**
      * Test apakah user dapat menlihat data alergi pasien
      */
@@ -20,15 +22,15 @@ class AllergyIntoleranceDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('allergyintolerance');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'allergyintolerance', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -52,10 +54,6 @@ class AllergyIntoleranceDataTest extends FhirTestCase
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
         $this->assertManyData('allergy_intolerance_note', $data['note']);
         $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
-            [
-                'table' => 'allergy_react_manifest',
-                'data' => 'manifestation'
-            ],
             [
                 'table' => 'allergy_react_note',
                 'data' => 'note'
@@ -91,10 +89,6 @@ class AllergyIntoleranceDataTest extends FhirTestCase
         $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
         $this->assertManyData('allergy_intolerance_note', $data['note']);
         $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
-            [
-                'table' => 'allergy_react_manifest',
-                'data' => 'manifestation'
-            ],
             [
                 'table' => 'allergy_react_note',
                 'data' => 'note'

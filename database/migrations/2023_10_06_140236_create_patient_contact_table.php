@@ -28,12 +28,12 @@ return new class extends Migration
             $table->json('address_line')->nullable();
             $table->string('country')->nullable();
             $table->string('postal_code')->nullable();
-            $table->integer('province')->unsigned()->nullable();
-            $table->integer('city')->unsigned()->nullable();
-            $table->bigInteger('district')->unsigned()->nullable();
-            $table->bigInteger('village')->unsigned()->nullable();
-            $table->integer('rw')->unsigned()->nullable();
-            $table->integer('rt')->unsigned()->nullable();
+            $table->unsignedInteger('province')->nullable();
+            $table->unsignedInteger('city')->nullable();
+            $table->unsignedBigInteger('district')->nullable();
+            $table->unsignedBigInteger('village')->nullable();
+            $table->unsignedInteger('rw')->nullable();
+            $table->unsignedInteger('rt')->nullable();
             $table->string('organization')->nullable();
             $table->dateTime('period_start')->nullable();
             $table->dateTime('period_end')->nullable();

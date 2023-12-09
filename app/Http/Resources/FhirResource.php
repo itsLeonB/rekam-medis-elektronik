@@ -87,7 +87,7 @@ class FhirResource extends JsonResource
         return $body;
     }
 
-    public function querySnomedCode($code): array
+    public function querySnomedCode($code): string
     {
         $client = new Client();
 

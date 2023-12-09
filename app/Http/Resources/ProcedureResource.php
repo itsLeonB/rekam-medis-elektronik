@@ -5,8 +5,6 @@ namespace App\Http\Resources;
 use App\Models\Procedure;
 use App\Models\ProcedureFocalDevice;
 use App\Models\ProcedurePerformer;
-use App\Models\ValueSetProcedurePerformerType;
-use App\Models\ValueSetProcedureReasonCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -44,10 +42,8 @@ class ProcedureResource extends FhirResource
                             'system' => $procedure->status_reason ? Procedure::STATUS_REASON['binding']['valueset']['system'] : null,
                             'code' => $procedure->status_reason,
                             'display' => $procedure->status_reason ? DB::table(Procedure::STATUS_REASON['binding']['valueset']['table'])
-                                ->select('display')
                                 ->where('code', $procedure->status_reason)
-                                ->first()
-                                ->display ?? null : null
+                                ->value('display') ?? null : null
                         ]
                     ]
                 ],
@@ -167,10 +163,8 @@ class ProcedureResource extends FhirResource
                             'system' => $c ? Procedure::COMPLICATION['binding']['valueset']['system'] : null,
                             'code' => $c,
                             'display' => $c ? DB::table(Procedure::COMPLICATION['binding']['valueset']['table'])
-                                ->select('display')
                                 ->where('code', $c)
-                                ->first()
-                                ->display ?? null : null
+                                ->value('display_en') ?? null : null
                         ]
                     ]
                 ];
@@ -193,10 +187,8 @@ class ProcedureResource extends FhirResource
                             'system' => $bs ? Procedure::BODY_SITE['binding']['valueset']['system'] : null,
                             'code' => $bs,
                             'display' => $bs ? DB::table(Procedure::BODY_SITE['binding']['valueset']['table'])
-                                ->select('display')
                                 ->where('code', $bs)
-                                ->first()
-                                ->display ?? null : null
+                                ->value('display') ?? null : null
                         ]
                     ]
                 ];
@@ -219,10 +211,8 @@ class ProcedureResource extends FhirResource
                             'system' => $rc ? Procedure::REASON_CODE['binding']['valueset']['system'] : null,
                             'code' => $rc,
                             'display' => $rc ? DB::table(Procedure::REASON_CODE['binding']['valueset']['table'])
-                                ->select('display_en')
                                 ->where('code', $rc)
-                                ->first()
-                                ->display_en ?? null : null
+                                ->value('display_en') ?? null : null
                         ]
                     ]
                 ];
@@ -246,10 +236,8 @@ class ProcedureResource extends FhirResource
                                 'system' => $p->function ? ProcedurePerformer::FUNCTION['binding']['valueset']['system'] : null,
                                 'code' => $p->function,
                                 'display' => $p->function ? DB::table(ProcedurePerformer::FUNCTION['binding']['valueset']['table'])
-                                    ->select('display')
                                     ->where('code', $p->function)
-                                    ->first()
-                                    ->display ?? null : null
+                                    ->value('display') ?? null : null
                             ]
                         ]
                     ],
@@ -279,10 +267,8 @@ class ProcedureResource extends FhirResource
                                 'system' => $fd->action ? ProcedureFocalDevice::ACTION['binding']['valueset']['system'] : null,
                                 'code' => $fd->action,
                                 'display' => $fd->action ? DB::table(ProcedureFocalDevice::ACTION['binding']['valueset']['table'])
-                                    ->select('display')
                                     ->where('code', $fd->action)
-                                    ->first()
-                                    ->display ?? null : null
+                                    ->value('display') ?? null : null
                             ]
                         ]
                     ],

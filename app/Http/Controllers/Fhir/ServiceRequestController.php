@@ -5,38 +5,44 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequestRequest;
 use App\Http\Resources\ServiceRequestResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class ServiceRequestController extends Controller
 {
-    /**
-     * Store a new service request.
-     *
-     * @param ServiceRequestRequest $request The request object.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
+    const RESOURCE_TYPE = 'ServiceRequest';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new ServiceRequestResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(ServiceRequestRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('ServiceRequest');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $serviceRequest = $resource->serviceRequest()->create($body['serviceRequest']);
-            $this->createChildModels($serviceRequest, $body, ['identifier', 'basedOn', 'replaces', 'category', 'orderDetail', 'performer', 'location', 'reason', 'insurance', 'supportingInfo', 'specimen', 'bodySite', 'note', 'relevantHistory']);
+            $this->createChildModels($serviceRequest, $body, ['identifier', 'note']);
             $this->createResourceContent(ServiceRequestResource::class, $resource);
-            return response()->json($resource->serviceRequest->first(), 201);
+            return response()->json($serviceRequest, 201);
         });
     }
 
 
-    /**
-     * Update a service request.
-     *
-     * @param ServiceRequestRequest $request The request object.
-     * @param int $res_id The resource ID.
-     * @param FhirService $fhirService The FhirService instance.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
     public function update(ServiceRequestRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -44,10 +50,9 @@ class ServiceRequestController extends Controller
             $resource = $this->updateResource($res_id);
             $serviceRequest = $resource->serviceRequest()->first();
             $serviceRequest->update($body['serviceRequest']);
-            $requestId = $serviceRequest->id;
-            $this->updateChildModels($serviceRequest, $body, ['identifier', 'basedOn', 'replaces', 'category', 'orderDetail', 'performer', 'location', 'reason', 'insurance', 'supportingInfo', 'specimen', 'bodySite', 'note', 'relevantHistory'], 'request_id', $requestId);
+            $this->updateChildModels($serviceRequest, $body, ['identifier', 'note']);
             $this->createResourceContent(ServiceRequestResource::class, $resource);
-            return response()->json($resource->serviceRequest->first(), 200);
+            return response()->json($serviceRequest, 200);
         });
     }
 }

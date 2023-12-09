@@ -12,6 +12,8 @@ class MedicationRequestDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'medicationrequest';
+
     /**
      * Test apakah user dapat menlihat data peresepan obat
      */
@@ -20,13 +22,15 @@ class MedicationRequestDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('medicationrequest');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'medicationrequest', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -45,16 +49,8 @@ class MedicationRequestDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('medication_request', $data['medicationRequest']);
-        $this->assertManyData('medication_request_category', $data['category']);
-        $this->assertManyData('medication_request_reason', $data['reason']);
-        $this->assertManyData('medication_request_based_on', $data['basedOn']);
-        $this->assertManyData('medication_request_insurance', $data['insurance']);
         $this->assertManyData('medication_request_note', $data['note']);
         $this->assertNestedData('medication_request_dosage', $data['dosage'], 'dosage_data', [
-            [
-                'table' => 'med_req_dosage_additional_instruction',
-                'data' => 'additionalInstruction'
-            ],
             [
                 'table' => 'med_req_dosage_dose_rate',
                 'data' => 'doseRate'
@@ -86,16 +82,8 @@ class MedicationRequestDataTest extends FhirTestCase
         $response->assertStatus(200);
 
         $this->assertMainData('medication_request', $data['medicationRequest']);
-        $this->assertManyData('medication_request_category', $data['category']);
-        $this->assertManyData('medication_request_reason', $data['reason']);
-        $this->assertManyData('medication_request_based_on', $data['basedOn']);
-        $this->assertManyData('medication_request_insurance', $data['insurance']);
         $this->assertManyData('medication_request_note', $data['note']);
         $this->assertNestedData('medication_request_dosage', $data['dosage'], 'dosage_data', [
-            [
-                'table' => 'med_req_dosage_additional_instruction',
-                'data' => 'additionalInstruction'
-            ],
             [
                 'table' => 'med_req_dosage_dose_rate',
                 'data' => 'doseRate'

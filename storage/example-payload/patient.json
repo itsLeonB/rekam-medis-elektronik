@@ -177,46 +177,15 @@
                     "value": "budi.pekerti@kantor.com"
                 }
             ]
-        },
-        {
-            "contact_data": {
-                "relationship": ["C"],
-                "name": "Budi Ajaib",
-                "prefix": "Prof. Dr.",
-                "suffix": "S.Kom., M.Kom.",
-                "gender": "unknown",
-                "address_use": "home",
-                "address_line": ["Gedung DPRD Jawa Timur"],
-                "country": "ID",
-                "postal_code": "60255",
-                "province": 11,
-                "city": 1101,
-                "district": 110101,
-                "village": 1101012001,
-                "rw": 9,
-                "rt": 6
-            },
-            "telecom": [
-                {
-                    "system": "phone",
-                    "use": "mobile",
-                    "value": "082393751918"
-                },
-                {
-                    "system": "email",
-                    "use": "work",
-                    "value": "budi.pekerti@kantor.com"
-                }
-            ]
         }
     ],
     "communication": [
         {
-            "language": "id",
+            "language": "id-ID",
             "preferred": true
         },
         {
-            "language": "en",
+            "language": "en-US",
             "preferred": false
         }
     ],

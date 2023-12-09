@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Constants;
-use App\Fhir\Valuesets;
 use App\Models\Patient;
 use App\Models\PatientCommunication;
 use App\Models\PatientContact;
@@ -65,7 +63,7 @@ class PatientRequest extends FhirRequest
             $prefix . 'general_practitioner.*' => 'required|string',
             $prefix . 'managing_organization' => 'nullable|string',
             $prefix . 'birth_city' => 'nullable|string',
-            $prefix . 'birth_country' => 'nullable|string|exists:codesystem_iso3166,code',
+            $prefix . 'birth_country' => ['nullable', Rule::exists(Patient::BIRTH_COUNTRY['binding']['valueset']['table'], 'code')],
         ];
     }
 
@@ -123,7 +121,7 @@ class PatientRequest extends FhirRequest
     public function communicationDataRules(string $prefix = null): array
     {
         return [
-            $prefix . 'language' => ['required', Rule::in(PatientCommunication::LANGUAGE['binding']['valueset']['code'])],
+            $prefix . 'language' => ['required', Rule::exists(PatientCommunication::LANGUAGE['binding']['valueset']['table'], 'code')],
             $prefix . 'preferred' => 'nullable|boolean',
         ];
     }

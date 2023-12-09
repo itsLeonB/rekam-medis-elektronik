@@ -86,4 +86,10 @@ class Patient extends Model
     public const MULTIPLE_BIRTH = [
         'variableTypes' => ['multipleBirthBoolean', 'multipleBirthInteger']
     ];
+
+    public const BIRTH_COUNTRY = [
+        'binding' => [
+            'valueset' => Codesystems::ISO3166
+        ]
+    ];
 }

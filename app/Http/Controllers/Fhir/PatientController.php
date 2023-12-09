@@ -5,27 +5,41 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientRequest;
 use App\Http\Resources\PatientResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class PatientController extends Controller
 {
-    /**
-     * Store a new patient record.
-     *
-     * @param PatientRequest $request The request object containing the patient data.
-     * @param FhirService $fhirService The FHIR service used to insert the data.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the newly created patient record.
-     */
+    const RESOURCE_TYPE = 'Patient';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new PatientResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(PatientRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('Patient');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $patient = $resource->patient()->create($body['patient']);
-            $this->createChildModels($patient, $body, ['identifier', 'telecom', 'address', 'generalPractitioner']);
+            $this->createChildModels($patient, $body, ['identifier', 'name', 'telecom', 'address', 'photo', 'communication', 'link']);
             $this->createNestedInstances($patient, 'contact', $body, ['telecom']);
             $this->createResourceContent(PatientResource::class, $resource);
-            return response()->json($resource->patient->first(), 201);
+            return response()->json($patient, 201);
         });
     }
 }

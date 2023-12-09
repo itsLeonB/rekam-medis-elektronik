@@ -65,7 +65,7 @@
         ],
         "complication": ["A41.9", "A41.8"],
         "complication_detail": ["Condition/1"],
-        "follow_up": ["35963001", "359629005"],
+        "follow_up": ["35963001", "18949003"],
         "used_reference": ["Device/null", "Medication/1", "Substance/null"],
         "used_code": ["716314000", "716314000"]
     },

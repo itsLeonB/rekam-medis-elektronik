@@ -36,7 +36,7 @@ class PatientResource extends FhirResource
                 'id' => $this->satusehat_id,
                 'extension' => [
                     [
-                        'url' => $patient->birth_city || $patient->birth_country ? 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace' : null,
+                        'url' => ($patient->birth_city || $patient->birth_country) ? 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace' : null,
                         'valueAddress' => [
                             'city' => $patient->birth_city,
                             'country' => $patient->birth_country,

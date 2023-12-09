@@ -5,39 +5,44 @@ namespace App\Http\Controllers\Fhir;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ConditionRequest;
 use App\Http\Resources\ConditionResource;
+use App\Models\Resource;
 use App\Services\FhirService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 class ConditionController extends Controller
 {
-    /**
-     * Store a new condition.
-     *
-     * @param ConditionRequest $request The request object containing the condition data.
-     * @param FhirService $fhirService The FHIR service used to insert the data.
-     * @return \Illuminate\Http\JsonResponse The JSON response containing the newly created condition.
-     */
+    const RESOURCE_TYPE = 'Condition';
+
+
+    public function show($res_id)
+    {
+        try {
+            return response()
+                ->json(new ConditionResource(Resource::where([
+                    ['res_type', self::RESOURCE_TYPE],
+                    ['id', $res_id]
+                ])->firstOrFail()), 200);
+        } catch (ModelNotFoundException $e) {
+            Log::error('Model error: ' . $e->getMessage());
+            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+        }
+    }
+
+
     public function store(ConditionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource('Condition');
+            $resource = $this->createResource(self::RESOURCE_TYPE);
             $condition = $resource->condition()->create($body['condition']);
-            $this->createChildModels($condition, $body, ['identifier', 'category', 'bodySite', 'evidence', 'note']);
-            $this->createNestedInstances($condition, 'stage', $body, ['assessment']);
+            $this->createChildModels($condition, $body, ['identifier', 'stage', 'evidence', 'note']);
             $this->createResourceContent(ConditionResource::class, $resource);
-            return response()->json($resource->condition->first(), 201);
+            return response()->json($condition, 201);
         });
     }
 
 
-    /**
-     * Update a condition.
-     *
-     * @param ConditionRequest $request The request object.
-     * @param int $res_id The resource ID.
-     * @param FhirService $fhirService The FHIR service.
-     * @return \Illuminate\Http\JsonResponse The JSON response.
-     */
     public function update(ConditionRequest $request, int $res_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -45,11 +50,9 @@ class ConditionController extends Controller
             $resource = $this->updateResource($res_id);
             $condition = $resource->condition()->first();
             $condition->update($body['condition']);
-            $conditionId = $condition->id;
-            $this->updateChildModels($condition, $body, ['identifier', 'category', 'bodySite', 'evidence', 'note'], 'condition_id', $conditionId);
-            $this->updateNestedInstances($condition, 'stage', $body, 'condition_id', $conditionId, ['assessment'], 'condition_stage_id');
+            $this->updateChildModels($condition, $body, ['identifier', 'stage', 'evidence', 'note']);
             $this->createResourceContent(ConditionResource::class, $resource);
-            return response()->json($resource->condition->first(), 200);
+            return response()->json($condition, 200);
         });
     }
 }

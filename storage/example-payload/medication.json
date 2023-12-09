@@ -18,7 +18,7 @@
         "amount_denominator_code": "TAB",
         "batch_lot_number": "3566789",
         "batch_expiration_date": "2025-11-16",
-        "type": "NC"
+        "medication_type": "NC"
     },
     "ingredient": [
         {

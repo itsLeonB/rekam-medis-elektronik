@@ -71,7 +71,7 @@ class ProcedureRequest extends FhirRequest
                 $prefix . 'complication_detail' => 'nullable|array',
                 $prefix . 'complication_detail.*' => 'required|string',
                 $prefix . 'follow_up' => 'nullable|array',
-                $prefix . 'follow_up.*' => ['required', Rule::in(Procedure::FOLLOW_UP['binding']['valueset']['code'], 'code')],
+                $prefix . 'follow_up.*' => ['required', Rule::in(Procedure::FOLLOW_UP['binding']['valueset']['code'])],
                 $prefix . 'used_reference' => 'nullable|array',
                 $prefix . 'used_reference.*' => 'required|string',
                 $prefix . 'used_code' => 'nullable|array',

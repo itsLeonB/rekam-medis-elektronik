@@ -45,9 +45,8 @@ class ObservationResource extends FhirResource
                             'system' => $observation->code ? Observation::CODE['binding']['valueset']['system'] : null,
                             'code' => $observation->code,
                             'display' => $observation->code ? DB::table(Observation::CODE['binding']['valueset']['table'])
-                                ->select('display')
                                 ->where('code', $observation->code)
-                                ->first()->display ?? null : null
+                                ->value('display') ?? null : null
                         ]
                     ]
                 ],
@@ -77,9 +76,8 @@ class ObservationResource extends FhirResource
                             'system' => $observation->body_site ? Observation::BODY_SITE['binding']['valueset']['system'] : null,
                             'code' => $observation->body_site,
                             'display' => $observation->body_site ? DB::table(Observation::BODY_SITE['binding']['valueset']['table'])
-                                ->select('display')
                                 ->where('code', $observation->body_site)
-                                ->first()->display ?? null : null,
+                                ->value('display') ?? null : null,
                         ]
                     ]
                 ],
@@ -242,9 +240,8 @@ class ObservationResource extends FhirResource
                                 'system' => $c->code ? ObservationComponent::CODE['binding']['valueset']['system'] : null,
                                 'code' => $c->code,
                                 'display' => $c->code ? DB::table(ObservationComponent::CODE['binding']['valueset']['table'])
-                                    ->select('display')
                                     ->where('code', $c->code)
-                                    ->first()->display ?? null : null
+                                    ->value('display') ?? null : null
                             ]
                         ],
                     ],

@@ -78,7 +78,7 @@ class OrganizationResource extends FhirResource
                         'line' => $c->address_line,
                         'country' => $c->country,
                         'postalCode' => $c->postal_code,
-                        'city' => DB::table(OrganizationContact::ADMINISTRATIVE_CODE['binding']['valueset']['table'])->where('nama_kabko', $c->city)->value('display') ?? null,
+                        'city' => DB::table(OrganizationContact::ADMINISTRATIVE_CODE['binding']['valueset']['table'])->where('kode_kabko', $c->city)->value('nama_kabko') ?? null,
                         'extension' => [
                             [
                                 'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',

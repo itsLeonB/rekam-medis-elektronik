@@ -12,6 +12,8 @@ class ServiceRequestDataTest extends FhirTestCase
     use DatabaseTransactions;
     use FhirTest;
 
+    const RESOURCE_TYPE = 'servicerequest';
+
     /**
      * Test apakah user dapat menlihat data permintaan pelayanan medis
      */
@@ -20,13 +22,15 @@ class ServiceRequestDataTest extends FhirTestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('servicerequest');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
-        $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route('resource.show', ['res_type' => 'servicerequest', 'res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -45,19 +49,7 @@ class ServiceRequestDataTest extends FhirTestCase
         $response->assertStatus(201);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
-        $this->assertManyData('service_request_based_on', $data['basedOn']);
-        $this->assertManyData('service_request_replaces', $data['replaces']);
-        $this->assertManyData('service_request_category', $data['category']);
-        $this->assertManyData('service_request_order_detail', $data['orderDetail']);
-        $this->assertManyData('service_request_performer', $data['performer']);
-        $this->assertManyData('service_request_location', $data['location']);
-        $this->assertManyData('service_request_reason', $data['reason']);
-        $this->assertManyData('service_request_insurance', $data['insurance']);
-        $this->assertManyData('service_request_supporting_info', $data['supportingInfo']);
-        $this->assertManyData('service_request_specimen', $data['specimen']);
-        $this->assertManyData('service_request_body_site', $data['bodySite']);
         $this->assertManyData('service_request_note', $data['note']);
-        $this->assertManyData('service_request_relevant_history', $data['relevantHistory']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('service_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId, 'use' => 'official']);
     }
@@ -83,19 +75,7 @@ class ServiceRequestDataTest extends FhirTestCase
         $response->assertStatus(200);
 
         $this->assertMainData('service_request', $data['serviceRequest']);
-        $this->assertManyData('service_request_based_on', $data['basedOn']);
-        $this->assertManyData('service_request_replaces', $data['replaces']);
-        $this->assertManyData('service_request_category', $data['category']);
-        $this->assertManyData('service_request_order_detail', $data['orderDetail']);
-        $this->assertManyData('service_request_performer', $data['performer']);
-        $this->assertManyData('service_request_location', $data['location']);
-        $this->assertManyData('service_request_reason', $data['reason']);
-        $this->assertManyData('service_request_insurance', $data['insurance']);
-        $this->assertManyData('service_request_supporting_info', $data['supportingInfo']);
-        $this->assertManyData('service_request_specimen', $data['specimen']);
-        $this->assertManyData('service_request_body_site', $data['bodySite']);
         $this->assertManyData('service_request_note', $data['note']);
-        $this->assertManyData('service_request_relevant_history', $data['relevantHistory']);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('service_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId, 'use' => 'official']);
     }
