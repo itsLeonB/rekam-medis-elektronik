@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ServiceRequest;
+use App\Models\Fhir\ServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

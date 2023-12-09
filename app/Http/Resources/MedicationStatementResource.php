@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use App\Fhir\Dosage;
 use App\Fhir\Timing;
-use App\Models\MedicationStatement;
+use App\Models\Fhir\MedicationStatement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

@@ -94,7 +94,7 @@ class Dosage
         'type' => 'CodeableConcept',
         'binding' => [
             'desc' => 'A coded concept describing the route or physiological path of administration of a therapeutic agent into or onto the body of a subject.',
-            'valueset' => Valuesets::SNOMEDCTRouteCodes
+            'valueset' => Valuesets::DosageRoute
         ],
         'requirements' => 'A code specifying the route or physiological path of administration of a therapeutic agent into or onto a patients body.',
         'comments' => 'Not all terminology uses fit this general pattern. In some cases, models should not use CodeableConcept and use Coding directly and provide their own structure for managing text, codings, translations and the relationship between elements and pre- and post-coordination.',

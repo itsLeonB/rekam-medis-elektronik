@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Constants;
-use App\Models\AllergyIntolerance;
-use App\Models\ClinicalImpression;
-use App\Models\Condition;
-use App\Models\MedicationRequest;
-use App\Models\Observation;
-use App\Models\ObservationComponent;
-use App\Models\Patient;
-use App\Models\Procedure;
-use App\Models\Resource;
-use App\Models\ServiceRequest;
-use Exception;
+use App\Models\Fhir\{
+    AllergyIntolerance,
+    ClinicalImpression,
+    Condition,
+    MedicationRequest,
+    Observation,
+    ObservationComponent,
+    Patient,
+    Procedure,
+    Resource,
+    ServiceRequest
+};
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -1088,37 +1088,6 @@ class IdFhirResourceSeeder extends Seeder
     }
 
 
-    private function returnLink($links): array
-    {
-        $link = [];
-
-        if (!empty($links)) {
-            foreach ($links as $l) {
-                $link[] = [
-                    'other' => $this->returnAttribute($l, ['other', 'reference']),
-                    'type' => $this->returnAttribute($l, ['type'])
-                ];
-            }
-        }
-
-        return $link;
-    }
-
-
-    private function returnCommunication($communications): array
-    {
-        $comms = [];
-
-        if (!empty($communications)) {
-            foreach ($communications as $c) {
-                $comms[] = $this->returnAttribute($c, ['coding', 0, 'code']);
-            }
-        }
-
-        return $comms;
-    }
-
-
     private function seedPractitioner($resource, $resourceText)
     {
         $resourceContent = json_decode($resourceText, true);
@@ -1197,54 +1166,6 @@ class IdFhirResourceSeeder extends Seeder
         }
 
         return $name;
-    }
-
-
-    private function returnQualification($qualifications): array
-    {
-        $qualification = [];
-
-        if (!empty($qualifications)) {
-            foreach ($qualifications as $q) {
-                $qualification[] = [
-                    'identifier' => $this->returnAttribute($q, ['identifier']),
-                    'code' => $this->returnAttribute($q, ['code']),
-                    'period_start' => $this->returnAttribute($q, ['period', 'start']),
-                    'period_end' => $this->returnAttribute($q, ['period', 'end']),
-                    'issuer' => $this->returnAttribute($q, ['issuer', 'reference'])
-                ];
-            }
-        }
-
-        return $qualification;
-    }
-
-
-    private function returnNik($identifiers)
-    {
-        if (!empty($identifiers)) {
-            foreach ($identifiers as $i) {
-                if ($i['system'] == Constants::NIK_SYSTEM) {
-                    return $i['value'];
-                }
-            }
-        } else {
-            return null;
-        }
-    }
-
-
-    private function returnNakesId($identifiers)
-    {
-        if (!empty($identifiers)) {
-            foreach ($identifiers as $i) {
-                if ($i['system'] == Constants::NAKES_SYSTEM) {
-                    return $i['value'];
-                }
-            }
-        } else {
-            return null;
-        }
     }
 
 
@@ -1519,59 +1440,6 @@ class IdFhirResourceSeeder extends Seeder
     }
 
 
-    private function returnReference($references): array
-    {
-        $reference = [];
-
-        if (!empty($references)) {
-            foreach ($references as $r) {
-                $reference[] = [
-                    'reference' => $this->returnAttribute($r, ['reference'])
-                ];
-            }
-        }
-
-        return $reference;
-    }
-
-
-    private function returnProcessing($processings): array
-    {
-        $processing = [];
-
-        if (!empty($processings)) {
-            foreach ($processings as $p) {
-                $processing[] = [
-                    'description' => $this->returnAttribute($p, ['description']),
-                    'procedure' => $this->returnAttribute($p, ['procedure', 'coding', 0, 'code']),
-                    'additive' => $this->returnAttribute($p, ['additive']),
-                    'time' => $this->returnVariableAttribute($p, ['timeDateTime', 'timePeriod'])
-                ];
-            }
-        }
-
-        return $processing;
-    }
-
-
-    private function returnCodeableConcept($codeableConcepts): array
-    {
-        $codeableConcept = [];
-
-        if (!empty($codeableConcepts)) {
-            foreach ($codeableConcepts as $cc) {
-                $codeableConcept[] = [
-                    'system' => $this->returnAttribute($cc, ['coding', 0, 'system']),
-                    'code' => $this->returnAttribute($cc, ['coding', 0, 'code']),
-                    'display' => $this->returnAttribute($cc, ['coding', 0, 'display'])
-                ];
-            }
-        }
-
-        return $codeableConcept;
-    }
-
-
     private function returnAnnotation($annotations): array
     {
         $annotation = [];
@@ -1633,6 +1501,7 @@ class IdFhirResourceSeeder extends Seeder
 
         return $arr;
     }
+
 
     private function removeEmptyValues($array)
     {

@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Condition;
-use App\Models\ConditionEvidence;
-use App\Models\ConditionStage;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Fhir\{
+    Condition,
+    ConditionEvidence,
+    ConditionStage
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -142,7 +143,7 @@ class ConditionResource extends FhirResource
     }
 
 
-    private function createStageArray(Collection $stageAttribute): array
+    private function createStageArray($stageAttribute): array
     {
         $stageArray = [];
 
@@ -178,7 +179,7 @@ class ConditionResource extends FhirResource
         return $stageArray;
     }
 
-    private function createEvidenceArray(Collection $evidenceAttribute): array
+    private function createEvidenceArray($evidenceAttribute): array
     {
         $evidenceArray = [];
 

@@ -5,7 +5,6 @@ namespace App\Http\Resources;
 use App\Fhir\Codesystems;
 use App\Fhir\Dosage;
 use App\Fhir\Timing;
-use App\Models\MedicationRequestDosage;
 use DateTime;
 use DateTimeZone;
 use GuzzleHttp\Client;
@@ -333,9 +332,9 @@ class FhirResource extends JsonResource
                     'route' => [
                         'coding' => [
                             [
-                                'system' => $d->route ? MedicationRequestDosage::ROUTE['binding']['valueset']['system'] : null,
+                                'system' => $d->route ? Dosage::ROUTE['binding']['valueset']['system'] : null,
                                 'code' => $d->route,
-                                'display' => $d->route ? MedicationRequestDosage::ROUTE['binding']['valueset']['display'][$d->route] ?? null : null
+                                'display' => $d->route ? Dosage::ROUTE['binding']['valueset']['display'][$d->route] ?? null : null
                             ]
                         ]
                     ],

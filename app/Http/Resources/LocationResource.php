@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Location;
+use App\Models\Fhir\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

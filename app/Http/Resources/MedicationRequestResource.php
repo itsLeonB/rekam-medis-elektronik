@@ -2,8 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\MedicationRequest;
-use App\Models\Resource;
+use App\Models\Fhir\MedicationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

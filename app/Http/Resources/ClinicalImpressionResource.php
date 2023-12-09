@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ClinicalImpression;
-use App\Models\ClinicalImpressionFinding;
-use App\Models\ClinicalImpressionInvestigation;
+use App\Models\Fhir\{
+    ClinicalImpression,
+    ClinicalImpressionFinding,
+    ClinicalImpressionInvestigation
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

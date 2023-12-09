@@ -4,9 +4,7 @@ namespace App\Http\Resources;
 
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
-use App\Models\CodeSystemEncounterReason;
-use App\Models\Encounter;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Fhir\Encounter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

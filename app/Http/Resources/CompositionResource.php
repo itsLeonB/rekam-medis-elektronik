@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Composition;
-use App\Models\CompositionEvent;
-use App\Models\CompositionSection;
+use App\Models\Fhir\{
+    Composition,
+    CompositionEvent,
+    CompositionSection
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

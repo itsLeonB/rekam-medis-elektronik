@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Practitioner;
+use App\Models\Fhir\Practitioner;
 use Illuminate\Http\Request;
 
 class PractitionerResource extends FhirResource

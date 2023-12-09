@@ -4,6 +4,8 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const Comparators = ['<', '<=', '>=', '>'];
+
     public const LocationPhysicalType = [
         'system' => ['si' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'bu' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'wi' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'wa' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'lvl' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'co' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'ro' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'bd' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 've' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'ho' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'ca' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'rd' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'area' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'jdn' => 'http://terminology.hl7.org/CodeSystem/location-physical-type', 'vir' => 'http://terminology.kemkes.go.id/CodeSystem/location-physical-type'],
         'code' => ['si', 'bu', 'wi', 'wa', 'lvl', 'co', 'ro', 'bd', 've', 'ho', 'ca', 'rd', 'area', 'jdn', 'vir'],

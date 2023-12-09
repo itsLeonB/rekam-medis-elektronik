@@ -2,9 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Procedure;
-use App\Models\ProcedureFocalDevice;
-use App\Models\ProcedurePerformer;
+use App\Models\Fhir\{
+    Procedure,
+    ProcedureFocalDevice,
+    ProcedurePerformer
+};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\AllergyIntolerance;
-use App\Models\AllergyIntoleranceReaction;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Fhir\{
+    AllergyIntolerance,
+    AllergyIntoleranceReaction
+};
 use Illuminate\Http\Request;
 
 class AllergyIntoleranceResource extends FhirResource
@@ -83,7 +84,7 @@ class AllergyIntoleranceResource extends FhirResource
         );
     }
 
-    private function createReactionArray(Collection $reactionAttribute)
+    private function createReactionArray($reactionAttribute)
     {
         $reaction = [];
 

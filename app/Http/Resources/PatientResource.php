@@ -2,11 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Patient;
-use App\Models\PatientCommunication;
-use App\Models\PatientContact;
+use App\Models\Fhir\{
+    Patient,
+    PatientCommunication,
+    PatientContact
+};
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -139,7 +140,7 @@ class PatientResource extends FhirResource
     }
 
 
-    private function createContactArray(Collection $contactAttribute)
+    private function createContactArray($contactAttribute)
     {
         $contact = [];
 
