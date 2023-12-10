@@ -30,8 +30,8 @@ class QuestionnaireResponseResource extends FhirResource
                 'use' => $questionnaireResponse->identifier_use,
                 'value' => $questionnaireResponse->identifier_value
             ],
-            'basedOn' => $this->referenceArray($questionnaireResponse->based_on),
-            'partOf' => $this->referenceArray($questionnaireResponse->part_of),
+            'basedOn' => $this->createReferenceArray($questionnaireResponse->based_on),
+            'partOf' => $this->createReferenceArray($questionnaireResponse->part_of),
             'questionnaire' => $questionnaireResponse->questionnaire,
             'status' => $questionnaireResponse->status,
             'subject' => [
@@ -62,7 +62,7 @@ class QuestionnaireResponseResource extends FhirResource
                     'linkId' => $i->link_id,
                     'definition' => $i->definition,
                     'text' => $i->text,
-                    'answer' => $i->answer,
+                    'answer' => $this->answerArray($i->answer),
                     'item' => $i->item
                 ];
             }
@@ -72,18 +72,19 @@ class QuestionnaireResponseResource extends FhirResource
     }
 
 
-    private function referenceArray($references): array
+    private function answerArray($answers): array
     {
-        $reference = [];
+        $answer = [];
 
-        if (!empty($references)) {
-            foreach ($references as $r) {
-                $reference[] = [
-                    'reference' => $r
-                ];
+        if (!empty($answers)) {
+            foreach ($answers as $a) {
+                $answer[] = $this->mergeArray(
+                    $a->value,
+                    ['item' => $a->item]
+                );
             }
         }
 
-        return $reference;
+        return $answer;
     }
 }

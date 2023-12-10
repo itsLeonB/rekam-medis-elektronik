@@ -3,7 +3,6 @@
 namespace App\Models\Fhir;
 
 use App\Fhir\Codesystems;
-
 use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

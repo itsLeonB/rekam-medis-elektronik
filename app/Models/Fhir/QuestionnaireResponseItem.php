@@ -2,22 +2,24 @@
 
 namespace App\Models\Fhir;
 
-use App\Fhir\Valuesets;
 use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class QuestionnaireResponseItem extends FhirModel
 {
     protected $table = 'questionnaire_response_item';
     public $timestamps = false;
-    protected $casts = [
-        'answer' => 'array',
-        'item' => 'array'
-    ];
+    protected $casts = ['item' => 'array'];
 
     public function questionnaireResponse(): BelongsTo
     {
         return $this->belongsTo(QuestionnaireResponse::class, 'questionnaire_id');
+    }
+
+    public function answer(): HasMany
+    {
+        return $this->hasMany(QuestionnaireResponseItemAnswer::class, 'question_item_id');
     }
 
     public const LINK_ID = [
@@ -62,28 +64,6 @@ class QuestionnaireResponseItem extends FhirModel
         ],
         'requirements' => null,
         'comments' => 'The value is nested because we cannot have a repeating structure that has variable type.',
-    ];
-
-    public const ANSWER_VALUE = [
-        'definition' => 'The answer (or one of the answers) provided by the respondent to the question.',
-        'cardinality' => '0...1',
-        'binding' => [
-            'desc' => 'Code indicating the response provided for a question.',
-            'valueset' => Valuesets::QuestionnaireAnswerCodes
-        ],
-        'requirements' => 'Ability to retain a single-valued answer to a question.',
-        'comments' => 'More complex structures (Attachment, Resource and Quantity) will typically be limited to electronic forms that can expose an appropriate user interface to capture the components and enforce the constraints of a complex data type. Additional complex types can be introduced through extensions. Must match the datatype specified by Questionnaire.item.type in the corresponding Questionnaire.',
-    ];
-
-    public const ANSWER_ITEM = [
-        'definition' => 'Nested groups and/or questions found within this particular answer.',
-        'cardinality' => '0...*',
-        'binding' => [
-            'desc' => null,
-            'valueset' => null
-        ],
-        'requirements' => 'It is useful to have "sub-questions", questions which normally appear when certain answers are given and which collect additional details.',
-        'comments' => null,
     ];
 
     public const ITEM = [

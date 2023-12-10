@@ -36,7 +36,7 @@ class QuestionnaireResponseController extends Controller
         return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource(self::RESOURCE_TYPE);
             $questionnaireResponse = $resource->questionnaireResponse()->create($body['questionnaireResponse']);
-            $this->createChildModels($questionnaireResponse, $body, ['item']);
+            $this->createNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
             return response()->json($questionnaireResponse, 201);
         });
@@ -50,7 +50,7 @@ class QuestionnaireResponseController extends Controller
             $resource = $this->updateResource($res_id);
             $questionnaireResponse = $resource->questionnaireResponse()->first();
             $questionnaireResponse->update($body['questionnaireResponse']);
-            $this->updateChildModels($questionnaireResponse, $body, ['item']);
+            $this->updateNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
             return response()->json($questionnaireResponse, 200);
         });

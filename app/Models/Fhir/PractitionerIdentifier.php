@@ -3,7 +3,7 @@
 namespace App\Models\Fhir;
 
 use App\Fhir\Codesystems;
-use Illuminate\Database\Eloquent\Model;
+use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PractitionerIdentifier extends FhirModel

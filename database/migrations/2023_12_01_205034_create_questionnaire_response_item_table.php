@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('link_id');
             $table->string('definition')->nullable();
             $table->string('text')->nullable();
-            $table->json('answer')->nullable();
             $table->json('item')->nullable();
         });
     }

@@ -11,6 +11,7 @@ use App\Models\Fhir\{
     ObservationComponent,
     Patient,
     Procedure,
+    QuestionnaireResponseItemAnswer,
     Resource,
     ServiceRequest
 };
@@ -815,6 +816,7 @@ class IdFhirResourceSeeder extends Seeder
         ];
 
         $condition = $resource->condition()->createQuietly($conditionData);
+
         $condition->identifier()->createManyQuietly($this->returnIdentifier($this->returnAttribute($resourceContent, ['identifier'])));
 
         $stageData = $this->returnAttribute($resourceContent, ['stage']);
@@ -946,7 +948,6 @@ class IdFhirResourceSeeder extends Seeder
     private function seedQuestionnaireResponse($resource, $resourceText)
     {
         $resourceContent = json_decode($resourceText, true);
-        $items = $this->returnAttribute($resourceContent, ['item']);
 
         $questionnaireData = [
             'identifier_system' => $this->returnAttribute($resourceContent, ['identifier', 'system']),
@@ -965,17 +966,29 @@ class IdFhirResourceSeeder extends Seeder
 
         $questionnaireResponse = $resource->questionnaireResponse()->createQuietly($questionnaireData);
 
+        $items = $this->returnAttribute($resourceContent, ['item']);
         if (!empty($items)) {
             foreach ($items as $i) {
                 $itemData = [
                     'link_id' => $this->returnAttribute($i, ['linkId']),
                     'definition' => $this->returnAttribute($i, ['definition']),
                     'text' => $this->returnAttribute($i, ['text']),
-                    'answer' => $this->returnAttribute($i, ['answer']),
                     'item' => $this->returnAttribute($i, ['item'])
                 ];
 
-                $questionnaireResponse->item()->createQuietly($itemData);
+                $item = $questionnaireResponse->item()->createQuietly($itemData);
+
+                $answers = $this->returnAttribute($i, ['answer']);
+                if (!empty($answers)) {
+                    foreach ($answers as $a) {
+                        $answerData = [
+                            'value' => $this->returnVariableAttribute($a, QuestionnaireResponseItemAnswer::VALUE['variableTypes']),
+                            'item' => $this->returnAttribute($a, ['item'])
+                        ];
+
+                        $item->answer()->createQuietly($answerData);
+                    }
+                }
             }
         }
     }
@@ -1423,7 +1436,7 @@ class IdFhirResourceSeeder extends Seeder
     }
 
 
-    private function returnIdentifier(array $identifiers, string $prefix = null): array
+    private function returnIdentifier($identifiers, string $prefix = null): array
     {
         $identifier = [];
 
