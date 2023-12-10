@@ -19,8 +19,6 @@ class QuestionnaireResponseRequest extends FhirRequest
             $this->baseAttributeRules(),
             $this->baseDataRules('questionnaireResponse.'),
             $this->itemDataRules('item.*.'),
-            $this->itemDataRules('item.*.answer.*.item.*.'),
-            $this->itemDataRules('item.*.item.*.'),
         );
     }
 
@@ -56,24 +54,24 @@ class QuestionnaireResponseRequest extends FhirRequest
     {
         return array_merge(
             [
-                $prefix . 'link_id' => 'required|string',
-                $prefix . 'definition' => 'nullable|string',
-                $prefix . 'text' => 'nullable|string',
+                $prefix . 'item_data.link_id' => 'required|string',
+                $prefix . 'item_data.definition' => 'nullable|string',
+                $prefix . 'item_data.text' => 'nullable|string',
                 $prefix . 'answer' => 'nullable|array',
                 $prefix . 'answer.*' => 'nullable|array',
-                $prefix . 'answer.*.valueBoolean' => 'nullable|boolean',
-                $prefix . 'answer.*.valueDecimal' => 'nullable|numeric',
-                $prefix . 'answer.*.valueInteger' => 'nullable|integer',
-                $prefix . 'answer.*.valueDate' => 'nullable|date',
-                $prefix . 'answer.*.valueDateTime' => 'nullable|date',
-                $prefix . 'answer.*.valueTime' => 'nullable|date|date_format:H:i:s',
-                $prefix . 'answer.*.valueString' => 'nullable|string',
-                $prefix . 'answer.*.valueUri' => 'nullable|string',
+                $prefix . 'answer.*.value.valueBoolean' => 'nullable|boolean',
+                $prefix . 'answer.*.value.valueDecimal' => 'nullable|numeric',
+                $prefix . 'answer.*.value.valueInteger' => 'nullable|integer',
+                $prefix . 'answer.*.value.valueDate' => 'nullable|date',
+                $prefix . 'answer.*.value.valueDateTime' => 'nullable|date',
+                $prefix . 'answer.*.value.valueTime' => 'nullable|date|date_format:H:i:s',
+                $prefix . 'answer.*.value.valueString' => 'nullable|string',
+                $prefix . 'answer.*.value.valueUri' => 'nullable|string',
             ],
-            $this->getAttachmentDataRules($prefix . 'answer.*.valueAttachment'),
-            $this->getCodingDataRules($prefix . 'answer.*.valueCoding'),
-            $this->getQuantityDataRules($prefix . 'answer.*.valueQuantity'),
-            $this->getReferenceDataRules($prefix . 'answer.*.valueReference', true),
+            $this->getAttachmentDataRules($prefix . 'answer.*.value.valueAttachment'),
+            $this->getCodingDataRules($prefix . 'answer.*.value.valueCoding'),
+            $this->getQuantityDataRules($prefix . 'answer.*.value.valueQuantity'),
+            $this->getReferenceDataRules($prefix . 'answer.*.value.valueReference', true),
         );
     }
 }

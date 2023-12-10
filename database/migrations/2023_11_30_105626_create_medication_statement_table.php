@@ -28,7 +28,6 @@ return new class extends Migration
             $table->dateTime('date_asserted')->nullable();
             $table->string('information_source')->nullable();
             $table->json('derived_from')->nullable();
-            $table->json('reason_code')->nullable();
             $table->json('reason_reference')->nullable();
         });
     }

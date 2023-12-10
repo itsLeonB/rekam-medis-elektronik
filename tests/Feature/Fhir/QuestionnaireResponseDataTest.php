@@ -49,7 +49,12 @@ class QuestionnaireResponseDataTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertMainData('questionnaire_response', $data['questionnaireResponse']);
-        $this->assertManyData('questionnaire_response_item', $data['item']);
+        $this->assertNestedData('questionnaire_response_item', $data['item'], 'item_data', [
+            [
+                'table' => 'question_item_answer',
+                'data' => 'answer'
+            ]
+        ]);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('questionnaire_response', ['identifier_system' => 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId, 'identifier_use' => 'official']);
     }
@@ -75,7 +80,12 @@ class QuestionnaireResponseDataTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertMainData('questionnaire_response', $data['questionnaireResponse']);
-        $this->assertManyData('questionnaire_response_item', $data['item']);
+        $this->assertNestedData('questionnaire_response_item', $data['item'], 'item_data', [
+            [
+                'table' => 'question_item_answer',
+                'data' => 'answer'
+            ]
+        ]);
         $orgId = env('organization_id');
         $this->assertDatabaseHas('questionnaire_response', ['identifier_system' => 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId, 'identifier_use' => 'official']);
     }

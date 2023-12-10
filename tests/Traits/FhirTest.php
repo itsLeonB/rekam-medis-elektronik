@@ -100,7 +100,9 @@ trait FhirTest
 
             if ($childData != null) {
                 foreach ($childData as $child) {
-                    $this->assertManyData($child['table'], $d[$child['data']]);
+                    if (!empty($d[$child['data']])) {
+                        $this->assertManyData($child['table'], $d[$child['data']]);
+                    }
                 }
             }
         }

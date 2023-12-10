@@ -12,42 +12,48 @@
     },
     "item": [
         {
-            "link_id": "1",
-            "definition": "Tingkat kesejahteraan sebuah keluarga, diukur dari segi finansial",
-            "text": "Status Kesejahteraan",
+            "item_data": {
+                "link_id": "1",
+                "definition": "Tingkat kesejahteraan sebuah keluarga, diukur dari segi finansial",
+                "text": "Status Kesejahteraan"
+            },
             "answer": [
                 {
-                    "valueCoding": {
-                        "system": "http://terminology.kemkes.go.id/CodeSystem/keluarga-sejahtera",
-                        "code": "KPS",
-                        "display": "Keluarga Pra Sejahtera (KPS)"
+                    "value": {
+                        "valueCoding": {
+                            "system": "http://terminology.kemkes.go.id/CodeSystem/keluarga-sejahtera",
+                            "code": "KPS",
+                            "display": "Keluarga Pra Sejahtera (KPS)"
+                        }
                     }
                 }
             ]
         },
         {
-            "link_id": "1",
-            "text": "Batuk",
-            "item": [
-                {
-                    "link_id": "1.1",
-                    "text": "Apakah memiliki riwayat demam?",
-                    "answer": [
-                        {
-                            "valueBoolean": true
-                        }
-                    ]
-                },
-                {
-                    "link_id": "1.2",
-                    "text": "Apakah berkeringat pada malam hari walaupun tanpa aktivitas?",
-                    "answer": [
-                        {
-                            "valueBoolean": true
-                        }
-                    ]
-                }
-            ]
+            "item_data": {
+                "link_id": "1",
+                "text": "Batuk",
+                "item": [
+                    {
+                        "link_id": "1.1",
+                        "text": "Apakah memiliki riwayat demam?",
+                        "answer": [
+                            {
+                                "valueBoolean": true
+                            }
+                        ]
+                    },
+                    {
+                        "link_id": "1.2",
+                        "text": "Apakah berkeringat pada malam hari walaupun tanpa aktivitas?",
+                        "answer": [
+                            {
+                                "valueBoolean": true
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     ]
 }
