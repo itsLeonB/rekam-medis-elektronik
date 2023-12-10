@@ -50,7 +50,7 @@ class QuestionnaireResponseController extends Controller
             $resource = $this->updateResource($res_id);
             $questionnaireResponse = $resource->questionnaireResponse()->first();
             $questionnaireResponse->update($body['questionnaireResponse']);
-            $this->createNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
+            $this->updateNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
             return response()->json($questionnaireResponse, 200);
         });
