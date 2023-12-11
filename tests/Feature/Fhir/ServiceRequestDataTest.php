@@ -4,10 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\FhirTestCase;
+use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class ServiceRequestDataTest extends FhirTestCase
+class ServiceRequestDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -50,7 +50,7 @@ class ServiceRequestDataTest extends FhirTestCase
 
         $this->assertMainData('service_request', $data['serviceRequest']);
         $this->assertManyData('service_request_note', $data['note']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('service_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId, 'use' => 'official']);
     }
 
@@ -76,7 +76,7 @@ class ServiceRequestDataTest extends FhirTestCase
 
         $this->assertMainData('service_request', $data['serviceRequest']);
         $this->assertManyData('service_request_note', $data['note']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('service_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId, 'use' => 'official']);
     }
 }

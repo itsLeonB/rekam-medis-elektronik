@@ -4,10 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\FhirTestCase;
+use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class ProcedureDataTest extends FhirTestCase
+class ProcedureDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -53,7 +53,7 @@ class ProcedureDataTest extends FhirTestCase
         $this->assertManyData('procedure_performer', $data['performer']);
         $this->assertManyData('procedure_note', $data['note']);
         $this->assertManyData('procedure_focal_device', $data['focalDevice']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
     }
 
@@ -81,7 +81,7 @@ class ProcedureDataTest extends FhirTestCase
         $this->assertManyData('procedure_performer', $data['performer']);
         $this->assertManyData('procedure_note', $data['note']);
         $this->assertManyData('procedure_focal_device', $data['focalDevice']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
     }
 }

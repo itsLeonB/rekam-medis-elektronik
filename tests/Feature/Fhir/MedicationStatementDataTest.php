@@ -4,10 +4,10 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\FhirTestCase;
+use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class MedicationStatementDataTest extends FhirTestCase
+class MedicationStatementDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -27,10 +27,10 @@ class MedicationStatementDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -56,7 +56,7 @@ class MedicationStatementDataTest extends FhirTestCase
                 'data' => 'doseRate'
             ]
         ]);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('medication_statement_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medicationstatement/' . $orgId, 'use' => 'official']);
     }
 
@@ -89,7 +89,7 @@ class MedicationStatementDataTest extends FhirTestCase
                 'data' => 'doseRate'
             ]
         ]);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('medication_statement_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medicationstatement/' . $orgId, 'use' => 'official']);
     }
 }

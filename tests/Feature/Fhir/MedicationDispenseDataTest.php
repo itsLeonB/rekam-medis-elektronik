@@ -4,10 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\FhirTestCase;
+use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class MedicationDispenseDataTest extends FhirTestCase
+class MedicationDispenseDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -56,7 +56,7 @@ class MedicationDispenseDataTest extends FhirTestCase
                 'data' => 'doseRate'
             ]
         ]);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('medication_dispense_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medicationdispense/' . $orgId, 'use' => 'official']);
     }
 
@@ -88,7 +88,7 @@ class MedicationDispenseDataTest extends FhirTestCase
                 'data' => 'doseRate'
             ]
         ]);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('medication_dispense_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medicationdispense/' . $orgId, 'use' => 'official']);
     }
 }

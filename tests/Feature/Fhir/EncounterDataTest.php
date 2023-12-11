@@ -4,10 +4,10 @@ namespace Tests\Feature\Fhir;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\FhirTestCase;
+use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class EncounterDataTest extends FhirTestCase
+class EncounterDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -54,7 +54,7 @@ class EncounterDataTest extends FhirTestCase
         $this->assertManyData('encounter_participant', $data['participant']);
         $this->assertManyData('encounter_diagnosis', $data['diagnosis']);
         $this->assertManyData('encounter_location', $data['location']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('encounter_identifier', ['system' => 'http://sys-ids.kemkes.go.id/encounter/' . $orgId, 'use' => 'official']);
     }
 
@@ -84,7 +84,7 @@ class EncounterDataTest extends FhirTestCase
         $this->assertManyData('encounter_participant', $data['participant']);
         $this->assertManyData('encounter_diagnosis', $data['diagnosis']);
         $this->assertManyData('encounter_location', $data['location']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('encounter_identifier', ['system' => 'http://sys-ids.kemkes.go.id/encounter/' . $orgId, 'use' => 'official']);
     }
 }
