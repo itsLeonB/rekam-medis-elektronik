@@ -4,10 +4,13 @@ namespace App\Models\Fhir;
 
 use App\Fhir\Codesystems;
 use App\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PatientName extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'patient_name';
     protected $casts = [
         'given' => 'array',

@@ -3,10 +3,13 @@
 namespace App\Models\Fhir;
 
 use App\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Resource extends FhirModel
 {
+    use HasFactory;
+
     const VALID_RESOURCE_TYPES = [
         'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression', 'medicationstatement', 'questionnaireresponse'
     ];
