@@ -6,6 +6,7 @@ use App\Fhir\Codesystems;
 use App\Fhir\Dosage;
 use App\Fhir\Valuesets;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class FhirRequest extends FormRequest
@@ -15,9 +16,9 @@ class FhirRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // if (!Auth::check()) {
-        //     abort(403, 'Unauthorized action.');
-        // }
+        if (!Auth::check()) {
+            abort(403, 'Anda tidak terotorisasi untuk mengakses halaman ini.');
+        }
         return true;
     }
 
