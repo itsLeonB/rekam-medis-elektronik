@@ -55,7 +55,7 @@ class QuestionnaireResponseDataTest extends TestCase
                 'data' => 'answer'
             ]
         ]);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('questionnaire_response', ['identifier_system' => 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId, 'identifier_use' => 'official']);
     }
 
@@ -86,7 +86,7 @@ class QuestionnaireResponseDataTest extends TestCase
                 'data' => 'answer'
             ]
         ]);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('questionnaire_response', ['identifier_system' => 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId, 'identifier_use' => 'official']);
     }
 }

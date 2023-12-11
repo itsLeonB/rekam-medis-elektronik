@@ -5,9 +5,10 @@ namespace Tests\Feature\Fhir;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\FhirTestCase;
+use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class CompositionDataTest extends FhirTestCase
+class CompositionDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -27,10 +28,10 @@ class CompositionDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -53,7 +54,7 @@ class CompositionDataTest extends FhirTestCase
         $this->assertManyData('composition_relates_to', $data['relatesTo']);
         $this->assertManyData('composition_event', $data['event']);
         $this->assertManyData('composition_section', $data['section']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
     }
 
@@ -84,7 +85,7 @@ class CompositionDataTest extends FhirTestCase
         $this->assertManyData('composition_relates_to', $data['relatesTo']);
         $this->assertManyData('composition_event', $data['event']);
         $this->assertManyData('composition_section', $data['section']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
     }
 }

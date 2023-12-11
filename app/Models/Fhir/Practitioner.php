@@ -4,11 +4,15 @@ namespace App\Models\Fhir;
 
 use App\Fhir\Codesystems;
 use App\FhirModel;
+use App\Models\UserProfile;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Practitioner extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'practitioner';
     protected $casts = [
         'active' => 'boolean',

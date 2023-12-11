@@ -10,18 +10,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Composition extends FhirModel
 {
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($composition) {
-            $orgId = config('app.organization_id');
-            $composition->identifier_system = 'http://sys-ids.kemkes.go.id/composition/' . $orgId;
-            $composition->identifier_use = 'official';
-            $composition->identifier_value = $composition->max('identifier_value') + 1;
-        });
-    }
-
     protected $table = 'composition';
     protected $casts = [
         'category' => 'array',
@@ -53,6 +41,18 @@ class Composition extends FhirModel
     public function section(): HasMany
     {
         return $this->hasMany(CompositionSection::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($composition) {
+            $orgId = config('app.organization_id');
+            $composition->identifier_system = 'http://sys-ids.kemkes.go.id/composition/' . $orgId;
+            $composition->identifier_use = 'official';
+            $composition->identifier_value = $composition->max('identifier_value') + 1;
+        });
     }
 
     public const STATUS = [

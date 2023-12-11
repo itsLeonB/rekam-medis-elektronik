@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Fhir\Practitioner;
+use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,16 +31,27 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $this->handleEmailChange($user);
+            return Redirect::route('profile.edit')->with('status', 'verification-link-sent');
         }
 
-        $request->user()->save();
+        $user->save();
 
         return Redirect::route('profile.edit');
     }
+
+
+    protected function handleEmailChange(User $user): void
+    {
+        $user->email_verified_at = null;
+        $user->sendEmailVerificationNotification();
+        $user->save();
+    }
+
 
     /**
      * Delete the user's account.
@@ -59,5 +72,13 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+
+    public function getProfile(Request $request): Practitioner
+    {
+        $user = $request->user();
+
+        return $user->profile()->practitioner();
     }
 }

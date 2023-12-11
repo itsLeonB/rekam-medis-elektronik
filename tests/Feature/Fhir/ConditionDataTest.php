@@ -5,9 +5,10 @@ namespace Tests\Feature\Fhir;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\FhirTestCase;
+use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class ConditionDataTest extends FhirTestCase
+class ConditionDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
@@ -27,10 +28,10 @@ class ConditionDataTest extends FhirTestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
         $response->assertStatus(200);
     }
 
@@ -52,7 +53,7 @@ class ConditionDataTest extends FhirTestCase
         $this->assertManyData('condition_stage', $data['stage']);
         $this->assertManyData('condition_evidence', $data['evidence']);
         $this->assertManyData('condition_note', $data['note']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('condition_identifier', ['system' => 'http://sys-ids.kemkes.go.id/condition/' . $orgId, 'use' => 'official']);
     }
 
@@ -80,7 +81,7 @@ class ConditionDataTest extends FhirTestCase
         $this->assertManyData('condition_stage', $data['stage']);
         $this->assertManyData('condition_evidence', $data['evidence']);
         $this->assertManyData('condition_note', $data['note']);
-        $orgId = env('organization_id');
+        $orgId = config('app.organization_id');
         $this->assertDatabaseHas('condition_identifier', ['system' => 'http://sys-ids.kemkes.go.id/condition/' . $orgId, 'use' => 'official']);
     }
 }

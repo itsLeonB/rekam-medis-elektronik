@@ -4,10 +4,15 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Faker\Factory;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class ProfileTest extends TestCase
 {
+    use DatabaseTransactions;
+
     public function test_profile_page_is_displayed(): void
     {
         $user = User::factory()->create();
@@ -96,5 +101,23 @@ class ProfileTest extends TestCase
             ->assertRedirect('/profile');
 
         $this->assertNotNull($user->fresh());
+    }
+
+    public function test_email_verification_is_sent_on_email_change(): void
+    {
+        $user = User::factory()->create();
+
+        Notification::fake();
+
+        $response = $this->actingAs($user)
+            ->patch('/profile', [
+                'name' => 'Test User',
+                'email' => 'leonpcomputer@gmail.com',
+            ]);
+
+        $response->assertRedirect(route('profile.edit'));
+        $this->assertArrayHasKey('status', $response->getSession()->all());
+
+        Notification::assertSentTo($user, VerifyEmail::class);
     }
 }
