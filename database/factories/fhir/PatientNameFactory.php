@@ -5,9 +5,6 @@ namespace Database\Factories\Fhir;
 use App\Models\Fhir\PatientName;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
 class PatientNameFactory extends Factory
 {
     /**
@@ -17,7 +14,8 @@ class PatientNameFactory extends Factory
      */
     public function definition(): array
     {
-        $use = array_rand(PatientName::USE['binding']['valueset']['code']);
+        $uses = PatientName::USE['binding']['valueset']['code'];
+        $use = $uses[array_rand($uses)];
 
         return [
             'use' => $use,

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('satusehat_id')->nullable();
             $table->index('satusehat_id');
             $table->string('res_type');
+            $table->index('res_type');
             $table->integer('res_version')->default(1);
             $table->string('fhir_ver')->default('R4');
             $table->timestamps();

@@ -5,9 +5,6 @@ namespace Database\Factories\Fhir;
 use App\Models\Fhir\Patient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
 class PatientFactory extends Factory
 {
     /**

@@ -14,27 +14,25 @@ class DaftarPasienController extends Controller
         $encounters = Encounter::join('resource', function ($join) {
             $join->on('resource.res_type', '=', DB::raw('SUBSTRING_INDEX(encounter.subject, "/", 1)'))
                 ->on('resource.satusehat_id', '=', DB::raw('SUBSTRING_INDEX(encounter.subject, "/", -1)'));
-        })->leftJoin('patient', function ($join) {
-            $join->on('patient.resource_id', '=', 'resource.id')
-                ->limit(1); // Limit to one patient
-        })->leftJoin('patient_name', function ($join) {
-            $join->on('patient_name.patient_id', '=', 'patient.id');
-        })->leftJoin('patient_identifier', function ($join) {
-            $join->on('patient_identifier.patient_id', '=', 'patient.id')
-                ->where('patient_identifier.system', '=', 'rme');
-        })->where('encounter.class', $class)
+        })
+            ->leftJoin('patient', 'patient.resource_id', '=', 'resource.id')
+            ->leftJoin('patient_name', 'patient_name.patient_id', '=', 'patient.id')
+            ->leftJoin('patient_identifier', function ($join) {
+                $join->on('patient_identifier.patient_id', '=', 'patient.id')
+                    ->where('patient_identifier.system', '=', 'rme');
+            })
+            ->where('encounter.class', $class)
             ->where('encounter.service_type', $serviceType)
             ->select(
-                'encounter.id', // ID kunjungan
-                'patient_name.text', // Nama pasien
-                'patient_identifier.value', // Nomor rekam medis
-                'encounter.period_start', // Tanggal kunjungan
-            )->orderBy('patient_name.period_start', 'desc') // Order by period_start in descending order
-            ->orderBy('patient_name.id', 'asc') // Order by ID in ascending order to break ties when period_start is null
-            ->distinct('encounter.id') // Ensure only one row per encounter
+                'encounter.id',
+                'patient_name.text',
+                'patient_identifier.value',
+                'encounter.period_start'
+            )
+            ->orderByDesc('encounter.period_start')
+            ->orderBy('patient_name.id')
+            ->distinct('encounter.id')
             ->get();
-
-        // $encounters = json_encode($encounters);
 
         // Return the result as JSON
         return response()->json(['encounters' => $encounters]);

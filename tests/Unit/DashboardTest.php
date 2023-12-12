@@ -51,7 +51,7 @@ class DashboardTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonFragment(['id' => $encounter->id]);
         $response->assertJsonFragment(['text' => $patientName->text]);
-        $response->assertJsonFragment(['value' => str($patientId->value)]);
+        $response->assertJsonFragment(['value' => (string)$patientId->value]);
         $response->assertJsonFragment(['period_start' => $encounter->period_start]);
     }
 }
