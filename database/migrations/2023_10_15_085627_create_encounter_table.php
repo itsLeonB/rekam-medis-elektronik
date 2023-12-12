@@ -18,8 +18,10 @@ return new class extends Migration
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->enum('status', ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']);
             $table->string('class');
+            $table->index('class');
             $table->json('type')->nullable();
             $table->unsignedInteger('service_type')->nullable();
+            $table->index('service_type');
             $table->char('priority', 3)->nullable();
             $table->string('subject');
             $table->json('episode_of_care')->nullable();

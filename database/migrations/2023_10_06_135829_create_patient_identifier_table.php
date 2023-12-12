@@ -17,6 +17,7 @@ return new class extends Migration
             $table->index('patient_id');
             $table->foreign('patient_id')->references('id')->on('patient')->onDelete('cascade');
             $table->string('system');
+            $table->index('system');
             $table->enum('use', ['usual', 'official', 'temp', 'secondary', 'old']);
             $table->string('value');
         });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\Fhir\{
     AllergyIntoleranceController,
     ClinicalImpressionController,
@@ -49,6 +50,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['web']], function () {
     Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatController::class, 'getResource']);
 });
+
+// Web APIs
+Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
 
 
 // Local DB resource endpoint

@@ -2,6 +2,7 @@
 
 namespace App\Models\Fhir;
 
+use App\Fhir\Valuesets;
 use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,4 +16,10 @@ class EncounterParticipant extends FhirModel
     {
         return $this->belongsTo(Encounter::class);
     }
+
+    public const TYPE = [
+        'binding' => [
+            'valueset' => Valuesets::EncounterParticipantType
+        ]
+    ];
 }

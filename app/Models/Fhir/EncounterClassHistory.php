@@ -2,7 +2,7 @@
 
 namespace App\Models\Fhir;
 
-
+use App\Fhir\Valuesets;
 use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -20,4 +20,10 @@ class EncounterClassHistory extends FhirModel
     {
         return $this->belongsTo(Encounter::class);
     }
+
+    public const ENC_CLASS = [
+        'binding' => [
+            'valueset' => Valuesets::EncounterClass
+        ]
+    ];
 }

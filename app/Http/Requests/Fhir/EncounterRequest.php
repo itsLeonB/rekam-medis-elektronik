@@ -5,6 +5,12 @@ namespace App\Http\Requests\Fhir;
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
 use App\Http\Requests\FhirRequest;
+use App\Models\Fhir\Encounter;
+use App\Models\Fhir\EncounterClassHistory;
+use App\Models\Fhir\EncounterDiagnosis;
+use App\Models\Fhir\EncounterLocation;
+use App\Models\Fhir\EncounterParticipant;
+use App\Models\Fhir\EncounterStatusHistory;
 use Illuminate\Validation\Rule;
 
 class EncounterRequest extends FhirRequest
@@ -45,12 +51,12 @@ class EncounterRequest extends FhirRequest
     {
         return array_merge(
             [
-                $prefix . 'status' => ['required', Rule::in(Valuesets::EncounterStatus['code'])],
-                $prefix . 'class' => ['required', Rule::in(Valuesets::EncounterClass['code'])],
+                $prefix . 'status' => ['required', Rule::in(Encounter::STATUS['binding']['valueset']['code'])],
+                $prefix . 'class' => ['required', Rule::in(Encounter::ENC_CLASS['binding']['valueset']['code'])],
                 $prefix . 'type' => 'nullable|array',
-                $prefix . 'type.*' => ['required', Rule::in(Codesystems::EncounterType['code'])],
-                $prefix . 'service_type' => 'nullable|exists:codesystem_servicetype,code',
-                $prefix . 'priority' => ['nullable', Rule::in(Valuesets::EncounterPriority['code'])],
+                $prefix . 'type.*' => ['required', Rule::in(Encounter::TYPE['binding']['valueset']['code'])],
+                $prefix . 'service_type' => ['nullable', Rule::exists(Encounter::SERVICE_TYPE['binding']['valueset']['table'], 'code')],
+                $prefix . 'priority' => ['nullable', Rule::in(Encounter::PRIORITY['binding']['valueset']['code'])],
                 $prefix . 'subject' => 'required|string',
                 $prefix . 'episode_of_care' => 'nullable|array',
                 $prefix . 'episode_of_care.*' => 'required|string',
@@ -68,14 +74,14 @@ class EncounterRequest extends FhirRequest
                 $prefix . 'hospitalization_preadmission_identifier_use' => ['nullable', Rule::in(Codesystems::IdentifierUse['code'])],
                 $prefix . 'hospitalization_preadmission_identifier_value' => 'nullable|string',
                 $prefix . 'hospitalization_origin' => 'nullable|string',
-                $prefix . 'hospitalization_admit_source' => ['nullable', Rule::in(Codesystems::AdmitSource['code'])],
-                $prefix . 'hospitalization_re_admission' => ['nullable', Rule::in(Codesystems::v20092['code'])],
+                $prefix . 'hospitalization_admit_source' => ['nullable', Rule::in(Encounter::HOSPITALIZATION_ADMIT_SOURCE['binding']['valueset']['code'])],
+                $prefix . 'hospitalization_re_admission' => ['nullable', Rule::in(Encounter::HOSPITALIZATION_RE_ADMISSION['binding']['valueset']['code'])],
                 $prefix . 'hospitalization_diet_preference' => 'nullable|array',
-                $prefix . 'hospitalization_diet_preference.*' => ['required', Rule::in(Codesystems::Diet['code'])],
+                $prefix . 'hospitalization_diet_preference.*' => ['required', Rule::in(Encounter::HOSPITALIZATION_DIET_PREFERENCE['binding']['valueset']['code'])],
                 $prefix . 'hospitalization_special_arrangement' => 'nullable|array',
-                $prefix . 'hospitalization_special_arrangement.*' => ['required', Rule::in(Codesystems::SpecialArrangements['code'])],
+                $prefix . 'hospitalization_special_arrangement.*' => ['required', Rule::in(Encounter::HOSPITALIZATION_SPECIAL_ARRANGEMENT['binding']['valueset']['code'])],
                 $prefix . 'hospitalization_destination' => 'nullable|string',
-                $prefix . 'hospitalization_discharge_disposition' => ['nullable', Rule::in(Codesystems::DischargeDisposition['code'])],
+                $prefix . 'hospitalization_discharge_disposition' => ['nullable', Rule::in(Encounter::HOSPITALIZATION_DISCHARGE_DISPOSITION['binding']['valueset']['code'])],
                 $prefix . 'service_provider' => 'required|string',
                 $prefix . 'part_of' => 'nullable|string',
             ],
@@ -86,7 +92,7 @@ class EncounterRequest extends FhirRequest
     private function statusHistoryDataRules(): array
     {
         return [
-            'statusHistory.*.status' => ['required', Rule::in(Valuesets::EncounterStatus['code'])],
+            'statusHistory.*.status' => ['required', Rule::in(EncounterStatusHistory::STATUS['binding']['valueset']['code'])],
             'statusHistory.*.period_start' => 'required|date',
             'statusHistory.*.period_end' => 'nullable|date',
         ];
@@ -95,7 +101,7 @@ class EncounterRequest extends FhirRequest
     private function classHistoryDataRules(): array
     {
         return [
-            'classHistory.*.class' => ['required', Rule::in(Valuesets::EncounterClass['code'])],
+            'classHistory.*.class' => ['required', Rule::in(EncounterClassHistory::ENC_CLASS['binding']['valueset']['code'])],
             'classHistory.*.period_start' => 'required|date',
             'classHistory.*.period_end' => 'nullable|date',
         ];
@@ -106,7 +112,7 @@ class EncounterRequest extends FhirRequest
     {
         return [
             'participant.*.type' => 'nullable|array',
-            'participant.*.type.*' => ['required', Rule::in(Valuesets::EncounterParticipantType['code'])],
+            'participant.*.type.*' => ['required', Rule::in(EncounterParticipant::TYPE['binding']['valueset']['code'])],
             'participant.*.individual' => 'nullable|string',
         ];
     }
@@ -116,7 +122,7 @@ class EncounterRequest extends FhirRequest
     {
         return [
             'diagnosis.*.condition' => 'required|string',
-            'diagnosis.*.use' => ['nullable', Rule::in(Codesystems::DiagnosisRole['code'])],
+            'diagnosis.*.use' => ['nullable', Rule::in(EncounterDiagnosis::USE['binding']['valueset']['code'])],
             'diagnosis.*.rank' => 'nullable|integer',
         ];
     }
@@ -126,8 +132,8 @@ class EncounterRequest extends FhirRequest
     {
         return [
             $prefix . 'location' => 'required|string',
-            $prefix . 'service_class' => ['nullable', Rule::in(Valuesets::LocationServiceClass['code'])],
-            $prefix . 'upgrade_class' => ['nullable', Rule::in(Codesystems::LocationUpgradeClass['code'])],
+            $prefix . 'service_class' => ['nullable', Rule::in(EncounterLocation::SERVICE_CLASS['binding']['valueset']['code'])],
+            $prefix . 'upgrade_class' => ['nullable', Rule::in(EncounterLocation::UPGRADE_CLASS['binding']['valueset']['code'])],
         ];
     }
 
