@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\MedicationRequestRequest;
 use App\Http\Resources\MedicationRequestResource;
 use App\Models\Fhir\Resource;
@@ -10,7 +10,7 @@ use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-class MedicationRequestController extends Controller
+class MedicationRequestController extends FhirController
 {
     const RESOURCE_TYPE = 'MedicationRequest';
 

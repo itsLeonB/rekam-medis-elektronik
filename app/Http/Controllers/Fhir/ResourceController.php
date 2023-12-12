@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Fhir;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FhirController;
 use App\Models\Fhir\Resource;
 use Illuminate\Support\Facades\Log;
 
-class ResourceController extends Controller
+class ResourceController extends FhirController
 {
     public function index($res_type)
     {

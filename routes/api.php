@@ -21,6 +21,7 @@ use App\Http\Controllers\Fhir\{
     ResourceController,
     ServiceRequestController,
 };
+use App\Http\Controllers\RekamMedisController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SatusehatController;
@@ -53,6 +54,7 @@ Route::group(['middleware' => ['web']], function () {
 
 // Web APIs
 Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
+Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
 
 
 // Local DB resource endpoint

@@ -10,16 +10,12 @@ use App\Models\Fhir\Resource;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
-class DashboardTest extends TestCase
+class RekamMedisTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_get_daftar_pasien()
+    public function test_index_rekam_medis()
     {
-        // Create test data
-        $class = 'AMB';
-        $serviceType = 124;
-
         $patientResource = Resource::factory()->create([
             'res_type' => 'Patient',
         ]);
@@ -36,22 +32,20 @@ class DashboardTest extends TestCase
         $encounterResource = Resource::factory()->create([
             'res_type' => 'Encounter',
         ]);
-        $encounterAttributes = [
+        $encounter = Encounter::factory()->create([
             'resource_id' => $encounterResource->id,
-            'class' => $class,
-            'service_type' => $serviceType,
             'subject' => 'Patient/' . $patientResource->satusehat_id
-        ];
-        $encounter = Encounter::factory()->create($encounterAttributes);
+        ]);
 
         // Make the request to the controller
-        $response = $this->get(route('daftar-pasien.index', ['class' => $class, 'serviceType' => $serviceType]));
+        $response = $this->get(route('rekam-medis.index'));
 
         // Assert the response
         $response->assertStatus(200);
-        $response->assertJsonFragment(['id' => $encounter->id]);
+        $response->assertJsonFragment(['id' => $patient->id]);
         $response->assertJsonFragment(['text' => $patientName->text]);
         $response->assertJsonFragment(['value' => (string)$patientId->value]);
-        $response->assertJsonFragment(['period_start' => $encounter->period_start]);
+        $response->assertJsonFragment(['class' => $encounter->class]);
+        $response->assertJsonFragment(['period_start' => date_format($encounter->period_start, 'Y-m-d H:i:s')]);
     }
 }

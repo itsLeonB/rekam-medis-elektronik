@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Fhir;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FhirController;
 use App\Models\Fhir\ResourceContent;
 use Inertia\Inertia;
 
-class ResourceContentController extends Controller
+class ResourceContentController extends FhirController
 {
     public function index()
     {
