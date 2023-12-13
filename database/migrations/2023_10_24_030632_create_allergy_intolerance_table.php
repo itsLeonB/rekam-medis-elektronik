@@ -17,7 +17,7 @@ return new class extends Migration
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->enum('clinical_status', ['active', 'inactive', 'resolved'])->nullable();
-            $table->enum('verification_status', ['unconfirmed', 'confirmed', 'refuted', 'entered-in-error'])->nullable();
+            $table->string('verification_status')->nullable();
             $table->enum('type', ['allergy', 'intolerance'])->nullable();
             $table->json('category');
             $table->enum('criticality', ['low', 'high', 'unable-to-assess'])->nullable();

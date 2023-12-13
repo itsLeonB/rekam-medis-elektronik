@@ -5,12 +5,15 @@ namespace App\Models\Fhir;
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
 use App\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Config;
 
 class AllergyIntolerance extends FhirModel
 {
+    use HasFactory;
+
     protected static function boot()
     {
         parent::boot();

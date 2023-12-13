@@ -55,6 +55,7 @@ Route::group(['middleware' => ['web']], function () {
 // Web APIs
 Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
 Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
+Route::get('/rekam-medis/{patient_id}', [RekamMedisController::class, 'show'])->name('rekam-medis.show');
 
 
 // Local DB resource endpoint

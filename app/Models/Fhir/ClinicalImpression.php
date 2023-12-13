@@ -5,11 +5,14 @@ namespace App\Models\Fhir;
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
 use App\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ClinicalImpression extends FhirModel
 {
+    use HasFactory;
+
     protected static function boot()
     {
         parent::boot();

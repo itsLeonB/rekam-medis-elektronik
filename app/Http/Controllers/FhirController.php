@@ -10,18 +10,15 @@ class FhirController extends Controller
 {
     public function updateChildModels(object $parent, array $data, array $children)
     {
-        // $foreignId = $parent->id;
         foreach ($children as $child) {
             if (!empty($data[$child])) {
                 foreach ($data[$child] as $c) {
                     $id = isset($c['id']) ? $c['id'] : null;
                     unset($c['id']);
-                    // unset($c[$foreignKey]);
 
                     $parent->$child()->updateOrCreate(
                         ['id' => $id],
                         $c
-                        // array_merge($c, [$foreignKey => $foreignId])
                     );
                 }
             }
@@ -89,14 +86,14 @@ class FhirController extends Controller
      */
     public function retrieveJsonPayload(Request $request)
     {
+        if (empty($request->getContent())) {
+            return response()->json(['error' => 'Empty request body'], 400);
+        }
+
         $body = json_decode($request->getContent(), true);
 
         if ($body === null) {
             return response()->json(['error' => 'Invalid JSON'], 400);
-        }
-
-        if (empty($request->getContent())) {
-            return response()->json(['error' => 'Empty request body'], 400);
         }
 
         $body = $this->removeEmptyValues($body);

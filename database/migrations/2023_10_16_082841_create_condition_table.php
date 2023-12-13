@@ -17,8 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->enum('clinical_status', ['active', 'recurrence', 'relapse', 'inactive', 'remission', 'resolved'])->nullable();
-            $table->enum('verification_status', ['unconfirmed', 'provisional', 'differential', 'confirmed', 'refuted', 'entered-in-error'])->nullable();
+            $table->string('clinical_status')->nullable();
+            $table->string('verification_status')->nullable();
             $table->json('category')->nullable();
             $table->enum('severity', ['24484000', '6736007', '255604002', '442452003'])->nullable();
             $table->string('code_system')->nullable();

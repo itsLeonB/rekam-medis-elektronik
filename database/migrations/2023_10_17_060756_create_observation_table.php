@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
             $table->json('based_on')->nullable();
             $table->json('part_of')->nullable();
-            $table->enum('status', ['registered', 'preliminary', 'final', 'amended', 'corrected', 'cancelled', 'entered-in-error', 'unknown']);
+            $table->string('status');
             $table->json('category')->nullable();
             $table->string('code');
             $table->string('subject');
