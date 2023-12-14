@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\EncounterRequest;
 use App\Http\Resources\EncounterResource;
 use App\Models\Fhir\Resource;
@@ -10,7 +10,7 @@ use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-class EncounterController extends Controller
+class EncounterController extends FhirController
 {
     const RESOURCE_TYPE = 'Encounter';
 
@@ -33,13 +33,13 @@ class EncounterController extends Controller
     public function store(EncounterRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource(self::RESOURCE_TYPE);
             $encounter = $resource->encounter()->create($body['encounter']);
             $this->createChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location']);
             $this->createResourceContent(EncounterResource::class, $resource);
             return response()->json($encounter, 201);
-        // });
+        });
     }
 
 

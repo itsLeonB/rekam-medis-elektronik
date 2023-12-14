@@ -14,7 +14,7 @@ class DashboardTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function testGetDaftarPasien()
+    public function test_get_daftar_pasien()
     {
         // Create test data
         $class = 'AMB';

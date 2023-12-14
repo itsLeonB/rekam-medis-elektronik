@@ -2,10 +2,18 @@
 
 namespace Tests\Traits;
 
-use DateTime;
+use App\FhirModel;
+use App\Models\Fhir\Resource;
 
 trait FhirTest
 {
+    public function fakeData($model, array $attributes = [])
+    {
+        $resource = Resource::factory()->create(['res_type' => (string)$model]);
+        return $model::factory()->create(array_merge(['resource_id' => $resource->id], $attributes));
+    }
+
+
     /**
      * Returns an array of example data for a given FHIR resource type.
      *

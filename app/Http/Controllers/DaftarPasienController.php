@@ -29,10 +29,10 @@ class DaftarPasienController extends Controller
                 'patient_identifier.value',
                 'encounter.period_start'
             )
+            ->distinct('encounter.id')
             ->orderByDesc('encounter.period_start')
             ->orderBy('patient_name.id')
-            ->distinct('encounter.id')
-            ->get();
+            ->paginate(15);
 
         // Return the result as JSON
         return response()->json(['encounters' => $encounters]);

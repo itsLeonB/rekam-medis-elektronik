@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\PatientRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Fhir\Resource;
@@ -10,7 +10,7 @@ use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-class PatientController extends Controller
+class PatientController extends FhirController
 {
     const RESOURCE_TYPE = 'Patient';
 
@@ -33,13 +33,13 @@ class PatientController extends Controller
     public function store(PatientRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        // return $fhirService->insertData(function () use ($body) {
+        return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource(self::RESOURCE_TYPE);
             $patient = $resource->patient()->create($body['patient']);
             $this->createChildModels($patient, $body, ['identifier', 'name', 'telecom', 'address', 'photo', 'communication', 'link']);
             $this->createNestedInstances($patient, 'contact', $body, ['telecom']);
             $this->createResourceContent(PatientResource::class, $resource);
             return response()->json($patient, 201);
-        // });
+        });
     }
 }

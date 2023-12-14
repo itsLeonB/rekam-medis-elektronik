@@ -4,11 +4,14 @@ namespace App\Models\Fhir;
 
 use App\Fhir\Valuesets;
 use App\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class QuestionnaireResponse extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'questionnaire_response';
     protected $casts = [
         'based_on' => 'array',

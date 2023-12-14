@@ -22,7 +22,7 @@ return new class extends Migration
             $table->json('based_on')->nullable();
             $table->json('part_of')->nullable();
             $table->string('questionnaire')->nullable();
-            $table->enum('status', ['in-progress', 'completed', 'amended', 'entered-in-error', 'stopped'])->nullable();
+            $table->string('status')->nullable();
             $table->string('subject')->nullable();
             $table->string('encounter')->nullable();
             $table->dateTime('authored')->nullable();

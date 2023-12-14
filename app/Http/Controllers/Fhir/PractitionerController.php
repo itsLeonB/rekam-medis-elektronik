@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Fhir;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\FhirController;
 use App\Http\Resources\PractitionerResource;
 use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 
-class PractitionerController extends Controller
+class PractitionerController extends FhirController
 {
     const RESOURCE_TYPE = 'Practitioner';
 
