@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\Fhir\{
     AllergyIntoleranceController,
@@ -56,6 +57,11 @@ Route::group(['middleware' => ['web']], function () {
 Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
 Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
 Route::get('/rekam-medis/{patient_id}', [RekamMedisController::class, 'show'])->name('rekam-medis.show');
+Route::get('/analytics/pasien-hari-ini', [AnalyticsController::class, 'getTodayEncounters'])->name('analytics.pasien-hari-ini');
+Route::get('/analytics/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('analytics.pasien-baru-bulan-ini');
+Route::get('/analytics/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('analytics.jumlah-pasien');
+Route::get('/analytics/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('analytics.pasien-per-bulan');
+Route::get('/analytics/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('analytics.sebaran-usia-pasien');
 
 
 // Local DB resource endpoint

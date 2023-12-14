@@ -3,7 +3,9 @@
 namespace Database\Factories\Fhir;
 
 use App\Models\Fhir\Encounter;
+use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class EncounterFactory extends Factory
 {
@@ -14,6 +16,8 @@ class EncounterFactory extends Factory
      */
     public function definition(): array
     {
+        $resource = Resource::factory()->create(['res_type' => 'Encounter']);
+
         $statuses = Encounter::STATUS['binding']['valueset']['code'];
         $status = $statuses[array_rand($statuses)];
 
@@ -21,6 +25,7 @@ class EncounterFactory extends Factory
         $class = $classes[array_rand($classes)];
 
         return [
+            'resource_id' => $resource->id,
             'status' => $status,
             'class' => $class,
             'service_type' => fake()->numberBetween(1, 629),

@@ -3,10 +3,12 @@
 namespace Tests\Unit;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class RouteTest extends TestCase
 {
+    use DatabaseTransactions;
 
     public function test_guest_route(): void
     {
