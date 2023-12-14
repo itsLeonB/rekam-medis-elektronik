@@ -119,7 +119,7 @@ class FhirController extends Controller
             if (is_array($value)) {
                 return !empty($this->removeEmptyValues($value));
             }
-            return $value !== null && $value !== "" && !(is_array($value) && empty($value));
+            return $value !== null && $value !== ""; //&& !(is_array($value) && empty($value));
         });
     }
 }

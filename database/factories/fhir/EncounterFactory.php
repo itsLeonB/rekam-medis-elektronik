@@ -5,7 +5,7 @@ namespace Database\Factories\Fhir;
 use App\Models\Fhir\Encounter;
 use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 
 class EncounterFactory extends Factory
 {

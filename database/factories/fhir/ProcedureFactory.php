@@ -7,9 +7,7 @@ use App\Models\Fhir\Procedure;
 use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
+
 class ProcedureFactory extends Factory
 {
     /**

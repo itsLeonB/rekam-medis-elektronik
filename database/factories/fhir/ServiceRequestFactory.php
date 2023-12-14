@@ -8,9 +8,7 @@ use App\Models\Fhir\ServiceRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
+
 class ServiceRequestFactory extends Factory
 {
     /**

@@ -6,9 +6,7 @@ use App\Models\Fhir\MedicationRequest;
 use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
+
 class MedicationRequestFactory extends Factory
 {
     /**

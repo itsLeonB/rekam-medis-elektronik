@@ -66,10 +66,10 @@ class RekamMedisTest extends TestCase
 
     public function test_show_rekam_medis()
     {
-        $patient = $this->fakeData(Patient::class, []);
+        $patient = Patient::factory()->create();
         $patientSatusehatId = $patient->resource->satusehat_id;
 
-        $encounter = $this->fakeData(Encounter::class, ['subject' => 'Patient/' . $patientSatusehatId]);
+        $encounter = Encounter::factory()->create(['subject' => 'Patient/' . $patientSatusehatId]);
         $encounterSatusehatId = $encounter->resource->satusehat_id;
 
         $encCondition = Condition::factory()->create([

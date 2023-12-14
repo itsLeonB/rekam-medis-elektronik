@@ -8,9 +8,7 @@ use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
+
 class CompositionFactory extends Factory
 {
     /**
