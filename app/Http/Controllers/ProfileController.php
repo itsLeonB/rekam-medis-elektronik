@@ -79,6 +79,6 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        return $user->profile()->practitioner();
+        return $user->userProfile->practitioner;
     }
 }

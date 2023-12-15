@@ -8,6 +8,7 @@ use App\Models\UserProfile;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Practitioner extends FhirModel
 {
@@ -56,9 +57,9 @@ class Practitioner extends FhirModel
         return $this->hasMany(PractitionerQualification::class);
     }
 
-    public function userProfile(): BelongsTo
+    public function userProfile(): HasOne
     {
-        return $this->belongsTo(UserProfile::class, 'practitioner_id', 'id');
+        return $this->hasOne(UserProfile::class);
     }
 
     public const GENDER = [

@@ -140,26 +140,30 @@ class AnalyticsTest extends TestCase
     public function test_get_patient_age_groups()
     {
         // Create test data
-        $babyCount = fake()->numberBetween(1, 10);
-        $childCount = fake()->numberBetween(1, 10);
-        $teenCount = fake()->numberBetween(1, 10);
-        $adultCount = fake()->numberBetween(1, 10);
-        $oldCount = fake()->numberBetween(1, 10);
+        $balita = fake()->numberBetween(1, 10);
+        $kanak = fake()->numberBetween(1, 10);
+        $remaja = fake()->numberBetween(1, 10);
+        $dewasa = fake()->numberBetween(1, 10);
+        $lansia = fake()->numberBetween(1, 10);
+        $manula = fake()->numberBetween(1, 10);
 
-        Patient::factory()->count($babyCount)->create([
+        Patient::factory()->count($balita)->create([
             'birth_date' => now()->subYears(1),
         ]);
-        Patient::factory()->count($childCount)->create([
-            'birth_date' => now()->subYears(5),
+        Patient::factory()->count($kanak)->create([
+            'birth_date' => now()->subYears(6),
         ]);
-        Patient::factory()->count($teenCount)->create([
-            'birth_date' => now()->subYears(15),
+        Patient::factory()->count($remaja)->create([
+            'birth_date' => now()->subYears(12),
         ]);
-        Patient::factory()->count($adultCount)->create([
-            'birth_date' => now()->subYears(30),
+        Patient::factory()->count($dewasa)->create([
+            'birth_date' => now()->subYears(26),
         ]);
-        Patient::factory()->count($oldCount)->create([
-            'birth_date' => now()->subYears(70),
+        Patient::factory()->count($lansia)->create([
+            'birth_date' => now()->subYears(46),
+        ]);
+        Patient::factory()->count($manula)->create([
+            'birth_date' => now()->subYears(66),
         ]);
 
         // Make the request to the API endpoint
@@ -167,10 +171,11 @@ class AnalyticsTest extends TestCase
 
         // Assert the response
         $response->assertStatus(200);
-        $response->assertJsonFragment(['age_group' => 'baby', 'count' => $babyCount]);
-        $response->assertJsonFragment(['age_group' => 'child', 'count' => $childCount]);
-        $response->assertJsonFragment(['age_group' => 'teen', 'count' => $teenCount]);
-        $response->assertJsonFragment(['age_group' => 'adult', 'count' => $adultCount]);
-        $response->assertJsonFragment(['age_group' => 'old', 'count' => $oldCount]);
+        $response->assertJsonFragment(['age_group' => 'balita', 'count' => $balita]);
+        $response->assertJsonFragment(['age_group' => 'kanak', 'count' => $kanak]);
+        $response->assertJsonFragment(['age_group' => 'remaja', 'count' => $remaja]);
+        $response->assertJsonFragment(['age_group' => 'dewasa', 'count' => $dewasa]);
+        $response->assertJsonFragment(['age_group' => 'lansia', 'count' => $lansia]);
+        $response->assertJsonFragment(['age_group' => 'manula', 'count' => $manula]);
     }
 }
