@@ -22,11 +22,13 @@ use App\Http\Controllers\Fhir\{
     ResourceController,
     ServiceRequestController,
 };
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,14 +56,30 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 // Web APIs
+
+// Profile
+Route::get('/profile-details', [ProfileController::class, 'getProfile'])->name('profile.details');
+
+// Daftar pasien untuk view Rawat Jalan dan Rawat Inap
 Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
+
+// Rekam Medis
 Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
 Route::get('/rekam-medis/{patient_id}', [RekamMedisController::class, 'show'])->name('rekam-medis.show');
+
+// Dashboard Analytics
 Route::get('/analytics/pasien-hari-ini', [AnalyticsController::class, 'getTodayEncounters'])->name('analytics.pasien-hari-ini');
 Route::get('/analytics/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('analytics.pasien-baru-bulan-ini');
 Route::get('/analytics/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('analytics.jumlah-pasien');
 Route::get('/analytics/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('analytics.pasien-per-bulan');
 Route::get('/analytics/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('analytics.sebaran-usia-pasien');
+
+// Users dashboard (Super admin)
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::put('/users/{user_id}', [UserController::class, 'update'])->name('users.update');
+Route::delete('/users/{user_id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 
 // Local DB resource endpoint

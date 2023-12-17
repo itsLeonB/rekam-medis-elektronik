@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Fhir\Practitioner;
 use App\Models\User;
+use App\Models\UserProfile;
 use Faker\Factory;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -119,5 +121,17 @@ class ProfileTest extends TestCase
         $this->assertArrayHasKey('status', $response->getSession()->all());
 
         Notification::assertSentTo($user, VerifyEmail::class);
+    }
+
+    public function test_practitioner_resource_returned_from_profile(): void
+    {
+        $userProfile = UserProfile::factory()->create();
+
+        $user = $userProfile->user;
+
+        $response = $this->actingAs($user)->get(route('profile.details'));
+
+        $response->assertOk();
+        $this->assertInstanceOf(Practitioner::class, $response->original);
     }
 }

@@ -75,11 +75,12 @@ class AnalyticsController extends Controller
     {
         $patientCounts = Patient::select(
             DB::raw('CASE
-                WHEN FLOOR(DATEDIFF(CURDATE(), birth_date) / 365.25) BETWEEN 0 AND 2 THEN "baby"
-                WHEN FLOOR(DATEDIFF(CURDATE(), birth_date) / 365.25) BETWEEN 3 AND 12 THEN "child"
-                WHEN FLOOR(DATEDIFF(CURDATE(), birth_date) / 365.25) BETWEEN 13 AND 19 THEN "teen"
-                WHEN FLOOR(DATEDIFF(CURDATE(), birth_date) / 365.25) BETWEEN 20 AND 64 THEN "adult"
-                ELSE "old"
+                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 0 AND 5 THEN "balita"
+                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 5 AND 11 THEN "kanak"
+                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 11 AND 25 THEN "remaja"
+                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 25 AND 45 THEN "dewasa"
+                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 45 AND 65 THEN "lansia"
+                ELSE "manula"
             END as age_group'),
             DB::raw('count(*) as count')
         )
