@@ -20,7 +20,7 @@ class UserController extends Controller
     // show the selected user
     public function show($id)
     {
-        return response()->json(['user' => User::find($id)], 200);
+        return response()->json(['user' => User::findOrFail($id)], 200);
     }
 
 
