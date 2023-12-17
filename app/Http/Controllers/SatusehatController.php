@@ -60,6 +60,7 @@ class SatusehatController extends Controller
 
         session()->put('token', $token);
         session()->put('token_created_at', now());
+
         return $token;
     }
 
@@ -71,7 +72,7 @@ class SatusehatController extends Controller
             return response()->json([
                 'error' => 'Invalid resource type. Keep in mind that resource type is case sensitive.',
                 'validResourceTypes' => $validResourceTypes,
-            ]);
+            ], 400);
         }
 
         $method = 'get';
@@ -79,7 +80,7 @@ class SatusehatController extends Controller
             return response()->json([
                 'error' => 'Method not allowed for this resource type.',
                 'validMethods' => Satusehat::AVAILABLE_METHODS[$resourceType],
-            ]);
+            ], 405);
         }
 
         $token = $this->getToken();
@@ -98,38 +99,47 @@ class SatusehatController extends Controller
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
-            ));
+            ), $e->getCode());
         }
     }
 
-    public function post(HttpRequest $request)
+    public function post(HttpRequest $fhirRequest, $res_type)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
 
         $method = 'post';
-        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$request->input('resourceType')])) {
+        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')])) {
             return response()->json([
                 'error' => 'Method not allowed for this resource type.',
-                'validMethods' => Satusehat::AVAILABLE_METHODS[$request->input('resourceType')],
-            ]);
+                'validMethods' => Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')],
+            ], 405);
         }
 
         $token = $this->getToken();
 
         $client = new Client();
 
-        $resourceType = $request->input('resourceType');
+        $resourceType = $fhirRequest->input('resourceType');
+
+        if ($resourceType != $res_type) {
+            return response()->json([
+                'error' => 'Resource type mismatch, check your request body.',
+            ], 400);
+        }
 
         $url = $this->baseUrl . '/' . $resourceType;
-        $headers = ['Authorization' => 'Bearer ' . $token,];
+        $headers = [
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json',
+        ];
 
-        $request = new Request('POST', $url, $headers, $validator->validated());
+        $request = new Request('POST', $url, $headers, json_encode($fhirRequest->all()));
 
         try {
             $response = $client->sendAsync($request)->wait();
@@ -138,40 +148,46 @@ class SatusehatController extends Controller
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
-            ));
+            ), $e->getCode());
         }
     }
 
-    public function put(HttpRequest $request)
+    public function put(HttpRequest $fhirRequest, $res_type, $res_id)
     {
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
             'id' => 'required|string',
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
 
         $method = 'put';
-        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$request->input('resourceType')])) {
+        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')])) {
             return response()->json([
                 'error' => 'Method not allowed for this resource type.',
-                'validMethods' => Satusehat::AVAILABLE_METHODS[$request->input('resourceType')],
-            ]);
+                'validMethods' => Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')],
+            ], 405);
         }
 
         $token = $this->getToken();
 
         $client = new Client();
 
-        $resourceType = $request->input('resourceType');
-        $id = $request->input('id');
+        $resourceType = $fhirRequest->input('resourceType');
+        $id = $fhirRequest->input('id');
+
+        if (($resourceType != $res_type) || ($id != $res_id)) {
+            return response()->json([
+                'error' => 'Resource type or ID mismatch, check your request body.',
+            ], 400);
+        }
 
         $url = $this->baseUrl . '/' . $resourceType . '/' . $id;
         $headers = ['Authorization' => 'Bearer ' . $token,];
 
-        $request = new Request('PUT', $url, $headers, $validator->validated());
+        $request = new Request('PUT', $url, $headers, json_encode($fhirRequest->all()));
 
         try {
             $response = $client->sendAsync($request)->wait();
@@ -180,7 +196,7 @@ class SatusehatController extends Controller
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
-            ));
+            ), $e->getCode());
         }
     }
 }

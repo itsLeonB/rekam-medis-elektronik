@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // SATUSEHAT resource endpoint
 Route::get('/satusehat/{res_type}/{res_id}', [SatusehatController::class, 'get'])->name('satusehat.get');
 Route::post('/satusehat/{res_type}', [SatusehatController::class, 'post'])->name('satusehat.post');
+Route::put('/satusehat/{res_type}/{res_id}', [SatusehatController::class, 'put'])->name('satusehat.put');
 
 
 // Web APIs
