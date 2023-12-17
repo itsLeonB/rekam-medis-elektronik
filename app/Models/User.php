@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Fhir\Practitioner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -47,8 +49,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function userProfile(): HasOne
+    protected $with = ['practitioner'];
+
+    public function practitioner(): BelongsToMany
     {
-        return $this->hasOne(UserProfile::class);
+        return $this->belongsToMany(Practitioner::class);
     }
 }

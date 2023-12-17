@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Fhir\Practitioner;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -20,7 +21,13 @@ class UserController extends Controller
     // show the selected user
     public function show($id)
     {
-        return response()->json(['user' => User::findOrFail($id)], 200);
+        $user = User::findOrFail($id);
+        $practitioner = $user->practitioner;
+
+        return response()->json([
+            'user' => $user,
+            'practitioner' => $practitioner
+        ], 200);
     }
 
 
@@ -33,7 +40,11 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
-        return response()->json($user, 201);
+        $practitioner = Practitioner::findOrFail($request->input('practitioner_id'));
+
+        $user->practitioner()->save($practitioner);
+
+        return response()->json(['user' => $user], 201);
     }
 
 
@@ -56,7 +67,10 @@ class UserController extends Controller
 
         $user->update($updateData);
 
-        return response()->json($user, 200);
+        $practitioner = Practitioner::findOrFail($request->input('practitioner_id'));
+        $user->practitioner()->sync($practitioner);
+
+        return response()->json(['user' => $user], 200);
     }
 
 

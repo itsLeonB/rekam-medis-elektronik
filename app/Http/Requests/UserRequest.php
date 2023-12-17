@@ -31,6 +31,7 @@ class UserRequest extends FormRequest
                 Rule::unique('users')->ignore($this->user),
             ],
             'password' => 'required|string|confirmed|min:8',
+            'practitioner_id' => 'required|integer|exists:practitioner,id'
         ];
     }
 }

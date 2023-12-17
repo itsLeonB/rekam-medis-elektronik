@@ -4,11 +4,11 @@ namespace App\Models\Fhir;
 
 use App\Fhir\Codesystems;
 use App\FhirModel;
-use App\Models\UserProfile;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Practitioner extends FhirModel
 {
@@ -57,9 +57,9 @@ class Practitioner extends FhirModel
         return $this->hasMany(PractitionerQualification::class);
     }
 
-    public function userProfile(): HasOne
+    public function userProfile(): BelongsToMany
     {
-        return $this->hasOne(UserProfile::class);
+        return $this->belongsToMany(User::class);
     }
 
     public const GENDER = [
