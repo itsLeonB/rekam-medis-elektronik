@@ -57,7 +57,7 @@ class Practitioner extends FhirModel
         return $this->hasMany(PractitionerQualification::class);
     }
 
-    public function userProfile(): BelongsToMany
+    public function user(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }

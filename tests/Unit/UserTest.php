@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\Models\Fhir\Practitioner;
 use Tests\TestCase;
 use App\Models\User;
-use App\Models\UserProfile;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
@@ -137,7 +136,6 @@ class UserTest extends TestCase
         // Send a DELETE request to the delete method with the user id
         $response = $this->actingAs($admin)->delete(route('users.destroy', ['user_id' => $admin->id]));
 
-        // Assert that the response has a 204 status code
         $response->assertStatus(403);
     }
 }
