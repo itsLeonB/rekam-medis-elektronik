@@ -80,7 +80,6 @@ class AnalyticsController extends Controller
                 WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 11 AND 25 THEN "remaja"
                 WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 25 AND 45 THEN "dewasa"
                 WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 45 AND 65 THEN "lansia"
-                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 45 AND 65 THEN "lansia"
                 ELSE "manula"
             END as age_group'),
             DB::raw('count(*) as count')

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +13,7 @@ class UserController extends Controller
     // index all users
     public function index()
     {
-        return response()->json(['users' => User::all()], 200);
+        return response()->json(['users' => User::paginate(15)], 200);
     }
 
 
@@ -40,9 +38,9 @@ class UserController extends Controller
 
 
     // update the selected user
-    public function update(ProfileUpdateRequest $request, $user_id)
+    public function update(UserRequest $request, $user_id)
     {
-        $user = User::find($user_id);
+        $user = User::findOrFail($user_id);
 
         $updateData = ['name' => strip_tags($request->input('name'))];
 
@@ -68,7 +66,7 @@ class UserController extends Controller
         $currentUser = Auth::user();
 
         if ($currentUser->id != $user_id) {
-            $user = User::find($user_id);
+            $user = User::findOrFail($user_id);
             $user->delete();
 
             return response()->json('User berhasil dihapus', 204);

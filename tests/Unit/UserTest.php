@@ -25,7 +25,7 @@ class UserTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the users data
-        $response->assertJson(['users' => User::all()->toArray()]);
+        $response->assertJson(['users' => User::paginate(15)->toArray()]);
     }
 
 
@@ -76,12 +76,14 @@ class UserTest extends TestCase
         // Create a user
         $user = User::factory()->create();
 
+        $password = fake()->password(8);
+
         // Create updated user data
         $updatedUserData = [
             'name' => fake()->name(),
             'email' => fake()->email(),
-            'password' => fake()->password(8),
-            'password_confirmation' => fake()->password(8),
+            'password' => $password,
+            'password_confirmation' => $password,
         ];
 
         // Send a PUT request to the update method with the user id and updated user data
