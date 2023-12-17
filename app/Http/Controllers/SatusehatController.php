@@ -2,52 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Fhir\Satusehat;
 use App\Http\Controllers\Controller;
-use Dotenv\Dotenv;
-use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SatusehatController extends Controller
-{
-    private $satusehatClient;
-
-    private function loadEnv() {
-        $dotenv = Dotenv::createUnsafeImmutable(getcwd());
-        $dotenv->safeLoad();
-
-        return [
-            'auth_url' => env('auth_url'),
-            'base_url' => env('base_url'),
-            'consent_url' => env('consent_url'),
-            'client_id' => env('client_id'),
-            'client_secret' => env('client_secret'),
-            'organization_id' => env('organization_id'),
-        ];
-    }
-
-    public function __construct()
-    {
-        $envVars = $this->loadEnv();
-        $this->satusehatClient = new SatusehatClient(
-            $envVars['auth_url'],
-            $envVars['base_url'],
-            $envVars['consent_url'],
-            $envVars['client_id'],
-            $envVars['client_secret'],
-            $envVars['organization_id']
-        );
-    }
-
-    public function getResource($resourceType, $satusehatId)
-    {
-        $response = $this->satusehatClient->get($resourceType, $satusehatId);
-        return $response;
-    }
-}
-
-class SatusehatClient
 {
     public string $authUrl;
     public string $baseUrl;
@@ -56,14 +20,14 @@ class SatusehatClient
     public string $clientSecret;
     public string $organizationId;
 
-    public function __construct($authUrl, $baseUrl, $consentUrl, $clientId, $clientSecret, $organizationId)
+    public function __construct()
     {
-        $this->authUrl = $authUrl;
-        $this->baseUrl = $baseUrl;
-        $this->consentUrl = $consentUrl;
-        $this->clientId = $clientId;
-        $this->clientSecret = $clientSecret;
-        $this->organizationId = $organizationId;
+        $this->authUrl = config('app.auth_url');
+        $this->baseUrl = config('app.base_url');
+        $this->consentUrl = config('app.consent_url');
+        $this->clientId = config('app.client_id');
+        $this->clientSecret = config('app.client_secret');
+        $this->organizationId = config('app.organization_id');
     }
 
     public function getToken()
@@ -101,6 +65,23 @@ class SatusehatClient
 
     public function get($resourceType, $satusehatId)
     {
+        $validResourceTypes = array_keys(Satusehat::AVAILABLE_METHODS);
+
+        if (!in_array($resourceType, $validResourceTypes)) {
+            return response()->json([
+                'error' => 'Invalid resource type. Keep in mind that resource type is case sensitive.',
+                'validResourceTypes' => $validResourceTypes,
+            ]);
+        }
+
+        $method = 'get';
+        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$resourceType])) {
+            return response()->json([
+                'error' => 'Method not allowed for this resource type.',
+                'validMethods' => Satusehat::AVAILABLE_METHODS[$resourceType],
+            ]);
+        }
+
         $token = $this->getToken();
 
         $client = new Client();
@@ -109,6 +90,88 @@ class SatusehatClient
         $headers = ['Authorization' => 'Bearer ' . $token,];
 
         $request = new Request('GET', $url, $headers);
+
+        try {
+            $response = $client->sendAsync($request)->wait();
+            $contents = json_decode($response->getBody()->getContents());
+            return $contents;
+        } catch (ClientException $e) {
+            return response()->json(json_decode(
+                $e->getResponse()->getBody()->getContents()
+            ));
+        }
+    }
+
+    public function post(HttpRequest $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $method = 'post';
+        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$request->input('resourceType')])) {
+            return response()->json([
+                'error' => 'Method not allowed for this resource type.',
+                'validMethods' => Satusehat::AVAILABLE_METHODS[$request->input('resourceType')],
+            ]);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $resourceType = $request->input('resourceType');
+
+        $url = $this->baseUrl . '/' . $resourceType;
+        $headers = ['Authorization' => 'Bearer ' . $token,];
+
+        $request = new Request('POST', $url, $headers, $validator->validated());
+
+        try {
+            $response = $client->sendAsync($request)->wait();
+            $contents = json_decode($response->getBody()->getContents());
+            return $contents;
+        } catch (ClientException $e) {
+            return response()->json(json_decode(
+                $e->getResponse()->getBody()->getContents()
+            ));
+        }
+    }
+
+    public function put(HttpRequest $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
+            'id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $method = 'put';
+        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$request->input('resourceType')])) {
+            return response()->json([
+                'error' => 'Method not allowed for this resource type.',
+                'validMethods' => Satusehat::AVAILABLE_METHODS[$request->input('resourceType')],
+            ]);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $resourceType = $request->input('resourceType');
+        $id = $request->input('id');
+
+        $url = $this->baseUrl . '/' . $resourceType . '/' . $id;
+        $headers = ['Authorization' => 'Bearer ' . $token,];
+
+        $request = new Request('PUT', $url, $headers, $validator->validated());
 
         try {
             $response = $client->sendAsync($request)->wait();
