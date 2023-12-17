@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
+use App\Models\Fhir\Practitioner;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Hash;
 
 class UserTest extends TestCase
 {
@@ -52,10 +52,14 @@ class UserTest extends TestCase
         $admin = User::factory()->create();
 
         // Create a new user data
-        $userData = User::factory()->unverified()->make()->toArray();
+        $user = User::factory()->unverified()->make();
+        $userData = $user->toArray();
         $password = fake()->password(8);
         $userData['password'] = $password;
         $userData['password_confirmation'] = $password;
+
+        $practitioner = Practitioner::factory()->create();
+        $userData['practitioner_id'] = $practitioner->id;
 
         // Send a POST request to the store method with the user data
         $response = $this->actingAs($admin)->post(route('users.store'), $userData);
@@ -75,6 +79,7 @@ class UserTest extends TestCase
 
         // Create a user
         $user = User::factory()->create();
+        $practitioner = Practitioner::factory()->create();
 
         $password = fake()->password(8);
 
@@ -84,6 +89,7 @@ class UserTest extends TestCase
             'email' => fake()->email(),
             'password' => $password,
             'password_confirmation' => $password,
+            'practitioner_id' => $practitioner->id
         ];
 
         // Send a PUT request to the update method with the user id and updated user data
@@ -130,7 +136,6 @@ class UserTest extends TestCase
         // Send a DELETE request to the delete method with the user id
         $response = $this->actingAs($admin)->delete(route('users.destroy', ['user_id' => $admin->id]));
 
-        // Assert that the response has a 204 status code
         $response->assertStatus(403);
     }
 }
