@@ -47,13 +47,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 // SATUSEHAT resource endpoint
-// Route::middleware(['satusehat'])->group(function () {
-//     Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatResourceController::class, 'getResource']);
-// });
+Route::get('/satusehat/{res_type}/{res_id}', [SatusehatController::class, 'get'])->name('satusehat.get');
+Route::post('/satusehat/{res_type}', [SatusehatController::class, 'post'])->name('satusehat.post');
+Route::put('/satusehat/{res_type}/{res_id}', [SatusehatController::class, 'put'])->name('satusehat.put');
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('/satusehat/{resourceType}/{satusehatId}', [SatusehatController::class, 'getResource']);
-});
 
 // Web APIs
 
@@ -166,6 +163,7 @@ Route::put('/medicationstatement/{res_id}', [MedicationStatementController::clas
 Route::get('/questionnaireresponse/{res_id}', [QuestionnaireResponseController::class, 'show'])->name('questionnaireresponse.show');
 Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('questionnaireresponse.store');
 Route::put('/questionnaireresponse/{res_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
+
 
 // Testing endpoint
 Route::get('/test/get/organization', [TestController::class, 'testOrganization']);
