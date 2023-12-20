@@ -16,6 +16,8 @@ class SatusehatController extends Controller
     public string $authUrl;
     public string $baseUrl;
     public string $consentUrl;
+    public string $kfaV1Url;
+    public string $kfaV2Url;
     public string $clientId;
     public string $clientSecret;
     public string $organizationId;
@@ -25,9 +27,41 @@ class SatusehatController extends Controller
         $this->authUrl = config('app.auth_url');
         $this->baseUrl = config('app.base_url');
         $this->consentUrl = config('app.consent_url');
+        $this->kfaV1Url = config('app.kfa_v1_url');
+        $this->kfaV2Url = config('app.kfa_v2_url');
         $this->clientId = config('app.client_id');
         $this->clientSecret = config('app.client_secret');
         $this->organizationId = config('app.organization_id');
+    }
+
+    public function searchKfaProduct(
+        int $page = 1,
+        int $size = 10,
+        string $productType = 'farmasi', // farmasi | alkes
+        string $fromDate = null,
+        string $toDate = null,
+        string $farmalkesType = null,
+        string $keyword = null,
+        int $templateCode = null,
+        string $packagingCode = null,
+    ) {
+        $client = new Client();
+
+        $response = $client->request('GET', config('app.kfa_v2_url') . '/products/all', [
+            'query' => [
+                'page' => $page,
+                'size' => $size,
+                'product_type' => $productType,
+                'from_date' => $fromDate,
+                'to_date' => $toDate,
+                'farmalkes_type' => $farmalkesType,
+                'keyword' => $keyword,
+                'template_code' => $templateCode,
+                'packaging_code' => $packagingCode,
+            ],
+        ]);
+
+        return $response->getBody()->getContents();
     }
 
     public function getToken()
@@ -94,7 +128,7 @@ class SatusehatController extends Controller
 
         try {
             $response = $client->sendAsync($request)->wait();
-            $contents = json_decode($response->getBody()->getContents());
+            $contents = json_decode($response->getBody()->getContents(), true);
             return $contents;
         } catch (ClientException $e) {
             return response()->json(json_decode(
