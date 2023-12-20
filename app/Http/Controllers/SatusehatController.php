@@ -185,7 +185,10 @@ class SatusehatController extends Controller
         }
 
         $url = $this->baseUrl . '/' . $resourceType . '/' . $id;
-        $headers = ['Authorization' => 'Bearer ' . $token,];
+        $headers = [
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json'
+        ];
 
         $request = new Request('PUT', $url, $headers, json_encode($fhirRequest->all()));
 
