@@ -192,6 +192,8 @@ return [
     'auth_url' => env('auth_url'),
     'base_url' => env('base_url'),
     'consent_url' => env('consent_url'),
+    'kfa_v1_url' => env('kfa_v1_url'),
+    'kfa_v2_url' => env('kfa_v2_url'),
     'client_id' => env('client_id'),
     'client_secret' => env('client_secret'),
     'organization_id' => env('organization_id'),
