@@ -7,56 +7,96 @@ use App\Fhir\Valuesets;
 use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Location extends FhirModel
 {
-    // protected static function boot()
-    // {
-    //     parent::boot();
-
-    //     static::created(function ($location) {
-    //         $orgId = config('app.organization_id');
-
-    //         $identifier = new LocationIdentifier();
-    //         $identifier->system = 'http://sys-ids.kemkes.go.id/location/' . $orgId;
-    //         $identifier->use = 'official';
-    //         $identifier->value = $location->identifier()->max('value') + 1;
-
-    //         // Save the identifier through the relationship
-    //         $location->identifier()->save($identifier);
-    //     });
-    // }
-
     protected $table = 'location';
     protected $casts = [
         'alias' => 'array',
-        'type' => 'array',
-        'address_line' => 'array',
-        'longitude' => 'double',
-        'latitude' => 'double',
-        'altitude' => 'double',
-        'endpoint' => 'array'
+        // 'type' => 'array',
+        // 'address_line' => 'array',
+        // 'longitude' => 'double',
+        // 'latitude' => 'double',
+        // 'altitude' => 'double',
+        // 'endpoint' => 'array'
     ];
     public $timestamps = false;
+
+    protected $with = ['identifier', 'operationalStatus', 'type', 'telecom', 'address', 'physicalType', 'position', 'managingOrganization', 'partOf', 'hoursOfOperation', 'endpoint'];
 
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): HasMany
+    public function identifier(): MorphMany//HasMany
     {
-        return $this->hasMany(LocationIdentifier::class);
+        // return $this->hasMany(LocationIdentifier::class);
+        return $this->morphMany(Identifier::class, 'identifiable');
     }
 
-    public function telecom(): HasMany
+    public function operationalStatus(): MorphOne
     {
-        return $this->hasMany(LocationTelecom::class);
+        return $this->morphOne(Coding::class, 'codeable');
     }
 
-    public function operationHours(): HasMany
+    public function codeableConcepts(): MorphMany
     {
-        return $this->hasMany(LocationOperationHours::class);
+        return $this->morphMany(CodeableConcept::class, 'codeable');
+    }
+
+    public function type(): MorphMany
+    {
+        return $this->codeableConcepts()->where('attr_type', 'type');
+    }
+
+    public function telecom(): MorphMany//HasMany
+    {
+        // return $this->hasMany(LocationTelecom::class);
+        return $this->morphMany(ContactPoint::class, 'contact_pointable');
+    }
+
+    public function address(): MorphOne
+    {
+        return $this->morphOne(Address::class, 'addressable');
+    }
+
+    public function physicalType(): MorphOne
+    {
+        return $this->codeableConcepts()->where('attr_type', 'physical_type');
+    }
+
+    public function position(): HasOne
+    {
+        return $this->hasOne(LocationPosition::class);
+    }
+
+    public function references(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable');
+    }
+
+    public function managingOrganization(): MorphOne
+    {
+        return $this->references()->where('attr_type', 'managingOrganization');
+    }
+
+    public function partOf(): MorphOne
+    {
+        return $this->references()->where('attr_type', 'partOf');
+    }
+
+    public function hoursOfOperation(): HasMany
+    {
+        return $this->hasMany(LocationHoursOfOperation::class);
+    }
+
+    public function endpoint(): MorphMany
+    {
+        return $this->references()->where('attr_type', 'endpoint');
     }
 
     public const STATUS = [

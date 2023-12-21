@@ -7,7 +7,7 @@
         "part_of": "Organization/1",
         "endpoint": ["Endpoint/null", "Endpoint/null1"]
     },
-    "identifier": [
+    "identifiers": [
         {
             "use": "official",
             "system": "http://sys-ids.kemkes.go.id/organization/1000079374",

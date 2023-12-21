@@ -6,7 +6,7 @@ use App\Fhir\Valuesets;
 use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class LocationOperationHours extends FhirModel
+class LocationHoursOfOperation extends FhirModel
 {
     protected $table = 'location_operation_hours';
 

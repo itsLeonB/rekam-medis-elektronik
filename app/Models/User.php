@@ -49,9 +49,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $with = ['practitioner'];
+    protected $with = ['practitionerUser'];
 
-    public function practitioner(): BelongsToMany
+    public function practitionerUser(): BelongsToMany
     {
         return $this->belongsToMany(Practitioner::class);
     }

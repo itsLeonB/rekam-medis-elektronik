@@ -50,7 +50,8 @@ class OrganizationDataTest extends TestCase
         $response->assertStatus(201);
 
         $this->assertMainData('organization', $data['organization']);
-        $this->assertManyData('organization_identifier', $data['identifier']);
+        $this->assertManyData('identifier', $data['identifiers']);
+        // $this->assertManyData('organization_identifier', $data['identifier']);
         $this->assertManyData('organization_telecom', $data['telecom']);
         $this->assertManyData('organization_address', $data['address']);
         $this->assertNestedData('organization_contact', $data['contact'], 'contact_data', [
@@ -89,7 +90,8 @@ class OrganizationDataTest extends TestCase
         $response->assertStatus(200);
 
         $this->assertMainData('organization', $data['organization']);
-        $this->assertManyData('organization_identifier', $data['identifier']);
+        $this->assertManyData('identifier', $data['identifiers']);
+        // $this->assertManyData('organization_identifier', $data['identifier']);
         $this->assertManyData('organization_telecom', $data['telecom']);
         $this->assertManyData('organization_address', $data['address']);
         $this->assertNestedData('organization_contact', $data['contact'], 'contact_data', [

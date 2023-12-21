@@ -6,16 +6,18 @@ use App\Fhir\Codesystems;
 use App\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class OrganizationContact extends FhirModel
 {
     protected $table = 'organization_contact';
-    protected $casts = [
-        'name_given' => 'array',
-        'name_prefix' => 'array',
-        'name_suffix' => 'array',
-        'address_line' => 'array'
-    ];
+    // protected $casts = [
+    //     'name_given' => 'array',
+    //     'name_prefix' => 'array',
+    //     'name_suffix' => 'array',
+    //     'address_line' => 'array'
+    // ];
     public $timestamps = false;
 
     public function organization(): BelongsTo
@@ -23,10 +25,30 @@ class OrganizationContact extends FhirModel
         return $this->belongsTo(Organization::class);
     }
 
-    public function telecom(): HasMany
+    public function purpose(): MorphOne
     {
-        return $this->hasMany(OrganizationContactTelecom::class, 'organization_contact_id', 'id');
+        return $this->morphOne(CodeableConcept::class, 'codeable');
     }
+
+    public function name(): MorphOne
+    {
+        return $this->morphOne(HumanName::class, 'human_nameable');
+    }
+
+    public function telecom(): MorphMany
+    {
+        return $this->morphMany(ContactPoint::class, 'contact_pointable');
+    }
+
+    public function address(): MorphOne
+    {
+        return $this->morphOne(Address::class, 'addressable');
+    }
+
+    // public function telecom(): HasMany
+    // {
+    //     return $this->hasMany(OrganizationContactTelecom::class, 'organization_contact_id', 'id');
+    // }
 
     public const PURPOSE = [
         'binding' => [

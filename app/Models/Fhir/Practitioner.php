@@ -4,11 +4,13 @@ namespace App\Models\Fhir;
 
 use App\Fhir\Codesystems;
 use App\FhirModel;
+use App\Models\PractitionerUser;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Practitioner extends FhirModel
 {
@@ -18,7 +20,7 @@ class Practitioner extends FhirModel
     protected $casts = [
         'active' => 'boolean',
         'birth_date' => 'date',
-        'communication' => 'array'
+        // 'communication' => 'array'
     ];
     public $timestamps = false;
 
@@ -27,29 +29,34 @@ class Practitioner extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): HasMany
+    public function identifier(): MorphMany// HasMany
     {
-        return $this->hasMany(PractitionerIdentifier::class);
+        // return $this->hasMany(PractitionerIdentifier::class);
+        return $this->morphMany(Identifier::class, 'identifiable');
     }
 
-    public function name(): HasMany
+    public function name(): MorphMany//HasMany
     {
-        return $this->hasMany(PractitionerName::class);
+        // return $this->hasMany(PractitionerName::class);
+        return $this->morphMany(HumanName::class, 'nameable');
     }
 
-    public function telecom(): HasMany
+    public function telecom(): MorphMany//HasMany
     {
-        return $this->hasMany(PractitionerTelecom::class);
+        // return $this->hasMany(PractitionerTelecom::class);
+        return $this->morphMany(ContactPoint::class, 'contact_pointable');
     }
 
-    public function address(): HasMany
+    public function address(): MorphMany//HasMany
     {
-        return $this->hasMany(PractitionerAddress::class);
+        // return $this->hasMany(PractitionerAddress::class);
+        return $this->morphMany(Address::class, 'addressable');
     }
 
-    public function photo(): HasMany
+    public function photo(): MorphMany// HasMany
     {
-        return $this->hasMany(PractitionerPhoto::class);
+        // return $this->hasMany(PractitionerPhoto::class);
+        return $this->morphMany(Attachment::class, 'attachable');
     }
 
     public function qualification(): HasMany
@@ -57,9 +64,14 @@ class Practitioner extends FhirModel
         return $this->hasMany(PractitionerQualification::class);
     }
 
-    public function user(): BelongsToMany
+    public function communication(): MorphMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->morphMany(CodeableConcept::class, 'codeable');
+    }
+
+    public function practitionerUser(): BelongsToMany
+    {
+        return $this->belongsToMany(Practitioner::class);
     }
 
     public const GENDER = [

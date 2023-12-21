@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Fhir;
 
 use App\Http\Controllers\FhirController;
+use App\Http\Controllers\SatusehatController;
 use App\Http\Requests\Fhir\AllergyIntoleranceRequest;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Models\Fhir\Resource;
@@ -16,6 +17,23 @@ class AllergyIntoleranceController extends FhirController
 
     public function show($res_id)
     {
+        $satusehat = new SatusehatController();
+
+        $response = $satusehat->get(self::RESOURCE_TYPE, $res_id);
+
+        if ($response->getStatusCode() == 200) {
+
+            $localRes = Resource::where([
+                ['res_type', self::RESOURCE_TYPE],
+                ['id', $res_id]
+            ])->value('updated_at');
+
+            if ($response['meta']['lastUpdated'] > $localRes) {
+                return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+            }
+
+            return $response;
+        }
         try {
             return response()
                 ->json(new AllergyIntoleranceResource(Resource::where([
