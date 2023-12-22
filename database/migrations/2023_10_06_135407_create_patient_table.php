@@ -19,13 +19,16 @@ return new class extends Migration
             $table->boolean('active');
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->date('birth_date')->nullable();
-            $table->json('deceased')->nullable();
-            $table->string('marital_status')->nullable();
-            $table->json('multiple_birth');
-            $table->json('general_practitioner')->nullable();
-            $table->string('managing_organization')->nullable();
-            $table->string('birth_city')->nullable();
-            $table->string('birth_country')->nullable();
+            $table->boolean('deceased_boolean')->nullable();
+            $table->dateTime('deceased_date_time')->nullable();
+            $table->boolean('multiple_birth_boolean')->nullable();
+            $table->integer('multiple_birth_integer')->nullable();
+            // $table->string('marital_status')->nullable();
+            // $table->json('multiple_birth');
+            // $table->json('general_practitioner')->nullable();
+            // $table->string('managing_organization')->nullable();
+            // $table->string('birth_city')->nullable();
+            // $table->string('birth_country')->nullable();
         });
     }
 

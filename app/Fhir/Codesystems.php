@@ -319,6 +319,11 @@ class Codesystems
         'definition' => ["type" => "General types of reference range.", "normal" => "Values expected for a normal member of the relevant control population being measured. Typically each results producer such as a laboratory has specific normal ranges and they are usually defined as within two standard deviations from the mean and account for 95.45% of this population.", "recommended" => "The range that is recommended by a relevant professional body.", "treatment" => "The range at which treatment would/should be considered.", "therapeutic" => "The optimal range for best therapeutic outcomes.", "pre" => "The optimal range for best therapeutic outcomes for a specimen taken immediately before administration.", "post" => "The optimal range for best therapeutic outcomes for a specimen taken immediately after administration.", "endocrine" => "Endocrine related states that change the expected value.", "pre-puberty" => "An expected range in an individual prior to puberty.", "follicular" => "An expected range in an individual during the follicular stage of the cycle.", "midcycle" => "An expected range in an individual during the midcycle stage of the cycle.", "luteal" => "An expected range in an individual during the luteal stage of the cycle.", "postmenopausal" => "An expected range in an individual post-menopause."]
     ];
 
+    public const MimeTypes = [
+        'system' => 'urn:ietf:bcp:13',
+        'table' => 'codesystem_bcp13',
+    ];
+
     public const ResourceType = [
         'system' => 'http://hl7.org/fhir/resource-types',
         'table' => 'codesystem_resourcetype'

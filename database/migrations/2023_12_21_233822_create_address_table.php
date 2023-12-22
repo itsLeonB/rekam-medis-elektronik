@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->string('postal_code')->nullable();
             $table->string('country')->nullable();
+            $table->unsignedBigInteger('addressable_id');
+            $table->string('addressable_type');
+            $table->string('attr_type')->nullable();
             $table->timestamps();
         });
     }

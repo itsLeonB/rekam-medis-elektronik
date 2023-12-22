@@ -5,6 +5,12 @@ namespace App\Http\Requests;
 use App\Fhir\Codesystems;
 use App\Fhir\Dosage;
 use App\Fhir\Valuesets;
+use App\Models\Fhir\Datatypes\Address;
+use App\Models\Fhir\Datatypes\Attachment;
+use App\Models\Fhir\Datatypes\ContactPoint;
+use App\Models\Fhir\Datatypes\HumanName;
+use App\Models\Fhir\Datatypes\Identifier;
+use App\Models\Fhir\Datatypes\Reference;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -26,28 +32,39 @@ class FhirRequest extends FormRequest
     public function getCodingDataRules(string $prefix = null): array
     {
         return [
-            $prefix => 'nullable|array',
-            $prefix . '.system' => 'nullable|string',
-            $prefix . '.version' => 'nullable|string',
-            $prefix . '.code' => 'nullable|string',
-            $prefix . '.display' => 'nullable|string',
-            $prefix . '.userSelected' => 'nullable|boolean',
+            $prefix . 'system' => 'nullable|string',
+            $prefix . 'version' => 'nullable|string',
+            $prefix . 'code' => 'nullable|string',
+            $prefix . 'display' => 'nullable|string',
+            $prefix . 'user_selected' => 'nullable|boolean',
         ];
+    }
+
+    public function getContactPointDataRules(string $prefix = null): array
+    {
+        return array_merge(
+            [
+                $prefix . 'system' => ['nullable', Rule::in(ContactPoint::SYSTEM['binding']['valueset']['code'])],
+                $prefix . 'value' => 'nullable|string',
+                $prefix . 'use' => ['nullable', Rule::in(ContactPoint::USE['binding']['valueset']['code'])],
+                $prefix . 'rank' => 'nullable|integer|gte:0',
+            ],
+            $this->getPeriodDataRules($prefix . 'period.')
+        );
     }
 
 
     public function getAttachmentDataRules(string $prefix = null): array
     {
         return [
-            $prefix => 'nullable|array',
-            $prefix . '.contentType' => 'nullable|string',
-            $prefix . '.language' => 'nullable|string|exists:codesystem_bcp47,code',
-            $prefix . '.data' => 'nullable|string',
-            $prefix . '.url' => 'nullable|string',
-            $prefix . '.size' => 'nullable|integer|gte:0',
-            $prefix . '.hash' => 'nullable|string',
-            $prefix . '.title' => 'nullable|string',
-            $prefix . '.creation' => 'nullable|datetime',
+            $prefix . 'contentType' => ['nullable', Rule::exists(Attachment::CONTENT_TYPE['binding']['valueset']['table'], 'code')],
+            $prefix . 'language' => ['nullable', Rule::exists(Attachment::LANGUAGE['binding']['valueset']['table'], 'code')],
+            $prefix . 'data' => 'nullable|string',
+            $prefix . 'url' => 'nullable|string',
+            $prefix . 'size' => 'nullable|integer|gte:0',
+            $prefix . 'hash' => 'nullable|string',
+            $prefix . 'title' => 'nullable|string',
+            $prefix . 'creation' => 'nullable|date',
         ];
     }
 
@@ -237,11 +254,16 @@ class FhirRequest extends FormRequest
      */
     public function getIdentifierDataRules(string $prefix = null): array
     {
-        return [
-            $prefix . 'system' => 'required|string',
-            $prefix . 'use' => ['required', Rule::in(Codesystems::IdentifierUse['code'])],
-            $prefix . 'value' => 'required|string',
-        ];
+        return array_merge(
+            [
+                $prefix . 'use' => ['nullable', Rule::in(Identifier::USE['binding']['valueset']['code'])],
+                $prefix . 'system' => 'nullable|string',
+                $prefix . 'value' => 'nullable|string',
+            ],
+            $this->getCodeableConceptDataRules($prefix . 'type.'),
+            $this->getPeriodDataRules($prefix . 'period.'),
+            $this->getReferenceDataRules($prefix . 'assigner.')
+        );
     }
 
     /**
@@ -319,21 +341,14 @@ class FhirRequest extends FormRequest
         ];
     }
 
-    public function getCodeableConceptDataRules(string $prefix = null, array $code = null): array
+    public function getCodeableConceptDataRules(string $prefix = null): array
     {
-        if ($code) {
-            return [
-                $prefix . 'system' => 'nullable|string',
-                $prefix . 'code' => ['required', Rule::in($code)],
-                $prefix . 'display' => 'nullable|string',
-            ];
-        } else {
-            return [
-                $prefix . 'system' => 'nullable|string',
-                $prefix . 'code' => 'required|string',
-                $prefix . 'display' => 'nullable|string',
-            ];
-        }
+        return array_merge(
+            [
+                $prefix . 'text' => 'nullable|string',
+            ],
+            $this->getCodingDataRules($prefix . 'coding.*.')
+        );
     }
 
     public function getEffectiveDataRules($prefix = null): array
@@ -445,17 +460,16 @@ class FhirRequest extends FormRequest
         ];
     }
 
-    public function getReferenceDataRules($prefix = null, bool $nullable = false): array
+    public function getReferenceDataRules($prefix = null): array
     {
-        if ($nullable) {
-            return [
+        return array_merge(
+            [
                 $prefix . 'reference' => 'nullable|string',
-            ];
-        } else {
-            return [
-                $prefix . 'reference' => 'required|string',
-            ];
-        }
+                $prefix . 'type' => ['nullable', Rule::exists(Reference::TYPE['binding']['valueset']['table'])],
+                $prefix . 'display' => 'nullable|string'
+            ],
+            $this->getIdentifierDataRules($prefix . 'identifier.')
+        );
     }
 
     public function getTelecomDataRules($prefix = null): array
@@ -469,20 +483,39 @@ class FhirRequest extends FormRequest
 
     public function getAddressDataRules($prefix = null): array
     {
-        return [
-            $prefix . 'use' => ['nullable', 'string', Rule::in(Codesystems::AddressUse['code'])],
-            $prefix . 'type' => ['nullable', 'string', Rule::in(Codesystems::AddressType['code'])],
-            $prefix . 'line' => 'nullable|array',
-            $prefix . 'line.*' => 'nullable|string',
-            $prefix . 'country' => 'nullable|string|max:255',
-            $prefix . 'postal_code' => 'nullable|string|max:255',
-            $prefix . 'province' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_provinsi')],
-            $prefix . 'city' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_kabko')],
-            $prefix . 'district' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_kecamatan')],
-            $prefix . 'village' => ['nullable', Rule::exists(Codesystems::AdministrativeArea['table'], 'kode_kelurahan')],
-            $prefix . 'rt' => 'nullable|integer|gte:0|max_digits:2',
-            $prefix . 'rw' => 'nullable|integer|gte:0|max_digits:2',
-        ];
+        return array_merge(
+            [
+                $prefix . 'use' => ['nullable', 'string', Rule::in(Address::USE['binding']['valueset']['code'])],
+                $prefix . 'type' => ['nullable', 'string', Rule::in(Address::TYPE['binding']['valueset']['code'])],
+                $prefix . 'text' => 'nullable|string',
+                $prefix . 'line' => 'nullable|array',
+                $prefix . 'line.*' => 'sometimes|string',
+                $prefix . 'city' => 'nullable|string',
+                $prefix . 'district' => 'nullable|string',
+                $prefix . 'state' => 'nullable|string',
+                $prefix . 'postal_code' => 'nullable|string',
+                $prefix . 'country' => ['nullable', Rule::exists(Address::COUNTRY['binding']['valueset']['table'])],
+            ],
+            $this->getPeriodDataRules($prefix . 'period.')
+        );
+    }
+
+    public function getHumanNameDataRules($prefix = null): array
+    {
+        return array_merge(
+            [
+                $prefix . 'use' => ['nullable', Rule::in(HumanName::USE['binding']['valueset']['code'])],
+                $prefix . 'text' => 'nullable|string',
+                $prefix . 'family' => 'nullable|string',
+                $prefix . 'given' => 'nullable|array',
+                $prefix . 'given.*' => 'sometimes|string',
+                $prefix . 'prefix' => 'nullable|array',
+                $prefix . 'prefix.*' => 'sometimes|string',
+                $prefix . 'suffix' => 'nullable|array',
+                $prefix . 'suffix.*' => 'sometimes|string',
+            ],
+            $this->getPeriodDataRules($prefix . 'period.')
+        );
     }
 
     public function getPerformedDataRules($prefix = null): array

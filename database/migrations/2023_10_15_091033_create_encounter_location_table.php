@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('encounter_id');
             $table->index('encounter_id');
-            $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
-            $table->string('location');
-            $table->enum('service_class', ['1', '2', '3', 'vip', 'vvip', 'reguler', 'eksekutif'])->nullable();
-            $table->enum('upgrade_class', ['kelas-tetap', 'naik-kelas', 'turun-kelas', 'titip-rawat'])->nullable();
+            $table->foreign('encounter_id')->references('id')->on('encounter');
+            $table->string('status')->nullable();
         });
     }
 

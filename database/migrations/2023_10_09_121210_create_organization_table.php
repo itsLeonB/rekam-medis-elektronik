@@ -16,12 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->boolean('active');
-            $table->json('type')->nullable();
-            $table->string('name');
+            $table->boolean('active')->nullable();
+            // $table->json('type')->nullable();
+            $table->string('name')->nullable();
             $table->json('alias')->nullable();
-            $table->string('part_of')->nullable();
-            $table->json('endpoint')->nullable();
+            // $table->string('part_of')->nullable();
+            // $table->json('endpoint')->nullable();
         });
     }
 

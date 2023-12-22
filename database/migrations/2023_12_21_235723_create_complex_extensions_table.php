@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('complex_extensions', function (Blueprint $table) {
             $table->id();
-            $table->json('extensions');
+            $table->json('extension');
             $table->string('url');
             $table->unsignedBigInteger('complex_extendable_id');
             $table->string('complex_extendable_type');

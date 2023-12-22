@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('encounter_class_history', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('encounter_id');
-            $table->index('encounter_id');
-            $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
+        Schema::create('codesystem_bcp13', function (Blueprint $table) {
+            $table->string('code', 73);
+            $table->string('display', 78);
+            $table->string('extension', 12);
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('encounter_class_history');
+        Schema::dropIfExists('codesystem_bcp13');
     }
 };

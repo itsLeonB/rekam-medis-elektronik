@@ -2,7 +2,12 @@
 
 namespace App\Models\Fhir;
 
-use App\FhirModel;
+use App\Models\Fhir\Resources\Encounter;
+use App\Models\FhirModel;
+use App\Models\Fhir\Resources\Location;
+use App\Models\Fhir\Resources\Organization;
+use App\Models\Fhir\Resources\Patient;
+use App\Models\Fhir\Resources\Practitioner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 

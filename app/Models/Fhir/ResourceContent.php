@@ -3,7 +3,7 @@
 namespace App\Models\Fhir;
 
 
-use App\FhirModel;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ResourceContent extends FhirModel
