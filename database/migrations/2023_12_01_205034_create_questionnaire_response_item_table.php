@@ -16,10 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('questionnaire_id');
             $table->index('questionnaire_id');
             $table->foreign('questionnaire_id')->references('id')->on('questionnaire_response')->onDelete('cascade');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->index('parent_id');
+            $table->string('parent_type')->nullable();
             $table->string('link_id');
             $table->string('definition')->nullable();
             $table->string('text')->nullable();
-            $table->json('item')->nullable();
         });
     }
 

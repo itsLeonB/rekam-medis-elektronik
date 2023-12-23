@@ -1,13 +1,26 @@
 <?php
 
-namespace App\Models\Fhir;
+namespace App\Models\Fhir\Resources;
 
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
-use App\FhirModel;
+use App\Models\Fhir\BackboneElements\ConditionEvidence;
+use App\Models\Fhir\BackboneElements\ConditionStage;
+use App\Models\Fhir\Datatypes\Age;
+use App\Models\Fhir\Datatypes\Annotation;
+use App\Models\Fhir\Datatypes\CodeableConcept;
+use App\Models\Fhir\Datatypes\Identifier;
+use App\Models\Fhir\Datatypes\Period;
+use App\Models\Fhir\Datatypes\Range;
+use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Resource;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 class Condition extends FhirModel
 {
@@ -20,10 +33,10 @@ class Condition extends FhirModel
         static::created(function ($condition) {
             $orgId = config('app.organization_id');
 
-            $identifier = new ConditionIdentifier();
+            $identifier = new Identifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/condition/' . $orgId;
             $identifier->use = 'official';
-            $identifier->value = $condition->identifier()->max('value') + 1;
+            $identifier->value = Str::uuid();
 
             // Save the identifier through the relationship
             $condition->identifier()->save($identifier);
@@ -72,10 +85,8 @@ class Condition extends FhirModel
 
     protected $table = 'condition';
     protected $casts = [
-        'category' => 'array',
-        'body_site' => 'array',
-        'onset' => 'array',
-        'abatement' => 'array',
+        'onset_date_time' => 'datetime',
+        'abatement_date_time' => 'datetime',
         'recorded_date' => 'datetime'
     ];
     public $timestamps = false;
@@ -86,9 +97,105 @@ class Condition extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): HasMany
+    public function identifier(): MorphMany
     {
-        return $this->hasMany(ConditionIdentifier::class);
+        return $this->morphMany(Identifier::class, 'identifiable');
+    }
+
+    public function clinicalStatus(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'clinicalStatus');
+    }
+
+    public function verificationStatus(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'verificationStatus');
+    }
+
+    public function category(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'category');
+    }
+
+    public function severity(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'severity');
+    }
+
+    public function code(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'code');
+    }
+
+    public function bodySite(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'bodySite');
+    }
+
+    public function subject(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'subject');
+    }
+
+    public function encounter(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'encounter');
+    }
+
+    public function onsetAge(): MorphOne
+    {
+        return $this->morphOne(Age::class, 'ageable')
+            ->where('attr_type', 'onsetAge');
+    }
+
+    public function onsetPeriod(): MorphOne
+    {
+        return $this->morphOne(Period::class, 'periodable')
+            ->where('attr_type', 'onsetPeriod');
+    }
+
+    public function onsetRange(): MorphOne
+    {
+        return $this->morphOne(Range::class, 'rangeable')
+            ->where('attr_type', 'onsetRange');
+    }
+
+    public function abatementAge(): MorphOne
+    {
+        return $this->morphOne(Age::class, 'ageable')
+            ->where('attr_type', 'abatementAge');
+    }
+
+    public function abatementPeriod(): MorphOne
+    {
+        return $this->morphOne(Period::class, 'periodable')
+            ->where('attr_type', 'abatementPeriod');
+    }
+
+    public function abatementRange(): MorphOne
+    {
+        return $this->morphOne(Range::class, 'rangeable')
+            ->where('attr_type', 'abatementRange');
+    }
+
+    public function recorder(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'recorder');
+    }
+
+    public function asserter(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'asserter');
     }
 
     public function stage(): HasMany
@@ -101,8 +208,8 @@ class Condition extends FhirModel
         return $this->hasMany(ConditionEvidence::class);
     }
 
-    public function note(): HasMany
+    public function note(): MorphMany
     {
-        return $this->hasMany(ConditionNote::class);
+        return $this->morphMany(Annotation::class, 'annotable');
     }
 }

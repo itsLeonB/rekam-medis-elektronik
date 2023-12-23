@@ -17,7 +17,6 @@ return new class extends Migration
             $table->index('composition_id');
             $table->foreign('composition_id')->references('id')->on('composition')->onDelete('cascade');
             $table->enum('code', ['replaces', 'transforms', 'signs', 'append']);
-            $table->json('target');
         });
     }
 

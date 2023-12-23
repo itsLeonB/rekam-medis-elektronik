@@ -16,18 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->string('identifier_system')->nullable();
-            $table->enum('identifier_use', ['usual', 'official', 'temp', 'secondary', 'old'])->nullable();
-            $table->string('identifier_value')->nullable();
-            $table->json('based_on')->nullable();
-            $table->json('part_of')->nullable();
             $table->string('questionnaire')->nullable();
-            $table->string('status')->nullable();
-            $table->string('subject')->nullable();
-            $table->string('encounter')->nullable();
+            $table->string('status');
             $table->dateTime('authored')->nullable();
-            $table->string('author')->nullable();
-            $table->string('source')->nullable();
         });
     }
 

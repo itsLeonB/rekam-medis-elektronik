@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreign('composition_id')->references('id')->on('composition')->onDelete('cascade');
             $table->enum('mode', ['personal', 'professional', 'legal', 'official']);
             $table->dateTime('time')->nullable();
-            $table->string('party')->nullable();
         });
     }
 

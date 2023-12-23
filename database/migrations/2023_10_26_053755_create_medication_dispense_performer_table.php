@@ -16,8 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('dispense_id');
             $table->index('dispense_id');
             $table->foreign('dispense_id')->references('id')->on('medication_dispense')->onDelete('cascade');
-            $table->string('function')->nullable();
-            $table->string('actor');
         });
     }
 

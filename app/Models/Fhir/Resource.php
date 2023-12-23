@@ -2,12 +2,17 @@
 
 namespace App\Models\Fhir;
 
+use App\Models\Fhir\Resources\Condition;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\FhirModel;
 use App\Models\Fhir\Resources\Location;
+use App\Models\Fhir\Resources\Medication;
+use App\Models\Fhir\Resources\MedicationRequest;
+use App\Models\Fhir\Resources\Observation;
 use App\Models\Fhir\Resources\Organization;
 use App\Models\Fhir\Resources\Patient;
 use App\Models\Fhir\Resources\Practitioner;
+use App\Models\Fhir\Resources\Procedure;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -73,9 +78,9 @@ class Resource extends FhirModel
         return $this->hasMany(Procedure::class);
     }
 
-    public function serviceRequest(): HasMany
+    public function medication(): HasMany
     {
-        return $this->hasMany(ServiceRequest::class);
+        return $this->hasMany(Medication::class);
     }
 
     public function medicationRequest(): HasMany
@@ -83,9 +88,9 @@ class Resource extends FhirModel
         return $this->hasMany(MedicationRequest::class);
     }
 
-    public function medication(): HasMany
+    public function serviceRequest(): HasMany
     {
-        return $this->hasMany(Medication::class);
+        return $this->hasMany(ServiceRequest::class);
     }
 
     public function medicationDispense(): HasMany

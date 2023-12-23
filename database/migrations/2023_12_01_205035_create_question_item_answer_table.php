@@ -16,8 +16,14 @@ return new class extends Migration
             $table->unsignedBigInteger('question_item_id');
             $table->index('question_item_id');
             $table->foreign('question_item_id')->references('id')->on('questionnaire_response_item')->onDelete('cascade');
-            $table->json('value')->nullable();
-            $table->json('item')->nullable();
+            $table->boolean('value_boolean')->nullable();
+            $table->decimal('value_decimal')->nullable();
+            $table->integer('value_integer')->nullable();
+            $table->date('value_date')->nullable();
+            $table->dateTime('value_date_time')->nullable();
+            $table->time('value_time')->nullable();
+            $table->string('value_string')->nullable();
+            $table->string('value_uri')->nullable();
         });
     }
 
