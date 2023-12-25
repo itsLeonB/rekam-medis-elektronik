@@ -34,6 +34,12 @@ class AppServiceProvider extends ServiceProvider
             'Procedure' => 'App\Models\Fhir\Resources\Procedure',
             'Medication' => 'App\Models\Fhir\Resources\Medication',
             'MedicationRequest' => 'App\Models\Fhir\Resources\MedicationRequest',
+            'Composition' => 'App\Models\Fhir\Resources\Composition',
+            'AllergyIntolerance' => 'App\Models\Fhir\Resources\AllergyIntolerance',
+            'ClinicalImpression' => 'App\Models\Fhir\Resources\ClinicalImpression',
+            'ServiceRequest' => 'App\Models\Fhir\Resources\ServiceRequest',
+            'MedicationStatement' => 'App\Models\Fhir\Resources\MedicationStatement',
+            'QuestionnaireResponse' => 'App\Models\Fhir\Resources\QuestionnaireResponse',
         ];
 
         $fhirDatatypes = [
@@ -51,6 +57,7 @@ class AppServiceProvider extends ServiceProvider
             'Extension' => 'App\Models\Fhir\Datatypes\Extension',
             'HumanName' => 'App\Models\Fhir\Datatypes\HumanName',
             'Identifier' => 'App\Models\Fhir\Datatypes\Identifier',
+            'Narrative' => 'App\Models\Fhir\Datatypes\Narrative',
             'Period' => 'App\Models\Fhir\Datatypes\Period',
             'Quantity' => 'App\Models\Fhir\Datatypes\Quantity',
             'Range' => 'App\Models\Fhir\Datatypes\Range',
@@ -63,6 +70,13 @@ class AppServiceProvider extends ServiceProvider
         ];
 
         $fhirBackboneElements = [
+            'AllergyIntoleranceReaction' => 'App\Models\Fhir\BackboneElements\AllergyIntoleranceReaction',
+            'ClinicalImpressionFinding' => 'App\Models\Fhir\BackboneElements\ClinicalImpressionFinding',
+            'ClinicalImpressionInvestigation' => 'App\Models\Fhir\BackboneElements\ClinicalImpressionInvestigation',
+            'CompositionAttester' => 'App\Models\Fhir\BackboneElements\CompositionAttester',
+            'CompositionEvent' => 'App\Models\Fhir\BackboneElements\CompositionEvent',
+            'CompositionRelatesTo' => 'App\Models\Fhir\BackboneElements\CompositionRelatesTo',
+            'CompositionSection' => 'App\Models\Fhir\BackboneElements\CompositionSection',
             'ConditionEvidence' => 'App\Models\Fhir\BackboneElements\ConditionEvidence',
             'ConditionStage' => 'App\Models\Fhir\BackboneElements\ConditionStage',
             'EncounterClassHistory' => 'App\Models\Fhir\BackboneElements\EncounterClassHistory',
@@ -88,6 +102,8 @@ class AppServiceProvider extends ServiceProvider
             'PractitionerQualification' => 'App\Models\Fhir\BackboneElements\PractitionerQualification',
             'ProcedureFocalDevice' => 'App\Models\Fhir\BackboneElements\ProcedureFocalDevice',
             'ProcedurePerformer' => 'App\Models\Fhir\BackboneElements\ProcedurePerformer',
+            'QuestionnaireResponseItem' => 'App\Models\Fhir\BackboneElements\QuestionnaireResponseItem',
+            'QuestionnaireResponseItemAnswer' => 'App\Models\Fhir\BackboneElements\QuestionnaireResponseItemAnswer',
         ];
 
         Relation::enforceMorphMap(

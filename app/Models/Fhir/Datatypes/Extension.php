@@ -11,7 +11,14 @@ class Extension extends FhirModel
 {
     use HasFactory;
 
-    protected $with = ['valueAddress', 'valueAge', 'valueAnnotation', 'valueAttachment', 'valueCodeableConcept', 'valueCoding', 'valueContactPoint', 'valueCount', 'valueDistance', 'valueDuration', 'valueHumanName', 'valueIdentifier', 'valueMoney', 'valuePeriod', 'valueQuantity', 'valueRange', 'valueRatio', 'valueSampledData', 'valueSignature', 'valueTiming', 'valueContactDetail', 'valueContributor', 'valueDataRequirement', 'valueExpression', 'valueParameterDefinition', 'valueRelatedArtifact', 'valueTriggerDefinition', 'valueUsageContext', 'valueDosage', 'valueMeta', 'valueReference'];
+    protected $casts = [
+        'value_boolean' => 'boolean',
+        'value_date' => 'date',
+        'value_date_time' => 'datetime',
+        'value_decimal' => 'decimal:2',
+        'value_instant' => 'datetime',
+        'value_time' => 'datetime',
+    ];
 
     public function extendable(): MorphTo
     {

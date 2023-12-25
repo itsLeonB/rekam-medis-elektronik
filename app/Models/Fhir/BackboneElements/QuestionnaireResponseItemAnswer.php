@@ -1,23 +1,58 @@
 <?php
 
-namespace App\Models\Fhir;
+namespace App\Models\Fhir\BackboneElements;
 
 use App\Fhir\Valuesets;
-use App\FhirModel;
+use App\Models\Fhir\Datatypes\Attachment;
+use App\Models\Fhir\Datatypes\Coding;
+use App\Models\Fhir\Datatypes\Quantity;
+use App\Models\Fhir\Datatypes\Reference;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class QuestionnaireResponseItemAnswer extends FhirModel
 {
     protected $table = 'question_item_answer';
+
     public $timestamps = false;
     protected $casts = [
-        'value' => 'array',
-        'item' => 'array'
+        'value_boolean' => 'boolean',
+        'value_decimal' => 'decimal:2',
+        'value_date' => 'date',
+        'value_date_time' => 'datetime',
+        'value_time' => 'datetime'
     ];
 
-    public function item(): BelongsTo
+    public function parentItem(): BelongsTo
     {
         return $this->belongsTo(QuestionnaireResponseItem::class, 'question_item_id');
+    }
+
+    public function valueAttachment(): MorphOne
+    {
+        return $this->morphOne(Attachment::class, 'attachable');
+    }
+
+    public function valueCoding(): MorphOne
+    {
+        return $this->morphOne(Coding::class, 'codeable');
+    }
+
+    public function valueQuantity(): MorphOne
+    {
+        return $this->morphOne(Quantity::class, 'quantifiable');
+    }
+
+    public function valueReference(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable');
+    }
+
+    public function item(): HasMany
+    {
+        return $this->hasMany(QuestionnaireResponseItem::class, 'parent_id');
     }
 
     public const VALUE = [

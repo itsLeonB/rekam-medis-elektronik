@@ -34,16 +34,15 @@ class Patient extends FhirModel
     use HasFactory;
 
     protected $table = 'patient';
+
     protected $casts = [
         'active' => 'boolean',
         'birth_date' => 'date',
         'deceased_boolean' => 'boolean',
         'deceased_datetime' => 'datetime',
         'multiple_birth_boolean' => 'boolean',
-        'multiple_birth_integer' => 'integer',
-        // 'general_practitioner' => 'array'
+        'multiple_birth_integer' => 'integer'
     ];
-    protected $with = ['identifier', 'name', 'telecom', 'address', 'photo', 'contact', 'communication', 'link'];
 
     public $timestamps = false;
 
@@ -52,43 +51,34 @@ class Patient extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): MorphMany //HasMany
+    public function identifier(): MorphMany
     {
-        // return $this->hasMany(PatientIdentifier::class);
         return $this->morphMany(Identifier::class, 'identifiable');
     }
 
-    public function name(): MorphMany //HasMany
+    public function name(): MorphMany
     {
-        // return $this->hasMany(PatientName::class);
         return $this->morphMany(HumanName::class, 'human_nameable');
     }
 
-    public function telecom(): MorphMany //HasMany
+    public function telecom(): MorphMany
     {
-        // return $this->hasMany(PatientTelecom::class);
         return $this->morphMany(ContactPoint::class, 'contact_pointable');
     }
 
-    public function address(): MorphMany //HasMany
+    public function address(): MorphMany
     {
-        // return $this->hasMany(PatientAddress::class);
         return $this->morphMany(Address::class, 'addressable');
     }
 
-    public function codeableConcepts(): MorphMany
+    public function maritalStatus(): MorphOne
     {
-        return $this->morphMany(CodeableConcept::class, 'codeable');
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'marital_status');
     }
 
-    public function maritalStatus()
+    public function photo(): MorphMany
     {
-        return $this->codeableConcepts()->where('attr_type', 'marital_status');
-    }
-
-    public function photo(): MorphMany //HasMany
-    {
-        // return $this->hasMany(PatientPhoto::class);
         return $this->morphMany(Attachment::class, 'attachable');
     }
 
@@ -102,19 +92,16 @@ class Patient extends FhirModel
         return $this->hasMany(PatientCommunication::class);
     }
 
-    public function references(): MorphMany
+    public function generalPractitioner(): MorphMany
     {
-        return $this->morphMany(Reference::class, 'referenceable');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'generalPractitioner');
     }
 
-    public function generalPractitioner()
+    public function managingOrganization(): MorphOne
     {
-        return $this->references()->where('attr_type', 'generalPractitioner');
-    }
-
-    public function managingOrganization()
-    {
-        return $this->references()->where('attr_type', 'managingOrganization');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'managingOrganization');
     }
 
     public function link(): HasMany
@@ -122,14 +109,10 @@ class Patient extends FhirModel
         return $this->hasMany(PatientLink::class);
     }
 
-    public function extensions(): MorphMany
+    public function birthPlace(): MorphOne
     {
-        return $this->morphMany(Extension::class, 'extendable');
-    }
-
-    public function birthPlace()
-    {
-        return $this->extensions()->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace');
+        return $this->morphOne(Extension::class, 'extendable')
+            ->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace');
     }
 
     public function citizenship(): MorphOne
@@ -137,14 +120,22 @@ class Patient extends FhirModel
         return $this->morphOne(ComplexExtension::class, 'extendable');
     }
 
-    public function religion()
+    public function religion(): MorphOne
     {
-        return $this->extensions()->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/patient-religion');
+        return $this->morphOne(Extension::class, 'extendable')
+            ->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/patient-religion');
     }
 
-    public function citizenshipStatus()
+    public function citizenshipStatus(): MorphOne
     {
-        return $this->extensions()->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/citizenshipStatus');
+        return $this->morphOne(Extension::class, 'extendable')
+            ->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/citizenshipStatus');
+    }
+
+    public function extendedBirthDate(): MorphOne
+    {
+        return $this->morphOne(Extension::class, 'extendable')
+            ->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/patient-birthTime');
     }
 
     public const GENDER = [

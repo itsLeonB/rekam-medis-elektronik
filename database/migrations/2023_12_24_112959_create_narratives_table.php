@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('medication_dispense_substitution', function (Blueprint $table) {
+        Schema::create('narratives', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('dispense_id');
-            $table->index('dispense_id');
-            $table->foreign('dispense_id')->references('id')->on('medication_dispense');
-            $table->boolean('was_substituted');
+            $table->string('status');
+            $table->string('div');
+            $table->unsignedBigInteger('narrateable_id');
+            $table->string('narrateable_type');
+            $table->string('attr_type')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medication_dispense_substitution');
+        Schema::dropIfExists('narratives');
     }
 };

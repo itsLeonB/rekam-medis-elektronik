@@ -1,13 +1,25 @@
 <?php
 
-namespace App\Models\Fhir;
+namespace App\Models\Fhir\Resources;
 
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
-use App\FhirModel;
+use App\Models\Fhir\Datatypes\Annotation;
+use App\Models\Fhir\Datatypes\CodeableConcept;
+use App\Models\Fhir\Datatypes\Identifier;
+use App\Models\Fhir\Datatypes\Period;
+use App\Models\Fhir\Datatypes\Quantity;
+use App\Models\Fhir\Datatypes\Range;
+use App\Models\Fhir\Datatypes\Ratio;
+use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Datatypes\Timing;
+use App\Models\Fhir\Resource;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 class ServiceRequest extends FhirModel
 {
@@ -20,10 +32,10 @@ class ServiceRequest extends FhirModel
         static::created(function ($serviceRequest) {
             $orgId = config('app.organization_id');
 
-            $identifier = new ServiceRequestIdentifier();
+            $identifier = new Identifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId;
             $identifier->use = 'official';
-            $identifier->value = $serviceRequest->identifier()->max('value') + 1;
+            $identifier->value = Str::uuid();
 
             // Save the identifier through the relationship
             $serviceRequest->identifier()->save($identifier);
@@ -31,27 +43,16 @@ class ServiceRequest extends FhirModel
     }
 
     protected $table = 'service_request';
+
     protected $casts = [
-        'based_on' => 'array',
-        'replaces' => 'array',
-        'category' => 'array',
+        'instantiates_canonical' => 'array',
+        'instantiates_uri' => 'array',
         'do_not_perform' => 'boolean',
-        'order_detail' => 'array',
-        'quantity' => 'array',
-        'occurrence' => 'array',
-        'as_needed' => 'array',
+        'occurrence_date_time' => 'datetime',
+        'as_needed_boolean' => 'boolean',
         'authored_on' => 'datetime',
-        'performer' => 'array',
-        'location_code' => 'array',
-        'location_reference' => 'array',
-        'reason_code' => 'array',
-        'reason_reference' => 'array',
-        'insurance' => 'array',
-        'supporting_info' => 'array',
-        'specimen' => 'array',
-        'body_site' => 'array',
-        'relevant_history' => 'array',
     ];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo
@@ -59,14 +60,171 @@ class ServiceRequest extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): HasMany
+    public function identifier(): MorphMany
     {
-        return $this->hasMany(ServiceRequestIdentifier::class, 'request_id');
+        return $this->morphMany(Identifier::class, 'identifiable')
+            ->where('attr_type', 'identifier');
     }
 
-    public function note(): HasMany
+    public function basedOn(): MorphMany
     {
-        return $this->hasMany(ServiceRequestNote::class, 'request_id');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'basedOn');
+    }
+
+    public function replaces(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'replaces');
+    }
+
+    public function requisition(): MorphOne
+    {
+        return $this->morphOne(Identifier::class, 'identifiable')
+            ->where('attr_type', 'requisition');
+    }
+
+    public function category(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'category');
+    }
+
+    public function code(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'code');
+    }
+
+    public function orderDetail(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'orderDetail');
+    }
+
+    public function quantityQuantity(): MorphOne
+    {
+        return $this->morphOne(Quantity::class, 'quantifiable')
+            ->where('attr_type', 'quantityQuantity');
+    }
+
+    public function quantityRatio(): MorphOne
+    {
+        return $this->morphOne(Ratio::class, 'rateable')
+            ->where('attr_type', 'quantityRatio');
+    }
+
+    public function quantityRange(): MorphOne
+    {
+        return $this->morphOne(Range::class, 'rangeable')
+            ->where('attr_type', 'quantityRange');
+    }
+
+    public function subject(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'subject');
+    }
+
+    public function encounter(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'encounter');
+    }
+
+    public function occurrencePeriod(): MorphOne
+    {
+        return $this->morphOne(Period::class, 'periodable')
+            ->where('attr_type', 'occurrencePeriod');
+    }
+
+    public function occurrenceTiming(): MorphOne
+    {
+        return $this->morphOne(Timing::class, 'timeable')
+            ->where('attr_type', 'occurrenceTiming');
+    }
+
+    public function asNeededCodeableConcept(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'asNeededCodeableConcept');
+    }
+
+    public function requester(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'requester');
+    }
+
+    public function performerType(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'performerType');
+    }
+
+    public function performer(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'performer');
+    }
+
+    public function locationCode(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'locationCode');
+    }
+
+    public function locationReference(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'locationReference');
+    }
+
+    public function reasonCode(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'reasonCode');
+    }
+
+    public function reasonReference(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'reasonReference');
+    }
+
+    public function insurance(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'insurance');
+    }
+
+    public function supportingInfo(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'supportingInfo');
+    }
+
+    public function specimen(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'specimen');
+    }
+
+    public function bodySite(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'bodySite');
+    }
+
+    public function note(): MorphMany
+    {
+        return $this->morphMany(Annotation::class, 'annotable');
+    }
+
+    public function relevantHistory(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'relevantHistory');
     }
 
     public const STATUS = [

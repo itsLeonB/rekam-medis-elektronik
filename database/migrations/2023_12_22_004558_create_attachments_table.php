@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('content_type')->nullable();
             $table->string('language')->nullable();
-            $table->string('data')->nullable();
+            $table->text('data')->nullable();
             $table->string('url')->nullable();
             $table->unsignedInteger('size')->nullable();
-            $table->string('hash')->nullable();
+            $table->text('hash')->nullable();
             $table->string('title')->nullable();
             $table->dateTime('creation')->nullable();
             $table->unsignedBigInteger('attachable_id');

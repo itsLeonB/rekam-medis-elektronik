@@ -2,17 +2,23 @@
 
 namespace App\Models\Fhir;
 
+use App\Models\Fhir\Resources\AllergyIntolerance;
+use App\Models\Fhir\Resources\ClinicalImpression;
+use App\Models\Fhir\Resources\Composition;
 use App\Models\Fhir\Resources\Condition;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\FhirModel;
 use App\Models\Fhir\Resources\Location;
 use App\Models\Fhir\Resources\Medication;
 use App\Models\Fhir\Resources\MedicationRequest;
+use App\Models\Fhir\Resources\MedicationStatement;
 use App\Models\Fhir\Resources\Observation;
 use App\Models\Fhir\Resources\Organization;
 use App\Models\Fhir\Resources\Patient;
 use App\Models\Fhir\Resources\Practitioner;
 use App\Models\Fhir\Resources\Procedure;
+use App\Models\Fhir\Resources\QuestionnaireResponse;
+use App\Models\Fhir\Resources\ServiceRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -21,7 +27,7 @@ class Resource extends FhirModel
     use HasFactory;
 
     const VALID_RESOURCE_TYPES = [
-        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'medicationdispense', 'composition', 'allergyintolerance', 'clinicalimpression', 'medicationstatement', 'questionnaireresponse'
+        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'composition', 'allergyintolerance', 'clinicalimpression', 'medicationstatement', 'questionnaireresponse'
     ];
 
     protected $table = 'resource';
@@ -88,16 +94,6 @@ class Resource extends FhirModel
         return $this->hasMany(MedicationRequest::class);
     }
 
-    public function serviceRequest(): HasMany
-    {
-        return $this->hasMany(ServiceRequest::class);
-    }
-
-    public function medicationDispense(): HasMany
-    {
-        return $this->hasMany(MedicationDispense::class);
-    }
-
     public function composition(): HasMany
     {
         return $this->hasMany(Composition::class);
@@ -111,6 +107,11 @@ class Resource extends FhirModel
     public function clinicalImpression(): HasMany
     {
         return $this->hasMany(ClinicalImpression::class);
+    }
+
+    public function serviceRequest(): HasMany
+    {
+        return $this->hasMany(ServiceRequest::class);
     }
 
     public function medicationStatement(): HasMany

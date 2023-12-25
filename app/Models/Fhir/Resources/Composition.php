@@ -1,24 +1,34 @@
 <?php
 
-namespace App\Models\Fhir;
+namespace App\Models\Fhir\Resources;
 
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
-use App\FhirModel;
+use App\Models\Fhir\BackboneElements\CompositionAttester;
+use App\Models\Fhir\BackboneElements\CompositionEvent;
+use App\Models\Fhir\BackboneElements\CompositionRelatesTo;
+use App\Models\Fhir\BackboneElements\CompositionSection;
+use App\Models\Fhir\Datatypes\CodeableConcept;
+use App\Models\Fhir\Datatypes\ComplexExtension;
+use App\Models\Fhir\Datatypes\Identifier;
+use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Resource;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 class Composition extends FhirModel
 {
     use HasFactory;
 
     protected $table = 'composition';
-    protected $casts = [
-        'category' => 'array',
-        'date' => 'datetime',
-        'author' => 'array',
-    ];
+
+    protected $casts = ['date' => 'datetime'];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo
@@ -26,9 +36,50 @@ class Composition extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
+    public function identifier(): MorphOne
+    {
+        return $this->morphOne(Identifier::class, 'identifiable');
+    }
+
+    public function type(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'type');
+    }
+
+    public function category(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'category');
+    }
+
+    public function subject(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'subject');
+    }
+
+    public function encounter(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'encounter');
+    }
+
+    public function author(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'author');
+    }
+
     public function attester(): HasMany
     {
         return $this->hasMany(CompositionAttester::class);
+    }
+
+    public function custodian(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'custodian');
     }
 
     public function relatesTo(): HasMany
@@ -46,15 +97,23 @@ class Composition extends FhirModel
         return $this->hasMany(CompositionSection::class);
     }
 
+    public function documentStatus(): MorphOne
+    {
+        return $this->morphOne(ComplexExtension::class, 'complex_extendable')
+            ->where('attr_url', 'http://hl7.org/fhir/StructureDefinition/composition-status');
+    }
+
     protected static function boot()
     {
         parent::boot();
 
-        static::creating(function ($composition) {
+        static::created(function ($composition) {
             $orgId = config('app.organization_id');
-            $composition->identifier_system = 'http://sys-ids.kemkes.go.id/composition/' . $orgId;
-            $composition->identifier_use = 'official';
-            $composition->identifier_value = $composition->max('identifier_value') + 1;
+            $identifier = new Identifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/composition/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = Str::uuid();
+            $composition->identifier()->save($identifier);
         });
     }
 

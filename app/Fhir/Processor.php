@@ -2,68 +2,781 @@
 
 namespace App\Fhir;
 
-use App\Models\Fhir\BackboneElements\ConditionEvidence;
-use App\Models\Fhir\BackboneElements\ConditionStage;
-use App\Models\Fhir\BackboneElements\EncounterClassHistory;
-use App\Models\Fhir\BackboneElements\EncounterHospitalization;
-use App\Models\Fhir\BackboneElements\EncounterLocation;
-use App\Models\Fhir\BackboneElements\EncounterParticipant;
-use App\Models\Fhir\BackboneElements\EncounterStatusHistory;
-use App\Models\Fhir\BackboneElements\LocationHoursOfOperation;
-use App\Models\Fhir\BackboneElements\LocationPosition;
-use App\Models\Fhir\BackboneElements\MedicationBatch;
-use App\Models\Fhir\BackboneElements\MedicationIngredient;
-use App\Models\Fhir\BackboneElements\MedicationRequestDispenseRequest;
-use App\Models\Fhir\BackboneElements\MedicationRequestDispenseRequestInitialFill;
-use App\Models\Fhir\BackboneElements\MedicationRequestSubstitution;
-use App\Models\Fhir\BackboneElements\ObservationComponent;
-use App\Models\Fhir\BackboneElements\ObservationReferenceRange;
-use App\Models\Fhir\BackboneElements\OrganizationContact;
-use App\Models\Fhir\BackboneElements\PatientCommunication;
-use App\Models\Fhir\BackboneElements\PatientContact;
-use App\Models\Fhir\BackboneElements\PatientLink;
-use App\Models\Fhir\BackboneElements\PractitionerQualification;
-use App\Models\Fhir\BackboneElements\ProcedureFocalDevice;
-use App\Models\Fhir\BackboneElements\ProcedurePerformer;
-use App\Models\Fhir\Datatypes\Address;
-use App\Models\Fhir\Datatypes\Age;
-use App\Models\Fhir\Datatypes\Annotation;
-use App\Models\Fhir\Datatypes\Attachment;
-use App\Models\Fhir\Datatypes\CodeableConcept;
-use App\Models\Fhir\Datatypes\Coding;
-use App\Models\Fhir\Datatypes\ComplexExtension;
-use App\Models\Fhir\Datatypes\ContactPoint;
-use App\Models\Fhir\Datatypes\Dosage;
-use App\Models\Fhir\Datatypes\DoseAndRate;
-use App\Models\Fhir\Datatypes\Duration;
-use App\Models\Fhir\Datatypes\Extension;
-use App\Models\Fhir\Datatypes\HumanName;
-use App\Models\Fhir\Datatypes\Identifier;
-use App\Models\Fhir\Datatypes\Period;
-use App\Models\Fhir\Datatypes\Quantity;
-use App\Models\Fhir\Datatypes\Range;
-use App\Models\Fhir\Datatypes\Ratio;
-use App\Models\Fhir\Datatypes\Reference;
-use App\Models\Fhir\Datatypes\SampledData;
-use App\Models\Fhir\Datatypes\SimpleQuantity;
-use App\Models\Fhir\Datatypes\Timing;
-use App\Models\Fhir\Datatypes\TimingRepeat;
+use App\Models\Fhir\BackboneElements\{
+    AllergyIntoleranceReaction,
+    ClinicalImpressionFinding,
+    ClinicalImpressionInvestigation,
+    CompositionAttester,
+    CompositionEvent,
+    CompositionRelatesTo,
+    CompositionSection,
+    ConditionEvidence,
+    ConditionStage,
+    EncounterClassHistory,
+    EncounterDiagnosis,
+    EncounterHospitalization,
+    EncounterLocation,
+    EncounterParticipant,
+    EncounterStatusHistory,
+    LocationHoursOfOperation,
+    LocationPosition,
+    MedicationBatch,
+    MedicationIngredient,
+    MedicationRequestDispenseRequest,
+    MedicationRequestDispenseRequestInitialFill,
+    MedicationRequestSubstitution,
+    ObservationComponent,
+    ObservationComponentReferenceRange,
+    ObservationReferenceRange,
+    OrganizationContact,
+    PatientCommunication,
+    PatientContact,
+    PatientLink,
+    PractitionerQualification,
+    ProcedureFocalDevice,
+    ProcedurePerformer,
+    QuestionnaireResponseItem,
+    QuestionnaireResponseItemAnswer
+};
+use App\Models\Fhir\Datatypes\{
+    Address,
+    Age,
+    Annotation,
+    Attachment,
+    CodeableConcept,
+    Coding,
+    ComplexExtension,
+    ContactPoint,
+    Dosage,
+    DoseAndRate,
+    Duration,
+    Extension,
+    HumanName,
+    Identifier,
+    Narrative,
+    Period,
+    Quantity,
+    Range,
+    Ratio,
+    Reference,
+    SampledData,
+    SimpleQuantity,
+    Timing,
+    TimingRepeat
+};
 use App\Models\Fhir\Resource;
-use App\Models\Fhir\Resources\Condition;
-use App\Models\Fhir\Resources\Encounter;
-use App\Models\Fhir\Resources\Location;
-use App\Models\Fhir\Resources\Medication;
-use App\Models\Fhir\Resources\MedicationRequest;
-use App\Models\Fhir\Resources\Observation;
-use App\Models\Fhir\Resources\Organization;
-use App\Models\Fhir\Resources\Patient;
-use App\Models\Fhir\Resources\Practitioner;
-use App\Models\Fhir\Resources\Procedure;
+use App\Models\Fhir\Resources\{
+    AllergyIntolerance,
+    ClinicalImpression,
+    Composition,
+    Condition,
+    Encounter,
+    Location,
+    Medication,
+    MedicationRequest,
+    MedicationStatement,
+    Observation,
+    Organization,
+    Patient,
+    Practitioner,
+    Procedure,
+    QuestionnaireResponse,
+    ServiceRequest
+};
 use Exception;
 use Illuminate\Support\Facades\Log;
 
 class Processor
 {
+    public function saveQuestionnaireResponse(Resource $resource, $array): QuestionnaireResponse
+    {
+        if (!empty($array)) {
+            $questionnaireResponse = $resource->questionnaireResponse()->save($array['questionnaireResponse'] ?? null);
+            $this->saveIdentifier($questionnaireResponse, 'identifier', $array['identifier'] ?? null);
+            $this->saveMany($questionnaireResponse, 'basedOn', $array['basedOn'] ?? null, 'saveReference');
+            $this->saveMany($questionnaireResponse, 'partOf', $array['partOf'] ?? null, 'saveReference');
+            $this->saveReference($questionnaireResponse, 'subject', $array['subject'] ?? null);
+            $this->saveReference($questionnaireResponse, 'encounter', $array['encounter'] ?? null);
+            $this->saveReference($questionnaireResponse, 'author', $array['author'] ?? null);
+            $this->saveReference($questionnaireResponse, 'source', $array['source'] ?? null);
+            $this->saveMany($questionnaireResponse, 'item', $array['item'] ?? null, 'saveItem');
+
+            return $questionnaireResponse;
+        }
+    }
+
+    public function generateQuestionnaireResponse($jsonData): array
+    {
+        $array = $this->readJsonResource($jsonData);
+
+        $questionnaireResponse = new QuestionnaireResponse([
+            'questionnaire' => $array['questionnaire'] ?? null,
+            'status' => $array['status'] ?? null,
+            'authored' => $array['authored'] ?? null
+        ]);
+
+        $identifier = $this->generateIdentifier('identifier', $array['identifier'] ?? null);
+        $basedOn = $this->hasMany('basedOn', $array['basedOn'] ?? null, 'generateReference');
+        $partOf = $this->hasMany('partOf', $array['partOf'] ?? null, 'generateReference');
+        $subject = $this->generateReference('subject', $array['subject'] ?? null);
+        $encounter = $this->generateReference('encounter', $array['encounter'] ?? null);
+        $author = $this->generateReference('author', $array['author'] ?? null);
+        $source = $this->generateReference('source', $array['source'] ?? null);
+        $item = $this->hasMany('item', $array['item'] ?? null, 'generateItem');
+
+        return [
+            'questionnaireResponse' => $questionnaireResponse,
+            'identifier' => $identifier ?? null,
+            'basedOn' => $basedOn ?? null,
+            'partOf' => $partOf ?? null,
+            'subject' => $subject ?? null,
+            'encounter' => $encounter ?? null,
+            'author' => $author ?? null,
+            'source' => $source ?? null,
+            'item' => $item ?? null
+        ];
+    }
+
+    private function saveItem($parent, $attribute, $array)
+    {
+        if (!empty($array)) {
+            $item = $parent->$attribute()->save($array['item'] ?? null);
+
+            if (!empty($array['answer'])) {
+                foreach ($array['answer'] as $a) {
+                    $answer = $item->answer()->save($a['answer'] ?? null);
+                    $this->saveAttachment($answer, 'valueAttachment', $a['valueAttachment'] ?? null);
+                    $this->saveCoding($answer, 'valueCoding', $a['valueCoding'] ?? null);
+                    $this->saveQuantity($answer, 'valueQuantity', $a['valueQuantity'] ?? null);
+                    $this->saveReference($answer, 'valueReference', $a['valueReference'] ?? null);
+                    $this->saveMany($answer, 'item', $a['item'] ?? null, 'saveItem');
+                }
+            }
+
+            $this->saveMany($item, 'item', $array['childItem'] ?? null, 'saveItem');
+        }
+    }
+
+    private function generateItem($attribute, $array): array
+    {
+        if (!empty($array)) {
+            $item = new QuestionnaireResponseItem([
+                'link_id' => $array['linkId'] ?? null,
+                'definition' => $array['definition'] ?? null,
+                'text' => $array['text'] ?? null,
+            ]);
+
+            if (!empty($array['answer'])) {
+                $answer = [];
+                foreach ($array['answer'] as $a) {
+                    $answer[] = [
+                        'answer' => new QuestionnaireResponseItemAnswer([
+                            'value_boolean' => $a['valueBoolean'] ?? null,
+                            'value_decimal' => $a['valueDecimal'] ?? null,
+                            'value_integer' => $a['valueInteger'] ?? null,
+                            'value_date' => $a['valueDate'] ?? null,
+                            'value_date_time' => $a['valueDateTime'] ?? null,
+                            'value_time' => $a['valueTime'] ?? null,
+                            'value_string' => $a['valueString'] ?? null,
+                            'value_uri' => $a['valueUri'] ?? null
+                        ]),
+                        'valueAttachment' => $this->generateAttachment('valueAttachment', $a['valueAttachment'] ?? null),
+                        'valueCoding' => $this->generateCoding('valueCoding', $a['valueCoding'] ?? null),
+                        'valueQuantity' => $this->generateQuantity('valueQuantity', $a['valueQuantity'] ?? null),
+                        'valueReference' => $this->generateReference('valueReference', $a['valueReference'] ?? null),
+                        'item' => $this->hasMany('item', $a['item'] ?? null, 'generateItem')
+                    ];
+                }
+            }
+
+            $childItem = $this->hasMany('item', $array['item'] ?? null, 'generateItem');
+
+            return [
+                'item' => $item,
+                'answer' => $answer ?? null,
+                'childItem' => $childItem ?? null
+            ];
+        }
+    }
+
+    public function saveMedicationStatement(Resource $resource, $array): MedicationStatement
+    {
+        if (!empty($array)) {
+            $medicationStatement = $resource->medicationStatement()->save($array['medicationStatement'] ?? null);
+            $this->saveMany($medicationStatement, 'identifier', $array['identifier'] ?? null, 'saveIdentifier');
+            $this->saveMany($medicationStatement, 'basedOn', $array['basedOn'] ?? null, 'saveReference');
+            $this->saveMany($medicationStatement, 'partOf', $array['partOf'] ?? null, 'saveReference');
+            $this->saveMany($medicationStatement, 'statusReason', $array['statusReason'] ?? null, 'saveCodeableConcept');
+            $this->saveCodeableConcept($medicationStatement, 'category', $array['category'] ?? null);
+            $this->saveCodeableConcept($medicationStatement, 'medicationCodeableConcept', $array['medicationCodeableConcept'] ?? null);
+            $this->saveReference($medicationStatement, 'medicationReference', $array['medicationReference'] ?? null);
+            $this->saveReference($medicationStatement, 'subject', $array['subject'] ?? null);
+            $this->saveReference($medicationStatement, 'context', $array['context'] ?? null);
+            $this->savePeriod($medicationStatement, 'effectivePeriod', $array['effectivePeriod'] ?? null);
+            $this->saveReference($medicationStatement, 'informationSource', $array['informationSource'] ?? null);
+            $this->saveMany($medicationStatement, 'derivedFrom', $array['derivedFrom'] ?? null, 'saveReference');
+            $this->saveMany($medicationStatement, 'reasonCode', $array['reasonCode'] ?? null, 'saveCodeableConcept');
+            $this->saveMany($medicationStatement, 'reasonReference', $array['reasonReference'] ?? null, 'saveReference');
+            $this->saveMany($medicationStatement, 'note', $array['note'] ?? null, 'saveAnnotation');
+            $this->saveMany($medicationStatement, 'dosage', $array['dosage'] ?? null, 'saveDosage');
+
+            return $medicationStatement;
+        }
+    }
+
+    public function generateMedicationStatement($jsonData): array
+    {
+        $array = $this->readJsonResource($jsonData);
+
+        $medicationStatement = new MedicationStatement([
+            'status' => $array['status'] ?? null,
+            'effective_date_time' => $array['effectiveDateTime'] ?? null,
+            'date_asserted' => $array['dateAsserted'] ?? null,
+        ]);
+
+        $identifier = $this->hasMany('identifier', $array['identifier'] ?? null, 'generateIdentifier');
+        $basedOn = $this->hasMany('basedOn', $array['basedOn'] ?? null, 'generateReference');
+        $partOf = $this->hasMany('partOf', $array['partOf'] ?? null, 'generateReference');
+        $statusReason = $this->hasMany('statusReason', $array['statusReason'] ?? null, 'generateCodeableConcept');
+        $category = $this->generateCodeableConcept('category', $array['category'] ?? null);
+        $medicationCodeableConcept = $this->generateCodeableConcept('medicationCodeableConcept', $array['medicationCodeableConcept'] ?? null);
+        $medicationReference = $this->generateReference('medicationReference', $array['medicationReference'] ?? null);
+        $subject = $this->generateReference('subject', $array['subject'] ?? null);
+        $context = $this->generateReference('context', $array['context'] ?? null);
+        $effectivePeriod = $this->generatePeriod('effectivePeriod', $array['effectivePeriod'] ?? null);
+        $informationSource = $this->generateReference('informationSource', $array['informationSource'] ?? null);
+        $derivedFrom = $this->hasMany('derivedFrom', $array['derivedFrom'] ?? null, 'generateReference');
+        $reasonCode = $this->hasMany('reasonCode', $array['reasonCode'] ?? null, 'generateCodeableConcept');
+        $reasonReference = $this->hasMany('reasonReference', $array['reasonReference'] ?? null, 'generateReference');
+        $note = $this->hasMany('note', $array['note'] ?? null, 'generateAnnotation');
+        $dosage = $this->hasMany('dosage', $array['dosage'] ?? null, 'generateDosage');
+
+        return [
+            'medicationStatement' => $medicationStatement,
+            'identifier' => $identifier ?? null,
+            'basedOn' => $basedOn ?? null,
+            'partOf' => $partOf ?? null,
+            'statusReason' => $statusReason ?? null,
+            'category' => $category ?? null,
+            'medicationCodeableConcept' => $medicationCodeableConcept ?? null,
+            'medicationReference' => $medicationReference ?? null,
+            'subject' => $subject ?? null,
+            'context' => $context ?? null,
+            'effectivePeriod' => $effectivePeriod ?? null,
+            'informationSource' => $informationSource ?? null,
+            'derivedFrom' => $derivedFrom ?? null,
+            'reasonCode' => $reasonCode ?? null,
+            'reasonReference' => $reasonReference ?? null,
+            'note' => $note ?? null,
+            'dosage' => $dosage ?? null
+        ];
+    }
+
+    public function saveServiceRequest(Resource $resource, $array): ServiceRequest
+    {
+        if (!empty($array)) {
+            $serviceRequest = $resource->serviceRequest()->save($array['serviceRequest'] ?? null);
+            $this->saveMany($serviceRequest, 'identifier', $array['identifier'] ?? null, 'saveIdentifier');
+            $this->saveReference($serviceRequest, 'basedOn', $array['basedOn'] ?? null);
+            $this->saveReference($serviceRequest, 'replaces', $array['replaces'] ?? null);
+            $this->saveIdentifier($serviceRequest, 'requisition', $array['requisition'] ?? null);
+            $this->saveMany($serviceRequest, 'category', $array['category'] ?? null, 'saveCodeableConcept');
+            $this->saveCodeableConcept($serviceRequest, 'code', $array['code'] ?? null);
+            $this->saveMany($serviceRequest, 'orderDetail', $array['orderDetail'] ?? null, 'saveCodeableConcept');
+            $this->saveQuantity($serviceRequest, 'quantityQuantity', $array['quantityQuantity'] ?? null);
+            $this->saveRatio($serviceRequest, 'quantityRatio', $array['quantityRatio'] ?? null);
+            $this->saveRange($serviceRequest, 'quantityRange', $array['quantityRange'] ?? null);
+            $this->saveReference($serviceRequest, 'subject', $array['subject'] ?? null);
+            $this->saveReference($serviceRequest, 'encounter', $array['encounter'] ?? null);
+            $this->savePeriod($serviceRequest, 'occurrencePeriod', $array['occurrencePeriod'] ?? null);
+            $this->saveTiming($serviceRequest, 'occurrenceTiming', $array['occurrenceTiming'] ?? null);
+            $this->saveCodeableConcept($serviceRequest, 'asNeededCodeableConcept', $array['asNeededCodeableConcept'] ?? null);
+            $this->saveReference($serviceRequest, 'requester', $array['requester'] ?? null);
+            $this->saveCodeableConcept($serviceRequest, 'performerType', $array['performerType'] ?? null);
+            $this->saveMany($serviceRequest, 'performer', $array['performer'] ?? null, 'saveReference');
+            $this->saveMany($serviceRequest, 'locationCode', $array['locationCode'] ?? null, 'saveCodeableConcept');
+            $this->saveMany($serviceRequest, 'locationReference', $array['locationReference'] ?? null, 'saveReference');
+            $this->saveMany($serviceRequest, 'reasonCode', $array['reasonCode'] ?? null, 'saveCodeableConcept');
+            $this->saveMany($serviceRequest, 'reasonReference', $array['reasonReference'] ?? null, 'saveReference');
+            $this->saveMany($serviceRequest, 'insurance', $array['insurance'] ?? null, 'saveReference');
+            $this->saveMany($serviceRequest, 'supportingInfo', $array['supportingInfo'] ?? null, 'saveReference');
+            $this->saveMany($serviceRequest, 'specimen', $array['specimen'] ?? null, 'saveReference');
+            $this->saveMany($serviceRequest, 'bodySite', $array['bodySite'] ?? null, 'saveCodeableConcept');
+            $this->saveMany($serviceRequest, 'note', $array['note'] ?? null, 'saveAnnotation');
+            $this->saveMany($serviceRequest, 'relevantHistory', $array['relevantHistory'] ?? null, 'saveReference');
+
+            return $serviceRequest;
+        }
+    }
+
+    public function generateServiceRequest($jsonData): array
+    {
+        $array = $this->readJsonResource($jsonData);
+
+        $serviceRequest = new ServiceRequest([
+            'instantiates_canonical' => $array['instantiatesCanonical'] ?? null,
+            'instantiates_uri' => $array['instantiatesUri'] ?? null,
+            'status' => $array['status'] ?? null,
+            'intent' => $array['intent'] ?? null,
+            'priority' => $array['priority'] ?? null,
+            'do_not_perform' => $array['doNotPerform'] ?? null,
+            'occurrence_date_time' => $array['occurrenceDateTime'] ?? null,
+            'as_needed_boolean' => $array['asNeededBoolean'] ?? null,
+            'authored_on' => $array['authoredOn'] ?? null,
+            'patient_instruction' => $array['patientInstruction'] ?? null
+        ]);
+
+        $identifier = $this->hasMany('identifier', $array['identifier'] ?? null, 'generateIdentifier');
+        $basedOn = $this->hasMany('basedOn', $array['basedOn'] ?? null, 'generateReference');
+        $replaces = $this->hasMany('replaces', $array['replaces'] ?? null, 'generateReference');
+        $requisition = $this->generateIdentifier('requisition', $array['requisition'] ?? null);
+        $category = $this->hasMany('category', $array['category'] ?? null, 'generateCodeableConcept');
+        $code = $this->generateCodeableConcept('code', $array['code'] ?? null);
+        $orderDetail = $this->hasMany('orderDetail', $array['orderDetail'] ?? null, 'generateCodeableConcept');
+        $quantityQuantity = $this->generateQuantity('quantityQuantity', $array['quantityQuantity'] ?? null);
+        $quantityRatio = $this->generateRatio('quantityRatio', $array['quantityRatio'] ?? null);
+        $quantityRange = $this->generateRange('quantityRange', $array['quantityRange'] ?? null);
+        $subject = $this->generateReference('subject', $array['subject'] ?? null);
+        $encounter = $this->generateReference('encounter', $array['encounter'] ?? null);
+        $occurrencePeriod = $this->generatePeriod('occurrencePeriod', $array['occurrencePeriod'] ?? null);
+        $occurrenceTiming = $this->generateTiming('occurrenceTiming', $array['occurrenceTiming'] ?? null);
+        $asNeededCodeableConcept = $this->generateCodeableConcept('asNeededCodeableConcept', $array['asNeededCodeableConcept'] ?? null);
+        $requester = $this->generateReference('requester', $array['requester'] ?? null);
+        $performerType = $this->generateCodeableConcept('performerType', $array['performerType'] ?? null);
+        $performer = $this->hasMany('performer', $array['performer'] ?? null, 'generateReference');
+        $locationCode = $this->hasMany('locationCode', $array['locationCode'] ?? null, 'generateCodeableConcept');
+        $locationReference = $this->hasMany('locationReference', $array['locationReference'] ?? null, 'generateReference');
+        $reasonCode = $this->hasMany('reasonCode', $array['reasonCode'] ?? null, 'generateCodeableConcept');
+        $reasonReference = $this->hasMany('reasonReference', $array['reasonReference'] ?? null, 'generateReference');
+        $insurance = $this->hasMany('insurance', $array['insurance'] ?? null, 'generateReference');
+        $supportingInfo = $this->hasMany('supportingInfo', $array['supportingInfo'] ?? null, 'generateReference');
+        $specimen = $this->hasMany('specimen', $array['specimen'] ?? null, 'generateReference');
+        $bodySite = $this->hasMany('bodySite', $array['bodySite'] ?? null, 'generateCodeableConcept');
+        $note = $this->hasMany('note', $array['note'] ?? null, 'generateAnnotation');
+        $relevantHistory = $this->hasMany('relevantHistory', $array['relevantHistory'] ?? null, 'generateReference');
+
+        return [
+            'serviceRequest' => $serviceRequest,
+            'identifier' => $identifier ?? null,
+            'basedOn' => $basedOn ?? null,
+            'replaces' => $replaces ?? null,
+            'requisition' => $requisition ?? null,
+            'category' => $category ?? null,
+            'code' => $code ?? null,
+            'orderDetail' => $orderDetail ?? null,
+            'quantityQuantity' => $quantityQuantity ?? null,
+            'quantityRatio' => $quantityRatio ?? null,
+            'quantityRange' => $quantityRange ?? null,
+            'subject' => $subject ?? null,
+            'encounter' => $encounter ?? null,
+            'occurrencePeriod' => $occurrencePeriod ?? null,
+            'occurrenceTiming' => $occurrenceTiming ?? null,
+            'asNeededCodeableConcept' => $asNeededCodeableConcept ?? null,
+            'requester' => $requester ?? null,
+            'performerType' => $performerType ?? null,
+            'performer' => $performer ?? null,
+            'locationCode' => $locationCode ?? null,
+            'locationReference' => $locationReference ?? null,
+            'reasonCode' => $reasonCode ?? null,
+            'reasonReference' => $reasonReference ?? null,
+            'insurance' => $insurance ?? null,
+            'supportingInfo' => $supportingInfo ?? null,
+            'specimen' => $specimen ?? null,
+            'bodySite' => $bodySite ?? null,
+            'note' => $note ?? null,
+            'relevantHistory' => $relevantHistory ?? null
+        ];
+    }
+
+    public function saveClinicalImpression(Resource $resource, $array): ClinicalImpression
+    {
+        if (!empty($array)) {
+            $clinicalImpression = $resource->clinicalImpression()->save($array['clinicalImpression'] ?? null);
+            $this->saveMany($clinicalImpression, 'identifier', $array['identifier'] ?? null, 'saveIdentifier');
+            $this->saveCodeableConcept($clinicalImpression, 'statusReason', $array['statusReason'] ?? null);
+            $this->saveCodeableConcept($clinicalImpression, 'code', $array['code'] ?? null);
+            $this->saveReference($clinicalImpression, 'subject', $array['subject'] ?? null);
+            $this->saveReference($clinicalImpression, 'encounter', $array['encounter'] ?? null);
+            $this->savePeriod($clinicalImpression, 'effectivePeriod', $array['effectivePeriod'] ?? null);
+            $this->saveReference($clinicalImpression, 'assessor', $array['assessor'] ?? null);
+            $this->saveReference($clinicalImpression, 'previous', $array['previous'] ?? null);
+            $this->saveMany($clinicalImpression, 'problem', $array['problem'] ?? null, 'saveReference');
+
+            if (!empty($array['investigation'])) {
+                foreach ($array['investigation'] as $i) {
+                    $investigation = $clinicalImpression->investigation()->save($i['investigation'] ?? null);
+                    $this->saveCodeableConcept($investigation, 'code', $i['code'] ?? null);
+                    $this->saveMany($investigation, 'item', $i['item'] ?? null, 'saveReference');
+                }
+            }
+
+            if (!empty($array['finding'])) {
+                foreach ($array['finding'] as $f) {
+                    $finding = $clinicalImpression->finding()->save($f['finding'] ?? null);
+                    $this->saveCodeableConcept($finding, 'itemCodeableConcept', $f['itemCodeableConcept'] ?? null);
+                    $this->saveReference($finding, 'itemReference', $f['itemReference'] ?? null);
+                }
+            }
+
+            $this->saveMany($clinicalImpression, 'prognosisCodeableConcept', $array['prognosisCodeableConcept'] ?? null, 'saveCodeableConcept');
+            $this->saveMany($clinicalImpression, 'prognosisReference', $array['prognosisReference'] ?? null, 'saveReference');
+            $this->saveMany($clinicalImpression, 'supportingInfo', $array['supportingInfo'] ?? null, 'saveReference');
+            $this->saveMany($clinicalImpression, 'note', $array['note'] ?? null, 'saveAnnotation');
+
+            return $clinicalImpression;
+        }
+    }
+
+    public function generateClinicalImpression($jsonData): array
+    {
+        $array = $this->readJsonResource($jsonData);
+
+        $clinicalImpression = new ClinicalImpression([
+            'status' => $array['status'] ?? null,
+            'description' => $array['description'] ?? null,
+            'effectiveDateTime' => $array['effectiveDateTime'] ?? null,
+            'date' => $array['date'] ?? null,
+            'protocol' => $array['protocol'] ?? null,
+            'summary' => $array['summary'] ?? null,
+        ]);
+
+        $identifier = $this->hasMany('identifier', $array['identifier'] ?? null, 'generateIdentifier');
+        $statusReason = $this->generateCodeableConcept('statusReason', $array['statusReason'] ?? null);
+        $code = $this->generateCodeableConcept('code', $array['code'] ?? null);
+        $subject = $this->generateReference('subject', $array['subject'] ?? null);
+        $encounter = $this->generateReference('encounter', $array['encounter'] ?? null);
+        $effectivePeriod = $this->generatePeriod('effectivePeriod', $array['effectivePeriod'] ?? null);
+        $assessor = $this->generateReference('assessor', $array['assessor'] ?? null);
+        $previous = $this->generateReference('previous', $array['previous'] ?? null);
+        $problem = $this->hasMany('problem', $array['problem'] ?? null, 'generateReference');
+
+        if (!empty($array['investigation'])) {
+            $investigation = [];
+            foreach ($array['investigation'] as $i) {
+                $investigation[] = [
+                    'investigation' => new ClinicalImpressionInvestigation(),
+                    'code' => $this->generateCodeableConcept('code', $i['code'] ?? null),
+                    'item' => $this->hasMany('item', $i['item'] ?? null, 'generateReference')
+                ];
+            }
+        }
+
+        if (!empty($array['finding'])) {
+            $finding = [];
+            foreach ($array['finding'] as $f) {
+                $finding[] = [
+                    'finding' => new ClinicalImpressionFinding(['basis' => $f['basis'] ?? null]),
+                    'itemCodeableConcept' => $this->generateCodeableConcept('itemCodeableConcept', $f['itemCodeableConcept'] ?? null),
+                    'itemReference' => $this->generateReference('itemReference', $f['itemReference'] ?? null),
+                ];
+            }
+        }
+
+        $prognosisCodeableConcept = $this->hasMany('prognosisCodeableConcept', $array['prognosisCodeableConcept'] ?? null, 'generateCodeableConcept');
+        $prognosisReference = $this->hasMany('prognosisReference', $array['prognosisReference'] ?? null, 'generateReference');
+        $supportingInfo = $this->hasMany('supportingInfo', $array['supportingInfo'] ?? null, 'generateReference');
+        $note = $this->hasMany('note', $array['note'] ?? null, 'generateAnnotation');
+
+        return [
+            'clinicalImpression' => $clinicalImpression,
+            'identifier' => $identifier ?? null,
+            'statusReason' => $statusReason ?? null,
+            'code' => $code ?? null,
+            'subject' => $subject ?? null,
+            'encounter' => $encounter ?? null,
+            'effectivePeriod' => $effectivePeriod ?? null,
+            'assessor' => $assessor ?? null,
+            'previous' => $previous ?? null,
+            'problem' => $problem ?? null,
+            'investigation' => $investigation ?? null,
+            'finding' => $finding ?? null,
+            'prognosisCodeableConcept' => $prognosisCodeableConcept ?? null,
+            'prognosisReference' => $prognosisReference ?? null,
+            'supportingInfo' => $supportingInfo ?? null,
+            'note' => $note ?? null
+        ];
+    }
+
+    public function saveAllergyIntolerance(Resource $resource, $array): AllergyIntolerance
+    {
+        if (!empty($array)) {
+            $allergyIntolerance = $resource->allergyIntolerance()->save($array['allergyIntolerance'] ?? null);
+            $this->saveMany($allergyIntolerance, 'identifier', $array['identifier'] ?? null, 'saveIdentifier');
+            $this->saveCodeableConcept($allergyIntolerance, 'clinicalStatus', $array['clinicalStatus'] ?? null);
+            $this->saveCodeableConcept($allergyIntolerance, 'verificationStatus', $array['verificationStatus'] ?? null);
+            $this->saveCodeableConcept($allergyIntolerance, 'code', $array['code'] ?? null);
+            $this->saveReference($allergyIntolerance, 'patient', $array['patient'] ?? null);
+            $this->saveReference($allergyIntolerance, 'encounter', $array['encounter'] ?? null);
+            $this->saveAge($allergyIntolerance, 'onsetAge', $array['onsetAge'] ?? null);
+            $this->savePeriod($allergyIntolerance, 'onsetPeriod', $array['onsetPeriod'] ?? null);
+            $this->saveRange($allergyIntolerance, 'onsetRange', $array['onsetRange'] ?? null);
+            $this->saveReference($allergyIntolerance, 'recorder', $array['recorder'] ?? null);
+            $this->saveReference($allergyIntolerance, 'asserter', $array['asserter'] ?? null);
+            $this->saveMany($allergyIntolerance, 'note', $array['note'] ?? null, 'saveAnnotation');
+
+            if (!empty($array['reaction'])) {
+                foreach ($array['reaction'] as $r) {
+                    $reaction = $allergyIntolerance->reaction()->save($r['reaction'] ?? null);
+                    $this->saveCodeableConcept($reaction, 'substance', $r['substance'] ?? null);
+                    $this->saveMany($reaction, 'manifestation', $r['manifestation'] ?? null, 'saveCodeableConcept');
+                    $this->saveCodeableConcept($reaction, 'exposureRoute', $r['exposureRoute'] ?? null);
+                    $this->saveMany($reaction, 'note', $r['note'] ?? null, 'saveAnnotation');
+                }
+            }
+
+            return $allergyIntolerance;
+        }
+    }
+
+    public function generateAllergyIntolerance($jsonData): array
+    {
+        $array = $this->readJsonResource($jsonData);
+
+        $allergyIntolerance = new AllergyIntolerance([
+            'type' => $array['type'] ?? null,
+            'category' => $array['category'] ?? null,
+            'criticality' => $array['criticality'] ?? null,
+            'onset_date_time' => $array['onsetDateTime'] ?? null,
+            'onset_string' => $array['onsetString'] ?? null,
+            'recorded_date' => $array['recordedDate'] ?? null,
+            'last_occurrence' => $array['lastOccurrence'] ?? null,
+        ]);
+
+        $identifier = $this->hasMany('identifier', $array['identifier'] ?? null, 'generateIdentifier');
+        $clinicalStatus = $this->generateCodeableConcept('clinicalStatus', $array['clinicalStatus'] ?? null);
+        $verificationStatus = $this->generateCodeableConcept('verificationStatus', $array['verificationStatus'] ?? null);
+        $code = $this->generateCodeableConcept('code', $array['code'] ?? null);
+        $patient = $this->generateReference('patient', $array['patient'] ?? null);
+        $encounter = $this->generateReference('encounter', $array['encounter'] ?? null);
+        $onsetAge = $this->generateAge('onsetAge', $array['onsetAge'] ?? null);
+        $onsetPeriod = $this->generatePeriod('onsetPeriod', $array['onsetPeriod'] ?? null);
+        $onsetRange = $this->generateRange('onsetRange', $array['onsetRange'] ?? null);
+        $recorder = $this->generateReference('recorder', $array['recorder'] ?? null);
+        $asserter = $this->generateReference('asserter', $array['asserter'] ?? null);
+        $note = $this->hasMany('note', $array['note'] ?? null, 'generateAnnotation');
+
+        if (!empty($array['reaction'])) {
+            $reaction = [];
+            foreach ($array['reaction'] as $r) {
+                $reaction[] = [
+                    'reaction' => new AllergyIntoleranceReaction([
+                        'description' => $r['description'] ?? null,
+                        'onset' => $r['onset'] ?? null,
+                        'severity' => $r['severity'] ?? null,
+                    ]),
+                    'substance' => $this->generateCodeableConcept('substance', $r['substance'] ?? null),
+                    'manifestation' => $this->hasMany('manifestation', $r['manifestation'] ?? null, 'generateCodeableConcept'),
+                    'exposureRoute' => $this->generateCodeableConcept('exposureRoute', $r['exposureRoute'] ?? null),
+                    'note' => $this->hasMany('note', $r['note'] ?? null, 'generateAnnotation')
+                ];
+            }
+        }
+
+        return [
+            'allergyIntolerance' => $allergyIntolerance,
+            'identifier' => $identifier ?? null,
+            'clinicalStatus' => $clinicalStatus ?? null,
+            'verificationStatus' => $verificationStatus ?? null,
+            'code' => $code ?? null,
+            'patient' => $patient ?? null,
+            'encounter' => $encounter ?? null,
+            'onsetAge' => $onsetAge ?? null,
+            'onsetPeriod' => $onsetPeriod ?? null,
+            'onsetRange' => $onsetRange ?? null,
+            'recorder' => $recorder ?? null,
+            'asserter' => $asserter ?? null,
+            'note' => $note ?? null,
+            'reaction' => $reaction ?? null
+        ];
+    }
+
+    public function saveComposition(Resource $resource, $array): Composition
+    {
+        if (!empty($array)) {
+            $composition = $resource->composition()->save($array['composition'] ?? null);
+            $this->saveIdentifier($composition, 'identifier', $array['identifier'] ?? null);
+            $this->saveCodeableConcept($composition, 'type', $array['type'] ?? null);
+            $this->saveMany($composition, 'category', $array['category'] ?? null, 'saveCodeableConcept');
+            $this->saveReference($composition, 'subject', $array['subject'] ?? null);
+            $this->saveReference($composition, 'encounter', $array['encounter'] ?? null);
+            $this->saveMany($composition, 'author', $array['author'] ?? null, 'saveReference');
+
+            if (!empty($array['attester'])) {
+                foreach ($array['attester'] as $a) {
+                    $attester = $composition->attester()->save($a['attester'] ?? null);
+                    $this->saveReference($attester, 'party', $a['party'] ?? null);
+                }
+            }
+
+            $this->saveReference($composition, 'custodian', $array['custodian'] ?? null);
+
+            if (!empty($array['relatesTo'])) {
+                foreach ($array['relatesTo'] as $rt) {
+                    $relatesTo = $composition->relatesTo()->save($rt['relatesTo'] ?? null);
+                    $this->saveIdentifier($relatesTo, 'targetIdentifier', $rt['targetIdentifier'] ?? null);
+                    $this->saveReference($relatesTo, 'targetReference', $rt['targetReference'] ?? null);
+                }
+            }
+
+            if (!empty($array['event'])) {
+                foreach ($array['event'] as $e) {
+                    $event = $composition->event()->save($e['event'] ?? null);
+                    $this->saveMany($event, 'code', $e['code'] ?? null, 'saveCodeableConcept');
+                    $this->savePeriod($event, 'period', $e['period'] ?? null);
+                    $this->saveMany($event, 'detail', $e['detail'] ?? null, 'saveReference');
+                }
+            }
+
+            $this->saveMany($composition, 'section', $array['section'] ?? null, 'saveSection');
+
+            $this->saveComplexExtension($composition, 'documentStatus', $array['documentStatus'] ?? null);
+
+            return $composition;
+        }
+    }
+
+    private function saveSection($parent, $attribute, $array)
+    {
+        if (!empty($array)) {
+            $composition = $parent->$attribute()->save($array['section'] ?? null);
+            $this->saveCodeableConcept($composition, 'code', $array['code'] ?? null);
+            $this->saveMany($composition, 'author', $array['author'] ?? null, 'saveReference');
+            $this->saveReference($composition, 'focus', $array['focus'] ?? null);
+            $this->saveNarrative($composition, 'text', $array['text'] ?? null);
+            $this->saveCodeableConcept($composition, 'orderedBy', $array['orderedBy'] ?? null);
+            $this->saveMany($composition, 'entry', $array['entry'] ?? null, 'saveReference');
+            $this->saveCodeableConcept($composition, 'emptyReason', $array['emptyReason'] ?? null);
+            $this->saveMany($composition, 'section', $array['childSection'] ?? null, 'saveSection');
+        }
+    }
+
+    private function saveNarrative($parent, $attribute, $array)
+    {
+        if (!empty($array)) {
+            $parent->$attribute()->save($array ?? null);
+        }
+    }
+
+    public function generateComposition($jsonData): array
+    {
+        $array = $this->readJsonResource($jsonData);
+
+        $composition = new Composition([
+            'status' => $array['status'] ?? null,
+            'date' => $array['date'] ?? null,
+            'title' => $array['title'] ?? null,
+            'confidentiality' => $array['confidentiality'] ?? null
+        ]);
+
+        $identifier = $this->generateIdentifier('identifier', $array['identifier'] ?? null);
+        $type = $this->generateCodeableConcept('type', $array['type'] ?? null);
+        $category = $this->hasMany('category', $array['category'] ?? null, 'generateCodeableConcept');
+        $subject = $this->generateReference('subject', $array['subject'] ?? null);
+        $encounter = $this->generateReference('encounter', $array['encounter'] ?? null);
+        $author = $this->hasMany('author', $array['author'] ?? null, 'generateReference');
+
+        if (!empty($array['attester'])) {
+            $attester = [];
+            foreach ($array['attester'] as $a) {
+                $attester[] = [
+                    'attester' => new CompositionAttester([
+                        'mode' => $a['mode'] ?? null,
+                        'time' => $a['time'] ?? null,
+                    ]),
+                    'party' => $this->generateReference('party', $a['party'] ?? null)
+                ];
+            }
+        }
+
+        $custodian = $this->generateReference('custodian', $array['custodian'] ?? null);
+
+        if (!empty($array['relatesTo'])) {
+            $relatesTo = [];
+            foreach ($array['relatesTo'] as $rt) {
+                $relatesTo[] = [
+                    'relatesTo' => new CompositionRelatesTo([
+                        'code' => $rt['code'] ?? null,
+                    ]),
+                    'targetIdentifier' => $this->generateIdentifier('targetIdentifier', $rt['targetIdentifier'] ?? null),
+                    'targetReference' => $this->generateReference('targetReference', $rt['targetReference'] ?? null)
+                ];
+            }
+        }
+
+        if (!empty($array['event'])) {
+            $event = [];
+            foreach ($array['event'] as $e) {
+                $event[] = [
+                    'event' => new CompositionEvent(),
+                    'code' => $this->hasMany('code', $e['code'] ?? null, 'generateCodeableConcept'),
+                    'period' => $this->generatePeriod('period', $e['period'] ?? null),
+                    'detail' => $this->hasMany('detail', $e['detail'] ?? null, 'generateReference')
+                ];
+            }
+        }
+
+        $section = $this->hasMany('section', $array['section'] ?? null, 'generateSection');
+
+        if (!empty($array['extension'])) {
+            foreach ($array['extension'] as $e) {
+                if ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/DocumentStatus') {
+                    $documentStatus = $this->generateComplexExtension('documentStatus', $e ?? null);
+                }
+            }
+        }
+
+        return [
+            'composition' => $composition,
+            'identifier' => $identifier ?? null,
+            'type' => $type ?? null,
+            'category' => $category ?? null,
+            'subject' => $subject ?? null,
+            'encounter' => $encounter ?? null,
+            'author' => $author ?? null,
+            'attester' => $attester ?? null,
+            'custodian' => $custodian ?? null,
+            'relatesTo' => $relatesTo ?? null,
+            'event' => $event ?? null,
+            'section' => $section ?? null,
+            'documentStatus' => $documentStatus ?? null
+        ];
+    }
+
+    private function generateNarrative($attribute, $array): Narrative
+    {
+        if (!empty($array)) {
+            $narrative = new Narrative([
+                'status' => $array['status'] ?? null,
+                'div' => $array['div'] ?? null,
+                'attr_type' => $attribute
+            ]);
+
+            return $narrative;
+        }
+    }
+
+    private function generateSection($attribute, $array): array|null
+    {
+        if (!empty($array)) {
+            return [
+                'section' => new CompositionSection([
+                    'title' => $array['title'] ?? null,
+                    'mode' => $array['mode'] ?? null,
+                ]),
+                'code' => $this->generateCodeableConcept('code', $array['code'] ?? null),
+                'author' => $this->hasMany('author', $array['author'] ?? null, 'generateReference'),
+                'focus' => $this->generateReference('focus', $array['focus'] ?? null),
+                'text' => $this->generateNarrative('text', $array['text'] ?? null),
+                'orderedBy' => $this->generateCodeableConcept('orderedBy', $array['orderedBy'] ?? null),
+                'entry' => $this->hasMany('entry', $array['entry'] ?? null, 'generateReference'),
+                'emptyReason' => $this->generateCodeableConcept('emptyReason', $array['emptyReason'] ?? null),
+                'childSection' => $this->hasMany('section', $array['section'] ?? null, 'generateSection')
+            ];
+        } else {
+            return null;
+        }
+    }
+
     public function saveMedicationRequest(Resource $resource, $array): MedicationRequest
     {
         if (!empty($array)) {
@@ -680,7 +1393,7 @@ class Processor
                     $compRefRange = [];
                     foreach ($c['referenceRange'] as $crr) {
                         $compRefRange[] = [
-                            'referenceRange' => new ObservationReferenceRange(['text' => $crr['text'] ?? null]),
+                            'referenceRange' => new ObservationComponentReferenceRange(['text' => $crr['text'] ?? null]),
                             'low' => $this->generateSimpleQuantity('low', $crr['low'] ?? null),
                             'high' => $this->generateSimpleQuantity('high', $crr['high'] ?? null),
                             'type' => $this->generateCodeableConcept('type', $crr['type'] ?? null),
@@ -1044,6 +1757,14 @@ class Processor
             $this->saveMany($encounter, 'reasonCode', $array['reasonCode'] ?? null, 'saveCodeableConcept');
             $this->saveMany($encounter, 'reasonReference', $array['reasonReference'] ?? null, 'saveReference');
 
+            if (!empty($array['diagnosis'])) {
+                foreach ($array['diagnosis'] as $d) {
+                    $diagnosis = $encounter->diagnosis()->save($d['diagnosis'] ?? null);
+                    $this->saveReference($diagnosis, 'condition', $d['condition'] ?? null);
+                    $this->saveCodeableConcept($diagnosis, 'use', $d['use'] ?? null);
+                }
+            }
+
             if (!empty($array['hospitalization'])) {
                 $hospitalization = $encounter->hospitalization()->save($array['hospitalization']['hospitalization'] ?? null);
                 $this->saveIdentifier($hospitalization, 'preAdmissionIdentifier', $array['hospitalization']['preAdmissionIdentifier'] ?? null);
@@ -1133,6 +1854,17 @@ class Processor
         $duration = $this->generateDuration('length', $array['length'] ?? null);
         $reasonCode = $this->hasMany('reasonCode', $array['reasonCode'] ?? null, 'generateCodeableConcept');
         $reasonReference = $this->hasMany('reasonReference', $array['reasonReference'] ?? null, 'generateReference');
+
+        if (!empty($array['diagnosis'])) {
+            $diagnosis = [];
+            foreach ($array['diagnosis'] as $d) {
+                $diagnosis[] = [
+                    'diagnosis' => new EncounterDiagnosis(['rank' => $d['rank'] ?? null]),
+                    'condition' => $this->generateReference('condition', $d['condition'] ?? null),
+                    'use' => $this->generateCodeableConcept('use', $d['use'] ?? null)
+                ];
+            }
+        }
 
         if (!empty($array['hospitalization'])) {
             $hospitalization = [
@@ -1267,6 +1999,7 @@ class Processor
             $this->saveExtension($patient, 'birthPlace', $array['birthPlace'] ?? null);
             $this->saveExtension($patient, 'religion', $array['religion'] ?? null);
             $this->saveExtension($patient, 'citizenshipStatus', $array['citizenshipStatus'] ?? null);
+            $this->saveExtension($patient, 'extendedBirthDate', $array['extendedBirthDate'] ?? null);
 
             return $patient;
         }
@@ -1345,6 +2078,16 @@ class Processor
             }
         }
 
+        if (!empty($array['_birthDate'])) {
+            if (!empty($array['_birthDate']['extension'])) {
+                foreach ($array['_birthDate']['extension'] as $be) {
+                    if ($be['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/patient-birthTime') {
+                        $extendedBirthDate = $this->generateExtension('birthTime', $be ?? null);
+                    }
+                }
+            }
+        }
+
         return [
             'patient' => $patient,
             'identifier' => $identifier ?? null,
@@ -1361,7 +2104,8 @@ class Processor
             'citizenship' => $citizenship ?? null,
             'birthPlace' => $birthPlace ?? null,
             'religion' => $religion ?? null,
-            'citizenshipStatus' => $citizenshipStatus ?? null
+            'citizenshipStatus' => $citizenshipStatus ?? null,
+            'extendedBirthDate' => $extendedBirthDate ?? null
         ];
     }
 

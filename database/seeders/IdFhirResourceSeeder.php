@@ -92,27 +92,36 @@ class IdFhirResourceSeeder extends Seeder
                         $medReq = $this->removeEmptyValues($medReq);
                         $processor->saveMedicationRequest($res, $medReq);
                         break;
-                        // case 'Composition':
-                        //     $this->seedComposition($res, $resText);
-                        //     break;
-                        // case 'AllergyIntolerance':
-                        //     $this->seedAllergyIntolerance($res, $resText);
-                        //     break;
-                        // case 'ClinicalImpression':
-                        //     $this->seedClinicalImpression($res, $resText);
-                        //     break;
-                        // case 'ServiceRequest':
-                        //     $this->seedServiceRequest($res, $resText);
-                        //     break;
-                        // case 'MedicationDispense':
-                        //     $this->seedMedicationDispense($res, $resText);
-                        //     break;
-                        // case 'MedicationStatement':
-                        //     // $this->seedMedicationStatement($res, $resText);  // Not yet implemented
-                        //     break;
-                        // case 'QuestionnaireResponse':
-                        //     $this->seedQuestionnaireResponse($res, $resText);
-                        //     break;
+                    case 'Composition':
+                        $comp = $processor->generateComposition($resText);
+                        $comp = $this->removeEmptyValues($comp);
+                        $processor->saveComposition($res, $comp);
+                        break;
+                    case 'AllergyIntolerance':
+                        $allergy = $processor->generateAllergyIntolerance($resText);
+                        $allergy = $this->removeEmptyValues($allergy);
+                        $processor->saveAllergyIntolerance($res, $allergy);
+                        break;
+                    case 'ClinicalImpression':
+                        $clinicalImpression = $processor->generateClinicalImpression($resText);
+                        $clinicalImpression = $this->removeEmptyValues($clinicalImpression);
+                        $processor->saveClinicalImpression($res, $clinicalImpression);
+                        break;
+                    case 'ServiceRequest':
+                        $serviceRequest = $processor->generateServiceRequest($resText);
+                        $serviceRequest = $this->removeEmptyValues($serviceRequest);
+                        $processor->saveServiceRequest($res, $serviceRequest);
+                        break;
+                    case 'MedicationStatement':
+                        $medStatement = $processor->generateMedicationStatement($resText);
+                        $medStatement = $this->removeEmptyValues($medStatement);
+                        $processor->saveMedicationStatement($res, $medStatement);
+                        break;
+                    case 'QuestionnaireResponse':
+                        $questionnaireResponse = $processor->generateQuestionnaireResponse($resText);
+                        $questionnaireResponse = $this->removeEmptyValues($questionnaireResponse);
+                        $processor->saveQuestionnaireResponse($res, $questionnaireResponse);
+                        break;
                     default:
                         break;
                 }

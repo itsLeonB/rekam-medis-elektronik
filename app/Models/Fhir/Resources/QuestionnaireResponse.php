@@ -1,28 +1,74 @@
 <?php
 
-namespace App\Models\Fhir;
+namespace App\Models\Fhir\Resources;
 
 use App\Fhir\Valuesets;
-use App\FhirModel;
+use App\Models\Fhir\BackboneElements\QuestionnaireResponseItem;
+use App\Models\Fhir\Datatypes\Identifier;
+use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Resource;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 class QuestionnaireResponse extends FhirModel
 {
     use HasFactory;
 
     protected $table = 'questionnaire_response';
-    protected $casts = [
-        'based_on' => 'array',
-        'part_of' => 'array',
-        'authored' => 'datetime'
-    ];
+
+    protected $casts = ['authored' => 'datetime'];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class);
+    }
+
+    public function identifier(): MorphOne
+    {
+        return $this->morphOne(Identifier::class, 'identifiable');
+    }
+
+    public function basedOn(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'basedOn');
+    }
+
+    public function partOf(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'partOf');
+    }
+
+    public function subject(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'subject');
+    }
+
+    public function encounter(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'encounter');
+    }
+
+    public function author(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'author');
+    }
+
+    public function source(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'source');
     }
 
     public function item(): HasMany
@@ -34,16 +80,13 @@ class QuestionnaireResponse extends FhirModel
     {
         parent::boot();
 
-        static::creating(function ($questionnaireResponse) {
+        static::created(function ($questionnaireResponse) {
             $orgId = config('app.organization_id');
-            $questionnaireResponse->identifier_system = 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId;
-            $questionnaireResponse->identifier_use = 'official';
-
-            // Get the maximum value of identifier_value from the database
-            $maxIdentifierValue = static::max('identifier_value') ?? 0;
-
-            // Increment the value and set it
-            $questionnaireResponse->identifier_value = $maxIdentifierValue + 1;
+            $identifier = new Identifier();
+            $identifier->system = 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId;
+            $identifier->use = 'official';
+            $identifier->value = Str::uuid();
+            $questionnaireResponse->identifier()->save($identifier);
         });
     }
 

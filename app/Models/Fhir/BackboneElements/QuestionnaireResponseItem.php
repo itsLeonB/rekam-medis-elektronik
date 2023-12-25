@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Models\Fhir;
+namespace App\Models\Fhir\BackboneElements;
 
-use App\FhirModel;
+use App\Models\Fhir\Resources\QuestionnaireResponse;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -20,6 +21,16 @@ class QuestionnaireResponseItem extends FhirModel
     public function answer(): HasMany
     {
         return $this->hasMany(QuestionnaireResponseItemAnswer::class, 'question_item_id');
+    }
+
+    public function item(): HasMany
+    {
+        return $this->hasMany(QuestionnaireResponseItem::class, 'parent_id');
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->belongsTo(QuestionnaireResponseItem::class, 'parent_id');
     }
 
     public const LINK_ID = [

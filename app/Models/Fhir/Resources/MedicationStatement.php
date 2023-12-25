@@ -1,12 +1,21 @@
 <?php
 
-namespace App\Models\Fhir;
+namespace App\Models\Fhir\Resources;
 
 use App\Fhir\Valuesets;
-use App\FhirModel;
+use App\Models\Fhir\Datatypes\Annotation;
+use App\Models\Fhir\Datatypes\CodeableConcept;
+use App\Models\Fhir\Datatypes\Dosage;
+use App\Models\Fhir\Datatypes\Identifier;
+use App\Models\Fhir\Datatypes\Period;
+use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Resource;
+use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Str;
 
 class MedicationStatement extends FhirModel
 {
@@ -19,10 +28,10 @@ class MedicationStatement extends FhirModel
         static::created(function ($medicationStatement) {
             $orgId = config('app.organization_id');
 
-            $identifier = new MedicationStatementIdentifier();
+            $identifier = new Identifier();
             $identifier->system = 'http://sys-ids.kemkes.go.id/medicationstatement/' . $orgId;
             $identifier->use = 'official';
-            $identifier->value = $medicationStatement->identifier()->max('value') + 1;
+            $identifier->value = Str::uuid();
 
             // Save the identifier through the relationship
             $medicationStatement->identifier()->save($identifier);
@@ -30,17 +39,12 @@ class MedicationStatement extends FhirModel
     }
 
     protected $table = 'medication_statement';
+
     protected $casts = [
-        'based_on' => 'array',
-        'part_of' => 'array',
-        'status_reason' => 'array',
-        'medication' => 'array',
-        'effective' => 'array',
-        'date_asserted' => 'datetime',
-        'derived_from' => 'array',
-        'reason_code' => 'array',
-        'reason_reference' => 'array',
+        'effective_date_time' => 'datetime',
+        'date_asserted' => 'datetime'
     ];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo
@@ -48,24 +52,97 @@ class MedicationStatement extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): HasMany
+    public function identifier(): MorphMany
     {
-        return $this->hasMany(MedicationStatementIdentifier::class, 'statement_id');
+        return $this->morphMany(Identifier::class, 'identifiable');
     }
 
-    public function reasonCode(): HasMany
+    public function basedOn(): MorphMany
     {
-        return $this->hasMany(MedicationStatementReasonCode::class, 'statement_id');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'basedOn');
     }
 
-    public function note(): HasMany
+    public function partOf(): MorphMany
     {
-        return $this->hasMany(MedicationStatementNote::class, 'statement_id');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'partOf');
     }
 
-    public function dosage(): HasMany
+    public function statusReason(): MorphMany
     {
-        return $this->hasMany(MedicationStatementDosage::class, 'statement_id');
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'statusReason');
+    }
+
+    public function category(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'category');
+    }
+
+    public function medicationCodeableConcept(): MorphOne
+    {
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'medicationCodeableConcept');
+    }
+
+    public function medicationReference(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'medicationReference');
+    }
+
+    public function subject(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'subject');
+    }
+
+    public function context(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'context');
+    }
+
+    public function effectivePeriod(): MorphOne
+    {
+        return $this->morphOne(Period::class, 'periodable')
+            ->where('attr_type', 'effectivePeriod');
+    }
+
+    public function informationSource(): MorphOne
+    {
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'informationSource');
+    }
+
+    public function derivedFrom(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'derivedFrom');
+    }
+
+    public function reasonCode(): MorphMany
+    {
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'reasonCode');
+    }
+
+    public function reasonReference(): MorphMany
+    {
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'reasonReference');
+    }
+
+    public function note(): MorphMany
+    {
+        return $this->morphMany(Annotation::class, 'annotable');
+    }
+
+    public function dosage(): MorphMany
+    {
+        return $this->morphMany(Dosage::class, 'dosageable');
     }
 
     public const IDENTIFIER = [

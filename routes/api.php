@@ -10,7 +10,6 @@ use App\Http\Controllers\Fhir\{
     EncounterController,
     LocationController,
     MedicationController,
-    MedicationDispenseController,
     MedicationRequestController,
     MedicationStatementController,
     ObservationController,
@@ -133,11 +132,6 @@ Route::put('/medication/{res_id}', [MedicationController::class, 'update'])->nam
 Route::get('/medicationrequest/{res_id}', [MedicationRequestController::class, 'show'])->name('medicationrequest.show');
 Route::post('/medicationrequest', [MedicationRequestController::class, 'store'])->name('medicationrequest.store');
 Route::put('/medicationrequest/{res_id}', [MedicationRequestController::class, 'update'])->name('medicationrequest.update');
-
-// MedicationDispense resource endpoint
-Route::get('/medicationdispense/{res_id}', [MedicationDispenseController::class, 'show'])->name('medicationdispense.show');
-Route::post('/medicationdispense', [MedicationDispenseController::class, 'store'])->name('medicationdispense.store');
-Route::put('/medicationdispense/{res_id}', [MedicationDispenseController::class, 'update'])->name('medicationdispense.update');
 
 // Composition resource endpoint
 Route::get('/composition/{res_id}', [CompositionController::class, 'show'])->name('composition.show');
