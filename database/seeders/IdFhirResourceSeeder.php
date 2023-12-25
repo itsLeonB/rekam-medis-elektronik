@@ -18,6 +18,8 @@ class IdFhirResourceSeeder extends Seeder
     public function run(): void
     {
         DB::transaction(function () {
+            $processor = new Processor();
+
             $files = Storage::disk('example-id-fhir')->files();
 
             foreach ($files as $f) {
@@ -38,8 +40,6 @@ class IdFhirResourceSeeder extends Seeder
                         'res_ver' => 1
                     ]
                 );
-
-                $processor = new Processor();
 
                 switch ($resType) {
                     case 'Organization':
@@ -138,7 +138,7 @@ class IdFhirResourceSeeder extends Seeder
             if (is_array($value)) {
                 return !empty($this->removeEmptyValues($value));
             }
-            return $value !== null && $value !== ""; //&& !(is_array($value) && empty($value));
+            return $value !== null && $value !== "";
         });
     }
 }

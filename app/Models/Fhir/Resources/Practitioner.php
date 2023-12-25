@@ -28,11 +28,12 @@ class Practitioner extends FhirModel
     use HasFactory;
 
     protected $table = 'practitioner';
+
     protected $casts = [
         'active' => 'boolean',
         'birth_date' => 'date',
-        // 'communication' => 'array'
     ];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo
@@ -40,33 +41,28 @@ class Practitioner extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): MorphMany // HasMany
+    public function identifier(): MorphMany
     {
-        // return $this->hasMany(PractitionerIdentifier::class);
         return $this->morphMany(Identifier::class, 'identifiable');
     }
 
-    public function name(): MorphMany //HasMany
+    public function name(): MorphMany
     {
-        // return $this->hasMany(PractitionerName::class);
         return $this->morphMany(HumanName::class, 'human_nameable');
     }
 
-    public function telecom(): MorphMany //HasMany
+    public function telecom(): MorphMany
     {
-        // return $this->hasMany(PractitionerTelecom::class);
         return $this->morphMany(ContactPoint::class, 'contact_pointable');
     }
 
-    public function address(): MorphMany //HasMany
+    public function address(): MorphMany
     {
-        // return $this->hasMany(PractitionerAddress::class);
         return $this->morphMany(Address::class, 'addressable');
     }
 
-    public function photo(): MorphMany // HasMany
+    public function photo(): MorphMany
     {
-        // return $this->hasMany(PractitionerPhoto::class);
         return $this->morphMany(Attachment::class, 'attachable');
     }
 

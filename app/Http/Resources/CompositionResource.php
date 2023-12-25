@@ -2,13 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Fhir\{
-    Composition,
-    CompositionEvent,
-    CompositionSection
-};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class CompositionResource extends FhirResource
 {
@@ -28,204 +22,88 @@ class CompositionResource extends FhirResource
         return $data;
     }
 
-    private function resourceStructure($composition): array
+    public function resourceStructure($composition): array
     {
         return [
             'resourceType' => 'Composition',
             'id' => $this->satusehat_id,
-            'identifier' => [
-                'system' => $composition->identifier_system,
-                'use' => $composition->identifier_use,
-                'value' => $composition->identifier_value
-            ],
+            'identifier' => $this->createIdentifierResource($composition->identifier),
             'status' => $composition->status,
-            'type' => [
-                'coding' => [
-                    [
-                        'system' => $composition->type_system,
-                        'code' => $composition->type_code,
-                        'display' => $composition->type_display
-                    ]
-                ]
-            ],
-            'category' => $this->createCategoryArray($composition->category),
-            'subject' => [
-                'reference' => $composition->subject
-            ],
-            'encounter' => [
-                'reference' => $composition->encounter
-            ],
-            'date' => $this->parseDateFhir($composition->date),
-            'author' => $this->createReferenceArray($composition->author),
+            'type' => $this->createCodeableConceptResource($composition->type),
+            'category' => $this->createMany($composition->category, 'createCodeableConceptResource'),
+            'subject' => $this->createReferenceResource($composition->subject),
+            'encounter' => $this->createReferenceResource($composition->encounter),
+            'date' => $this->parseDateTime($composition->date),
+            'author' => $this->createMany($composition->author, 'createReferenceResource'),
             'title' => $composition->title,
             'confidentiality' => $composition->confidentiality,
-            'attester' => $this->createAttesterArray($composition->attester),
-            'custodian' => [
-                'reference' => $composition->custodian
-            ],
-            'relatesTo' => $this->createRelatesToArray($composition->relatesTo),
-            'event' => $this->createEventArray($composition->event),
-            'section' => $this->createSectionArray($composition->section),
+            'attester' => $this->createMany($composition->attester, 'createAttesterResource'),
+            'custodian' => $this->createReferenceResource($composition->custodian),
+            'relatesTo' => $this->createMany($composition->relatesTo, 'createRelatesToResource'),
+            'event' => $this->createMany($composition->event, 'createEventResource'),
+            'section' => $this->createMany($composition->section, 'createSectionResource'),
+            'extension' => [
+                $this->createComplexExtensionResource($composition->documentStatus)
+            ]
         ];
     }
 
-
-    private function createCategoryArray($categories): array
+    public function createAttesterResource($attester)
     {
-        $category = [];
-
-        if (!empty($categories)) {
-            foreach ($categories as $c) {
-                $category[] = [
-                    'coding' => [
-                        [
-                            'system' => $c ? Composition::CATEGORY['binding']['valueset']['system'] : null,
-                            'code' => $c,
-                            'display' => $c ? Composition::CATEGORY['binding']['valueset']['display'][$c] : null,
-                        ]
-                    ]
-                ];
-            }
+        if (!empty($attester)) {
+            return [
+                'mode' => $attester->mode,
+                'time' => $this->parseDateTime($attester->time),
+                'party' => $this->createReferenceResource($attester->party)
+            ];
+        } else {
+            return null;
         }
-
-        return $category;
     }
 
-
-    private function createAttesterArray($attesterAttribute): array
+    public function createRelatesToResource($relatesTo)
     {
-        $attester = [];
-
-        if (is_array($attesterAttribute) || is_object($attesterAttribute)) {
-            foreach ($attesterAttribute as $a) {
-                $attester[] = [
-                    'mode' => $a->mode,
-                    'time' => $this->parseDateFhir($a->time),
-                    'party' => [
-                        'reference' => $a->party
-                    ]
-                ];
-            }
+        if (!empty($relatesTo)) {
+            return [
+                'code' => $relatesTo->code,
+                'targetIdentifier' => $this->createIdentifierResource($relatesTo->targetIdentifier),
+                'targetReference' => $this->createReferenceResource($relatesTo->targetReference)
+            ];
+        } else {
+            return null;
         }
-
-        return $attester;
     }
 
-    private function createRelatesToArray($relatesToAttribute): array
+    public function createEventResource($event)
     {
-        $relatesTo = [];
-
-        if (is_array($relatesToAttribute) || is_object($relatesToAttribute)) {
-            foreach ($relatesToAttribute as $rt) {
-                $relatesTo[] = $this->mergeArray(
-                    ['code' => $rt->code],
-                    $rt->target
-                );
-            }
+        if (!empty($event)) {
+            return [
+                'code' => $this->createMany($event->code, 'createCodeableConceptResource'),
+                'period' => $this->createPeriodResource($event->period),
+                'detail' => $this->createMany($event->detail, 'createReferenceResource')
+            ];
+        } else {
+            return null;
         }
-
-        return $relatesTo;
     }
 
-    private function createEventArray($eventAttribute): array
+    public function createSectionResource($section)
     {
-        $event = [];
-
-        if (is_array($eventAttribute) || is_object($eventAttribute)) {
-            foreach ($eventAttribute as $e) {
-                $event[] = [
-                    'code' => $this->createCodeArray($e->code),
-                    'period' => [
-                        'start' => $this->parseDateFhir($e->period_start),
-                        'end' => $this->parseDateFhir($e->period_end)
-                    ],
-                    'detail' => $this->createReferenceArray($e->detail)
-                ];
-            }
+        if (!empty($section)) {
+            return [
+                'title' => $section->title,
+                'code' => $this->createCodeableConceptResource($section->code),
+                'author' => $this->createMany($section->author, 'createReferenceResource'),
+                'focus' => $this->createReferenceResource($section->focus),
+                'text' => $this->createNarrativeResource($section->text),
+                'mode' => $section->mode,
+                'orderedBy' => $this->createCodeableConceptResource($section->orderedBy),
+                'entry' => $this->createMany($section->entry, 'createReferenceResource'),
+                'emptyReason' => $this->createCodeableConceptResource($section->emptyReason),
+                'section' => $this->createMany($section->section, 'createSectionResource')
+            ];
+        } else {
+            return null;
         }
-
-        return $event;
-    }
-
-
-    private function createCodeArray($codes): array
-    {
-        $code = [];
-
-        if (is_array($codes) || is_object($codes)) {
-            foreach ($codes as $c) {
-                $code[] = [
-                    'coding' => [
-                        [
-                            'system' => $c ? CompositionEvent::CODE['binding']['valueset']['system'] : null,
-                            'code' => $c,
-                            'display' => $c ? DB::table(CompositionEvent::CODE['binding']['valueset']['table'])
-                                ->select('display')
-                                ->where('code', $c)
-                                ->first()
-                                ->display ?? null : null,
-                        ]
-                    ]
-                ];
-            }
-        }
-
-        return $code;
-    }
-
-
-    private function createSectionArray($sectionAttribute): array
-    {
-        $section = [];
-
-        if (is_array($sectionAttribute) || is_object($sectionAttribute)) {
-            foreach ($sectionAttribute as $s) {
-                $section[] = $this->mergeArray(
-                    [
-                        'title' => $s->title,
-                        'code' => [
-                            'coding' => [
-                                [
-                                    'system' => $s->code ? CompositionSection::CODE['binding']['valueset']['system'] : null,
-                                    'code' => $s->code,
-                                    'display' => $s->code ? CompositionSection::CODE['binding']['valueset']['display'][$s->code] ?? null : null,
-                                ]
-                            ]
-                        ],
-                        'author' => $this->createReferenceArray($s->author),
-                        'focus' => [
-                            'reference' => $s->focus
-                        ],
-                        'text' => [
-                            'status' => $s->text_status,
-                            'div' => $s->text_div
-                        ],
-                        'mode' => $s->mode,
-                        'orderedBy' => [
-                            'coding' => [
-                                [
-                                    'system' => $s->ordered_by ? CompositionSection::ORDERED_BY['binding']['valueset']['system'] : null,
-                                    'code' => $s->ordered_by,
-                                    'display' => $s->ordered_by ? CompositionSection::ORDERED_BY['binding']['valueset']['display'][$s->ordered_by] ?? null : null,
-                                ]
-                            ]
-                        ],
-                        'entry' => $this->createReferenceArray($s->entry),
-                        'emptyReason' => [
-                            'coding' => [
-                                [
-                                    'system' => $s->empty_reason ? CompositionSection::EMPTY_REASON['binding']['valueset']['system'] : null,
-                                    'code' => $s->empty_reason,
-                                    'display' => $s->empty_reason ? CompositionSection::EMPTY_REASON['binding']['valueset']['display'][$s->empty_reason] ?? null : null,
-                                ]
-                            ]
-                        ],
-                    ],
-                    $s->section
-                );
-            }
-        }
-
-        return $section;
     }
 }

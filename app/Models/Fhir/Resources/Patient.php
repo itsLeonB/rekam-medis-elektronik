@@ -39,7 +39,7 @@ class Patient extends FhirModel
         'active' => 'boolean',
         'birth_date' => 'date',
         'deceased_boolean' => 'boolean',
-        'deceased_datetime' => 'datetime',
+        'deceased_date_time' => 'datetime',
         'multiple_birth_boolean' => 'boolean',
         'multiple_birth_integer' => 'integer'
     ];
@@ -117,7 +117,7 @@ class Patient extends FhirModel
 
     public function citizenship(): MorphOne
     {
-        return $this->morphOne(ComplexExtension::class, 'extendable');
+        return $this->morphOne(ComplexExtension::class, 'complex_extendable');
     }
 
     public function religion(): MorphOne

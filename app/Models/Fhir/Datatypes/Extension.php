@@ -37,12 +37,12 @@ class Extension extends FhirModel
 
     public function valueAnnotation(): MorphOne
     {
-        return $this->morphOne(Annotation::class, 'annotationable');
+        return $this->morphOne(Annotation::class, 'annotable');
     }
 
     public function valueAttachment(): MorphOne
     {
-        return $this->morphOne(Attachment::class, 'attachmentable');
+        return $this->morphOne(Attachment::class, 'attachable');
     }
 
     public function valueCodeableConcept(): MorphOne
@@ -97,7 +97,7 @@ class Extension extends FhirModel
 
     public function valueQuantity(): MorphOne
     {
-        return $this->morphOne(Quantity::class, 'quantityable');
+        return $this->morphOne(Quantity::class, 'quantifiable');
     }
 
     public function valueRange(): MorphOne

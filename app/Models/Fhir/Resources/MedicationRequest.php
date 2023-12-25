@@ -174,7 +174,7 @@ class MedicationRequest extends FhirModel
 
     public function note(): MorphMany
     {
-        return $this->morphMany(Annotation::class, 'annotatable')
+        return $this->morphMany(Annotation::class, 'annotable')
             ->where('attr_type', 'note');
     }
 

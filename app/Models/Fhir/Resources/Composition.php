@@ -100,7 +100,7 @@ class Composition extends FhirModel
     public function documentStatus(): MorphOne
     {
         return $this->morphOne(ComplexExtension::class, 'complex_extendable')
-            ->where('attr_url', 'http://hl7.org/fhir/StructureDefinition/composition-status');
+            ->where('url', 'http://hl7.org/fhir/StructureDefinition/composition-status');
     }
 
     protected static function boot()

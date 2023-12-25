@@ -29,27 +29,18 @@ use Illuminate\Database\Eloquent\Relations\{
 class Location extends FhirModel
 {
     protected $table = 'location';
-    protected $casts = [
-        'alias' => 'array',
-        // 'type' => 'array',
-        // 'address_line' => 'array',
-        // 'longitude' => 'double',
-        // 'latitude' => 'double',
-        // 'altitude' => 'double',
-        // 'endpoint' => 'array'
-    ];
-    public $timestamps = false;
 
-    protected $with = ['identifier', 'operationalStatus', 'type', 'telecom', 'address', 'physicalType', 'position', 'managingOrganization', 'partOf', 'hoursOfOperation', 'endpoint'];
+    protected $casts = ['alias' => 'array'];
+
+    public $timestamps = false;
 
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): MorphMany //HasMany
+    public function identifier(): MorphMany
     {
-        // return $this->hasMany(LocationIdentifier::class);
         return $this->morphMany(Identifier::class, 'identifiable');
     }
 
@@ -58,19 +49,14 @@ class Location extends FhirModel
         return $this->morphOne(Coding::class, 'codeable');
     }
 
-    public function codeableConcepts(): MorphMany
+    public function type(): MorphMany
     {
-        return $this->morphMany(CodeableConcept::class, 'codeable');
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'type');
     }
 
-    public function type()
+    public function telecom(): MorphMany
     {
-        return $this->codeableConcepts()->where('attr_type', 'type');
-    }
-
-    public function telecom(): MorphMany //HasMany
-    {
-        // return $this->hasMany(LocationTelecom::class);
         return $this->morphMany(ContactPoint::class, 'contact_pointable');
     }
 
@@ -79,9 +65,10 @@ class Location extends FhirModel
         return $this->morphOne(Address::class, 'addressable');
     }
 
-    public function physicalType()
+    public function physicalType(): MorphOne
     {
-        return $this->codeableConcepts()->where('attr_type', 'physical_type');
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'physical_type');
     }
 
     public function position(): HasOne
@@ -89,19 +76,16 @@ class Location extends FhirModel
         return $this->hasOne(LocationPosition::class);
     }
 
-    public function references(): MorphMany
+    public function managingOrganization(): MorphOne
     {
-        return $this->morphMany(Reference::class, 'referenceable');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'managingOrganization');
     }
 
-    public function managingOrganization()
+    public function partOf(): MorphOne
     {
-        return $this->references()->where('attr_type', 'managingOrganization');
-    }
-
-    public function partOf()
-    {
-        return $this->references()->where('attr_type', 'partOf');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'partOf');
     }
 
     public function hoursOfOperation(): HasMany
@@ -109,9 +93,10 @@ class Location extends FhirModel
         return $this->hasMany(LocationHoursOfOperation::class);
     }
 
-    public function endpoint()
+    public function endpoint(): MorphMany
     {
-        return $this->references()->where('attr_type', 'endpoint');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'endpoint');
     }
 
     public function serviceClass(): MorphOne

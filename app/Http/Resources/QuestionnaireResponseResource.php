@@ -20,71 +20,60 @@ class QuestionnaireResponseResource extends FhirResource
     }
 
 
-    private function resourceStructure($questionnaireResponse): array
+    public function resourceStructure($questionnaireResponse): array
     {
         return [
             'resourceType' => 'QuestionnaireResponse',
             'id' => $this->satusehat_id,
-            'identifier' => [
-                'system' => $questionnaireResponse->identifier_system,
-                'use' => $questionnaireResponse->identifier_use,
-                'value' => $questionnaireResponse->identifier_value
-            ],
-            'basedOn' => $this->createReferenceArray($questionnaireResponse->based_on),
-            'partOf' => $this->createReferenceArray($questionnaireResponse->part_of),
+            'identifier' => $this->createIdentifierResource($questionnaireResponse->identifier),
+            'basedOn' => $this->createMany($questionnaireResponse->basedOn, 'createReferenceResource'),
+            'partOf' => $this->createMany($questionnaireResponse->partOf, 'createReferenceResource'),
             'questionnaire' => $questionnaireResponse->questionnaire,
             'status' => $questionnaireResponse->status,
-            'subject' => [
-                'reference' => $questionnaireResponse->subject
-            ],
-            'encounter' => [
-                'reference' => $questionnaireResponse->encounter
-            ],
-            'authored' => $this->parseDateFhir($questionnaireResponse->authored),
-            'author' => [
-                'reference' => $questionnaireResponse->author
-            ],
-            'source' => [
-                'reference' => $questionnaireResponse->source
-            ],
-            'item' => $this->itemArray($questionnaireResponse->item)
+            'subject' => $this->createReferenceResource($questionnaireResponse->subject),
+            'encounter' => $this->createReferenceResource($questionnaireResponse->encounter),
+            'authored' => $this->parseDateTime($questionnaireResponse->authored),
+            'author' => $this->createReferenceResource($questionnaireResponse->author),
+            'source' => $this->createReferenceResource($questionnaireResponse->source),
+            'item' => $this->createMany($questionnaireResponse->item, 'createItemResource'),
         ];
     }
 
-
-    private function itemArray($items): array
+    public function createItemResource($item)
     {
-        $item = [];
-
-        if (!empty($items)) {
-            foreach ($items as $i) {
-                $item[] = [
-                    'linkId' => $i->link_id,
-                    'definition' => $i->definition,
-                    'text' => $i->text,
-                    'answer' => $this->answerArray($i->answer),
-                    'item' => $i->item
-                ];
-            }
+        if (!empty($item)) {
+            return [
+                'linkId' => $item->link_id,
+                'definition' => $item->definition,
+                'text' => $item->text,
+                'answer' => $this->createMany($item->answer, 'createAnswerResource'),
+                'item' => $this->createMany($item->item, 'createItemResource'),
+            ];
+        } else {
+            return null;
         }
-
-        return $item;
     }
 
-
-    private function answerArray($answers): array
+    public function createAnswerResource($answer)
     {
-        $answer = [];
-
-        if (!empty($answers)) {
-            foreach ($answers as $a) {
-                $answer[] = $this->mergeArray(
-                    $a->value,
-                    ['item' => $a->item]
-                );
-            }
+        if (!empty($answer)) {
+            return [
+                'valueBoolean' => $answer->value_boolean,
+                'valueDecimal' => $answer->value_decimal,
+                'valueInteger' => $answer->value_integer,
+                'valueDate' => $this->parseDate($answer->value_date),
+                'valueDateTime' => $this->parseDateTime($answer->value_datetime),
+                'valueTime' => $this->parseTime($answer->value_time),
+                'valueString' => $answer->value_string,
+                'valueUri' => $answer->value_uri,
+                'valueAttachment' => $this->createAttachmentResource($answer->valueAttachment),
+                'valueCoding' => $this->createCodingResource($answer->valueCoding),
+                'valueQuantity' => $this->createQuantityResource($answer->valueQuantity),
+                'valueReference' => $this->createReferenceResource($answer->valueReference),
+                'item' => $this->createMany($answer->item, 'createItemResource'),
+            ];
+        } else {
+            return null;
         }
-
-        return $answer;
     }
 }

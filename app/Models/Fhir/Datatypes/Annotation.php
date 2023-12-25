@@ -20,6 +20,6 @@ class Annotation extends FhirModel
 
     public function authorReference(): MorphOne
     {
-        return $this->morphOne(Reference::class, 'annotable');
+        return $this->morphOne(Reference::class, 'referenceable');
     }
 }

@@ -3,62 +3,455 @@
 namespace App\Http\Resources;
 
 use App\Fhir\Codesystems;
-use App\Fhir\Dosage;
-use App\Fhir\Timing;
-use DateTime;
-use DateTimeZone;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\DB;
 
 class FhirResource extends JsonResource
 {
-    public function createPhotoArray($photos): array
+    public function createDurationResource($duration)
     {
-        $photo = [];
-
-        if (is_array($photos) || is_object($photos)) {
-            foreach ($photos as $p) {
-                $photo[] = [
-                    'data' => $p->data,
-                    'url' => $p->url,
-                    'size' => $p->size,
-                    'hash' => $p->hash,
-                    'title' => $p->title,
-                    'creation' => $this->parseDateFhir($p->creation),
-                ];
-            }
+        if (!empty($duration)) {
+            return [
+                'value' => $duration->value,
+                'comparator' => $duration->comparator,
+                'unit' => $duration->unit,
+                'system' => $duration->system,
+                'code' => $duration->code,
+            ];
+        } else {
+            return null;
         }
-
-        return $photo;
     }
 
-
-    public function createHumanNameArray($names): array
+    public function createRangeResource($range)
     {
-        $humanName = [];
-
-        if (is_array($names) || is_object($names)) {
-            foreach ($names as $name) {
-                $humanName[] = [
-                    'use' => $name->use,
-                    'text' => $name->text,
-                    'family' => $name->family,
-                    'given' => $name->given,
-                    'prefix' => $name->prefix,
-                    'suffix' => $name->suffix,
-                    'period' => [
-                        'start' => $this->parseDateFhir($name->period_start),
-                        'end' => $this->parseDateFhir($name->period_end),
-                    ]
-                ];
-            }
+        if (!empty($range)) {
+            return [
+                'low' => $this->createSimpleQuantityResource($range->low),
+                'high' => $this->createSimpleQuantityResource($range->high),
+            ];
+        } else {
+            return null;
         }
-
-        return $humanName;
     }
 
+    public function createSimpleQuantityResource($simpleQuantity)
+    {
+        if (!empty($simpleQuantity)) {
+            return [
+                'value' => $simpleQuantity->value,
+                'unit' => $simpleQuantity->unit,
+                'system' => $simpleQuantity->system,
+                'code' => $simpleQuantity->code,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createTimingRepeatResource($repeat)
+    {
+        if (!empty($repeat)) {
+            return [
+                'boundsDuration' => $this->createDurationResource($repeat->boundsDuration),
+                'boundsRange' => $this->createRangeResource($repeat->boundsRange),
+                'boundsPeriod' => $this->createPeriodResource($repeat->boundsPeriod),
+                'count' => $repeat->count,
+                'countMax' => $repeat->count_max,
+                'duration' => $repeat->duration,
+                'durationMax' => $repeat->duration_max,
+                'durationUnit' => $repeat->duration_unit,
+                'frequency' => $repeat->frequency,
+                'frequencyMax' => $repeat->frequency_max,
+                'period' => $repeat->period,
+                'periodMax' => $repeat->period_max,
+                'periodUnit' => $repeat->period_unit,
+                'dayOfWeek' => $repeat->day_of_week,
+                'timeOfDay' => $repeat->time_of_day,
+                'when' => $repeat->when,
+                'offset' => $repeat->offset,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createTimingResource($timing)
+    {
+        if (!empty($timing)) {
+            return [
+                'event' => $timing->event,
+                'repeat' => $this->createTimingRepeatResource($timing->repeat),
+                'code' => $this->createCodeableConceptResource($timing->code),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createDoseAndRateResource($doseAndRate)
+    {
+        if (!empty($doseAndRate)) {
+            return [
+                'type' => $this->createCodeableConceptResource($doseAndRate->type),
+                'doseRange' => $this->createRangeResource($doseAndRate->doseRange),
+                'doseQuantity' => $this->createSimpleQuantityResource($doseAndRate->doseQuantity),
+                'rateRatio' => $this->createRatioResource($doseAndRate->rateRatio),
+                'rateRange' => $this->createRangeResource($doseAndRate->rateRange),
+                'rateQuantity' => $this->createSimpleQuantityResource($doseAndRate->rateQuantity),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createQuantityResource($quantity)
+    {
+        if (!empty($quantity)) {
+            return [
+                'value' => $quantity->value,
+                'comparator' => $quantity->comparator,
+                'unit' => $quantity->unit,
+                'system' => $quantity->system,
+                'code' => $quantity->code,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createRatioResource($ratio)
+    {
+        if (!empty($ratio)) {
+            return [
+                'numerator' => $this->createQuantityResource($ratio->numerator),
+                'denominator' => $this->createQuantityResource($ratio->denominator),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createDosageResource($dosage)
+    {
+        if (!empty($dosage)) {
+            return [
+                'sequence' => $dosage->sequence,
+                'text' => $dosage->text,
+                'additionalInstruction' => $this->createMany($dosage->additionalInstruction, 'createCodeableConceptResource'),
+                'patientInstruction' => $dosage->patientInstruction,
+                'timing' => $this->createTimingResource($dosage->timing),
+                'asNeededBoolean' => $dosage->asNeededBoolean,
+                'asNeededCodeableConcept' => $this->createCodeableConceptResource($dosage->asNeededCodeableConcept),
+                'site' => $this->createCodeableConceptResource($dosage->site),
+                'route' => $this->createCodeableConceptResource($dosage->route),
+                'method' => $this->createCodeableConceptResource($dosage->method),
+                'doseAndRate' => $this->createMany($dosage->doseAndRate, 'createDoseAndRateResource'),
+                'maxDosePerPeriod' => $this->createRatioResource($dosage->maxDosePerPeriod),
+                'maxDosePerAdministration' => $this->createSimpleQuantityResource($dosage->maxDosePerAdministration),
+                'maxDosePerLifetime' => $this->createSimpleQuantityResource($dosage->maxDosePerLifetime),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createContactPointResource($contactPoint)
+    {
+        if (!empty($contactPoint)) {
+            return [
+                'system' => $contactPoint->system,
+                'value' => $contactPoint->value,
+                'use' => $contactPoint->use,
+                'rank' => $contactPoint->rank,
+                'period' => $this->createPeriodResource($contactPoint->period),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createCodeableConceptResource($codeableConcept)
+    {
+        if (!empty($codeableConcept)) {
+            return [
+                'coding' => $this->createMany($codeableConcept->coding, 'createCodingResource'),
+                'text' => $codeableConcept->text,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createMany($data, $method)
+    {
+        if (!empty($data)) {
+            $arr = [];
+            foreach ($data as $d) {
+                $arr[] = $this->$method($d);
+            }
+            return $arr;
+        } else {
+            return null;
+        }
+    }
+
+    public function createCodingResource($coding)
+    {
+        if (!empty($coding)) {
+            return [
+                'system' => $coding->system,
+                'version' => $coding->version,
+                'code' => $coding->code,
+                'display' => $coding->display,
+                'userSelected' => $coding->user_selected,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createAttachmentResource($attachment)
+    {
+        if (!empty($attachment)) {
+            return [
+                'contentType' => $attachment->content_type,
+                'language' => $attachment->language,
+                'data' => $attachment->data,
+                'url' => $attachment->url,
+                'size' => $attachment->size,
+                'hash' => $attachment->hash,
+                'title' => $attachment->title,
+                'creation' => $this->parseDateTime($attachment->creation),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createIdentifierResource($identifier)
+    {
+        if (!empty($identifier)) {
+            return [
+                'use' => $identifier->use,
+                'type' => $this->createCodeableConceptResource($identifier->type),
+                'system' => $identifier->system,
+                'value' => $identifier->value,
+                'period' => $this->createPeriodResource($identifier->period),
+                'assigner' => $this->createReferenceResource($identifier->assigner),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createReferenceResource($reference)
+    {
+        if (!empty($reference)) {
+            return [
+                'reference' => $reference->reference,
+                'type' => $reference->type,
+                'identifier' => $this->createIdentifierResource($reference->identifier),
+                'display' => $reference->display,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createAnnotationResource($annotation)
+    {
+        if (!empty($annotation)) {
+            return [
+                'authorString' => $annotation->author_string,
+                'authorReference' => $this->createReferenceResource($annotation->authorReference),
+                'time' => $this->parseDateTime($annotation->time),
+                'text' => $annotation->text,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createAgeResource($age)
+    {
+        if (!empty($age)) {
+            return [
+                'value' => $age->value,
+                'comparator' => $age->comparator,
+                'unit' => $age->unit,
+                'system' => $age->system,
+                'code' => $age->code,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createAddressResource($address)
+    {
+        if (!empty($address)) {
+            return [
+                'use' => $address->use,
+                'type' => $address->type,
+                'text' => $address->text,
+                'line' => $address->line,
+                'city' => $address->city,
+                'district' => $address->district,
+                'state' => $address->state,
+                'postalCode' => $address->postalCode,
+                'country' => $address->country,
+                'period' => $this->createPeriodResource($address->period),
+                'extension' => [
+                    $this->createComplexExtensionResource($address->administrativeCode),
+                    $this->createComplexExtensionResource($address->geolocation),
+                ]
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createHumanNameResource($humanName)
+    {
+        if (!empty($humanName)) {
+            return [
+                'use' => $humanName->use,
+                'text' => $humanName->text,
+                'family' => $humanName->family,
+                'given' => $humanName->given,
+                'prefix' => $humanName->prefix,
+                'suffix' => $humanName->suffix,
+                'period' => $this->createPeriodResource($humanName->period),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createComplexExtensionResource($complexExtension)
+    {
+        if (!empty($complexExtension)) {
+            if (!empty($complexExtension->exts)) {
+                $extension = [];
+                foreach ($complexExtension->exts as $ext) {
+                    $extension[] = $this->createExtensionResource($complexExtension->extension($ext)->first());
+                }
+                return [
+                    'url' => $complexExtension->url,
+                    'extension' => $extension,
+                ];
+            } else {
+                $extension = null;
+            }
+        }
+    }
+
+    public function createNarrativeResource($narrative)
+    {
+        if (!empty($narrative)) {
+            return [
+                'status' => $narrative->status,
+                'div' => $narrative->div,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createSampledDataResource($sampledData)
+    {
+        if (!empty($sampledData)) {
+            return [
+                'origin' => $this->createSimpleQuantityResource($sampledData->origin),
+                'period' => $sampledData->period,
+                'factor' => $sampledData->factor,
+                'lowerLimit' => $sampledData->lowerLimit,
+                'upperLimit' => $sampledData->upperLimit,
+                'dimensions' => $sampledData->dimensions,
+                'data' => $sampledData->data,
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createExtensionResource($extension)
+    {
+        if (!empty($extension)) {
+            return [
+                'url' => $extension->url,
+                'valueBase64Binary' => $extension->value_base_64_binary,
+                'valueBoolean' => $extension->value_boolean,
+                'valueCanonical' => $extension->value_canonical,
+                'valueCode' => $extension->value_code,
+                'valueDate' => $extension->value_date,
+                'valueDateTime' => $this->parseDateTime($extension->value_date_time),
+                'valueDecimal' => $extension->value_decimal,
+                'valueId' => $extension->value_id,
+                'valueInstant' => $this->parseDateTime($extension->value_instant),
+                'valueInteger' => $extension->value_integer,
+                'valueMarkdown' => $extension->value_markdown,
+                'valueOid' => $extension->value_oid,
+                'valuePositiveInt' => $extension->value_positive_int,
+                'valueString' => $extension->value_string,
+                'valueTime' => $extension->value_time,
+                'valueUnsignedInt' => $extension->value_unsigned_int,
+                'valueUri' => $extension->value_uri,
+                'valueUrl' => $extension->value_url,
+                'valueUuid' => $extension->value_uuid,
+                'valueAddress' => $this->createAddressResource($extension->valueAddress),
+                'valueAge' => $this->createAgeResource($extension->valueAge),
+                'valueAnnotation' => $this->createAnnotationResource($extension->valueAnnotation),
+                'valueAttachment' => $this->createAttachmentResource($extension->valueAttachment),
+                'valueCodeableConcept' => $this->createCodeableConceptResource($extension->valueCodeableConcept),
+                'valueCoding' => $this->createCodingResource($extension->valueCoding),
+                'valueContactPoint' => $this->createContactPointResource($extension->valueContactPoint),
+                // 'valueCount' => $this->createCountResource($extension->valueCount),
+                // 'valueDistance' => $this->createDistanceResource($extension->valueDistance),
+                'valueDuration' => $this->createDurationResource($extension->valueDuration),
+                'valueHumanName' => $this->createHumanNameResource($extension->valueHumanName),
+                'valueIdentifier' => $this->createIdentifierResource($extension->valueIdentifier),
+                // 'valueMoney' => $this->createMoneyResource($extension->valueMoney),
+                'valuePeriod' => $this->createPeriodResource($extension->valuePeriod),
+                'valueQuantity' => $this->createQuantityResource($extension->valueQuantity),
+                'valueRange' => $this->createRangeResource($extension->valueRange),
+                'valueRatio' => $this->createRatioResource($extension->valueRatio),
+                'valueSampledData' => $this->createSampledDataResource($extension->valueSampledData),
+                // 'valueSignature' => $this->createSignatureResource($extension->valueSignature),
+                'valueTiming' => $this->createTimingResource($extension->valueTiming),
+                // 'valueContactDetail' => $this->createContactDetailResource($extension->valueContactDetail),
+                // 'valueContributor' => $this->createContributorResource($extension->valueContributor),
+                // 'valueDataRequirement' => $this->createDataRequirementResource($extension->valueDataRequirement),
+                // 'valueExpression' => $this->createExpressionResource($extension->valueExpression),
+                // 'valueParameterDefinition' => $this->createParameterDefinitionResource($extension->valueParameterDefinition),
+                // 'valueRelatedArtifact' => $this->createRelatedArtifactResource($extension->valueRelatedArtifact),
+                // 'valueTriggerDefinition' => $this->createTriggerDefinitionResource($extension->valueTriggerDefinition),
+                // 'valueUsageContext' => $this->createUsageContextResource($extension->valueUsageContext),
+                'valueDosage' => $this->createDosageResource($extension->valueDosage),
+                // 'valueMeta' => $this->createMetaResource($extension->valueMeta),
+                'valueReference' => $this->createReferenceResource($extension->valueReference),
+            ];
+        } else {
+            return null;
+        }
+    }
+
+    public function createPeriodResource($period)
+    {
+        if (!empty($period)) {
+            $periodResource = [
+                'start' => $this->parseDateTime($period->start),
+                'end' => $this->parseDateTime($period->end),
+            ];
+
+            return $periodResource;
+        } else {
+            return null;
+        }
+    }
 
     public function searchSnomed(string $ecl, string $term, Client $client)
     {
@@ -124,315 +517,42 @@ class FhirResource extends JsonResource
         }
     }
 
-    public function parseDate(&$array)
-    {
-        foreach ($array as &$value) {
-            if (is_array($value)) {
-                $this->parseDate($value); // Recursively process nested arrays
-            } elseif ($value instanceof DateTime) {
-                $value = $this->parseDateFhir($value);
-            }
-        }
-        return $array;
-    }
 
-    public function parseDateFhir($date)
+    public function parseDateTime($date)
     {
         if ($date != null) {
-            // Create a DateTime object with the input date
-            $dateTime = new DateTime($date);
+            // // Create a DateTime object with the input date
+            // $dateTime = new DateTime($date);
 
-            // Set the desired time zone for Jakarta (+07:00)
-            $dateTime->setTimezone(new DateTimeZone('Asia/Jakarta'));
+            // // Set the desired time zone for Jakarta (+07:00)
+            // $dateTime->setTimezone(new DateTimeZone('Asia/Jakarta'));
 
-            // Format the date in the desired format
-            $formattedDate = $dateTime->format('Y-m-d\TH:i:sP');
+            // // Format the date in the desired format
+            // $formattedDate = $dateTime->format('Y-m-d\TH:i:sP');
 
-            return $formattedDate;
+            return Carbon::parse($date)->tz('Asia/Jakarta')->format('Y-m-d\TH:i:sP');
         } else {
             return null;
         }
     }
 
-    public function createIdentifierArray($identifierAttribute)
+    public function parseDate($date)
     {
-        $identifier = [];
-
-        if (is_array($identifierAttribute) || is_object($identifierAttribute)) {
-            foreach ($identifierAttribute as $i) {
-                $identifier[] = [
-                    'system' => $i->system,
-                    'use' => $i->use,
-                    'value' => $i->value,
-                ];
-            }
+        if ($date != null) {
+            return Carbon::parse($date)->format('Y-m-d');
+        } else {
+            return null;
         }
-
-        return $identifier;
     }
 
-    public function createTelecomArray($telecomAttribute)
+    public function parseTime($date)
     {
-        $telecom = [];
-
-        if (is_array($telecomAttribute) || is_object($telecomAttribute)) {
-            foreach ($telecomAttribute as $t) {
-                $telecom[] = [
-                    'system' => $t->system,
-                    'use' => $t->use,
-                    'value' => $t->value,
-                ];
-            }
+        if ($date != null) {
+            return Carbon::parse($date)->tz('Asia/Jakarta')->format('H:i:s');
+        } else {
+            return null;
         }
-
-        return $telecom;
     }
-
-    public function createAddressArray($addressAttribute)
-    {
-        $addressData = [];
-
-        if (is_array($addressAttribute) || is_object($addressAttribute)) {
-            foreach ($addressAttribute as $a) {
-                $addressData[] = [
-                    'use' => $a->use,
-                    'type' => $a->type,
-                    'line' => $a->line,
-                    'country' => $a->country,
-                    'postalCode' => $a->postal_code,
-                    'extension' => [
-                        [
-                            'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode',
-                            'extension' => [
-                                [
-                                    'url' => $a->province ? 'province' : null,
-                                    'valueCode' => $a->province == 0 ? null : $a->province,
-                                ],
-                                [
-                                    'url' => $a->city ? 'city' : null,
-                                    'valueCode' => $a->city == 0 ? null : $a->city,
-                                ],
-                                [
-                                    'url' => $a->district ? 'district' : null,
-                                    'valueCode' => $a->district == 0 ? null : $a->district,
-                                ],
-                                [
-                                    'url' => $a->village ? 'village' : null,
-                                    'valueCode' => $a->village == 0 ? null : $a->village,
-                                ],
-                                [
-                                    'url' => $a->rt ? 'rt' : null,
-                                    'valueCode' => $a->rt == 0 ? null : $a->rt,
-                                ],
-                                [
-                                    'url' => $a->rw ? 'rw' : null,
-                                    'valueCode' => $a->rw == 0 ? null : $a->rw,
-                                ],
-                            ]
-                        ]
-                    ]
-                ];
-            }
-        }
-
-        return $addressData;
-    }
-
-    public function createReferenceArray($referenceAttribute)
-    {
-        $reference = [];
-
-        if (is_array($referenceAttribute) || is_object($referenceAttribute)) {
-            foreach ($referenceAttribute as $ref) {
-                $reference[] = [
-                    'reference' => $ref,
-                ];
-            }
-        }
-
-        return $reference;
-    }
-
-    public function createCodeableConceptArray($codeableConceptAttribute): array
-    {
-        $codeableConcept = [];
-
-        if (is_array($codeableConceptAttribute) || is_object($codeableConceptAttribute)) {
-            foreach ($codeableConceptAttribute as $cc) {
-                $codeableConcept[] = [
-                    'coding' => [
-                        [
-                            'system' => $cc->system,
-                            'code' => $cc->code,
-                            'display' => $cc->display,
-                        ]
-                    ]
-                ];
-            }
-        }
-
-        return $codeableConcept;
-    }
-
-    public function createAnnotationArray($annotationAttribute): array
-    {
-        $annotation = [];
-
-        if (is_array($annotationAttribute) || is_object($annotationAttribute)) {
-            foreach ($annotationAttribute as $a) {
-                $annotation[] = $this->mergeArray(
-                    $a->author,
-                    [
-                        'time' => $this->parseDateFhir($a->time),
-                        'text' => $a->text
-                    ]
-                );
-            }
-        }
-
-        return $annotation;
-    }
-
-    public function createDosageArray($dosageAttribute): array
-    {
-        $dosage = [];
-
-        if (!empty($dosageAttribute)) {
-            foreach ($dosageAttribute as $d) {
-                $dosage[] = [
-                    'sequence' => $d->sequence,
-                    'text' => $d->text,
-                    'additionalInstruction' => $this->createAdditionalInstructionArray($d->additional_instruction),
-                    'patientInstruction' => $d->patient_instruction,
-                    'timing' => [
-                        'event' => $d->timing_event,
-                        'repeat' => $d->timing_repeat,
-                        'code' => [
-                            'coding' => [
-                                [
-                                    'system' => $d->timing_code ? Timing::CODE['binding']['valueset']['system'] : null,
-                                    'code' => $d->timing_code,
-                                    'display' => $d->timing_code ? Timing::CODE['binding']['valueset']['display'][$d->timing_code] ?? null : null
-                                ]
-                            ]
-                        ]
-                    ],
-                    'site' => [
-                        'coding' => [
-                            [
-                                'system' => $d->site ? Dosage::SITE['binding']['valueset']['system'] : null,
-                                'code' => $d->site,
-                                'display' => $d->site ? DB::table(Dosage::SITE['binding']['valueset']['table'])
-                                    ->select('display')
-                                    ->where('code', $d->site)
-                                    ->first()->display ?? null : null
-                            ]
-                        ]
-                    ],
-                    'route' => [
-                        'coding' => [
-                            [
-                                'system' => $d->route ? Dosage::ROUTE['binding']['valueset']['system'] : null,
-                                'code' => $d->route,
-                                'display' => $d->route ? Dosage::ROUTE['binding']['valueset']['display'][$d->route] ?? null : null
-                            ]
-                        ]
-                    ],
-                    'method' => [
-                        'coding' => [
-                            [
-                                'system' => $d->method ? Dosage::METHOD['binding']['valueset']['system'] : null,
-                                'code' => $d->method,
-                                'display' => $d->method ? Dosage::METHOD['binding']['valueset']['display'][$d->method] ?? null : null
-                            ]
-                        ]
-                    ],
-                    'doseAndRate' => $this->createDoseRateArray($d->doseRate),
-                    'maxDosePerPeriod' => [
-                        'numerator' => [
-                            'value' => $d->max_dose_per_period_numerator_value,
-                            'comparator' => $d->max_dose_per_period_numerator_comparator,
-                            'unit' => $d->max_dose_per_period_numerator_unit,
-                            'system' => $d->max_dose_per_period_numerator_system,
-                            'code' => $d->max_dose_per_period_numerator_code,
-                        ],
-                        'denominator' => [
-                            'value' => $d->max_dose_per_period_denominator_value,
-                            'comparator' => $d->max_dose_per_period_denominator_comparator,
-                            'unit' => $d->max_dose_per_period_denominator_unit,
-                            'system' => $d->max_dose_per_period_denominator_system,
-                            'code' => $d->max_dose_per_period_denominator_code,
-                        ]
-                    ],
-                    'maxDosePerAdministration' => [
-                        'value' => $d->max_dose_per_administration_value,
-                        'unit' => $d->max_dose_per_administration_unit,
-                        'system' => $d->max_dose_per_administration_system,
-                        'code' => $d->max_dose_per_administration_code,
-                    ],
-                    'maxDosePerLifetime' => [
-                        'value' => $d->max_dose_per_lifetime_value,
-                        'unit' => $d->max_dose_per_lifetime_unit,
-                        'system' => $d->max_dose_per_lifetime_system,
-                        'code' => $d->max_dose_per_lifetime_code,
-                    ]
-                ];
-            }
-        }
-
-        return $dosage;
-    }
-
-
-    private function createAdditionalInstructionArray($additionalInstructionAttribute): array
-    {
-        $additionalInstruction = [];
-
-        if (is_array($additionalInstructionAttribute) || is_object($additionalInstructionAttribute)) {
-            foreach ($additionalInstructionAttribute as $ai) {
-                $additionalInstruction[] = [
-                    'coding' => [
-                        [
-                            'system' => $ai ? Dosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['system'] : null,
-                            'code' => $ai,
-                            'display' => $ai ? Dosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['display'][$ai] ?? null : null
-                        ]
-                    ]
-                ];
-            }
-        }
-
-        return $additionalInstruction;
-    }
-
-
-    public function createDoseRateArray($doseRateAttribute): array
-    {
-        $doseRate = [];
-
-        if (is_array($doseRateAttribute) || is_object($doseRateAttribute)) {
-            foreach ($doseRateAttribute as $dr) {
-                $doseRate[] = $this->mergeArray(
-                    [
-                        'type' => [
-                            'coding' => [
-                                [
-                                    'system' => $dr->system,
-                                    'code' => $dr->code,
-                                    'display' => $dr->display
-                                ]
-                            ]
-                        ],
-                    ],
-                    $dr->dose,
-                    $dr->rate
-                );
-            }
-        }
-
-        return $doseRate;
-    }
-
 
     public function mergeArray(...$arrays)
     {
@@ -447,13 +567,27 @@ class FhirResource extends JsonResource
         return $arr;
     }
 
-    public function removeEmptyValues($array)
+    public function removeEmptyValues($data)
     {
-        return array_filter($array, function ($value) {
+        // Recursively iterate through the array
+        foreach ($data as $key => &$value) {
+            // Check if the value is an array
             if (is_array($value)) {
-                return !empty($this->removeEmptyValues($value));
+                // Call the function recursively for nested arrays
+                $value = $this->removeEmptyValues($value);
+
+                // Remove the element if it becomes an empty array after processing
+                if (empty($value)) {
+                    unset($data[$key]);
+                }
+            } else {
+                // Remove null or empty string values
+                if ($value === null || $value === '') {
+                    unset($data[$key]);
+                }
             }
-            return $value !== null && $value !== "" && !(is_array($value) && empty($value));
-        });
+        }
+
+        return $data;
     }
 }

@@ -23,12 +23,6 @@ return new class extends Migration
             $table->dateTime('deceased_date_time')->nullable();
             $table->boolean('multiple_birth_boolean')->nullable();
             $table->integer('multiple_birth_integer')->nullable();
-            // $table->string('marital_status')->nullable();
-            // $table->json('multiple_birth');
-            // $table->json('general_practitioner')->nullable();
-            // $table->string('managing_organization')->nullable();
-            // $table->string('birth_city')->nullable();
-            // $table->string('birth_country')->nullable();
         });
     }
 

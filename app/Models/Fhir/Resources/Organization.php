@@ -23,13 +23,12 @@ use Illuminate\Database\Eloquent\Relations\{
 class Organization extends FhirModel
 {
     protected $table = 'organization';
+
     protected $casts = [
         'active' => 'boolean',
-        // 'type' => 'array',
-        'alias' => 'array',
-        // 'endpoint' => 'array'
+        'alias' => 'array'
     ];
-    protected $with = ['identifier', 'type', 'telecom', 'address', 'partOf', 'contact', 'endpoint'];
+
     public $timestamps = false;
 
     public function resource(): BelongsTo
@@ -47,39 +46,20 @@ class Organization extends FhirModel
         return $this->morphMany(CodeableConcept::class, 'codeable');
     }
 
-    // public function identifier(): HasMany
-    // {
-    //     return $this->hasMany(OrganizationIdentifier::class);
-    // }
-
     public function telecom(): MorphMany
     {
         return $this->morphMany(ContactPoint::class, 'contact_pointable');
     }
-
-    // public function telecom(): HasMany
-    // {
-    //     return $this->hasMany(OrganizationTelecom::class);
-    // }
 
     public function address(): MorphMany
     {
         return $this->morphMany(Address::class, 'addressable');
     }
 
-    // public function address(): HasMany
-    // {
-    //     return $this->hasMany(OrganizationAddress::class);
-    // }
-
-    public function reference(): MorphMany
+    public function partOf(): MorphOne
     {
-        return $this->morphMany(Reference::class, 'referenceable');
-    }
-
-    public function partOf()
-    {
-        return $this->reference()->where('attr_type', 'partOf');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'partOf');
     }
 
     public function contact(): HasMany
@@ -87,9 +67,10 @@ class Organization extends FhirModel
         return $this->hasMany(OrganizationContact::class);
     }
 
-    public function endpoint()
+    public function endpoint(): MorphMany
     {
-        return $this->reference()->where('attr_type', 'endpoint');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'endpoint');
     }
 
     public const TYPE = [

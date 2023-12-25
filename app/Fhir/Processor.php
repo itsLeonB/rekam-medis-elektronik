@@ -434,7 +434,7 @@ class Processor
         $clinicalImpression = new ClinicalImpression([
             'status' => $array['status'] ?? null,
             'description' => $array['description'] ?? null,
-            'effectiveDateTime' => $array['effectiveDateTime'] ?? null,
+            'effective_date_time' => $array['effectiveDateTime'] ?? null,
             'date' => $array['date'] ?? null,
             'protocol' => $array['protocol'] ?? null,
             'summary' => $array['summary'] ?? null,
@@ -2014,7 +2014,7 @@ class Processor
             'gender' => $array['gender'] ?? 'unknown',
             'birth_date' => $array['birthDate'] ?? null,
             'deceased_boolean' => $array['deceasedBoolean'] ?? null,
-            'deceased_datetime' => $array['deceasedDateTime'] ?? null,
+            'deceased_date_time' => $array['deceasedDateTime'] ?? null,
             'multiple_birth_boolean' => $array['multipleBirthBoolean'] ?? null,
             'multiple_birth_integer' => $array['multipleBirthInteger'] ?? null,
         ]);
@@ -2315,8 +2315,6 @@ class Processor
     {
         $array = $this->readJsonResource($jsonData);
 
-        // dd($array);
-
         $organization = new Organization([
             'active' => $array['active'] ?? null,
             'name' => $array['name'] ?? null,
@@ -2404,7 +2402,8 @@ class Processor
         if (!empty($array)) {
             $address = $model->$attribute()->save($array['address'] ?? null);
             $this->savePeriod($address, 'period', $array['period'] ?? null);
-            $this->saveMany($address, 'complexExtension', $array['extensions'] ?? null, 'saveComplexExtension');
+            $this->saveComplexExtension($address, 'administrativeCode', $array['administrativeCode'] ?? null);
+            $this->saveComplexExtension($address, 'geolocation', $array['geolocation'] ?? null);
         }
     }
 
@@ -2427,16 +2426,20 @@ class Processor
             $period = $this->generatePeriod('period', $array['period'] ?? null);
 
             if (!empty($array['extension'])) {
-                $extensions = [];
                 foreach ($array['extension'] as $e) {
-                    $extensions[] = $this->generateComplexExtension('complexExtension', $e);
+                    if ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode') {
+                        $administrativeCode = $this->generateComplexExtension('administrativeCode', $e);
+                    } elseif ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/geolocation') {
+                        $geolocation = $this->generateComplexExtension('geolocation', $e);
+                    }
                 }
             }
 
             return [
                 'address' => $address,
                 'period' => $period ?? null,
-                'extensions' => $extensions ?? null
+                'administrativeCode' => $administrativeCode ?? null,
+                'geolocation' => $geolocation ?? null
             ];
         } else {
             return null;
@@ -2456,7 +2459,7 @@ class Processor
         if (!empty($array)) {
             $complexExtension = new ComplexExtension([
                 'url' => $array['url'] ?? null,
-                'extension' => [],
+                'exts' => [],
                 'attr_type' => $attribute
             ]);
 
@@ -2465,9 +2468,9 @@ class Processor
                 $extension = [];
                 foreach ($array['extension'] as $e) {
                     $extensions[] = $e['url'];
-                    $array[] = $this->generateExtension('extension', $e);
+                    $extension[] = $this->generateExtension('extension', $e);
                 }
-                $complexExtension->extension = $extensions;
+                $complexExtension->exts = $extensions;
             }
 
             return [
@@ -2482,7 +2485,7 @@ class Processor
     private function saveExtension($model, $attribute, $array)
     {
         if (!empty($array)) {
-            $extension = $model->$attribute()->save($array['extension'] ?? null);
+            $extension = $model->$attribute($array['extension']['url'])->save($array['extension'] ?? null);
             $this->saveAddress($extension, 'valueAddress', $array['valueAddress'] ?? null);
             $this->saveAge($extension, 'valueAge', $array['valueAge'] ?? null);
             $this->saveAnnotation($extension, 'valueAnnotation', $array['valueAnnotation'] ?? null);

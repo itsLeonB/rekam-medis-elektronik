@@ -72,44 +72,40 @@ class Encounter extends FhirModel
         return $this->hasMany(EncounterClassHistory::class);
     }
 
-    public function codeableConcepts(): MorphMany
+    public function type(): MorphMany
     {
-        return $this->morphMany(CodeableConcept::class, 'codeable');
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'type');
     }
 
-    public function type()
+    public function serviceType(): MorphOne
     {
-        return $this->codeableConcepts()->where('attr_type', 'type');
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'serviceType');
     }
 
-    public function serviceType()
+    public function priority(): MorphOne
     {
-        return $this->codeableConcepts()->where('attr_type', 'serviceType');
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'priority');
     }
 
-    public function priority()
+    public function subject(): MorphOne
     {
-        return $this->codeableConcepts()->where('attr_type', 'priority');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'subject');
     }
 
-    public function references(): MorphMany
+    public function episodeOfCare(): MorphMany
     {
-        return $this->morphMany(Reference::class, 'referenceable');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'episodeOfCare');
     }
 
-    public function subject()
+    public function basedOn(): MorphMany
     {
-        return $this->references()->where('attr_type', 'subject');
-    }
-
-    public function episodeOfCare()
-    {
-        return $this->references()->where('attr_type', 'episodeOfCare');
-    }
-
-    public function basedOn()
-    {
-        return $this->references()->where('attr_type', 'basedOn');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'basedOn');
     }
 
     public function participant(): HasMany
@@ -117,9 +113,10 @@ class Encounter extends FhirModel
         return $this->hasMany(EncounterParticipant::class);
     }
 
-    public function appointment()
+    public function appointment(): MorphMany
     {
-        return $this->references()->where('attr_type', 'appointment');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'appointment');
     }
 
     public function period(): MorphOne
@@ -132,14 +129,16 @@ class Encounter extends FhirModel
         return $this->morphOne(Duration::class, 'durationable');
     }
 
-    public function reasonCode()
+    public function reasonCode(): MorphMany
     {
-        return $this->codeableConcepts()->where('attr_type', 'reasonCode');
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'reasonCode');
     }
 
-    public function reasonReference()
+    public function reasonReference(): MorphMany
     {
-        return $this->references()->where('attr_type', 'reasonReference');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'reasonReference');
     }
 
     public function diagnosis(): HasMany
@@ -147,9 +146,10 @@ class Encounter extends FhirModel
         return $this->hasMany(EncounterDiagnosis::class);
     }
 
-    public function account()
+    public function account(): MorphMany
     {
-        return $this->references()->where('attr_type', 'account');
+        return $this->morphMany(Reference::class, 'referenceable')
+            ->where('attr_type', 'account');
     }
 
     public function hospitalization(): HasOne
@@ -162,14 +162,16 @@ class Encounter extends FhirModel
         return $this->hasMany(EncounterLocation::class);
     }
 
-    public function serviceProvider()
+    public function serviceProvider(): MorphOne
     {
-        return $this->references()->where('attr_type', 'serviceProvider');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'serviceProvider');
     }
 
-    public function partOf()
+    public function partOf(): MorphOne
     {
-        return $this->references()->where('attr_type', 'partOf');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'partOf');
     }
 
     public const STATUS = [

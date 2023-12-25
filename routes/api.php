@@ -174,4 +174,5 @@ Route::get('/test/get/composition', [TestController::class, 'testComposition']);
 Route::get('/test/get/allergyintolerance', [TestController::class, 'testAllergyIntolerance']);
 Route::get('/test/get/clinicalimpression', [TestController::class, 'testClinicalImpression']);
 Route::get('/test/get/servicerequest', [TestController::class, 'testServiceRequest']);
-Route::get('/test/get/medicationdispense', [TestController::class, 'testMedicationDispense']);
+Route::get('/test/get/medicationstatement', [TestController::class, 'testMedicationStatement']);
+Route::get('/test/get/questionnaireresponse', [TestController::class, 'testQuestionnaireResponse']);

@@ -2,13 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Fhir\{
-    ClinicalImpression,
-    ClinicalImpressionFinding,
-    ClinicalImpressionInvestigation
-};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ClinicalImpressionResource extends FhirResource
 {
@@ -28,139 +22,57 @@ class ClinicalImpressionResource extends FhirResource
         return $data;
     }
 
-    private function resourceStructure($clinicalImpression): array
+    public function resourceStructure($clinicalImpression): array
     {
-        return $this->mergeArray(
-            [
-                'resourceType' => 'ClinicalImpression',
-                'id' => $this->satusehat_id,
-                'identifier' => $this->createIdentifierArray($clinicalImpression->identifier),
-                'status' => $clinicalImpression->status,
-                'statusReason' => [
-                    'coding' => [
-                        [
-                            'system' => $clinicalImpression->status_reason_code ? ClinicalImpression::STATUS_REASON_CODE['binding']['valueset']['system'] : null,
-                            'code' => $clinicalImpression->status_reason_code,
-                            'display' => $clinicalImpression->status_reason_code ? DB::table(ClinicalImpression::STATUS_REASON_CODE['binding']['valueset']['table'])
-                                ->where('code', $clinicalImpression->status_reason_code)
-                                ->value('display_en') ?? null : null
-                        ]
-                    ],
-                    'text' => $clinicalImpression->status_reason_text
-                ],
-                'code' => [
-                    'coding' => [
-                        [
-                            'system' => $clinicalImpression->code_system,
-                            'code' => $clinicalImpression->code_code,
-                            'display' => $clinicalImpression->code_display
-                        ]
-                    ],
-                    'text' => $clinicalImpression->code_text
-                ],
-                'description' => $clinicalImpression->description,
-                'subject' => [
-                    'reference' => $clinicalImpression->subject
-                ],
-                'encounter' => [
-                    'reference' => $clinicalImpression->encounter
-                ],
-                'date' => $this->parseDateFhir($clinicalImpression->date),
-                'assessor' => [
-                    'reference' => $clinicalImpression->assessor
-                ],
-                'previous' => [
-                    'reference' => $clinicalImpression->previous
-                ],
-                'problem' => $this->createReferenceArray($clinicalImpression->problem),
-                'investigation' => $this->createInvestigationArray($clinicalImpression->investigation),
-                'protocol' => $clinicalImpression->protocol,
-                'summary' => $clinicalImpression->summary,
-                'finding' => $this->createFindingArray($clinicalImpression->finding),
-                'prognosisCodeableConcept' => $this->createPrognosisArray($clinicalImpression->prognosis_codeable_concept),
-                'prognosisReference' => $this->createReferenceArray($clinicalImpression->prognosis_reference),
-                'supportingInfo' => $this->createReferenceArray($clinicalImpression->supporting_info),
-                'note' => $this->createAnnotationArray($clinicalImpression->note)
-            ],
-            $clinicalImpression->effective
-        );
+        return [
+            'resourceType' => 'ClinicalImpression',
+            'id' => $this->satusehat_id,
+            'identifier' => $this->createMany($clinicalImpression->identifier, 'createIdentifierResource'),
+            'status' => $clinicalImpression->status,
+            'statusReason' => $this->createCodeableConceptResource($clinicalImpression->statusReason),
+            'code' => $this->createCodeableConceptResource($clinicalImpression->code),
+            'description' => $clinicalImpression->description,
+            'subject' => $this->createReferenceResource($clinicalImpression->subject),
+            'encounter' => $this->createReferenceResource($clinicalImpression->encounter),
+            'effectiveDateTime' => $this->parseDateTime($clinicalImpression->effective_date_time),
+            'effectivePeriod' => $this->createPeriodResource($clinicalImpression->effectivePeriod),
+            'date' => $this->parseDateTime($clinicalImpression->date),
+            'assessor' => $this->createReferenceResource($clinicalImpression->assessor),
+            'previous' => $this->createReferenceResource($clinicalImpression->previous),
+            'problem' => $this->createMany($clinicalImpression->problem, 'createReferenceResource'),
+            'investigation' => $this->createMany($clinicalImpression->investigation, 'createInvestigationResource'),
+            'protocol' => $clinicalImpression->protocol,
+            'summary' => $clinicalImpression->summary,
+            'finding' => $this->createMany($clinicalImpression->finding, 'createFindingResource'),
+            'prognosisCodeableConcept' => $this->createMany($clinicalImpression->prognosisCodeableConcept, 'createCodeableConceptResource'),
+            'prognosisReference' => $this->createMany($clinicalImpression->prognosisReference, 'createReferenceResource'),
+            'supportingInfo' => $this->createMany($clinicalImpression->supportingInfo, 'createReferenceResource'),
+            'note' => $this->createMany($clinicalImpression->note, 'createAnnotationResource'),
+        ];
     }
 
-
-    private function createPrognosisArray($prognoses): array
+    public function createInvestigationResource($investigation)
     {
-        $prognosis = [];
-
-        if (is_array($prognoses) || is_object($prognoses)) {
-            foreach ($prognoses as $p) {
-                $prognosis[] = [
-                    'coding' => [
-                        [
-                            'system' => $p ? ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['system'] : null,
-                            'code' => $p,
-                            'display' => $p ? ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['display'][$p] ?? null : null
-                        ]
-                    ],
-                ];
-            }
+        if (!empty($investigation)) {
+            return [
+                'code' => $this->createCodeableConceptResource($investigation->code),
+                'item' => $this->createMany($investigation->item, 'createReferenceResource'),
+            ];
+        } else {
+            return null;
         }
-
-        return $prognosis;
     }
 
-
-    private function createInvestigationArray($investigationAttribute): array
+    public function createFindingResource($finding)
     {
-        $investigation = [];
-
-        if (is_array($investigationAttribute) || is_object($investigationAttribute)) {
-            foreach ($investigationAttribute as $i) {
-                $investigation[] = [
-                    'code' => [
-                        'coding' => [
-                            [
-                                'system' => $i->code ? ClinicalImpressionInvestigation::CODE['binding']['valueset']['system'] : null,
-                                'code' => $i->code,
-                                'display' => $i->code ? ClinicalImpressionInvestigation::CODE['binding']['valueset']['display'][$i->code] ?? null : null
-                            ]
-                        ],
-                        'text' => $i->code_text
-                    ],
-                    'item' => $this->createReferenceArray($i->item)
-                ];
-            }
+        if (!empty($finding)) {
+            return [
+                'itemCodeableConcept' => $this->createCodeableConceptResource($finding->itemCodeableConcept),
+                'itemReference' => $this->createReferenceResource($finding->itemReference),
+                'basis' => $finding->basis,
+            ];
+        } else {
+            return null;
         }
-
-        return $investigation;
-    }
-
-
-    private function createFindingArray($findingAttribute): array
-    {
-        $finding = [];
-
-        if (is_array($findingAttribute) || is_object($findingAttribute)) {
-            foreach ($findingAttribute as $f) {
-                $finding[] = [
-                    'itemCodeableConcept' => [
-                        'coding' => [
-                            [
-                                'system' => $f->item_codeable_concept ? ClinicalImpressionFinding::ITEM_CODEABLE_CONCEPT['binding']['valueset']['system'] : null,
-                                'code' => $f->item_codeable_concept,
-                                'display' => $f->item_codeable_concept ? DB::table(ClinicalImpressionFinding::ITEM_CODEABLE_CONCEPT['binding']['valueset']['table'])
-                                    ->where('code', $f->item_codeable_concept)
-                                    ->value('display_en') ?? null : null
-                            ]
-                        ]
-                    ],
-                    'itemReference' => [
-                        'reference' => $f->item_reference
-                    ],
-                    'basis' => $f->basis
-                ];
-            }
-        }
-
-        return $finding;
     }
 }

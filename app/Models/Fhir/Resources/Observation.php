@@ -179,7 +179,7 @@ class Observation extends FhirModel
 
     public function note(): MorphMany
     {
-        return $this->morphMany(Annotation::class, 'noteable');
+        return $this->morphMany(Annotation::class, 'annotable');
     }
 
     public function bodySite(): MorphOne

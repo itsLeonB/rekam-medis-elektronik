@@ -24,19 +24,16 @@ class Address extends FhirModel
         return $this->morphTo('addressable');
     }
 
-    public function complexExtension(): MorphMany
+    public function administrativeCode(): MorphOne
     {
-        return $this->morphMany(ComplexExtension::class, 'complex_extendable');
+        return $this->morphOne(ComplexExtension::class, 'complex_extendable')
+            ->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode');
     }
 
-    public function administrativeCode()
+    public function geolocation(): MorphOne
     {
-        return $this->complexExtension()->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode');
-    }
-
-    public function geolocation()
-    {
-        return $this->complexExtension()->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/geolocation');
+        return $this->morphOne(ComplexExtension::class, 'complex_extendable')
+            ->where('url', 'https://fhir.kemkes.go.id/r4/StructureDefinition/geolocation');
     }
 
     public function period(): MorphOne

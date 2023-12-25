@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('onset_date_time')->nullable();
             $table->string('onset_string')->nullable();
             $table->dateTime('recorded_date')->nullable();
-            $table->dateTime('last_occurence')->nullable();
+            $table->dateTime('last_occurrence')->nullable();
         });
     }
 

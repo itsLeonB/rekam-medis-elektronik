@@ -9,7 +9,6 @@ use App\Http\Resources\CompositionResource;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
 use App\Http\Resources\LocationResource;
-use App\Http\Resources\MedicationDispenseResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;
 use App\Http\Resources\ObservationResource;
@@ -17,8 +16,9 @@ use App\Http\Resources\OrganizationResource;
 use App\Http\Resources\PatientResource;
 use App\Http\Resources\PractitionerResource;
 use App\Http\Resources\ProcedureResource;
+use App\Http\Resources\QuestionnaireResponseResource;
 use App\Http\Resources\ServiceRequestResource;
-use App\Models\Resource;
+use App\Models\Fhir\Resource;
 
 class TestController extends Controller
 {
@@ -30,10 +30,10 @@ class TestController extends Controller
     }
 
 
-    public function testMedicationDispense()
+    public function testQuestionnaireResponse()
     {
         return response()
-            ->json(new MedicationDispenseResource(Resource::where('res_type', '=', 'MedicationDispense')
+            ->json(new QuestionnaireResponseResource(Resource::where('res_type', '=', 'QuestionnaireResponse')
                 ->firstOrFail()), 200);
     }
 
