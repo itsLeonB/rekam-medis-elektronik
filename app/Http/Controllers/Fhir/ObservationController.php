@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\ObservationRequest;
 use App\Http\Resources\ObservationResource;
@@ -29,20 +30,18 @@ class ObservationController extends FhirController
         }
     }
 
-
     public function store(ObservationRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $observation = $resource->observation()->create($body['observation']);
-            $this->createChildModels($observation, $body, ['identifier', 'note', 'referenceRange']);
-            $this->createNestedInstances($observation, 'component', $body, ['referenceRange']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateObservation($body);
+            $processor->saveObservation($resource, $data);
             $this->createResourceContent(ObservationResource::class, $resource);
-            return response()->json($observation, 201);
+            return response()->json(new ObservationResource($resource), 201);
         });
     }
-
 
     public function update(ObservationRequest $request, int $res_id, FhirService $fhirService)
     {

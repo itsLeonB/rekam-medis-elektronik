@@ -61,18 +61,19 @@ class FhirController extends Controller
         $resource->refresh();
 
         $resourceText = new $resourceClass($resource);
-        $resource->content()->create([
+        return $resource->content()->create([
             'res_ver' => $resource->res_version,
             'res_text' => json_encode($resourceText),
         ]);
     }
 
 
-    public function createResource(string $resourceType)
+    public function createResource(string $resourceType, string $satusehatId)
     {
         $resource = Resource::create([
             'res_type' => $resourceType,
             'res_ver' => 1,
+            'satusehat_id' => $satusehatId
         ]);
 
         return $resource;

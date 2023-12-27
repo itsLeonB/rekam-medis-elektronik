@@ -3,10 +3,8 @@
 namespace App\Http\Requests\Fhir;
 
 use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\{
-    Location,
-    LocationOperationHours
-};
+use App\Models\Fhir\BackboneElements\LocationHoursOfOperation;
+use App\Models\Fhir\Resources\Location;
 use Illuminate\Validation\Rule;
 
 class LocationRequest extends FhirRequest
@@ -19,72 +17,45 @@ class LocationRequest extends FhirRequest
     public function rules(): array
     {
         return array_merge(
-            $this->baseAttributeRules(),
-            $this->baseDataRules('location.'),
-            $this->getIdentifierDataRules('identifier.*.'),
-            $this->getTelecomDataRules('telecom.*.'),
-            $this->operationHoursDataRules('operationHours.*.')
+            [
+                'identifier' => 'nullable|array',
+                'status' => ['nullable', Rule::in(Location::STATUS['binding']['valueset']['code'])],
+                'operationalStatus' => 'nullable|array',
+                'name' => 'nullable|string',
+                'alias' => 'nullable|array',
+                'alias.*' => 'sometimes|string',
+                'description' => 'nullable|string',
+                'mode' => ['nullable', Rule::in(Location::MODE['binding']['valueset']['code'])],
+                'type' => 'nullable|array',
+                'telecom' => 'nullable|array',
+                'address' => 'nullable|array',
+                'physicalType' => 'nullable|array',
+                'position' => 'nullable|array',
+                'position.longitude' => 'sometimes|numeric',
+                'position.latitude' => 'sometimes|numeric',
+                'position.altitude' => 'nullable|numeric',
+                'managingOrganization' => 'nullable|array',
+                'partOf' => 'nullable|array',
+                'hoursOfOperation' => 'nullable|array',
+                'hoursOfOperation.*.daysOfWeek' => 'nullable|array',
+                'hoursOfOperation.*.daysOfWeek.*' => ['sometimes', Rule::in(LocationHoursOfOperation::DAYS_OF_WEEK['binding']['valueset']['code'])],
+                'hoursOfOperation.*.allDay' => 'nullable|boolean',
+                'hoursOfOperation.*.openingTime' => 'nullable|date_format:H:i:s',
+                'hoursOfOperation.*.closingTime' => 'nullable|date_format:H:i:s',
+                'availabilityExceptions' => 'nullable|string',
+                'endpoint' => 'nullable|array',
+                'extension' => 'nullable|array',
+            ],
+            $this->getIdentifierRules('identifier.*.'),
+            $this->getCodingRules('operationalStatus.'),
+            $this->getCodeableConceptRules('type.*.'),
+            $this->getContactPointRules('telecom.*.'),
+            $this->getAddressRules('address.'),
+            $this->getCodeableConceptRules('physicalType.'),
+            $this->getReferenceRules('managingOrganization.'),
+            $this->getReferenceRules('partOf.'),
+            $this->getReferenceRules('endpoint.*.'),
+            $this->getExtensionRules('extension.*.')
         );
-    }
-
-
-    private function baseAttributeRules(): array
-    {
-        return [
-            'location' => 'required|array',
-            'identifier' => 'nullable|array',
-            'telecom' => 'nullable|array',
-            'operationHours' => 'nullable|array'
-        ];
-    }
-
-
-    private function baseDataRules($prefix): array
-    {
-        return [
-            $prefix . 'status' => ['nullable', Rule::in(Location::STATUS['binding']['valueset']['code'])],
-            $prefix . 'operational_status' => ['nullable', Rule::in(Location::OPERATIONAL_STATUS['binding']['valueset']['code'])],
-            $prefix . 'name' => 'nullable|string',
-            $prefix . 'alias' => 'nullable|array',
-            $prefix . 'alias.*' => 'required|string',
-            $prefix . 'description' => 'nullable|string',
-            $prefix . 'mode' => ['nullable', Rule::in(Location::MODE['binding']['valueset']['code'])],
-            $prefix . 'type' => 'nullable|array',
-            $prefix . 'type.*' => ['nullable', Rule::in(Location::TYPE['binding']['valueset']['code'])],
-            $prefix . 'address_use' => ['nullable', Rule::in(Location::ADDRESS_USE['binding']['valueset']['code'])],
-            $prefix . 'address_type' => ['nullable', Rule::in(Location::ADDRESS_TYPE['binding']['valueset']['code'])],
-            $prefix . 'address_line' => 'nullable|array',
-            $prefix . 'address_line.*' => 'required|string',
-            $prefix . 'country' => ['nullable', Rule::exists(Location::COUNTRY['binding']['valueset']['table'], 'code')],
-            $prefix . 'postal_code' => 'nullable|string',
-            $prefix . 'province' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_provinsi')],
-            $prefix . 'city' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_kabko')],
-            $prefix . 'district' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_kecamatan')],
-            $prefix . 'village' => ['nullable', Rule::exists(Location::ADMINISTRATIVE_CODE['binding']['valueset']['table'], 'kode_kelurahan')],
-            $prefix . 'rw' => 'nullable|integer',
-            $prefix . 'rt' => 'nullable|integer',
-            $prefix . 'physical_type' => ['nullable', Rule::in(Location::PHYSICAL_TYPE['binding']['valueset']['code'])],
-            $prefix . 'longitude' => 'nullable|numeric',
-            $prefix . 'latitude' => 'nullable|numeric',
-            $prefix . 'altitude' => 'nullable|numeric',
-            $prefix . 'managing_organization' => 'nullable|string',
-            $prefix . 'part_of' => 'nullable|string',
-            $prefix . 'availability_exceptions' => 'nullable|string',
-            $prefix . 'endpoint' => 'nullable|array',
-            $prefix . 'endpoint.*' => 'required|string',
-            $prefix . 'service_class' => ['nullable', Rule::in(Location::SERVICE_CLASS['binding']['valueset']['code'])],
-        ];
-    }
-
-
-    private function operationHoursDataRules($prefix): array
-    {
-        return [
-            $prefix . 'days_of_week' => 'nullable|array',
-            $prefix . 'days_of_week.*' => ['required', Rule::in(LocationOperationHours::DAYS_OF_WEEK['binding']['valueset']['code'])],
-            $prefix . 'all_day' => 'nullable|boolean',
-            $prefix . 'opening_time' => 'nullable|date_format:H:i:s',
-            $prefix . 'closing_time' => 'nullable|date_format:H:i:s',
-        ];
     }
 }

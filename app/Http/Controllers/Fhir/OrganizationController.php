@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\OrganizationRequest;
 use App\Http\Resources\OrganizationResource;
@@ -34,12 +35,12 @@ class OrganizationController extends FhirController
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $organization = $resource->organization()->create($body['organization']);
-            $this->createChildModels($organization, $body, ['identifier', 'telecom', 'address']);
-            $this->createNestedInstances($organization, 'contact', $body, ['telecom']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $orgData = $processor->generateOrganization($body);
+            $processor->saveOrganization($resource, $orgData);
             $this->createResourceContent(OrganizationResource::class, $resource);
-            return response()->json($organization, 201);
+            return response()->json(new OrganizationResource($resource), 201);
         });
     }
 

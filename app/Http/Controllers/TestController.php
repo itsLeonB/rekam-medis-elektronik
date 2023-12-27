@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Fhir\OrganizationRequest;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ClinicalImpressionResource;
 use App\Http\Resources\CompositionResource;
@@ -116,7 +117,7 @@ class TestController extends Controller
     }
 
 
-    public function testOrganization()
+    public function testOrganization(OrganizationRequest $request)
     {
         return response()
             ->json(new OrganizationResource(Resource::where('res_type', '=', 'Organization')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\EncounterRequest;
 use App\Http\Resources\EncounterResource;
@@ -34,11 +35,12 @@ class EncounterController extends FhirController
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $encounter = $resource->encounter()->create($body['encounter']);
-            $this->createChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateEncounter($body);
+            $processor->saveEncounter($resource, $data);
             $this->createResourceContent(EncounterResource::class, $resource);
-            return response()->json($encounter, 201);
+            return response()->json(new EncounterResource($resource), 201);
         });
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models\Fhir\Datatypes;
 
+use App\Fhir\Valuesets;
 use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -16,4 +17,10 @@ class Age extends FhirModel
     {
         return $this->morphTo('ageable');
     }
+
+    public const COMPARATOR = [
+        'binding' => [
+            'valueset' => Valuesets::Comparators
+        ]
+    ];
 }

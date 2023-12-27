@@ -5,7 +5,6 @@ namespace App\Models\Fhir\Datatypes;
 use App\Fhir\Codesystems;
 use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 

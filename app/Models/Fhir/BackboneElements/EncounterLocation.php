@@ -44,6 +44,12 @@ class EncounterLocation extends FhirModel
         return $this->morphOne(ComplexExtension::class, 'complex_extendable');
     }
 
+    public const STATUS = [
+        'binding' => [
+            'valueset' => Codesystems::EncounterLocationStatus
+        ]
+    ];
+
     public const SERVICE_CLASS = [
         'binding' => [
             'valueset' => Valuesets::LocationServiceClass

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\LocationRequest;
 use App\Http\Resources\LocationResource;
@@ -34,11 +35,12 @@ class LocationController extends FhirController
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource= $this->createResource('Location');
-            $location = $resource->location()->create($body['location']);
-            $this->createChildModels($location, $body, ['identifier', 'telecom', 'operationHours']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateLocation($body);
+            $processor->saveLocation($resource, $data);
             $this->createResourceContent(LocationResource::class, $resource);
-            return response()->json($location, 201);
+            return response()->json(new LocationResource($resource), 201);
         });
     }
 

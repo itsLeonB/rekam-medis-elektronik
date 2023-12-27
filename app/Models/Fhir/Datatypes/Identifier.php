@@ -12,8 +12,6 @@ class Identifier extends FhirModel
 {
     use HasFactory;
 
-    protected $with = ['type', 'period', 'assigner'];
-
     public function identifiable(): MorphTo
     {
         return $this->morphTo('identifiable');
@@ -37,6 +35,12 @@ class Identifier extends FhirModel
     public const USE = [
         'binding' => [
             'valueset' => Codesystems::IdentifierUse
+        ]
+    ];
+
+    public const TYPE = [
+        'binding' => [
+            'valueset' => Codesystems::v20203
         ]
     ];
 }

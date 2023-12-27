@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\ConditionRequest;
 use App\Http\Resources\ConditionResource;
@@ -29,19 +30,18 @@ class ConditionController extends FhirController
         }
     }
 
-
     public function store(ConditionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $condition = $resource->condition()->create($body['condition']);
-            $this->createChildModels($condition, $body, ['identifier', 'stage', 'evidence', 'note']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateCondition($body);
+            $processor->saveCondition($resource, $data);
             $this->createResourceContent(ConditionResource::class, $resource);
-            return response()->json($condition, 201);
+            return response()->json(new ConditionResource($resource), 201);
         });
     }
-
 
     public function update(ConditionRequest $request, int $res_id, FhirService $fhirService)
     {

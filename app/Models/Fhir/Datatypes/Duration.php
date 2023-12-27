@@ -2,6 +2,7 @@
 
 namespace App\Models\Fhir\Datatypes;
 
+use App\Fhir\Valuesets;
 use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,4 +16,10 @@ class Duration extends FhirModel
     {
         return $this->morphTo('durationable');
     }
+
+    public const COMPARATOR = [
+        'binding' => [
+            'valueset' => Valuesets::Comparators
+        ]
+    ];
 }

@@ -105,9 +105,9 @@ class Processor
         }
     }
 
-    public function generateQuestionnaireResponse($jsonData): array
+    public function generateQuestionnaireResponse($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $questionnaireResponse = new QuestionnaireResponse([
             'questionnaire' => $array['questionnaire'] ?? null,
@@ -224,9 +224,9 @@ class Processor
         }
     }
 
-    public function generateMedicationStatement($jsonData): array
+    public function generateMedicationStatement($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $medicationStatement = new MedicationStatement([
             'status' => $array['status'] ?? null,
@@ -309,9 +309,9 @@ class Processor
         }
     }
 
-    public function generateServiceRequest($jsonData): array
+    public function generateServiceRequest($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $serviceRequest = new ServiceRequest([
             'instantiates_canonical' => $array['instantiatesCanonical'] ?? null,
@@ -427,9 +427,9 @@ class Processor
         }
     }
 
-    public function generateClinicalImpression($jsonData): array
+    public function generateClinicalImpression($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $clinicalImpression = new ClinicalImpression([
             'status' => $array['status'] ?? null,
@@ -528,9 +528,9 @@ class Processor
         }
     }
 
-    public function generateAllergyIntolerance($jsonData): array
+    public function generateAllergyIntolerance($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $allergyIntolerance = new AllergyIntolerance([
             'type' => $array['type'] ?? null,
@@ -657,9 +657,9 @@ class Processor
         }
     }
 
-    public function generateComposition($jsonData): array
+    public function generateComposition($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $composition = new Composition([
             'status' => $array['status'] ?? null,
@@ -833,9 +833,9 @@ class Processor
         }
     }
 
-    public function generateMedicationRequest($jsonData): array
+    public function generateMedicationRequest($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $medicationRequest = new MedicationRequest([
             'status' => $array['status'] ?? null,
@@ -1056,9 +1056,9 @@ class Processor
         }
     }
 
-    public function generateMedication($jsonData): array
+    public function generateMedication($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $medication = new Medication([
             'status' => $array['status'] ?? null,
@@ -1160,9 +1160,9 @@ class Processor
         }
     }
 
-    public function generateProcedure($jsonData): array
+    public function generateProcedure($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $procedure = new Procedure([
             'instantiates_canonical' => $array['instantiatesCanonical'] ?? null,
@@ -1328,9 +1328,9 @@ class Processor
         }
     }
 
-    public function generateObservation($jsonData): array
+    public function generateObservation($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $observation = new Observation([
             'status' => $array['status'] ?? null,
@@ -1632,9 +1632,9 @@ class Processor
         }
     }
 
-    public function generateCondition($jsonData)
+    public function generateCondition($array)
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $condition = new Condition([
             'onset_date_time' => $array['onsetDateTime'] ?? null,
@@ -1797,9 +1797,9 @@ class Processor
             return $encounter;
         }
     }
-    public function generateEncounter(string $jsonData): array
+    public function generateEncounter($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $encounter = new Encounter([
             'status' => $array['status'] ?? null,
@@ -2005,9 +2005,9 @@ class Processor
         }
     }
 
-    public function generatePatient(string $jsonData): array
+    public function generatePatient($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $patient = new Patient([
             'active' => $array['active'] ?? null,
@@ -2135,9 +2135,9 @@ class Processor
         }
     }
 
-    public function generatePractitioner(string $jsonData): array
+    public function generatePractitioner($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $practitioner = new Practitioner([
             'active' => $array['active'] ?? null,
@@ -2231,9 +2231,9 @@ class Processor
         }
     }
 
-    public function generateLocation(string $jsonData): array
+    public function generateLocation($array): array
     {
-        $array = $this->readJsonResource($jsonData);
+
 
         $location = new Location([
             'status' => $array['status'] ?? null,
@@ -2311,10 +2311,8 @@ class Processor
         }
     }
 
-    public function generateOrganization(string $jsonData): array
+    public function generateOrganization($array): array
     {
-        $array = $this->readJsonResource($jsonData);
-
         $organization = new Organization([
             'active' => $array['active'] ?? null,
             'name' => $array['name'] ?? null,
@@ -2873,17 +2871,6 @@ class Processor
     {
         if (!empty($array)) {
             $parent->$attribute()->save($array);
-        }
-    }
-
-    private function readJsonResource(string $jsonData): array
-    {
-        try {
-            $array = json_decode($jsonData, true);
-            return $array;
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            throw $e;
         }
     }
 }

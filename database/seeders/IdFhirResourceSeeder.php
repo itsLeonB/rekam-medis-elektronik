@@ -41,6 +41,8 @@ class IdFhirResourceSeeder extends Seeder
                     ]
                 );
 
+                $resText = json_decode($resText, true);
+
                 switch ($resType) {
                     case 'Organization':
                         $org = $processor->generateOrganization($resText);
