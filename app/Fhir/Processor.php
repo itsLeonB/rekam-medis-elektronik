@@ -105,8 +105,6 @@ class Processor
 
     public function generateQuestionnaireResponse($array): array
     {
-
-
         $questionnaireResponse = new QuestionnaireResponse([
             'questionnaire' => $array['questionnaire'] ?? null,
             'status' => $array['status'] ?? null,
@@ -133,6 +131,20 @@ class Processor
             'source' => $source ?? null,
             'item' => $item ?? null
         ];
+    }
+
+    private function deleteItem($item)
+    {
+        if (!empty($item)) {
+            $item->answer()->each(function ($answer) {
+                $answer->valueAttachment()->delete();
+                $answer->valueCoding()->delete();
+                $answer->valueQuantity()->delete();
+                $this->deleteReference($answer->valueReference);
+                $this->deleteMany($answer->item(), 'deleteItem');
+            });
+            $this->deleteMany($item->item(), 'deleteItem');
+        }
     }
 
     private function saveItem($parent, $attribute, $array)
@@ -224,8 +236,6 @@ class Processor
 
     public function generateMedicationStatement($array): array
     {
-
-
         $medicationStatement = new MedicationStatement([
             'status' => $array['status'] ?? null,
             'effective_date_time' => $array['effectiveDateTime'] ?? null,
@@ -309,8 +319,6 @@ class Processor
 
     public function generateServiceRequest($array): array
     {
-
-
         $serviceRequest = new ServiceRequest([
             'instantiates_canonical' => $array['instantiatesCanonical'] ?? null,
             'instantiates_uri' => $array['instantiatesUri'] ?? null,
@@ -427,8 +435,6 @@ class Processor
 
     public function generateClinicalImpression($array): array
     {
-
-
         $clinicalImpression = new ClinicalImpression([
             'status' => $array['status'] ?? null,
             'description' => $array['description'] ?? null,
@@ -528,8 +534,6 @@ class Processor
 
     public function generateAllergyIntolerance($array): array
     {
-
-
         $allergyIntolerance = new AllergyIntolerance([
             'type' => $array['type'] ?? null,
             'category' => $array['category'] ?? null,
@@ -633,6 +637,21 @@ class Processor
         }
     }
 
+    private function deleteSection($item)
+    {
+        if (!empty($item)) {
+            $this->deleteCodeableConcept($item->code);
+            $this->deleteMany($item->author(), 'deleteReference');
+            $this->deleteReference($item->focus);
+            $item->text()->delete();
+            $this->deleteCodeableConcept($item->orderedBy);
+            $this->deleteMany($item->entry(), 'deleteReference');
+            $this->deleteCodeableConcept($item->emptyReason);
+            $this->deleteMany($item->section(), 'deleteSection');
+            $item->delete();
+        }
+    }
+
     private function saveSection($parent, $attribute, $array)
     {
         if (!empty($array)) {
@@ -657,8 +676,6 @@ class Processor
 
     public function generateComposition($array): array
     {
-
-
         $composition = new Composition([
             'status' => $array['status'] ?? null,
             'date' => $array['date'] ?? null,
@@ -717,7 +734,7 @@ class Processor
 
         if (!empty($array['extension'])) {
             foreach ($array['extension'] as $e) {
-                if ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/DocumentStatus') {
+                if (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/DocumentStatus')) {
                     $documentStatus = $this->generateComplexExtension('documentStatus', $e ?? null);
                 }
             }
@@ -833,8 +850,6 @@ class Processor
 
     public function generateMedicationRequest($array): array
     {
-
-
         $medicationRequest = new MedicationRequest([
             'status' => $array['status'] ?? null,
             'intent' => $array['intent'] ?? null,
@@ -943,6 +958,33 @@ class Processor
         ];
     }
 
+    private function deleteDosage($item)
+    {
+        if (!empty($item)) {
+            $this->deleteMany($item->additionalInstruction(), 'deleteCodeableConcept');
+            $this->deleteTiming($item->timing);
+            $this->deleteCodeableConcept($item->asNeededCodeableConcept);
+            $this->deleteCodeableConcept($item->site);
+            $this->deleteCodeableConcept($item->route);
+            $this->deleteCodeableConcept($item->method);
+
+            $item->doseAndRate()->each(function ($doseRate) {
+                $this->deleteCodeableConcept($doseRate->type);
+                $this->deleteRange($doseRate->doseRange);
+                $doseRate->doseQuantity()->delete();
+                $this->deleteRatio($doseRate->rateRatio);
+                $this->deleteRange($doseRate->rateRange);
+                $doseRate->rateQuantity()->delete();
+                $doseRate->delete();
+            });
+
+            $this->deleteRatio($item->maxDosePerPeriod);
+            $item->maxDosePerAdministration()->delete();
+            $item->maxDosePerLifetime()->delete();
+            $item->delete();
+        }
+    }
+
     private function saveDosage($parent, $attribute, $array)
     {
         if (!empty($array)) {
@@ -972,7 +1014,7 @@ class Processor
         }
     }
 
-    private function generateDosage($attribute, $array): array
+    private function generateDosage($attribute, $array): array|null
     {
         if (!empty($array)) {
             $dosage = new Dosage([
@@ -1022,6 +1064,8 @@ class Processor
                 'maxDosePerAdministration' => $maxDosePerAdministration ?? null,
                 'maxDosePerLifetime' => $maxDosePerLifetime ?? null
             ];
+        } else {
+            return null;
         }
     }
 
@@ -1056,8 +1100,6 @@ class Processor
 
     public function generateMedication($array): array
     {
-
-
         $medication = new Medication([
             'status' => $array['status'] ?? null,
         ]);
@@ -1086,7 +1128,7 @@ class Processor
 
         if (!empty($array['extension'])) {
             foreach ($array['extension'] as $e) {
-                if ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType') {
+                if (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType')) {
                     $medicationType = $this->generateExtension('medicationType', $e ?? null);
                 }
             }
@@ -1160,8 +1202,6 @@ class Processor
 
     public function generateProcedure($array): array
     {
-
-
         $procedure = new Procedure([
             'instantiates_canonical' => $array['instantiatesCanonical'] ?? null,
             'instantiates_uri' => $array['instantiatesUri'] ?? null,
@@ -1328,8 +1368,6 @@ class Processor
 
     public function generateObservation($array): array
     {
-
-
         $observation = new Observation([
             'status' => $array['status'] ?? null,
             'effective_date_time' => $array['effectiveDateTime'] ?? null,
@@ -1456,6 +1494,14 @@ class Processor
         ];
     }
 
+    private function deleteSampledData($item)
+    {
+        if (!empty($item)) {
+            $item->origin()->delete();
+            $item->delete();
+        }
+    }
+
     private function saveSampledData($parent, $attribute, $array)
     {
         if (!empty($array)) {
@@ -1481,6 +1527,15 @@ class Processor
             ];
         } else {
             return null;
+        }
+    }
+
+    private function deleteRatio($item)
+    {
+        if (!empty($item)) {
+            $item->numerator()->delete();
+            $item->denominator()->delete();
+            $item->delete();
         }
     }
 
@@ -1524,6 +1579,20 @@ class Processor
             );
         } else {
             return null;
+        }
+    }
+
+    private function deleteTiming($item)
+    {
+        if (!empty($item)) {
+            $this->deleteCodeableConcept($item->code);
+            $item->repeat()->each(function ($repeat) {
+                $repeat->boundsDuration()->delete();
+                $this->deleteRange($repeat->boundsRange);
+                $repeat->boundsPeriod()->delete();
+                $repeat->delete();
+            });
+            $item->delete();
         }
     }
 
@@ -1632,8 +1701,6 @@ class Processor
 
     public function generateCondition($array)
     {
-
-
         $condition = new Condition([
             'onset_date_time' => $array['onsetDateTime'] ?? null,
             'onset_string' => $array['onsetString'] ?? null,
@@ -1797,8 +1864,6 @@ class Processor
     }
     public function generateEncounter($array): array
     {
-
-
         $encounter = new Encounter([
             'status' => $array['status'] ?? null,
         ]);
@@ -1889,7 +1954,7 @@ class Processor
 
                 if (!empty($l['extension'])) {
                     foreach ($l['extension'] as $e) {
-                        if ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass') {
+                        if (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass')) {
                             $serviceClass = $this->generateComplexExtension('serviceClass', $e);
                         }
                     }
@@ -2005,8 +2070,6 @@ class Processor
 
     public function generatePatient($array): array
     {
-
-
         $patient = new Patient([
             'active' => $array['active'] ?? null,
             'gender' => $array['gender'] ?? 'unknown',
@@ -2064,13 +2127,13 @@ class Processor
 
         if (!empty($array['extension'])) {
             foreach ($array['extension'] as $e) {
-                if ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/patient-citizenship') {
+                if (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/patient-citizenship')) {
                     $citizenship = $this->generateComplexExtension('citizenship', $e ?? null);
-                } elseif ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace') {
+                } elseif (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace')) {
                     $birthPlace = $this->generateExtension('birthPlace', $e ?? null);
-                } elseif ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/patient-religion') {
+                } elseif (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/patient-religion')) {
                     $religion = $this->generateExtension('religion', $e ?? null);
-                } elseif ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/citizenshipStatus') {
+                } elseif (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/citizenshipStatus')) {
                     $citizenshipStatus = $this->generateExtension('citizenshipStatus', $e ?? null);
                 }
             }
@@ -2079,7 +2142,7 @@ class Processor
         if (!empty($array['_birthDate'])) {
             if (!empty($array['_birthDate']['extension'])) {
                 foreach ($array['_birthDate']['extension'] as $be) {
-                    if ($be['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/patient-birthTime') {
+                    if (strtolower($be['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/patient-birthTime')) {
                         $extendedBirthDate = $this->generateExtension('birthTime', $be ?? null);
                     }
                 }
@@ -2135,8 +2198,6 @@ class Processor
 
     public function generatePractitioner($array): array
     {
-
-
         $practitioner = new Practitioner([
             'active' => $array['active'] ?? null,
             'gender' => $array['gender'] ?? null,
@@ -2231,8 +2292,6 @@ class Processor
 
     public function generateLocation($array): array
     {
-
-
         $location = new Location([
             'status' => $array['status'] ?? null,
             'name' => $array['name'] ?? null,
@@ -2281,6 +2340,46 @@ class Processor
             'endpoint' => $endpoint ?? null,
             'serviceClass' => $serviceClass ?? null
         ];
+    }
+
+    private function deleteMany($items, $method)
+    {
+        if (!empty($items)) {
+            $items->each(function ($item) use ($method) {
+                $this->$method($item);
+            });
+            $items->delete();
+        }
+    }
+
+    public function updateOrganization(Resource $resource, $array): Organization
+    {
+        if (!empty($array)) {
+            $resource->organization()->each(function ($organization) {
+                $this->deleteMany($organization->identifier(), 'deleteIdentifier');
+                $this->deleteMany($organization->type(), 'deleteCodeableConcept');
+                $this->deleteMany($organization->telecom(), 'deleteContactPoint');
+                $this->deleteMany($organization->address(), 'deleteAddress');
+                $this->deleteReference($organization->partOf);
+
+                $organization->contact()->each(function ($contact) {
+                    if (!empty($contact)) {
+                        $this->deleteCodeableConcept($contact->purpose);
+                        $this->deleteHumanName($contact->name);
+                        $this->deleteMany($contact->telecom(), 'deleteContactPoint');
+                        $this->deleteAddress($contact->address);
+                        $contact->delete();
+                    }
+                });
+
+                $this->deleteMany($organization->endpoint(), 'deleteReference');
+
+                $organization->delete();
+            });
+
+            $newData = $this->generateOrganization($array);
+            return $this->saveOrganization($resource, $newData);
+        }
     }
 
     public function saveOrganization(Resource $resource, $array): Organization
@@ -2363,6 +2462,14 @@ class Processor
         }
     }
 
+    private function deleteHumanName($item)
+    {
+        if (!empty($item)) {
+            $item->period()->delete();
+            $item->delete();
+        }
+    }
+
     private function saveHumanName($model, $attribute, $array)
     {
         if (!empty($array)) {
@@ -2390,6 +2497,16 @@ class Processor
             ];
         } else {
             return null;
+        }
+    }
+
+    private function deleteAddress($item)
+    {
+        if (!empty($item)) {
+            $item->period()->delete();
+            $this->deleteComplexExtension($item->administrativeCode);
+            $this->deleteComplexExtension($item->geolocation);
+            $item->delete();
         }
     }
 
@@ -2423,9 +2540,9 @@ class Processor
 
             if (!empty($array['extension'])) {
                 foreach ($array['extension'] as $e) {
-                    if ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode') {
+                    if (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode')) {
                         $administrativeCode = $this->generateComplexExtension('administrativeCode', $e);
-                    } elseif ($e['url'] == 'https://fhir.kemkes.go.id/r4/StructureDefinition/geolocation') {
+                    } elseif (strtolower($e['url']) == strtolower('https://fhir.kemkes.go.id/r4/StructureDefinition/geolocation')) {
                         $geolocation = $this->generateComplexExtension('geolocation', $e);
                     }
                 }
@@ -2439,6 +2556,16 @@ class Processor
             ];
         } else {
             return null;
+        }
+    }
+
+    private function deleteComplexExtension($item)
+    {
+        if (!empty($item)) {
+            foreach ($item->exts as $ext) {
+                $this->deleteMany($item->extension($ext), 'deleteExtension');
+            }
+            $item->delete();
         }
     }
 
@@ -2478,6 +2605,43 @@ class Processor
         }
     }
 
+    private function deleteExtension($item)
+    {
+        if (!empty($item)) {
+            $this->deleteAddress($item->valueAddress);
+            $item->valueAge()->delete();
+            $this->deleteAnnotation($item->valueAnnotation);
+            $item->valueAttachment()->delete();
+            $this->deleteCodeableConcept($item->valueCodeableConcept);
+            $item->valueCoding()->delete();
+            $this->deleteContactPoint($item->valueContactPoint);
+            // $this->deleteCount($item->valueCount);
+            // $this->deleteDistance($item->valueDistance);
+            $item->valueDuration()->delete();
+            $this->deleteHumanName($item->valueHumanName);
+            $this->deleteIdentifier($item->valueIdentifier);
+            $item->valuePeriod()->delete();
+            $item->valueQuantity()->delete();
+            $this->deleteRange($item->valueRange);
+            $this->deleteRatio($item->valueRatio);
+            $this->deleteSampledData($item->valueSampledData);
+            // $this->deleteSignature($item->valueSignature);
+            $this->deleteTiming($item->valueTiming);
+            // $this->deleteContactDetail($item->valueContactDetail);
+            // $this->deleteContributor($item->valueContributor);
+            // $this->deleteDataRequirement($item->valueDataRequirement);
+            // $this->deleteExpression($item->valueExpression);
+            // $this->deleteParameterDefinition($item->valueParameterDefinition);
+            // $this->deleteRelatedArtifact($item->valueRelatedArtifact);
+            // $this->deleteTriggerDefinition($item->valueTriggerDefinition);
+            // $this->deleteUsageContext($item->valueUsageContext);
+            $this->deleteDosage($item->valueDosage);
+            // $this->deleteMeta($item->valueMeta);
+            $this->deleteReference($item->valueReference);
+            $item->delete();
+        }
+    }
+
     private function saveExtension($model, $attribute, $array)
     {
         if (!empty($array)) {
@@ -2509,7 +2673,7 @@ class Processor
             // $this->saveRelatedArtifact($extension, 'valueRelatedArtifact', $array['valueRelatedArtifact'] ?? null);
             // $this->saveTriggerDefinition($extension, 'valueTriggerDefinition', $array['valueTriggerDefinition'] ?? null);
             // $this->saveUsageContext($extension, 'valueUsageContext', $array['valueUsageContext'] ?? null);
-            // $this->saveDosage($extension, 'valueDosage', $array['valueDosage'] ?? null);
+            $this->saveDosage($extension, 'valueDosage', $array['valueDosage'] ?? null);
             // $this->saveMeta($extension, 'valueMeta', $array['valueMeta'] ?? null);
             $this->saveReference($extension, 'valueReference', $array['valueReference'] ?? null);
         }
@@ -2569,7 +2733,7 @@ class Processor
             // $this->generateRelatedArtifact('valueRelatedArtifact', $array['valueRelatedArtifact'] ?? null);
             // $this->generateTriggerDefinition('valueTriggerDefinition', $array['valueTriggerDefinition'] ?? null);
             // $this->generateUsageContext('valueUsageContext', $array['valueUsageContext'] ?? null);
-            // $this->generateDosage('valueDosage', $array['valueDosage'] ?? null);
+            $this->generateDosage('valueDosage', $array['valueDosage'] ?? null);
             // $this->generateMeta('valueMeta', $array['valueMeta'] ?? null);
             $valueReference = $this->generateReference('valueReference', $array['valueReference'] ?? null);
 
@@ -2591,9 +2755,9 @@ class Processor
                 'valueQuantity' => $valueQuantity ?? null,
                 'valueRange' => $valueRange ?? null,
                 'valueRatio' => $valueRatio ?? null,
-                // 'valueSampledData' => $valueSampledData ?? null,
+                'valueSampledData' => $valueSampledData ?? null,
                 // 'valueSignature' => $valueSignature ?? null,
-                // 'valueTiming' => $valueTiming ?? null,
+                'valueTiming' => $valueTiming ?? null,
                 // 'valueContactDetail' => $valueContactDetail ?? null,
                 // 'valueContributor' => $valueContributor ?? null,
                 // 'valueDataRequirement' => $valueDataRequirement ?? null,
@@ -2602,7 +2766,7 @@ class Processor
                 // 'valueRelatedArtifact' => $valueRelatedArtifact ?? null,
                 // 'valueTriggerDefinition' => $valueTriggerDefinition ?? null,
                 // 'valueUsageContext' => $valueUsageContext ?? null,
-                // 'valueDosage' => $valueDosage ?? null,
+                'valueDosage' => $valueDosage ?? null,
                 // 'valueMeta' => $valueMeta ?? null,
                 'valueReference' => $valueReference ?? null
             ];
@@ -2631,6 +2795,14 @@ class Processor
             ]);
         } else {
             return null;
+        }
+    }
+
+    private function deleteAnnotation($item)
+    {
+        if (!empty($item)) {
+            $this->deleteReference($item->authorReference);
+            $item->delete();
         }
     }
 
@@ -2685,6 +2857,15 @@ class Processor
         }
     }
 
+    private function deleteRange($item)
+    {
+        if (!empty($item)) {
+            $item->low()->delete();
+            $item->high()->delete();
+            $item->delete();
+        }
+    }
+
     private function saveRange($parent, $attribute, $array)
     {
         if (!empty($array)) {
@@ -2704,6 +2885,14 @@ class Processor
             ];
         } else {
             return null;
+        }
+    }
+
+    private function deleteContactPoint($item)
+    {
+        if (!empty($item)) {
+            $item->period()->delete();
+            $item->delete();
         }
     }
 
@@ -2733,6 +2922,16 @@ class Processor
             ];
         } else {
             return null;
+        }
+    }
+
+    private function deleteIdentifier($item)
+    {
+        if (!empty($item)) {
+            $this->deleteCodeableConcept($item->type);
+            $item->period()->delete();
+            $this->deleteReference($item->assigner);
+            $item->delete();
         }
     }
 
@@ -2768,6 +2967,14 @@ class Processor
             ];
         } else {
             return null;
+        }
+    }
+
+    private function deleteReference($item)
+    {
+        if (!empty($item)) {
+            $this->deleteIdentifier($item->identifier);
+            $item->delete();
         }
     }
 
@@ -2817,6 +3024,14 @@ class Processor
             return $period;
         } else {
             return null;
+        }
+    }
+
+    private function deleteCodeableConcept($item)
+    {
+        if (!empty($item)) {
+            $item->coding()->delete();
+            $item->delete();
         }
     }
 

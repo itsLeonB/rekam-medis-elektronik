@@ -12,8 +12,6 @@ class Reference extends FhirModel
 {
     use HasFactory;
 
-    protected $with = ['identifier'];
-
     public function referenceable(): MorphTo
     {
         return $this->morphTo('referenceable');

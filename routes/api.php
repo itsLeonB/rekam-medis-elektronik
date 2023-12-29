@@ -84,7 +84,7 @@ Route::get('/{res_type}', [ResourceController::class, 'index'])->name('resource.
 // Organization resource endpoint
 Route::get('/organization/{res_id}', [OrganizationController::class, 'show'])->name('organization.show');
 Route::post('/organization', [OrganizationController::class, 'store'])->name('organization.store');
-Route::put('/organization/{res_id}', [OrganizationController::class, 'update'])->name('organization.update');
+Route::put('/organization/{satusehat_id}', [OrganizationController::class, 'update'])->name('organization.update');
 
 // Location resource endpoint
 Route::get('/location/{res_id}', [LocationController::class, 'show'])->name('location.show');

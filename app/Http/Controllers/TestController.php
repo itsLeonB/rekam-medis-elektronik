@@ -9,6 +9,7 @@ use App\Http\Resources\ClinicalImpressionResource;
 use App\Http\Resources\CompositionResource;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
+use App\Http\Resources\FhirResource;
 use App\Http\Resources\LocationResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;
@@ -117,7 +118,7 @@ class TestController extends Controller
     }
 
 
-    public function testOrganization(OrganizationRequest $request)
+    public function testOrganization()
     {
         return response()
             ->json(new OrganizationResource(Resource::where('res_type', '=', 'Organization')

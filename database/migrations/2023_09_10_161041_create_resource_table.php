@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('resource', function (Blueprint $table) {
             $table->id();
-            $table->string('satusehat_id')->nullable();
+            $table->string('satusehat_id')->unique()->nullable();
             $table->index('satusehat_id');
             $table->string('res_type');
             $table->index('res_type');

@@ -22,15 +22,7 @@ use Illuminate\Database\Eloquent\Relations\{
 class PatientContact extends FhirModel
 {
     protected $table = 'patient_contact';
-    // protected $casts = [
-    //     'relationship' => 'array',
-    //     'name_given' => 'array',
-    //     'name_prefix' => 'array',
-    //     'name_suffix' => 'array',
-    //     'address_line' => 'array',
-    //     'period_start' => 'datetime',
-    //     'period_end' => 'datetime'
-    // ];
+
     public $timestamps = false;
 
     public function patient(): BelongsTo

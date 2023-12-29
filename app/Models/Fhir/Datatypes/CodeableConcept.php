@@ -11,8 +11,6 @@ class CodeableConcept extends FhirModel
 {
     use HasFactory;
 
-    protected $with = ['coding'];
-
     public function codeable(): MorphTo
     {
         return $this->morphTo('codeable');

@@ -21,9 +21,8 @@ class PatientLink extends FhirModel
         return $this->belongsTo(Patient::class);
     }
 
-    public function other(): MorphOne //BelongsTo
+    public function other(): MorphOne
     {
-        // return $this->belongsTo(Reference::class, 'other_id');
         return $this->morphOne(Reference::class, 'referenceable');
     }
 

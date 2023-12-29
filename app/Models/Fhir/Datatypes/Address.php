@@ -16,8 +16,6 @@ class Address extends FhirModel
 
     protected $casts = ['line' => 'array'];
 
-    protected $with = ['period', 'administrativeCode', 'geolocation'];
-
     public function addressable(): MorphTo
     {
         return $this->morphTo('addressable');

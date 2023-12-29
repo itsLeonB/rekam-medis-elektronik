@@ -48,9 +48,9 @@ class FhirController extends Controller
     }
 
 
-    public function updateResource(int $res_id): Resource
+    public function updateResource(string $satusehat_id): Resource
     {
-        $resource = Resource::where('id', $res_id)->firstOrFail();
+        $resource = Resource::where('satusehat_id', $satusehat_id)->firstOrFail();
         $resource->increment('res_version');
         $resource->refresh();
         return $resource;

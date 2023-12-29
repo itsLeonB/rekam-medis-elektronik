@@ -11,8 +11,6 @@ class ContactPoint extends FhirModel
 {
     use HasFactory;
 
-    protected $with = ['period'];
-
     public function contactPointable()
     {
         return $this->morphTo('contact_pointable');

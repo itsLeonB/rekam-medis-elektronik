@@ -20,15 +20,6 @@ class PractitionerQualification extends FhirModel
 {
     protected $table = 'practitioner_qualification';
 
-    // protected $casts = [
-    //     'identifier' => 'array',
-    //     'code' => 'array',
-    //     'period_start' => 'date',
-    //     'period_end' => 'date'
-    // ];
-
-    protected $with = ['identifier', 'code', 'period', 'issuer'];
-
     public function practitioner(): BelongsTo
     {
         return $this->belongsTo(Practitioner::class);

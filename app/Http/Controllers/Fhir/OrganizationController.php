@@ -9,6 +9,7 @@ use App\Http\Resources\OrganizationResource;
 use App\Models\Fhir\Resource;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class OrganizationController extends FhirController
@@ -45,17 +46,15 @@ class OrganizationController extends FhirController
     }
 
 
-    public function update(OrganizationRequest $request, int $res_id, FhirService $fhirService)
+    public function update(OrganizationRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $organization = $resource->organization()->first();
-            $organization->update($body['organization']);
-            $this->updateChildModels($organization, $body, ['identifier', 'telecom', 'address']);
-            $this->updateNestedInstances($organization, 'contact', $body, ['telecom']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateOrganization($resource, $body);
             $this->createResourceContent(OrganizationResource::class, $resource);
-            return response()->json($organization, 200);
+            return response()->json(new OrganizationResource($resource), 200);
         });
     }
 }

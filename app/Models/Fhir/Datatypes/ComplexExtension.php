@@ -19,9 +19,9 @@ class ComplexExtension extends FhirModel
         return $this->morphTo('complex_extendable');
     }
 
-    public function extension($url): MorphOne
+    public function extension($url): MorphMany
     {
-        return $this->morphOne(Extension::class, 'extendable')
+        return $this->morphMany(Extension::class, 'extendable')
             ->where('url', $url);
     }
 }

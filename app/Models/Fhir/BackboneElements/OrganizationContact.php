@@ -20,12 +20,7 @@ use Illuminate\Database\Eloquent\Relations\{
 class OrganizationContact extends FhirModel
 {
     protected $table = 'organization_contact';
-    // protected $casts = [
-    //     'name_given' => 'array',
-    //     'name_prefix' => 'array',
-    //     'name_suffix' => 'array',
-    //     'address_line' => 'array'
-    // ];
+
     public $timestamps = false;
 
     public function organization(): BelongsTo
