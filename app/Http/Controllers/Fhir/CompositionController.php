@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\CompositionRequest;
 use App\Http\Resources\CompositionResource;
@@ -29,19 +30,18 @@ class CompositionController extends FhirController
         }
     }
 
-
     public function store(CompositionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $composition = $resource->composition()->create($body['composition']);
-            $this->createChildModels($composition, $body, ['attester', 'relatesTo', 'event', 'section']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateComposition($body);
+            $processor->saveComposition($resource, $data);
             $this->createResourceContent(CompositionResource::class, $resource);
-            return response()->json($composition, 201);
+            return response()->json(new CompositionResource($resource), 201);
         });
     }
-
 
     public function update(CompositionRequest $request, int $res_id, FhirService $fhirService)
     {

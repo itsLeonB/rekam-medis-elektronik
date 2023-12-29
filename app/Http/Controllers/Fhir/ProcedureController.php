@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\ProcedureRequest;
 use App\Http\Resources\ProcedureResource;
@@ -29,19 +30,18 @@ class ProcedureController extends FhirController
         }
     }
 
-
     public function store(ProcedureRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $procedure = $resource->procedure()->create($body['procedure']);
-            $this->createChildModels($procedure, $body, ['identifier', 'performer', 'note', 'focalDevice']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateProcedure($body);
+            $processor->saveProcedure($resource, $data);
             $this->createResourceContent(ProcedureResource::class, $resource);
-            return response()->json($procedure, 201);
+            return response()->json(new ProcedureResource($resource), 201);
         });
     }
-
 
     public function update(ProcedureRequest $request, int $res_id, FhirService $fhirService)
     {

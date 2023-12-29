@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Fhir;
 
 use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\QuestionnaireResponse;
+use App\Models\Fhir\Resources\QuestionnaireResponse;
 use Illuminate\Validation\Rule;
 
 class QuestionnaireResponseRequest extends FhirRequest
@@ -16,62 +16,48 @@ class QuestionnaireResponseRequest extends FhirRequest
     public function rules(): array
     {
         return array_merge(
-            $this->baseAttributeRules(),
-            $this->baseDataRules('questionnaireResponse.'),
-            $this->itemDataRules('item.*.'),
-        );
-    }
-
-
-    private function baseAttributeRules(): array
-    {
-        return [
-            'questionnaireResponse' => 'required|array',
-            'item' => 'nullable|array'
-        ];
-    }
-
-
-    private function baseDataRules($prefix): array
-    {
-        return [
-            $prefix . 'based_on' => 'nullable|array',
-            $prefix . 'based_on.*' => 'nullable|string',
-            $prefix . 'part_of' => 'nullable|array',
-            $prefix . 'part_of.*' => 'nullable|string',
-            $prefix . 'questionnaire' => 'nullable|string',
-            $prefix . 'status' => ['required', Rule::in(QuestionnaireResponse::STATUS['binding']['valueset']['code'])],
-            $prefix . 'subject' => 'nullable|string',
-            $prefix . 'encounter' => 'nullable|string',
-            $prefix . 'authored' => 'nullable|date',
-            $prefix . 'author' => 'nullable|string',
-            $prefix . 'source' => 'nullable|string',
-        ];
-    }
-
-
-    private function itemDataRules($prefix): array
-    {
-        return array_merge(
             [
-                $prefix . 'item_data.link_id' => 'required|string',
-                $prefix . 'item_data.definition' => 'nullable|string',
-                $prefix . 'item_data.text' => 'nullable|string',
-                $prefix . 'answer' => 'nullable|array',
-                $prefix . 'answer.*' => 'nullable|array',
-                $prefix . 'answer.*.value.valueBoolean' => 'nullable|boolean',
-                $prefix . 'answer.*.value.valueDecimal' => 'nullable|numeric',
-                $prefix . 'answer.*.value.valueInteger' => 'nullable|integer',
-                $prefix . 'answer.*.value.valueDate' => 'nullable|date',
-                $prefix . 'answer.*.value.valueDateTime' => 'nullable|date',
-                $prefix . 'answer.*.value.valueTime' => 'nullable|date|date_format:H:i:s',
-                $prefix . 'answer.*.value.valueString' => 'nullable|string',
-                $prefix . 'answer.*.value.valueUri' => 'nullable|string',
+                'identifier' => 'nullable|array',
+                'basedOn' => 'nullable|array',
+                'partOf' => 'nullable|array',
+                'questionnaire' => 'nullable|string',
+                'status' => ['required', Rule::in(QuestionnaireResponse::STATUS['binding']['valueset']['code'])],
+                'subject' => 'nullable|array',
+                'encounter' => 'nullable|array',
+                'authored' => 'nullable|date',
+                'author' => 'nullable|array',
+                'source' => 'nullable|array',
+                'item' => 'nullable|array',
+                'item.*.linkId' => 'sometimes|string',
+                'item.*.definition' => 'nullable|string',
+                'item.*.text' => 'nullable|string',
+                'item.*.answer' => 'nullable|array',
+                'item.*.answer.*.valueBoolean' => 'nullable|boolean',
+                'item.*.answer.*.valueDecimal' => 'nullable|numeric',
+                'item.*.answer.*.valueInteger' => 'nullable|integer',
+                'item.*.answer.*.valueDate' => 'nullable|date',
+                'item.*.answer.*.valueDateTime' => 'nullable|date',
+                'item.*.answer.*.valueTime' => 'nullable|date_format:H:i:s',
+                'item.*.answer.*.valueString' => 'nullable|string',
+                'item.*.answer.*.valueUri' => 'nullable|url',
+                'item.*.answer.*.valueAttachment' => 'nullable|array',
+                'item.*.answer.*.valueCoding' => 'nullable|array',
+                'item.*.answer.*.valueQuantity' => 'nullable|array',
+                'item.*.answer.*.valueReference' => 'nullable|array',
+                'item.*.answer.*.item' => 'nullable|array',
+                'item.*.item' => 'nullable|array',
             ],
-            $this->getAttachmentDataRules($prefix . 'answer.*.value.valueAttachment'),
-            $this->getCodingDataRules($prefix . 'answer.*.value.valueCoding'),
-            $this->getQuantityDataRules($prefix . 'answer.*.value.valueQuantity'),
-            $this->getReferenceDataRules($prefix . 'answer.*.value.valueReference', true),
+            $this->getIdentifierRules('identifier.'),
+            $this->getReferenceRules('basedOn.*.'),
+            $this->getReferenceRules('partOf.*.'),
+            $this->getReferenceRules('subject.'),
+            $this->getReferenceRules('encounter.'),
+            $this->getReferenceRules('author.'),
+            $this->getReferenceRules('source.'),
+            $this->getAttachmentRules('item.*.answer.*.valueAttachment.'),
+            $this->getCodingRules('item.*.answer.*.valueCoding.'),
+            $this->getQuantityRules('item.*.answer.*.valueQuantity.'),
+            $this->getReferenceRules('item.*.answer.*.valueReference.'),
         );
     }
 }

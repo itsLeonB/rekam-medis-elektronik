@@ -3,13 +3,10 @@
 namespace App\Http\Requests\Fhir;
 
 use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\{
-    Composition,
-    CompositionAttester,
-    CompositionEvent,
-    CompositionRelatesTo,
-    CompositionSection
-};
+use App\Models\Fhir\BackboneElements\CompositionAttester;
+use App\Models\Fhir\BackboneElements\CompositionRelatesTo;
+use App\Models\Fhir\BackboneElements\CompositionSection;
+use App\Models\Fhir\Resources\Composition;
 use Illuminate\Validation\Rule;
 
 class CompositionRequest extends FhirRequest
@@ -22,99 +19,63 @@ class CompositionRequest extends FhirRequest
     public function rules(): array
     {
         return array_merge(
-            $this->baseAttributeRules(),
-            $this->baseDataRules('composition.'),
-            $this->attesterDataRules('attester.*.'),
-            $this->relatesToDataRules('relatesTo.*.'),
-            $this->eventDataRules('event.*.'),
-            $this->sectionDataRules('section.*.'),
-        );
-    }
-
-    private function baseAttributeRules(): array
-    {
-        return [
-            'composition' => 'required|array',
-            'attester' => 'nullable|array',
-            'relatesTo' => 'nullable|array',
-            'event' => 'nullable|array',
-            'section' => 'nullable|array'
-        ];
-    }
-
-    private function baseDataRules(string $prefix = null): array
-    {
-        return [
-            $prefix . 'status' => ['required', Rule::in(Composition::STATUS['binding']['valueset']['code'])],
-            $prefix . 'type_system' => 'required|string',
-            $prefix . 'type_code' => 'required|string',
-            $prefix . 'type_display' => 'required|string',
-            $prefix . 'category' => 'nullable|array',
-            $prefix . 'category.*' => ['required', Rule::in(Composition::CATEGORY['binding']['valueset']['code'])],
-            $prefix . 'subject' => 'required|string',
-            $prefix . 'encounter' => 'nullable|string',
-            $prefix . 'date' => 'required|date',
-            $prefix . 'author' => 'nullable|array',
-            $prefix . 'author.*' => 'required|string',
-            $prefix . 'title' => 'required|string',
-            $prefix . 'confidentiality' => ['nullable', Rule::in(Composition::CONFIDENTIALITY['binding']['valueset']['code'])],
-            $prefix . 'custodian' => 'nullable|string'
-        ];
-    }
-
-    private function attesterDataRules(string $prefix = null): array
-    {
-        return [
-            $prefix . 'mode' => ['required', Rule::in(CompositionAttester::MODE['binding']['valueset']['code'])],
-            $prefix . 'time' => 'nullable|date',
-            $prefix . 'party' => 'nullable|string'
-        ];
-    }
-
-    private function relatesToDataRules(string $prefix = null): array
-    {
-        return array_merge(
             [
-                $prefix . 'code' => ['required', Rule::in(CompositionRelatesTo::CODE['binding']['valueset']['code'])],
-                $prefix . 'target' => 'required|array',
-                $prefix . 'target.targetIdentifier' => 'nullable|array',
-                $prefix . 'target.targetReference' => 'nullable|array',
-                $prefix . 'target.targetReference.reference' => 'required|string',
+                'identifier' => 'nullable|array',
+                'status' => ['required', Rule::in(Composition::STATUS['binding']['valueset']['code'])],
+                'type' => 'required|array',
+                'category' => 'nullable|array',
+                'subject' => 'required|array',
+                'encounter' => 'nullable|array',
+                'date' => 'nullable|date',
+                'author' => 'required|array',
+                'title' => 'required|string',
+                'confidentiality' => ['nullable', Rule::in(Composition::CONFIDENTIALITY['binding']['valueset']['code'])],
+                'attester' => 'nullable|array',
+                'attester.*.mode' => ['sometimes', Rule::in(CompositionAttester::MODE['binding']['valueset']['code'])],
+                'attester.*.time' => 'nullable|date',
+                'attester.*.party' => 'nullable|array',
+                'custodian' => 'nullable|array',
+                'relatesTo' => 'nullable|array',
+                'relatesTo.*.code' => ['sometimes', Rule::in(CompositionRelatesTo::CODE['binding']['valueset']['code'])],
+                'relatesTo.*.targetIdentifier' => 'sometimes|array',
+                'relatesTo.*.targetReference' => 'sometimes|array',
+                'event' => 'nullable|array',
+                'event.*.code' => 'nullable|array',
+                'event.*.period' => 'nullable|array',
+                'event.*.detail' => 'nullable|array',
+                'section' => 'nullable|array',
+                'section.*.title' => 'nullable|string',
+                'section.*.code' => 'nullable|array',
+                'section.*.author' => 'nullable|array',
+                'section.*.focus' => 'nullable|array',
+                'section.*.text' => 'nullable|array',
+                'section.*.mode' => ['nullable', Rule::in(CompositionSection::MODE['binding']['valueset']['code'])],
+                'section.*.orderedBy' => 'nullable|array',
+                'section.*.entry' => 'nullable|array',
+                'section.*.emptyReason' => 'nullable|array',
+                'section.*.section' => 'nullable|array',
             ],
-            $this->getIdentifierDataRules($prefix . 'target.targetIdentifier.')
-        );
-    }
-
-    private function eventDataRules(string $prefix = null): array
-    {
-        return [
-            $prefix . 'code' => 'nullable|array',
-            $prefix . 'code.*' => ['required', Rule::exists(CompositionEvent::CODE['binding']['valueset']['table'], 'code')],
-            $prefix . 'period_start' => 'nullable|date',
-            $prefix . 'period_end' => 'nullable|date',
-            $prefix . 'detail' => 'nullable|array',
-            $prefix . 'detail.*' => 'required|string'
-        ];
-    }
-
-    private function sectionDataRules(string $prefix = null): array
-    {
-        return array_merge(
-            [
-                $prefix . 'title' => 'nullable|string',
-                $prefix . 'code' => ['nullable', Rule::in(CompositionSection::CODE['binding']['valueset']['code'])],
-                $prefix . 'author' => 'nullable|array',
-                $prefix . 'author.*' => 'required|string',
-                $prefix . 'focus' => 'nullable|string',
-                $prefix . 'text_status' => ['nullable', Rule::in(CompositionSection::TEXT_STATUS['binding']['valueset']['code'])],
-                $prefix . 'text_div' => 'nullable|string',
-                $prefix . 'mode' => ['nullable', Rule::in(CompositionSection::MODE['binding']['valueset']['code'])],
-                $prefix . 'ordered_by' => ['nullable', Rule::in(CompositionSection::ORDERED_BY['binding']['valueset']['code'])],
-                $prefix . 'entry' => 'nullable|array',
-                $prefix . 'entry.*' => 'required|string',
-                $prefix . 'empty_reason' => ['nullable', Rule::in(CompositionSection::EMPTY_REASON['binding']['valueset']['code'])],
-                $prefix . 'section' => 'nullable|array'
-            ],
+            $this->getIdentifierRules('identifier.'),
+            $this->getCodeableConceptRules('type.'),
+            $this->getCodeableConceptRules('category.*.'),
+            $this->getReferenceRules('subject.'),
+            $this->getReferenceRules('encounter.'),
+            $this->getReferenceRules('author.*.'),
+            $this->getReferenceRules('attester.*.party.'),
+            $this->getReferenceRules('custodian.'),
+            $this->getReferenceRules('relatesTo.*.targetIdentifier.'),
+            $this->getReferenceRules('relatesTo.*.targetReference.'),
+            $this->getCodeableConceptRules('event.*.code.*.'),
+            $this->getPeriodRules('event.*.period.'),
+            $this->getReferenceRules('event.*.detail.*.'),
+            $this->getCodeableConceptRules('section.*.code.'),
+            $this->getReferenceRules('section.*.author.*.'),
+            $this->getReferenceRules('section.*.focus.'),
+            $this->getNarrativeRules('section.*.text.'),
+            $this->getCodeableConceptRules('section.*.orderedBy.'),
+            $this->getReferenceRules('section.*.entry.*.'),
+            $this->getCodeableConceptRules('section.*.emptyReason.'),
+            $this->getComplexExtensionRules('extension.*.')
         );
     }
 }

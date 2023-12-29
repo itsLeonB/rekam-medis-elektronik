@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\QuestionnaireResponseRequest;
 use App\Http\Resources\QuestionnaireResponseResource;
@@ -29,19 +30,18 @@ class QuestionnaireResponseController extends FhirController
         }
     }
 
-
     public function store(QuestionnaireResponseRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $questionnaireResponse = $resource->questionnaireResponse()->create($body['questionnaireResponse']);
-            $this->createNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateQuestionnaireResponse($body);
+            $processor->saveQuestionnaireResponse($resource, $data);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
-            return response()->json($questionnaireResponse, 201);
+            return response()->json(new QuestionnaireResponseResource($resource), 201);
         });
     }
-
 
     public function update(QuestionnaireResponseRequest $request, int $res_id, FhirService $fhirService)
     {

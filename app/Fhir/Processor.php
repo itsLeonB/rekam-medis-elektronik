@@ -83,8 +83,6 @@ use App\Models\Fhir\Resources\{
     QuestionnaireResponse,
     ServiceRequest
 };
-use Exception;
-use Illuminate\Support\Facades\Log;
 
 class Processor
 {

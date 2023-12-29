@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Fhir;
 
 use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\Medication;
+use App\Models\Fhir\Resources\Medication;
 use Illuminate\Validation\Rule;
 
 class MedicationRequest extends FhirRequest
@@ -16,47 +16,32 @@ class MedicationRequest extends FhirRequest
     public function rules(): array
     {
         return array_merge(
-            $this->baseAttributeRules(),
-            $this->baseDataRules('medication.'),
-            $this->getIdentifierDataRules('identifier.*.'),
-            $this->ingredientDataRules('ingredient.*.')
-        );
-    }
-
-    private function baseAttributeRules(): array
-    {
-        return [
-            'medication' => 'required|array',
-            'identifier' => 'nullable|array',
-            'ingredient' => 'nullable|array'
-        ];
-    }
-
-    private function baseDataRules($prefix): array
-    {
-        return array_merge(
             [
-                $prefix . 'system' => 'nullable|string',
-                $prefix . 'code' => 'nullable|string',
-                $prefix . 'display' => 'nullable|string',
-                $prefix . 'status' => ['nullable', Rule::in(Medication::STATUS['binding']['valueset']['code'])],
-                $prefix . 'manufacturer' => 'nullable|string',
-                $prefix . 'form' => ['nullable', Rule::in(Medication::FORM['binding']['valueset']['code'])],
+                'identifier' => 'nullable|array',
+                'code' => 'nullable|array',
+                'status' => ['nullable', Rule::in(Medication::STATUS['binding']['valueset']['code'])],
+                'manufacturer' => 'nullable|array',
+                'form' => 'nullable|array',
+                'amount' => 'nullable|array',
+                'ingredient' => 'nullable|array',
+                'ingredient.*.itemCodeableConcept' => 'sometimes|array',
+                'ingredient.*.itemReference' => 'sometimes|array',
+                'ingredient.*.isActive' => 'nullable|boolean',
+                'ingredient.*.strength' => 'nullable|array',
+                'batch' => 'nullable|array',
+                'batch.lotNumber' => 'nullable|string',
+                'batch.expirationDate' => 'nullable|date',
+                'extension' => 'required|array',
             ],
-            $this->getRatioDataRules($prefix . 'amount_'),
-        );
-    }
-
-    private function ingredientDataRules($prefix): array
-    {
-        return array_merge(
-            [
-                $prefix . 'system' => 'nullable|string',
-                $prefix . 'code' => 'nullable|string',
-                $prefix . 'display' => 'nullable|string',
-                $prefix . 'is_active' => 'nullable|boolean',
-            ],
-            $this->getRatioDataRules($prefix . 'strength_'),
+            $this->getIdentifierRules('identifier.*.'),
+            $this->getCodeableConceptRules('code.'),
+            $this->getReferenceRules('manufacturer.'),
+            $this->getCodeableConceptRules('form.'),
+            $this->getRatioRules('amount.'),
+            $this->getCodeableConceptRules('ingredient.*.itemCodeableConcept.'),
+            $this->getReferenceRules('ingredient.*.itemReference.'),
+            $this->getRatioRules('ingredient.*.strength.'),
+            $this->getExtensionRules('extension.*.')
         );
     }
 }

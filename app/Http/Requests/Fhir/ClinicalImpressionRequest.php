@@ -3,11 +3,7 @@
 namespace App\Http\Requests\Fhir;
 
 use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\{
-    ClinicalImpression,
-    ClinicalImpressionFinding,
-    ClinicalImpressionInvestigation
-};
+use App\Models\Fhir\Resources\ClinicalImpression;
 use Illuminate\Validation\Rule;
 
 class ClinicalImpressionRequest extends FhirRequest
@@ -20,78 +16,52 @@ class ClinicalImpressionRequest extends FhirRequest
     public function rules(): array
     {
         return array_merge(
-            $this->baseAttributeRules(),
-            $this->baseDataRules('clinicalImpression.'),
-            $this->getIdentifierDataRules('identifier.*.'),
-            $this->investigationDataRules('investigation.*.'),
-            $this->findingDataRules('finding.*.'),
-            $this->getAnnotationDataRules('note.*.'),
+            [
+                'identifier' => 'nullable|array',
+                'status' => ['required', Rule::in(ClinicalImpression::STATUS['binding']['valueset']['code'])],
+                'statusReason' => 'nullable|array',
+                'code' => 'nullable|array',
+                'description' => 'nullable|string',
+                'subject' => 'required|array',
+                'encounter' => 'required|array',
+                'effectiveDateTime' => 'nullable|date',
+                'effectivePeriod' => 'nullable|array',
+                'date' => 'nullable|date',
+                'assessor' => 'nullable|array',
+                'previous' => 'nullable|array',
+                'problem' => 'nullable|array',
+                'investigation' => 'nullable|array',
+                'investigation.*.code' => 'sometimes|array',
+                'investigation.*.item' => 'nullable|array',
+                'protocol' => 'nullable|array',
+                'protocol.*' => 'nullable|string',
+                'summary' => 'nullable|string',
+                'finding' => 'nullable|array',
+                'finding.*.itemCodeableConcept' => 'nullable|array',
+                'finding.*.itemReference' => 'nullable|array',
+                'finding.*.basis' => 'nullable|array',
+                'prognosisCodeableConcept' => 'required|array',
+                'prognosisReference' => 'nullable|array',
+                'supportingInfo' => 'nullable|array',
+                'note' => 'nullable|array',
+            ],
+            $this->getIdentifierRules('identifier.*.'),
+            $this->getCodeableConceptRules('statusReason.'),
+            $this->getCodeableConceptRules('code.'),
+            $this->getReferenceRules('subject.'),
+            $this->getReferenceRules('encounter.'),
+            $this->getPeriodRules('effectivePeriod.'),
+            $this->getReferenceRules('assessor.'),
+            $this->getReferenceRules('previous.'),
+            $this->getReferenceRules('problem.*.'),
+            $this->getCodeableConceptRules('investigation.*.code.'),
+            $this->getReferenceRules('investigation.*.item.*.'),
+            $this->getCodeableConceptRules('finding.*.itemCodeableConcept.'),
+            $this->getReferenceRules('finding.*.itemReference.'),
+            $this->getCodeableConceptRules('prognosisCodeableConcept.*.'),
+            $this->getReferenceRules('prognosisReference.*.'),
+            $this->getReferenceRules('supportingInfo.*.'),
+            $this->getAnnotationRules('note.*.')
         );
-    }
-
-    private function baseAttributeRules(): array
-    {
-        return [
-            'clinicalImpression' => 'required|array',
-            'identifier' => 'nullable|array',
-            'investigation' => 'nullable|array',
-            'finding' => 'nullable|array',
-            'note' => 'nullable|array'
-        ];
-    }
-
-    private function baseDataRules(string $prefix = null): array
-    {
-        return [
-            $prefix . 'status' => ['required', Rule::in(ClinicalImpression::STATUS['binding']['valueset']['code'])],
-            $prefix . 'status_reason_code' => ['nullable', Rule::exists(ClinicalImpression::STATUS_REASON_CODE['binding']['valueset']['table'], 'code')],
-            $prefix . 'status_reason_text' => 'nullable|string',
-            $prefix . 'code_system' => 'nullable|string',
-            $prefix . 'code_code' => 'nullable|string',
-            $prefix . 'code_display' => 'nullable|string',
-            $prefix . 'code_text' => 'nullable|string',
-            $prefix . 'description' => 'nullable|string',
-            $prefix . 'subject' => 'required|string',
-            $prefix . 'encounter' => 'required|string',
-            $prefix . 'effective' => 'nullable|array',
-            $prefix . 'effective.effectiveDateTime' => 'nullable|date',
-            $prefix . 'effective.effectivePeriod' => 'nullable|array',
-            $prefix . 'effective.effectivePeriod.start' => 'nullable|date',
-            $prefix . 'effective.effectivePeriod.end' => 'nullable|date',
-            $prefix . 'date' => 'nullable|date',
-            $prefix . 'assessor' => 'nullable|string',
-            $prefix . 'previous' => 'nullable|string',
-            $prefix . 'problem' => 'nullable|array',
-            $prefix . 'problem.*' => 'nullable|string',
-            $prefix . 'protocol' => 'nullable|array',
-            $prefix . 'protocol.*' => 'nullable|string',
-            $prefix . 'summary' => 'nullable|string',
-            $prefix . 'prognosis_codeable_concept' => 'nullable|array',
-            $prefix . 'prognosis_codeable_concept.*' => ['required', Rule::in(ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['code'])],
-            $prefix . 'prognosis_reference' => 'nullable|array',
-            $prefix . 'prognosis_reference.*' => 'required|string',
-            $prefix . 'supporting_info' => 'nullable|array',
-            $prefix . 'supporting_info.*' => 'required|string'
-        ];
-    }
-
-    private function investigationDataRules(string $prefix = null): array
-    {
-        return [
-            $prefix . 'code' => ['nullable', Rule::in(ClinicalImpressionInvestigation::CODE['binding']['valueset']['code'])],
-            $prefix . 'code_text' => 'nullable|string',
-            $prefix . 'item' => 'nullable|array',
-            $prefix . 'item.*' => 'required|string'
-        ];
-    }
-
-
-    private function findingDataRules(string $prefix = null): array
-    {
-        return [
-            $prefix . 'item_codeable_concept' => ['nullable', Rule::exists(ClinicalImpressionFinding::ITEM_CODEABLE_CONCEPT['binding']['valueset']['table'], 'code')],
-            $prefix . 'item_reference' => 'nullable|string',
-            $prefix . 'basis' => 'nullable|string'
-        ];
     }
 }

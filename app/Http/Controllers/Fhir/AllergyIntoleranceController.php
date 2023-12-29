@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Requests\Fhir\AllergyIntoleranceRequest;
@@ -17,23 +18,6 @@ class AllergyIntoleranceController extends FhirController
 
     public function show($res_id)
     {
-        $satusehat = new SatusehatController();
-
-        $response = $satusehat->get(self::RESOURCE_TYPE, $res_id);
-
-        if ($response->getStatusCode() == 200) {
-
-            $localRes = Resource::where([
-                ['res_type', self::RESOURCE_TYPE],
-                ['id', $res_id]
-            ])->value('updated_at');
-
-            if ($response['meta']['lastUpdated'] > $localRes) {
-                return response()->json(['error' => 'Data tidak ditemukan.'], 404);
-            }
-
-            return $response;
-        }
         try {
             return response()
                 ->json(new AllergyIntoleranceResource(Resource::where([
@@ -42,24 +26,25 @@ class AllergyIntoleranceController extends FhirController
                 ])->firstOrFail()), 200);
         } catch (ModelNotFoundException $e) {
             Log::error('Model error: ' . $e->getMessage());
-            return response()->json(['error' => 'Data tidak ditemukan.'], 404);
+            return response()->json([
+                'error' => 'Data tidak ditemukan.',
+                'message' => $e->getMessage()
+            ], 404);
         }
     }
-
 
     public function store(AllergyIntoleranceRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $allergyIntolerance = $resource->allergyIntolerance()->create($body['allergyIntolerance']);
-            $this->createChildModels($allergyIntolerance, $body, ['identifier', 'note']);
-            $this->createNestedInstances($allergyIntolerance, 'reaction', $body, ['note']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateAllergyIntolerance($body);
+            $processor->saveAllergyIntolerance($resource, $data);
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
-            return response()->json($allergyIntolerance, 201);
+            return response()->json(new AllergyIntoleranceResource($resource), 201);
         });
     }
-
 
     public function update(AllergyIntoleranceRequest $request, int $res_id, FhirService $fhirService)
     {

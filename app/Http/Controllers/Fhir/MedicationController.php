@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\MedicationRequest;
 use App\Http\Resources\MedicationResource;
@@ -29,19 +30,18 @@ class MedicationController extends FhirController
         }
     }
 
-
     public function store(MedicationRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource= $this->createResource(self::RESOURCE_TYPE);
-            $medication = $resource->medication()->create($body['medication']);
-            $this->createChildModels($medication, $body, ['identifier', 'ingredient']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateMedication($body);
+            $processor->saveMedication($resource, $data);
             $this->createResourceContent(MedicationResource::class, $resource);
-            return response()->json($medication, 201);
+            return response()->json(new MedicationResource($resource), 201);
         });
     }
-
 
     public function update(MedicationRequest $request, int $res_id, FhirService $fhirService)
     {

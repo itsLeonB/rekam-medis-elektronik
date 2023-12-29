@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\ClinicalImpressionRequest;
 use App\Http\Resources\ClinicalImpressionResource;
@@ -29,19 +30,18 @@ class ClinicalImpressionController extends FhirController
         }
     }
 
-
     public function store(ClinicalImpressionRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $clinicalImpression = $resource->clinicalImpression()->create($body['clinicalImpression']);
-            $this->createChildModels($clinicalImpression, $body, ['identifier', 'investigation', 'finding', 'note']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateClinicalImpression($body);
+            $processor->saveClinicalImpression($resource, $data);
             $this->createResourceContent(ClinicalImpressionResource::class, $resource);
-            return response()->json($clinicalImpression, 201);
+            return response()->json(new ClinicalImpressionResource($resource), 201);
         });
     }
-
 
     public function update(ClinicalImpressionRequest $request, int $res_id, FhirService $fhirService)
     {
