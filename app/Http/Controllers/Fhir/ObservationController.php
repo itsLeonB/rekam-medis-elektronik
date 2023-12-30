@@ -43,17 +43,15 @@ class ObservationController extends FhirController
         });
     }
 
-    public function update(ObservationRequest $request, int $res_id, FhirService $fhirService)
+    public function update(ObservationRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $observation = $resource->observation()->first();
-            $observation->update($body['observation']);
-            $this->updateChildModels($observation, $body, ['identifier', 'note', 'referenceRange']);
-            $this->updateNestedInstances($observation, 'component', $body, ['referenceRange']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateObservation($resource, $body);
             $this->createResourceContent(ObservationResource::class, $resource);
-            return response()->json($observation, 200);
+            return response()->json(new ObservationResource($resource), 200);
         });
     }
 }

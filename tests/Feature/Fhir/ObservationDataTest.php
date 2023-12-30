@@ -38,7 +38,22 @@ class ObservationDataTest extends TestCase
     /**
      * Test apakah user dapat membuat data observasi baru
      */
-    public function test_users_can_create_new_observation_data()
+    // public function test_users_can_create_new_observation_data()
+    // {
+    //     $user = User::factory()->create();
+    //     $this->actingAs($user);
+
+    //     $data = $this->getExampleData('Observation');
+    //     $headers = ['Content-Type' => 'application/json'];
+    //     $response = $this->json('POST', route('observation.store'), $data, $headers);
+    //     $response->assertStatus(201);
+    // }
+
+
+    /**
+     * Test apakah user dapat memperbarui data observasi
+     */
+    public function test_users_can_update_observation_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -46,40 +61,12 @@ class ObservationDataTest extends TestCase
         $data = $this->getExampleData('Observation');
         $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', route('observation.store'), $data, $headers);
-        $response->assertStatus(201);
+        $newData = json_decode($response->getContent(), true);
+
+        $newData['effectiveDateTime'] = '2022-07-15';
+        $newData['encounter']['display'] = 'Pemeriksaan update';
+
+        $response = $this->json('PUT', route('observation.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response->assertStatus(200);
     }
-
-
-    /**
-     * Test apakah user dapat memperbarui data observasi
-     */
-    // public function test_users_can_update_observation_data()
-    // {
-    //     $user = User::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $data = $this->getExampleData('observation');
-    //     $headers = ['Content-Type' => 'application/json'];
-    //     $response = $this->json('POST', route('observation.store'), $data, $headers);
-    //     $newData = json_decode($response->getContent(), true);
-
-    //     $data['observation']['id'] = $newData['id'];
-    //     $data['observation']['resource_id'] = $newData['resource_id'];
-    //     $data['observation']['subject'] = 'Patient/10001';
-
-    //     $response = $this->json('PUT', route('observation.update', ['res_id' => $newData['resource_id']]), $data, $headers);
-    //     $response->assertStatus(200);
-
-    //     $this->assertMainData('observation', $data['observation']);
-    //     $this->assertManyData('observation_note', $data['note']);
-    //     $this->assertManyData('observation_ref_range', $data['referenceRange']);
-    //     $this->assertNestedData('observation_component', $data['component'], 'component_data', [
-    //         [
-    //             'table' => 'obs_comp_ref_range',
-    //             'data' => 'referenceRange'
-    //         ]
-    //     ]);
-    //     $orgId = config('app.organization_id');
-    //     $this->assertDatabaseHas('observation_identifier', ['system' => 'http://sys-ids.kemkes.go.id/observation/' . $orgId, 'use' => 'official']);
-    // }
 }

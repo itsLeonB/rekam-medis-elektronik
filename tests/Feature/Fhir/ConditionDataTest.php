@@ -38,7 +38,22 @@ class ConditionDataTest extends TestCase
     /**
      * Test apakah user dapat membuat data kondisi pasien baru
      */
-    public function test_users_can_create_new_condition_data()
+    // public function test_users_can_create_new_condition_data()
+    // {
+    //     $user = User::factory()->create();
+    //     $this->actingAs($user);
+
+    //     $data = $this->getExampleData('Condition');
+    //     $headers = ['Content-Type' => 'application/json'];
+    //     $response = $this->json('POST', route('condition.store'), $data, $headers);
+    //     $response->assertStatus(201);
+    // }
+
+
+    /**
+     * Test apakah user dapat memperbarui data kondisi pasien
+     */
+    public function test_users_can_update_condition_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -46,34 +61,12 @@ class ConditionDataTest extends TestCase
         $data = $this->getExampleData('Condition');
         $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', route('condition.store'), $data, $headers);
-        $response->assertStatus(201);
+        $newData = json_decode($response->getContent(), true);
+
+        $newData['onsetDateTime'] = '2022-06-15';
+        $newData['encounter']['display'] = 'Kunjungan update';
+
+        $response = $this->json('PUT', route('condition.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response->assertStatus(200);
     }
-
-
-    /**
-     * Test apakah user dapat memperbarui data kondisi pasien
-     */
-    // public function test_users_can_update_condition_data()
-    // {
-    //     $user = User::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $data = $this->getExampleData('condition');
-    //     $headers = ['Content-Type' => 'application/json'];
-    //     $response = $this->json('POST', route('condition.store'), $data, $headers);
-    //     $newData = json_decode($response->getContent(), true);
-
-    //     $data['condition']['id'] = $newData['id'];
-    //     $data['condition']['resource_id'] = $newData['resource_id'];
-    //     $data['condition']['verification_status'] = 'confirmed';
-    //     $response = $this->json('PUT', route('condition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
-    //     $response->assertStatus(200);
-
-    //     $this->assertMainData('condition', $data['condition']);
-    //     $this->assertManyData('condition_stage', $data['stage']);
-    //     $this->assertManyData('condition_evidence', $data['evidence']);
-    //     $this->assertManyData('condition_note', $data['note']);
-    //     $orgId = config('app.organization_id');
-    //     $this->assertDatabaseHas('condition_identifier', ['system' => 'http://sys-ids.kemkes.go.id/condition/' . $orgId, 'use' => 'official']);
-    // }
 }

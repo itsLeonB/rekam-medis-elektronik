@@ -36,7 +36,7 @@ class MedicationResource extends FhirResource
             'ingredient' => $this->createMany($medication->ingredient, 'createIngredientResource'),
             'batch' => $this->createBatchResource($medication->batch),
             'extension' => [
-                $this->createExtensionResource($medication->serviceClass)
+                $this->createExtensionResource($medication->medicationType)
             ]
         ];
     }

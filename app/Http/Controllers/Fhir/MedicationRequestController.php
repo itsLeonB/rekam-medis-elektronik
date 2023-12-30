@@ -43,18 +43,15 @@ class MedicationRequestController extends FhirController
         });
     }
 
-    public function update(MedicationRequestRequest $request, int $res_id, FhirService $fhirService)
+    public function update(MedicationRequestRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $medicationRequest = $resource->medicationRequest()->first();
-            $medicationRequest->update($body['medicationRequest']);
-            $this->updateChildModels($medicationRequest, $body, ['identifier', 'note']);
-            $this->updateNestedInstances($medicationRequest, 'dosage', $body, ['doseRate']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateMedicationRequest($resource, $body);
             $this->createResourceContent(MedicationRequestResource::class, $resource);
-            return response()->json($medicationRequest, 200);
+            return response()->json(new MedicationRequestResource($resource), 200);
         });
     }
 }

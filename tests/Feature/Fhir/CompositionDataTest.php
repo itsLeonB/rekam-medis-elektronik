@@ -38,7 +38,22 @@ class CompositionDataTest extends TestCase
     /**
      * Test apakah user dapat membuat data diet pasien baru
      */
-    public function test_users_can_create_new_composition_data()
+    // public function test_users_can_create_new_composition_data()
+    // {
+    //     $user = User::factory()->create();
+    //     $this->actingAs($user);
+
+    //     $data = $this->getExampleData('Composition');
+    //     $headers = ['Content-Type' => 'application/json'];
+    //     $response = $this->json('POST', route('composition.store'), $data, $headers);
+    //     $response->assertStatus(201);
+    // }
+
+
+    /**
+     * Test apakah user dapat memperbarui data diet pasien
+     */
+    public function test_users_can_update_composition_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -46,37 +61,12 @@ class CompositionDataTest extends TestCase
         $data = $this->getExampleData('Composition');
         $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', route('composition.store'), $data, $headers);
-        $response->assertStatus(201);
+        $newData = json_decode($response->getContent(), true);
+
+        $newData['date'] = '2022-06-15';
+        $newData['identifier'][0]['value'] = '1234567890';
+
+        $response = $this->json('PUT', route('composition.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response->assertStatus(200);
     }
-
-
-    /**
-     * Test apakah user dapat memperbarui data diet pasien
-     */
-    // public function test_users_can_update_composition_data()
-    // {
-    //     $user = User::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $data = $this->getExampleData('composition');
-    //     $headers = ['Content-Type' => 'application/json'];
-    //     $response = $this->json('POST', route('composition.store'), $data, $headers);
-    //     $newData = json_decode($response->getContent(), true);
-
-    //     $data['composition']['id'] = $newData['id'];
-    //     $data['composition']['resource_id'] = $newData['resource_id'];
-
-    //     $data['author'][] = 'Practitioner/00002';
-
-    //     $response = $this->json('PUT', route('composition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
-    //     $response->assertStatus(200);
-
-    //     $this->assertMainData('composition', $data['composition']);
-    //     $this->assertManyData('composition_attester', $data['attester']);
-    //     $this->assertManyData('composition_relates_to', $data['relatesTo']);
-    //     $this->assertManyData('composition_event', $data['event']);
-    //     $this->assertManyData('composition_section', $data['section']);
-    //     $orgId = config('app.organization_id');
-    //     $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
-    // }
 }

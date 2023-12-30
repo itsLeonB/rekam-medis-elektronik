@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\MedicationStatementRequest;
 use App\Http\Resources\MedicationStatementResource;
@@ -29,32 +30,28 @@ class MedicationStatementController extends FhirController
         }
     }
 
-
     public function store(MedicationStatementRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $statement = $resource->medicationStatement()->create($body['medicationStatement']);
-            $this->createChildModels($statement, $body, ['identifier', 'reasonCode', 'note']);
-            $this->createNestedInstances($statement, 'dosage', $body, ['doseRate']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateMedicationStatement($body);
+            $processor->saveMedicationStatement($resource, $data);
             $this->createResourceContent(MedicationStatementResource::class, $resource);
-            return response()->json($statement, 201);
+            return response()->json(new MedicationStatementResource($resource), 201);
         });
     }
 
-
-    public function update(MedicationStatementRequest $request, int $res_id, FhirService $fhirService)
+    public function update(MedicationStatementRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $statement = $resource->medicationStatement()->first();
-            $statement->update($body['medicationStatement']);
-            $this->updateChildModels($statement, $body, ['identifier', 'reasonCode', 'note']);
-            $this->updateNestedInstances($statement, 'dosage', $body, ['doseRate']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateMedicationStatement($resource, $body);
             $this->createResourceContent(MedicationStatementResource::class, $resource);
-            return response()->json($statement, 200);
+            return response()->json(new MedicationStatementResource($resource), 200);
         });
     }
 }

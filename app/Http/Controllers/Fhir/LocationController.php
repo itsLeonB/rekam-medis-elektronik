@@ -44,17 +44,15 @@ class LocationController extends FhirController
         });
     }
 
-
-    public function update(LocationRequest $request, int $res_id, FhirService $fhirService)
+    public function update(LocationRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $location = $resource->location()->first();
-            $location->update($body['location']);
-            $this->updateChildModels($location, $body, ['identifier', 'telecom', 'operationHours']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateLocation($resource, $body);
             $this->createResourceContent(LocationResource::class, $resource);
-            return response()->json($location, 200);
+            return response()->json(new LocationResource($resource), 200);
         });
     }
 }

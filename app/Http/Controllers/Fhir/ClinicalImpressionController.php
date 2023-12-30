@@ -43,16 +43,15 @@ class ClinicalImpressionController extends FhirController
         });
     }
 
-    public function update(ClinicalImpressionRequest $request, int $res_id, FhirService $fhirService)
+    public function update(ClinicalImpressionRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $clinicalImpression = $resource->clinicalImpression()->first();
-            $clinicalImpression->update($body['clinicalImpression']);
-            $this->updateChildModels($clinicalImpression, $body, ['identifier', 'investigation', 'finding', 'note']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateClinicalImpression($resource, $body);
             $this->createResourceContent(ClinicalImpressionResource::class, $resource);
-            return response()->json($clinicalImpression, 200);
+            return response()->json(new ClinicalImpressionResource($resource), 200);
         });
     }
 }

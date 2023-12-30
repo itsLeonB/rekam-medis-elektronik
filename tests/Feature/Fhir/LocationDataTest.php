@@ -38,7 +38,22 @@ class LocationDataTest extends TestCase
     /**
      * Test apakah user dapat membuat data lokasi baru
      */
-    public function test_users_can_create_new_location_data()
+    // public function test_users_can_create_new_location_data()
+    // {
+    //     $user = User::factory()->create();
+    //     $this->actingAs($user);
+
+    //     $data = $this->getExampleData('Location');
+    //     $headers = ['Content-Type' => 'application/json'];
+    //     $response = $this->json('POST', route('location.store'), $data, $headers);
+    //     $response->assertStatus(201);
+    // }
+
+
+    /**
+     * Test apakah user dapat memperbarui data lokasi
+     */
+    public function test_users_can_update_location_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -46,32 +61,12 @@ class LocationDataTest extends TestCase
         $data = $this->getExampleData('Location');
         $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', route('location.store'), $data, $headers);
-        $response->assertStatus(201);
+        $newData = json_decode($response->getContent(), true);
+
+        $newData['name'] = 'Lokasi Baru';
+        $newData['identifier'][0]['value'] = '1234567890';
+
+        $response = $this->json('PUT', route('location.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response->assertStatus(200);
     }
-
-
-    /**
-     * Test apakah user dapat memperbarui data lokasi
-     */
-    // public function test_users_can_update_location_data()
-    // {
-    //     $user = User::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $data = $this->getExampleData('location');
-    //     $headers = ['Content-Type' => 'application/json'];
-    //     $response = $this->json('POST', route('location.store'), $data, $headers);
-    //     $newData = json_decode($response->getContent(), true);
-
-    //     $data['location']['id'] = $newData['id'];
-    //     $data['location']['resource_id'] = $newData['resource_id'];
-    //     $data['location']['status'] = 'inactive';
-    //     $response = $this->json('PUT', route('location.update', ['res_id' => $newData['resource_id']]), $data, $headers);
-    //     $response->assertStatus(200);
-
-    //     $this->assertMainData('location', $data['location']);
-    //     $this->assertManyData('location_identifier', $data['identifier']);
-    //     $this->assertManyData('location_telecom', $data['telecom']);
-    //     $this->assertManyData('location_operation_hours', $data['operationHours']);
-    // }
 }

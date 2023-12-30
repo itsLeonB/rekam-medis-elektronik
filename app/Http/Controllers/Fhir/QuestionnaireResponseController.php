@@ -43,16 +43,15 @@ class QuestionnaireResponseController extends FhirController
         });
     }
 
-    public function update(QuestionnaireResponseRequest $request, int $res_id, FhirService $fhirService)
+    public function update(QuestionnaireResponseRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $questionnaireResponse = $resource->questionnaireResponse()->first();
-            $questionnaireResponse->update($body['questionnaireResponse']);
-            $this->updateNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateQuestionnaireResponse($resource, $body);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
-            return response()->json($questionnaireResponse, 200);
+            return response()->json(new QuestionnaireResponseResource($resource), 200);
         });
     }
 }

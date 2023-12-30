@@ -43,16 +43,15 @@ class CompositionController extends FhirController
         });
     }
 
-    public function update(CompositionRequest $request, int $res_id, FhirService $fhirService)
+    public function update(CompositionRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $composition = $resource->composition()->first();
-            $composition->update($body['composition']);
-            $this->updateChildModels($composition, $body, ['attester', 'relatesTo', 'event', 'section']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateComposition($resource, $body);
             $this->createResourceContent(CompositionResource::class, $resource);
-            return response()->json($composition, 200);
+            return response()->json(new CompositionResource($resource), 200);
         });
     }
 }

@@ -38,7 +38,22 @@ class MedicationRequestDataTest extends TestCase
     // /**
     //  * Test apakah user dapat membuat data peresepan obat baru
     //  */
-    public function test_users_can_create_new_medication_request_data()
+    // public function test_users_can_create_new_medication_request_data()
+    // {
+    //     $user = User::factory()->create();
+    //     $this->actingAs($user);
+
+    //     $data = $this->getExampleData('MedicationRequest');
+    //     $headers = ['Content-Type' => 'application/json'];
+    //     $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
+    //     $response->assertStatus(201);
+    // }
+
+
+    // /**
+    //  * Test apakah user dapat memperbarui data peresepan obat
+    //  */
+    public function test_users_can_update_medication_request_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -46,39 +61,11 @@ class MedicationRequestDataTest extends TestCase
         $data = $this->getExampleData('MedicationRequest');
         $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
-        $response->assertStatus(201);
-    }
+        $newData = json_decode($response->getContent(), true);
 
+        $newData['priority'] = 'stat';
+        $newData['identifier'][0]['value'] = '1234567890';
 
-    // /**
-    //  * Test apakah user dapat memperbarui data peresepan obat
-    //  */
-    // public function test_users_can_update_medication_request_data()
-    // {
-    //     $user = User::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $data = $this->getExampleData('medicationrequest');
-    //     $headers = ['Content-Type' => 'application/json'];
-    //     $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
-    //     $newData = json_decode($response->getContent(), true);
-
-    //     $data['medicationRequest']['id'] = $newData['id'];
-    //     $data['medicationRequest']['resource_id'] = $newData['resource_id'];
-    //     $data['medicationRequest']['priority'] = 'stat';
-
-    //     $response = $this->json('PUT', route('medicationrequest.update', ['res_id' => $newData['resource_id']]), $data, $headers);
-    //     $response->assertStatus(200);
-
-    //     $this->assertMainData('medication_request', $data['medicationRequest']);
-    //     $this->assertManyData('medication_request_note', $data['note']);
-    //     $this->assertNestedData('medication_request_dosage', $data['dosage'], 'dosage_data', [
-    //         [
-    //             'table' => 'med_req_dosage_dose_rate',
-    //             'data' => 'doseRate'
-    //         ]
-    //     ]);
-    //     $orgId = config('app.organization_id');
-    //     $this->assertDatabaseHas('medication_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/prescription/' . $orgId, 'use' => 'official']);
-    // }
+        $response = $this->json('PUT', route('medicationrequest.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response->assertStatus(200);}
 }

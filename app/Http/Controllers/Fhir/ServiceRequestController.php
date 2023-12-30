@@ -10,6 +10,7 @@ use App\Models\Fhir\Resource;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ServiceRequestController extends FhirController
 {
@@ -43,16 +44,26 @@ class ServiceRequestController extends FhirController
         });
     }
 
-    public function update(ServiceRequestRequest $request, int $res_id, FhirService $fhirService)
+    public function update(ServiceRequestRequest $request, string $satusehat_id, FhirService $fhirService)
     {
-        $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $serviceRequest = $resource->serviceRequest()->first();
-            $serviceRequest->update($body['serviceRequest']);
-            $this->updateChildModels($serviceRequest, $body, ['identifier', 'note']);
+        // $body = $this->retrieveJsonPayload($request);
+        // return $fhirService->insertData(function () use ($body, $satusehat_id) {
+        //     $resource = $this->updateResource($satusehat_id);
+        //     $processor = new Processor();
+        //     $processor->updateServiceRequest($resource, $body);
+        //     $this->createResourceContent(ServiceRequestResource::class, $resource);
+        //     return response()->json(new ServiceRequestResource($resource), 200);
+        // });
+
+        try {
+            $body = $this->retrieveJsonPayload($request);
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateServiceRequest($resource, $body);
             $this->createResourceContent(ServiceRequestResource::class, $resource);
-            return response()->json($serviceRequest, 200);
-        });
+            return response()->json(new ServiceRequestResource($resource), 200);
+        } catch (Throwable $e) {
+            dd($e);
+        }
     }
 }

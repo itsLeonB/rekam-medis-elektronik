@@ -10,6 +10,7 @@ use App\Models\Fhir\Resource;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ConditionController extends FhirController
 {
@@ -43,16 +44,15 @@ class ConditionController extends FhirController
         });
     }
 
-    public function update(ConditionRequest $request, int $res_id, FhirService $fhirService)
+    public function update(ConditionRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $condition = $resource->condition()->first();
-            $condition->update($body['condition']);
-            $this->updateChildModels($condition, $body, ['identifier', 'stage', 'evidence', 'note']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateCondition($resource, $body);
             $this->createResourceContent(ConditionResource::class, $resource);
-            return response()->json($condition, 200);
+            return response()->json(new ConditionResource($resource), 200);
         });
     }
 }

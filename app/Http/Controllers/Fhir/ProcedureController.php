@@ -10,6 +10,7 @@ use App\Models\Fhir\Resource;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ProcedureController extends FhirController
 {
@@ -43,16 +44,15 @@ class ProcedureController extends FhirController
         });
     }
 
-    public function update(ProcedureRequest $request, int $res_id, FhirService $fhirService)
+    public function update(ProcedureRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $procedure = $resource->procedure()->first();
-            $procedure->update($body['procedure']);
-            $this->updateChildModels($procedure, $body, ['identifier', 'performer', 'note', 'focalDevice']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateProcedure($resource, $body);
             $this->createResourceContent(ProcedureResource::class, $resource);
-            return response()->json($procedure, 200);
+            return response()->json(new ProcedureResource($resource), 200);
         });
     }
 }

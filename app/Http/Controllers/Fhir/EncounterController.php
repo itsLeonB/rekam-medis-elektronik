@@ -37,24 +37,24 @@ class EncounterController extends FhirController
         return $fhirService->insertData(function () use ($body) {
             $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
             $processor = new Processor();
+            // dd($body);
             $data = $processor->generateEncounter($body);
+            // dd($data);
             $processor->saveEncounter($resource, $data);
             $this->createResourceContent(EncounterResource::class, $resource);
             return response()->json(new EncounterResource($resource), 201);
         });
     }
 
-
-    public function update(EncounterRequest $request, int $res_id, FhirService $fhirService)
+    public function update(EncounterRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $encounter = $resource->encounter()->first();
-            $encounter->update($body['encounter']);
-            $this->updateChildModels($encounter, $body, ['identifier', 'statusHistory', 'classHistory', 'participant', 'diagnosis', 'location']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateEncounter($resource, $body);
             $this->createResourceContent(EncounterResource::class, $resource);
-            return response()->json($encounter, 200);
+            return response()->json(new EncounterResource($resource), 200);
         });
     }
 }

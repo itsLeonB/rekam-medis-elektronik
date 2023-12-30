@@ -46,17 +46,15 @@ class AllergyIntoleranceController extends FhirController
         });
     }
 
-    public function update(AllergyIntoleranceRequest $request, int $res_id, FhirService $fhirService)
+    public function update(AllergyIntoleranceRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $allergyIntolerance = $resource->allergyIntolerance()->first();
-            $allergyIntolerance->update($body['allergyIntolerance']);
-            $this->updateChildModels($allergyIntolerance, $body, ['identifier', 'note']);
-            $this->updateNestedInstances($allergyIntolerance, 'reaction', $body, ['note']);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            $resource = $this->updateResource($satusehat_id);
+            $processor = new Processor();
+            $processor->updateAllergyIntolerance($resource, $body);
             $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
-            return response()->json($allergyIntolerance, 200);
+            return response()->json(new AllergyIntoleranceResource($resource), 200);
         });
     }
 }

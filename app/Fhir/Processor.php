@@ -86,6 +86,27 @@ use App\Models\Fhir\Resources\{
 
 class Processor
 {
+    public function updateQuestionnaireResponse(Resource $resource, $array): QuestionnaireResponse
+    {
+        if (!empty($array)) {
+            $resource->questionnaireResponse()->each(function ($questionnaireResponse) {
+                $this->deleteIdentifier($questionnaireResponse->identifier);
+                $this->deleteMany($questionnaireResponse->basedOn(), 'deleteReference');
+                $this->deleteMany($questionnaireResponse->partOf(), 'deleteReference');
+                $this->deleteReference($questionnaireResponse->subject);
+                $this->deleteReference($questionnaireResponse->encounter);
+                $this->deleteReference($questionnaireResponse->author);
+                $this->deleteReference($questionnaireResponse->source);
+                $this->deleteMany($questionnaireResponse->item(), 'deleteItem');
+
+                $questionnaireResponse->delete();
+            });
+
+            $newData = $this->generateQuestionnaireResponse($array);
+            return $this->saveQuestionnaireResponse($resource, $newData);
+        }
+    }
+
     public function saveQuestionnaireResponse(Resource $resource, $array): QuestionnaireResponse
     {
         if (!empty($array)) {
@@ -209,6 +230,35 @@ class Processor
         }
     }
 
+    public function updateMedicationStatement(Resource $resource, $array): MedicationStatement
+    {
+        if (!empty($array)) {
+            $resource->medicationStatement()->each(function ($medicationStatement) {
+                $this->deleteMany($medicationStatement->identifier(), 'deleteIdentifier');
+                $this->deleteMany($medicationStatement->basedOn(), 'deleteReference');
+                $this->deleteMany($medicationStatement->partOf(), 'deleteReference');
+                $this->deleteMany($medicationStatement->statusReason(), 'deleteCodeableConcept');
+                $this->deleteCodeableConcept($medicationStatement->category);
+                $this->deleteCodeableConcept($medicationStatement->medicationCodeableConcept);
+                $this->deleteReference($medicationStatement->medicationReference);
+                $this->deleteReference($medicationStatement->subject);
+                $this->deleteReference($medicationStatement->context);
+                $medicationStatement->effectivePeriod()->delete();
+                $this->deleteReference($medicationStatement->informationSource);
+                $this->deleteMany($medicationStatement->derivedFrom(), 'deleteReference');
+                $this->deleteMany($medicationStatement->reasonCode(), 'deleteCodeableConcept');
+                $this->deleteMany($medicationStatement->reasonReference(), 'deleteReference');
+                $this->deleteMany($medicationStatement->note(), 'deleteAnnotation');
+                $this->deleteMany($medicationStatement->dosage(), 'deleteDosage');
+
+                $medicationStatement->delete();
+            });
+
+            $newData = $this->generateMedicationStatement($array);
+            return $this->saveMedicationStatement($resource, $newData);
+        }
+    }
+
     public function saveMedicationStatement(Resource $resource, $array): MedicationStatement
     {
         if (!empty($array)) {
@@ -280,13 +330,54 @@ class Processor
         ];
     }
 
+    public function updateServiceRequest(Resource $resource, $array): ServiceRequest
+    {
+        if (!empty($array)) {
+            $resource->serviceRequest()->each(function ($serviceRequest) {
+                $this->deleteMany($serviceRequest->identifier(), 'deleteIdentifier');
+                $this->deleteMany($serviceRequest->basedOn(), 'deleteReference');
+                $this->deleteMany($serviceRequest->replaces(), 'deleteReference');
+                $this->deleteIdentifier($serviceRequest->requisition);
+                $this->deleteMany($serviceRequest->category(), 'deleteCodeableConcept');
+                $this->deleteCodeableConcept($serviceRequest->code);
+                $this->deleteMany($serviceRequest->orderDetail(), 'deleteCodeableConcept');
+                $serviceRequest->quantityQuantity()->delete();
+                $this->deleteRatio($serviceRequest->quantityRatio);
+                $this->deleteRange($serviceRequest->quantityRange);
+                $this->deleteReference($serviceRequest->subject);
+                $this->deleteReference($serviceRequest->encounter);
+                $serviceRequest->occurrencePeriod()->delete();
+                $this->deleteTiming($serviceRequest->occurrenceTiming);
+                $this->deleteCodeableConcept($serviceRequest->asNeededCodeableConcept);
+                $this->deleteReference($serviceRequest->requester);
+                $this->deleteCodeableConcept($serviceRequest->performerType);
+                $this->deleteMany($serviceRequest->performer(), 'deleteReference');
+                $this->deleteMany($serviceRequest->locationCode(), 'deleteCodeableConcept');
+                $this->deleteMany($serviceRequest->locationReference(), 'deleteReference');
+                $this->deleteMany($serviceRequest->reasonCode(), 'deleteCodeableConcept');
+                $this->deleteMany($serviceRequest->reasonReference(), 'deleteReference');
+                $this->deleteMany($serviceRequest->insurance(), 'deleteReference');
+                $this->deleteMany($serviceRequest->supportingInfo(), 'deleteReference');
+                $this->deleteMany($serviceRequest->specimen(), 'deleteReference');
+                $this->deleteMany($serviceRequest->bodySite(), 'deleteCodeableConcept');
+                $this->deleteMany($serviceRequest->note(), 'deleteAnnotation');
+                $this->deleteMany($serviceRequest->relevantHistory(), 'deleteReference');
+
+                $serviceRequest->delete();
+            });
+
+            $newData = $this->generateServiceRequest($array);
+            return $this->saveServiceRequest($resource, $newData);
+        }
+    }
+
     public function saveServiceRequest(Resource $resource, $array): ServiceRequest
     {
         if (!empty($array)) {
             $serviceRequest = $resource->serviceRequest()->save($array['serviceRequest'] ?? null);
             $this->saveMany($serviceRequest, 'identifier', $array['identifier'] ?? null, 'saveIdentifier');
-            $this->saveReference($serviceRequest, 'basedOn', $array['basedOn'] ?? null);
-            $this->saveReference($serviceRequest, 'replaces', $array['replaces'] ?? null);
+            $this->saveMany($serviceRequest, 'basedOn', $array['basedOn'] ?? null, 'saveReference');
+            $this->saveMany($serviceRequest, 'replaces', $array['replaces'] ?? null, 'saveReference');
             $this->saveIdentifier($serviceRequest, 'requisition', $array['requisition'] ?? null);
             $this->saveMany($serviceRequest, 'category', $array['category'] ?? null, 'saveCodeableConcept');
             $this->saveCodeableConcept($serviceRequest, 'code', $array['code'] ?? null);
@@ -392,6 +483,45 @@ class Processor
             'note' => $note ?? null,
             'relevantHistory' => $relevantHistory ?? null
         ];
+    }
+
+    public function updateClinicalImpression(Resource $resource, $array): ClinicalImpression
+    {
+        if (!empty($array)) {
+            $resource->clinicalImpression()->each(function ($clinicalImpression) {
+                $this->deleteMany($clinicalImpression->identifier(), 'deleteIdentifier');
+                $this->deleteCodeableConcept($clinicalImpression->statusReason);
+                $this->deleteCodeableConcept($clinicalImpression->code);
+                $this->deleteReference($clinicalImpression->subject);
+                $this->deleteReference($clinicalImpression->encounter);
+                $clinicalImpression->effectivePeriod()->delete();
+                $this->deleteReference($clinicalImpression->assessor);
+                $this->deleteReference($clinicalImpression->previous);
+                $this->deleteMany($clinicalImpression->problem(), 'deleteReference');
+
+                $clinicalImpression->investigation()->each(function ($investigation) {
+                    $this->deleteCodeableConcept($investigation->code);
+                    $this->deleteMany($investigation->item(), 'deleteReference');
+                    $investigation->delete();
+                });
+
+                $clinicalImpression->finding()->each(function ($finding) {
+                    $this->deleteCodeableConcept($finding->itemCodeableConcept);
+                    $this->deleteReference($finding->itemReference);
+                    $finding->delete();
+                });
+
+                $this->deleteMany($clinicalImpression->prognosisCodeableConcept(), 'deleteCodeableConcept');
+                $this->deleteMany($clinicalImpression->prognosisReference(), 'deleteReference');
+                $this->deleteMany($clinicalImpression->supportingInfo(), 'deleteReference');
+                $this->deleteMany($clinicalImpression->note(), 'deleteAnnotation');
+
+                $clinicalImpression->delete();
+            });
+
+            $newData = $this->generateClinicalImpression($array);
+            return $this->saveClinicalImpression($resource, $newData);
+        }
     }
 
     public function saveClinicalImpression(Resource $resource, $array): ClinicalImpression
@@ -501,6 +631,39 @@ class Processor
         ];
     }
 
+    public function updateAllergyIntolerance(Resource $resource, $array): AllergyIntolerance
+    {
+        if (!empty($array)) {
+            $resource->allergyIntolerance()->each(function ($allergy) {
+                $this->deleteMany($allergy->identifier(), 'deleteIdentifier');
+                $this->deleteCodeableConcept($allergy->clinicalStatus);
+                $this->deleteCodeableConcept($allergy->verificationStatus);
+                $this->deleteCodeableConcept($allergy->code);
+                $this->deleteReference($allergy->patient);
+                $this->deleteReference($allergy->encounter);
+                $allergy->onsetAge()->delete();
+                $allergy->onsetPeriod()->delete();
+                $this->deleteRange($allergy->onsetRange);
+                $this->deleteReference($allergy->recorder);
+                $this->deleteReference($allergy->asserter);
+                $this->deleteMany($allergy->note(), 'deleteAnnotation');
+
+                $allergy->reaction()->each(function ($reaction) {
+                    $this->deleteCodeableConcept($reaction->substance);
+                    $this->deleteMany($reaction->manifestation(), 'deleteCodeableConcept');
+                    $this->deleteCodeableConcept($reaction->exposureRoute);
+                    $this->deleteMany($reaction->note(), 'deleteAnnotation');
+                    $reaction->delete();
+                });
+
+                $allergy->delete();
+            });
+
+            $newData = $this->generateAllergyIntolerance($array);
+            return $this->saveAllergyIntolerance($resource, $newData);
+        }
+    }
+
     public function saveAllergyIntolerance(Resource $resource, $array): AllergyIntolerance
     {
         if (!empty($array)) {
@@ -590,6 +753,48 @@ class Processor
             'note' => $note ?? null,
             'reaction' => $reaction ?? null
         ];
+    }
+
+    public function updateComposition(Resource $resource, $array): Composition
+    {
+        if (!empty($array)) {
+            $resource->composition()->each(function ($composition) {
+                $this->deleteIdentifier($composition->identifier);
+                $this->deleteCodeableConcept($composition->type);
+                $this->deleteMany($composition->category(), 'deleteCodeableConcept');
+                $this->deleteReference($composition->subject);
+                $this->deleteReference($composition->encounter);
+                $this->deleteMany($composition->author(), 'deleteReference');
+
+                $composition->attester()->each(function ($attester) {
+                    $this->deleteReference($attester->party);
+                    $attester->delete();
+                });
+
+                $this->deleteReference($composition->custodian);
+
+                $composition->relatesTo()->each(function ($relatesTo) {
+                    $this->deleteIdentifier($relatesTo->targetIdentifier);
+                    $this->deleteReference($relatesTo->targetReference);
+                    $relatesTo->delete();
+                });
+
+                $composition->event()->each(function ($event) {
+                    $this->deleteMany($event->code(), 'deleteCodeableConcept');
+                    $event->period()->delete();
+                    $this->deleteMany($event->detail(), 'deleteReference');
+                    $event->delete();
+                });
+
+                $this->deleteMany($composition->section(), 'deleteSection');
+                $this->deleteComplexExtension($composition->documentStatus);
+
+                $composition->delete();
+            });
+
+            $newData = $this->generateComposition($array);
+            return $this->saveComposition($resource, $newData);
+        }
     }
 
     public function saveComposition(Resource $resource, $array): Composition
@@ -789,6 +994,65 @@ class Processor
             ];
         } else {
             return null;
+        }
+    }
+
+    public function updateMedicationRequest(Resource $resource, $array): MedicationRequest
+    {
+        if (!empty($array)) {
+            $resource->medicationRequest()->each(function ($medicationRequest) {
+                $this->deleteMany($medicationRequest->identifier(), 'deleteIdentifier');
+                $this->deleteCodeableConcept($medicationRequest->statusReason);
+                $this->deleteMany($medicationRequest->category(), 'deleteCodeableConcept');
+                $this->deleteReference($medicationRequest->reportedReference);
+                $this->deleteCodeableConcept($medicationRequest->medicationCodeableConcept);
+                $this->deleteReference($medicationRequest->medicationReference);
+                $this->deleteReference($medicationRequest->subject);
+                $this->deleteReference($medicationRequest->encounter);
+                $this->deleteMany($medicationRequest->supportingInformation(), 'deleteReference');
+                $this->deleteReference($medicationRequest->requester);
+                $this->deleteReference($medicationRequest->performer);
+                $this->deleteCodeableConcept($medicationRequest->performerType);
+                $this->deleteReference($medicationRequest->recorder);
+                $this->deleteMany($medicationRequest->reasonCode(), 'deleteCodeableConcept');
+                $this->deleteMany($medicationRequest->reasonReference(), 'deleteReference');
+                $this->deleteMany($medicationRequest->basedOn(), 'deleteReference');
+                $this->deleteIdentifier($medicationRequest->groupIdentifier);
+                $this->deleteCodeableConcept($medicationRequest->courseOfTherapyType);
+                $this->deleteMany($medicationRequest->insurance(), 'deleteReference');
+                $this->deleteMany($medicationRequest->note(), 'deleteAnnotation');
+                $this->deleteMany($medicationRequest->dosageInstruction(), 'deleteDosage');
+
+                $medicationRequest->dispenseRequest()->each(function ($dispenseRequest) {
+                    $dispenseRequest->initialFill()->each(function ($initialFill) {
+                        $initialFill->quantity()->delete();
+                        $initialFill->duration()->delete();
+                        $initialFill->delete();
+                    });
+
+                    $dispenseRequest->dispenseInterval()->delete();
+                    $dispenseRequest->validityPeriod()->delete();
+                    $dispenseRequest->quantity()->delete();
+                    $dispenseRequest->expectedSupplyDuration()->delete();
+                    $this->deleteReference($dispenseRequest->performer);
+                    $dispenseRequest->delete();
+                });
+
+                $medicationRequest->substitution()->each(function ($substitution) {
+                    $this->deleteCodeableConcept($substitution->allowedCodeableConcept);
+                    $this->deleteCodeableConcept($substitution->reason);
+                    $substitution->delete();
+                });
+
+                $this->deleteReference($medicationRequest->priorPrescription);
+                $this->deleteMany($medicationRequest->detectedIssue(), 'deleteReference');
+                $this->deleteMany($medicationRequest->eventHistory(), 'deleteReference');
+
+                $medicationRequest->delete();
+            });
+
+            $newData = $this->generateMedicationRequest($array);
+            return $this->saveMedicationRequest($resource, $newData);
         }
     }
 
@@ -1069,6 +1333,34 @@ class Processor
         }
     }
 
+    public function updateMedication(Resource $resource, $array): Medication
+    {
+        if (!empty($array)) {
+            $resource->medication()->each(function ($medication) {
+                $this->deleteMany($medication->identifier(), 'deleteIdentifier');
+                $this->deleteCodeableConcept($medication->code);
+                $this->deleteReference($medication->manufacturer);
+                $this->deleteCodeableConcept($medication->form);
+                $this->deleteRatio($medication->amount);
+
+                $medication->ingredient()->each(function ($ingredient) {
+                    $this->deleteCodeableConcept($ingredient->itemCodeableConcept);
+                    $this->deleteReference($ingredient->itemReference);
+                    $this->deleteRatio($ingredient->strength);
+                    $ingredient->delete();
+                });
+
+                $medication->batch()->delete();
+
+                $this->deleteExtension($medication->medicationType);
+                $medication->delete();
+            });
+
+            $newData = $this->generateMedication($array);
+            return $this->saveMedication($resource, $newData);
+        }
+    }
+
     public function saveMedication(Resource $resource, $array): Medication
     {
         if (!empty($array)) {
@@ -1145,6 +1437,59 @@ class Processor
             'batch' => $batch ?? null,
             'medicationType' => $medicationType ?? null
         ];
+    }
+
+    public function updateProcedure(Resource $resource, $array): Procedure
+    {
+        if (!empty($array)) {
+            $resource->procedure()->each(function ($procedure) {
+                $this->deleteMany($procedure->identifier(), 'deleteIdentifier');
+                $this->deleteMany($procedure->basedOn(), 'deleteReference');
+                $this->deleteMany($procedure->partOf(), 'deleteReference');
+                $this->deleteCodeableConcept($procedure->statusReason);
+                $this->deleteCodeableConcept($procedure->category);
+                $this->deleteCodeableConcept($procedure->code);
+                $this->deleteReference($procedure->subject);
+                $this->deleteReference($procedure->encounter);
+                $procedure->performedPeriod()->delete();
+                $procedure->performedAge()->delete();
+                $this->deleteRange($procedure->performedRange);
+                $this->deleteReference($procedure->recorder);
+                $this->deleteReference($procedure->asserter);
+
+                $procedure->performer()->each(function ($performer) {
+                    $this->deleteCodeableConcept($performer->function);
+                    $this->deleteReference($performer->actor);
+                    $this->deleteReference($performer->onBehalfOf);
+                    $performer->delete();
+                });
+
+                $this->deleteReference($procedure->location);
+                $this->deleteMany($procedure->reasonCode(), 'deleteCodeableConcept');
+                $this->deleteMany($procedure->reasonReference(), 'deleteReference');
+                $this->deleteMany($procedure->bodySite(), 'deleteCodeableConcept');
+                $this->deleteCodeableConcept($procedure->outcome);
+                $this->deleteMany($procedure->report(), 'deleteReference');
+                $this->deleteMany($procedure->complication(), 'deleteCodeableConcept');
+                $this->deleteMany($procedure->complicationDetail(), 'deleteReference');
+                $this->deleteMany($procedure->followUp(), 'deleteCodeableConcept');
+                $this->deleteMany($procedure->note(), 'deleteAnnotation');
+
+                $procedure->focalDevice()->each(function ($focalDevice) {
+                    $this->deleteCodeableConcept($focalDevice->action);
+                    $this->deleteReference($focalDevice->manipulated);
+                    $focalDevice->delete();
+                });
+
+                $this->deleteMany($procedure->usedReference(), 'deleteReference');
+                $this->deleteMany($procedure->usedCode(), 'deleteCodeableConcept');
+
+                $procedure->delete();
+            });
+
+            $newData = $this->generateProcedure($array);
+            return $this->saveProcedure($resource, $newData);
+        }
     }
 
     public function saveProcedure(Resource $resource, $array): Procedure
@@ -1291,6 +1636,78 @@ class Processor
             'usedReference' => $usedReference ?? null,
             'usedCode' => $usedCode ?? null
         ];
+    }
+
+    public function updateObservation(Resource $resource, $array): Observation
+    {
+        if (!empty($array)) {
+            $resource->observation()->each(function ($observation) {
+                $this->deleteMany($observation->identifier(), 'deleteIdentifier');
+                $this->deleteMany($observation->basedOn(), 'deleteReference');
+                $this->deleteMany($observation->partOf(), 'deleteReference');
+                $this->deleteMany($observation->category(), 'deleteCodeableConcept');
+                $this->deleteCodeableConcept($observation->code);
+                $this->deleteReference($observation->subject);
+                $this->deleteMany($observation->focus(), 'deleteReference');
+                $this->deleteReference($observation->encounter);
+                $observation->effectivePeriod()->delete();
+                $this->deleteTiming($observation->effectiveTiming);
+                $this->deleteMany($observation->performer(), 'deleteReference');
+                $observation->valueQuantity()->delete();
+                $this->deleteCodeableConcept($observation->valueCodeableConcept);
+                $this->deleteRange($observation->valueRange);
+                $this->deleteRatio($observation->valueRatio);
+                $this->deleteSampledData($observation->valueSampledData);
+                $observation->valuePeriod()->delete();
+                $this->deleteCodeableConcept($observation->dataAbsentReason);
+                $this->deleteMany($observation->interpretation(), 'deleteCodeableConcept');
+                $this->deleteMany($observation->note(), 'deleteAnnotation');
+                $this->deleteCodeableConcept($observation->bodySite);
+                $this->deleteCodeableConcept($observation->method);
+                $this->deleteReference($observation->specimen);
+                $this->deleteReference($observation->device);
+
+                $observation->referenceRange()->each(function ($referenceRange) {
+                    $referenceRange->low()->delete();
+                    $referenceRange->high()->delete();
+                    $this->deleteCodeableConcept($referenceRange->type);
+                    $this->deleteMany($referenceRange->appliesTo(), 'deleteCodeableConcept');
+                    $this->deleteRange($referenceRange->age);
+                    $referenceRange->delete();
+                });
+
+                $this->deleteMany($observation->hasMember(), 'deleteReference');
+                $this->deleteMany($observation->derivedFrom(), 'deleteReference');
+
+                $observation->component()->each(function ($component) {
+                    $this->deleteCodeableConcept($component->code);
+                    $component->valueQuantity()->delete();
+                    $this->deleteCodeableConcept($component->valueCodeableConcept);
+                    $this->deleteRange($component->valueRange);
+                    $this->deleteRatio($component->valueRatio);
+                    $this->deleteSampledData($component->valueSampledData);
+                    $component->period()->delete();
+                    $this->deleteCodeableConcept($component->dataAbsentReason);
+                    $this->deleteMany($component->interpretation(), 'deleteCodeableConcept');
+
+                    $component->referenceRange()->each(function ($referenceRange) {
+                        $referenceRange->low()->delete();
+                        $referenceRange->high()->delete();
+                        $this->deleteCodeableConcept($referenceRange->type);
+                        $this->deleteMany($referenceRange->appliesTo(), 'deleteCodeableConcept');
+                        $this->deleteRange($referenceRange->age);
+                        $referenceRange->delete();
+                    });
+
+                    $component->delete();
+                });
+
+                $observation->delete();
+            });
+
+            $newData = $this->generateObservation($array);
+            return $this->saveObservation($resource, $newData);
+        }
     }
 
     public function saveObservation(Resource $resource, $array): Observation
@@ -1654,6 +2071,50 @@ class Processor
         }
     }
 
+    public function updateCondition(Resource $resource, $array): Condition
+    {
+        if (!empty($array)) {
+            $resource->condition()->each(function ($condition) {
+                $this->deleteMany($condition->identifier(), 'deleteIdentifier');
+                $this->deleteCodeableConcept($condition->clinicalStatus);
+                $this->deleteCodeableConcept($condition->verificationStatus);
+                $this->deleteMany($condition->category(), 'deleteCodeableConcept');
+                $this->deleteCodeableConcept($condition->severity);
+                $this->deleteCodeableConcept($condition->code);
+                $this->deleteMany($condition->bodySite(), 'deleteCodeableConcept');
+                $this->deleteReference($condition->subject);
+                $this->deleteReference($condition->encounter);
+                $condition->onsetAge()->delete();
+                $condition->onsetPeriod()->delete();
+                $this->deleteRange($condition->onsetRange);
+                $condition->abatementAge()->delete();
+                $condition->abatementPeriod()->delete();
+                $this->deleteRange($condition->abatementRange);
+                $this->deleteReference($condition->recorder);
+                $this->deleteReference($condition->asserter);
+
+                $condition->stage()->each(function ($stage) {
+                    $this->deleteCodeableConcept($stage->summary);
+                    $this->deleteMany($stage->assessment(), 'deleteReference');
+                    $this->deleteCodeableConcept($stage->type);
+                    $stage->delete();
+                });
+
+                $condition->evidence()->each(function ($evidence) {
+                    $this->deleteMany($evidence->code(), 'deleteCodeableConcept');
+                    $this->deleteMany($evidence->detail(), 'deleteReference');
+                    $evidence->delete();
+                });
+
+                $this->deleteMany($condition->note(), 'deleteAnnotation');
+                $condition->delete();
+            });
+
+            $newData = $this->generateCondition($array);
+            return $this->saveCondition($resource, $newData);
+        }
+    }
+
     public function saveCondition(Resource $resource, $array): Condition
     {
         if (!empty($array)) {
@@ -1777,6 +2238,95 @@ class Processor
         ];
     }
 
+    public function updateEncounter(Resource $resource, $array): Encounter
+    {
+        if (!empty($array)) {
+            $resource->encounter()->each(function ($encounter) {
+                $this->deleteMany($encounter->identifier(), 'deleteIdentifier');
+
+                if (!empty($encounter->statusHistory())) {
+                    $encounter->statusHistory()->each(function ($statusHistory) {
+                        $statusHistory->period()->delete();
+                        $statusHistory->delete();
+                    });
+                }
+
+                $encounter->class()->delete();
+
+                if (!empty($encounter->classHistory())) {
+                    $encounter->classHistory()->each(function ($classHistory) {
+                        $classHistory->class()->delete();
+                        $classHistory->period()->delete();
+                        $classHistory->delete();
+                    });
+                }
+
+                $this->deleteMany($encounter->type(), 'deleteCodeableConcept');
+                $this->deleteCodeableConcept($encounter->serviceType);
+                $this->deleteCodeableConcept($encounter->priority);
+                $this->deleteReference($encounter->subject);
+                $this->deleteMany($encounter->episodeOfCare(), 'deleteReference');
+                $this->deleteMany($encounter->basedOn(), 'deleteReference');
+
+                if (!empty($encounter->participant())) {
+                    $encounter->participant()->each(function ($participant) {
+                        $this->deleteMany($participant->type(), 'deleteCodeableConcept');
+                        $participant->period()->delete();
+                        $this->deleteReference($participant->individual);
+                        $participant->delete();
+                    });
+                }
+
+                $this->deleteMany($encounter->appointment(), 'deleteReference');
+                $encounter->period()->delete();
+                $encounter->length()->delete();
+                $this->deleteMany($encounter->reasonCode(), 'deleteCodeableConcept');
+                $this->deleteMany($encounter->reasonReference(), 'deleteReference');
+
+                if (!empty($encounter->diagnosis())) {
+                    $encounter->diagnosis()->each(function ($diagnosis) {
+                        $this->deleteReference($diagnosis->condition);
+                        $this->deleteCodeableConcept($diagnosis->use);
+                        $diagnosis->delete();
+                    });
+                }
+
+                if (!empty($encounter->hospitalization())) {
+                    $encounter->hospitalization()->each(function ($hospitalization) {
+                        $this->deleteIdentifier($hospitalization->preAdmissionIdentifier);
+                        $this->deleteReference($hospitalization->origin);
+                        $this->deleteCodeableConcept($hospitalization->admitSource);
+                        $this->deleteCodeableConcept($hospitalization->reAdmission);
+                        $this->deleteMany($hospitalization->dietPreference(), 'deleteCodeableConcept');
+                        $this->deleteMany($hospitalization->specialCourtesy(), 'deleteCodeableConcept');
+                        $this->deleteMany($hospitalization->specialArrangement(), 'deleteCodeableConcept');
+                        $this->deleteReference($hospitalization->destination);
+                        $this->deleteCodeableConcept($hospitalization->dischargeDisposition);
+                        $hospitalization->delete();
+                    });
+                }
+
+                if (!empty($encounter->location())) {
+                    $encounter->location()->each(function ($location) {
+                        $this->deleteReference($location->location);
+                        $this->deleteCodeableConcept($location->physicalType);
+                        $location->period()->delete();
+                        $this->deleteComplexExtension($location->serviceClass);
+                        $location->delete();
+                    });
+                }
+
+                $this->deleteReference($encounter->serviceProvider);
+                $this->deleteReference($encounter->partOf);
+
+                $encounter->delete();
+            });
+
+            $newData = $this->generateEncounter($array);
+            return $this->saveEncounter($resource, $newData);
+        }
+    }
+
     public function saveEncounter(Resource $resource, $array): Encounter
     {
         if (!empty($array)) {
@@ -1862,6 +2412,7 @@ class Processor
             return $encounter;
         }
     }
+
     public function generateEncounter($array): array
     {
         $encounter = new Encounter([
@@ -1950,7 +2501,7 @@ class Processor
                 $encLocation = new EncounterLocation(['status' => $array['location']['status'] ?? null]);
                 $location = $this->generateReference('location', $l['location'] ?? null);
                 $physicalType = $this->generateCodeableConcept('physicalType', $l['physicalType'] ?? null);
-                $period = $this->generatePeriod('period', $l['period'] ?? null);
+                $locPeriod = $this->generatePeriod('period', $l['period'] ?? null);
 
                 if (!empty($l['extension'])) {
                     foreach ($l['extension'] as $e) {
@@ -1963,7 +2514,7 @@ class Processor
                     'encLocation' => $encLocation,
                     'location' => $location ?? null,
                     'physicalType' => $physicalType ?? null,
-                    'period' => $period ?? null,
+                    'period' => $locPeriod ?? null,
                     'serviceClass' => $serviceClass ?? null
                 ];
             }
@@ -2260,6 +2811,29 @@ class Processor
             ]);
         } else {
             return null;
+        }
+    }
+
+    public function updateLocation(Resource $resource, $array): Location
+    {
+        if (!empty($array)) {
+            $resource->location()->each(function ($location) {
+                $this->deleteMany($location->identifier(), 'deleteIdentifier');
+                $location->operationalStatus()->delete();
+                $this->deleteMany($location->telecom(), 'deleteContactPoint');
+                $this->deleteAddress($location->address);
+                $this->deleteCodeableConcept($location->physicalType);
+                $location->position()->delete();
+                $this->deleteReference($location->managingOrganization);
+                $this->deleteReference($location->partOf);
+                $location->hoursOfOperation()->delete();
+                $this->deleteMany($location->endpoint(), 'deleteReference');
+                $this->deleteExtension($location->serviceClass);
+                $location->delete();
+            });
+
+            $newData = $this->generateLocation($array);
+            return $this->saveLocation($resource, $newData);
         }
     }
 

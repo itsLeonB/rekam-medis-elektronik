@@ -38,7 +38,22 @@ class ServiceRequestDataTest extends TestCase
     /**
      * Test apakah user dapat membuat data permintaan pelayanan medis baru
      */
-    public function test_users_can_create_new_service_request_data()
+    // public function test_users_can_create_new_service_request_data()
+    // {
+    //     $user = User::factory()->create();
+    //     $this->actingAs($user);
+
+    //     $data = $this->getExampleData('ServiceRequest');
+    //     $headers = ['Content-Type' => 'application/json'];
+    //     $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
+    //     $response->assertStatus(201);
+    // }
+
+
+    /**
+     * Test apakah user dapat memperbarui data permintaan pelayanan medis
+     */
+    public function test_users_can_update_service_request_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -46,32 +61,12 @@ class ServiceRequestDataTest extends TestCase
         $data = $this->getExampleData('ServiceRequest');
         $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
-        $response->assertStatus(201);
+        $newData = json_decode($response->getContent(), true);
+
+        $newData['priority'] = 'stat';
+        $newData['identifier'][0]['value'] = '1234567890';
+
+        $response = $this->json('PUT', route('servicerequest.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response->assertStatus(200);
     }
-
-
-    /**
-     * Test apakah user dapat memperbarui data permintaan pelayanan medis
-     */
-    // public function test_users_can_update_service_request_data()
-    // {
-    //     $user = User::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $data = $this->getExampleData('servicerequest');
-    //     $headers = ['Content-Type' => 'application/json'];
-    //     $response = $this->json('POST', route('servicerequest.store'), $data, $headers);
-    //     $newData = json_decode($response->getContent(), true);
-
-    //     $data['serviceRequest']['id'] = $newData['id'];
-    //     $data['serviceRequest']['resource_id'] = $newData['resource_id'];
-    //     $data['serviceRequest']['priority'] = 'stat';
-    //     $response = $this->json('PUT', route('servicerequest.update', ['res_id' => $newData['resource_id']]), $data, $headers);
-    //     $response->assertStatus(200);
-
-    //     $this->assertMainData('service_request', $data['serviceRequest']);
-    //     $this->assertManyData('service_request_note', $data['note']);
-    //     $orgId = config('app.organization_id');
-    //     $this->assertDatabaseHas('service_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId, 'use' => 'official']);
-    // }
 }

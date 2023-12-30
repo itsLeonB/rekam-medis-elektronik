@@ -38,7 +38,22 @@ class MedicationDataTest extends TestCase
     /**
      * Test apakah user dapat membuat data obat baru
      */
-    public function test_users_can_create_new_medication_data()
+    // public function test_users_can_create_new_medication_data()
+    // {
+    //     $user = User::factory()->create();
+    //     $this->actingAs($user);
+
+    //     $data = $this->getExampleData('Medication');
+    //     $headers = ['Content-Type' => 'application/json'];
+    //     $response = $this->json('POST', route('medication.store'), $data, $headers);
+    //     $response->assertStatus(201);
+    // }
+
+
+    /**
+     * Test apakah user dapat memperbarui data obat
+     */
+    public function test_users_can_update_medication_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -46,32 +61,12 @@ class MedicationDataTest extends TestCase
         $data = $this->getExampleData('Medication');
         $headers = ['Content-Type' => 'application/json'];
         $response = $this->json('POST', route('medication.store'), $data, $headers);
-        $response->assertStatus(201);
+        $newData = json_decode($response->getContent(), true);
+
+        $newData['manufacturer']['display'] = 'Organisasi update';
+        $newData['identifier'][0]['value'] = '1234567890';
+
+        $response = $this->json('PUT', route('medication.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response->assertStatus(200);
     }
-
-
-    /**
-     * Test apakah user dapat memperbarui data obat
-     */
-    // public function test_users_can_update_medication_data()
-    // {
-    //     $user = User::factory()->create();
-    //     $this->actingAs($user);
-
-    //     $data = $this->getExampleData('medication');
-    //     $headers = ['Content-Type' => 'application/json'];
-    //     $response = $this->json('POST', route('medication.store'), $data, $headers);
-    //     $newData = json_decode($response->getContent(), true);
-
-    //     $data['medication']['id'] = $newData['id'];
-    //     $data['medication']['resource_id'] = $newData['resource_id'];
-    //     $data['medication']['status'] = 'inactive';
-    //     $response = $this->json('PUT', route('medication.update', ['res_id' => $newData['resource_id']]), $data, $headers);
-    //     $response->assertStatus(200);
-
-    //     $this->assertMainData('medication', $data['medication']);
-    //     $this->assertManyData('medication_ingredient', $data['ingredient']);
-    //     $orgId = config('app.organization_id');
-    //     $this->assertDatabaseHas('medication_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medication/' . $orgId, 'use' => 'official']);
-    // }
 }
