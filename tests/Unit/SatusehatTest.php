@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use App\Http\Controllers\SatusehatController;
-use App\Models\Fhir\OrganizationIdentifier;
+use App\Models\Fhir\Datatypes\Identifier;
 use Tests\TestCase;
 
 class SatusehatTest extends TestCase
@@ -31,7 +31,7 @@ class SatusehatTest extends TestCase
 
     public function test_post_resource(): void
     {
-        $idUses = OrganizationIdentifier::USE['binding']['valueset']['code'];
+        $idUses = Identifier::USE['binding']['valueset']['code'];
         $idUse = $idUses[array_rand($idUses)];
 
         $dataArray = [
@@ -63,7 +63,7 @@ class SatusehatTest extends TestCase
 
     public function test_put_resource(): void
     {
-        $idUses = OrganizationIdentifier::USE['binding']['valueset']['code'];
+        $idUses = Identifier::USE['binding']['valueset']['code'];
         $idUse = $idUses[array_rand($idUses)];
 
         $satusehatId = 'abddd50b-b22f-4d68-a1c3-d2c29a27698b';

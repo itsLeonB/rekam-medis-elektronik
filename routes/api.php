@@ -27,7 +27,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TestController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserManagementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,11 +71,11 @@ Route::get('/analytics/pasien-per-bulan', [AnalyticsController::class, 'getEncou
 Route::get('/analytics/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('analytics.sebaran-usia-pasien');
 
 // Users dashboard (Super admin)
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::put('/users/{user_id}', [UserController::class, 'update'])->name('users.update');
-Route::delete('/users/{user_id}', [UserController::class, 'destroy'])->name('users.destroy');
+Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
+Route::get('/users/{user_id}', [UserManagementController::class, 'show'])->name('users.show');
+Route::post('/users', [UserManagementController::class, 'store'])->name('users.store');
+Route::put('/users/{user_id}', [UserManagementController::class, 'update'])->name('users.update');
+Route::delete('/users/{user_id}', [UserManagementController::class, 'destroy'])->name('users.destroy');
 
 
 // Local DB resource endpoint

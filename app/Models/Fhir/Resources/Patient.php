@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     HasMany,
+    HasOne,
     MorphMany,
     MorphOne,
 };

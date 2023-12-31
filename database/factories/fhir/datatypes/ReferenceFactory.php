@@ -1,10 +1,13 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Datatypes;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PatientIdentifierFactory extends Factory
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ */
+class ReferenceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,9 +17,7 @@ class PatientIdentifierFactory extends Factory
     public function definition(): array
     {
         return [
-            'system' => 'rme',
-            'use' => 'usual',
-            'value' => fake()->randomNumber(6, false)
+            //
         ];
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
-use App\Models\Fhir\AllergyIntolerance;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\AllergyIntolerance;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -24,10 +24,6 @@ class AllergyIntoleranceFactory extends Factory
         return [
             'resource_id' => $resource->id,
             'category' => $category,
-            "code_system" => "http://snomed.info/sct",
-            "code_code" => "89811004",
-            "code_display" => "Gluten (substance)",
-            'patient' => 'Patient/' . fake()->uuid(),
         ];
     }
 }

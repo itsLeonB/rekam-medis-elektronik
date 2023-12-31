@@ -59,6 +59,7 @@ class SatusehatController extends Controller
                 'template_code' => $templateCode,
                 'packaging_code' => $packagingCode,
             ],
+            'verify' => false,
         ]);
 
         return $response->getBody()->getContents();
@@ -84,12 +85,14 @@ class SatusehatController extends Controller
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
             ],
+            'verify' => false,
         ];
 
         $request = new Request('POST', $url, $headers);
 
         $response = $client->sendAsync($request, $options)->wait();
         $contents = json_decode($response->getBody()->getContents());
+        dd($contents);
         $token = $contents->access_token;
 
         session()->put('token', $token);
@@ -127,9 +130,8 @@ class SatusehatController extends Controller
         $request = new Request('GET', $url, $headers);
 
         try {
-            $response = $client->sendAsync($request)->wait();
-            $contents = json_decode($response->getBody()->getContents(), true);
-            return $contents;
+            $response = $client->sendAsync($request, ['verify' => false])->wait();
+            return $response;
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
@@ -176,7 +178,7 @@ class SatusehatController extends Controller
         $request = new Request('POST', $url, $headers, json_encode($fhirRequest->all()));
 
         try {
-            $response = $client->sendAsync($request)->wait();
+            $response = $client->sendAsync($request, ['verify' => false])->wait();
             $contents = json_decode($response->getBody()->getContents());
             return $contents;
         } catch (ClientException $e) {
@@ -227,7 +229,7 @@ class SatusehatController extends Controller
         $request = new Request('PUT', $url, $headers, json_encode($fhirRequest->all()));
 
         try {
-            $response = $client->sendAsync($request)->wait();
+            $response = $client->sendAsync($request, ['verify' => false])->wait();
             $contents = json_decode($response->getBody()->getContents());
             return $contents;
         } catch (ClientException $e) {

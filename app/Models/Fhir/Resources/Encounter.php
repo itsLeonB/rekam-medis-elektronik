@@ -52,7 +52,7 @@ class Encounter extends FhirModel
         return $this->belongsTo(Resource::class);
     }
 
-    public function identifier(): MorphMany //HasMany
+    public function identifier(): MorphMany
     {
         return $this->morphMany(Identifier::class, 'identifiable');
     }

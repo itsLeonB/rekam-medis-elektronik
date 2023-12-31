@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
 use App\Fhir\Codesystems;
-use App\Models\Fhir\Composition;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\Composition;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -28,10 +28,6 @@ class CompositionFactory extends Factory
         return [
             'resource_id' => $resource->id,
             'status' => $status,
-            'type_system' => Codesystems::LOINC['system'],
-            'type_code' => $type->code,
-            'type_display' => $type->display,
-            'subject' => 'Patient/' . fake()->uuid(),
             'date' => now(),
             'title' => fake()->sentence(),
         ];

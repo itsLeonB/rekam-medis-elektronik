@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
-use App\Models\Fhir\ClinicalImpression;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\ClinicalImpression;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -27,9 +27,6 @@ class ClinicalImpressionFactory extends Factory
         return [
             'resource_id' => $resource->id,
             'status' => $status,
-            'subject' => 'Patient/' . fake()->uuid(),
-            'encounter' => 'Encounter/' . fake()->uuid(),
-            'prognosis_codeable_concept' => $prognosis,
         ];
     }
 }

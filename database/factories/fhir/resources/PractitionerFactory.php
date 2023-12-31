@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
-use App\Models\Fhir\Practitioner;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\Practitioner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PractitionerFactory extends Factory

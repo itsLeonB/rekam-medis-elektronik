@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
 use App\Fhir\Codesystems;
 use App\Models\Fhir\Resource;
-use App\Models\Fhir\ServiceRequest;
+use App\Models\Fhir\Resources\ServiceRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -32,11 +32,6 @@ class ServiceRequestFactory extends Factory
             'resource_id' => $resource->id,
             'status' => $status,
             'intent' => $intent,
-            'code_system' => Codesystems::LOINC['system'],
-            'code_code' => $code->code,
-            'code_display' => $code->display,
-            'subject' => 'Patient/' . fake()->uuid(),
-            'encounter' => 'Encounter/' . fake()->uuid(),
         ];
     }
 }

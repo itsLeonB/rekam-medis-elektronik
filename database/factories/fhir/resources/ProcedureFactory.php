@@ -1,10 +1,10 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
 use App\Fhir\Valuesets;
-use App\Models\Fhir\Procedure;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\Procedure;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -28,9 +28,6 @@ class ProcedureFactory extends Factory
         return [
             'resource_id' => $resource->id,
             'status' => $status,
-            'code_code' => $code,
-            'subject' => 'Patient/' . fake()->uuid(),
-            'encounter' => 'Encounter/' . fake()->uuid(),
         ];
     }
 }

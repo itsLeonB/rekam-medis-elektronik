@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
-use App\Models\Fhir\Observation;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\Observation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -28,9 +28,6 @@ class ObservationFactory extends Factory
         return [
             'resource_id' => $resource->id,
             'status' => $status,
-            'code' => $code,
-            'subject' => 'Patient/' . fake()->uuid(),
-            'encounter' => 'Encounter/' . fake()->uuid(),
         ];
     }
 }

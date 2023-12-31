@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
-use App\Models\Fhir\MedicationRequest;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\MedicationRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 
@@ -28,8 +28,6 @@ class MedicationRequestFactory extends Factory
             'resource_id' => $resource->id,
             'status' => $status,
             'intent' => $intent,
-            'medication' => 'Medication/' . fake()->uuid(),
-            'subject' => 'Patient/' . fake()->uuid(),
         ];
     }
 }

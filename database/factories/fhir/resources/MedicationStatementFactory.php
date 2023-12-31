@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
 use App\Models\Fhir\Resource;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -19,8 +19,6 @@ class MedicationStatementFactory extends Factory
 
         return [
             'resource_id' => $resource->id,
-            'medication' => ['medicationReference' => ['reference' => 'Medication/' . fake()->uuid()]],
-            'subject' => 'Patient/' . fake()->uuid(),
         ];
     }
 }

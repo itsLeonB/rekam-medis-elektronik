@@ -1,11 +1,14 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Datatypes;
 
-use App\Models\Fhir\PatientName;
+use App\Models\Fhir\Datatypes\Identifier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PatientNameFactory extends Factory
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ */
+class HumanNameFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +17,7 @@ class PatientNameFactory extends Factory
      */
     public function definition(): array
     {
-        $uses = PatientName::USE['binding']['valueset']['code'];
+        $uses = Identifier::USE['binding']['valueset']['code'];
         $use = $uses[array_rand($uses)];
 
         return [

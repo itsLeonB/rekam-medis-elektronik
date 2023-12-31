@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Models\Fhir\Practitioner;
+use App\Models\Fhir\Resources\Practitioner;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserTest extends TestCase
+class UserManagementTest extends TestCase
 {
     use DatabaseTransactions;
 

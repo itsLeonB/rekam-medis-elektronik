@@ -1,9 +1,9 @@
 <?php
 
-namespace Database\Factories\Fhir;
+namespace Database\Factories\Fhir\Resources;
 
-use App\Models\Fhir\Patient;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\Patient;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PatientFactory extends Factory
@@ -24,7 +24,9 @@ class PatientFactory extends Factory
             'resource_id' => $resource->id,
             'active' => fake()->boolean(),
             'gender' => $gender,
-            'multiple_birth' => ['multipleBirthBoolean' => fake()->boolean()],
+            'birth_date' => fake()->date(),
+            'deceased_boolean' => fake()->boolean(),
+            'multiple_birth_boolean' => fake()->boolean(),
         ];
     }
 }
