@@ -16,13 +16,13 @@ class PatientController extends FhirController
     const RESOURCE_TYPE = 'Patient';
 
 
-    public function show($res_id)
+    public function show($satusehat_id)
     {
         try {
             return response()
                 ->json(new PatientResource(Resource::where([
                     ['res_type', self::RESOURCE_TYPE],
-                    ['id', $res_id]
+                    ['satusehat_id', $satusehat_id]
                 ])->firstOrFail()), 200);
         } catch (ModelNotFoundException $e) {
             Log::error('Model error: ' . $e->getMessage());

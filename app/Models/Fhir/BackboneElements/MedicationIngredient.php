@@ -46,6 +46,15 @@ class MedicationIngredient extends FhirModel
         ]
     ];
 
+    public const ITEM_CODEABLE_CONCEPT = [
+        'binding' => [
+            'valueset' => [
+                'Zat Aktif' => 'KFA 91xx',
+                'Obat Template' => 'KFA 92xx'
+            ]
+        ]
+    ];
+
     public const STRENGTH_NUMERATOR = [
         'binding' => [
             'valueset' => Codesystems::UCUM

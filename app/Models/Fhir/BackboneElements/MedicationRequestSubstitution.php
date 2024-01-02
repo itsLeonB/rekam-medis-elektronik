@@ -2,6 +2,7 @@
 
 namespace App\Models\Fhir\BackboneElements;
 
+use App\Fhir\Codesystems;
 use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Resources\MedicationRequest;
 use App\Models\FhirModel;
@@ -35,4 +36,16 @@ class MedicationRequestSubstitution extends FhirModel
         return $this->morphOne(CodeableConcept::class, 'codeable')
             ->where('attr_type', 'reason');
     }
+
+    public const ALLOWED = [
+        'binding' => [
+            'valueset' => Codesystems::v3SubstanceAdminSubstitution
+        ]
+    ];
+
+    public const REASON = [
+        'binding' => [
+            'valueset' => Codesystems::v3ActReason
+        ]
+    ];
 }

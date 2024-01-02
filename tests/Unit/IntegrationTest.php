@@ -7,6 +7,7 @@ use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\SatusehatController;
 use App\Models\Fhir\Resource;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class IntegrationTest extends TestCase
@@ -55,6 +56,8 @@ class IntegrationTest extends TestCase
             'satusehat_id' => $resource->satusehat_id,
         ]);
         $this->assertInstanceOf(\Illuminate\Http\Client\Response::class, $response);
+
+        dd($resource->loadCount('content'));
     }
 
     public function test_do_not_update_resource_if_not_newer()
@@ -89,5 +92,26 @@ class IntegrationTest extends TestCase
 
         $this->assertInstanceOf(\Illuminate\Http\Client\Response::class, $response);
         $this->assertEquals(404, $response->getStatusCode());
+    }
+
+    public function test_get_resource_newer_from_local()
+    {
+        $resource = Resource::factory()->create([
+            'res_type' => 'Organization',
+            'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94',
+        ]);
+
+        $satusehatController = new SatusehatController();
+        Http::put(route('satusehat.put', ['res_type' => $resource->res_type, 'res_id' => $resource->satusehat_id]), [
+            'resourceType' => $resource->res_type,
+            'id' => $resource->satusehat_id,
+        ]);
+
+        $controller = new IntegrationController($satusehatController);
+
+        $response = $controller->get($resource->res_type, $resource->satusehat_id);
+
+        $this->assertInstanceOf(\Illuminate\Http\Client\Response::class, $response);
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }

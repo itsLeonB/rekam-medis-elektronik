@@ -33,7 +33,8 @@ class IntegrationController extends Controller
         ])->first()->updated_at;
         $lastUpdated = $satusehatResponseBody['meta']['lastUpdated'];
         if ($lastUpdated > $resourceUpdatedAt) {
-            return Http::post(route($resourceType . '.update', ['satusehat_id' => $resourceId]), $satusehatResponseBody);
+            $resourceType = strtolower($resourceType);
+            return Http::put(route($resourceType . '.update', ['satusehat_id' => $resourceId]), $satusehatResponseBody);
         } else {
             return $satusehatResponseBody;
         }
@@ -44,11 +45,12 @@ class IntegrationController extends Controller
         $satusehatResponse = $this->satusehatController->get($resourceType, $resourceId);
 
         if ($satusehatResponse->getStatusCode() === 200) {
-            $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
+            $satusehatResponseBody = json_decode($satusehatResponse->getBody()->getContents(), true);
 
             if ($this->checkIfResourceExistsInLocal($resourceType, $resourceId)) {
                 return $this->updateResourceIfNewer($resourceType, $resourceId, $satusehatResponseBody);
             } else {
+                $resourceType = strtolower($resourceType);
                 return Http::post(route($resourceType . '.store'), $satusehatResponseBody);
             }
 
@@ -57,7 +59,6 @@ class IntegrationController extends Controller
             Log::error($satusehatResponse->getContent());
 
             $resourceType = strtolower($resourceType);
-
             $localResponse = Http::get(route($resourceType . '.show', ['res_id' => $resourceId]));
 
             if ($localResponse->getStatusCode() === 200) {

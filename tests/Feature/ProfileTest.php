@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Fhir\Practitioner;
-use App\Models\PractitionerUser;
+use App\Models\Fhir\Resources\Practitioner;
 use App\Models\User;
-use App\Models\UserProfile;
 use Faker\Factory;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

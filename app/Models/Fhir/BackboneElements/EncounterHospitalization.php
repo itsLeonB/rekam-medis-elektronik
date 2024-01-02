@@ -3,6 +3,7 @@
 namespace App\Models\Fhir\BackboneElements;
 
 use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Datatypes\Reference;
@@ -103,7 +104,7 @@ class EncounterHospitalization extends FhirModel
 
     public const DISCHARGE_DISPOSITION = [
         'binding' => [
-            'valueset' => Codesystems::DischargeDisposition
+            'valueset' => Valuesets::DischargeDisposition
         ]
     ];
 }

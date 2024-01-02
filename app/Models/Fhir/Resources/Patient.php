@@ -25,10 +25,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     HasMany,
-    HasOne,
     MorphMany,
     MorphOne,
 };
+use Illuminate\Support\Str;
 
 class Patient extends FhirModel
 {
@@ -46,6 +46,22 @@ class Patient extends FhirModel
     ];
 
     public $timestamps = false;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($patient) {
+            $identifier = new Identifier();
+            $identifier->system = 'rme';
+            $identifier->use = 'official';
+            $highestValue = Identifier::where('system', 'rme')->max('value');
+            $nextValue = $highestValue + 1;
+            $formattedValue = str_pad($nextValue, 6, '0', STR_PAD_LEFT);
+            $identifier->value = $formattedValue;
+            $patient->identifier()->save($identifier);
+        });
+    }
 
     public function resource(): BelongsTo
     {

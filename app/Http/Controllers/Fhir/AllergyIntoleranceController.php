@@ -8,6 +8,7 @@ use App\Http\Controllers\SatusehatController;
 use App\Http\Requests\Fhir\AllergyIntoleranceRequest;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\AllergyIntolerance;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
@@ -16,13 +17,13 @@ class AllergyIntoleranceController extends FhirController
 {
     const RESOURCE_TYPE = 'AllergyIntolerance';
 
-    public function show($res_id)
+    public function show($satusehat_id)
     {
         try {
             return response()
                 ->json(new AllergyIntoleranceResource(Resource::where([
                     ['res_type', self::RESOURCE_TYPE],
-                    ['id', $res_id]
+                    ['satusehat_id', $satusehat_id]
                 ])->firstOrFail()), 200);
         } catch (ModelNotFoundException $e) {
             Log::error('Model error: ' . $e->getMessage());
@@ -50,11 +51,13 @@ class AllergyIntoleranceController extends FhirController
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body, $satusehat_id) {
-            $resource = $this->updateResource($satusehat_id);
-            $processor = new Processor();
-            $processor->updateAllergyIntolerance($resource, $body);
-            $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
-            return response()->json(new AllergyIntoleranceResource($resource), 200);
+            return AllergyIntolerance::withoutEvents(function () use ($body, $satusehat_id) {
+                $resource = $this->updateResource($satusehat_id);
+                $processor = new Processor();
+                $processor->updateAllergyIntolerance($resource, $body);
+                $this->createResourceContent(AllergyIntoleranceResource::class, $resource);
+                return response()->json(new AllergyIntoleranceResource($resource), 200);
+            });
         });
     }
 }

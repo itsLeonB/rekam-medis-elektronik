@@ -2038,33 +2038,36 @@ class Processor
                 'event' => $array['event'] ?? null,
                 'attr_type' => $attribute
             ]);
-            $timingRepeat = [
-                'repeat' => new TimingRepeat([
-                    'count' => $array['count'] ?? null,
-                    'count_max' => $array['countMax'] ?? null,
-                    'duration' => $array['duration'] ?? null,
-                    'duration_max' => $array['durationMax'] ?? null,
-                    'duration_unit' => $array['durationUnit'] ?? null,
-                    'frequency' => $array['frequency'] ?? null,
-                    'frequency_max' => $array['frequencyMax'] ?? null,
-                    'period' => $array['period'] ?? null,
-                    'period_max' => $array['periodMax'] ?? null,
-                    'period_unit' => $array['periodUnit'] ?? null,
-                    'day_of_week' => $array['dayOfWeek'] ?? null,
-                    'time_of_day' => $array['timeOfDay'] ?? null,
-                    'when' => $array['when'] ?? null,
-                    'offset' => $array['offset'] ?? null,
-                ]),
-                'boundsDuration' => $this->generateDuration('boundsDuration', $array['boundsDuration'] ?? null),
-                'boundsRange' => $this->generateRange('boundsRange', $array['boundsRange'] ?? null),
-                'boundsPeriod' => $this->generatePeriod('boundsPeriod', $array['boundsPeriod'] ?? null),
-            ];
+
+            if (!empty($array['repeat'])) {
+                $timingRepeat = [
+                    'repeat' => new TimingRepeat([
+                        'count' => $array['repeat']['count'] ?? null,
+                        'count_max' => $array['repeat']['countMax'] ?? null,
+                        'duration' => $array['repeat']['duration'] ?? null,
+                        'duration_max' => $array['repeat']['durationMax'] ?? null,
+                        'duration_unit' => $array['repeat']['durationUnit'] ?? null,
+                        'frequency' => $array['repeat']['frequency'] ?? null,
+                        'frequency_max' => $array['repeat']['frequencyMax'] ?? null,
+                        'period' => $array['repeat']['period'] ?? null,
+                        'period_max' => $array['repeat']['periodMax'] ?? null,
+                        'period_unit' => $array['repeat']['periodUnit'] ?? null,
+                        'day_of_week' => $array['repeat']['dayOfWeek'] ?? null,
+                        'time_of_day' => $array['repeat']['timeOfDay'] ?? null,
+                        'when' => $array['repeat']['when'] ?? null,
+                        'offset' => $array['repeat']['offset'] ?? null,
+                    ]),
+                    'boundsDuration' => $this->generateDuration('boundsDuration', $array['repeat']['boundsDuration'] ?? null),
+                    'boundsRange' => $this->generateRange('boundsRange', $array['repeat']['boundsRange'] ?? null),
+                    'boundsPeriod' => $this->generatePeriod('boundsPeriod', $array['repeat']['boundsPeriod'] ?? null),
+                ];
+            }
             $code = $this->generateCodeableConcept('code', $array['code'] ?? null);
 
             return [
                 'timing' => $timing,
-                'repeat' => $timingRepeat,
-                'code' => $code
+                'repeat' => $timingRepeat ?? null,
+                'code' => $code ?? null
             ];
         } else {
             return null;
@@ -2583,7 +2586,7 @@ class Processor
             if (!empty($array['contact'])) {
                 foreach ($array['contact'] as $c) {
                     $contact = $patient->contact()->save($c['contact'] ?? null);
-                    $this->saveCodeableConcept($contact, 'relationship', $c['relationship'] ?? null);
+                    $this->saveMany($contact, 'relationship', $c['relationship'] ?? null, 'saveCodeableConcept');
                     $this->saveHumanName($contact, 'name', $c['name'] ?? null);
                     $this->saveMany($contact, 'telecom', $c['telecom'] ?? null, 'saveContactPoint');
                     $this->saveAddress($contact, 'address', $c['address'] ?? null);
@@ -2643,7 +2646,7 @@ class Processor
             foreach ($array['contact'] as $c) {
                 $contacts[] = [
                     'contact' => new PatientContact(['gender' => $c['gender'] ?? null]),
-                    'relationship' => $this->generateCodeableConcept('relationship', $c['relationship'] ?? null),
+                    'relationship' => $this->hasMany('relationship', $c['relationship'] ?? null, 'generateCodeableConcept'),
                     'name' => $this->generateHumanName('name', $c['name'] ?? null),
                     'telecom' => $this->hasMany('telecom', $c['telecom'] ?? null, 'generateContactPoint'),
                     'address' => $this->generateAddress('address', $c['address'] ?? null),
@@ -2708,7 +2711,7 @@ class Processor
             'address' => $address ?? null,
             'maritalStatus' => $maritalStatus ?? null,
             'photo' => $photo ?? null,
-            'contacts' => $contacts ?? null,
+            'contact' => $contacts ?? null,
             'communication' => $communications ?? null,
             'generalPractitioner' => $generalPractitioner ?? null,
             'managingOrganization' => $managingOrganization ?? null,

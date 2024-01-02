@@ -92,7 +92,6 @@ class SatusehatController extends Controller
 
         $response = $client->sendAsync($request, $options)->wait();
         $contents = json_decode($response->getBody()->getContents());
-        dd($contents);
         $token = $contents->access_token;
 
         session()->put('token', $token);

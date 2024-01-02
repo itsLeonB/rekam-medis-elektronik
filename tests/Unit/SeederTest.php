@@ -2,11 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Fhir\Resources\Patient;
 use Database\Seeders\IdFhirResourceSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SeederTest extends TestCase
@@ -19,7 +16,7 @@ class SeederTest extends TestCase
     {
         $seeder = new IdFhirResourceSeeder();
         $seeder->run();
-        $this->assertDatabaseCount('resource', 35);
+        $this->assertDatabaseCount('resource', 36);
         $this->assertDatabaseCount('organization', 1);
         $this->assertDatabaseCount('location', 1);
         $this->assertDatabaseCount('practitioner', 5);
@@ -34,7 +31,7 @@ class SeederTest extends TestCase
         $this->assertDatabaseCount('allergy_intolerance', 1);
         $this->assertDatabaseCount('clinical_impression', 1);
         $this->assertDatabaseCount('service_request', 1);
-        $this->assertDatabaseCount('medication_statement', 0);
+        $this->assertDatabaseCount('medication_statement', 1);
         $this->assertDatabaseCount('questionnaire_response', 1);
     }
 }

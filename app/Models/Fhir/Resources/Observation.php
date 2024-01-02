@@ -242,7 +242,7 @@ class Observation extends FhirModel
 
     public const CODE = [
         'binding' => [
-            'valueset' => Codesystems::LOINC
+            'valueset' => Valuesets::ObservationCode
         ]
     ];
 

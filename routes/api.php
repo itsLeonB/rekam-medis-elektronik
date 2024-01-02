@@ -82,81 +82,82 @@ Route::delete('/users/{user_id}', [UserManagementController::class, 'destroy'])-
 Route::get('/{res_type}', [ResourceController::class, 'index'])->name('resource.index');
 
 // Organization resource endpoint
-Route::get('/organization/{res_id}', [OrganizationController::class, 'show'])->name('organization.show');
-Route::post('/organization', [OrganizationController::class, 'store'])->name('organization.store');
-Route::put('/organization/{satusehat_id}', [OrganizationController::class, 'update'])->name('organization.update');
+Route::get('/organization/{satusehat_id}', [OrganizationController::class, 'show'])->name('Organization.show');
+Route::post('/organization', [OrganizationController::class, 'store'])->name('Organization.store');
+Route::put('/organization/{satusehat_id}', [OrganizationController::class, 'update'])->name('Organization.update');
 
 // Location resource endpoint
-Route::get('/location/{res_id}', [LocationController::class, 'show'])->name('location.show');
-Route::post('/location', [LocationController::class, 'store'])->name('location.store');
-Route::put('/location/{satusehat_id}', [LocationController::class, 'update'])->name('location.update');
+Route::get('/location/{satusehat_id}', [LocationController::class, 'show'])->name('Location.show');
+Route::post('/location', [LocationController::class, 'store'])->name('Location.store');
+Route::put('/location/{satusehat_id}', [LocationController::class, 'update'])->name('Location.update');
 
 // Patient resource endpoint
-Route::get('/patient/{res_id}', [PatientController::class, 'show'])->name('patient.show');
-Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
+Route::get('/patient/{satusehat_id}', [PatientController::class, 'show'])->name('Patient.show');
+Route::post('/patient', [PatientController::class, 'store'])->name('Patient.store');
 
 // Practitioner resource endpoint
-Route::get('/practitioner/{res_id}', [PractitionerController::class, 'show'])->name('practitioner.show');
+Route::get('/practitioner/{satusehat_id}', [PractitionerController::class, 'show'])->name('Practitioner.show');
+Route::post('/practitioner', [PractitionerController::class, 'store'])->name('Practitioner.store');
 
 // Encounter resource endpoint
-Route::get('/encounter/{res_id}', [EncounterController::class, 'show'])->name('encounter.show');
-Route::post('/encounter', [EncounterController::class, 'store'])->name('encounter.store');
-Route::put('/encounter/{satusehat_id}', [EncounterController::class, 'update'])->name('encounter.update');
+Route::get('/encounter/{satusehat_id}', [EncounterController::class, 'show'])->name('Encounter.show');
+Route::post('/encounter', [EncounterController::class, 'store'])->name('Encounter.store');
+Route::put('/encounter/{satusehat_id}', [EncounterController::class, 'update'])->name('Encounter.update');
 
 // Condition resource endpoint
-Route::get('/condition/{res_id}', [ConditionController::class, 'show'])->name('condition.show');
-Route::post('/condition', [ConditionController::class, 'store'])->name('condition.store');
-Route::put('/condition/{satusehat_id}', [ConditionController::class, 'update'])->name('condition.update');
+Route::get('/condition/{satusehat_id}', [ConditionController::class, 'show'])->name('Condition.show');
+Route::post('/condition', [ConditionController::class, 'store'])->name('Condition.store');
+Route::put('/condition/{satusehat_id}', [ConditionController::class, 'update'])->name('Condition.update');
 
 // Observation resource endpoint
-Route::get('/observation/{res_id}', [ObservationController::class, 'show'])->name('observation.show');
-Route::post('/observation', [ObservationController::class, 'store'])->name('observation.store');
-Route::put('/observation/{satusehat_id}', [ObservationController::class, 'update'])->name('observation.update');
+Route::get('/observation/{satusehat_id}', [ObservationController::class, 'show'])->name('Observation.show');
+Route::post('/observation', [ObservationController::class, 'store'])->name('Observation.store');
+Route::put('/observation/{satusehat_id}', [ObservationController::class, 'update'])->name('Observation.update');
 
 // Procedure resource endpoint
-Route::get('/procedure/{res_id}', [ProcedureController::class, 'show'])->name('procedure.show');
-Route::post('/procedure', [ProcedureController::class, 'store'])->name('procedure.store');
-Route::put('/procedure/{satusehat_id}', [ProcedureController::class, 'update'])->name('procedure.update');
+Route::get('/procedure/{satusehat_id}', [ProcedureController::class, 'show'])->name('Procedure.show');
+Route::post('/procedure', [ProcedureController::class, 'store'])->name('Procedure.store');
+Route::put('/procedure/{satusehat_id}', [ProcedureController::class, 'update'])->name('Procedure.update');
 
 // Medication resource endpoint
-Route::get('/medication/{res_id}', [MedicationController::class, 'show'])->name('medication.show');
-Route::post('/medication', [MedicationController::class, 'store'])->name('medication.store');
-Route::put('/medication/{satusehat_id}', [MedicationController::class, 'update'])->name('medication.update');
+Route::get('/medication/{satusehat_id}', [MedicationController::class, 'show'])->name('Medication.show');
+Route::post('/medication', [MedicationController::class, 'store'])->name('Medication.store');
+Route::put('/medication/{satusehat_id}', [MedicationController::class, 'update'])->name('Medication.update');
 
 // MedicationRequest resource endpoint
-Route::get('/medicationrequest/{res_id}', [MedicationRequestController::class, 'show'])->name('medicationrequest.show');
-Route::post('/medicationrequest', [MedicationRequestController::class, 'store'])->name('medicationrequest.store');
-Route::put('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'update'])->name('medicationrequest.update');
+Route::get('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'show'])->name('MedicationRequest.show');
+Route::post('/medicationrequest', [MedicationRequestController::class, 'store'])->name('MedicationRequest.store');
+Route::put('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'update'])->name('MedicationRequest.update');
 
 // Composition resource endpoint
-Route::get('/composition/{res_id}', [CompositionController::class, 'show'])->name('composition.show');
-Route::post('/composition', [CompositionController::class, 'store'])->name('composition.store');
-Route::put('/composition/{satusehat_id}', [CompositionController::class, 'update'])->name('composition.update');
+Route::get('/composition/{satusehat_id}', [CompositionController::class, 'show'])->name('Composition.show');
+Route::post('/composition', [CompositionController::class, 'store'])->name('Composition.store');
+Route::put('/composition/{satusehat_id}', [CompositionController::class, 'update'])->name('Composition.update');
 
 // AllergyIntolerance resource endpoint
-Route::get('/allergyintolerance/{res_id}', [AllergyIntoleranceController::class, 'show'])->name('allergyintolerance.show');
-Route::post('/allergyintolerance', [AllergyIntoleranceController::class, 'store'])->name('allergyintolerance.store');
-Route::put('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'update'])->name('allergyintolerance.update');
+Route::get('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'show'])->name('AllergyIntolerance.show');
+Route::post('/allergyintolerance', [AllergyIntoleranceController::class, 'store'])->name('AllergyIntolerance.store');
+Route::put('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'update'])->name('AllergyIntolerance.update');
 
 // ClinicalImpression resource endpoint
-Route::get('/clinicalimpression/{res_id}', [ClinicalImpressionController::class, 'show'])->name('clinicalimpression.show');
-Route::post('/clinicalimpression', [ClinicalImpressionController::class, 'store'])->name('clinicalimpression.store');
-Route::put('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'update'])->name('clinicalimpression.update');
+Route::get('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'show'])->name('ClinicalImpression.show');
+Route::post('/clinicalimpression', [ClinicalImpressionController::class, 'store'])->name('ClinicalImpression.store');
+Route::put('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'update'])->name('ClinicalImpression.update');
 
 // ServiceRequest resource endpoint
-Route::get('/servicerequest/{res_id}', [ServiceRequestController::class, 'show'])->name('servicerequest.show');
-Route::post('/servicerequest', [ServiceRequestController::class, 'store'])->name('servicerequest.store');
-Route::put('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'update'])->name('servicerequest.update');
+Route::get('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'show'])->name('ServiceRequest.show');
+Route::post('/servicerequest', [ServiceRequestController::class, 'store'])->name('ServiceRequest.store');
+Route::put('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'update'])->name('ServiceRequest.update');
 
 // MedicationStatement resource endpoint
-Route::get('/medicationstatement/{res_id}', [MedicationStatementController::class, 'show'])->name('medicationstatement.show');
-Route::post('/medicationstatement', [MedicationStatementController::class, 'store'])->name('medicationstatement.store');
-Route::put('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'update'])->name('medicationstatement.update');
+Route::get('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'show'])->name('MedicationStatement.show');
+Route::post('/medicationstatement', [MedicationStatementController::class, 'store'])->name('MedicationStatement.store');
+Route::put('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'update'])->name('MedicationStatement.update');
 
 // QuestionnaireResponse resource endpoint
-Route::get('/questionnaireresponse/{res_id}', [QuestionnaireResponseController::class, 'show'])->name('questionnaireresponse.show');
-Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('questionnaireresponse.store');
-Route::put('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
+Route::get('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'show'])->name('QuestionnaireResponse.show');
+Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('QuestionnaireResponse.store');
+Route::put('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'update'])->name('QuestionnaireResponse.update');
 
 
 // Testing endpoint

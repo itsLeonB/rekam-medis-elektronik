@@ -7,17 +7,14 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
 
-class PatientDataTest extends TestCase
+class PractitionerDataTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Patient';
+    const RESOURCE_TYPE = 'Practitioner';
 
-    /**
-     * Test apakah user dapat menlihat data pasien
-     */
-    public function test_users_can_view_patient_data()
+    public function test_users_can_view_practitioner_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -34,11 +31,7 @@ class PatientDataTest extends TestCase
         $response->assertStatus(200);
     }
 
-
-    /**
-     * Test apakah user dapat membuat data pasien baru
-     */
-    public function test_users_can_create_new_patient_data()
+    public function test_users_can_create_new_practitioner_data()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -52,16 +45,11 @@ class PatientDataTest extends TestCase
 
         $this->assertDatabaseCount('resource', 1);
         $this->assertDatabaseCount('resource_content', 1);
-        $this->assertDatabaseCount('patient', 1);
-        $this->assertDatabaseCount('extensions', 8);
-        $this->assertDatabaseCount('address', 2);
+        $this->assertDatabaseCount('practitioner', 1);
+        $this->assertDatabaseCount('address', 1);
         $this->assertDatabaseCount('complex_extensions', 1);
-        $this->assertDatabaseCount('patient_communication', 1);
-        $this->assertDatabaseCount('codeable_concepts', 3);
-        $this->assertDatabaseCount('codings', 3);
-        $this->assertDatabaseCount('patient_contact', 1);
-        $this->assertDatabaseCount('human_names', 2);
-        $this->assertDatabaseCount('contact_points', 3);
-        $this->assertDatabaseCount('identifiers', 3);
+        $this->assertDatabaseCount('extensions', 2);
+        $this->assertDatabaseCount('identifiers', 2);
+        $this->assertDatabaseCount('human_names', 1);
     }
 }

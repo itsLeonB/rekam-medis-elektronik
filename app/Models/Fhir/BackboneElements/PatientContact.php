@@ -30,9 +30,9 @@ class PatientContact extends FhirModel
         return $this->belongsTo(Patient::class);
     }
 
-    public function relationship(): MorphOne
+    public function relationship(): MorphMany
     {
-        return $this->morphOne(CodeableConcept::class, 'codeable');
+        return $this->morphMany(CodeableConcept::class, 'codeable');
     }
 
     public function name(): MorphOne
@@ -40,9 +40,8 @@ class PatientContact extends FhirModel
         return $this->morphOne(HumanName::class, 'human_nameable');
     }
 
-    public function telecom(): MorphMany //HasMany
+    public function telecom(): MorphMany
     {
-        // return $this->hasMany(PatientContactTelecom::class, 'contact_id');
         return $this->morphMany(ContactPoint::class, 'contact_pointable');
     }
 
