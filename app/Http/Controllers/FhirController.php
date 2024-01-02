@@ -87,17 +87,17 @@ class FhirController extends Controller
      */
     public function retrieveJsonPayload(Request $request)
     {
-        if (empty($request->getContent())) {
-            return response()->json(['error' => 'Empty request body'], 400);
-        }
+        // if (empty($request->getContent())) {
+        //     return response()->json(['error' => 'Empty request body'], 400);
+        // }
 
-        $body = json_decode($request->getContent(), true);
+        $body = $request->all();
 
         if ($body === null) {
             return response()->json(['error' => 'Invalid JSON'], 400);
         }
 
-        $body = $this->removeEmptyValues($body);
+        // $body = $this->removeEmptyValues($body);
 
         return $body;
     }

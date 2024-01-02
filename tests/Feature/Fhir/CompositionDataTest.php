@@ -12,7 +12,7 @@ class CompositionDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Composition';
+    const RESOURCE_TYPE = 'composition';
 
     /**
      * Test apakah user dapat menlihat data diet pasien

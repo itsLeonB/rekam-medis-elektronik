@@ -12,7 +12,7 @@ class PatientDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Patient';
+    const RESOURCE_TYPE = 'patient';
 
     /**
      * Test apakah user dapat menlihat data pasien

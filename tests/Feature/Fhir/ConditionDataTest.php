@@ -12,7 +12,7 @@ class ConditionDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Condition';
+    const RESOURCE_TYPE = 'condition';
 
     /**
      * Test apakah user dapat menlihat data kondisi pasien

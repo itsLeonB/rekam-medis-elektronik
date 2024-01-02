@@ -15,22 +15,12 @@ trait FhirTest
         return $model::factory()->create(array_merge(['resource_id' => $resource->id], $attributes));
     }
 
-
-    /**
-     * Returns an array of example data for a given FHIR resource type.
-     *
-     * @param string $resourceType The FHIR resource type.
-     * @param bool $full Whether to return the full example data or not.
-     * @return array The example data as an array.
-     * @throws \Exception If the file containing the example data does not exist or if the JSON data cannot be decoded.
-     */
     public function getExampleData(string $resourceType, bool $full = false)
     {
         $files = Storage::disk('example-id-fhir')->files();
 
         $filteredFiles = array_filter($files, function ($file) use ($resourceType) {
-            // Check if the file name starts with the specified resource type
-            return strpos(basename($file), $resourceType . '-') === 0;
+            return strpos(strtolower(basename($file)), strtolower($resourceType) . '-') === 0;
         });
 
         if (!empty($filteredFiles)) {
@@ -40,29 +30,7 @@ trait FhirTest
         } else {
             throw new Exception("File {$resourceType} does not exist.");
         }
-
-        // if ($full) {
-        //     $resourceType = $resourceType . '-full';
-        // }
-
-        // $filePath = storage_path('example-id-fhir') . '/' . $resourceType . '.json';
-
-        // if (!file_exists($filePath)) {
-        //     throw new \Exception("File {$filePath} does not exist.");
-        // }
-
-        // $data = file_get_contents($filePath);
-
-
-        // $decodedData = json_decode($data, true);
-
-        // if (json_last_error() !== JSON_ERROR_NONE) {
-        //     throw new \Exception("Unable to decode JSON: " . json_last_error_msg());
-        // }
-
-        // return $decodedData;
     }
-
 
     /**
      * Encodes nested arrays in the given array as JSON strings.

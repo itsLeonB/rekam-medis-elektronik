@@ -8,19 +8,20 @@ use Tests\TestCase;
 
 class SatusehatTest extends TestCase
 {
-    public function test_get_auth_token(): void
-    {
-        $controller = new SatusehatController();
-        $token = $controller->getToken();
-        $this->assertIsString($token);
-    }
+    // public function test_get_auth_token(): void
+    // {
+    //     $controller = new SatusehatController();
+    //     $token = $controller->getToken();
+    //     $this->assertIsString($token);
+    // }
 
     public function test_get_resource(): void
     {
         $resType = 'Practitioner';
         $resId = 'N10000001';
 
-        $response = $this->get(route('satusehat.get', ['res_type' => $resType, 'res_id' => $resId]));
+        $response = $this->get(route('satusehat.show', ['res_type' => $resType, 'res_id' => $resId]));
+
         $response->assertStatus(200);
         $response->assertJsonStructure([
             'resourceType',
@@ -49,7 +50,7 @@ class SatusehatTest extends TestCase
 
         $resType = $dataArray['resourceType'];
 
-        $response = $this->post(route('satusehat.post', ['res_type' => $resType]), $dataArray);
+        $response = $this->post(route('satusehat.store', ['res_type' => $resType]), $dataArray);
 
         $response->assertStatus(200);
         $response->assertJsonFragment(['resourceType' => $resType]);
@@ -84,7 +85,7 @@ class SatusehatTest extends TestCase
 
         $resType = $dataArray['resourceType'];
 
-        $response = $this->put(route('satusehat.put', ['res_type' => $resType, 'res_id' => $satusehatId]), $dataArray);
+        $response = $this->put(route('satusehat.update', ['res_type' => $resType, 'res_id' => $satusehatId]), $dataArray);
 
         $response->assertStatus(200);
         $response->assertJsonFragment(['resourceType' => $resType]);

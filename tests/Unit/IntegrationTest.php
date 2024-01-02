@@ -7,12 +7,13 @@ use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\SatusehatController;
 use App\Models\Fhir\Resource;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
+use Tests\Traits\FhirTest;
 
 class IntegrationTest extends TestCase
 {
     use DatabaseTransactions;
+    use FhirTest;
 
     public function test_check_if_resource_exists_in_local_true()
     {
@@ -39,25 +40,21 @@ class IntegrationTest extends TestCase
 
     public function test_update_resource_if_newer()
     {
-        $resource = Resource::factory()->create();
+        $data = $this->getExampleData('organization');
+        $data['id'] = '5fe612fe-eb92-4034-9337-7ad60ab15b94';
+
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $response = $this->json('POST', route('organization.store'), $data, $headers);
+
+        $data['meta']['lastUpdated'] = now()->addDay()->toDateTimeString();
 
         $controller = new IntegrationController(new SatusehatController());
 
-        $response = $controller->updateResourceIfNewer($resource->res_type, $resource->satusehat_id, [
-            'resourceType' => $resource->res_type,
-            'id' => $resource->satusehat_id,
-            'meta' => [
-                'lastUpdated' => now()->addDay()->toDateTimeString(),
-            ],
-        ]);
+        $response = $controller->updateResourceIfNewer('organization', '5fe612fe-eb92-4034-9337-7ad60ab15b94', $data);
 
-        $this->assertDatabaseHas('resource', [
-            'res_type' => $resource->res_type,
-            'satusehat_id' => $resource->satusehat_id,
-        ]);
-        $this->assertInstanceOf(\Illuminate\Http\Client\Response::class, $response);
-
-        dd($resource->loadCount('content'));
+        $this->assertDatabaseCount('resource_content', 2);
     }
 
     public function test_do_not_update_resource_if_not_newer()
@@ -88,30 +85,31 @@ class IntegrationTest extends TestCase
 
         $controller = new IntegrationController(new SatusehatController());
 
-        $response = $controller->get($resourceType, fake()->uuid());
+        $response = $controller->show($resourceType, fake()->uuid());
 
-        $this->assertInstanceOf(\Illuminate\Http\Client\Response::class, $response);
         $this->assertEquals(404, $response->getStatusCode());
     }
 
     public function test_get_resource_newer_from_local()
     {
-        $resource = Resource::factory()->create([
-            'res_type' => 'Organization',
-            'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94',
-        ]);
+        $data = $this->getExampleData('organization');
+        $data['id'] = '5fe612fe-eb92-4034-9337-7ad60ab15b94';
+        unset($data['meta']);
 
-        $satusehatController = new SatusehatController();
-        Http::put(route('satusehat.put', ['res_type' => $resource->res_type, 'res_id' => $resource->satusehat_id]), [
-            'resourceType' => $resource->res_type,
-            'id' => $resource->satusehat_id,
-        ]);
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $this->json('POST', route('organization.store'), $data, $headers);
 
-        $controller = new IntegrationController($satusehatController);
+        $this->put(
+            route('satusehat.update', ['res_type' => 'organization', 'res_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']),
+            $data
+        );
 
-        $response = $controller->get($resource->res_type, $resource->satusehat_id);
+        $controller = new IntegrationController(new SatusehatController());
 
-        $this->assertInstanceOf(\Illuminate\Http\Client\Response::class, $response);
-        $this->assertEquals(200, $response->getStatusCode());
+        $response = $controller->show('organization', '5fe612fe-eb92-4034-9337-7ad60ab15b94');
+
+        $this->assertDatabaseCount('resource_content', 2);
     }
 }

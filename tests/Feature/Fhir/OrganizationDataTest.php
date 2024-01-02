@@ -12,7 +12,7 @@ class OrganizationDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Organization';
+    const RESOURCE_TYPE = 'organization';
 
     /**
      * Test apakah user dapat menlihat data organisasi

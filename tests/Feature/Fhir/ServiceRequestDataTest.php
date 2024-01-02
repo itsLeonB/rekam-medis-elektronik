@@ -12,7 +12,7 @@ class ServiceRequestDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'ServiceRequest';
+    const RESOURCE_TYPE = 'servicerequest';
 
     /**
      * Test apakah user dapat menlihat data permintaan pelayanan medis

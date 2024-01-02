@@ -12,7 +12,7 @@ class QuestionnaireResponseDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'QuestionnaireResponse';
+    const RESOURCE_TYPE = 'questionnaireresponse';
 
     /**
      * Test apakah user dapat menlihat data hasil kuesioner

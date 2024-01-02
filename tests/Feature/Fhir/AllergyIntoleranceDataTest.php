@@ -12,7 +12,7 @@ class AllergyIntoleranceDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'AllergyIntolerance';
+    const RESOURCE_TYPE = 'allergyintolerance';
 
     /**
      * Test apakah user dapat menlihat data alergi pasien

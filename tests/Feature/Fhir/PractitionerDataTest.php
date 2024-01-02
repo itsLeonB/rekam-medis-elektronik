@@ -12,7 +12,7 @@ class PractitionerDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Practitioner';
+    const RESOURCE_TYPE = 'practitioner';
 
     public function test_users_can_view_practitioner_data()
     {

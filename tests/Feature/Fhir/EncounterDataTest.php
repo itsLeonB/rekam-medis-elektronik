@@ -12,7 +12,7 @@ class EncounterDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Encounter';
+    const RESOURCE_TYPE = 'encounter';
 
     /**
      * Test apakah user dapat menlihat data kunjungan pasien

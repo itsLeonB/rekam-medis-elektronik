@@ -12,7 +12,7 @@ class ClinicalImpressionDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'ClinicalImpression';
+    const RESOURCE_TYPE = 'clinicalimpression';
 
     /**
      * Test apakah user dapat menlihat data prognosis

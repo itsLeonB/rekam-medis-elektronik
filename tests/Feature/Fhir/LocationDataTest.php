@@ -12,7 +12,7 @@ class LocationDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Location';
+    const RESOURCE_TYPE = 'location';
 
     /**
      * Test apakah user dapat menlihat data lokasi

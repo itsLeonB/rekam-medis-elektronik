@@ -12,7 +12,7 @@ class ObservationDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Observation';
+    const RESOURCE_TYPE = 'observation';
 
     /**
      * Test apakah user dapat menlihat data observasi

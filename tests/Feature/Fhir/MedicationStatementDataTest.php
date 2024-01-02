@@ -12,7 +12,7 @@ class MedicationStatementDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'MedicationStatement';
+    const RESOURCE_TYPE = 'medicationstatement';
 
     /**
      * Test apakah user dapat menlihat data riwayat pengobatan

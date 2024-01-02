@@ -12,7 +12,7 @@ class ProcedureDataTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    const RESOURCE_TYPE = 'Procedure';
+    const RESOURCE_TYPE = 'procedure';
 
     /**
      * Test apakah user dapat menlihat data tindakan medis

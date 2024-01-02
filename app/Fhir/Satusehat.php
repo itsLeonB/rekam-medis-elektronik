@@ -15,6 +15,7 @@ class Satusehat
         'Procedure' => ['get', 'post', 'put', 'patch'],
         'Medication' => ['get', 'post', 'put', 'patch'],
         'MedicationRequest' => ['get', 'post', 'put', 'patch'],
+        'MedicationStatement' => ['get', 'post', 'put', 'patch'],
         // 'MedicationDispense' => ['get', 'post', 'put', 'patch'],
         // 'DiagnosticReport' => ['get', 'post', 'put', 'patch'],
         'AllergyIntolerance' => ['get', 'post', 'put', 'patch'],
@@ -35,5 +36,40 @@ class Satusehat
         // 'Specimen' => ['get', 'post', 'put', 'patch'],
         // 'RelatedPerson' => ['get', 'post', 'put', 'patch'],
         'Patient' => ['get', 'post']
+    ];
+
+    public const LOWER_CASE_MAPPING = [
+        //other way around
+        'practitioner' => 'Practitioner',
+        'organization' => 'Organization',
+        'location' => 'Location',
+        'encounter' => 'Encounter',
+        'condition' => 'Condition',
+        'observation' => 'Observation',
+        'composition' => 'Composition',
+        'procedure' => 'Procedure',
+        'medication' => 'Medication',
+        'medicationrequest' => 'MedicationRequest',
+        'medicationstatement' => 'MedicationStatement',
+        'medicationdispense' => 'MedicationDispense',
+        'diagnosticreport' => 'DiagnosticReport',
+        'allergyintolerance' => 'AllergyIntolerance',
+        'clinicalimpression' => 'ClinicalImpression',
+        'healthcareservice' => 'HealthcareService',
+        'appointment' => 'Appointment',
+        'appointmentresponse' => 'AppointmentResponse',
+        'practitionerrole' => 'PractitionerRole',
+        'slot' => 'Slot',
+        'immunization' => 'Immunization',
+        'imagingstudy' => 'ImagingStudy',
+        'consent' => 'Consent',
+        'episodeofcare' => 'EpisodeOfCare',
+        'careplan' => 'CarePlan',
+        'familymemberhistory' => 'FamilyMemberHistory',
+        'questionnaireresponse' => 'QuestionnaireResponse',
+        'servicerequest' => 'ServiceRequest',
+        'specimen' => 'Specimen',
+        'relatedperson' => 'RelatedPerson',
+        'patient' => 'Patient'
     ];
 }
