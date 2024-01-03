@@ -21,6 +21,7 @@ use App\Http\Controllers\Fhir\{
     ResourceController,
     ServiceRequestController,
 };
+use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use Illuminate\Http\Request;
@@ -43,6 +44,12 @@ use App\Http\Controllers\UserManagementController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+// Integration endpoint
+Route::get('/integration/{res_type}/{satusehat_id}', [IntegrationController::class, 'show'])->name('integration.show');
+Route::post('/integration/{res_type}', [IntegrationController::class, 'store'])->name('integration.store');
+Route::put('/integration/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('integration.update');
 
 
 // SATUSEHAT resource endpoint

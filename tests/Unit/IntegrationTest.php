@@ -46,7 +46,7 @@ class IntegrationTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route('organization.store'), $data, $headers);
+        $this->json('POST', route('organization.store'), $data, $headers);
 
         $data['meta']['lastUpdated'] = now()->addDay()->toDateTimeString();
 
@@ -54,6 +54,7 @@ class IntegrationTest extends TestCase
 
         $response = $controller->updateResourceIfNewer('organization', '5fe612fe-eb92-4034-9337-7ad60ab15b94', $data);
 
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertDatabaseCount('resource_content', 2);
     }
 
@@ -83,11 +84,23 @@ class IntegrationTest extends TestCase
         $resourceTypes = array_keys(Satusehat::AVAILABLE_METHODS);
         $resourceType = $resourceTypes[array_rand($resourceTypes)];
 
-        $controller = new IntegrationController(new SatusehatController());
-
-        $response = $controller->show($resourceType, fake()->uuid());
+        $response = $this->json('GET', route('integration.show', ['res_type' => $resourceType, 'satusehat_id' => fake()->uuid()]));
 
         $this->assertEquals(404, $response->getStatusCode());
+    }
+
+    public function test_get_resource_exist_in_local()
+    {
+        $data = $this->getExampleData('Organization');
+        $data['id'] = fake()->uuid();
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+        $this->json('POST', route('organization.store'), $data, $headers);
+
+        $response = $this->json('GET', route('integration.show', ['res_type' => 'organization', 'satusehat_id' => $data['id']]));
+
+        $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function test_get_resource_newer_from_local()
@@ -106,10 +119,77 @@ class IntegrationTest extends TestCase
             $data
         );
 
-        $controller = new IntegrationController(new SatusehatController());
+        $response = $this->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
 
-        $response = $controller->show('organization', '5fe612fe-eb92-4034-9337-7ad60ab15b94');
-
+        $this->assertEquals(200, $response->getStatusCode());
         $this->assertDatabaseCount('resource_content', 2);
+    }
+
+    public function test_get_new_data()
+    {
+        $response = $this->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
+
+        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('organization', 1);
+    }
+
+    public function test_post_new_data()
+    {
+        $data = $this->getExampleData('Organization');
+        $data['name'] = fake()->streetName();
+        unset($data['id']);
+        unset($data['identifier']);
+
+        $response = $this->json(
+            'POST',
+            route('integration.store', ['res_type' => 'Organization']),
+            $data
+        );
+
+        $response->assertStatus(201);
+        $response->assertJsonStructure([
+            'resourceType',
+            'id',
+            'meta' => [
+                'lastUpdated',
+            ],
+        ]);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('organization', 1);
+    }
+
+    public function test_update_data()
+    {
+        $data = $this->getExampleData('Organization');
+        $data['name'] = fake()->streetName();
+        $data['id'] = '5fe612fe-eb92-4034-9337-7ad60ab15b94';
+        unset($data['identifier']);
+
+        $this->json(
+            'POST',
+            route('organization.store'),
+            $data
+        );
+
+        $response = $this->json(
+            'PUT',
+            route('integration.update', ['res_type' => 'Organization', 'satusehat_id' => $data['id']]),
+            $data
+        );
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'resourceType',
+            'id',
+            'meta' => [
+                'lastUpdated',
+            ],
+        ]);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('organization', 1);
     }
 }

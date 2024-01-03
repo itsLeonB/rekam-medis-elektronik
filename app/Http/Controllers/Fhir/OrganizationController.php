@@ -12,6 +12,7 @@ use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class OrganizationController extends FhirController
 {
@@ -37,7 +38,7 @@ class OrganizationController extends FhirController
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id'] ?? null);
             $processor = new Processor();
             $orgData = $processor->generateOrganization($body);
             $processor->saveOrganization($resource, $orgData);

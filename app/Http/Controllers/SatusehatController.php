@@ -186,7 +186,7 @@ class SatusehatController extends Controller
         try {
             $response = $client->sendAsync($request, ['verify' => false])->wait();
             $contents = json_decode($response->getBody()->getContents());
-            return response()->json($contents, 200);
+            return response()->json($contents, 201);
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()

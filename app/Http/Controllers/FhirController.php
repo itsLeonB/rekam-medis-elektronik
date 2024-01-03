@@ -68,7 +68,7 @@ class FhirController extends Controller
     }
 
 
-    public function createResource(string $resourceType, string $satusehatId)
+    public function createResource(string $resourceType, $satusehatId)
     {
         $resource = Resource::create([
             'res_type' => $resourceType,
@@ -93,11 +93,11 @@ class FhirController extends Controller
 
         $body = $request->all();
 
+        $body = $this->removeEmptyValues($body);
+
         if ($body === null) {
             return response()->json(['error' => 'Invalid JSON'], 400);
         }
-
-        // $body = $this->removeEmptyValues($body);
 
         return $body;
     }
