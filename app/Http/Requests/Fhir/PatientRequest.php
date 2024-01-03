@@ -21,7 +21,7 @@ class PatientRequest extends FhirRequest
             [
                 'identifier' => 'required|array',
                 'active' => 'nullable|boolean',
-                'name' => 'required|array',
+                'name' => 'nullable|array',
                 'telecom' => 'nullable|array',
                 'gender' => ['nullable', Rule::in(Patient::GENDER['binding']['valueset'])],
                 'birthDate' => 'nullable|date',
