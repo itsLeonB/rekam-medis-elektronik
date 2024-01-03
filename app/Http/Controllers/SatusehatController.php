@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Fhir\Satusehat;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Fhir\ConsentRequest;
 use App\Http\Requests\FhirRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -33,6 +34,45 @@ class SatusehatController extends Controller
         $this->clientId = config('app.client_id');
         $this->clientSecret = config('app.client_secret');
         $this->organizationId = config('app.organization_id');
+    }
+
+    public function readConsent($patientId)
+    {
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->consentUrl . '/Consent';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => ['patient_id' => $patientId],
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function updateConsent(ConsentRequest $request)
+    {
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->consentUrl . '/Consent';
+
+        $data = $request->validated();
+
+        $response = $client->request('POST', $url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Content-Type' => 'application/json',
+            ],
+            'json' => $data,
+            'verify' => false,
+        ]);
+
+        return $response;
     }
 
     public function searchKfaProduct(

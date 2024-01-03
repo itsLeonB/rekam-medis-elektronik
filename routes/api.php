@@ -52,10 +52,16 @@ Route::post('/integration/{res_type}', [IntegrationController::class, 'store'])-
 Route::put('/integration/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('integration.update');
 
 
-// SATUSEHAT resource endpoint
-Route::get('/satusehat/{res_type}/{res_id}', [SatusehatController::class, 'show'])->name('satusehat.show');
-Route::post('/satusehat/{res_type}', [SatusehatController::class, 'store'])->name('satusehat.store');
-Route::put('/satusehat/{res_type}/{res_id}', [SatusehatController::class, 'update'])->name('satusehat.update');
+Route::prefix('/satusehat/resource')->group(function () {
+    Route::get('/{res_type}/{res_id}', [SatusehatController::class, 'show'])->name('satusehat.resource.show');
+    Route::post('/{res_type}', [SatusehatController::class, 'store'])->name('satusehat.resource.store');
+    Route::put('/{res_type}/{res_id}', [SatusehatController::class, 'update'])->name('satusehat.resource.update');
+});
+
+// SATUSEHAT consent endpoint
+Route::get('/satusehat/consent/{patient_id}', [SatusehatController::class, 'readConsent'])->name('satusehat.consent.show');
+Route::post('/satusehat/consent', [SatusehatController::class, 'updateConsent'])->name('satusehat.consent.store');
+
 
 
 // Web APIs

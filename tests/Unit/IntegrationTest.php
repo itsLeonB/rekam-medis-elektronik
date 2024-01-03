@@ -115,7 +115,7 @@ class IntegrationTest extends TestCase
         $this->json('POST', route('organization.store'), $data, $headers);
 
         $this->put(
-            route('satusehat.update', ['res_type' => 'organization', 'res_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']),
+            route('satusehat.resource.update', ['res_type' => 'organization', 'res_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']),
             $data
         );
 

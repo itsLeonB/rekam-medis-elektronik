@@ -83,7 +83,7 @@ class IntegrationController extends Controller
             Log::error('Resource type mismatch', $res_type, $data['resourceType']);
             return response()->json(['error' => 'Resource type mismatch'], 400);
         } else {
-            $satusehatRequest = Request::create(route('satusehat.store', ['res_type' => $res_type]), 'POST', $data);
+            $satusehatRequest = Request::create(route('satusehat.resource.store', ['res_type' => $res_type]), 'POST', $data);
 
             $satusehatResponse = retry(3, function () use ($satusehatRequest) {
                 return app()->handle($satusehatRequest);
@@ -124,7 +124,7 @@ class IntegrationController extends Controller
             Log::error('Resource type mismatch', $res_type, $data['resourceType']);
             return response()->json(['error' => 'Resource type mismatch'], 400);
         } else {
-            $satusehatRequest = Request::create(route('satusehat.update', ['res_type' => $res_type, 'res_id' => $satusehat_id]), 'PUT', $data);
+            $satusehatRequest = Request::create(route('satusehat.resource.update', ['res_type' => $res_type, 'res_id' => $satusehat_id]), 'PUT', $data);
 
             $satusehatResponse = retry(3, function () use ($satusehatRequest) {
                 return app()->handle($satusehatRequest);
