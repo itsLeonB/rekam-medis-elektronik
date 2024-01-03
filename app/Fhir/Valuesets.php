@@ -116,12 +116,7 @@ class Valuesets
     ];
 
     public const AllergyIntoleranceSubstanceProductConditionAndNegationCodes = [
-        'Alergen berupa obat dan vaksin (Kode bahan zat aktif (BZA), produk obat virtual (POV), produk obat aktual (POA))' => Codesystems::KFA,
-        'Apabila dibutuhkan informasi alergi terhadap golongan obat' => Codesystems::WHOATC,
-        'Jenis alergen makanan, lingkungan, dan kondisi tidak diketahui alergen yang dimiliki' => [
-            Codesystems::SNOMEDCT,
-            'ecl' => "( < 105590001 |Substance (substance)| MINUS ( << 410942007 |Drug or medicament (substance)| OR (<< 787859002 |Vaccine product (medicinal product)| . 127489000 |Has active ingredient|) ) ) OR (<< 716186003 |No known allergy (situation)| : { 408729009 |Finding context (attribute)| = 410516002 |Known absent (qualifier value)| })"
-        ]
+        'table' => 'valueset_allergy_reactionsubstance'
     ];
 
     public const DocumentSectionCodes = [
@@ -225,6 +220,12 @@ class Valuesets
         'table' => 'valueset_observation_refrangeappliesto'
     ];
 
+    public const ObservationCode = [
+        Codesystems::LOINC,
+        'Kode Istilah Klinik Nasional',
+        Codesystems::SNOMEDCT
+    ];
+
     public const ObservationMethods = [
         'system' => 'http://snomed.info/sct',
         'ecl' => [
@@ -323,6 +324,13 @@ class Valuesets
         'definition' => ["ADM" => "Tenaga kesehatan yang berperan memasukkan pasien ke dalam suatu kunjungan", "ATND" => "Tenaga kesehatan yang bertanggung jawab untuk mengawasi perawatan pasien selama kunjungan", "CALLBCK" => "Seseorang atau organisasi yang dapat dikontak untuk pertanyaan tidak lanjut", "CON" => "Penasihat berpartisipasi dalam layanan dengan melakukan evaluasi dan membuat rekomendasi.", "DIS" => "Tenaga kesehatan yang berperan dalam discharge atau memulangkan seorang pasien.", "ESC" => "Hanya dengan jasa Transportasi. Orang yang mengantar pasien.", "REF" => "Seseorang yang merujuk subjek layanan kepada pelaku (dokter perujuk). Biasanya, dokter yang merujuk akan menerima laporan.", "SPRF" => "Seseorang yang membantu dalam suatu tindakan melalui kehadiran dan keterlibatannya yang substansial Ini termasuk: asisten, teknisi, rekanan, atau apa pun jabatannya.", "PPRF" => "Pelaku utama dari tindakan tersebut.", "PART" => "Menunjukkan bahwa seorang individu terlibat dalam suatu perbuatan, tetapi tidak memenuhi syarat yang jelas.", "translator" => "Seorang penerjemah yang memfasilitasi komunikasi dengan pasien selama pertemuan.", "emergency" => "Seseorang yang dapat dihubungi dalam keadaan darurat selama kunjungan terjadi"]
     ];
 
+    public const DischargeDisposition = [
+        'system' => ['home' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'alt-home' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'other-hcf' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'hosp' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'long' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'aadvice' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'exp' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'psy' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'rehab' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'snf' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'oth' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition', 'exp-lt48h' => 'http://terminology.kemkes.go.id/CodeSystem/discharge-disposition', 'exp-gt48h' => 'http://terminology.kemkes.go.id/CodeSystem/discharge-disposition'],
+        'code' => ['home', 'alt-home', 'other-hcf', 'hosp', 'long', 'aadvice', 'exp', 'psy', 'rehab', 'snf', 'oth', 'exp-lt48h', 'exp-gt48h'],
+        'display' => ["home" => "Home", "alt-home" => "Alternative home", "other-hcf" => "Other healthcarefacility", "hosp" => "Hospice", "long" => "Long-term care", "aadvice" => "Left against advice", "exp" => "Expired", "psy" => "Psychiatric hospital", "rehab" => "Rehabilitation", "snf" => "Skilled nursing facility", "oth" => "Other", "exp-lt48h" => "Meninggal < 48 jam", "exp-gt48h" => "Meninggal > 48 jam"],
+        'definition' => ["home" => "Pasien dipulangkan dan terindikasi akan pulang ke rumahsendiri setelahnya", "alt-home" => "Pasien dipulangkan dan terindikasi ke rumah tetapi bukan rumahnya sendiri", "other-hcf" => "Pasien dirujuk ke fasilitas pelayanan kesehatan lainnya", "hosp" => "Pasien dipulangkan ke layanan paliatif", "long" => "Pasien dipulangkan ke long-term care dimana akan di monitor secara terus menerus dalam suatu episode perawatan", "aadvice" => "Pasien pulang atas permintaan sendiri atau tidak sesuai dengan saran medis", "exp" => "Pasien meninggal saat kunjungan terjadi", "psy" => "Pasien dipindahkan kefasilitas psikiatri", "rehab" => "Pasien dipulangkan dan mendapatkanlayanan rehabilitasi", "snf" => "Pasien dipulangkan ke fasilitas keperawatan untuk mendapatkan layanan tambahan", "oth" => "Kepulangan belum terdefinisi di tempat lain", "exp-lt48h" => "null", "exp-gt48h" => "null"],
+    ];
+
     public const EncounterPriority = [
         'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActPriority',
         'code' => ['A', 'CR', 'CS', 'CSP', 'CSR', 'EL', 'EM', 'P', 'PRN', 'R', 'RR', 'S', 'T', 'UD', 'UR'],
@@ -402,7 +410,7 @@ class Valuesets
         'system' => 'http://hl7.org/fhir/days-of-week',
         'code' => ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
         'display' => ["mon" => "Monday", "tue" => "Tuesday", "wed" => "Wednesday", "thu" => "Thursday", "fri" => "Friday", "sat" => "Saturday", "sun" => "Sunday"],
-        'definition' => ["mon" => "Monday.", "tue" => "Tuesday.", "wed" => "Wednesday.", "thu" => "Thursday.", "fri" => "Friday.", "sat" => "Saturday.", "sun" => "Sunday."],
+        'definition' => ["mon" => "Senin", "tue" => "Selasa", "wed" => "Rabu", "thu" => "Kamis", "fri" => "Jumat", "sat" => "Sabtu", "sun" => "Minggu"],
     ];
 
     public const EventTiming = [

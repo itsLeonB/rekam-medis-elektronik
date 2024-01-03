@@ -30,7 +30,7 @@ class AllergyIntoleranceDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,24 +43,21 @@ class AllergyIntoleranceDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('allergyintolerance');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
-        $this->assertManyData('allergy_intolerance_note', $data['note']);
-        $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
-            [
-                'table' => 'allergy_react_note',
-                'data' => 'note'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('allergy_intolerance_identifier', ['system' => 'http://sys-ids.kemkes.go.id/allergy/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('allergy_intolerance', 1);
+        $this->assertDatabaseCount('identifiers', 2);
+        $this->assertDatabaseCount('codeable_concepts', 3);
+        $this->assertDatabaseCount('codings', 3);
+        $this->assertDatabaseCount('references', 3);
     }
 
 
@@ -72,29 +69,23 @@ class AllergyIntoleranceDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('allergyintolerance');
-        $headers = [
-            'Content-Type' => 'application/json'
-        ];
-        $response = $this->json('POST', route('allergyintolerance.store'), $data, $headers);
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
+        $headers = ['Content-Type' => 'application/json'];
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['allergyIntolerance']['id'] = $newData['id'];
-        $data['allergyIntolerance']['resource_id'] = $newData['resource_id'];
-        $data['allergyIntolerance']['type'] = 'intolerance';
+        $newData['category'] = ['food', 'environment'];
+        $newData['identifier'][0]['value'] = '1234567890';
 
-        $response = $this->json('PUT', route('allergyintolerance.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('allergy_intolerance', $data['allergyIntolerance']);
-        $this->assertManyData('allergy_intolerance_note', $data['note']);
-        $this->assertNestedData('allergy_intolerance_reaction', $data['reaction'], 'reaction_data', [
-            [
-                'table' => 'allergy_react_note',
-                'data' => 'note'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('allergy_intolerance_identifier', ['system' => 'http://sys-ids.kemkes.go.id/allergy/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('allergy_intolerance', 1);
+        $this->assertDatabaseCount('identifiers', 2);
+        $this->assertDatabaseCount('codings', 3);
+        $this->assertDatabaseCount('codeable_concepts', 3);
+        $this->assertDatabaseCount('references', 3);
     }
 }

@@ -30,7 +30,7 @@ class PatientDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,25 +43,25 @@ class PatientDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('patient');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
 
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', '/api/patient', $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
+
         $response->assertStatus(201);
 
-        $this->assertMainData('patient', $data['patient']);
-        $this->assertManyData('patient_identifier', $data['identifier']);
-        $this->assertManyData('patient_name', $data['name']);
-        $this->assertManyData('patient_telecom', $data['telecom']);
-        $this->assertManyData('patient_address', $data['address']);
-        $this->assertManyData('patient_photo', $data['photo']);
-        $this->assertManyData('patient_communication', $data['communication']);
-        $this->assertManyData('patient_link', $data['link']);
-        $this->assertNestedData('patient_contact', $data['contact'], 'contact_data', [
-            [
-                'table' => 'patient_contact_telecom',
-                'data' => 'telecom'
-            ]
-        ]);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('patient', 1);
+        $this->assertDatabaseCount('extensions', 8);
+        $this->assertDatabaseCount('address', 2);
+        $this->assertDatabaseCount('complex_extensions', 1);
+        $this->assertDatabaseCount('patient_communication', 1);
+        $this->assertDatabaseCount('codeable_concepts', 3);
+        $this->assertDatabaseCount('codings', 3);
+        $this->assertDatabaseCount('patient_contact', 1);
+        $this->assertDatabaseCount('human_names', 2);
+        $this->assertDatabaseCount('contact_points', 3);
+        $this->assertDatabaseCount('identifiers', 3);
     }
 }

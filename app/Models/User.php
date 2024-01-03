@@ -4,7 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Models\Fhir\Practitioner;
+use App\Models\Fhir\Resources\Practitioner;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -49,9 +49,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $with = ['practitioner'];
+    protected $with = ['practitionerUser'];
 
-    public function practitioner(): BelongsToMany
+    public function practitionerUser(): BelongsToMany
     {
         return $this->belongsToMany(Practitioner::class);
     }

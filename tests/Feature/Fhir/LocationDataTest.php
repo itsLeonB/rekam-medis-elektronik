@@ -30,7 +30,7 @@ class LocationDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,15 +43,23 @@ class LocationDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('location');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('location.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('location', $data['location']);
-        $this->assertManyData('location_identifier', $data['identifier']);
-        $this->assertManyData('location_telecom', $data['telecom']);
-        $this->assertManyData('location_operation_hours', $data['operationHours']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('location', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('address', 1);
+        $this->assertDatabaseCount('complex_extensions', 1);
+        $this->assertDatabaseCount('extensions', 6);
+        $this->assertDatabaseCount('references', 1);
+        $this->assertDatabaseCount('codeable_concepts', 1);
+        $this->assertDatabaseCount('codings', 1);
+        $this->assertDatabaseCount('location_position', 1);
+        $this->assertDatabaseCount('contact_points', 4);
     }
 
 
@@ -63,20 +71,28 @@ class LocationDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('location');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('location.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['location']['id'] = $newData['id'];
-        $data['location']['resource_id'] = $newData['resource_id'];
-        $data['location']['status'] = 'inactive';
-        $response = $this->json('PUT', route('location.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $newData['name'] = 'Lokasi Baru';
+        $newData['identifier'][0]['value'] = '1234567890';
+
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE. '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('location', $data['location']);
-        $this->assertManyData('location_identifier', $data['identifier']);
-        $this->assertManyData('location_telecom', $data['telecom']);
-        $this->assertManyData('location_operation_hours', $data['operationHours']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('location', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('address', 1);
+        $this->assertDatabaseCount('complex_extensions', 1);
+        $this->assertDatabaseCount('extensions', 6);
+        $this->assertDatabaseCount('references', 1);
+        $this->assertDatabaseCount('codeable_concepts', 1);
+        $this->assertDatabaseCount('codings', 1);
+        $this->assertDatabaseCount('location_position', 1);
+        $this->assertDatabaseCount('contact_points', 4);
     }
 }

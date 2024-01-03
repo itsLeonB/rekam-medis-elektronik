@@ -15,18 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('composition_id');
             $table->index('composition_id');
-            $table->foreign('composition_id')->references('id')->on('composition')->onDelete('cascade');
+            $table->foreign('composition_id')->references('id')->on('composition');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->index('parent_id');
+            $table->foreign('parent_id')->references('id')->on('composition_section');
             $table->string('title')->nullable();
-            $table->string('code')->nullable();
-            $table->json('author')->nullable();
-            $table->string('focus')->nullable();
-            $table->enum('text_status', ['generated', 'extensions', 'additional', 'empty'])->nullable();
-            $table->text('text_div')->nullable();
             $table->enum('mode', ['working', 'snapshot', 'changes'])->nullable();
-            $table->enum('ordered_by', ['user', 'system', 'event-date', 'entry-date', 'priority', 'alphabetic', 'category', 'patient'])->nullable();
-            $table->json('entry')->nullable();
-            $table->enum('empty_reason', ['nilknown', 'notasked', 'withheld', 'unavailable', 'notstarted', 'closed'])->nullable();
-            $table->json('section')->nullable();
         });
     }
 

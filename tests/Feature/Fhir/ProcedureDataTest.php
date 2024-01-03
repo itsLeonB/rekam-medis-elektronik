@@ -30,7 +30,7 @@ class ProcedureDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -44,17 +44,20 @@ class ProcedureDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('procedure');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('procedure.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('procedure', $data['procedure']);
-        $this->assertManyData('procedure_performer', $data['performer']);
-        $this->assertManyData('procedure_note', $data['note']);
-        $this->assertManyData('procedure_focal_device', $data['focalDevice']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('procedure', 1);
+        $this->assertDatabaseCount('codeable_concepts', 4);
+        $this->assertDatabaseCount('codings', 4);
+        $this->assertDatabaseCount('references', 3);
+        $this->assertDatabaseCount('periods', 1);
+        $this->assertDatabaseCount('procedure_performer', 1);
+        $this->assertDatabaseCount('annotations', 1);
     }
 
 
@@ -66,22 +69,25 @@ class ProcedureDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('procedure');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('procedure.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['procedure']['id'] = $newData['id'];
-        $data['procedure']['resource_id'] = $newData['resource_id'];
-        $data['procedure']['subject'] = 'Patient/234234';
-        $response = $this->json('PUT', route('procedure.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $newData['status'] = 'in-progress';
+        $newData['subject']['display'] = 'Budi Pekerti';
+
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('procedure', $data['procedure']);
-        $this->assertManyData('procedure_performer', $data['performer']);
-        $this->assertManyData('procedure_note', $data['note']);
-        $this->assertManyData('procedure_focal_device', $data['focalDevice']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('procedure_identifier', ['system' => 'http://sys-ids.kemkes.go.id/procedure/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('procedure', 1);
+        $this->assertDatabaseCount('codeable_concepts', 4);
+        $this->assertDatabaseCount('codings', 4);
+        $this->assertDatabaseCount('references', 3);
+        $this->assertDatabaseCount('periods', 1);
+        $this->assertDatabaseCount('procedure_performer', 1);
+        $this->assertDatabaseCount('annotations', 1);
     }
 }

@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\Fhir\Practitioner;
+use App\Models\Fhir\Resources\Practitioner;
 use App\Models\User;
-use App\Models\UserProfile;
 use Faker\Factory;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -125,13 +124,18 @@ class ProfileTest extends TestCase
 
     public function test_practitioner_resource_returned_from_profile(): void
     {
-        $userProfile = UserProfile::factory()->create();
-
-        $user = $userProfile->user;
+        $user = User::factory()->create();
+        $practitioner = Practitioner::factory()->create();
+        $user->practitionerUser()->attach($practitioner->id);
 
         $response = $this->actingAs($user)->get(route('profile.details'));
 
         $response->assertOk();
-        $this->assertInstanceOf(Practitioner::class, $response->original);
+        $response->assertJsonFragment([
+            'pivot' => [
+                'user_id' => $user->id,
+                'practitioner_id' => $practitioner->id
+            ]
+        ]);
     }
 }

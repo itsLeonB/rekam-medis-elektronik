@@ -75,10 +75,10 @@ class ProfileController extends Controller
     }
 
 
-    public function getProfile(Request $request): Practitioner
+    public function getProfile(Request $request)
     {
         $user = $request->user();
 
-        return $user->userProfile->practitioner;
+        return $user->practitionerUser;
     }
 }

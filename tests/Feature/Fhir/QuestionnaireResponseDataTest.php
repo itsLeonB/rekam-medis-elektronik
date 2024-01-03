@@ -30,7 +30,7 @@ class QuestionnaireResponseDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE. '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,20 +43,19 @@ class QuestionnaireResponseDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('questionnaireresponse');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('questionnaireresponse.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('questionnaire_response', $data['questionnaireResponse']);
-        $this->assertNestedData('questionnaire_response_item', $data['item'], 'item_data', [
-            [
-                'table' => 'question_item_answer',
-                'data' => 'answer'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('questionnaire_response', ['identifier_system' => 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId, 'identifier_use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('questionnaire_response', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('references', 4);
+        $this->assertDatabaseCount('questionnaire_response_item', 1);
+        $this->assertDatabaseCount('question_item_answer', 1);
+        $this->assertDatabaseCount('codings', 1);
     }
 
 
@@ -68,25 +67,23 @@ class QuestionnaireResponseDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('questionnaireresponse');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('questionnaireresponse.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE. '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['questionnaireresponse']['id'] = $newData['id'];
-        $data['questionnaireresponse']['resource_id'] = $newData['resource_id'];
-        $data['questionnaireresponse']['status'] = 'completed';
-        $response = $this->json('PUT', route('questionnaireresponse.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $newData['subject']['display'] = 'Budi Pekerti';
+
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE. '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('questionnaire_response', $data['questionnaireResponse']);
-        $this->assertNestedData('questionnaire_response_item', $data['item'], 'item_data', [
-            [
-                'table' => 'question_item_answer',
-                'data' => 'answer'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('questionnaire_response', ['identifier_system' => 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId, 'identifier_use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('questionnaire_response', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('references', 4);
+        $this->assertDatabaseCount('questionnaire_response_item', 1);
+        $this->assertDatabaseCount('question_item_answer', 1);
+        $this->assertDatabaseCount('codings', 1);
     }
 }

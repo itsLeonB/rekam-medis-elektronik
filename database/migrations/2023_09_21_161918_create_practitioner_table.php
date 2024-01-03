@@ -19,7 +19,7 @@ return new class extends Migration
             $table->boolean('active')->nullable();
             $table->enum('gender', ['male', 'female', 'other', 'unknown']);
             $table->date('birth_date')->nullable();
-            $table->json('communication')->nullable();
+            // $table->json('communication')->nullable();
         });
     }
 

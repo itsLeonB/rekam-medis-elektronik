@@ -3,11 +3,7 @@
 namespace App\Http\Requests\Fhir;
 
 use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\{
-    Observation,
-    ObservationComponent,
-    ObservationReferenceRange
-};
+use App\Models\Fhir\Resources\Observation;
 use Illuminate\Validation\Rule;
 
 class ObservationRequest extends FhirRequest
@@ -20,90 +16,117 @@ class ObservationRequest extends FhirRequest
     public function rules(): array
     {
         return array_merge(
-            $this->baseAttributeRules(),
-            $this->baseDataRules('observation.'),
-            $this->getIdentifierDataRules('identifier.*.'),
-            $this->getAnnotationDataRules('note.*.'),
-            $this->referenceRangeDataRules('referenceRange.*.'),
-            $this->componentDataRules('component.*.'),
-        );
-    }
-
-    private function baseAttributeRules(): array
-    {
-        return [
-            'observation' => 'required|array',
-            'identifier' => 'nullable|array',
-            'note' => 'nullable|array',
-            'referenceRange' => 'nullable|array',
-            'component' => 'nullable|array',
-        ];
-    }
-
-    private function baseDataRules($prefix): array
-    {
-        return array_merge(
             [
-                $prefix . 'based_on' => 'nullable|array',
-                $prefix . 'based_on.*' => 'required|string',
-                $prefix . 'part_of' => 'nullable|array',
-                $prefix . 'part_of.*' => 'required|string',
-                $prefix . 'status' => ['required', Rule::in(Observation::STATUS['binding']['valueset']['code'])],
-                $prefix . 'category' => 'nullable|array',
-                $prefix . 'category.*' => ['required', Rule::in(Observation::CATEGORY['binding']['valueset']['code'])],
-                $prefix . 'code' => ['required', Rule::exists(Observation::CODE['binding']['valueset']['table'], 'code')],
-                $prefix . 'subject' => 'required|string',
-                $prefix . 'focus' => 'nullable|array',
-                $prefix . 'focus.*' => 'required|string',
-                $prefix . 'encounter' => 'required|string',
-                $prefix . 'issued' => 'nullable|date',
-                $prefix . 'performer' => 'nullable|array',
-                $prefix . 'performer.*' => 'required|string',
-                $prefix . 'data_absent_reason' => ['nullable', Rule::in(Observation::DATA_ABSENT_REASON['binding']['valueset']['code'])],
-                $prefix . 'interpretation' => 'nullable|array',
-                $prefix . 'interpretation.*' => 'required|string',
-                $prefix . 'body_site' => ['nullable', Rule::exists(Observation::BODY_SITE['binding']['valueset']['table'], 'code')],
-                $prefix . 'method' => 'nullable|integer|gte:0',
-                $prefix . 'specimen' => 'nullable|string',
-                $prefix . 'device' => 'nullable|string',
-                $prefix . 'has_member' => 'nullable|array',
-                $prefix . 'has_member.*' => 'required|string',
-                $prefix . 'derived_from' => 'nullable|array',
-                $prefix . 'derived_from.*' => 'required|string',
+                'identifier' => 'nullable|array',
+                'basedOn' => 'nullable|array',
+                'partOf' => 'nullable|array',
+                'status' => ['required', Rule::in(Observation::STATUS['binding']['valueset']['code'])],
+                'category' => 'nullable|array',
+                'code' => 'required|array',
+                'subject' => 'required|array',
+                'focus' => 'nullable|array',
+                'encounter' => 'required|array',
+                'effectiveDateTime' => 'nullable|date',
+                'effectivePeriod' => 'nullable|array',
+                'effectiveTiming' => 'nullable|array',
+                'effectiveInstant' => 'nullable|date',
+                'issued' => 'nullable|date',
+                'performer' => 'nullable|array',
+                'valueQuantity' => 'nullable|array',
+                'valueCodeableConcept' => 'nullable|array',
+                'valueString' => 'nullable|string',
+                'valueBoolean' => 'nullable|boolean',
+                'valueInteger' => 'nullable|integer',
+                'valueRange' => 'nullable|array',
+                'valueRatio' => 'nullable|array',
+                'valueSampledData' => 'nullable|array',
+                'valueTime' => 'nullable|date_format:H:i:s',
+                'valueDateTime' => 'nullable|date',
+                'valuePeriod' => 'nullable|array',
+                'dataAbsentReason' => 'nullable|array',
+                'interpretation' => 'nullable|array',
+                'note' => 'nullable|array',
+                'bodySite' => 'nullable|array',
+                'method' => 'nullable|array',
+                'specimen' => 'nullable|array',
+                'device' => 'nullable|array',
+                'referenceRange' => 'nullable|array',
+                'referenceRange.*.low' => 'nullable|array',
+                'referenceRange.*.high' => 'nullable|array',
+                'referenceRange.*.type' => 'nullable|array',
+                'referenceRange.*.appliesTo' => 'nullable|array',
+                'referenceRange.*.age' => 'nullable|array',
+                'referenceRange.*.text' => 'nullable|string',
+                'hasMember' => 'nullable|array',
+                'derivedFrom' => 'nullable|array',
+                'component' => 'nullable|array',
+                'component.*.code' => 'sometimes|array',
+                'component.*.valueQuantity' => 'nullable|array',
+                'component.*.valueCodeableConcept' => 'nullable|array',
+                'component.*.valueString' => 'nullable|string',
+                'component.*.valueBoolean' => 'nullable|boolean',
+                'component.*.valueInteger' => 'nullable|integer',
+                'component.*.valueRange' => 'nullable|array',
+                'component.*.valueRatio' => 'nullable|array',
+                'component.*.valueSampledData' => 'nullable|array',
+                'component.*.valueTime' => 'nullable|date_format:H:i:s',
+                'component.*.valueDateTime' => 'nullable|date',
+                'component.*.valuePeriod' => 'nullable|array',
+                'component.*.dataAbsentReason' => 'nullable|array',
+                'component.*.interpretation' => 'nullable|array',
+                'component.*.referenceRange' => 'nullable|array',
+                'component.*.referenceRange.*.low' => 'nullable|array',
+                'component.*.referenceRange.*.high' => 'nullable|array',
+                'component.*.referenceRange.*.type' => 'nullable|array',
+                'component.*.referenceRange.*.appliesTo' => 'nullable|array',
+                'component.*.referenceRange.*.age' => 'nullable|array',
+                'component.*.referenceRange.*.text' => 'nullable|string',
             ],
-            $this->getEffectiveDataRules($prefix),
-            $this->getValueDataRules($prefix),
-        );
-    }
-
-    private function referenceRangeDataRules($prefix = null): array
-    {
-        return array_merge(
-            [
-                $prefix . 'type' => ['nullable', Rule::in(ObservationReferenceRange::TYPE['binding']['valueset']['code'])],
-                $prefix . 'applies_to' => 'nullable|array',
-                $prefix . 'applies_to.*' => ['required', Rule::exists(ObservationReferenceRange::APPLIES_TO['binding']['valueset']['table'], 'code')],
-                $prefix . 'age_low' => 'nullable|integer|gte:0',
-                $prefix . 'age_high' => 'nullable|integer|gte:0',
-                $prefix . 'text' => 'nullable|string',
-            ],
-            $this->getQuantityDataRules($prefix . 'low_', true),
-            $this->getQuantityDataRules($prefix . 'high_', true),
-        );
-    }
-
-    private function componentDataRules($prefix): array
-    {
-        return array_merge(
-            [
-                $prefix . 'component_data' => 'required|array',
-                $prefix . 'component_data.code' => ['required', Rule::exists(ObservationComponent::CODE['binding']['valueset']['table'], 'code')],
-                $prefix . 'component_data.data_absent_reason' => ['nullable', Rule::in(ObservationComponent::DATA_ABSENT_REASON['binding']['valueset']['code'])],
-                $prefix . 'interpretation' => 'nullable|array',
-                $prefix . 'interpretation.*' => ['required', Rule::in(ObservationComponent::INTERPRETATION['binding']['valueset']['code'])],
-            ],
-            $this->getValueDataRules($prefix . 'component_data.'),
-            $this->referenceRangeDataRules($prefix . 'referenceRange.*.'),
+            $this->getIdentifierRules('identifier.*.'),
+            $this->getReferenceRules('basedOn.*.'),
+            $this->getReferenceRules('partOf.*.'),
+            $this->getCodeableConceptRules('category.*.'),
+            $this->getCodeableConceptRules('code.'),
+            $this->getReferenceRules('subject.'),
+            $this->getReferenceRules('focus.*.'),
+            $this->getReferenceRules('encounter.'),
+            $this->getPeriodRules('effectivePeriod.'),
+            $this->getTimingRules('effectiveTiming.'),
+            $this->getReferenceRules('performer.*.'),
+            $this->getQuantityRules('valueQuantity.'),
+            $this->getCodeableConceptRules('valueCodeableConcept.'),
+            $this->getRangeRules('valueRange.'),
+            $this->getRatioRules('valueRatio.'),
+            $this->getSampledDataRules('valueSampledData.'),
+            $this->getPeriodRules('valuePeriod.'),
+            $this->getCodeableConceptRules('dataAbsentReason.'),
+            $this->getCodeableConceptRules('interpretation.*.'),
+            $this->getAnnotationRules('note.*.'),
+            $this->getCodeableConceptRules('bodySite.'),
+            $this->getCodeableConceptRules('method.'),
+            $this->getReferenceRules('specimen.'),
+            $this->getReferenceRules('device.'),
+            $this->getSimpleQuantityRules('referenceRange.*.low.'),
+            $this->getSimpleQuantityRules('referenceRange.*.high.'),
+            $this->getCodeableConceptRules('referenceRange.*.type.'),
+            $this->getCodeableConceptRules('referenceRange.*.appliesTo.'),
+            $this->getRangeRules('referenceRange.*.age.'),
+            $this->getReferenceRules('hasMember.*.'),
+            $this->getReferenceRules('derivedFrom.*.'),
+            $this->getCodeableConceptRules('component.*.code.'),
+            $this->getQuantityRules('component.*.valueQuantity.'),
+            $this->getCodeableConceptRules('component.*.valueCodeableConcept.'),
+            $this->getRangeRules('component.*.valueRange.'),
+            $this->getRatioRules('component.*.valueRatio.'),
+            $this->getSampledDataRules('component.*.valueSampledData.'),
+            $this->getPeriodRules('component.*.valuePeriod.'),
+            $this->getCodeableConceptRules('component.*.dataAbsentReason.'),
+            $this->getCodeableConceptRules('component.*.interpretation.*.'),
+            $this->getSimpleQuantityRules('component.*.referenceRange.*.low.'),
+            $this->getSimpleQuantityRules('component.*.referenceRange.*.high.'),
+            $this->getCodeableConceptRules('component.*.referenceRange.*.type.'),
+            $this->getCodeableConceptRules('component.*.referenceRange.*.appliesTo.'),
+            $this->getRangeRules('component.*.referenceRange.*.age.'),
         );
     }
 }

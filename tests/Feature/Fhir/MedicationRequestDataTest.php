@@ -30,7 +30,7 @@ class MedicationRequestDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,21 +43,26 @@ class MedicationRequestDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('medicationrequest');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('medication_request', $data['medicationRequest']);
-        $this->assertManyData('medication_request_note', $data['note']);
-        $this->assertNestedData('medication_request_dosage', $data['dosage'], 'dosage_data', [
-            [
-                'table' => 'med_req_dosage_dose_rate',
-                'data' => 'doseRate'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('medication_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/prescription/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('medication_request', 1);
+        $this->assertDatabaseCount('identifiers', 3);
+        $this->assertDatabaseCount('codeable_concepts', 6);
+        $this->assertDatabaseCount('codings', 5);
+        $this->assertDatabaseCount('references', 5);
+        $this->assertDatabaseCount('dosages', 1);
+        $this->assertDatabaseCount('timings', 1);
+        $this->assertDatabaseCount('timing_repeats', 1);
+        $this->assertDatabaseCount('dose_and_rates', 1);
+        $this->assertDatabaseCount('simple_quantities', 2);
+        $this->assertDatabaseCount('med_req_dispense_request', 1);
+        $this->assertDatabaseCount('durations', 2);
+        $this->assertDatabaseCount('periods', 1);
     }
 
 
@@ -69,27 +74,31 @@ class MedicationRequestDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('medicationrequest');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('medicationrequest.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['medicationRequest']['id'] = $newData['id'];
-        $data['medicationRequest']['resource_id'] = $newData['resource_id'];
-        $data['medicationRequest']['priority'] = 'stat';
+        $newData['priority'] = 'stat';
+        $newData['identifier'][0]['value'] = '1234567890';
 
-        $response = $this->json('PUT', route('medicationrequest.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('medication_request', $data['medicationRequest']);
-        $this->assertManyData('medication_request_note', $data['note']);
-        $this->assertNestedData('medication_request_dosage', $data['dosage'], 'dosage_data', [
-            [
-                'table' => 'med_req_dosage_dose_rate',
-                'data' => 'doseRate'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('medication_request_identifier', ['system' => 'http://sys-ids.kemkes.go.id/prescription/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('medication_request', 1);
+        $this->assertDatabaseCount('identifiers', 3);
+        $this->assertDatabaseCount('codeable_concepts', 6);
+        $this->assertDatabaseCount('codings', 5);
+        $this->assertDatabaseCount('references', 5);
+        $this->assertDatabaseCount('dosages', 1);
+        $this->assertDatabaseCount('timings', 1);
+        $this->assertDatabaseCount('timing_repeats', 1);
+        $this->assertDatabaseCount('dose_and_rates', 1);
+        $this->assertDatabaseCount('simple_quantities', 2);
+        $this->assertDatabaseCount('med_req_dispense_request', 1);
+        $this->assertDatabaseCount('durations', 2);
+        $this->assertDatabaseCount('periods', 1);
     }
 }

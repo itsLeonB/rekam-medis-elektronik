@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\PatientRequest;
 use App\Http\Resources\PatientResource;
@@ -15,13 +16,13 @@ class PatientController extends FhirController
     const RESOURCE_TYPE = 'Patient';
 
 
-    public function show($res_id)
+    public function show($satusehat_id)
     {
         try {
             return response()
                 ->json(new PatientResource(Resource::where([
                     ['res_type', self::RESOURCE_TYPE],
-                    ['id', $res_id]
+                    ['satusehat_id', $satusehat_id]
                 ])->firstOrFail()), 200);
         } catch (ModelNotFoundException $e) {
             Log::error('Model error: ' . $e->getMessage());
@@ -29,17 +30,16 @@ class PatientController extends FhirController
         }
     }
 
-
     public function store(PatientRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $patient = $resource->patient()->create($body['patient']);
-            $this->createChildModels($patient, $body, ['identifier', 'name', 'telecom', 'address', 'photo', 'communication', 'link']);
-            $this->createNestedInstances($patient, 'contact', $body, ['telecom']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generatePatient($body);
+            $processor->savePatient($resource, $data);
             $this->createResourceContent(PatientResource::class, $resource);
-            return response()->json($patient, 201);
+            return response()->json(new PatientResource($resource), 201);
         });
     }
 }

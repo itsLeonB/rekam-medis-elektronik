@@ -30,7 +30,7 @@ class CompositionDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,18 +43,20 @@ class CompositionDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('composition');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('composition.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('composition', $data['composition']);
-        $this->assertManyData('composition_attester', $data['attester']);
-        $this->assertManyData('composition_relates_to', $data['relatesTo']);
-        $this->assertManyData('composition_event', $data['event']);
-        $this->assertManyData('composition_section', $data['section']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('composition', 1);
+        $this->assertDatabaseCount('identifiers', 2);
+        $this->assertDatabaseCount('codeable_concepts', 3);
+        $this->assertDatabaseCount('codings', 3);
+        $this->assertDatabaseCount('references', 4);
+        $this->assertDatabaseCount('composition_section', 1);
+        $this->assertDatabaseCount('narratives', 1);
     }
 
 
@@ -66,25 +68,25 @@ class CompositionDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('composition');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('composition.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['composition']['id'] = $newData['id'];
-        $data['composition']['resource_id'] = $newData['resource_id'];
+        $newData['date'] = '2022-06-15';
+        $newData['identifier'][0]['value'] = '1234567890';
 
-        $data['author'][] = 'Practitioner/00002';
-
-        $response = $this->json('PUT', route('composition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('composition', $data['composition']);
-        $this->assertManyData('composition_attester', $data['attester']);
-        $this->assertManyData('composition_relates_to', $data['relatesTo']);
-        $this->assertManyData('composition_event', $data['event']);
-        $this->assertManyData('composition_section', $data['section']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('composition', ['identifier_system' => 'http://sys-ids.kemkes.go.id/composition/' . $orgId, 'identifier_use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('composition', 1);
+        $this->assertDatabaseCount('identifiers', 2);
+        $this->assertDatabaseCount('codeable_concepts', 3);
+        $this->assertDatabaseCount('codings', 3);
+        $this->assertDatabaseCount('references', 4);
+        $this->assertDatabaseCount('composition_section', 1);
+        $this->assertDatabaseCount('narratives', 1);
     }
 }

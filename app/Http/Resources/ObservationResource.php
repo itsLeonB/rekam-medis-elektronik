@@ -2,13 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Fhir\{
-    Observation,
-    ObservationComponent,
-    ObservationReferenceRange
-};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ObservationResource extends FhirResource
 {
@@ -28,239 +22,89 @@ class ObservationResource extends FhirResource
         return $data;
     }
 
-    private function resourceStructure($observation): array
+    public function resourceStructure($observation): array
     {
-        return $this->mergeArray(
-            [
-                'resourceType' => 'Observation',
-                'id' => $this->satusehat_id,
-                'identifier' => $this->createIdentifierArray($observation->identifier),
-                'basedOn' => $this->createReferenceArray($observation->basedOn),
-                'partOf' => $this->createReferenceArray($observation->partOf),
-                'status' => $observation->status,
-                'category' => $this->createCategoryArray($observation->category),
-                'code' => [
-                    'coding' => [
-                        [
-                            'system' => $observation->code ? Observation::CODE['binding']['valueset']['system'] : null,
-                            'code' => $observation->code,
-                            'display' => $observation->code ? DB::table(Observation::CODE['binding']['valueset']['table'])
-                                ->where('code', $observation->code)
-                                ->value('display') ?? null : null
-                        ]
-                    ]
-                ],
-                'subject' => [
-                    'reference' => $observation->subject
-                ],
-                'focus' => $this->createReferenceArray($observation->focus),
-                'encounter' => [
-                    'reference' => $observation->encounter
-                ],
-                'issued' => $this->parseDateFhir($observation->issued),
-                'performer' => $this->createReferenceArray($observation->performer),
-                'dataAbsentReason' => [
-                    'coding' => [
-                        [
-                            'system' => $observation->data_absent_reason ? Observation::DATA_ABSENT_REASON['binding']['valueset']['system'] : null,
-                            'code' => $observation->data_absent_reason,
-                            'display' => $observation->data_absent_reason ? Observation::DATA_ABSENT_REASON['binding']['valueset']['display'][$observation->data_absent_reason] ?? null : null,
-                        ]
-                    ]
-                ],
-                'interpretation' => $this->createInterpretation($observation->interpretation),
-                'note' => $this->createAnnotationArray($observation->note),
-                'bodySite' => [
-                    'coding' => [
-                        [
-                            'system' => $observation->body_site ? Observation::BODY_SITE['binding']['valueset']['system'] : null,
-                            'code' => $observation->body_site,
-                            'display' => $observation->body_site ? DB::table(Observation::BODY_SITE['binding']['valueset']['table'])
-                                ->where('code', $observation->body_site)
-                                ->value('display') ?? null : null,
-                        ]
-                    ]
-                ],
-                'method' => [
-                    'coding' => [
-                        [
-                            'system' => $observation->method ? Observation::METHOD['binding']['valueset']['system'] : null,
-                            'code' => $observation->method,
-                            'display' => $observation->method ? $this->querySnomedCode($observation->method) : null,
-                        ]
-                    ]
-                ],
-                'specimen' => [
-                    'reference' => $observation->specimen
-                ],
-                'device' => [
-                    'reference' => $observation->device
-                ],
-                'referenceRange' => $this->createReferenceRangeArray($observation->referenceRange),
-                'hasMember' => $this->createReferenceArray($observation->member),
-                'derivedFrom' => $this->createReferenceArray($observation->derivedFrom),
-                'component' => $this->createComponentArray($observation->component)
-            ],
-            $observation->effective,
-            $observation->value
-        );
+        return [
+            'resourceType' => 'Observation',
+            'id' => $this->satusehat_id,
+            'identifier' => $this->createMany($observation->identifier, 'createIdentifierResource'),
+            'basedOn' => $this->createMany($observation->basedOn, 'createReferenceResource'),
+            'partOf' => $this->createMany($observation->partOf, 'createReferenceResource'),
+            'status' => $observation->status,
+            'category' => $this->createMany($observation->category, 'createCodeableConceptResource'),
+            'code' => $this->createCodeableConceptResource($observation->code),
+            'subject' => $this->createReferenceResource($observation->subject),
+            'focus' => $this->createMany($observation->focus, 'createReferenceResource'),
+            'encounter' => $this->createReferenceResource($observation->encounter),
+            'effectiveDateTime' => $this->parseDateTime($observation->effective_date_time),
+            'effectivePeriod' => $this->createPeriodResource($observation->effectivePeriod),
+            'effectiveTiming' => $this->createTimingResource($observation->effectiveTiming),
+            'effectiveInstant' => $this->parseDateTime($observation->effective_instant),
+            'issued' => $this->parseDateTime($observation->issued),
+            'performer' => $this->createMany($observation->performer, 'createReferenceResource'),
+            'valueQuantity' => $this->createQuantityResource($observation->valueQuantity),
+            'valueCodeableConcept' => $this->createCodeableConceptResource($observation->valueCodeableConcept),
+            'valueString' => $observation->value_string,
+            'valueBoolean' => $observation->value_boolean,
+            'valueInteger' => $observation->value_integer,
+            'valueRange' => $this->createRangeResource($observation->valueRange),
+            'valueRatio' => $this->createRatioResource($observation->valueRatio),
+            'valueSampledData' => $this->createSampledDataResource($observation->valueSampledData),
+            'valueTime' => $this->parseTime($observation->value_time),
+            'valueDateTime' => $this->parseDateTime($observation->value_date_time),
+            'valuePeriod' => $this->createPeriodResource($observation->valuePeriod),
+            'dataAbsentReason' => $this->createCodeableConceptResource($observation->dataAbsentReason),
+            'interpretation' => $this->createMany($observation->interpretation, 'createCodeableConceptResource'),
+            'note' => $this->createMany($observation->note, 'createAnnotationResource'),
+            'bodySite' => $this->createCodeableConceptResource($observation->bodySite),
+            'method' => $this->createCodeableConceptResource($observation->method),
+            'specimen' => $this->createReferenceResource($observation->specimen),
+            'device' => $this->createReferenceResource($observation->device),
+            'referenceRange' => $this->createMany($observation->referenceRange, 'createReferenceRangeResource'),
+            'hasMember' => $this->createMany($observation->hasMember, 'createReferenceResource'),
+            'derivedFrom' => $this->createMany($observation->derivedFrom, 'createReferenceResource'),
+            'component' => $this->createMany($observation->component, 'createComponentResource'),
+        ];
     }
 
-
-    private function createInterpretation($interpretations): array
+    public function createReferenceRangeResource($refRange)
     {
-        $interpretation = [];
-
-        if (!empty($interpretations)) {
-            foreach ($interpretations as $i) {
-                $interpretation[] = [
-                    'coding' => [
-                        [
-                            'system' => $i ? Observation::INTERPRETATION['binding']['valueset']['system'][$i] ?? null : null,
-                            'code' => $i,
-                            'display' => $i ? Observation::INTERPRETATION['binding']['valueset']['display'][$i] ?? null : null,
-                        ]
-                    ]
-                ];
-            }
-        }
-
-        return $interpretation;
-    }
-
-
-    private function createCategoryArray($categories): array
-    {
-        $category = [];
-
-        if (!empty($categories)) {
-            foreach ($categories as $c) {
-                $category[] = [
-                    'coding' => [
-                        [
-                            'system' => $c ? Observation::CATEGORY['binding']['valueset']['system'] : null,
-                            'code' => $c,
-                            'display' => $c ? Observation::CATEGORY['binding']['valueset']['display'][$c] ?? null : null,
-                        ]
-                    ]
-                ];
-            }
-        }
-
-        return $category;
-    }
-
-
-    private function createReferenceRangeArray($referenceRangeAttribute)
-    {
-        $referenceRange = [];
-
-        foreach ($referenceRangeAttribute as $r) {
-            $referenceRange[] = [
-                'low' => [
-                    'value' => $r->low_value,
-                    'unit' => $r->low_unit,
-                    'system' => $r->low_system,
-                    'code' => $r->low_code,
-                ],
-                'high' => [
-                    'value' => $r->high_value,
-                    'unit' => $r->high_unit,
-                    'system' => $r->high_system,
-                    'code' => $r->high_code,
-                ],
-                'type' => [
-                    'coding' => [
-                        [
-                            'system' => $r->type ? ObservationReferenceRange::TYPE['binding']['valueset']['system'] : null,
-                            'code' => $r->type,
-                            'display' => $r->type ? ObservationReferenceRange::TYPE['binding']['valueset']['display'][$r->type] ?? null : null,
-                        ]
-                    ]
-                ],
-                'appliesTo' => $this->createAppliesToArray($r->applies_to),
-                'age' => [
-                    'low' => [
-                        'value' => $r->age_low,
-                        'unit' => $r->age_low ? 'year' : null,
-                        'system' => $r->age_low ? 'http://unitsofmeasure.org' : null,
-                        'code' => $r->age_low ? 'a' : null
-                    ],
-                    'high' => [
-                        'value' => $r->age_high,
-                        'unit' => $r->age_high ? 'year' : null,
-                        'system' => $r->age_high ? 'http://unitsofmeasure.org' : null,
-                        'code' => $r->age_high ? 'a' : null
-                    ],
-                ],
-                'text' => $r->text
+        if (!empty($refRange)) {
+            return [
+                'low' => $this->createSimpleQuantityResource($refRange->low),
+                'high' => $this->createSimpleQuantityResource($refRange->high),
+                'type' => $this->createCodeableConceptResource($refRange->type),
+                'appliesTo' => $this->createMany($refRange->appliesTo, 'createCodeableConceptResource'),
+                'age' => $this->createRangeResource($refRange->age),
+                'text' => $refRange->text,
             ];
+        } else {
+            return null;
         }
-
-        return $referenceRange;
     }
 
-
-    private function createAppliesToArray($applies): array
+    public function createComponentResource($component)
     {
-        $appliesTo = [];
-
-        if (!empty($applies)) {
-            foreach ($applies as $a) {
-                $data = DB::table(ObservationReferenceRange::APPLIES_TO['binding']['valueset']['table'])
-                    ->select('system', 'display')
-                    ->where('code', $a)
-                    ->first();
-                $appliesTo[] = [
-                    'coding' => [
-                        [
-                            'system' => $a ? $data->system : null,
-                            'code' => $a,
-                            'display' => $a ? $data->display : null,
-                        ]
-                    ]
-                ];
-            }
+        if (!empty($component)) {
+            return [
+                'code' => $this->createCodeableConceptResource($component->code),
+                'valueQuantity' => $this->createQuantityResource($component->valueQuantity),
+                'valueCodeableConcept' => $this->createCodeableConceptResource($component->valueCodeableConcept),
+                'valueString' => $component->value_string,
+                'valueBoolean' => $component->value_boolean,
+                'valueInteger' => $component->value_integer,
+                'valueRange' => $this->createRangeResource($component->valueRange),
+                'valueRatio' => $this->createRatioResource($component->valueRatio),
+                'valueSampledData' => $this->createSampledDataResource($component->valueSampledData),
+                'valueTime' => $this->parseTime($component->value_time),
+                'valueDateTime' => $this->parseDateTime($component->value_date_time),
+                'valuePeriod' => $this->createPeriodResource($component->valuePeriod),
+                'dataAbsentReason' => $this->createCodeableConceptResource($component->dataAbsentReason),
+                'interpretation' => $this->createMany($component->interpretation, 'createCodeableConceptResource'),
+                'referenceRange' => $this->createMany($component->referenceRange, 'createReferenceRangeResource'),
+            ];
+        } else {
+            return null;
         }
-
-        return $appliesTo;
-    }
-
-
-    private function createComponentArray($componentAttribute)
-    {
-        $component = [];
-
-        foreach ($componentAttribute as $c) {
-            $component[] = $this->mergeArray(
-                [
-                    'code' => [
-                        'coding' => [
-                            [
-                                'system' => $c->code ? ObservationComponent::CODE['binding']['valueset']['system'] : null,
-                                'code' => $c->code,
-                                'display' => $c->code ? DB::table(ObservationComponent::CODE['binding']['valueset']['table'])
-                                    ->where('code', $c->code)
-                                    ->value('display') ?? null : null
-                            ]
-                        ],
-                    ],
-                    'dataAbsentReason' => [
-                        'coding' => [
-                            [
-                                'system' => $c->data_absent_reason ? Observation::DATA_ABSENT_REASON['binding']['valueset']['system'] : null,
-                                'code' => $c->data_absent_reason,
-                                'display' => $c->data_absent_reason ? Observation::DATA_ABSENT_REASON['binding']['valueset']['display'][$c->data_absent_reason] ?? null : null,
-                            ]
-                        ]
-                    ],
-                    'interpretation' => $this->createInterpretation($c->interpretation),
-                    'referenceRange' => $this->createReferenceArray($c->referenceRange)
-                ],
-                $c->value,
-            );
-        }
-
-        return $component;
     }
 }

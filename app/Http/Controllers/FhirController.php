@@ -48,9 +48,9 @@ class FhirController extends Controller
     }
 
 
-    public function updateResource(int $res_id): Resource
+    public function updateResource(string $satusehat_id): Resource
     {
-        $resource = Resource::where('id', $res_id)->firstOrFail();
+        $resource = Resource::where('satusehat_id', $satusehat_id)->firstOrFail();
         $resource->increment('res_version');
         $resource->refresh();
         return $resource;
@@ -61,18 +61,19 @@ class FhirController extends Controller
         $resource->refresh();
 
         $resourceText = new $resourceClass($resource);
-        $resource->content()->create([
+        return $resource->content()->create([
             'res_ver' => $resource->res_version,
             'res_text' => json_encode($resourceText),
         ]);
     }
 
 
-    public function createResource(string $resourceType)
+    public function createResource(string $resourceType, $satusehatId)
     {
         $resource = Resource::create([
             'res_type' => $resourceType,
             'res_ver' => 1,
+            'satusehat_id' => $satusehatId
         ]);
 
         return $resource;
@@ -86,17 +87,17 @@ class FhirController extends Controller
      */
     public function retrieveJsonPayload(Request $request)
     {
-        if (empty($request->getContent())) {
-            return response()->json(['error' => 'Empty request body'], 400);
-        }
+        // if (empty($request->getContent())) {
+        //     return response()->json(['error' => 'Empty request body'], 400);
+        // }
 
-        $body = json_decode($request->getContent(), true);
+        $body = $request->all();
+
+        $body = $this->removeEmptyValues($body);
 
         if ($body === null) {
             return response()->json(['error' => 'Invalid JSON'], 400);
         }
-
-        $body = $this->removeEmptyValues($body);
 
         return $body;
     }

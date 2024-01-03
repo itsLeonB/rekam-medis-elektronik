@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Fhir;
 
 use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\MedicationRequest;
+use App\Models\Fhir\Resources\MedicationRequest;
 use Illuminate\Validation\Rule;
 
 class MedicationRequestRequest extends FhirRequest
@@ -16,67 +16,89 @@ class MedicationRequestRequest extends FhirRequest
     public function rules(): array
     {
         return array_merge(
-            $this->baseAttributeRules(),
-            $this->baseDataRules('medicationRequest.'),
-            $this->getIdentifierDataRules('identifier.*.'),
-            $this->getAnnotationDataRules('note.*.'),
-            $this->getDosageDataRules('dosage.*.')
-        );
-    }
-
-    private function baseAttributeRules(): array
-    {
-        return [
-            'medicationRequest' => 'required|array',
-            'identifier' => 'nullable|array',
-            'note' => 'nullable|array',
-            'dosage' => 'nullable|array'
-        ];
-    }
-
-    private function baseDataRules($prefix): array
-    {
-        return array_merge(
             [
-                $prefix . 'status' => ['required', Rule::in(MedicationRequest::STATUS['binding']['valueset']['code'])],
-                $prefix . 'status_reason' => ['nullable', Rule::in(MedicationRequest::STATUS_REASON['binding']['valueset']['code'])],
-                $prefix . 'intent' => ['required', Rule::in(MedicationRequest::INTENT['binding']['valueset']['code'])],
-                $prefix . 'category' => 'nullable|array',
-                $prefix . 'category.*' => ['required', Rule::in(MedicationRequest::CATEGORY['binding']['valueset']['code'])],
-                $prefix . 'priority' => ['nullable', Rule::in(MedicationRequest::PRIORITY['binding']['valueset']['code'])],
-                $prefix . 'do_not_perform' => 'nullable|boolean',
-                $prefix . 'reported' => 'nullable|boolean',
-                $prefix . 'medication' => 'required|string',
-                $prefix . 'subject' => 'required|string',
-                $prefix . 'encounter' => 'nullable|string',
-                $prefix . 'supporting_information' => 'nullable|array',
-                $prefix . 'supporting_information.*' => 'required|string',
-                $prefix . 'authored_on' => 'nullable|date',
-                $prefix . 'requester' => 'nullable|string',
-                $prefix . 'performer' => 'nullable|string',
-                $prefix . 'performer_type' => 'nullable|string',
-                $prefix . 'recorder' => 'nullable|string',
-                $prefix . 'reason_code' => 'nullable|array',
-                $prefix . 'reason_code.*' => ['required', Rule::exists(MedicationRequest::REASON_CODE['binding']['valueset']['table'], 'code')],
-                $prefix . 'reason_reference' => 'nullable|array',
-                $prefix . 'reason_reference.*' => 'required|string',
-                $prefix . 'based_on' => 'nullable|array',
-                $prefix . 'based_on.*' => 'required|string',
-                $prefix . 'course_of_therapy' => ['nullable', Rule::in(MedicationRequest::COURSE_OF_THERAPY_TYPE['binding']['valueset']['code'])],
-                $prefix . 'insurance' => 'nullable|array',
-                $prefix . 'insurance.*' => 'required|string',
-                $prefix . 'repeats_allowed' => 'nullable|integer|gte:0',
-                $prefix . 'dispense_performer' => 'nullable|string',
-                $prefix . 'substitution_allowed' => 'nullable|array',
-                $prefix . 'substitution_allowed.allowedBoolean' => 'nullable|boolean',
-                $prefix . 'substitution_allowed.allowedCodeableConcept' => 'nullable|array',
-                $prefix . 'substitution_reason' => ['nullable', Rule::in(MedicationRequest::SUBSTITUTION_REASON['binding']['valueset']['code'])],
+                'identifier' => 'nullable|array',
+                'status' => ['required', Rule::in(MedicationRequest::STATUS['binding']['valueset']['code'])],
+                'statusReason' => 'nullable|array',
+                'intent' => ['required', Rule::in(MedicationRequest::INTENT['binding']['valueset']['code'])],
+                'category' => 'nullable|array',
+                'priority' => ['nullable', Rule::in(MedicationRequest::PRIORITY['binding']['valueset']['code'])],
+                'doNotPerform' => 'nullable|boolean',
+                'reportedBoolean' => 'nullable|boolean',
+                'reportedReference' => 'nullable|array',
+                'medicationCodeableConcept' => 'sometimes|array',
+                'medicationReference' => 'required|array',
+                'subject' => 'required|array',
+                'encounter' => 'nullable|array',
+                'supportingInformation' => 'nullable|array',
+                'authoredOn' => 'nullable|date',
+                'requester' => 'nullable|array',
+                'performer' => 'nullable|array',
+                'performerType' => 'nullable|array',
+                'recorder' => 'nullable|array',
+                'reasonCode' => 'nullable|array',
+                'reasonReference' => 'nullable|array',
+                'instantiatesCanonical' => 'nullable|array',
+                'instantiatesCanonical.*' => 'nullable|string',
+                'instantiatesUri' => 'nullable|array',
+                'instantiatesUri.*' => 'nullable|string',
+                'basedOn' => 'nullable|array',
+                'groupIdentifier' => 'nullable|array',
+                'courseOfTherapyType' => 'nullable|array',
+                'insurance' => 'nullable|array',
+                'note' => 'nullable|array',
+                'dosageInstruction' => 'nullable|array',
+                'dispenseRequest' => 'nullable|array',
+                'dispenseRequest.initialFill' => 'nullable|array',
+                'dispenseRequest.initialFill.quantity' => 'nullable|array',
+                'dispenseRequest.initialFill.duration' => 'nullable|array',
+                'dispenseRequest.dispenseInterval' => 'nullable|array',
+                'dispenseRequest.validityPeriod' => 'nullable|array',
+                'dispenseRequest.numberOfRepeatsAllowed' => 'nullable|integer|gte:0',
+                'dispenseRequest.quantity' => 'nullable|array',
+                'dispenseRequest.expectedSupplyDuration' => 'nullable|array',
+                'dispenseRequest.performer' => 'nullable|array',
+                'substitution' => 'nullable|array',
+                'substitution.allowedBoolean' => 'sometimes|boolean',
+                'substitution.allowedCodeableConcept' => 'sometimes|array',
+                'substitution.reason' => 'nullable|array',
+                'priorPrescription' => 'nullable|array',
+                'detectedIssue' => 'nullable|array',
+                'eventHistory' => 'nullable|array',
             ],
-            $this->getDurationDataRules($prefix . 'dispense_interval_'),
-            $this->getPeriodDataRules($prefix . 'validity_period_'),
-            $this->getQuantityDataRules($prefix . 'quantity_', true),
-            $this->getDurationDataRules($prefix . 'supply_duration_'),
-            $this->getCodeableConceptDataRules($prefix . 'substitution_allowed.allowedCodeableConcept.coding.*.', MedicationRequest::SUBSTITUTION_ALLOWED['binding']['valueset']['code']),
+            $this->getIdentifierRules('identifier.*.'),
+            $this->getCodeableConceptRules('statusReason.'),
+            $this->getCodeableConceptRules('category.*.'),
+            $this->getReferenceRules('reportedReference.'),
+            $this->getCodeableConceptRules('medicationCodeableConcept.'),
+            $this->getReferenceRules('medicationReference.'),
+            $this->getReferenceRules('subject.'),
+            $this->getReferenceRules('encounter.'),
+            $this->getReferenceRules('supportingInformation.*.'),
+            $this->getReferenceRules('requester.'),
+            $this->getReferenceRules('performer.'),
+            $this->getCodeableConceptRules('performerType.'),
+            $this->getReferenceRules('recorder.'),
+            $this->getCodeableConceptRules('reasonCode.*.'),
+            $this->getReferenceRules('reasonReference.*.'),
+            $this->getReferenceRules('basedOn.*.'),
+            $this->getIdentifierRules('groupIdentifier.'),
+            $this->getCodeableConceptRules('courseOfTherapyType.'),
+            $this->getReferenceRules('insurance.*.'),
+            $this->getCodeableConceptRules('note.*.'),
+            $this->getDosageRules('dosageInstruction.*.'),
+            $this->getSimpleQuantityRules('dispenseRequest.initialFill.quantity.'),
+            $this->getDurationRules('dispenseRequest.initialFill.duration.'),
+            $this->getDurationRules('dispenseRequest.dispenseInterval.'),
+            $this->getPeriodRules('dispenseRequest.validityPeriod.'),
+            $this->getSimpleQuantityRules('dispenseRequest.quantity.'),
+            $this->getDurationRules('dispenseRequest.expectedSupplyDuration.'),
+            $this->getReferenceRules('dispenseRequest.performer.'),
+            $this->getCodeableConceptRules('substitution.allowedCodeableConcept.'),
+            $this->getCodeableConceptRules('substitution.reason.'),
+            $this->getReferenceRules('priorPrescription.'),
+            $this->getReferenceRules('detectedIssue.*.'),
+            $this->getReferenceRules('eventHistory.*.')
         );
     }
 }

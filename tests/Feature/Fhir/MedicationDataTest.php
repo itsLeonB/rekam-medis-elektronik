@@ -30,7 +30,7 @@ class MedicationDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,15 +43,22 @@ class MedicationDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('medication');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('medication.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('medication', $data['medication']);
-        $this->assertManyData('medication_ingredient', $data['ingredient']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('medication_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medication/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('medication', 1);
+        $this->assertDatabaseCount('identifiers', 2);
+        $this->assertDatabaseCount('codeable_concepts', 7);
+        $this->assertDatabaseCount('codings', 7);
+        $this->assertDatabaseCount('references', 1);
+        $this->assertDatabaseCount('medication_ingredient', 4);
+        $this->assertDatabaseCount('ratios', 4);
+        $this->assertDatabaseCount('quantities', 8);
+        $this->assertDatabaseCount('extensions', 1);
     }
 
 
@@ -63,20 +70,27 @@ class MedicationDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('medication');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('medication.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['medication']['id'] = $newData['id'];
-        $data['medication']['resource_id'] = $newData['resource_id'];
-        $data['medication']['status'] = 'inactive';
-        $response = $this->json('PUT', route('medication.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $newData['manufacturer']['display'] = 'Organisasi update';
+        $newData['identifier'][0]['value'] = '1234567890';
+
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('medication', $data['medication']);
-        $this->assertManyData('medication_ingredient', $data['ingredient']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('medication_identifier', ['system' => 'http://sys-ids.kemkes.go.id/medication/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('medication', 1);
+        $this->assertDatabaseCount('identifiers', 2);
+        $this->assertDatabaseCount('codeable_concepts', 7);
+        $this->assertDatabaseCount('codings', 7);
+        $this->assertDatabaseCount('references', 1);
+        $this->assertDatabaseCount('medication_ingredient', 4);
+        $this->assertDatabaseCount('ratios', 4);
+        $this->assertDatabaseCount('quantities', 8);
+        $this->assertDatabaseCount('extensions', 1);
     }
 }

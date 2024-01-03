@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Fhir\Satusehat;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\FhirRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
-use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -16,6 +17,8 @@ class SatusehatController extends Controller
     public string $authUrl;
     public string $baseUrl;
     public string $consentUrl;
+    public string $kfaV1Url;
+    public string $kfaV2Url;
     public string $clientId;
     public string $clientSecret;
     public string $organizationId;
@@ -25,9 +28,42 @@ class SatusehatController extends Controller
         $this->authUrl = config('app.auth_url');
         $this->baseUrl = config('app.base_url');
         $this->consentUrl = config('app.consent_url');
+        $this->kfaV1Url = config('app.kfa_v1_url');
+        $this->kfaV2Url = config('app.kfa_v2_url');
         $this->clientId = config('app.client_id');
         $this->clientSecret = config('app.client_secret');
         $this->organizationId = config('app.organization_id');
+    }
+
+    public function searchKfaProduct(
+        int $page = 1,
+        int $size = 10,
+        string $productType = 'farmasi', // farmasi | alkes
+        string $fromDate = null,
+        string $toDate = null,
+        string $farmalkesType = null,
+        string $keyword = null,
+        int $templateCode = null,
+        string $packagingCode = null,
+    ) {
+        $client = new Client();
+
+        $response = $client->request('GET', config('app.kfa_v2_url') . '/products/all', [
+            'query' => [
+                'page' => $page,
+                'size' => $size,
+                'product_type' => $productType,
+                'from_date' => $fromDate,
+                'to_date' => $toDate,
+                'farmalkes_type' => $farmalkesType,
+                'keyword' => $keyword,
+                'template_code' => $templateCode,
+                'packaging_code' => $packagingCode,
+            ],
+            'verify' => false,
+        ]);
+
+        return $response->getBody()->getContents();
     }
 
     public function getToken()
@@ -50,6 +86,7 @@ class SatusehatController extends Controller
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
             ],
+            'verify' => false,
         ];
 
         $request = new Request('POST', $url, $headers);
@@ -64,9 +101,11 @@ class SatusehatController extends Controller
         return $token;
     }
 
-    public function get($resourceType, $satusehatId)
+    public function show($resourceType, $satusehatId)
     {
         $validResourceTypes = array_keys(Satusehat::AVAILABLE_METHODS);
+
+        $resourceType = ctype_upper($resourceType[0]) ? $resourceType : Satusehat::LOWER_CASE_MAPPING[$resourceType];
 
         if (!in_array($resourceType, $validResourceTypes)) {
             return response()->json([
@@ -87,24 +126,27 @@ class SatusehatController extends Controller
 
         $client = new Client();
 
+
         $url = $this->baseUrl . '/' . $resourceType . '/' . $satusehatId;
         $headers = ['Authorization' => 'Bearer ' . $token,];
 
         $request = new Request('GET', $url, $headers);
 
         try {
-            $response = $client->sendAsync($request)->wait();
-            $contents = json_decode($response->getBody()->getContents());
-            return $contents;
+            $response = $client->sendAsync($request, ['verify' => false])->wait();
+            return $response;
         } catch (ClientException $e) {
+            Log::error($e->getMessage());
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
             ), $e->getCode());
         }
     }
 
-    public function post(HttpRequest $fhirRequest, $res_type)
+    public function store(FhirRequest $fhirRequest, $res_type)
     {
+        $resourceType = ctype_upper($res_type[0]) ? $res_type : Satusehat::LOWER_CASE_MAPPING[$res_type];
+
         $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
         ]);
@@ -142,9 +184,9 @@ class SatusehatController extends Controller
         $request = new Request('POST', $url, $headers, json_encode($fhirRequest->all()));
 
         try {
-            $response = $client->sendAsync($request)->wait();
+            $response = $client->sendAsync($request, ['verify' => false])->wait();
             $contents = json_decode($response->getBody()->getContents());
-            return $contents;
+            return response()->json($contents, 201);
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
@@ -152,8 +194,10 @@ class SatusehatController extends Controller
         }
     }
 
-    public function put(HttpRequest $fhirRequest, $res_type, $res_id)
+    public function update(FhirRequest $fhirRequest, $res_type, $res_id)
     {
+        $res_type = ctype_upper($res_type[0]) ? $res_type : Satusehat::LOWER_CASE_MAPPING[$res_type];
+
         $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
             'id' => 'required|string',
@@ -185,14 +229,17 @@ class SatusehatController extends Controller
         }
 
         $url = $this->baseUrl . '/' . $resourceType . '/' . $id;
-        $headers = ['Authorization' => 'Bearer ' . $token,];
+        $headers = [
+            'Authorization' => 'Bearer ' . $token,
+            'Content-Type' => 'application/json'
+        ];
 
         $request = new Request('PUT', $url, $headers, json_encode($fhirRequest->all()));
 
         try {
-            $response = $client->sendAsync($request)->wait();
+            $response = $client->sendAsync($request, ['verify' => false])->wait();
             $contents = json_decode($response->getBody()->getContents());
-            return $contents;
+            return response()->json($contents, 200);
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()

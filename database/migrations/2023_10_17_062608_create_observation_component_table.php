@@ -16,10 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('observation_id');
             $table->index('observation_id');
             $table->foreign('observation_id')->references('id')->on('observation')->onDelete('cascade');
-            $table->string('code');
-            $table->json('value')->nullable();
-            $table->string('data_absent_reason')->nullable();
-            $table->json('interpretation')->nullable();
+            $table->string('value_string')->nullable();
+            $table->boolean('value_boolean')->nullable();
+            $table->integer('value_integer')->nullable();
+            $table->time('value_time')->nullable();
+            $table->dateTime('value_date_time')->nullable();
         });
     }
 

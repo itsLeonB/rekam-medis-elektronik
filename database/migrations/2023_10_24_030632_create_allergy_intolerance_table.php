@@ -16,21 +16,13 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->enum('clinical_status', ['active', 'inactive', 'resolved'])->nullable();
-            $table->string('verification_status')->nullable();
             $table->enum('type', ['allergy', 'intolerance'])->nullable();
             $table->json('category');
             $table->enum('criticality', ['low', 'high', 'unable-to-assess'])->nullable();
-            $table->string('code_system');
-            $table->string('code_code');
-            $table->string('code_display');
-            $table->string('patient');
-            $table->string('encounter')->nullable();
-            $table->json('onset')->nullable();
+            $table->dateTime('onset_date_time')->nullable();
+            $table->string('onset_string')->nullable();
             $table->dateTime('recorded_date')->nullable();
-            $table->string('recorder')->nullable();
-            $table->string('asserter')->nullable();
-            $table->dateTime('last_occurence')->nullable();
+            $table->dateTime('last_occurrence')->nullable();
         });
     }
 

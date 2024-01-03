@@ -16,19 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id');
             $table->index('resource_id');
             $table->foreign('resource_id')->references('id')->on('resource')->onDelete('cascade');
-            $table->json('based_on')->nullable();
-            $table->json('part_of')->nullable();
             $table->string('status')->nullable();
-            $table->json('status_reason')->nullable();
-            $table->enum('category', ['inpatient', 'outpatient', 'community', 'patientspecified'])->nullable();
-            $table->json('medication');
-            $table->string('subject');
-            $table->string('context')->nullable();
-            $table->json('effective')->nullable();
+            $table->dateTime('effective_date_time')->nullable();
             $table->dateTime('date_asserted')->nullable();
-            $table->string('information_source')->nullable();
-            $table->json('derived_from')->nullable();
-            $table->json('reason_reference')->nullable();
         });
     }
 

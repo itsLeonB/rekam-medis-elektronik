@@ -30,7 +30,7 @@ class ConditionDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,17 +43,18 @@ class ConditionDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('condition');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('condition.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('condition', $data['condition']);
-        $this->assertManyData('condition_stage', $data['stage']);
-        $this->assertManyData('condition_evidence', $data['evidence']);
-        $this->assertManyData('condition_note', $data['note']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('condition_identifier', ['system' => 'http://sys-ids.kemkes.go.id/condition/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('condition', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('codeable_concepts', 3);
+        $this->assertDatabaseCount('codings', 3);
+        $this->assertDatabaseCount('references', 2);
     }
 
 
@@ -65,22 +66,23 @@ class ConditionDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('condition');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('condition.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['condition']['id'] = $newData['id'];
-        $data['condition']['resource_id'] = $newData['resource_id'];
-        $data['condition']['verification_status'] = 'confirmed';
-        $response = $this->json('PUT', route('condition.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $newData['onsetDateTime'] = '2022-06-15';
+        $newData['encounter']['display'] = 'Kunjungan update';
+
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('condition', $data['condition']);
-        $this->assertManyData('condition_stage', $data['stage']);
-        $this->assertManyData('condition_evidence', $data['evidence']);
-        $this->assertManyData('condition_note', $data['note']);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('condition_identifier', ['system' => 'http://sys-ids.kemkes.go.id/condition/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('condition', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('codeable_concepts', 3);
+        $this->assertDatabaseCount('codings', 3);
+        $this->assertDatabaseCount('references', 2);
     }
 }

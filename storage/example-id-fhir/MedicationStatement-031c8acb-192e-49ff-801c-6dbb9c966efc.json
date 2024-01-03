@@ -1,0 +1,15 @@
+{
+    "id": "031c8acb-192e-49ff-801c-6dbb9c966efc",
+    "medicationReference": {
+        "reference": "Medication/8f299a19-5887-4b8e-90a2-c2c15ecbe1d1"
+    },
+    "meta": {
+        "lastUpdated": "2024-01-02T13:55:39.514276+00:00",
+        "versionId": "MTcwNDIwMzczOTUxNDI3NjAwMA"
+    },
+    "resourceType": "MedicationStatement",
+    "status": "active",
+    "subject": {
+        "reference": "Patient/P02478375538"
+    }
+}

@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Fhir\Practitioner;
 use Illuminate\Http\Request;
 
 class PractitionerResource extends FhirResource
@@ -24,75 +23,35 @@ class PractitionerResource extends FhirResource
     }
 
 
-    private function resourceStructure($practitioner): array
+    public function resourceStructure($practitioner): array
     {
         return [
             'resourceType' => 'Practitioner',
             'id' => $this->satusehat_id,
-            'identifier' => $this->createIdentifierArray($practitioner->identifier),
+            'identifier' => $this->createMany($practitioner->identifier, 'createIdentifierResource'),
             'active' => $practitioner->active,
-            'name' => $this->createHumanNameArray($practitioner->name),
-            'telecom' => $this->createTelecomArray($practitioner->telecom),
-            'address' => $this->createAddressArray($practitioner->address),
+            'name' => $this->createMany($practitioner->name, 'createHumanNameResource'),
+            'telecom' => $this->createMany($practitioner->telecom, 'createContactPointResource'),
+            'address' => $this->createMany($practitioner->address, 'createAddressResource'),
             'gender' => $practitioner->gender,
-            'birthDate' => $this->parseDateFhir($practitioner->birth_date),
-            'photo' => $this->createPhotoArray($practitioner->photo),
-            'qualification' => $this->createQualificationArray($practitioner->qualification),
-            'communication' => $this->createCommunicationArray($practitioner->communication),
+            'birthDate' => $this->parseDate($practitioner->birth_date),
+            'photo' => $this->createMany($practitioner->photo, 'createAttachmentResource'),
+            'qualification' => $this->createMany($practitioner->qualification, 'createQualificationResource'),
+            'communication' => $this->createMany($practitioner->communication, 'createCodeableConceptResource')
         ];
     }
 
-
-    private function createCommunicationArray($communications): array
+    public function createQualificationResource($qualification)
     {
-        $data = [];
-
-        if (!empty($communications)) {
-            foreach ($communications as $c) {
-                $data[] = [
-                    'coding' => [
-                        [
-                            'system' => $c ? Practitioner::COMMUNICATION['binding']['valueset']['system'] : null,
-                            'code' => $c,
-                            'display' => $c ? Practitioner::COMMUNICATION['binding']['valueset']['display'][$c] ?? null : null,
-                        ]
-                    ]
-                ];
-            }
+        if (!empty($qualification)) {
+            return [
+                'identifier' => $this->createMany($qualification->identifier, 'createIdentifierResource'),
+                'code' => $this->createCodeableConceptResource($qualification->code),
+                'period' => $this->createPeriodResource($qualification->period),
+                'issuer' => $this->createReferenceResource($qualification->issuer)
+            ];
+        } else {
+            return null;
         }
-
-        return $data;
-    }
-
-
-    private function createQualificationArray($qualifications): array
-    {
-        $data = [];
-
-        if (!empty($qualifications)) {
-            foreach ($qualifications as $qualification) {
-                $data[] = [
-                    'identifier' => $this->createIdentifierArray($qualification->identifier),
-                    'code' => [
-                        'coding' => [
-                            [
-                                'system' => $qualification->code_system,
-                                'code' => $qualification->code_code,
-                                'display' => $qualification->code_display,
-                            ]
-                        ],
-                    ],
-                    'period' => [
-                        'start' => $this->parseDateFhir($qualification->period_start),
-                        'end' => $this->parseDateFhir($qualification->period_end),
-                    ],
-                    'issuer' => [
-                        'reference' => $qualification->issuer,
-                    ]
-                ];
-            }
-        }
-
-        return $data;
     }
 }

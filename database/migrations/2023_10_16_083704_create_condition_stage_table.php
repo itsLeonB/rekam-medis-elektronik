@@ -15,10 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('condition_id');
             $table->index('condition_id');
-            $table->foreign('condition_id')->references('id')->on('condition')->onDelete('cascade');
-            $table->string('summary')->nullable();
-            $table->json('assessment')->nullable();
-            $table->string('type')->nullable();
+            $table->foreign('condition_id')->references('id')->on('condition');
         });
     }
 

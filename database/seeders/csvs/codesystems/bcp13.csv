@@ -1,0 +1,701 @@
+display,code,extension
+3D Crossword Plugin,application/vnd.hzn-3d-crossword,.x3d
+3GP,video/3gpp,.3gp
+3GP2,video/3gpp2,.3g2
+3GPP MSEQ File,application/vnd.mseq,.mseq
+3M Post It Notes,application/vnd.3m.post-it-notes,.pwn
+3rd Generation Partnership Project - Pic Large,application/vnd.3gpp.pic-bw-large,.plb
+3rd Generation Partnership Project - Pic Small,application/vnd.3gpp.pic-bw-small,.psb
+3rd Generation Partnership Project - Pic Var,application/vnd.3gpp.pic-bw-var,.pvb
+3rd Generation Partnership Project - Transaction Capabilities Application Part,application/vnd.3gpp2.tcap,.tcap
+7-Zip,application/x-7z-compressed,.7z
+AbiWord,application/x-abiword,.abw
+Ace Archive,application/x-ace-compressed,.ace
+Active Content Compression,application/vnd.americandynamics.acc,.acc
+ACU Cobol,application/vnd.acucobol,.acu
+ACU Cobol,application/vnd.acucorp,.atc
+Adaptive differential pulse-code modulation,audio/adpcm,.adp
+Adobe (Macropedia) Authorware - Binary File,application/x-authorware-bin,.aab
+Adobe (Macropedia) Authorware - Map,application/x-authorware-map,.aam
+Adobe (Macropedia) Authorware - Segment File,application/x-authorware-seg,.aas
+Adobe AIR Application,application/vnd.adobe.air-application-installer-package+zip,.air
+Adobe Flash,application/x-shockwave-flash,.swf
+Adobe Flex Project,application/vnd.adobe.fxp,.fxp
+Adobe Portable Document Format,application/pdf,.pdf
+Adobe PostScript Printer Description File Format,application/vnd.cups-ppd,.ppd
+Adobe Shockwave Player,application/x-director,.dir
+Adobe XML Data Package,application/vnd.adobe.xdp+xml,.xdp
+Adobe XML Forms Data Format,application/vnd.adobe.xfdf,.xfdf
+Advanced Audio Coding (AAC),audio/x-aac,.aac
+Ahead AIR Application,application/vnd.ahead.space,.ahead
+AirZip FileSECURE,application/vnd.airzip.filesecure.azf,.azf
+AirZip FileSECURE,application/vnd.airzip.filesecure.azs,.azs
+Amazon Kindle eBook format,application/vnd.amazon.ebook,.azw
+AmigaDE,application/vnd.amiga.ami,.ami
+Andrew Toolkit,application/andrew-inset,N/A
+Android Package Archive,application/vnd.android.package-archive,.apk
+ANSER-WEB Terminal Client - Certificate Issue,application/vnd.anser-web-certificate-issue-initiation,.cii
+ANSER-WEB Terminal Client - Web Funds Transfer,application/vnd.anser-web-funds-transfer-initiation,.fti
+Antix Game Player,application/vnd.antix.game-component,.atx
+Apple Disk Image,application/x-apple-diskimage,.dmg
+Apple Installer Package,application/vnd.apple.installer+xml,.mpkg
+Applixware,application/applixware,.aw
+Archipelago Lesson Player,application/vnd.hhe.lesson-player,.les
+Archive document - Multiple Fils Embedded,application/x-freearc,.arc
+Arista Networks Software Image,application/vnd.aristanetworks.swi,.swi
+Assembler Source File,text/x-asm,.s
+Atom Publishing Protocol,application/atomcat+xml,.atomcat
+Atom Publishing Protocol Service Document,application/atomsvc+xml,.atomsvc
+Atom Syndication Format,application/atom+xml,".atom, .xml"
+Attribute Certificate,application/pkix-attr-cert,.ac
+Audio Interchange File Format,audio/x-aiff,.aif
+Audio Video Interleave (AVI),video/x-msvideo,.avi
+Audiograph,application/vnd.audiograph,.aep
+AutoCAD DXF,image/vnd.dxf,.dxf
+Autodesk Design Web Format (DWF),model/vnd.dwf,.dwf
+AV1 Image File,image/avif,.avif
+BAS Partitur Format,text/plain-bas,.par
+Binary CPIO Archive,application/x-bcpio,.bcpio
+Binary Data,application/octet-stream,.bin
+Bitmap Image File,image/bmp,.bmp
+BitTorrent,application/x-bittorrent,.torrent
+Blackberry COD File,application/vnd.rim.cod,.cod
+Blueice Research Multipass,application/vnd.blueice.multipass,.mpm
+BMI Drawing Data Interchange,application/vnd.bmi,.bmi
+Bourne Shell Script,application/x-sh,.sh
+BTIF,image/prs.btif,.btif
+BusinessObjects,application/vnd.businessobjects,.rep
+Bzip Archive,application/x-bzip,.bz
+Bzip2 Archive,application/x-bzip2,.bz2
+C Shell Script,application/x-csh,.csh
+C Source File,text/x-c,.c
+CambridgeSoft Chem Draw,application/vnd.chemdraw+xml,.cdxml
+Cascading Style Sheets (CSS),text/css,.css
+CD Audio,application/x-cdf,.cda
+ChemDraw eXchange file,chemical/x-cdx,.cdx
+Chemical Markup Language,chemical/x-cml,.cml
+Chemical Style Markup Language,chemical/x-csml,.csml
+CIM Database,application/vnd.contact.cmsg,.cdbcmsg
+Claymore Data Files,application/vnd.claymore,.cla
+Clonk Game,application/vnd.clonk.c4group,.c4g
+Close Captioning - Subtitle,image/vnd.dvb.subtitle,.sub
+Cloud Data Management Interface (CDMI) - Capability,application/cdmi-capability,.cdmia
+Cloud Data Management Interface (CDMI) - Contaimer,application/cdmi-container,.cdmic
+Cloud Data Management Interface (CDMI) - Domain,application/cdmi-domain,.cdmid
+Cloud Data Management Interface (CDMI) - Object,application/cdmi-object,.cdmio
+Cloud Data Management Interface (CDMI) - Queue,application/cdmi-queue,.cdmiq
+ClueTrust CartoMobile - Config,application/vnd.cluetrust.cartomobile-config,.c11amc
+ClueTrust CartoMobile - Config Package,application/vnd.cluetrust.cartomobile-config-pkg,.c11amz
+CMU Image,image/x-cmu-raster,.ras
+COLLADA,model/vnd.collada+xml,.dae
+Comma-Seperated Values,text/csv,.csv
+Compact Pro,application/mac-compactpro,.cpt
+Compiled Wireless Markup Language (WMLC),application/vnd.wap.wmlc,.wmlc
+Computer Graphics Metafile,image/cgm,.cgm
+CoolTalk,x-conference/x-cooltalk,.ice
+Corel Metafile Exchange (CMX),image/x-cmx,.cmx
+CorelXARA,application/vnd.xara,.xar
+CosmoCaller,application/vnd.cosmocaller,.cmc
+CPIO Archive,application/x-cpio,.cpio
+CrickSoftware - Clicker,application/vnd.crick.clicker,.clkx
+CrickSoftware - Clicker - Keyboard,application/vnd.crick.clicker.keyboard,.clkk
+CrickSoftware - Clicker - Palette,application/vnd.crick.clicker.palette,.clkp
+CrickSoftware - Clicker - Template,application/vnd.crick.clicker.template,.clkt
+CrickSoftware - Clicker - Wordbank,application/vnd.crick.clicker.wordbank,.clkw
+Critical Tools - PERT Chart EXPERT,application/vnd.criticaltools.wbs+xml,.wbs
+CryptoNote,application/vnd.rig.cryptonote,.cryptonote
+Crystallographic Interchange Format,chemical/x-cif,.cif
+CrystalMaker Data Format,chemical/x-cmdf,.cmdf
+CU-SeeMe,application/cu-seeme,.cu
+CU-Writer,application/prs.cww,.cww
+Curl - Applet,text/vnd.curl,.curl
+Curl - Detached Applet,text/vnd.curl.dcurl,.dcurl
+Curl - Manifest File,text/vnd.curl.mcurl,.mcurl
+Curl - Source Code,text/vnd.curl.scurl,.scurl
+CURL Applet,application/vnd.curl.car,.car
+CURL Applet,application/vnd.curl.pcurl,.pcurl
+CustomMenu,application/vnd.yellowriver-custom-menu,.cmp
+Data Structure for the Security Suitability of Cryptographic Algorithms,application/dssc+der,.dssc
+Data Structure for the Security Suitability of Cryptographic Algorithms,application/dssc+xml,.xdssc
+Debian Package,application/x-debian-package,.deb
+DECE Audio,audio/vnd.dece.audio,.uva
+DECE Graphic,image/vnd.dece.graphic,.uvi
+DECE High Definition Video,video/vnd.dece.hd,.uvh
+DECE Mobile Video,video/vnd.dece.mobile,.uvm
+DECE MP4,video/vnd.uvvu.mp4,.uvu
+DECE PD Video,video/vnd.dece.pd,.uvp
+DECE SD Video,video/vnd.dece.sd,.uvs
+DECE Video,video/vnd.dece.video,.uvv
+Device Independent File Format (DVI),application/x-dvi,.dvi
+Digital Siesmograph Networks - SEED Datafiles,application/vnd.fdsn.seed,.seed
+Digital Talking Book,application/x-dtbook+xml,.dtb
+Digital Talking Book - Resource File,application/x-dtbresource+xml,.res
+Digital Video Broadcasting,application/vnd.dvb.ait,.ait
+Digital Video Broadcasting,application/vnd.dvb.service,.svc
+Digital Winds Music,audio/vnd.digital-winds,.eol
+DjVu,image/vnd.djvu,.djvu
+Document Type Definition,application/xml-dtd,.dtd
+Dolby Meridian Lossless Packing,application/vnd.dolby.mlp,.mlp
+Doom Video Game,application/x-doom,.wad
+DPGraph,application/vnd.dpgraph,.dpg
+DRA Audio,audio/vnd.dra,.dra
+DreamFactory,application/vnd.dreamfactory,.dfac
+DTS Audio,audio/vnd.dts,.dts
+DTS High Definition Audio,audio/vnd.dts.hd,.dtshd
+DWG Drawing,image/vnd.dwg,.dwg
+DynaGeo,application/vnd.dynageo,.geo
+ECMAScript,application/ecmascript,.es
+EcoWin Chart,application/vnd.ecowin.chart,.mag
+EDMICS 2000,image/vnd.fujixerox.edmics-mmr,.mmr
+EDMICS 2000,image/vnd.fujixerox.edmics-rlc,.rlc
+Efficient XML Interchange,application/exi,.exi
+EFI Proteus,application/vnd.proteus.magazine,.mgz
+Electronic Publication,application/epub+zip,.epub
+Email Message,message/rfc822,.eml
+Enliven Viewer,application/vnd.enliven,.nml
+Express by Infoseek,application/vnd.is-xpr,.xpr
+eXtended Image File Format (XIFF),image/vnd.xiff,.xif
+Extensible Forms Description Language,application/vnd.xfdl,.xfdl
+Extensible MultiModal Annotation,application/emma+xml,.emma
+EZPix Secure Photo Album,application/vnd.ezpix-album,.ez2
+EZPix Secure Photo Album,application/vnd.ezpix-package,.ez3
+FAST Search & Transfer ASA,image/vnd.fst,.fst
+FAST Search & Transfer ASA,video/vnd.fvt,.fvt
+FastBid Sheet,image/vnd.fastbidsheet,.fbs
+FCS Express Layout Link,application/vnd.denovo.fcselayout-link,.fe_launch
+Flash Video,video/x-f4v,.f4v
+Flash Video,video/x-flv,.flv
+FlashPix,image/vnd.fpx,.fpx
+FlashPix,image/vnd.net-fpx,.npx
+FLEXSTOR,text/vnd.fmi.flexstor,.flx
+FLI/FLC Animation Format,video/x-fli,.fli
+FluxTime Clip,application/vnd.fluxtime.clip,.ftc
+Forms Data Format,application/vnd.fdf,.fdf
+Fortran Source File,text/x-fortran,.f
+FrameMaker Interchange Format,application/vnd.mif,.mif
+FrameMaker Normal Format,application/vnd.framemaker,.fm
+FreeHand MX,image/x-freehand,.fh
+Friendly Software Corporation,application/vnd.fsc.weblaunch,.fsc
+Frogans Player,application/vnd.frogans.fnc,.fnc
+Frogans Player,application/vnd.frogans.ltf,.ltf
+Fujitsu - Xerox 2D CAD Data,application/vnd.fujixerox.ddd,.ddd
+Fujitsu - Xerox DocuWorks,application/vnd.fujixerox.docuworks,.xdw
+Fujitsu - Xerox DocuWorks Binder,application/vnd.fujixerox.docuworks.binder,.xbd
+Fujitsu Oasys,application/vnd.fujitsu.oasys,.oas
+Fujitsu Oasys,application/vnd.fujitsu.oasys2,.oa2
+Fujitsu Oasys,application/vnd.fujitsu.oasys3,.oa3
+Fujitsu Oasys,application/vnd.fujitsu.oasysgp,.fg5
+Fujitsu Oasys,application/vnd.fujitsu.oasysprs,.bh2
+FutureSplash Animator,application/x-futuresplash,.spl
+FuzzySheet,application/vnd.fuzzysheet,.fzs
+G3 Fax Image,image/g3fax,.g3
+GameMaker ActiveX,application/vnd.gmx,.gmx
+Gen-Trix Studio,model/vnd.gtw,.gtw
+Genomatix Tuxedo Framework,application/vnd.genomatix.tuxedo,.txd
+GeoGebra,application/vnd.geogebra.file,.ggb
+GeoGebra,application/vnd.geogebra.tool,.ggt
+Geometric Description Language (GDL),model/vnd.gdl,.gdl
+GeoMetry Explorer,application/vnd.geometry-explorer,.gex
+GEONExT and JSXGraph,application/vnd.geonext,.gxt
+GeoplanW,application/vnd.geoplan,.g2w
+GeospacW,application/vnd.geospace,.g3w
+Ghostscript Font,application/x-font-ghostscript,.gsf
+Glyph Bitmap Distribution Format,application/x-font-bdf,.bdf
+GNU Tar Files,application/x-gtar,.gtar
+GNU Texinfo Document,application/x-texinfo,.texinfo
+Gnumeric,application/x-gnumeric,.gnumeric
+Google Earth - KML,application/vnd.google-earth.kml+xml,.kml
+Google Earth - Zipped KML,application/vnd.google-earth.kmz,.kmz
+GPS eXchange Format,application/gpx+xml,.gpx
+GrafEq,application/vnd.grafeq,.gqf
+Graphics Interchange Format,image/gif,.gif
+Graphviz,text/vnd.graphviz,.gv
+Groove - Account,application/vnd.groove-account,.gac
+Groove - Help,application/vnd.groove-help,.ghf
+Groove - Identity Message,application/vnd.groove-identity-message,.gim
+Groove - Injector,application/vnd.groove-injector,.grv
+Groove - Tool Message,application/vnd.groove-tool-message,.gtm
+Groove - Tool Template,application/vnd.groove-tool-template,.tpl
+Groove - Vcard,application/vnd.groove-vcard,.vcg
+GZip,application/gzip,.gz
+H.261,video/h261,.h261
+H.263,video/h263,.h263
+H.264,video/h264,.h264
+Hewlett Packard Instant Delivery,application/vnd.hp-hpid,.hpid
+Hewlett-Packard's WebPrintSmart,application/vnd.hp-hps,.hps
+Hierarchical Data Format,application/x-hdf,.hdf
+Hit'n'Mix,audio/vnd.rip,.rip
+Homebanking Computer Interface (HBCI),application/vnd.hbci,.hbci
+HP Indigo Digital Press - Job Layout Languate,application/vnd.hp-jlyt,.jlt
+HP Printer Command Language,application/vnd.hp-pcl,.pcl
+HP-GL/2 and HP RTL,application/vnd.hp-hpgl,.hpgl
+HV Script,application/vnd.yamaha.hv-script,.hvs
+HV Voice Dictionary,application/vnd.yamaha.hv-dic,.hvd
+HV Voice Parameter,application/vnd.yamaha.hv-voice,.hvp
+Hydrostatix Master Suite,application/vnd.hydrostatix.sof-data,.sfd-hdstx
+Hyperstudio,application/hyperstudio,.stk
+Hypertext Application Language,application/vnd.hal+xml,.hal
+HyperText Markup Language (HTML),text/html,.html
+IBM DB2 Rights Manager,application/vnd.ibm.rights-management,.irm
+IBM Electronic Media Management System - Secure Container,application/vnd.ibm.secure-container,.sc
+iCalendar,text/calendar,.ics
+ICC profile,application/vnd.iccprofile,.icc
+Icon Image,image/x-icon,.ico
+igLoader,application/vnd.igloader,.igl
+Image Exchange Format,image/ief,.ief
+ImmerVision PURE Players,application/vnd.immervision-ivp,.ivp
+ImmerVision PURE Players,application/vnd.immervision-ivu,.ivu
+IMS Networks,application/reginfo+xml,.rif
+In3D - 3DML,text/vnd.in3d.3dml,.3dml
+In3D - 3DML,text/vnd.in3d.spot,.spot
+Initial Graphics Exchange Specification (IGES),model/iges,.igs
+Interactive Geometry Software,application/vnd.intergeo,.i2g
+Interactive Geometry Software Cinderella,application/vnd.cinderella,.cdy
+Intercon FormNet,application/vnd.intercon.formnet,.xpw
+International Society for Advancement of Cytometry,application/vnd.isac.fcs,.fcs
+Internet Protocol Flow Information Export,application/ipfix,.ipfix
+Internet Public Key Infrastructure - Certificate,application/pkix-cert,.cer
+Internet Public Key Infrastructure - Certificate Management Protocole,application/pkixcmp,.pki
+Internet Public Key Infrastructure - Certificate Revocation Lists,application/pkix-crl,.crl
+Internet Public Key Infrastructure - Certification Path,application/pkix-pkipath,.pkipath
+IOCOM Visimeet,application/vnd.insors.igm,.igm
+IP Unplugged Roaming Client,application/vnd.ipunplugged.rcprofile,.rcprofile
+iRepository / Lucidoc Editor,application/vnd.irepository.package+xml,.irp
+J2ME App Descriptor,text/vnd.sun.j2me.app-descriptor,.jad
+Java Archive,application/java-archive,.jar
+Java Bytecode File,application/java-vm,.class
+Java Network Launching Protocol,application/x-java-jnlp-file,.jnlp
+Java Serialized Object,application/java-serialized-object,.ser
+Java Source File,"text/x-java-source,java",.java
+JavaScript,application/javascript,.js
+JavaScript Module,text/javascript,.mjs
+JavaScript Module,application/json,.mjs
+JavaScript Object Notation (JSON),application/vnd.joost.joda-archive,.json
+Joda Archive,video/jpm,.joda
+JPEG 2000 Compound Image File Format,image/jpeg,.jpm
+JPEG Image,image/x-citrix-jpeg,".jpeg, .jpg"
+JPEG Image (Citrix client),image/pjpeg,".jpeg, .jpg"
+JPEG Image (Progressive),video/jpeg,.pjpeg
+JPGVideo,application/ld+json,.jpgv
+JSON - Linked Data,application/vnd.kahootz,.jsonld
+Kahootz,application/vnd.chipnuts.karaoke-mmd,.ktz
+Karaoke on Chipnuts Chipsets,application/vnd.kde.karbon,.mmd
+KDE KOffice Office Suite - Karbon,application/vnd.kde.kchart,.karbon
+KDE KOffice Office Suite - KChart,application/vnd.kde.kformula,.chrt
+KDE KOffice Office Suite - Kformula,application/vnd.kde.kivio,.kfo
+KDE KOffice Office Suite - Kivio,application/vnd.kde.kontour,.flw
+KDE KOffice Office Suite - Kontour,application/vnd.kde.kpresenter,.kon
+KDE KOffice Office Suite - Kpresenter,application/vnd.kde.kspread,.kpr
+KDE KOffice Office Suite - Kspread,application/vnd.kde.kword,.ksp
+KDE KOffice Office Suite - Kword,application/vnd.kenameaapp,.kwd
+Kenamea App,application/vnd.kidspiration,.htke
+Kidspiration,application/vnd.kinar,.kia
+Kinar Applications,application/vnd.kodak-descriptor,.kne
+Kodak Storyshare,application/vnd.las.las+xml,.sse
+Laser App Enterprise,application/x-latex,.lasxml
+LaTeX,application/vnd.llamagraphics.life-balance.desktop,.latex
+Life Balance - Desktop Edition,application/vnd.llamagraphics.life-balance.exchange+xml,.lbd
+Life Balance - Exchange Format,application/vnd.jam,.lbe
+Lightspeed Audio Lab,application/vnd.lotus-1-2-3,.jam
+Lotus 1-2-3,application/vnd.lotus-approach,0.123
+Lotus Approach,application/vnd.lotus-freelance,.apr
+Lotus Freelance,application/vnd.lotus-notes,.pre
+Lotus Notes,application/vnd.lotus-organizer,.nsf
+Lotus Organizer,application/vnd.lotus-screencam,.org
+Lotus Screencam,application/vnd.lotus-wordpro,.scm
+Lotus Wordpro,audio/vnd.lucent.voice,.lwp
+Lucent Voice,audio/x-mpegurl,.lvp
+M3U (Multimedia Playlist),video/x-m4v,.m3u
+M4v,application/mac-binhex40,.m4v
+Macintosh BinHex 4.0,application/vnd.macports.portpkg,.hqx
+MacPorts Port System,application/vnd.osgeo.mapguide.package,.portpkg
+MapGuide DBXML,application/marc,.mgp
+MARC Formats,application/marcxml+xml,.mrc
+MARC21 XML Schema,application/mxf,.mrcx
+Material Exchange Format,application/vnd.wolfram.player,.mxf
+Mathematica Notebook Player,application/mathematica,.nbp
+Mathematica Notebooks,application/mathml+xml,.ma
+Mathematical Markup Language,application/mbox,.mathml
+Mbox database files,application/vnd.medcalcdata,.mbox
+MedCalc,application/mediaservercontrol+xml,.mc1
+Media Server Control Markup Language,application/vnd.mediastation.cdkey,.mscml
+MediaRemote,application/vnd.mfer,.cdkey
+Medical Waveform Encoding Format,application/vnd.mfmp,.mwf
+Melody Format for Mobile Platform,model/mesh,.mfm
+Mesh Data Type,application/mads+xml,.msh
+Metadata Authority Description Schema,application/mets+xml,.mads
+Metadata Encoding and Transmission Standard,application/mods+xml,.mets
+Metadata Object Description Schema,application/metalink4+xml,.mods
+Metalink,application/vnd.mcd,.meta4
+Micro CADAM Helix D&D,application/vnd.micrografx.flo,.mcd
+Micrografx,application/vnd.micrografx.igx,.flo
+Micrografx iGrafx Professional,application/vnd.eszigno3+xml,.igx
+MICROSEC e-Szign�,application/x-msaccess,.es3
+Microsoft Access,video/x-ms-asf,.mdb
+Microsoft Advanced Systems Format (ASF),application/x-msdownload,.asf
+Microsoft Application,application/vnd.ms-artgalry,.exe
+Microsoft Artgalry,application/vnd.ms-cab-compressed,.cil
+Microsoft Cabinet File,application/vnd.ms-ims,.cab
+Microsoft Class Server,application/x-ms-application,.ims
+Microsoft ClickOnce,application/x-msclip,.application
+Microsoft Clipboard Clip,image/vnd.ms-modi,.clp
+Microsoft Document Imaging Format,application/vnd.ms-fontobject,.mdi
+Microsoft Embedded OpenType,application/vnd.ms-excel,.eot
+Microsoft Excel,application/vnd.ms-excel.addin.macroenabled.12,.xls
+Microsoft Excel - Add-In File,application/vnd.ms-excel.sheet.binary.macroenabled.12,.xlam
+Microsoft Excel - Binary Workbook,application/vnd.ms-excel.template.macroenabled.12,.xlsb
+Microsoft Excel - Macro-Enabled Template File,application/vnd.ms-excel.sheet.macroenabled.12,.xltm
+Microsoft Excel - Macro-Enabled Workbook,application/vnd.ms-htmlhelp,.xlsm
+Microsoft Html Help File,application/x-mscardfile,.chm
+Microsoft Information Card,application/vnd.ms-lrm,.crd
+Microsoft Learning Resource Module,application/x-msmediaview,.lrm
+Microsoft MediaView,application/x-msmoney,.mvb
+Microsoft Money,application/vnd.openxmlformats-officedocument.presentationml.presentation,.mny
+Microsoft Office - OOXML - Presentation,application/vnd.openxmlformats-officedocument.presentationml.slide,.pptx
+Microsoft Office - OOXML - Presentation (Slide),application/vnd.openxmlformats-officedocument.presentationml.slideshow,.sldx
+Microsoft Office - OOXML - Presentation (Slideshow),application/vnd.openxmlformats-officedocument.presentationml.template,.ppsx
+Microsoft Office - OOXML - Presentation Template,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.potx
+Microsoft Office - OOXML - Spreadsheet,application/vnd.openxmlformats-officedocument.spreadsheetml.template,.xlsx
+Microsoft Office - OOXML - Spreadsheet Template,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.xltx
+Microsoft Office - OOXML - Word Document,application/vnd.openxmlformats-officedocument.wordprocessingml.template,.docx
+Microsoft Office - OOXML - Word Document Template,application/x-msbinder,.dotx
+Microsoft Office Binder,application/vnd.ms-officetheme,.obd
+Microsoft Office System Release Theme,application/onenote,.thmx
+Microsoft OneNote,audio/vnd.ms-playready.media.pya,.onetoc
+Microsoft PlayReady Ecosystem,video/vnd.ms-playready.media.pyv,.pya
+Microsoft PlayReady Ecosystem Video,application/vnd.ms-powerpoint,.pyv
+Microsoft PowerPoint,application/vnd.ms-powerpoint.addin.macroenabled.12,.ppt
+Microsoft PowerPoint - Add-in file,application/vnd.ms-powerpoint.slide.macroenabled.12,.ppam
+Microsoft PowerPoint - Macro-Enabled Open XML Slide,application/vnd.ms-powerpoint.presentation.macroenabled.12,.sldm
+Microsoft PowerPoint - Macro-Enabled Presentation File,application/vnd.ms-powerpoint.slideshow.macroenabled.12,.pptm
+Microsoft PowerPoint - Macro-Enabled Slide Show File,application/vnd.ms-powerpoint.template.macroenabled.12,.ppsm
+Microsoft PowerPoint - Macro-Enabled Template File,application/vnd.ms-project,.potm
+Microsoft Project,application/x-mspublisher,.mpp
+Microsoft Publisher,application/x-msschedule,.pub
+Microsoft Schedule+,application/x-silverlight-app,.scd
+Microsoft Silverlight,application/vnd.ms-pki.stl,.xap
+Microsoft Trust UI Provider - Certificate Trust Link,application/vnd.ms-pki.seccat,.stl
+Microsoft Trust UI Provider - Security Catalog,application/vnd.visio,.cat
+Microsoft Visio,application/vnd.visio2013,.vsd
+Microsoft Visio 2013,video/x-ms-wm,.vsdx
+Microsoft Windows Media,audio/x-ms-wma,.wm
+Microsoft Windows Media Audio,audio/x-ms-wax,.wma
+Microsoft Windows Media Audio Redirector,video/x-ms-wmx,.wax
+Microsoft Windows Media Audio/Video Playlist,application/x-ms-wmd,.wmx
+Microsoft Windows Media Player Download Package,application/vnd.ms-wpl,.wmd
+Microsoft Windows Media Player Playlist,application/x-ms-wmz,.wpl
+Microsoft Windows Media Player Skin Package,video/x-ms-wmv,.wmz
+Microsoft Windows Media Video,video/x-ms-wvx,.wmv
+Microsoft Windows Media Video Playlist,application/x-msmetafile,.wvx
+Microsoft Windows Metafile,application/x-msterminal,.wmf
+Microsoft Windows Terminal Services,application/msword,.trm
+Microsoft Word,application/vnd.ms-word.document.macroenabled.12,.doc
+Microsoft Word - Macro-Enabled Document,application/vnd.ms-word.template.macroenabled.12,.docm
+Microsoft Word - Macro-Enabled Template,application/x-mswrite,.dotm
+Microsoft Wordpad,application/vnd.ms-works,.wri
+Microsoft Works,application/x-ms-xbap,.wps
+Microsoft XAML Browser Application,application/vnd.ms-xpsdocument,.xbap
+Microsoft XML Paper Specification,audio/midi,.xps
+MIDI,application/vnd.ibm.minipay,.midi
+MIDI - Musical Instrument Digital Interface,application/vnd.ibm.modcap,.mid
+MiniPay,application/vnd.jcp.javame.midlet-rms,.mpy
+MO:DCA-P,application/vnd.tmobile-livetv,.afp
+Mobile Information Device Profile,application/x-mobipocket-ebook,.rms
+MobileTV,application/vnd.mobius.mbk,.tmo
+Mobipocket,application/vnd.mobius.dis,.prc
+Mobius Management Systems - Basket file,application/vnd.mobius.plc,.mbk
+Mobius Management Systems - Distribution Database,application/vnd.mobius.mqy,.dis
+Mobius Management Systems - Policy Definition Language File,application/vnd.mobius.msl,.plc
+Mobius Management Systems - Query File,application/vnd.mobius.txf,.mqy
+Mobius Management Systems - Script Language,application/vnd.mobius.daf,.msl
+Mobius Management Systems - Topic Index File,text/vnd.fly,.txf
+Mobius Management Systems - UniversalArchive,application/vnd.mophun.certificate,.daf
+mod_fly / fly.cgi,application/vnd.mophun.application,.fly
+Mophun Certificate,video/mj2,.mpc
+Mophun VM,audio/mpeg,.mpn
+Motion JPEG 2000,video/mp2t,.mj2
+MPEG Audio,video/vnd.mpegurl,.mpga
+MPEG Transport Stream,video/mpeg,.ts
+MPEG Url,application/mp21,.mxu
+MPEG Video,audio/mp4,.mpeg
+MPEG-21,video/mp4,.m21
+MPEG-4 Audio,application/mp4,.mp4a
+MPEG-4 Video,application/vnd.apple.mpegurl,.mp4
+MPEG4,application/vnd.musician,.mp4
+Multimedia Playlist Unicode,application/vnd.muvee.style,.m3u8
+MUsical Score Interpreted Code Invented for the ASCII designation of Notation,application/xv+xml,.mus
+Muvee Automatic Video Editing,application/vnd.nokia.n-gage.data,.msty
+MXML,application/vnd.nokia.n-gage.symbian.install,.mxml
+N-Gage Game Data,application/x-dtbncx+xml,.ngdat
+N-Gage Game Installer,application/x-netcdf,.n-gage
+Navigation Control file for XML (for ePub),application/vnd.neurolanguage.nlu,.ncx
+Network Common Data Form (NetCDF),application/vnd.dna,.nc
+neuroLanguage,application/vnd.noblenet-directory,.nlu
+New Moon Liftoff/DNA,application/vnd.noblenet-sealer,.dna
+NobleNet Directory,application/vnd.noblenet-web,.nnd
+NobleNet Sealer,application/vnd.nokia.radio-preset,.nns
+NobleNet Web,application/vnd.nokia.radio-presets,.nnw
+Nokia Radio Application - Preset,text/n3,.rpst
+Nokia Radio Application - Preset,application/vnd.novadigm.edm,.rpss
+Notation3,application/vnd.novadigm.edx,.n3
+Novadigm's RADIA and EDM products,application/vnd.novadigm.ext,.edm
+Novadigm's RADIA and EDM products,application/vnd.flographit,.edx
+Novadigm's RADIA and EDM products,audio/vnd.nuera.ecelp4800,.ext
+NpGraphIt,audio/vnd.nuera.ecelp7470,.gph
+Nuera ECELP 4800,audio/vnd.nuera.ecelp9600,.ecelp4800
+Nuera ECELP 7470,application/oda,.ecelp7470
+Nuera ECELP 9600,application/ogg,.ecelp9600
+Office Document Architecture,audio/ogg,.oda
+Ogg,video/ogg,.ogx
+Ogg Audio,application/vnd.oma.dd2+xml,.oga
+Ogg Video,application/vnd.oasis.opendocument.text-web,.ogv
+OMA Download Agents,application/oebps-package+xml,.dd2
+Open Document Text Web,application/vnd.intu.qbo,.oth
+Open eBook Publication Structure,application/vnd.openofficeorg.extension,.opf
+Open Financial Exchange,application/vnd.yamaha.openscoreformat,.qbo
+Open Office Extension,audio/webm,.oxt
+Open Score Format,video/webm,.osf
+Open Web Media Project - Audio,application/vnd.oasis.opendocument.chart,.weba
+Open Web Media Project - Video,application/vnd.oasis.opendocument.chart-template,.webm
+OpenDocument Chart,application/vnd.oasis.opendocument.database,.odc
+OpenDocument Chart Template,application/vnd.oasis.opendocument.formula,.otc
+OpenDocument Database,application/vnd.oasis.opendocument.formula-template,.odb
+OpenDocument Formula,application/vnd.oasis.opendocument.graphics,.odf
+OpenDocument Formula Template,application/vnd.oasis.opendocument.graphics-template,.odft
+OpenDocument Graphics,application/vnd.oasis.opendocument.image,.odg
+OpenDocument Graphics Template,application/vnd.oasis.opendocument.image-template,.otg
+OpenDocument Image,application/vnd.oasis.opendocument.presentation,.odi
+OpenDocument Image Template,application/vnd.oasis.opendocument.presentation-template,.oti
+OpenDocument Presentation,application/vnd.oasis.opendocument.spreadsheet,.odp
+OpenDocument Presentation Template,application/vnd.oasis.opendocument.spreadsheet-template,.otp
+OpenDocument Spreadsheet,application/vnd.oasis.opendocument.text,.ods
+OpenDocument Spreadsheet Template,application/vnd.oasis.opendocument.text-master,.ots
+OpenDocument Text,application/vnd.oasis.opendocument.text-template,.odt
+OpenDocument Text Master,image/ktx,.odm
+OpenDocument Text Template,application/vnd.sun.xml.calc,.ott
+OpenGL Textures (KTX),application/vnd.sun.xml.calc.template,.ktx
+OpenOffice - Calc (Spreadsheet),application/vnd.sun.xml.draw,.sxc
+OpenOffice - Calc Template (Spreadsheet),application/vnd.sun.xml.draw.template,.stc
+OpenOffice - Draw (Graphics),application/vnd.sun.xml.impress,.sxd
+OpenOffice - Draw Template (Graphics),application/vnd.sun.xml.impress.template,.std
+OpenOffice - Impress (Presentation),application/vnd.sun.xml.math,.sxi
+OpenOffice - Impress Template (Presentation),application/vnd.sun.xml.writer,.sti
+OpenOffice - Math (Formula),application/vnd.sun.xml.writer.global,.sxm
+OpenOffice - Writer (Text - HTML),application/vnd.sun.xml.writer.template,.sxw
+OpenOffice - Writer (Text - HTML),application/x-font-otf,.sxg
+OpenOffice - Writer Template (Text - HTML),audio/opus,.stw
+OpenType Font File,application/vnd.yamaha.openscoreformat.osfpvg+xml,.otf
+Opus Audio,application/vnd.osgi.dp,.opus
+OSFPVG,application/vnd.palm,.osfpvg
+OSGi Deployment Package,text/x-pascal,.dp
+PalmOS Data,application/vnd.pawaafile,.pdb
+Pascal Source File,application/vnd.hp-pclxl,.p
+PawaaFILE,application/vnd.picsel,.paw
+PCL 6 Enhanced (Formely PCL XL),image/x-pcx,.pclxl
+Pcsel eFIF File,image/vnd.adobe.photoshop,.efif
+PCX Image,application/pics-rules,.pcx
+Photoshop Document,image/x-pict,.psd
+PICSRules,application/x-chat,.prf
+PICT Image,application/pkcs10,.pic
+pIRCh,application/x-pkcs12,.chat
+PKCS #10 - Certification Request Standard,application/pkcs7-mime,.p10
+PKCS #12 - Personal Information Exchange Syntax Standard,application/pkcs7-signature,.p12
+PKCS #7 - Cryptographic Message Syntax Standard,application/x-pkcs7-certreqresp,.p7m
+PKCS #7 - Cryptographic Message Syntax Standard,application/x-pkcs7-certificates,.p7s
+PKCS #7 - Cryptographic Message Syntax Standard (Certificate Request Response),application/pkcs8,.p7r
+PKCS #7 - Cryptographic Message Syntax Standard (Certificates),application/vnd.pocketlearn,.p7b
+PKCS #8 - Private-Key Information Syntax Standard,image/x-portable-anymap,.p8
+PocketLearn Viewers,image/x-portable-bitmap,.plf
+Portable Anymap Image,application/x-font-pcf,.pnm
+Portable Bitmap Format,application/font-tdpfr,.pbm
+Portable Compiled Format,application/x-chess-pgn,.pcf
+Portable Font Resource,image/x-portable-graymap,.pfr
+Portable Game Notation (Chess Games),image/png,.pgn
+Portable Graymap Format,image/x-citrix-png,.pgm
+Portable Network Graphics (PNG),image/x-png,.png
+Portable Network Graphics (PNG) (Citrix client),image/x-portable-pixmap,.png
+Portable Network Graphics (PNG) (x-token),application/pskc+xml,.png
+Portable Pixmap Format,application/vnd.ctc-posml,.ppm
+Portable Symmetric Key Container,application/postscript,.pskcxml
+PosML,application/x-font-type1,.pml
+PostScript,application/vnd.powerbuilder6,.ai
+PostScript Fonts,application/pgp-encrypted,.pfa
+PowerBuilder,application/pgp-signature,.pbd
+Pretty Good Privacy,application/vnd.previewsystems.box,.pgp
+Pretty Good Privacy - Signature,application/vnd.pvi.ptid1,.pgp
+Preview Systems ZipLock/VBox,application/pls+xml,.box
+Princeton Video Image,application/vnd.pg.format,.ptid
+Pronunciation Lexicon Specification,application/vnd.pg.osasli,.pls
+Proprietary P&G Standard Reporting System,text/prs.lines.tag,.str
+Proprietary P&G Standard Reporting System,application/x-font-linux-psf,.ei6
+PRS Lines Tag,application/vnd.publishare-delta-tree,.dsc
+PSF Fonts,application/vnd.pmi.widget,.psf
+PubliShare Objects,application/vnd.quark.quarkxpress,.qps
+Qualcomm's Plaza Mobile Internet,application/vnd.epson.esf,.wg
+QuarkXpress,application/vnd.epson.msf,.qxd
+QUASS Stream Player,application/vnd.epson.ssf,.esf
+QUASS Stream Player,application/vnd.epson.quickanime,.msf
+QUASS Stream Player,application/vnd.intu.qfx,.ssf
+QuickAnime Player,video/quicktime,.qam
+Quicken,application/x-rar-compressed,.qfx
+Quicktime Video,audio/x-pn-realaudio,.qt
+RAR Archive,audio/x-pn-realaudio-plugin,.rar
+Real Audio Sound,application/rsd+xml,.ram
+Real Audio Sound,application/vnd.rn-realmedia,.rmp
+Really Simple Discovery,application/vnd.realvnc.bed,.rsd
+RealMedia,application/vnd.recordare.musicxml,.rm
+RealVNC,application/vnd.recordare.musicxml+xml,.bed
+Recordare Applications,application/relax-ng-compact-syntax,.mxl
+Recordare Applications,application/vnd.data-vision.rdz,.musicxml
+Relax NG Compact Syntax,application/rdf+xml,.rnc
+RemoteDocs R-Viewer,application/vnd.cloanto.rp9,.rdz
+Resource Description Framework,application/vnd.jisp,.rdf
+RetroPlatform Player,application/rtf,.rp9
+RhymBox,text/richtext,.jisp
+Rich Text Format,application/vnd.route66.link66+xml,.rtf
+Rich Text Format (RTF),application/rss+xml,.rtx
+ROUTE 66 Location Based Services,application/shf+xml,.link66
+RSS - Really Simple Syndication,application/vnd.sailingtracker.track,".rss, .xml"
+S Hexdump Format,image/svg+xml,.shf
+SailingTracker,application/vnd.sus-calendar,.st
+Scalable Vector Graphics (SVG),application/sru+xml,.svg
+ScheduleUs,application/set-payment-initiation,.sus
+Search/Retrieve via URL Response Format,application/set-registration-initiation,.sru
+Secure Electronic Transaction - Payment,application/vnd.sema,.setpay
+Secure Electronic Transaction - Registration,application/vnd.semd,.setreg
+Secured eMail,application/vnd.semf,.sema
+Secured eMail,application/vnd.seemail,.semd
+Secured eMail,application/x-font-snf,.semf
+SeeMail,application/scvp-vp-request,.see
+Server Normal Format,application/scvp-vp-response,.snf
+Server-Based Certificate Validation Protocol - Validation Policies - Request,application/scvp-cv-request,.spq
+Server-Based Certificate Validation Protocol - Validation Policies - Response,application/scvp-cv-response,.spp
+Server-Based Certificate Validation Protocol - Validation Request,application/sdp,.scq
+Server-Based Certificate Validation Protocol - Validation Response,text/x-setext,.scs
+Session Description Protocol,video/x-sgi-movie,.sdp
+Setext,application/vnd.shana.informed.formdata,.etx
+SGI Movie,application/vnd.shana.informed.formtemplate,.movie
+Shana Informed Filler,application/vnd.shana.informed.interchange,.ifm
+Shana Informed Filler,application/vnd.shana.informed.package,.itp
+Shana Informed Filler,application/thraud+xml,.iif
+Shana Informed Filler,application/x-shar,.ipk
+Sharing Transaction Fraud Data,image/x-rgb,.tfi
+Shell Archive,application/vnd.epson.salt,.shar
+Silicon Graphics RGB Bitmap,application/vnd.accpac.simply.aso,.rgb
+SimpleAnimeLite Player,application/vnd.accpac.simply.imp,.slt
+Simply Accounting,application/vnd.simtech-mindmapper,.aso
+Simply Accounting - Data Import,application/vnd.commonspace,.imp
+SimTech MindMapper,application/vnd.yamaha.smaf-audio,.twd
+Sixth Floor Media - CommonSpace,application/vnd.smaf,.csp
+SMAF Audio,application/vnd.yamaha.smaf-phrase,.saf
+SMAF File,application/vnd.smart.teacher,.mmf
+SMAF Phrase,application/vnd.svd,.spf
+SMART Technologies Apps,application/sparql-query,.teacher
+SourceView Document,application/sparql-results+xml,.svd
+SPARQL - Query,application/srgs,.rq
+SPARQL - Results,application/srgs+xml,.srx
+Speech Recognition Grammar Specification,application/ssml+xml,.gram
+Speech Recognition Grammar Specification - XML,application/vnd.koan,.grxml
+Speech Synthesis Markup Language,text/sgml,.ssml
+SSEYO Koan Play File,application/vnd.stardivision.calc,.skp
+Standard Generalized Markup Language (SGML),application/vnd.stardivision.draw,.sgml
+StarOffice - Calc,application/vnd.stardivision.impress,.sdc
+StarOffice - Draw,application/vnd.stardivision.math,.sda
+StarOffice - Impress,application/vnd.stardivision.writer,.sdd
+StarOffice - Math,application/vnd.stardivision.writer-global,.smf
+StarOffice - Writer,application/vnd.stepmania.stepchart,.sdw
+StarOffice - Writer (Global),application/x-stuffit,.sgl
+StepMania,application/x-stuffitx,.sm
+Stuffit Archive,application/vnd.solent.sdkm+xml,.sit
+Stuffit Archive,application/vnd.olpc-sugar,.sitx
+SudokuMagic,audio/basic,.sdkm
+Sugar Linux Application Bundle,application/vnd.wqd,.xo
+Sun Audio - Au file format,application/vnd.symbian.install,.au
+SundaHus WQ,application/smil+xml,.wqd
+Symbian Install Package,application/vnd.syncml+xml,.sis
+Synchronized Multimedia Integration Language,application/vnd.syncml.dm+wbxml,.smi
+SyncML,application/vnd.syncml.dm+xml,.xsm
+SyncML - Device Management,application/x-sv4cpio,.bdm
+SyncML - Device Management,application/x-sv4crc,.xdm
+System V Release 4 CPIO Archive,application/sbml+xml,.sv4cpio
+System V Release 4 CPIO Checksum Data,text/tab-separated-values,.sv4crc
+Systems Biology Markup Language,image/tiff,.sbml
+Tab Seperated Values,application/vnd.tao.intent-module-archive,.tsv
+Tagged Image File Format,application/x-tar,.tiff
+Tao Intent,application/x-tcl,.tao
+Tar File (Tape Archive),application/x-tex,.tar
+Tcl Script,application/x-tex-tfm,.tcl
+TeX,application/tei+xml,.tex
+TeX Font Metric,text/plain,.tfm
+Text Encoding and Interchange,application/vnd.spotfire.dxp,.tei
+Text File,application/vnd.spotfire.sfs,.txt
+TIBCO Spotfire,application/timestamped-data,.dxp
+TIBCO Spotfire,application/vnd.trid.tpt,.sfs
+Time Stamped Data Envelope,application/vnd.triscape.mxs,.tsd
+TRI Systems Config,text/troff,.tpt
+Triscape Map Explorer,application/vnd.trueapp,.mxs
+troff,application/x-font-ttf,.t
+True BASIC,text/turtle,.tra
+TrueType Font,application/vnd.umajin,.ttf
+Turtle (Terse RDF Triple Language),application/vnd.uoml+xml,.ttl
+UMAJIN,application/vnd.unity,.umj
+Unique Object Markup Language,application/vnd.ufdl,.uoml
+Unity 3d,text/uri-list,.unityweb
+Universal Forms Description Language,application/vnd.uiq.theme,.ufd
+URI Resolution Services,application/x-ustar,.uri
+User Interface Quartz - Theme (Symbian),text/x-uuencode,.utz
+Ustar (Uniform Standard Tape Archive),text/x-vcalendar,.ustar
+UUEncode,text/x-vcard,.uu
+vCalendar,application/x-cdlink,.vcs
+vCard,application/vnd.vsf,.vcf
+Video CD,model/vrml,.vcd
+Viewport+,application/vnd.vcx,.vsf
+Virtual Reality Modeling Language,model/vnd.mts,.wrl
+VirtualCatalog,model/vnd.vtu,.vcx
+Virtue MTS,application/vnd.visionary,.mts
+Virtue VTU,video/vnd.vivo,.vtu
+Visionary,"application/ccxml+xml,",.vis
+Vivo,application/voicexml+xml,.viv
+Voice Browser Call Control,application/x-wais-source,.ccxml
+VoiceXML,application/vnd.wap.wbxml,.vxml
+WAIS Source,image/vnd.wap.wbmp,.src
+WAP Binary XML (WBXML),audio/x-wav,.wbxml
+WAP Bitamp (WBMP),application/davmount+xml,.wbmp
+Waveform Audio File Format (WAV),application/x-font-woff,.wav
+Web Distributed Authoring and Versioning,application/wspolicy+xml,.davmount
+Web Open Font Format,image/webp,.woff
+Web Services Policy,application/vnd.webturbo,.wspolicy
+WebP Image,application/widget,.webp
+WebTurbo,application/winhlp,.wtb
+Widget Packaging and XML Configuration,text/vnd.wap.wml,.wgt
+WinHelp,text/vnd.wap.wmlscript,.hlp
+Wireless Markup Language (WML),application/vnd.wap.wmlscriptc,.wml
+Wireless Markup Language Script (WMLScript),application/vnd.wordperfect,.wmls
+WMLScript,application/vnd.wt.stf,.wmlsc
+Wordperfect,application/wsdl+xml,.wpd
+Worldtalk,image/x-xbitmap,.stf
+WSDL - Web Services Description Language,image/x-xpixmap,.wsdl
+X BitMap,image/x-xwindowdump,.xbm
+X PixMap,application/x-x509-ca-cert,.xpm
+X Window Dump,application/x-xfig,.xwd
+X.509 Certificate,application/xhtml+xml,.der
+Xfig,application/xml,.fig
+XHTML - The Extensible HyperText Markup Language,application/xcap-diff+xml,.xhtml
+XML - Extensible Markup Language,application/xenc+xml,.xml
+XML Configuration Access Protocol - XCAP Diff,application/patch-ops-error+xml,.xdf
+XML Encryption Syntax and Processing,application/resource-lists+xml,.xenc
+XML Patch Framework,application/rls-services+xml,.xer
+XML Resource Lists,application/resource-lists-diff+xml,.rl
+XML Resource Lists,application/xslt+xml,.rs
+XML Resource Lists Diff,application/xop+xml,.rld
+XML Transformations,application/x-xpinstall,.xslt
+XML-Binary Optimized Packaging,application/xspf+xml,.xop
+XPInstall - Mozilla,application/vnd.mozilla.xul+xml,.xpi
+XSPF - XML Shareable Playlist Format,chemical/x-xyz,.xspf
+XUL - XML User Interface Language,text/yaml,.xul
+XYZ File Format,application/yang,.xyz
+YAML Ain't Markup Language / Yet Another Markup Language,application/yin+xml,.yaml
+YANG Data Modeling Language,application/vnd.zul,.yang
+YIN (YANG - XML),application/zip,.yin
+Z.U.L. Geometry,application/vnd.handheld-entertainment+xml,.zir
+Zip Archive,application/vnd.zzazz.deck+xml,.zip

@@ -16,9 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('encounter_id');
             $table->index('encounter_id');
             $table->foreign('encounter_id')->references('id')->on('encounter')->onDelete('cascade');
-            $table->enum('status', ['planned', 'arrived', 'triaged', 'in-progress', 'onleave', 'finished', 'cancelled', 'entered-in-error', 'unknown']);
-            $table->dateTime('period_start');
-            $table->dateTime('period_end')->nullable();
+            $table->string('status');
         });
     }
 

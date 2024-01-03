@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Fhir;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\FhirController;
 use App\Http\Requests\Fhir\QuestionnaireResponseRequest;
 use App\Http\Resources\QuestionnaireResponseResource;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\QuestionnaireResponse;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
@@ -15,13 +17,13 @@ class QuestionnaireResponseController extends FhirController
     const RESOURCE_TYPE = 'QuestionnaireResponse';
 
 
-    public function show($res_id)
+    public function show($satusehat_id)
     {
         try {
             return response()
                 ->json(new QuestionnaireResponseResource(Resource::where([
                     ['res_type', self::RESOURCE_TYPE],
-                    ['id', $res_id]
+                    ['satusehat_id', $satusehat_id]
                 ])->firstOrFail()), 200);
         } catch (ModelNotFoundException $e) {
             Log::error('Model error: ' . $e->getMessage());
@@ -29,30 +31,30 @@ class QuestionnaireResponseController extends FhirController
         }
     }
 
-
     public function store(QuestionnaireResponseRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE);
-            $questionnaireResponse = $resource->questionnaireResponse()->create($body['questionnaireResponse']);
-            $this->createNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $processor = new Processor();
+            $data = $processor->generateQuestionnaireResponse($body);
+            $processor->saveQuestionnaireResponse($resource, $data);
             $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
-            return response()->json($questionnaireResponse, 201);
+            return response()->json(new QuestionnaireResponseResource($resource), 201);
         });
     }
 
-
-    public function update(QuestionnaireResponseRequest $request, int $res_id, FhirService $fhirService)
+    public function update(QuestionnaireResponseRequest $request, string $satusehat_id, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
-        return $fhirService->insertData(function () use ($body, $res_id) {
-            $resource = $this->updateResource($res_id);
-            $questionnaireResponse = $resource->questionnaireResponse()->first();
-            $questionnaireResponse->update($body['questionnaireResponse']);
-            $this->updateNestedInstances($questionnaireResponse, 'item', $body, ['answer']);
-            $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
-            return response()->json($questionnaireResponse, 200);
+        return $fhirService->insertData(function () use ($body, $satusehat_id) {
+            return QuestionnaireResponse::withoutEvents(function () use ($body, $satusehat_id) {
+                $resource = $this->updateResource($satusehat_id);
+                $processor = new Processor();
+                $processor->updateQuestionnaireResponse($resource, $body);
+                $this->createResourceContent(QuestionnaireResponseResource::class, $resource);
+                return response()->json(new QuestionnaireResponseResource($resource), 200);
+            });
         });
     }
 }

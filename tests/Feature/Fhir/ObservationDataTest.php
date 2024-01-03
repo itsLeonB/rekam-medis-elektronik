@@ -30,7 +30,7 @@ class ObservationDataTest extends TestCase
         $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['res_id' => $newData['resource_id']]));
+        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -43,22 +43,19 @@ class ObservationDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('observation');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('observation.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
-        $this->assertMainData('observation', $data['observation']);
-        $this->assertManyData('observation_note', $data['note']);
-        $this->assertManyData('observation_ref_range', $data['referenceRange']);
-        $this->assertNestedData('observation_component', $data['component'], 'component_data', [
-            [
-                'table' => 'obs_comp_ref_range',
-                'data' => 'referenceRange'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('observation_identifier', ['system' => 'http://sys-ids.kemkes.go.id/observation/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 1);
+        $this->assertDatabaseCount('observation', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('codeable_concepts', 2);
+        $this->assertDatabaseCount('codings', 2);
+        $this->assertDatabaseCount('references', 2);
+        $this->assertDatabaseCount('quantities', 1);
     }
 
 
@@ -70,28 +67,24 @@ class ObservationDataTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $data = $this->getExampleData('observation');
+        $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route('observation.store'), $data, $headers);
+        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $data['observation']['id'] = $newData['id'];
-        $data['observation']['resource_id'] = $newData['resource_id'];
-        $data['observation']['subject'] = 'Patient/10001';
+        $newData['effectiveDateTime'] = '2022-07-15';
+        $newData['encounter']['display'] = 'Pemeriksaan update';
 
-        $response = $this->json('PUT', route('observation.update', ['res_id' => $newData['resource_id']]), $data, $headers);
+        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
-        $this->assertMainData('observation', $data['observation']);
-        $this->assertManyData('observation_note', $data['note']);
-        $this->assertManyData('observation_ref_range', $data['referenceRange']);
-        $this->assertNestedData('observation_component', $data['component'], 'component_data', [
-            [
-                'table' => 'obs_comp_ref_range',
-                'data' => 'referenceRange'
-            ]
-        ]);
-        $orgId = config('app.organization_id');
-        $this->assertDatabaseHas('observation_identifier', ['system' => 'http://sys-ids.kemkes.go.id/observation/' . $orgId, 'use' => 'official']);
+        $this->assertDatabaseCount('resource', 1);
+        $this->assertDatabaseCount('resource_content', 2);
+        $this->assertDatabaseCount('observation', 1);
+        $this->assertDatabaseCount('identifiers', 1);
+        $this->assertDatabaseCount('codeable_concepts', 2);
+        $this->assertDatabaseCount('codings', 2);
+        $this->assertDatabaseCount('references', 2);
+        $this->assertDatabaseCount('quantities', 1);
     }
 }

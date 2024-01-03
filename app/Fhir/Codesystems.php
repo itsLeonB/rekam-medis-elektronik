@@ -4,6 +4,13 @@ namespace App\Fhir;
 
 class Codesystems
 {
+    public const EncounterLocationStatus = [
+        'system' => 'http://hl7.org/fhir/encounter-location-status',
+        'code' => ['planned', 'active', 'reserved', 'completed'],
+        'display' => ['planned' => 'Planned', 'active' => 'Active', 'reserved' => 'Reserved', 'completed' => 'Completed'],
+        'definition' => ['planned' => 'The patient is planned to be moved to this location at some point in the future.', 'active' => 'The patient is currently at this location, or was between the period specified. A system may update these records when the patient leaves the location to either reserved, or completed.', 'reserved' => 'This location is held empty for this patient.', 'completed' => 'The patient was at this location during the period specified. Not to be used when the patient is currently at the location.']
+    ];
+
     public const LocationServiceClass = [
         'url' => "https://fhir.kemkes.go.id/r4/StructureDefinition/LocationServiceClass",
         'system' => ['1' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '2' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', '3' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'vvip' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient', 'reguler' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient', 'eksekutif' => 'http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient'],
@@ -60,7 +67,13 @@ class Codesystems
         'system' => 'http://hl7.org/fhir/address-use',
         'code' => ['home', 'work', 'temp', 'old', 'billing'],
         'display' => ['home' => 'Home', 'work' => 'Work', 'temp' => 'Temporary', 'old' => 'Old / Incorrect', 'billing' => 'Billing'],
-        'definition' => ["home" => "A communication address at a home.", "work" => "An office address. First choice for business related contacts during business hours.", "temp" => "A temporary address. The period can provide more detailed information.", "old" => "This address is no longer in use (or was never correct but retained for records).", "billing" => "An address to be used to send bills, invoices, receipts etc."]
+        'definition' => [
+            'home' => 'Rumah',
+            'work' => 'Tempat kerja',
+            'temp' => 'Sementara',
+            'old' => 'Tidak digunakan lagi',
+            'billing' => 'Penagihan'
+        ]
     ];
 
     public const AddressType = [
@@ -73,14 +86,28 @@ class Codesystems
         'system' => 'http://hl7.org/fhir/contact-point-use',
         'code' => ['home', 'work', 'temp', 'old', 'mobile'],
         'display' => ['home' => 'Home', 'work' => 'Work', 'temp' => 'Temp', 'old' => 'Old', 'mobile' => 'Mobile'],
-        'definition' => ["home" => "A communication contact point at a home; attempted contacts for business purposes might intrude privacy and chances are one will contact family or other household members instead of the person one wishes to call. Typically used with urgent cases, or if no other contacts are available.", "work" => "An office contact point. First choice for business related contacts during business hours.", "temp" => "A temporary contact point. The period can provide more detailed information.", "old" => "This contact point is no longer in use (or was never correct, but retained for records).", "mobile" => "A telecommunication device that moves and stays with its owner. May have characteristics of all other use codes, suitable for urgent matters, not the first choice for routine business."]
+        'definition' => [
+            'home' => 'Rumah',
+            'work' => 'Tempat kerja',
+            'temp' => 'Sementara',
+            'old' => 'Tidak digunakan lain',
+            'mobile' => 'Telepon seluler'
+        ]
     ];
 
     public const ContactPointSystem = [
         'system' => 'http://hl7.org/fhir/contact-point-system',
         'code' => ['phone', 'fax', 'email', 'pager', 'url', 'sms', 'other'],
         'display' => ['phone' => 'Phone', 'fax' => 'Fax', 'email' => 'Email', 'pager' => 'Pager', 'url' => 'URL', 'sms' => 'SMS', 'other' => 'Other'],
-        'definition' => ["phone" => "The value is a telephone number used for voice calls. Use of full international numbers starting with + is recommended to enable automatic dialing support but not required.", "fax" => "The value is a fax machine. Use of full international numbers starting with + is recommended to enable automatic dialing support but not required.", "email" => "The value is an email address.", "pager" => "The value is a pager number. These may be local pager numbers that are only usable on a particular pager system.", "url" => "A contact that is not a phone, fax, pager or email address and is expressed as a URL. This is intended for various institutional or personal contacts including web sites, blogs, Skype, Twitter, Facebook, etc. Do not use for email addresses.", "sms" => "A contact that can be used for sending an sms message (e.g. mobile phones, some landlines).", "other" => 'A contact that is not a phone, fax, page or email address and is not expressible as a URL. E.g. Internal mail address. This SHOULD NOT be used for contacts that are expressible as a URL (e.g. Skype, Twitter, Facebook, etc.) Extensions may be used to distinguish "other" contact types.']
+        'definition' => [
+            'phone' => 'Nomor Telepon Kantor',
+            'fax' => 'Nomor Fax',
+            'email' => 'Email Kantor',
+            'pager' => 'Pager',
+            'url' => 'URL website kantor',
+            'sms' => 'Nomor SMS kantor',
+            'other' => 'Lain-lain'
+        ]
     ];
 
     public const BCP47 = [
@@ -246,6 +273,13 @@ class Codesystems
         'definition' => ["continuous" => "Pengobatan yang diharapkan berlanjut hingga permintaan selanjutnya dan pasien harus diasumsikan mengonsumsinya kecuali jika dihentikan secara eksplisit", "acute" => "Pengobatan pasien yang diharapkan dikonsumsi pada durasi pemberian tertentu dan tidak diberikan lagi", "seasonal" => "Pengobatan yang diharapkan digunakan pada waktu tertentu pada waktu yang telah dijadwalkan dalam setahun"]
     ];
 
+    public const v3ActReason = [
+        'system' => 'https://terminology.hl7.org/3.1.0/CodeSystem-v3-ActReason.html',
+        'code' => ['CT', 'FP', 'OS', 'RR'],
+        'display' => ["CT" => "Continuing therapy", "FP" => "Formulary policy", "OS" => "Out of stock", "RR" => "Regulatory requirement"],
+        'definition' => ["CT" => "Mengindikasikan bahwa keputusan untuk mengganti/tidak mengganti didasari oleh keinginan untuk menjaga konsistensi terapi pre-existing. pe", "FP" => "Mengindikasikan bahwa keputusan untuk mengganti/tidak mengganti didasari oleh kebijakan dalam formularium", "OS" => "Mengindikasikan penggantian terjadi karena persediaan obat yang diminta tidak ada atau tidak diganti apabila obat yang direncanakan sebagai pengganti tidak ada stok", "RR" => "Mengindikasikan keputusan untuk mengganti/tidak mengganti didasari oleh persyaratan regulasi yuridis yang mengamanatkan atau melarang substitusi"],
+    ];
+
     public const RequestPriority = [
         'system' => 'http://hl7.org/fhir/request-priority',
         'code' => ['routine', 'urgent', 'asap', 'stat'],
@@ -316,7 +350,23 @@ class Codesystems
         'system' => 'http://terminology.hl7.org/CodeSystem/referencerange-meaning',
         'code' => ['type', 'normal', 'recommended', 'treatment', 'therapeutic', 'pre', 'post', 'endocrine', 'pre-puberty', 'follicular', 'midcycle', 'luteal', 'postmenopausal'],
         'display' => ["type" => "Type", "normal" => "Normal Range", "recommended" => "Recommended Range", "treatment" => "Treatment Range", "therapeutic" => "Therapeutic Desired Level", "pre" => "Pre Therapeutic Desired Level", "post" => "Post Therapeutic Desired Level", "endocrine" => "Endocrine", "pre-puberty" => "Pre-Puberty", "follicular" => "Follicular Stage", "midcycle" => "MidCycle", "luteal" => "Luteal", "postmenopausal" => "Post-Menopause"],
-        'definition' => ["type" => "General types of reference range.", "normal" => "Values expected for a normal member of the relevant control population being measured. Typically each results producer such as a laboratory has specific normal ranges and they are usually defined as within two standard deviations from the mean and account for 95.45% of this population.", "recommended" => "The range that is recommended by a relevant professional body.", "treatment" => "The range at which treatment would/should be considered.", "therapeutic" => "The optimal range for best therapeutic outcomes.", "pre" => "The optimal range for best therapeutic outcomes for a specimen taken immediately before administration.", "post" => "The optimal range for best therapeutic outcomes for a specimen taken immediately after administration.", "endocrine" => "Endocrine related states that change the expected value.", "pre-puberty" => "An expected range in an individual prior to puberty.", "follicular" => "An expected range in an individual during the follicular stage of the cycle.", "midcycle" => "An expected range in an individual during the midcycle stage of the cycle.", "luteal" => "An expected range in an individual during the luteal stage of the cycle.", "postmenopausal" => "An expected range in an individual post-menopause."]
+        'definition' => ["type" => "Tipe", "normal" => "Rentang normal", "recommended" => "Rentang yang direkomendasi kan", "treatment" => "Rentang pengobatan", "therapeutic" => "Tingkatan luaran terapi yang diinginkan", "pre" => "Tingkatan rentang sebelum terapi", "post" => "Tingkatan rentang setelah terapi", "endocrine" => "Endokrin", "pre-puberty" => "Pra-pubertas", "follicular" => "Tahapan folikular", "midcycle" => "MidCycle", "luteal" => "Luteal", "postmenopausal" => "Post-Menopause"],
+    ];
+
+    public const MimeTypes = [
+        'system' => 'urn:ietf:bcp:13',
+        'table' => 'codesystem_bcp13',
+    ];
+
+    public const v20203 = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v2-0203',
+        'code' => ['AC', 'ACSN', 'AM', 'AMA', 'AN', 'ANC', 'AND', 'ANON', 'ANT', 'APRN', 'ASID', 'BA', 'BC', 'BCFN', 'BCT', 'BR', 'BRN', 'BSNR', 'CC', 'CONM', 'CY', 'CZ', 'DC', 'DCFN', 'DDS', 'DEA', 'DFN', 'DI', 'DL', 'DN', 'DO', 'DP', 'DPM', 'DR', 'DS', 'EI', 'EN', 'ESN', 'FDR', 'FDRFN', 'FI', 'FILL', 'GI', 'GL', 'GN', 'HC', 'IND', 'JHN', 'LACSN', 'LANR', 'LI', 'LN', 'LR', 'MA', 'MB', 'MC', 'MCD', 'MCN', 'MCR', 'MCT', 'MD', 'MI', 'MR', 'MRT', 'MS', 'NBSNR', 'NCT', 'NE', 'NH', 'NI', 'NII', 'NIIP', 'NNxxx', 'NP', 'NPI', 'OBI', 'OD', 'PA', 'PC', 'PCN', 'PE', 'PEN', 'PHC', 'PHE', 'PHO', 'PI', 'PLAC', 'PN', 'PNT', 'PPIN', 'PPN', 'PRC', 'PRN', 'PT', 'QA', 'RI', 'RN', 'RPH', 'RR', 'RRI', 'RRP', 'SB', 'SID', 'SL', 'SN', 'SNBSN', 'SNO', 'SP', 'SR', 'SS', 'STN', 'TAX', 'TN', 'TPR', 'TRL', 'U', 'UDI', 'UPIN', 'USID', 'VN', 'VP', 'VS', 'WC', 'WCN', 'WP', 'XV', 'XX'],
+        'display' => ["AC" => "Accreditation/Certification Identifier", "ACSN" => "Accession ID", "AM" => "American Express", "AMA" => "American Medical Association Number", "AN" => "Account number", "ANC" => "Account number Creditor", "AND" => "Account number debitor", "ANON" => "Anonymous identifier", "ANT" => "Temporary Account Number", "APRN" => "Advanced Practice Registered Nurse number", "ASID" => "Ancestor Specimen ID", "BA" => "Bank Account Number", "BC" => "Bank Card Number", "BCFN" => "Birth Certificate File Number", "BCT" => "Birth Certificate", "BR" => "Birth registry number", "BRN" => "Breed Registry Number", "BSNR" => "Primary physician office number", "CC" => "Cost Center number", "CONM" => "Change of Name Document", "CY" => "County number", "CZ" => "Citizenship Card", "DC" => "Death Certificate ID", "DCFN" => "Death Certificate File Number", "DDS" => "Dentist license number", "DEA" => "Drug Enforcement Administration registration number", "DFN" => "Drug Furnishing or prescriptive authority Number", "DI" => "Diner's Club card", "DL" => "Driver's license number", "DN" => "Doctor number", "DO" => "Osteopathic License number", "DP" => "Diplomatic Passport", "DPM" => "Podiatrist license number", "DR" => "Donor Registration Number", "DS" => "Discover Card", "EI" => "Employee number", "EN" => "Employer number", "ESN" => "Staff Enterprise Number", "FDR" => "Fetal Death Report ID", "FDRFN" => "Fetal Death Report File Number", "FI" => "Facility ID", "FILL" => "Filler Identifier", "GI" => "Guarantor internal identifier", "GL" => "General ledger number", "GN" => "Guarantor external identifier", "HC" => "Health Card Number", "IND" => "Indigenous/Aboriginal", "JHN" => "Jurisdictional health number (Canada)", "LACSN" => "Laboratory Accession ID", "LANR" => "Lifelong physician number", "LI" => "Labor and industries number", "LN" => "License number", "LR" => "Local Registry ID", "MA" => "Patient Medicaid number", "MB" => "Member Number", "MC" => "Patient's Medicare number", "MCD" => "Practitioner Medicaid number", "MCN" => "Microchip Number", "MCR" => "Practitioner Medicare number", "MCT" => "Marriage Certificate", "MD" => "Medical License number", "MI" => "Military ID number", "MR" => "Medical record number", "MRT" => "Temporary Medical Record Number", "MS" => "MasterCard", "NBSNR" => "Secondary physician office number", "NCT" => "Naturalization Certificate", "NE" => "National employer identifier", "NH" => "National Health Plan Identifier", "NI" => "National unique individual identifier", "NII" => "National Insurance Organization Identifier", "NIIP" => "National Insurance Payor Identifier (Payor)", "NNxxx" => "National Person Identifier where the xxx is the ISO table 3166 3-character (alphabetic) country code", "NP" => "Nurse practitioner number", "NPI" => "National provider identifier", "OBI" => "Observation Instance Identifier", "OD" => "Optometrist license number", "PA" => "Physician Assistant number", "PC" => "Parole Card", "PCN" => "Penitentiary/correctional institution Number", "PE" => "Living Subject Enterprise Number", "PEN" => "Pension Number", "PHC" => "Public Health Case Identifier", "PHE" => "Public Health Event Identifier", "PHO" => "Public Health Official ID", "PI" => "Patient internal identifier", "PLAC" => "Placer Identifier", "PN" => "Person number", "PNT" => "Temporary Living Subject Number", "PPIN" => "Medicare/CMS Performing Provider Identification Number", "PPN" => "Passport number", "PRC" => "Permanent Resident Card Number", "PRN" => "Provider number", "PT" => "Patient external identifier", "QA" => "QA number", "RI" => "Resource identifier", "RN" => "Registered Nurse Number", "RPH" => "Pharmacist license number", "RR" => "Railroad Retirement number", "RRI" => "Regional registry ID", "RRP" => "Railroad Retirement Provider", "SB" => "Social Beneficiary Identifier", "SID" => "Specimen ID", "SL" => "State license", "SN" => "Subscriber Number", "SNBSN" => "State assigned NDBS card Identifier", "SNO" => "Serial Number", "SP" => "Study Permit", "SR" => "State registry ID", "SS" => "Social Security number", "STN" => "Shipment Tracking Number", "TAX" => "Tax ID number", "TN" => "Treaty Number/ (Canada)", "TPR" => "Temporary Permanent Resident (Canada)", "TRL" => "Training License Number", "U" => "Unspecified identifier", "UDI" => "Universal Device Identifier", "UPIN" => "Medicare/CMS (formerly HCFA)'s Universal Physician Identification numbers", "USID" => "Unique Specimen ID", "VN" => "Visit number", "VP" => "Visitor Permit", "VS" => "VISA", "WC" => "WIC identifier", "WCN" => "Workers' Comp Number", "WP" => "Work Permit", "XV" => "Health Plan Identifier", "XX" => "Organization identifier"],
+    ];
+
+    public const ResourceType = [
+        'system' => 'http://hl7.org/fhir/resource-types',
+        'table' => 'codesystem_resourcetype'
     ];
 
     public const DataAbsentReason = [
@@ -394,13 +444,6 @@ class Codesystems
         'code' => ['kelas-tetap', 'naik-kelas', 'turun-kelas', 'titip-rawat'],
         'display' => ['kelas-tetap' => 'Kelas Tetap Perawatan', 'naik-kelas' => 'Kenaikan Kelas Perawatan', 'turun-kelas' => 'Penurunan Kelas Perawatan', 'titip-rawat' => 'Titip Kelas Perawatan'],
         'definition' => ["kelas-tetap" => "Pasien memiliki Kelas Perawatan yang sama dengan Hak Kelas Perawatan yang dimiliki", "naik-kelas" => "Pasien memiliki Kelas Perawatan yang lebih Tinggi dari Hak Kelas Perawatan yang dimiliki berdasarkan pengajuan dari pasien", "turun-kelas" => "Pasien memiliki Kelas Perawatan yang lebihRendah dari Hak Kelas Perawatan yang dimiliki berdasarkan pengajuan dari pasien", "titip-rawat" => "Pasien memiliki Kelas Perawatan yang berbeda dengan Hak Kelas Perawatan yang dimiliki karena ketidaktersediaan ruangan yang sesuai dengan Hak Kelasnya"]
-    ];
-
-    public const DischargeDisposition = [
-        'system' => 'http://terminology.hl7.org/CodeSystem/discharge-disposition',
-        'code' => ['home', 'alt-home', 'other-hcf', 'hosp', 'long', 'aadvice', 'exp', 'psy', 'rehab', 'snf', 'oth'],
-        'display' => ["home" => "Home", "alt-home" => "Alternative home", "other-hcf" => "Other healthcare facility", "hosp" => "Hospice", "long" => "Long-term care", "aadvice" => "Left against advice", "exp" => "Expired", "psy" => "Psychiatric hospital", "rehab" => "Rehabilitation", "snf" => "Skilled nursing facility", "oth" => "Other"],
-        'definition' => ["home" => "The patient was dicharged and has indicated that they are going to return home afterwards.", "alt-home" => "The patient was discharged and has indicated that they are going to return home afterwards, but not the patient's home - e.g. a family member's home.", "other-hcf" => "The patient was transferred to another healthcare facility.", "hosp" => "The patient has been discharged into palliative care.", "long" => "The patient has been discharged into long-term care where is likely to be monitored through an ongoing episode-of-care.", "aadvice" => "The patient self discharged against medical advice.", "exp" => "The patient has deceased during this encounter.", "psy" => "The patient has been transferred to a psychiatric facility.", "rehab" => "The patient was discharged and is to receive post acute care rehabilitation services.", "snf" => "The patient has been discharged to a skilled nursing facility for the patient to receive additional care.", "oth" => "The discharge disposition has not otherwise defined."]
     ];
 
     public const SpecialArrangements = [
