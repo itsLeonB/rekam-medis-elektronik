@@ -63,6 +63,23 @@ Route::get('/satusehat/consent/{patient_id}', [SatusehatController::class, 'read
 Route::post('/satusehat/consent', [SatusehatController::class, 'updateConsent'])->name('satusehat.consent.store');
 
 
+Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], function () {
+    Route::get('/practitioner', [SatusehatController::class, 'searchPractitioner'])->name('practitioner');
+    Route::get('/organization', [SatusehatController::class, 'searchOrganization'])->name('organization');
+    Route::get('/location', [SatusehatController::class, 'searchLocation'])->name('location');
+    Route::get('/patient', [SatusehatController::class, 'searchPatient'])->name('patient');
+    Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
+    Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
+    Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
+    Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
+    Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
+    Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
+    Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
+    Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
+    Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
+    Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
+});
+
 
 // Web APIs
 
