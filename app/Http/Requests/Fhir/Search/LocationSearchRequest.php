@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Fhir\Search;
 
 use App\Http\Requests\FhirRequest;
-use Illuminate\Foundation\Http\FormRequest;
 
 class LocationSearchRequest extends FhirRequest
 {
