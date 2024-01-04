@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Fhir\Satusehat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fhir\ConsentRequest;
+use App\Http\Requests\Fhir\Search\LocationSearchRequest;
+use App\Http\Requests\Fhir\Search\ObservationSearchRequest;
+use App\Http\Requests\Fhir\Search\OrganizationSearchRequest;
+use App\Http\Requests\Fhir\Search\PatientSearchRequest;
+use App\Http\Requests\Fhir\Search\PractitionerSearchRequest;
 use App\Http\Requests\FhirRequest;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -285,5 +290,427 @@ class SatusehatController extends Controller
                 $e->getResponse()->getBody()->getContents()
             ), $e->getCode());
         }
+    }
+
+    public function searchPractitioner(PractitionerSearchRequest $request)
+    {
+        if ($request->query('identifier')) {
+            $query = ['identifier' => $request->query('identifier')];
+        } elseif ($request->query('name')) {
+            $query = [
+                'name' => $request->query('name'),
+                'gender' => $request->query('gender'),
+                'birthdate' => $request->query('birthdate'),
+            ];
+        } else {
+            return response()->json(['error' => 'Either identifier or combination of name, gender, and birthdate must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Practitioner';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchOrganization(OrganizationSearchRequest $request)
+    {
+        if ($request->query('name')) {
+            $query = ['name' => $request->query('name')];
+        } elseif ($request->query('partof')) {
+            $query = ['partof' => $request->query('partof')];
+        } else {
+            return response()->json(['error' => 'Either name or partof must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Organization';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $request->validated(),
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchLocation(LocationSearchRequest $request)
+    {
+        if ($request->query('identifier')) {
+            $query = ['identifier' => $request->query('identifier')];
+        } elseif ($request->query('name')) {
+            $query = ['name' => $request->query('name')];
+        } elseif ($request->query('organization')) {
+            $query = ['organization' => $request->query('organization')];
+        } else {
+            return response()->json(['error' => 'Either identifier, name, or organization must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Location';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $request->validated(),
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchEncounter(FhirRequest $request)
+    {
+        if ($request->query('subject')) {
+            $query = ['subject' => $request->query('subject')];
+        } else {
+            return response()->json(['error' => 'subject must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Encounter';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchCondition(FhirRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('subject')) {
+            $query['subject'] = $request->query('subject');
+        }
+
+        if ($request->query('encounter')) {
+            $query['encounter'] = $request->query('encounter');
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Condition';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchObservation(ObservationSearchRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('based-on')) {
+            $query = [
+                'based-on' => $request->query('based-on'),
+                'subject' => $request->query('subject'),
+            ];
+        } else {
+            if ($request->query('subject')) {
+                $query['subject'] = $request->query('subject');
+            }
+
+            if ($request->query('encounter')) {
+                $query['encounter'] = $request->query('encounter');
+            }
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either a combination of based-on and subject, or encounter and/or subject must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Observation';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchComposition(FhirRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('subject')) {
+            $query['subject'] = $request->query('subject');
+        }
+
+        if ($request->query('encounter')) {
+            $query['encounter'] = $request->query('encounter');
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Composition';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchProcedure(FhirRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('subject')) {
+            $query['subject'] = $request->query('subject');
+        }
+
+        if ($request->query('encounter')) {
+            $query['encounter'] = $request->query('encounter');
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Procedure';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchMedicationRequest(FhirRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('subject')) {
+            $query['subject'] = $request->query('subject');
+        }
+
+        if ($request->query('encounter')) {
+            $query['encounter'] = $request->query('encounter');
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/MedicationRequest';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchAllergyIntolerance(FhirRequest $request)
+    {
+        $query = ['patient' => $request->query('patient')];
+
+        if ($request->query('code')) {
+            $query['code'] = $request->query('code');
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/AllergyIntolerance';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchClinicalImpression(FhirRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('subject')) {
+            $query['subject'] = $request->query('subject');
+        }
+
+        if ($request->query('encounter')) {
+            $query['encounter'] = $request->query('encounter');
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/ClinicalImpression';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchQuestionnaireResponse(FhirRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('subject')) {
+            $query['subject'] = $request->query('subject');
+        }
+
+        if ($request->query('encounter')) {
+            $query['encounter'] = $request->query('encounter');
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/QuestionnaireResponse';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchServiceRequest(FhirRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('identifier')) {
+            $query = ['identifier' => $request->query('identifier')];
+        } else {
+            if ($request->query('subject')) {
+                $query['subject'] = $request->query('subject');
+            }
+
+            if ($request->query('encounter')) {
+                $query['encounter'] = $request->query('encounter');
+            }
+        }
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Either identifier, or subject and/or encounter must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/ServiceRequest';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token,],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchPatient(PatientSearchRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('gender')) {
+            $query = [
+                'name' => $request->query('name'),
+                'birthdate' => $request->query('birthdate'),
+                'gender' => $request->query('gender')
+            ];
+        } elseif ($request->query('identifier')) {
+            $query = ['identifier' => $request->query('identifier')];
+
+            if ($request->query('name')) {
+                $query['name'] = $request->query('name');
+                $query['birthdate'] = $request->query('birthdate');
+            }
+        } else {
+            return response()->json(['error' => 'Either identifier, or combination of: 1) name, birthdate, identifier, or 2) name, birthdate, and gender must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Patient';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token,],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
     }
 }
