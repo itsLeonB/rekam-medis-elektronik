@@ -77,6 +77,7 @@ Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], func
     Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
     Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
     Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
+    Route::get('/medicationstatement', [SatusehatController::class, 'searchMedicationStatement'])->name('medicationstatement');
     Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
 });
 
@@ -92,6 +93,7 @@ Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::clas
 // Rekam Medis
 Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
 Route::get('/rekam-medis/{patient_id}', [RekamMedisController::class, 'show'])->name('rekam-medis.show');
+Route::get('/rekam-medis/{patient_id}/update', [SatusehatController::class, 'updateRekamMedis'])->name('rekam-medis.update');
 
 // Dashboard Analytics
 Route::get('/analytics/pasien-hari-ini', [AnalyticsController::class, 'getTodayEncounters'])->name('analytics.pasien-hari-ini');

@@ -754,4 +754,18 @@ class SatusehatTest extends TestCase
             'type'
         ]);
     }
+
+    public function test_search_medication_statement()
+    {
+        $query = ['subject' => '100000030009'];
+        $response = $this->get(route('satusehat.search.medicationstatement', $query));
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'resourceType',
+            'link',
+            'type',
+            'total',
+            'entry'
+        ]);
+    }
 }

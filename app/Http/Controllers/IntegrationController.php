@@ -46,19 +46,25 @@ class IntegrationController extends Controller
         }
     }
 
+    public function updateOrCreate($resourceType, $resourceId, $resource)
+    {
+        $resourceType = strtolower($resourceType);
+
+        if ($this->checkIfResourceExistsInLocal($resourceType, $resourceId)) {
+            return $this->updateResourceIfNewer($resourceType, $resourceId, $resource);
+        } else {
+            $request = Request::create(route($resourceType . '.store'), 'POST', $resource);
+            return app()->handle($request);
+        }
+    }
+
     public function show($resourceType, $resourceId)
     {
         $satusehatResponse = $this->satusehatController->show($resourceType, $resourceId);
         if ($satusehatResponse->getStatusCode() === 200) {
             $satusehatResponseBody = json_decode($satusehatResponse->getBody()->getContents(), true);
 
-            if ($this->checkIfResourceExistsInLocal($resourceType, $resourceId)) {
-                return $this->updateResourceIfNewer($resourceType, $resourceId, $satusehatResponseBody);
-            } else {
-                $resourceType = strtolower($resourceType);
-                $request = Request::create(route($resourceType . '.store'), 'POST', $satusehatResponseBody);
-                return app()->handle($request);
-            }
+            $this->updateOrCreate($resourceType, $resourceId, $satusehatResponseBody);
         } else {
             Log::error($satusehatResponse->getContent());
 
