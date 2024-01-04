@@ -7,7 +7,6 @@ use App\Models\Fhir\Datatypes\HumanName;
 use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Datatypes\Reference;
-use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\AllergyIntolerance;
 use App\Models\Fhir\Resources\ClinicalImpression;
 use App\Models\Fhir\Resources\Composition;
@@ -29,7 +28,7 @@ class RekamMedisTest extends TestCase
     use DatabaseTransactions;
     use FhirTest;
 
-    public function test_index()
+    public function test_index_rekam_medis()
     {
         // Create some test patients
         $patient1 = Patient::factory()->create();
@@ -131,252 +130,266 @@ class RekamMedisTest extends TestCase
         ]);
     }
 
-    // public function test_show_rekam_medis()
-    // {
-    //     $patient = Patient::factory()->create();
-    //     $patientSatusehatId = $patient->resource->satusehat_id;
+    public function test_show_rekam_medis()
+    {
+        $patient = Patient::factory()->create();
+        $patientSatusehatId = $patient->resource->satusehat_id;
 
-    //     $encounter = Encounter::factory()->create();
-    //     $encSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encounter->id,
-    //         'referenceable_type' => 'Encounter',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encounter->subject()->save($encSubject);
-    //     $encounterSatusehatId = $encounter->resource->satusehat_id;
+        $encounter = Encounter::factory()->create();
+        $encSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encounter->id,
+            'referenceable_type' => 'Encounter',
+            'attr_type' => 'subject'
+        ]);
+        $encounter->subject()->save($encSubject);
+        $encounterSatusehatId = $encounter->resource->satusehat_id;
 
-    //     $encCondition = Condition::factory()->create();
-    //     $encCondSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encCondition->id,
-    //         'referenceable_type' => 'Condition',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encCondEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encCondition->id,
-    //         'referenceable_type' => 'Condition',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encCondition->subject()->save($encCondSubject);
-    //     $encCondition->encounter()->save($encCondEncounter);
+        $encCondition = Condition::factory()->create();
+        $encCondSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encCondition->id,
+            'referenceable_type' => 'Condition',
+            'attr_type' => 'subject'
+        ]);
+        $encCondEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encCondition->id,
+            'referenceable_type' => 'Condition',
+            'attr_type' => 'encounter'
+        ]);
+        $encCondition->subject()->save($encCondSubject);
+        $encCondition->encounter()->save($encCondEncounter);
 
-    //     $encObservation = Observation::factory()->create();
-    //     $encObsSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encObservation->id,
-    //         'referenceable_type' => 'Observation',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encObsEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encObservation->id,
-    //         'referenceable_type' => 'Observation',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encObservation->subject()->save($encObsSubject);
-    //     $encObservation->encounter()->save($encObsEncounter);
+        $encObservation = Observation::factory()->create();
+        $encObsSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encObservation->id,
+            'referenceable_type' => 'Observation',
+            'attr_type' => 'subject'
+        ]);
+        $encObsEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encObservation->id,
+            'referenceable_type' => 'Observation',
+            'attr_type' => 'encounter'
+        ]);
+        $encObservation->subject()->save($encObsSubject);
+        $encObservation->encounter()->save($encObsEncounter);
 
-    //     $encProcedure = Procedure::factory()->create();
-    //     $encProcSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encProcedure->id,
-    //         'referenceable_type' => 'Procedure',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encProcEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encProcedure->id,
-    //         'referenceable_type' => 'Procedure',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encProcedure->subject()->save($encProcSubject);
-    //     $encProcedure->encounter()->save($encProcEncounter);
+        $encProcedure = Procedure::factory()->create();
+        $encProcSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encProcedure->id,
+            'referenceable_type' => 'Procedure',
+            'attr_type' => 'subject'
+        ]);
+        $encProcEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encProcedure->id,
+            'referenceable_type' => 'Procedure',
+            'attr_type' => 'encounter'
+        ]);
+        $encProcedure->subject()->save($encProcSubject);
+        $encProcedure->encounter()->save($encProcEncounter);
 
-    //     $encMedicationRequest = MedicationRequest::factory()->create();
-    //     $encMedReqSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encMedicationRequest->id,
-    //         'referenceable_type' => 'MedicationRequest',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encMedReqEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encMedicationRequest->id,
-    //         'referenceable_type' => 'MedicationRequest',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encMedicationRequest->subject()->save($encMedReqSubject);
-    //     $encMedicationRequest->encounter()->save($encMedReqEncounter);
+        $encMedicationRequest = MedicationRequest::factory()->create();
+        $encMedReqSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encMedicationRequest->id,
+            'referenceable_type' => 'MedicationRequest',
+            'attr_type' => 'subject'
+        ]);
+        $encMedReqEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encMedicationRequest->id,
+            'referenceable_type' => 'MedicationRequest',
+            'attr_type' => 'encounter'
+        ]);
+        $encMedicationRequest->subject()->save($encMedReqSubject);
+        $encMedicationRequest->encounter()->save($encMedReqEncounter);
 
-    //     $encComposition = Composition::factory()->create();
-    //     $encCompSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encComposition->id,
-    //         'referenceable_type' => 'Composition',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encCompEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encComposition->id,
-    //         'referenceable_type' => 'Composition',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encComposition->subject()->save($encCompSubject);
-    //     $encComposition->encounter()->save($encCompEncounter);
+        $encComposition = Composition::factory()->create();
+        $encCompSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encComposition->id,
+            'referenceable_type' => 'Composition',
+            'attr_type' => 'subject'
+        ]);
+        $encCompEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encComposition->id,
+            'referenceable_type' => 'Composition',
+            'attr_type' => 'encounter'
+        ]);
+        $encComposition->subject()->save($encCompSubject);
+        $encComposition->encounter()->save($encCompEncounter);
 
-    //     $encAllergyIntolerance = AllergyIntolerance::factory()->create();
-    //     $encAllergySubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encAllergyIntolerance->id,
-    //         'referenceable_type' => 'AllergyIntolerance',
-    //         'attr_type' => 'patient'
-    //     ]);
-    //     $encAllergyEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encAllergyIntolerance->id,
-    //         'referenceable_type' => 'AllergyIntolerance',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encAllergyIntolerance->patient()->save($encAllergySubject);
-    //     $encAllergyIntolerance->encounter()->save($encAllergyEncounter);
+        $encAllergyIntolerance = AllergyIntolerance::factory()->create();
+        $encAllergySubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encAllergyIntolerance->id,
+            'referenceable_type' => 'AllergyIntolerance',
+            'attr_type' => 'patient'
+        ]);
+        $encAllergyEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encAllergyIntolerance->id,
+            'referenceable_type' => 'AllergyIntolerance',
+            'attr_type' => 'encounter'
+        ]);
+        $encAllergyIntolerance->patient()->save($encAllergySubject);
+        $encAllergyIntolerance->encounter()->save($encAllergyEncounter);
 
-    //     $encClinicalImpression = ClinicalImpression::factory()->create();
-    //     $encClinImpSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encClinicalImpression->id,
-    //         'referenceable_type' => 'ClinicalImpression',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encClinImpEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encClinicalImpression->id,
-    //         'referenceable_type' => 'ClinicalImpression',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encClinicalImpression->subject()->save($encClinImpSubject);
-    //     $encClinicalImpression->encounter()->save($encClinImpEncounter);
+        $encClinicalImpression = ClinicalImpression::factory()->create();
+        $encClinImpSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encClinicalImpression->id,
+            'referenceable_type' => 'ClinicalImpression',
+            'attr_type' => 'subject'
+        ]);
+        $encClinImpEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encClinicalImpression->id,
+            'referenceable_type' => 'ClinicalImpression',
+            'attr_type' => 'encounter'
+        ]);
+        $encClinicalImpression->subject()->save($encClinImpSubject);
+        $encClinicalImpression->encounter()->save($encClinImpEncounter);
 
-    //     $encServiceRequest = ServiceRequest::factory()->create();
-    //     $encServReqSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encServiceRequest->id,
-    //         'referenceable_type' => 'ServiceRequest',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encServReqEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encServiceRequest->id,
-    //         'referenceable_type' => 'ServiceRequest',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encServiceRequest->subject()->save($encServReqSubject);
-    //     $encServiceRequest->encounter()->save($encServReqEncounter);
+        $encServiceRequest = ServiceRequest::factory()->create();
+        $encServReqSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encServiceRequest->id,
+            'referenceable_type' => 'ServiceRequest',
+            'attr_type' => 'subject'
+        ]);
+        $encServReqEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encServiceRequest->id,
+            'referenceable_type' => 'ServiceRequest',
+            'attr_type' => 'encounter'
+        ]);
+        $encServiceRequest->subject()->save($encServReqSubject);
+        $encServiceRequest->encounter()->save($encServReqEncounter);
 
-    //     $encMedicationStatement = MedicationStatement::factory()->create();
-    //     $encMedStatSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encMedicationStatement->id,
-    //         'referenceable_type' => 'MedicationStatement',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encMedStatContext = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encMedicationStatement->id,
-    //         'referenceable_type' => 'MedicationStatement',
-    //         'attr_type' => 'context'
-    //     ]);
-    //     $encMedicationStatement->subject()->save($encMedStatSubject);
-    //     $encMedicationStatement->context()->save($encMedStatContext);
+        $encMedicationStatement = MedicationStatement::factory()->create();
+        $encMedStatSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encMedicationStatement->id,
+            'referenceable_type' => 'MedicationStatement',
+            'attr_type' => 'subject'
+        ]);
+        $encMedStatContext = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encMedicationStatement->id,
+            'referenceable_type' => 'MedicationStatement',
+            'attr_type' => 'context'
+        ]);
+        $encMedicationStatement->subject()->save($encMedStatSubject);
+        $encMedicationStatement->context()->save($encMedStatContext);
 
-    //     $encQuestionnaireResponse = QuestionnaireResponse::factory()->create();
-    //     $encQuestRespSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $encQuestionnaireResponse->id,
-    //         'referenceable_type' => 'QuestionnaireResponse',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $encQuestRespEncounter = Reference::factory()->create([
-    //         'reference' => 'Encounter/' . $encounterSatusehatId,
-    //         'referenceable_id' => $encQuestionnaireResponse->id,
-    //         'referenceable_type' => 'QuestionnaireResponse',
-    //         'attr_type' => 'encounter'
-    //     ]);
-    //     $encQuestionnaireResponse->subject()->save($encQuestRespSubject);
-    //     $encQuestionnaireResponse->encounter()->save($encQuestRespEncounter);
+        $encQuestionnaireResponse = QuestionnaireResponse::factory()->create();
+        $encQuestRespSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $encQuestionnaireResponse->id,
+            'referenceable_type' => 'QuestionnaireResponse',
+            'attr_type' => 'subject'
+        ]);
+        $encQuestRespEncounter = Reference::factory()->create([
+            'reference' => 'Encounter/' . $encounterSatusehatId,
+            'referenceable_id' => $encQuestionnaireResponse->id,
+            'referenceable_type' => 'QuestionnaireResponse',
+            'attr_type' => 'encounter'
+        ]);
+        $encQuestionnaireResponse->subject()->save($encQuestRespSubject);
+        $encQuestionnaireResponse->encounter()->save($encQuestRespEncounter);
 
-    //     $patMedicationRequest = MedicationRequest::factory()->create();
-    //     $patMedReqSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $patMedicationRequest->id,
-    //         'referenceable_type' => 'MedicationRequest',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $patMedicationRequest->subject()->save($patMedReqSubject);
+        $patMedicationRequest = MedicationRequest::factory()->create();
+        $patMedReqSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $patMedicationRequest->id,
+            'referenceable_type' => 'MedicationRequest',
+            'attr_type' => 'subject'
+        ]);
+        $patMedicationRequest->subject()->save($patMedReqSubject);
 
-    //     $patComposition = Composition::factory()->create();
-    //     $patCompSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $patComposition->id,
-    //         'referenceable_type' => 'Composition',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $patComposition->subject()->save($patCompSubject);
+        $patComposition = Composition::factory()->create();
+        $patCompSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $patComposition->id,
+            'referenceable_type' => 'Composition',
+            'attr_type' => 'subject'
+        ]);
+        $patComposition->subject()->save($patCompSubject);
 
-    //     $patAllergyIntolerance = AllergyIntolerance::factory()->create();
-    //     $patAllergySubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $patAllergyIntolerance->id,
-    //         'referenceable_type' => 'AllergyIntolerance',
-    //         'attr_type' => 'patient'
-    //     ]);
-    //     $patAllergyIntolerance->patient()->save($patAllergySubject);
+        $patAllergyIntolerance = AllergyIntolerance::factory()->create();
+        $patAllergySubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $patAllergyIntolerance->id,
+            'referenceable_type' => 'AllergyIntolerance',
+            'attr_type' => 'patient'
+        ]);
+        $patAllergyIntolerance->patient()->save($patAllergySubject);
 
-    //     $patMedicationStatement = MedicationStatement::factory()->create();
-    //     $patMedStatSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $patMedicationStatement->id,
-    //         'referenceable_type' => 'MedicationStatement',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $patMedicationStatement->subject()->save($patMedStatSubject);
+        $patMedicationStatement = MedicationStatement::factory()->create();
+        $patMedStatSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $patMedicationStatement->id,
+            'referenceable_type' => 'MedicationStatement',
+            'attr_type' => 'subject'
+        ]);
+        $patMedicationStatement->subject()->save($patMedStatSubject);
 
-    //     $patQuestionnaireResponse = QuestionnaireResponse::factory()->create();
-    //     $patQuestRespSubject = Reference::factory()->create([
-    //         'reference' => 'Patient/' . $patientSatusehatId,
-    //         'referenceable_id' => $patQuestionnaireResponse->id,
-    //         'referenceable_type' => 'QuestionnaireResponse',
-    //         'attr_type' => 'subject'
-    //     ]);
-    //     $patQuestionnaireResponse->subject()->save($patQuestRespSubject);
+        $patQuestionnaireResponse = QuestionnaireResponse::factory()->create();
+        $patQuestRespSubject = Reference::factory()->create([
+            'reference' => 'Patient/' . $patientSatusehatId,
+            'referenceable_id' => $patQuestionnaireResponse->id,
+            'referenceable_type' => 'QuestionnaireResponse',
+            'attr_type' => 'subject'
+        ]);
+        $patQuestionnaireResponse->subject()->save($patQuestRespSubject);
 
-    //     $response = $this->get(route('rekam-medis.show', $patient->id));
+        $response = $this->get(route('rekam-medis.show', $patient->id));
 
-    //     $response->assertStatus(200);
-    //     $response->assertJsonFragment($patient->toArray());
-    //     $response->assertJsonFragment($encounter->toArray());
-    //     $response->assertJsonFragment($encCondition->toArray());
-    //     $response->assertJsonFragment($encObservation->toArray());
-    //     $response->assertJsonFragment($encProcedure->toArray());
-    //     $response->assertJsonFragment($encMedicationRequest->toArray());
-    //     $response->assertJsonFragment($encComposition->toArray());
-    //     $response->assertJsonFragment($encAllergyIntolerance->toArray());
-    //     $response->assertJsonFragment($encClinicalImpression->toArray());
-    //     $response->assertJsonFragment($encServiceRequest->toArray());
-    //     $response->assertJsonFragment($encMedicationStatement->toArray());
-    //     $response->assertJsonFragment($encQuestionnaireResponse->toArray());
-    //     $response->assertJsonFragment($patMedicationRequest->toArray());
-    //     $response->assertJsonFragment($patComposition->toArray());
-    //     $response->assertJsonFragment($patAllergyIntolerance->toArray());
-    //     $response->assertJsonFragment($patMedicationStatement->toArray());
-    //     $response->assertJsonFragment($patQuestionnaireResponse->toArray());
-    // }
+        $response->assertStatus(200);
+        $response->assertJsonFragment($patient->toArray());
+        $response->assertJsonFragment($encounter->toArray());
+        $response->assertJsonFragment($encCondition->toArray());
+        $response->assertJsonFragment($encObservation->toArray());
+        $response->assertJsonFragment($encProcedure->toArray());
+        $response->assertJsonFragment($encMedicationRequest->toArray());
+        $response->assertJsonFragment($encComposition->toArray());
+        $response->assertJsonFragment($encAllergyIntolerance->toArray());
+        $response->assertJsonFragment($encClinicalImpression->toArray());
+        $response->assertJsonFragment($encServiceRequest->toArray());
+        $response->assertJsonFragment($encMedicationStatement->toArray());
+        $response->assertJsonFragment($encQuestionnaireResponse->toArray());
+        $response->assertJsonFragment($patMedicationRequest->toArray());
+        $response->assertJsonFragment($patComposition->toArray());
+        $response->assertJsonFragment($patAllergyIntolerance->toArray());
+        $response->assertJsonFragment($patMedicationStatement->toArray());
+        $response->assertJsonFragment($patQuestionnaireResponse->toArray());
+    }
 
-    // public function test_show_rekam_medis_invalid()
-    // {
-    //     $response = $this->get(route('rekam-medis.show', 0));
+    public function test_show_rekam_medis_invalid()
+    {
+        $response = $this->get(route('rekam-medis.show', 0));
 
-    //     $response->assertStatus(404);
-    // }
+        $response->assertStatus(404);
+    }
+
+    public function test_update_data()
+    {
+        $response = $this->get(route('rekam-medis.update', ['patient_id' => '100000030009']));
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    public function test_update_data_invalid()
+    {
+        $response = $this->get(route('rekam-medis.update', ['patient_id' => '0']));
+
+        $this->assertEquals(404, $response->getStatusCode());
+    }
 }

@@ -5,15 +5,32 @@ namespace App\Http\Controllers;
 use App\Fhir\Satusehat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fhir\ConsentRequest;
+use App\Http\Requests\Fhir\Search\KfaRequest;
 use App\Http\Requests\Fhir\Search\LocationSearchRequest;
 use App\Http\Requests\Fhir\Search\ObservationSearchRequest;
 use App\Http\Requests\Fhir\Search\OrganizationSearchRequest;
 use App\Http\Requests\Fhir\Search\PatientSearchRequest;
 use App\Http\Requests\Fhir\Search\PractitionerSearchRequest;
 use App\Http\Requests\FhirRequest;
+use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\AllergyIntolerance;
+use App\Models\Fhir\Resources\ClinicalImpression;
+use App\Models\Fhir\Resources\Composition;
+use App\Models\Fhir\Resources\Condition;
+use App\Models\Fhir\Resources\Encounter;
+use App\Models\Fhir\Resources\MedicationRequest;
+use App\Models\Fhir\Resources\MedicationStatement;
+use App\Models\Fhir\Resources\Observation;
+use App\Models\Fhir\Resources\Procedure;
+use App\Models\Fhir\Resources\QuestionnaireResponse;
+use App\Models\Fhir\Resources\ServiceRequest;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Client\Pool;
+use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -80,35 +97,21 @@ class SatusehatController extends Controller
         return $response;
     }
 
-    public function searchKfaProduct(
-        int $page = 1,
-        int $size = 10,
-        string $productType = 'farmasi', // farmasi | alkes
-        string $fromDate = null,
-        string $toDate = null,
-        string $farmalkesType = null,
-        string $keyword = null,
-        int $templateCode = null,
-        string $packagingCode = null,
-    ) {
+    public function searchKfaProduct(KfaRequest $request) {
         $client = new Client();
 
+        $token = $this->getToken();
+
         $response = $client->request('GET', config('app.kfa_v2_url') . '/products/all', [
-            'query' => [
-                'page' => $page,
-                'size' => $size,
-                'product_type' => $productType,
-                'from_date' => $fromDate,
-                'to_date' => $toDate,
-                'farmalkes_type' => $farmalkesType,
-                'keyword' => $keyword,
-                'template_code' => $templateCode,
-                'packaging_code' => $packagingCode,
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Content-Type' => 'application/json',
             ],
+            'query' => $request->validated(),
             'verify' => false,
         ]);
 
-        return $response->getBody()->getContents();
+        return $response;
     }
 
     public function getToken()
@@ -291,6 +294,106 @@ class SatusehatController extends Controller
             ), $e->getCode());
         }
     }
+
+    public function updateRekamMedis($patientId)
+    {
+        $token = $this->getToken();
+
+        $checkResponse = Http::withToken($token)->get($this->baseUrl . '/Patient/' . $patientId);
+
+        if (!$checkResponse->successful()) {
+            return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
+        }
+
+        $responses = Http::pool(function (Pool $pool) use ($patientId, $token) {
+            foreach (self::PATIENT_RELATED_DATA as $resType => $model) {
+                if ($resType == 'Allergyintolerance') {
+                    $pool->as($resType)->withToken($token)->get($this->baseUrl . '/' . $resType, ['patient' => $patientId]);
+                } else {
+                    $pool->as($resType)->withToken($token)->get($this->baseUrl . '/' . $resType, ['subject' => $patientId]);
+                }
+            }
+        });
+
+        foreach (self::PATIENT_RELATED_DATA as $resType => $model) {
+            if ($responses[$resType]->successful()) {
+                $bundle = json_decode($responses[$resType]->getBody()->getContents(), true);
+                $this->bundleHandler($bundle, $resType);
+            }
+        }
+
+        return response()->json('Data berhasil diperbarui', 200);
+    }
+
+    public function bundleHandler($bundle, $resType)
+    {
+        if (!empty($bundle)) {
+            if (!empty($bundle['entry'])) {
+                foreach ($bundle['entry'] as $e) {
+                    if (!empty($e['resource'])) {
+                        if (isset($e['resource']['resourceType'])) {
+                            if (strtolower($e['resource']['resourceType']) == strtolower($resType)) {
+                                $this->updateOrCreate($resType, $e['resource']['id'], $e['resource']);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function checkIfResourceExistsInLocal($resourceType, $resourceId)
+    {
+        return Resource::where([
+            ['res_type', $resourceType],
+            ['satusehat_id', $resourceId],
+        ])->exists();
+    }
+
+    public function updateResourceIfNewer($resourceType, $resourceId, $satusehatResponseBody)
+    {
+        $resourceType = strtolower($resourceType);
+
+        $resourceUpdatedAt = Resource::where([
+            ['res_type', $satusehatResponseBody['resourceType']],
+            ['satusehat_id', $satusehatResponseBody['id']],
+        ])->first()->updated_at;
+        $lastUpdated = Carbon::parse($satusehatResponseBody['meta']['lastUpdated'])->setTimezone('Asia/Jakarta');
+
+        if ($lastUpdated->gt($resourceUpdatedAt)) {
+            $request = HttpRequest::create(route($resourceType . '.update', ['satusehat_id' => $resourceId]), 'PUT', $satusehatResponseBody);
+            $response = app()->handle($request);
+            return $response;
+        } else {
+            return $satusehatResponseBody;
+        }
+    }
+
+    public function updateOrCreate($resourceType, $resourceId, $resource)
+    {
+        $resourceType = strtolower($resourceType);
+
+        if ($this->checkIfResourceExistsInLocal($resourceType, $resourceId)) {
+            return $this->updateResourceIfNewer($resourceType, $resourceId, $resource);
+        } else {
+            $request = HttpRequest::create(route($resourceType . '.store'), 'POST', $resource);
+            return app()->handle($request);
+        }
+    }
+
+    public const PATIENT_RELATED_DATA = [
+        'Encounter' => Encounter::class,
+        'Condition' => Condition::class,
+        'Observation' => Observation::class,
+        'Procedure' => Procedure::class,
+        'MedicationRequest' => MedicationRequest::class,
+        'Composition' => Composition::class,
+        'AllergyIntolerance' => AllergyIntolerance::class,
+        'ClinicalImpression' => ClinicalImpression::class,
+        'ServiceRequest' => ServiceRequest::class,
+        'MedicationStatement' => MedicationStatement::class,
+        'QuestionnaireResponse' => QuestionnaireResponse::class,
+    ];
 
     public function searchPractitioner(PractitionerSearchRequest $request)
     {
@@ -704,6 +807,29 @@ class SatusehatController extends Controller
         $client = new Client();
 
         $url = $this->baseUrl . '/Patient';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token,],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function searchMedicationStatement(FhirRequest $request)
+    {
+        $query = ['subject' => $request->query('subject')];
+
+        if (empty($query)) {
+            return response()->json(['error' => 'Subject must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/MedicationStatement';
 
         $response = $client->request('GET', $url, [
             'headers' => ['Authorization' => 'Bearer ' . $token,],

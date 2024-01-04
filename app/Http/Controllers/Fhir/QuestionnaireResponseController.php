@@ -35,7 +35,7 @@ class QuestionnaireResponseController extends FhirController
     {
         $body = $this->retrieveJsonPayload($request);
         return $fhirService->insertData(function () use ($body) {
-            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id']);
+            $resource = $this->createResource(self::RESOURCE_TYPE, $body['id'] ?? null);
             $processor = new Processor();
             $data = $processor->generateQuestionnaireResponse($body);
             $processor->saveQuestionnaireResponse($resource, $data);

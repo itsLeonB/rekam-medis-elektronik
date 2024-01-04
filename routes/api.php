@@ -51,7 +51,7 @@ Route::get('/integration/{res_type}/{satusehat_id}', [IntegrationController::cla
 Route::post('/integration/{res_type}', [IntegrationController::class, 'store'])->name('integration.store');
 Route::put('/integration/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('integration.update');
 
-
+// Satusehat resource endpoint
 Route::prefix('/satusehat/resource')->group(function () {
     Route::get('/{res_type}/{res_id}', [SatusehatController::class, 'show'])->name('satusehat.resource.show');
     Route::post('/{res_type}', [SatusehatController::class, 'store'])->name('satusehat.resource.store');
@@ -62,7 +62,10 @@ Route::prefix('/satusehat/resource')->group(function () {
 Route::get('/satusehat/consent/{patient_id}', [SatusehatController::class, 'readConsent'])->name('satusehat.consent.show');
 Route::post('/satusehat/consent', [SatusehatController::class, 'updateConsent'])->name('satusehat.consent.store');
 
+// Kamus Farmasi dan Alat Kesehatan
+Route::get('/kfa', [SatusehatController::class, 'searchKfaProduct'])->name('kfa');
 
+// SATUSEHAT search resource endpoint
 Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], function () {
     Route::get('/practitioner', [SatusehatController::class, 'searchPractitioner'])->name('practitioner');
     Route::get('/organization', [SatusehatController::class, 'searchOrganization'])->name('organization');
@@ -77,6 +80,7 @@ Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], func
     Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
     Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
     Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
+    Route::get('/medicationstatement', [SatusehatController::class, 'searchMedicationStatement'])->name('medicationstatement');
     Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
 });
 
@@ -92,6 +96,7 @@ Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::clas
 // Rekam Medis
 Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
 Route::get('/rekam-medis/{patient_id}', [RekamMedisController::class, 'show'])->name('rekam-medis.show');
+Route::get('/rekam-medis/{patient_id}/update', [SatusehatController::class, 'updateRekamMedis'])->name('rekam-medis.update');
 
 // Dashboard Analytics
 Route::get('/analytics/pasien-hari-ini', [AnalyticsController::class, 'getTodayEncounters'])->name('analytics.pasien-hari-ini');

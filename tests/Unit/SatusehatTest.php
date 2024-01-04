@@ -754,4 +754,36 @@ class SatusehatTest extends TestCase
             'type'
         ]);
     }
+
+    public function test_search_medication_statement()
+    {
+        $query = ['subject' => '100000030009'];
+        $response = $this->get(route('satusehat.search.medicationstatement', $query));
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'resourceType',
+            'link',
+            'type',
+            'total',
+            'entry'
+        ]);
+    }
+
+    public function test_kfa()
+    {
+        $query = [
+            'page' => 1,
+            'size' => 10,
+            'product_type' => 'farmasi',
+            'keyword' => 'paracetamol',
+        ];
+        $response = $this->get(route('kfa', $query));
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'total',
+            'page',
+            'size',
+            'items'
+        ]);
+    }
 }

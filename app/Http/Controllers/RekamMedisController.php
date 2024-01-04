@@ -20,9 +20,27 @@ use DateTime;
 use DateTimeZone;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Client\Pool;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Http;
 
 class RekamMedisController extends Controller
 {
+    public const PATIENT_RELATED_DATA = [
+        'encounter' => Encounter::class,
+        'condition' => Condition::class,
+        'observation' => Observation::class,
+        'procedure' => Procedure::class,
+        'medicationRequest' => MedicationRequest::class,
+        'composition' => Composition::class,
+        'allergyIntolerance' => AllergyIntolerance::class,
+        'clinicalImpression' => ClinicalImpression::class,
+        'serviceRequest' => ServiceRequest::class,
+        'medicationStatement' => MedicationStatement::class,
+        'questionnaireResponse' => QuestionnaireResponse::class,
+    ];
+
     public function index()
     {
         $patients = Patient::with(['resource', 'identifier', 'name'])->get();
@@ -126,8 +144,68 @@ class RekamMedisController extends Controller
         }
     }
 
+    public function getData($patientId)
+    {
+        $responses = Http::pool(function (Pool $pool) use ($patientId) {
+            foreach (self::PATIENT_RELATED_DATA as $resType => $model) {
+                $resType = strtolower($resType);
+
+                if ($resType == 'allergyintolerance') {
+                    $pool->get(route('satusehat.search.' . $resType, ['patient' => $patientId]));
+                } else {
+                    $pool->get(route('satusehat.search.' . $resType, ['subject' => $patientId]));
+                }
+            }
+        });
+
+        dd($responses);
+    }
+
     public function updateData($patientId)
     {
-        //todo
+        $checkRequest = Request::create(route('satusehat.resource.show', ['res_type' => 'Patient', 'res_id' => $patientId]), 'GET');
+        $checkResponse = app()->handle($checkRequest);
+
+        $int = new IntegrationController(new SatusehatController());
+
+        if ($checkResponse->isSuccessful()) {
+            foreach (self::PATIENT_RELATED_DATA as $resType => $model) {
+                $resType = strtolower($resType);
+
+                if ($resType == 'allergyintolerance') {
+                    $request = Request::create(route('satusehat.search.' . $resType, ['patient' => $patientId]), 'GET');
+                } else {
+                    $request = Request::create(route('satusehat.search.' . $resType, ['subject' => $patientId]), 'GET');
+                }
+
+                $response = app()->handle($request);
+
+                if ($response->isSuccessful()) {
+                    $bundle = json_decode($response->getContent(), true);
+                    $this->bundleHandler($bundle, $resType, $int);
+                }
+            }
+
+            return response()->json(['message' => 'Data pasien berhasil diperbarui'], 200);
+        }
+
+        return response()->json(['message' => 'Data pasien tidak ditemukan'], 404);
+    }
+
+    public function bundleHandler($bundle, $resType, IntegrationController $int)
+    {
+        if (!empty($bundle)) {
+            if (!empty($bundle['entry'])) {
+                foreach ($bundle['entry'] as $e) {
+                    if (!empty($e['resource'])) {
+                        if (isset($e['resource']['resourceType'])) {
+                            if (strtolower($e['resource']['resourceType']) == strtolower($resType)) {
+                                $int->updateOrCreate($resType, $e['resource']['id'], $e['resource']);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

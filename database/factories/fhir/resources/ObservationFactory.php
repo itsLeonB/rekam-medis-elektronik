@@ -22,7 +22,7 @@ class ObservationFactory extends Factory
         $statuses = Observation::STATUS['binding']['valueset']['code'];
         $status = $statuses[array_rand($statuses)];
 
-        $codes = Observation::CODE['binding']['valueset']['table'];
+        $codes = Observation::CODE['binding']['valueset'][0]['table'];
         $code = DB::table($codes)->inRandomOrder()->limit(1)->value('code');
 
         return [
