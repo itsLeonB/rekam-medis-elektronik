@@ -768,4 +768,22 @@ class SatusehatTest extends TestCase
             'entry'
         ]);
     }
+
+    public function test_kfa()
+    {
+        $query = [
+            'page' => 1,
+            'size' => 10,
+            'product_type' => 'farmasi',
+            'keyword' => 'paracetamol',
+        ];
+        $response = $this->get(route('kfa', $query));
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'total',
+            'page',
+            'size',
+            'items'
+        ]);
+    }
 }

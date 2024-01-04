@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Fhir\Satusehat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fhir\ConsentRequest;
+use App\Http\Requests\Fhir\Search\KfaRequest;
 use App\Http\Requests\Fhir\Search\LocationSearchRequest;
 use App\Http\Requests\Fhir\Search\ObservationSearchRequest;
 use App\Http\Requests\Fhir\Search\OrganizationSearchRequest;
@@ -96,35 +97,21 @@ class SatusehatController extends Controller
         return $response;
     }
 
-    public function searchKfaProduct(
-        int $page = 1,
-        int $size = 10,
-        string $productType = 'farmasi', // farmasi | alkes
-        string $fromDate = null,
-        string $toDate = null,
-        string $farmalkesType = null,
-        string $keyword = null,
-        int $templateCode = null,
-        string $packagingCode = null,
-    ) {
+    public function searchKfaProduct(KfaRequest $request) {
         $client = new Client();
 
+        $token = $this->getToken();
+
         $response = $client->request('GET', config('app.kfa_v2_url') . '/products/all', [
-            'query' => [
-                'page' => $page,
-                'size' => $size,
-                'product_type' => $productType,
-                'from_date' => $fromDate,
-                'to_date' => $toDate,
-                'farmalkes_type' => $farmalkesType,
-                'keyword' => $keyword,
-                'template_code' => $templateCode,
-                'packaging_code' => $packagingCode,
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Content-Type' => 'application/json',
             ],
+            'query' => $request->validated(),
             'verify' => false,
         ]);
 
-        return $response->getBody()->getContents();
+        return $response;
     }
 
     public function getToken()

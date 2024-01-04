@@ -51,7 +51,7 @@ Route::get('/integration/{res_type}/{satusehat_id}', [IntegrationController::cla
 Route::post('/integration/{res_type}', [IntegrationController::class, 'store'])->name('integration.store');
 Route::put('/integration/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('integration.update');
 
-
+// Satusehat resource endpoint
 Route::prefix('/satusehat/resource')->group(function () {
     Route::get('/{res_type}/{res_id}', [SatusehatController::class, 'show'])->name('satusehat.resource.show');
     Route::post('/{res_type}', [SatusehatController::class, 'store'])->name('satusehat.resource.store');
@@ -62,7 +62,10 @@ Route::prefix('/satusehat/resource')->group(function () {
 Route::get('/satusehat/consent/{patient_id}', [SatusehatController::class, 'readConsent'])->name('satusehat.consent.show');
 Route::post('/satusehat/consent', [SatusehatController::class, 'updateConsent'])->name('satusehat.consent.store');
 
+// Kamus Farmasi dan Alat Kesehatan
+Route::get('/kfa', [SatusehatController::class, 'searchKfaProduct'])->name('kfa');
 
+// SATUSEHAT search resource endpoint
 Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], function () {
     Route::get('/practitioner', [SatusehatController::class, 'searchPractitioner'])->name('practitioner');
     Route::get('/organization', [SatusehatController::class, 'searchOrganization'])->name('organization');
