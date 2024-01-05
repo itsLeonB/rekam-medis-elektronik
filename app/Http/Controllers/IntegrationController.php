@@ -64,7 +64,7 @@ class IntegrationController extends Controller
         if ($satusehatResponse->getStatusCode() === 200) {
             $satusehatResponseBody = json_decode($satusehatResponse->getBody()->getContents(), true);
 
-            $this->updateOrCreate($resourceType, $resourceId, $satusehatResponseBody);
+            return $this->updateOrCreate($resourceType, $resourceId, $satusehatResponseBody);
         } else {
             Log::error($satusehatResponse->getContent());
 
