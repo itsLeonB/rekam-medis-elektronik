@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Models\Fhir\Practitioner;
+use App\Models\Fhir\Resource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -47,9 +47,12 @@ class UserManagementController extends Controller
                 'password' => Hash::make($request->input('password')),
             ]);
 
-            $practitioner = Practitioner::findOrFail($request->input('practitioner_id'));
+            $practitioner = Resource::where([
+                ['res_type', 'Practitioner'],
+                ['satusehat_id', $request->input('practitioner_id')]
+            ])->first()->practitioner()->first();
 
-            $user->practitioner()->save($practitioner);
+            $user->practitionerUser()->save($practitioner);
 
             return response()->json(['user' => $user], 201);
         } catch (\Throwable $th) {
@@ -78,9 +81,6 @@ class UserManagementController extends Controller
             }
 
             $user->update($updateData);
-
-            $practitioner = Practitioner::findOrFail($request->input('practitioner_id'));
-            $user->practitioner()->sync($practitioner);
 
             return response()->json(['user' => $user], 200);
         } catch (\Throwable $th) {

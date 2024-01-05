@@ -2,9 +2,11 @@
 
 namespace Tests\Unit;
 
-use App\Models\Fhir\Encounter;
-use App\Models\Fhir\Patient;
+use App\Models\Fhir\Datatypes\Coding;
+use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\Encounter;
+use App\Models\Fhir\Resources\Patient;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -16,24 +18,34 @@ class AnalyticsTest extends TestCase
 
     public function test_get_today_encounters()
     {
-        // Create encounters for today
-        Encounter::factory()->create([
-            'period_start' => Carbon::today(),
-            'period_end' => Carbon::today()->addHours(2),
-        ]);
-        Encounter::factory()->create([
-            'period_start' => Carbon::today(),
-            'period_end' => Carbon::today()->addHours(4),
+        $encounters = Encounter::factory()->count(4)->create();
+
+        Period::factory()->create([
+            'start' => Carbon::today(),
+            'end' => Carbon::today()->addHours(2),
+            'periodable_id' => $encounters[0]->id,
+            'periodable_type' => 'Encounter',
         ]);
 
-        // Create encounters for other dates
-        Encounter::factory()->create([
-            'period_start' => Carbon::yesterday(),
-            'period_end' => Carbon::yesterday()->addHours(2),
+        Period::factory()->create([
+            'start' => Carbon::today(),
+            'end' => Carbon::today()->addHours(4),
+            'periodable_id' => $encounters[1]->id,
+            'periodable_type' => 'Encounter',
         ]);
-        Encounter::factory()->create([
-            'period_start' => Carbon::tomorrow(),
-            'period_end' => Carbon::tomorrow()->addHours(2),
+
+        Period::factory()->create([
+            'start' => Carbon::yesterday(),
+            'end' => Carbon::yesterday()->addHours(2),
+            'periodable_id' => $encounters[2]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => Carbon::tomorrow(),
+            'end' => Carbon::tomorrow()->addHours(2),
+            'periodable_id' => $encounters[3]->id,
+            'periodable_type' => 'Encounter',
         ]);
 
         // Instantiate the controller
@@ -92,11 +104,77 @@ class AnalyticsTest extends TestCase
     public function test_get_encounters_per_month()
     {
         // Create test data
-        $encounter1 = Encounter::factory()->create(['period_start' => now()->subMonths(10)]);
-        $encounter2 = Encounter::factory()->create(['period_start' => now()->subMonths(8)]);
-        $encounter3 = Encounter::factory()->create(['period_start' => now()->subMonths(6)]);
-        $encounter4 = Encounter::factory()->create(['period_start' => now()->subMonths(4)]);
-        $encounter5 = Encounter::factory()->create(['period_start' => now()->subMonths(2)]);
+        $encounters = Encounter::factory()->count(5)->create();
+
+        Period::factory()->create([
+            'start' => now()->subMonths(10),
+            'end' => now()->subMonths(10)->addHours(2),
+            'periodable_id' => $encounters[0]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(8),
+            'end' => now()->subMonths(8)->addHours(2),
+            'periodable_id' => $encounters[1]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(6),
+            'end' => now()->subMonths(6)->addHours(2),
+            'periodable_id' => $encounters[2]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(4),
+            'end' => now()->subMonths(4)->addHours(2),
+            'periodable_id' => $encounters[3]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(2),
+            'end' => now()->subMonths(2)->addHours(2),
+            'periodable_id' => $encounters[4]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'AMB',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[0]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'AMB',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[1]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'EMER',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[2]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'EMER',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[3]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'IMP',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[4]->id,
+            'codeable_type' => 'Encounter',
+        ]);
 
         // Call the API endpoint
         $response = $this->get(route('analytics.pasien-per-bulan'));
@@ -108,29 +186,29 @@ class AnalyticsTest extends TestCase
         $response->assertJson([
             'data' => [
                 [
-                    'month' => $encounter1->period_start->format('Y-m'),
-                    'class' => $encounter1->class,
-                    'encounter_count' => 1,
+                    'month' => $encounters[0]->period->start->format('Y-m'),
+                    'class' => $encounters[0]->class->code,
+                    'count' => 1,
                 ],
                 [
-                    'month' => $encounter2->period_start->format('Y-m'),
-                    'class' => $encounter2->class,
-                    'encounter_count' => 1,
+                    'month' => $encounters[1]->period->start->format('Y-m'),
+                    'class' => $encounters[1]->class->code,
+                    'count' => 1,
                 ],
                 [
-                    'month' => $encounter3->period_start->format('Y-m'),
-                    'class' => $encounter3->class,
-                    'encounter_count' => 1,
+                    'month' => $encounters[2]->period->start->format('Y-m'),
+                    'class' => $encounters[2]->class->code,
+                    'count' => 1,
                 ],
                 [
-                    'month' => $encounter4->period_start->format('Y-m'),
-                    'class' => $encounter4->class,
-                    'encounter_count' => 1,
+                    'month' => $encounters[3]->period->start->format('Y-m'),
+                    'class' => $encounters[3]->class->code,
+                    'count' => 1,
                 ],
                 [
-                    'month' => $encounter5->period_start->format('Y-m'),
-                    'class' => $encounter5->class,
-                    'encounter_count' => 1,
+                    'month' => $encounters[4]->period->start->format('Y-m'),
+                    'class' => $encounters[4]->class->code,
+                    'count' => 1,
                 ],
             ],
         ]);

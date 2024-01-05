@@ -59,7 +59,7 @@ class UserManagementTest extends TestCase
         $userData['password_confirmation'] = $password;
 
         $practitioner = Practitioner::factory()->create();
-        $userData['practitioner_id'] = $practitioner->id;
+        $userData['practitioner_id'] = $practitioner->resource->satusehat_id;
 
         // Send a POST request to the store method with the user data
         $response = $this->actingAs($admin)->post(route('users.store'), $userData);
@@ -89,7 +89,7 @@ class UserManagementTest extends TestCase
             'email' => fake()->email(),
             'password' => $password,
             'password_confirmation' => $password,
-            'practitioner_id' => $practitioner->id
+            'practitioner_id' => $practitioner->resource->satusehat_id
         ];
 
         // Send a PUT request to the update method with the user id and updated user data

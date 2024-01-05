@@ -3,32 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fhir\Encounter;
-use App\Models\Fhir\Patient;
 use App\Models\Fhir\Resource;
+use App\Models\Fhir\Resources\Encounter;
+use App\Models\Fhir\Resources\Patient;
 use Illuminate\Support\Facades\DB;
 
 class AnalyticsController extends Controller
 {
     public function getTodayEncounters()
     {
-        $count = Encounter::where(function ($query) {
-            $today = now()->toDateString();
+        $today = now()->toDateString();
 
-            // Check if period_start is today or before
-            $query->whereDate('period_start', '<=', $today);
-
-            // Check if period_end is today or later, or null
-            $query->where(function ($subQuery) use ($today) {
-                $subQuery->whereDate('period_end', '>=', $today)
-                    ->orWhereNull('period_end');
-            });
-        })
-            ->count();
+        $count = Encounter::whereHas('period', function ($query) use ($today) {
+            $query->where('start', '<=', $today)
+                ->where('end', '>=', $today);
+        })->count();
 
         return response()->json(['count' => $count]);
     }
-
 
     public function getThisMonthNewPatients()
     {
@@ -43,7 +35,6 @@ class AnalyticsController extends Controller
         return response()->json(['count' => $resourceCount]);
     }
 
-
     public function countPatients()
     {
         $count = Patient::count();
@@ -51,25 +42,31 @@ class AnalyticsController extends Controller
         return response()->json(['count' => $count]);
     }
 
-
     public function getEncountersPerMonth()
     {
-        // Calculate the date 12 months ago from now
-        $twelveMonthsAgo = now()->subMonths(12);
+        $endDate = now(); // Current date
+        $startDate = now()->subMonths(11); // 12 months ago
 
-        // Fetch data from the Encounter model grouped by month and class
-        $analyticsData = Encounter::select(
-            DB::raw('DATE_FORMAT(period_start, "%Y-%m") as month'),
-            'class',
-            DB::raw('COUNT(*) as encounter_count')
-        )
-            ->where('period_start', '>=', $twelveMonthsAgo) // Filter data for the last 12 months
+        // Retrieve the counts of Encounters grouped by period start and class code
+        $encounterCounts = Encounter::selectRaw('DATE_FORMAT(periods.start, "%Y-%m") as month')
+            ->selectRaw('codings.code as class')
+            ->selectRaw('COUNT(*) as count')
+            ->join('periods', function ($join) {
+                $join->on('encounter.id', '=', 'periods.periodable_id')
+                    ->where('periods.periodable_type', 'Encounter');
+            })
+            ->join('codings', function ($join) {
+                $join->on('encounter.id', '=', 'codings.codeable_id')
+                    ->where('codings.codeable_type', 'Encounter')
+                    ->where('codings.attr_type', 'class');
+            })
+            ->whereBetween('periods.start', [$startDate, $endDate])
             ->groupBy('month', 'class')
+            ->orderBy('month')
             ->get();
 
-        return response()->json(['data' => $analyticsData]);
+        return response()->json(['data' => $encounterCounts]);
     }
-
 
     public function getPatientAgeGroups()
     {
