@@ -121,7 +121,7 @@ class IntegrationTest extends TestCase
 
         $response = $this->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $response->assertSuccessful();
         $this->assertDatabaseCount('resource_content', 2);
     }
 
@@ -129,7 +129,7 @@ class IntegrationTest extends TestCase
     {
         $response = $this->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $response->assertSuccessful();
         $this->assertDatabaseCount('resource', 1);
         $this->assertDatabaseCount('resource_content', 1);
         $this->assertDatabaseCount('organization', 1);
