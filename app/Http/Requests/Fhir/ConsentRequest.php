@@ -14,7 +14,7 @@ class ConsentRequest extends FhirRequest
     public function rules(): array
     {
         return [
-            'patient_id' => 'required|string|exists:identifiers,value',
+            'patient_id' => 'required|string',
             'action' => 'required|in:OPTIN,OPTOUT',
             'agent' => 'required|string'
         ];
