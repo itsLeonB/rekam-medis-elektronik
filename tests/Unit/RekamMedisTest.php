@@ -379,17 +379,17 @@ class RekamMedisTest extends TestCase
         $response->assertStatus(404);
     }
 
-    public function test_update_data()
-    {
-        $response = $this->get(route('rekam-medis.update', ['patient_id' => '100000030009']));
-
-        $this->assertEquals(200, $response->getStatusCode());
-    }
-
     public function test_update_data_invalid()
     {
         $response = $this->get(route('rekam-medis.update', ['patient_id' => '0']));
 
         $this->assertEquals(404, $response->getStatusCode());
+    }
+
+    public function test_update_data()
+    {
+        $response = $this->get(route('rekam-medis.update', ['patient_id' => '100000030009']));
+
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }
