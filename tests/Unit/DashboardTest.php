@@ -22,14 +22,23 @@ class DashboardTest extends TestCase
     public function test_get_daftar_pasien()
     {
         // Create test data
-        $class = 'AMB';
-        $serviceType = 124;
+        $classes = ['AMB', 'IMP', 'EMER'];
+        $serviceTypes = [124, 177, 186, 88, 168, 218, 221, 286, 263, 189, 221, 124, 286];
+
+        $class = $classes[array_rand($classes)];
+        $serviceType = $serviceTypes[array_rand($serviceTypes)];
 
         $patient = Patient::factory()->create();
 
         $patientName = HumanName::factory()->create([
             'human_nameable_id' => $patient->id,
             'human_nameable_type' => 'Patient',
+        ]);
+
+        $identifier = Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'system' => 'rme',
         ]);
 
         $encounter = Encounter::factory()->create();

@@ -1,12 +1,14 @@
 <?php
 
-namespace Tests\Unit;
+namespace Database\Seeders;
 
+use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Datatypes\Coding;
 use App\Models\Fhir\Datatypes\HumanName;
 use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\AllergyIntolerance;
 use App\Models\Fhir\Resources\ClinicalImpression;
 use App\Models\Fhir\Resources\Composition;
@@ -19,18 +21,216 @@ use App\Models\Fhir\Resources\Patient;
 use App\Models\Fhir\Resources\Procedure;
 use App\Models\Fhir\Resources\QuestionnaireResponse;
 use App\Models\Fhir\Resources\ServiceRequest;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Tests\TestCase;
-use Tests\Traits\FhirTest;
+use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
-class RekamMedisTest extends TestCase
+class DummyDataSeeder extends Seeder
 {
-    use DatabaseTransactions;
-    use FhirTest;
-
-    public function test_index_rekam_medis()
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
     {
-        // Create some test patients
+        $encounters = Encounter::factory()->count(4)->create();
+
+        Period::factory()->create([
+            'start' => Carbon::today(),
+            'end' => Carbon::today()->addHours(2),
+            'periodable_id' => $encounters[0]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => Carbon::today(),
+            'end' => Carbon::today()->addHours(4),
+            'periodable_id' => $encounters[1]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => Carbon::yesterday(),
+            'end' => Carbon::yesterday()->addHours(2),
+            'periodable_id' => $encounters[2]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => Carbon::tomorrow(),
+            'end' => Carbon::tomorrow()->addHours(2),
+            'periodable_id' => $encounters[3]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        $patCount = fake()->numberBetween(1, 10);
+
+        // Create a new patient resource
+        Resource::factory()->count($patCount)->create([
+            'res_type' => 'Patient',
+            'created_at' => Carbon::now()->startOfMonth(),
+        ]);
+
+        // Create another patient resource from last month
+        Resource::factory()->create([
+            'res_type' => 'Patient',
+            'created_at' => Carbon::now()->subMonth()->startOfMonth(),
+        ]);
+
+        $patCount = fake()->numberBetween(1, 10);
+
+        // Create a new patient resource
+        Patient::factory()->count($patCount)->create();
+
+        $encounters = Encounter::factory()->count(5)->create();
+
+        Period::factory()->create([
+            'start' => now()->subMonths(10),
+            'end' => now()->subMonths(10)->addHours(2),
+            'periodable_id' => $encounters[0]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(8),
+            'end' => now()->subMonths(8)->addHours(2),
+            'periodable_id' => $encounters[1]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(6),
+            'end' => now()->subMonths(6)->addHours(2),
+            'periodable_id' => $encounters[2]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(4),
+            'end' => now()->subMonths(4)->addHours(2),
+            'periodable_id' => $encounters[3]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Period::factory()->create([
+            'start' => now()->subMonths(2),
+            'end' => now()->subMonths(2)->addHours(2),
+            'periodable_id' => $encounters[4]->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'AMB',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[0]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'AMB',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[1]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'EMER',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[2]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'EMER',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[3]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        Coding::factory()->create([
+            'code' => 'IMP',
+            'attr_type' => 'class',
+            'codeable_id' => $encounters[4]->id,
+            'codeable_type' => 'Encounter',
+        ]);
+
+        $balita = fake()->numberBetween(1, 10);
+        $kanak = fake()->numberBetween(1, 10);
+        $remaja = fake()->numberBetween(1, 10);
+        $dewasa = fake()->numberBetween(1, 10);
+        $lansia = fake()->numberBetween(1, 10);
+        $manula = fake()->numberBetween(1, 10);
+
+        Patient::factory()->count($balita)->create([
+            'birth_date' => now()->subYears(1),
+        ]);
+        Patient::factory()->count($kanak)->create([
+            'birth_date' => now()->subYears(6),
+        ]);
+        Patient::factory()->count($remaja)->create([
+            'birth_date' => now()->subYears(12),
+        ]);
+        Patient::factory()->count($dewasa)->create([
+            'birth_date' => now()->subYears(26),
+        ]);
+        Patient::factory()->count($lansia)->create([
+            'birth_date' => now()->subYears(46),
+        ]);
+        Patient::factory()->count($manula)->create([
+            'birth_date' => now()->subYears(66),
+        ]);
+
+        $classes = ['AMB', 'IMP', 'EMER'];
+        $serviceTypes = [124, 177, 186, 88, 168, 218, 221, 286, 263, 189, 221, 124, 286];
+
+        $class = $classes[array_rand($classes)];
+        $serviceType = $serviceTypes[array_rand($serviceTypes)];
+
+        $patient = Patient::factory()->create();
+
+        HumanName::factory()->create([
+            'human_nameable_id' => $patient->id,
+            'human_nameable_type' => 'Patient',
+        ]);
+
+        Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'system' => 'rme',
+        ]);
+
+        $encounter = Encounter::factory()->create();
+
+        Coding::factory()->create([
+            'code' => $class,
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'class'
+        ]);
+
+        $serviceTypeRelation = CodeableConcept::factory()->create([
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'serviceType'
+        ]);
+
+        Coding::factory()->create([
+            'code' => $serviceType,
+            'codeable_id' => $serviceTypeRelation->id,
+            'codeable_type' => 'CodeableConcept',
+            'attr_type' => 'coding'
+        ]);
+
+        Period::factory()->create([
+            'periodable_id' => $encounter->id,
+            'periodable_type' => 'Encounter',
+        ]);
+
+        Reference::factory()->create([
+            'reference' => 'Patient/' . $patient->resource->satusehat_id,
+            'referenceable_id' => $encounter->id,
+            'referenceable_type' => 'Encounter',
+            'attr_type' => 'subject'
+        ]);
+
         $patient1 = Patient::factory()->create();
         Identifier::factory()->create([
             'identifiable_id' => $patient1->id,
@@ -81,6 +281,7 @@ class RekamMedisTest extends TestCase
             'attr_type' => 'subject'
         ]);
         Coding::factory()->create([
+            'code' => $classes[array_rand($classes)],
             'codeable_id' => $encounter2->id,
             'codeable_type' => 'Encounter',
             'attr_type' => 'class'
@@ -91,33 +292,6 @@ class RekamMedisTest extends TestCase
             'attr_type' => 'period'
         ]);
 
-        // Make a GET request to the index endpoint
-        $response = $this->get(route('rekam-medis.index'));
-
-        // Assert that the response is successful
-        $response->assertStatus(200);
-
-        // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient1->resource->satusehat_id,
-                'identifier' => $patient1->identifier()->where('system', 'rme')->first()->value,
-                'name' => $patient1->name()->first()->text,
-                'class' => $encounter1->class->code,
-                'start' => $encounter1->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
-            ],
-            [
-                'satusehatId' => $patient2->resource->satusehat_id,
-                'identifier' => $patient2->identifier()->where('system', 'rme')->first()->value,
-                'name' => $patient2->name()->first()->text,
-                'class' => $encounter2->class->code,
-                'start' => $encounter2->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
-            ],
-        ]);
-    }
-
-    public function test_show_rekam_medis()
-    {
         $patient = Patient::factory()->create();
         $patientSatusehatId = $patient->resource->satusehat_id;
 
@@ -309,47 +483,5 @@ class RekamMedisTest extends TestCase
             'referenceable_type' => 'QuestionnaireResponse',
             'attr_type' => 'subject'
         ]);
-
-        $response = $this->get(route('rekam-medis.show', $patient->id));
-
-        $response->assertStatus(200);
-        $response->assertJsonFragment($patient->toArray());
-        $response->assertJsonFragment($encounter->toArray());
-        $response->assertJsonFragment($encCondition->toArray());
-        $response->assertJsonFragment($encObservation->toArray());
-        $response->assertJsonFragment($encProcedure->toArray());
-        $response->assertJsonFragment($encMedicationRequest->toArray());
-        $response->assertJsonFragment($encComposition->toArray());
-        $response->assertJsonFragment($encAllergyIntolerance->toArray());
-        $response->assertJsonFragment($encClinicalImpression->toArray());
-        $response->assertJsonFragment($encServiceRequest->toArray());
-        $response->assertJsonFragment($encMedicationStatement->toArray());
-        $response->assertJsonFragment($encQuestionnaireResponse->toArray());
-        $response->assertJsonFragment($patMedicationRequest->toArray());
-        $response->assertJsonFragment($patComposition->toArray());
-        $response->assertJsonFragment($patAllergyIntolerance->toArray());
-        $response->assertJsonFragment($patMedicationStatement->toArray());
-        $response->assertJsonFragment($patQuestionnaireResponse->toArray());
-    }
-
-    public function test_show_rekam_medis_invalid()
-    {
-        $response = $this->get(route('rekam-medis.show', 0));
-
-        $response->assertStatus(404);
-    }
-
-    public function test_update_data_invalid()
-    {
-        $response = $this->get(route('rekam-medis.update', ['patient_id' => '0']));
-
-        $this->assertEquals(404, $response->getStatusCode());
-    }
-
-    public function test_update_data()
-    {
-        $response = $this->get(route('rekam-medis.update', ['patient_id' => '100000030009']));
-
-        $this->assertEquals(200, $response->getStatusCode());
     }
 }

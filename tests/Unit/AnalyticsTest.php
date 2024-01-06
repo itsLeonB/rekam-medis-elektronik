@@ -15,7 +15,6 @@ class AnalyticsTest extends TestCase
 {
     use DatabaseTransactions;
 
-
     public function test_get_today_encounters()
     {
         $encounters = Encounter::factory()->count(4)->create();
@@ -55,7 +54,6 @@ class AnalyticsTest extends TestCase
         $response->assertJson(['count' => 2]);
     }
 
-
     public function test_get_this_month_new_patients()
     {
         $patCount = fake()->numberBetween(1, 10);
@@ -82,7 +80,6 @@ class AnalyticsTest extends TestCase
         $response->assertJson(['count' => $patCount]);
     }
 
-
     public function test_get_total_patient_count()
     {
         $patCount = fake()->numberBetween(1, 10);
@@ -99,7 +96,6 @@ class AnalyticsTest extends TestCase
         // Assert that the response contains the correct count of new patients
         $response->assertJson(['count' => $patCount]);
     }
-
 
     public function test_get_encounters_per_month()
     {
@@ -213,7 +209,6 @@ class AnalyticsTest extends TestCase
             ],
         ]);
     }
-
 
     public function test_get_patient_age_groups()
     {

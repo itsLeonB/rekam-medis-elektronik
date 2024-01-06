@@ -11,7 +11,6 @@ class UserManagementTest extends TestCase
 {
     use DatabaseTransactions;
 
-
     public function test_index_users()
     {
         $admin = User::factory()->create();
@@ -27,7 +26,6 @@ class UserManagementTest extends TestCase
         // Assert that the response contains the users data
         $response->assertJson(['users' => User::paginate(15)->toArray()]);
     }
-
 
     public function test_show_user()
     {
@@ -45,7 +43,6 @@ class UserManagementTest extends TestCase
         // Assert that the response contains the user data
         $response->assertJson(['user' => $user->toArray()]);
     }
-
 
     public function test_create_new_user()
     {
@@ -71,7 +68,6 @@ class UserManagementTest extends TestCase
         $response->assertJsonFragment(['name' => $userData['name']]);
         $response->assertJsonFragment(['email' => $userData['email']]);
     }
-
 
     public function test_update_user()
     {
@@ -109,7 +105,6 @@ class UserManagementTest extends TestCase
         $this->assertNotNull($passwordTimestamp);
     }
 
-
     public function test_delete_user()
     {
         $admin = User::factory()->create();
@@ -126,7 +121,6 @@ class UserManagementTest extends TestCase
         // Assert that the user is deleted from the database
         $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
-
 
     public function test_delete_self()
     {
