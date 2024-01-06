@@ -8,6 +8,7 @@ use App\Models\Fhir\Datatypes\HumanName;
 use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\Fhir\Resources\Patient;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -24,18 +25,17 @@ class DashboardTest extends TestCase
         // Create test data
         $classes = ['AMB', 'IMP', 'EMER'];
         $serviceTypes = [124, 177, 186, 88, 168, 218, 221, 286, 263, 189, 221, 124, 286];
+        $class = fake()->randomElement($classes);
+        $serviceType = fake()->randomElement($serviceTypes);
 
-        $class = $classes[array_rand($classes)];
-        $serviceType = $serviceTypes[array_rand($serviceTypes)];
-
-        $patient = Patient::factory()->create();
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
 
         $patientName = HumanName::factory()->create([
             'human_nameable_id' => $patient->id,
             'human_nameable_type' => 'Patient',
         ]);
 
-        $identifier = Identifier::factory()->create([
+        Identifier::factory()->create([
             'identifiable_id' => $patient->id,
             'identifiable_type' => 'Patient',
             'system' => 'rme',
@@ -43,7 +43,7 @@ class DashboardTest extends TestCase
 
         $encounter = Encounter::factory()->create();
 
-        $classRelation = Coding::factory()->create([
+        Coding::factory()->create([
             'code' => $class,
             'codeable_id' => $encounter->id,
             'codeable_type' => 'Encounter',
@@ -56,7 +56,7 @@ class DashboardTest extends TestCase
             'attr_type' => 'serviceType'
         ]);
 
-        $serviceTypeCode = Coding::factory()->create([
+        Coding::factory()->create([
             'code' => $serviceType,
             'codeable_id' => $serviceTypeRelation->id,
             'codeable_type' => 'CodeableConcept',
@@ -68,7 +68,7 @@ class DashboardTest extends TestCase
             'periodable_type' => 'Encounter',
         ]);
 
-        $encounterSubject = Reference::factory()->create([
+        Reference::factory()->create([
             'reference' => 'Patient/' . $patient->resource->satusehat_id,
             'referenceable_id' => $encounter->id,
             'referenceable_type' => 'Encounter',

@@ -37,7 +37,7 @@ class Resource extends FhirModel
         'fhir_ver' => 'R4'
     ];
 
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['id'];
 
     public function content(): HasMany
     {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\Fhir\Resources\Patient;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class AnalyticsController extends Controller
@@ -24,15 +25,17 @@ class AnalyticsController extends Controller
 
     public function getThisMonthNewPatients()
     {
-        $firstDayOfMonth = now()->startOfMonth();
-        $lastDayOfMonth = now()->endOfMonth();
+        // Get the current month and year
+        $currentMonth = Carbon::now()->month;
+        $currentYear = Carbon::now()->year;
 
-        // Retrieve the count of resources
-        $resourceCount = Resource::where('res_type', 'Patient')
-            ->whereBetween('created_at', [$firstDayOfMonth, $lastDayOfMonth])
+        // Query to get the count of rows created in the current month
+        $count = Resource::where('res_type', 'Patient')
+            ->whereMonth('created_at', $currentMonth)
+            ->whereYear('created_at', $currentYear)
             ->count();
 
-        return response()->json(['count' => $resourceCount]);
+        return response()->json(['count' => $count]);
     }
 
     public function countPatients()

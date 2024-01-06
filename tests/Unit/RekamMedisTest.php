@@ -7,6 +7,7 @@ use App\Models\Fhir\Datatypes\HumanName;
 use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Datatypes\Reference;
+use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\AllergyIntolerance;
 use App\Models\Fhir\Resources\ClinicalImpression;
 use App\Models\Fhir\Resources\Composition;
@@ -30,8 +31,9 @@ class RekamMedisTest extends TestCase
 
     public function test_index_rekam_medis()
     {
+        $classes = ['AMB', 'IMP', 'EMER'];
         // Create some test patients
-        $patient1 = Patient::factory()->create();
+        $patient1 = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         Identifier::factory()->create([
             'identifiable_id' => $patient1->id,
             'identifiable_type' => 'Patient',
@@ -51,6 +53,7 @@ class RekamMedisTest extends TestCase
             'attr_type' => 'subject'
         ]);
         Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
             'codeable_id' => $encounter1->id,
             'codeable_type' => 'Encounter',
             'attr_type' => 'class'
@@ -61,7 +64,7 @@ class RekamMedisTest extends TestCase
             'attr_type' => 'period'
         ]);
 
-        $patient2 = Patient::factory()->create();
+        $patient2 = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         Identifier::factory()->create([
             'identifiable_id' => $patient2->id,
             'identifiable_type' => 'Patient',
@@ -81,6 +84,7 @@ class RekamMedisTest extends TestCase
             'attr_type' => 'subject'
         ]);
         Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
             'codeable_id' => $encounter2->id,
             'codeable_type' => 'Encounter',
             'attr_type' => 'class'
@@ -118,7 +122,7 @@ class RekamMedisTest extends TestCase
 
     public function test_show_rekam_medis()
     {
-        $patient = Patient::factory()->create();
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         $patientSatusehatId = $patient->resource->satusehat_id;
 
         $encounter = Encounter::factory()->create();

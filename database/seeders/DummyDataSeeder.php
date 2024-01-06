@@ -62,27 +62,27 @@ class DummyDataSeeder extends Seeder
         ]);
 
         $patCount = fake()->numberBetween(1, 10);
+        $lastMonthCount = fake()->numberBetween(1, 10);
 
         // Create a new patient resource
-        Resource::factory()->count($patCount)
-            ->has(Patient::factory(), 'patient')
-            ->create([
-                'res_type' => 'Patient',
-                'created_at' => Carbon::now()->startOfMonth(),
-            ]);
+        for ($i = 0; $i < $patCount; $i++) {
+            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        }
 
         // Create another patient resource from last month
-        Resource::factory()
-            ->has(Patient::factory(), 'patient')
-            ->create([
+        for ($i = 0; $i < $lastMonthCount; $i++) {
+            Patient::factory()->for(Resource::factory()->create([
                 'res_type' => 'Patient',
-                'created_at' => Carbon::now()->subMonth()->startOfMonth(),
-            ]);
+                'created_at' => now()->subMonth(),
+            ]))->create();
+        }
 
         $patCount = fake()->numberBetween(1, 10);
 
         // Create a new patient resource
-        Patient::factory()->count($patCount)->create();
+        for ($i = 0; $i < $patCount; $i++) {
+            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        }
 
         $encounters = Encounter::factory()->count(5)->create();
 
@@ -163,34 +163,50 @@ class DummyDataSeeder extends Seeder
         $lansia = fake()->numberBetween(1, 10);
         $manula = fake()->numberBetween(1, 10);
 
-        Patient::factory()->count($balita)->create([
-            'birth_date' => now()->subYears(1),
-        ]);
-        Patient::factory()->count($kanak)->create([
-            'birth_date' => now()->subYears(6),
-        ]);
-        Patient::factory()->count($remaja)->create([
-            'birth_date' => now()->subYears(12),
-        ]);
-        Patient::factory()->count($dewasa)->create([
-            'birth_date' => now()->subYears(26),
-        ]);
-        Patient::factory()->count($lansia)->create([
-            'birth_date' => now()->subYears(46),
-        ]);
-        Patient::factory()->count($manula)->create([
-            'birth_date' => now()->subYears(66),
-        ]);
+        for ($i = 0; $i < $balita; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(1)]);
+        }
+
+        for ($i = 0; $i < $kanak; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(6)]);
+        }
+
+        for ($i = 0; $i < $remaja; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(12)]);
+        }
+
+        for ($i = 0; $i < $dewasa; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(26)]);
+        }
+
+        for ($i = 0; $i < $lansia; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(46)]);
+        }
+
+        for ($i = 0; $i < $manula; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(66)]);
+        }
 
         $classes = ['AMB', 'IMP', 'EMER'];
         $serviceTypes = [124, 177, 186, 88, 168, 218, 221, 286, 263, 189, 221, 124, 286];
+        $class = fake()->randomElement($classes);
+        $serviceType = fake()->randomElement($serviceTypes);
 
-        $class = $classes[array_rand($classes)];
-        $serviceType = $serviceTypes[array_rand($serviceTypes)];
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
 
-        $patient = Patient::factory()->create();
-
-        HumanName::factory()->create([
+        $patientName = HumanName::factory()->create([
             'human_nameable_id' => $patient->id,
             'human_nameable_type' => 'Patient',
         ]);
@@ -223,7 +239,7 @@ class DummyDataSeeder extends Seeder
             'attr_type' => 'coding'
         ]);
 
-        Period::factory()->create([
+        $encounterPeriod = Period::factory()->create([
             'periodable_id' => $encounter->id,
             'periodable_type' => 'Encounter',
         ]);
@@ -235,7 +251,9 @@ class DummyDataSeeder extends Seeder
             'attr_type' => 'subject'
         ]);
 
-        $patient1 = Patient::factory()->create();
+        $classes = ['AMB', 'IMP', 'EMER'];
+        // Create some test patients
+        $patient1 = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         Identifier::factory()->create([
             'identifiable_id' => $patient1->id,
             'identifiable_type' => 'Patient',
@@ -255,6 +273,7 @@ class DummyDataSeeder extends Seeder
             'attr_type' => 'subject'
         ]);
         Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
             'codeable_id' => $encounter1->id,
             'codeable_type' => 'Encounter',
             'attr_type' => 'class'
@@ -265,7 +284,7 @@ class DummyDataSeeder extends Seeder
             'attr_type' => 'period'
         ]);
 
-        $patient2 = Patient::factory()->create();
+        $patient2 = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         Identifier::factory()->create([
             'identifiable_id' => $patient2->id,
             'identifiable_type' => 'Patient',
@@ -285,7 +304,7 @@ class DummyDataSeeder extends Seeder
             'attr_type' => 'subject'
         ]);
         Coding::factory()->create([
-            'code' => $classes[array_rand($classes)],
+            'code' => fake()->randomElement($classes),
             'codeable_id' => $encounter2->id,
             'codeable_type' => 'Encounter',
             'attr_type' => 'class'
@@ -296,7 +315,7 @@ class DummyDataSeeder extends Seeder
             'attr_type' => 'period'
         ]);
 
-        $patient = Patient::factory()->create();
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         $patientSatusehatId = $patient->resource->satusehat_id;
 
         $encounter = Encounter::factory()->create();
