@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\AllergyIntolerance;
 use App\Models\Fhir\Resources\ClinicalImpression;
 use App\Models\Fhir\Resources\Composition;
@@ -18,11 +17,9 @@ use App\Models\Fhir\Resources\QuestionnaireResponse;
 use App\Models\Fhir\Resources\ServiceRequest;
 use DateTime;
 use DateTimeZone;
-use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 
 class RekamMedisController extends Controller
@@ -47,15 +44,18 @@ class RekamMedisController extends Controller
 
         $formattedPatients = $patients->map(function ($patient) {
             $latestEncounter = $this->getLatestEncounter($patient);
-            $latestEncounter->start = new DateTime($latestEncounter->start);
 
-            return [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', 'rme')->value('value'),
-                'name' => $patient->name()->first()->text,
-                'class' => $latestEncounter->code,
-                'start' => $latestEncounter->start->setTimezone(new DateTimeZone('Asia/Jakarta'))->format('Y-m-d\TH:i:sP'),
-            ];
+            if (!empty($latestEncounter)) {
+                $latestEncounter->start = new DateTime($latestEncounter->start);
+
+                return [
+                    'satusehatId' => $patient->resource->satusehat_id,
+                    'identifier' => $patient->identifier()->where('system', 'rme')->value('value'),
+                    'name' => $patient->name()->first()->text,
+                    'class' => $latestEncounter->code,
+                    'start' => $latestEncounter->start->setTimezone(new DateTimeZone('Asia/Jakarta'))->format('Y-m-d\TH:i:sP'),
+                ];
+            }
         });
 
         return response()->json($formattedPatients);
