@@ -57,18 +57,20 @@ class AnalyticsTest extends TestCase
     public function test_get_this_month_new_patients()
     {
         $patCount = fake()->numberBetween(1, 10);
+        $lastMonthCount = fake()->numberBetween(1, 10);
 
         // Create a new patient resource
-        Resource::factory()->count($patCount)->create([
-            'res_type' => 'Patient',
-            'created_at' => Carbon::now()->startOfMonth(),
-        ]);
+        for ($i = 0; $i < $patCount; $i++) {
+            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        }
 
         // Create another patient resource from last month
-        Resource::factory()->create([
-            'res_type' => 'Patient',
-            'created_at' => Carbon::now()->subMonth()->startOfMonth(),
-        ]);
+        for ($i = 0; $i < $lastMonthCount; $i++) {
+            Patient::factory()->for(Resource::factory()->create([
+                'res_type' => 'Patient',
+                'created_at' => now()->subMonth(),
+            ]))->create();
+        }
 
         // Call the getThisMonthNewPatients method
         $response = $this->get(route('analytics.pasien-baru-bulan-ini'));
@@ -77,6 +79,8 @@ class AnalyticsTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the correct count of new patients
+        $this->assertDatabaseCount('resource', $patCount + $lastMonthCount);
+        $this->assertDatabaseCount('patient', $patCount + $lastMonthCount);
         $response->assertJson(['count' => $patCount]);
     }
 
@@ -85,7 +89,9 @@ class AnalyticsTest extends TestCase
         $patCount = fake()->numberBetween(1, 10);
 
         // Create a new patient resource
-        Patient::factory()->count($patCount)->create();
+        for ($i = 0; $i < $patCount; $i++) {
+            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        }
 
         // Call the countPatients method
         $response = $this->get(route('analytics.jumlah-pasien'));
@@ -220,24 +226,41 @@ class AnalyticsTest extends TestCase
         $lansia = fake()->numberBetween(1, 10);
         $manula = fake()->numberBetween(1, 10);
 
-        Patient::factory()->count($balita)->create([
-            'birth_date' => now()->subYears(1),
-        ]);
-        Patient::factory()->count($kanak)->create([
-            'birth_date' => now()->subYears(6),
-        ]);
-        Patient::factory()->count($remaja)->create([
-            'birth_date' => now()->subYears(12),
-        ]);
-        Patient::factory()->count($dewasa)->create([
-            'birth_date' => now()->subYears(26),
-        ]);
-        Patient::factory()->count($lansia)->create([
-            'birth_date' => now()->subYears(46),
-        ]);
-        Patient::factory()->count($manula)->create([
-            'birth_date' => now()->subYears(66),
-        ]);
+        for ($i = 0; $i < $balita; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(1)]);
+        }
+
+        for ($i = 0; $i < $kanak; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(6)]);
+        }
+
+        for ($i = 0; $i < $remaja; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(12)]);
+        }
+
+        for ($i = 0; $i < $dewasa; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(26)]);
+        }
+
+        for ($i = 0; $i < $lansia; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(46)]);
+        }
+
+        for ($i = 0; $i < $manula; $i++) {
+            Patient::factory()
+                ->for(Resource::factory()->create(['res_type' => 'Patient']))
+                ->create(['birth_date' => now()->subYears(66)]);
+        }
 
         // Make the request to the API endpoint
         $response = $this->get(route('analytics.sebaran-usia-pasien'));
