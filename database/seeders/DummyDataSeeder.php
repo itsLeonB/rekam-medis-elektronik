@@ -84,77 +84,27 @@ class DummyDataSeeder extends Seeder
             Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         }
 
-        $encounters = Encounter::factory()->count(5)->create();
+        for ($i = 0; $i < 13; $i++) {
+            $count = fake()->randomDigit();
 
-        Period::factory()->create([
-            'start' => now()->subMonths(10),
-            'end' => now()->subMonths(10)->addHours(2),
-            'periodable_id' => $encounters[0]->id,
-            'periodable_type' => 'Encounter',
-        ]);
+            for ($j = 0; $j < $count; $j++) {
+                $encounter = Encounter::factory()->create();
 
-        Period::factory()->create([
-            'start' => now()->subMonths(8),
-            'end' => now()->subMonths(8)->addHours(2),
-            'periodable_id' => $encounters[1]->id,
-            'periodable_type' => 'Encounter',
-        ]);
+                Period::factory()->create([
+                    'start' => now()->subMonths(13 - $i),
+                    'end' => now()->subMonths(13 - $i)->addHours(2),
+                    'periodable_id' => $encounter->id,
+                    'periodable_type' => 'Encounter',
+                ]);
 
-        Period::factory()->create([
-            'start' => now()->subMonths(6),
-            'end' => now()->subMonths(6)->addHours(2),
-            'periodable_id' => $encounters[2]->id,
-            'periodable_type' => 'Encounter',
-        ]);
-
-        Period::factory()->create([
-            'start' => now()->subMonths(4),
-            'end' => now()->subMonths(4)->addHours(2),
-            'periodable_id' => $encounters[3]->id,
-            'periodable_type' => 'Encounter',
-        ]);
-
-        Period::factory()->create([
-            'start' => now()->subMonths(2),
-            'end' => now()->subMonths(2)->addHours(2),
-            'periodable_id' => $encounters[4]->id,
-            'periodable_type' => 'Encounter',
-        ]);
-
-        Coding::factory()->create([
-            'code' => 'AMB',
-            'attr_type' => 'class',
-            'codeable_id' => $encounters[0]->id,
-            'codeable_type' => 'Encounter',
-        ]);
-
-        Coding::factory()->create([
-            'code' => 'AMB',
-            'attr_type' => 'class',
-            'codeable_id' => $encounters[1]->id,
-            'codeable_type' => 'Encounter',
-        ]);
-
-        Coding::factory()->create([
-            'code' => 'EMER',
-            'attr_type' => 'class',
-            'codeable_id' => $encounters[2]->id,
-            'codeable_type' => 'Encounter',
-        ]);
-
-        Coding::factory()->create([
-            'code' => 'EMER',
-            'attr_type' => 'class',
-            'codeable_id' => $encounters[3]->id,
-            'codeable_type' => 'Encounter',
-        ]);
-
-        Coding::factory()->create([
-            'code' => 'IMP',
-            'attr_type' => 'class',
-            'codeable_id' => $encounters[4]->id,
-            'codeable_type' => 'Encounter',
-        ]);
+                Coding::factory()->create([
+                    'code' => fake()->randomElement(['AMB', 'IMP', 'EMER']),
+                    'attr_type' => 'class',
+                    'codeable_id' => $encounter->id,
+                    'codeable_type' => 'Encounter',
+                ]);
+            }
+        }
 
         $balita = fake()->numberBetween(1, 10);
         $kanak = fake()->numberBetween(1, 10);
