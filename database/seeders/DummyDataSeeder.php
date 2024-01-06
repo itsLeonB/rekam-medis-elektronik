@@ -64,16 +64,20 @@ class DummyDataSeeder extends Seeder
         $patCount = fake()->numberBetween(1, 10);
 
         // Create a new patient resource
-        Resource::factory()->count($patCount)->create([
-            'res_type' => 'Patient',
-            'created_at' => Carbon::now()->startOfMonth(),
-        ]);
+        Resource::factory()->count($patCount)
+            ->has(Patient::factory(), 'patient')
+            ->create([
+                'res_type' => 'Patient',
+                'created_at' => Carbon::now()->startOfMonth(),
+            ]);
 
         // Create another patient resource from last month
-        Resource::factory()->create([
-            'res_type' => 'Patient',
-            'created_at' => Carbon::now()->subMonth()->startOfMonth(),
-        ]);
+        Resource::factory()
+            ->has(Patient::factory(), 'patient')
+            ->create([
+                'res_type' => 'Patient',
+                'created_at' => Carbon::now()->subMonth()->startOfMonth(),
+            ]);
 
         $patCount = fake()->numberBetween(1, 10);
 
