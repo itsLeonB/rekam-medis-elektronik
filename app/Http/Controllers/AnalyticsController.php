@@ -48,7 +48,7 @@ class AnalyticsController extends Controller
     public function getEncountersPerMonth()
     {
         $endDate = now(); // Current date
-        $startDate = now()->subMonths(11); // 12 months ago
+        $startDate = now()->subMonths(12); // 12 months ago
 
         // Retrieve the counts of Encounters grouped by period start and class code
         $encounterCounts = Encounter::selectRaw('DATE_FORMAT(periods.start, "%Y-%m") as month')
