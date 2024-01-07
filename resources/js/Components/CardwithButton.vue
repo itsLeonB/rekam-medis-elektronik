@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="shadow bg-white rounded-xl px-4 pt-3 pb-1 w-64">
+    <div class="shadow bg-white rounded-2xl px-4 pt-3 pb-1 w-64">
         <div class="h-32 mb-2">
             <slot name="cardimage" />
         </div>
