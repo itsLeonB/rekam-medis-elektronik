@@ -21,6 +21,7 @@ use App\Models\Fhir\Resources\QuestionnaireResponse;
 use App\Models\Fhir\Resources\ServiceRequest;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Resource extends FhirModel
 {
@@ -44,83 +45,83 @@ class Resource extends FhirModel
         return $this->hasMany(ResourceContent::class);
     }
 
-    public function practitioner(): HasMany
+    public function practitioner(): HasOne
     {
-        return $this->hasMany(Practitioner::class);
+        return $this->hasOne(Practitioner::class);
     }
 
-    public function patient(): HasMany
+    public function patient(): HasOne
     {
-        return $this->hasMany(Patient::class);
+        return $this->hasOne(Patient::class);
     }
 
-    public function location(): HasMany
+    public function location(): HasOne
     {
-        return $this->hasMany(Location::class);
+        return $this->hasOne(Location::class);
     }
 
-    public function organization(): HasMany
+    public function organization(): HasOne
     {
-        return $this->hasMany(Organization::class);
+        return $this->hasOne(Organization::class);
     }
 
-    public function encounter(): HasMany
+    public function encounter(): HasOne
     {
-        return $this->hasMany(Encounter::class);
+        return $this->hasOne(Encounter::class);
     }
 
-    public function condition(): HasMany
+    public function condition(): HasOne
     {
-        return $this->hasMany(Condition::class);
+        return $this->hasOne(Condition::class);
     }
 
-    public function observation(): HasMany
+    public function observation(): HasOne
     {
-        return $this->hasMany(Observation::class);
+        return $this->hasOne(Observation::class);
     }
 
-    public function procedure(): HasMany
+    public function procedure(): HasOne
     {
-        return $this->hasMany(Procedure::class);
+        return $this->hasOne(Procedure::class);
     }
 
-    public function medication(): HasMany
+    public function medication(): HasOne
     {
-        return $this->hasMany(Medication::class);
+        return $this->hasOne(Medication::class);
     }
 
-    public function medicationRequest(): HasMany
+    public function medicationRequest(): HasOne
     {
-        return $this->hasMany(MedicationRequest::class);
+        return $this->hasOne(MedicationRequest::class);
     }
 
-    public function composition(): HasMany
+    public function composition(): HasOne
     {
-        return $this->hasMany(Composition::class);
+        return $this->hasOne(Composition::class);
     }
 
-    public function allergyIntolerance(): HasMany
+    public function allergyIntolerance(): HasOne
     {
-        return $this->hasMany(AllergyIntolerance::class);
+        return $this->hasOne(AllergyIntolerance::class);
     }
 
-    public function clinicalImpression(): HasMany
+    public function clinicalImpression(): HasOne
     {
-        return $this->hasMany(ClinicalImpression::class);
+        return $this->hasOne(ClinicalImpression::class);
     }
 
-    public function serviceRequest(): HasMany
+    public function serviceRequest(): HasOne
     {
-        return $this->hasMany(ServiceRequest::class);
+        return $this->hasOne(ServiceRequest::class);
     }
 
-    public function medicationStatement(): HasMany
+    public function medicationStatement(): HasOne
     {
-        return $this->hasMany(MedicationStatement::class);
+        return $this->hasOne(MedicationStatement::class);
     }
 
-    public function questionnaireResponse(): HasMany
+    public function questionnaireResponse(): HasOne
     {
-        return $this->hasMany(QuestionnaireResponse::class);
+        return $this->hasOne(QuestionnaireResponse::class);
     }
 }
