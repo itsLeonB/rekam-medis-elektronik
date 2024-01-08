@@ -45,15 +45,17 @@ class RekamMedisController extends Controller
 
         if ($request->query('name')) {
             $patients = $patients->whereHas('name', function ($query) use ($request) {
-                $query->where('text', 'like', '%' . $request->query('name') . '%');
+                $query->where('text', 'like', '%' . addcslashes($request->query('name'), '%_') . '%');
             });
         }
 
         if ($request->query('identifier')) {
             $patients = $patients->whereHas('identifier', function ($query) use ($request) {
                 $search = $request->query('identifier');
-                $system = explode('|', $search)[0];
-                $value = explode('|', $search)[1];
+                list($system, $value) = array_pad(explode('|', $search, 2), 2, null);
+                if (!$system || !$value) {
+                    return response()->json(['message' => 'Invalid identifier format'], 400);
+                }
                 $query->where('system', $system)->where('value', $value);
             });
         }

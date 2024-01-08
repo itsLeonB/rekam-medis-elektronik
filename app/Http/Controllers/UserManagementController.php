@@ -20,7 +20,7 @@ class UserManagementController extends Controller
         $name = $request->query('name');
 
         if ($name) {
-            $users = User::where('name', 'like', "%$name%")->paginate(15);
+            $users = User::where('name', 'like', '%' . addcslashes($name, '%_') . '%')->paginate(15);
             return response()->json(['users' => $users], 200);
         }
 
