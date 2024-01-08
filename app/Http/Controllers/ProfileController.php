@@ -79,6 +79,10 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        return $user->practitionerUser;
+        if ($user) {
+            return $user->practitionerUser;
+        } else {
+            return response()->json(['error' => 'User is not authenticated'], 404);
+        }
     }
 }
