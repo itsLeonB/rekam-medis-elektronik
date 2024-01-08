@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\PractitionerResource;
 use App\Models\Fhir\Resource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -13,8 +15,15 @@ use Illuminate\Support\Facades\Log;
 class UserManagementController extends Controller
 {
     // index all users
-    public function index()
+    public function index(Request $request)
     {
+        $name = $request->query('name');
+
+        if ($name) {
+            $users = User::where('name', 'like', '%' . addcslashes($name, '%_') . '%')->paginate(15);
+            return response()->json(['users' => $users], 200);
+        }
+
         return response()->json(['users' => User::paginate(15)], 200);
     }
 
@@ -24,18 +33,17 @@ class UserManagementController extends Controller
     {
         try {
             $user = User::findOrFail($id);
-            $practitioner = $user->practitioner;
+            $pracResId = $user->practitionerUser()->first()->resource_id;
 
             return response()->json([
                 'user' => $user,
-                'practitioner' => $practitioner
+                'practitioner' => new PractitionerResource(Resource::findOrFail($pracResId))
             ], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json(['message' => 'User tidak ditemukan'], 404);
         }
     }
-
 
     // create a new user
     public function store(UserRequest $request)

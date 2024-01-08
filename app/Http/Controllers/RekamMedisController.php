@@ -38,9 +38,29 @@ class RekamMedisController extends Controller
         'questionnaireResponse' => QuestionnaireResponse::class,
     ];
 
-    public function index()
+    public function index(Request $request)
     {
-        $patients = Patient::with(['resource', 'identifier', 'name'])->get();
+        $patients = Patient::query();
+        $patients = $patients->with(['resource', 'identifier', 'name']);
+
+        if ($request->query('name')) {
+            $patients = $patients->whereHas('name', function ($query) use ($request) {
+                $query->where('text', 'like', '%' . addcslashes($request->query('name'), '%_') . '%');
+            });
+        }
+
+        if ($request->query('identifier')) {
+            $patients = $patients->whereHas('identifier', function ($query) use ($request) {
+                $search = $request->query('identifier');
+                list($system, $value) = array_pad(explode('|', $search, 2), 2, null);
+                if (!$system || !$value) {
+                    return response()->json(['message' => 'Invalid identifier format'], 400);
+                }
+                $query->where('system', $system)->where('value', $value);
+            });
+        }
+
+        $patients = $patients->get();
 
         $formattedPatients = $patients->map(function ($patient) {
             $latestEncounter = $this->getLatestEncounter($patient);
