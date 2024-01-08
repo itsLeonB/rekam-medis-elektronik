@@ -18,9 +18,11 @@ use App\Models\Fhir\Resources\MedicationRequest;
 use App\Models\Fhir\Resources\MedicationStatement;
 use App\Models\Fhir\Resources\Observation;
 use App\Models\Fhir\Resources\Patient;
+use App\Models\Fhir\Resources\Practitioner;
 use App\Models\Fhir\Resources\Procedure;
 use App\Models\Fhir\Resources\QuestionnaireResponse;
 use App\Models\Fhir\Resources\ServiceRequest;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
@@ -456,5 +458,7 @@ class DummyDataSeeder extends Seeder
             'referenceable_type' => 'QuestionnaireResponse',
             'attr_type' => 'subject'
         ]);
+
+        User::factory()->has(Practitioner::factory(), 'practitionerUser')->count(50)->create();
     }
 }

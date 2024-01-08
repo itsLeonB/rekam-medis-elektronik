@@ -138,4 +138,15 @@ class ProfileTest extends TestCase
             ]
         ]);
     }
+
+    public function test_practitioner_resource_not_returned_if_not_logged_in(): void
+    {
+        $user = User::factory()->create();
+        $practitioner = Practitioner::factory()->create();
+        $user->practitionerUser()->attach($practitioner->id);
+
+        $response = $this->get(route('profile.details'));
+
+        $response->assertUnauthorized();
+    }
 }
