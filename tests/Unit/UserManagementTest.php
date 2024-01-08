@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\Http\Resources\PractitionerResource;
+use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Practitioner;
 use Tests\TestCase;
 use App\Models\User;
@@ -27,12 +29,30 @@ class UserManagementTest extends TestCase
         $response->assertJson(['users' => User::paginate(15)->toArray()]);
     }
 
+    public function test_index_user_with_query()
+    {
+        $admin = User::factory()->create();
+        // Create some users
+        $users = User::factory()->count(3)->unverified()->create();
+
+        // Send a GET request to the index method with query
+        $response = $this->actingAs($admin)->get(route('users.index', ['name' => $users[0]->name]));
+
+        // Assert that the response has a 200 status code
+        $response->assertStatus(200);
+
+        // Assert that the response contains the users data
+        $response->assertJson(['users' => User::where('name', 'like', "%{$users[0]->name}%")->paginate(15)->toArray()]);
+    }
+
     public function test_show_user()
     {
         $admin = User::factory()->create();
 
         // Create a user
-        $user = User::factory()->unverified()->create();
+        $user = User::factory()->unverified()->has(Practitioner::factory(), 'practitionerUser')->create();
+        $pracResId = $user->practitionerUser()->first()->resource_id;
+        $resource = new PractitionerResource(Resource::findOrFail($pracResId));
 
         // Send a GET request to the show method with the user id
         $response = $this->actingAs($admin)->get(route('users.show', ['user_id' => $user->id]));
@@ -41,7 +61,10 @@ class UserManagementTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the user data
-        $response->assertJson(['user' => $user->toArray()]);
+        $response->assertJson([
+            'user' => $user->toArray(),
+            'practitioner' => json_decode(json_encode($resource), true)
+        ]);
     }
 
     public function test_create_new_user()
