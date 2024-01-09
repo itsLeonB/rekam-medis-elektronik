@@ -357,7 +357,7 @@ class SatusehatController extends Controller
             ['res_type', $satusehatResponseBody['resourceType']],
             ['satusehat_id', $satusehatResponseBody['id']],
         ])->first()->updated_at;
-        $lastUpdated = Carbon::parse($satusehatResponseBody['meta']['lastUpdated'])->setTimezone('Asia/Jakarta');
+        $lastUpdated = Carbon::parse($satusehatResponseBody['meta']['lastUpdated'])->setTimezone(config('app.timezone'));
 
         if ($lastUpdated->gt($resourceUpdatedAt)) {
             $request = HttpRequest::create(route($resourceType . '.update', ['satusehat_id' => $resourceId]), 'PUT', $satusehatResponseBody);

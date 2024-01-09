@@ -50,7 +50,7 @@ class Patient extends FhirModel
     {
         parent::boot();
 
-        $rmeSystem = config('app.patient_identifier.rekam-medis');
+        $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         static::created(function ($patient) use ($rmeSystem) {
             $identifier = new Identifier();

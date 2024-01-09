@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Fhir\Codesystems;
 use Carbon\Carbon;
-use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -453,50 +451,6 @@ class FhirResource extends JsonResource
         }
     }
 
-    public function searchSnomed(string $ecl, string $term, Client $client)
-    {
-        $headers = [
-            'Accept' => 'application/json',
-            'Accept-Language' => 'en-X-900000000000509007,en-X-900000000000508004,en',
-        ];
-
-        $query = [
-            'term' => $term,
-            'ecl' => $ecl,
-            'includeLeafFlag' => 'false',
-            'form' => 'inferred',
-            'offset' => 0,
-            'limit' => 50,
-        ];
-
-        $response = $client->request('GET', Codesystems::SNOMEDCT['url'], [
-            'headers' => $headers,
-            'query' => $query,
-        ]);
-
-        $body = json_decode($response->getBody()->getContents(), true);
-
-        return $body;
-    }
-
-    public function querySnomedCode($code): string
-    {
-        $client = new Client();
-
-        $response = $client->request('GET', 'https://browser.ihtsdotools.org/snowstorm/snomed-ct/MAIN/concepts/' . $code, [
-            'headers' => [
-                'accept' => 'application/json',
-                'Accept-Language' => 'en-X-900000000000509007,en-X-900000000000508004,en',
-            ],
-        ]);
-
-        $body = $response->getBody();
-        $data = json_decode($body, true);
-
-        return $data['fsn']['term'];
-    }
-
-
     /**
      * Get the data of a specific resource type.
      *
@@ -521,16 +475,7 @@ class FhirResource extends JsonResource
     public function parseDateTime($date)
     {
         if ($date != null) {
-            // // Create a DateTime object with the input date
-            // $dateTime = new DateTime($date);
-
-            // // Set the desired time zone for Jakarta (+07:00)
-            // $dateTime->setTimezone(new DateTimeZone('Asia/Jakarta'));
-
-            // // Format the date in the desired format
-            // $formattedDate = $dateTime->format('Y-m-d\TH:i:sP');
-
-            return Carbon::parse($date)->tz('Asia/Jakarta')->format('Y-m-d\TH:i:sP');
+            return Carbon::parse($date)->tz(config('app.timezone'))->format('Y-m-d\TH:i:sP');
         } else {
             return null;
         }
@@ -548,23 +493,10 @@ class FhirResource extends JsonResource
     public function parseTime($date)
     {
         if ($date != null) {
-            return Carbon::parse($date)->tz('Asia/Jakarta')->format('H:i:s');
+            return Carbon::parse($date)->tz(config('app.timezone'))->format('H:i:s');
         } else {
             return null;
         }
-    }
-
-    public function mergeArray(...$arrays)
-    {
-        $arr = [];
-
-        foreach ($arrays as $a) {
-            if ($a != null) {
-                $arr = array_merge($arr, $a);
-            }
-        }
-
-        return $arr;
     }
 
     public function removeEmptyValues($data)

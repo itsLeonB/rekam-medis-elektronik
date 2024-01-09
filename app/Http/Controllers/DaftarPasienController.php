@@ -29,7 +29,7 @@ class DaftarPasienController extends Controller
             return [
                 'encounter_satusehat_id' => $encounter->resource->satusehat_id,
                 'patient_name' => $patient->name()->first()->text,
-                'patient_identifier' => $patient->identifier()->where('system', config('app.patient_identifier.rekam-medis'))->first()->value,
+                'patient_identifier' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->first()->value,
                 'period_start' => $encounter->period->start,
             ];
         });

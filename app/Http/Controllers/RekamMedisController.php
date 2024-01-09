@@ -49,10 +49,10 @@ class RekamMedisController extends Controller
             });
         }
 
-        foreach (array_keys(config('app.patient_identifier')) as $idSystem) {
+        foreach (array_keys(config('app.identifier_systems.patient')) as $idSystem) {
             if ($request->query($idSystem)) {
                 $patients = $patients->whereHas('identifier', function ($query) use ($request, $idSystem) {
-                    $query->where('system', config('app.patient_identifier.' . $idSystem))->where('value', $request->query($idSystem));
+                    $query->where('system', config('app.identifier_systems.patient.' . $idSystem))->where('value', $request->query($idSystem));
                 });
             }
         }
@@ -65,7 +65,7 @@ class RekamMedisController extends Controller
             if (!empty($latestEncounter)) {
                 $start = new DateTime($latestEncounter->start ?? null);
                 $class = $latestEncounter->code ?? null;
-                $start = $start->setTimezone(new DateTimeZone('Asia/Jakarta'))->format('Y-m-d\TH:i:sP');
+                $start = $start->setTimezone(new DateTimeZone(config('app.timezone')))->format('Y-m-d\TH:i:sP');
             }
 
             if (!empty($patient->name())) {
@@ -77,7 +77,7 @@ class RekamMedisController extends Controller
             }
             return [
                 'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', config('app.patient_identifier.rekam-medis'))->value('value'),
+                'identifier' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->value('value'),
                 'name' => $name ?? null,
                 'class' => $class ?? null,
                 'start' => $start ?? null,

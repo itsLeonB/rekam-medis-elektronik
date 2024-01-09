@@ -9,6 +9,7 @@ use App\Models\Fhir\Resource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
@@ -19,11 +20,11 @@ class UserManagementController extends Controller
         $name = $request->query('name');
 
         if ($name) {
-            $users = User::where('name', 'like', '%' . addcslashes($name, '%_') . '%')->paginate(15);
+            $users = User::where('name', 'like', '%' . addcslashes($name, '%_') . '%')->paginate(15)->withQueryString();
             return response()->json(['users' => $users], 200);
         }
 
-        return response()->json(['users' => User::paginate(15)], 200);
+        return response()->json(['users' => User::paginate(15)->withQueryString()], 200);
     }
 
     public function show($id)
@@ -44,6 +45,7 @@ class UserManagementController extends Controller
 
     public function store(UserRequest $request)
     {
+        DB::beginTransaction();
         try {
             $user = User::create([
                 'name' => strip_tags($request->input('name')),
@@ -54,12 +56,20 @@ class UserManagementController extends Controller
             $practitioner = Resource::where([
                 ['res_type', 'Practitioner'],
                 ['satusehat_id', $request->input('practitioner_id')]
-            ])->first()->practitioner()->first();
+            ])->first()->practitioner;
 
             $user->practitionerUser()->save($practitioner);
 
-            return response()->json(['user' => $user], 201);
+            DB::commit();
+
+            $pracResId = $user->practitionerUser()->first()->resource_id;
+
+            return response()->json([
+                'user' => $user,
+                'practitioner' => new PractitionerResource(Resource::findOrFail($pracResId))
+            ], 201);
         } catch (\Throwable $th) {
+            DB::rollBack();
             Log::error($th->getMessage());
             return response()->json(['message' => 'User gagal dibuat'], 500);
         }

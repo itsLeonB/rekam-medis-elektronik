@@ -81,7 +81,7 @@ class DashboardTest extends TestCase
         $response->assertStatus(200);
         $response->assertJsonFragment(['encounter_satusehat_id' => $encounter->resource->satusehat_id]);
         $response->assertJsonFragment(['patient_name' => $patientName->text]);
-        $response->assertJsonFragment(['patient_identifier' => $patient->identifier()->where('system', config('app.patient_identifier.rekam-medis'))->first()->value]);
+        $response->assertJsonFragment(['patient_identifier' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->first()->value]);
         $response->assertJsonFragment(['period_start' => $encounterPeriod->start]);
     }
 }
