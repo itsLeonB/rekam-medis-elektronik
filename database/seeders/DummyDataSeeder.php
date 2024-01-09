@@ -166,7 +166,6 @@ class DummyDataSeeder extends Seeder
         Identifier::factory()->create([
             'identifiable_id' => $patient->id,
             'identifiable_type' => 'Patient',
-            'system' => 'rme',
         ]);
 
         $encounter = Encounter::factory()->create();

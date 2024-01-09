@@ -81,9 +81,8 @@ class QuestionnaireResponse extends FhirModel
         parent::boot();
 
         static::created(function ($questionnaireResponse) {
-            $orgId = config('app.organization_id');
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . $orgId;
+            $identifier->system = config('app.identifier_systems.questionnaireresponse');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
             $questionnaireResponse->identifier()->save($identifier);

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Log;
 
 class UserManagementController extends Controller
 {
-    // index all users
     public function index(Request $request)
     {
         $name = $request->query('name');
@@ -27,8 +26,6 @@ class UserManagementController extends Controller
         return response()->json(['users' => User::paginate(15)], 200);
     }
 
-
-    // show the selected user
     public function show($id)
     {
         try {
@@ -45,7 +42,6 @@ class UserManagementController extends Controller
         }
     }
 
-    // create a new user
     public function store(UserRequest $request)
     {
         try {
@@ -69,8 +65,6 @@ class UserManagementController extends Controller
         }
     }
 
-
-    // update the selected user
     public function update(UserRequest $request, $user_id)
     {
         try {
@@ -97,8 +91,6 @@ class UserManagementController extends Controller
         }
     }
 
-
-    // delete the selected user
     public function destroy($user_id)
     {
         try {

@@ -49,15 +49,12 @@ class RekamMedisController extends Controller
             });
         }
 
-        if ($request->query('identifier')) {
-            $patients = $patients->whereHas('identifier', function ($query) use ($request) {
-                $search = $request->query('identifier');
-                list($system, $value) = array_pad(explode('|', $search, 2), 2, null);
-                if (!$system || !$value) {
-                    return response()->json(['message' => 'Invalid identifier format'], 400);
-                }
-                $query->where('system', $system)->where('value', $value);
-            });
+        foreach (array_keys(config('app.patient_identifier')) as $idSystem) {
+            if ($request->query($idSystem)) {
+                $patients = $patients->whereHas('identifier', function ($query) use ($request, $idSystem) {
+                    $query->where('system', config('app.patient_identifier.' . $idSystem))->where('value', $request->query($idSystem));
+                });
+            }
         }
 
         $patients = $patients->get();
@@ -66,16 +63,25 @@ class RekamMedisController extends Controller
             $latestEncounter = $this->getLatestEncounter($patient);
 
             if (!empty($latestEncounter)) {
-                $latestEncounter->start = new DateTime($latestEncounter->start);
-
-                return [
-                    'satusehatId' => $patient->resource->satusehat_id,
-                    'identifier' => $patient->identifier()->where('system', 'rme')->value('value'),
-                    'name' => $patient->name()->first()->text,
-                    'class' => $latestEncounter->code,
-                    'start' => $latestEncounter->start->setTimezone(new DateTimeZone('Asia/Jakarta'))->format('Y-m-d\TH:i:sP'),
-                ];
+                $start = new DateTime($latestEncounter->start ?? null);
+                $class = $latestEncounter->code ?? null;
+                $start = $start->setTimezone(new DateTimeZone('Asia/Jakarta'))->format('Y-m-d\TH:i:sP');
             }
+
+            if (!empty($patient->name())) {
+                if (!empty($patient->name()->first())) {
+                    $name = $patient->name()->first()->text ?? null;
+                } else {
+                    $name = $patient->name()->latest()->first()->text ?? null;
+                }
+            }
+            return [
+                'satusehatId' => $patient->resource->satusehat_id,
+                'identifier' => $patient->identifier()->where('system', config('app.patient_identifier.rekam-medis'))->value('value'),
+                'name' => $name ?? null,
+                'class' => $class ?? null,
+                'start' => $start ?? null,
+            ];
         });
 
         return response()->json($formattedPatients);
@@ -157,7 +163,6 @@ class RekamMedisController extends Controller
                 'questionnaireResponses' => $this->getPatientRelatedData(QuestionnaireResponse::class, $patientSatusehatId, 'subject', 'encounter'),
             ];
 
-            // Return the result as JSON
             return response()->json(['data' => $data]);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);

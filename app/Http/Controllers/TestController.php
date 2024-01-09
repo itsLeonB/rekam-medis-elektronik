@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Fhir\OrganizationRequest;
 use App\Http\Resources\AllergyIntoleranceResource;
 use App\Http\Resources\ClinicalImpressionResource;
 use App\Http\Resources\CompositionResource;
 use App\Http\Resources\ConditionResource;
 use App\Http\Resources\EncounterResource;
-use App\Http\Resources\FhirResource;
 use App\Http\Resources\LocationResource;
 use App\Http\Resources\MedicationRequestResource;
 use App\Http\Resources\MedicationResource;

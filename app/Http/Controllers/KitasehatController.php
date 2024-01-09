@@ -8,7 +8,6 @@ class KitasehatController extends Controller
 {
     public function retrieveAntrean(Request $request)
     {
-        // read request data
         $data = $request->all();
     }
 

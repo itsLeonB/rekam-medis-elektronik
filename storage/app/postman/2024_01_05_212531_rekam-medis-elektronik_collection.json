@@ -1,1 +1,1687 @@
-{"variable":[{"key":"base_url","value":"http:\/\/localhost:8000"},{"key":"token","value":"{token}"}],"info":{"name":"2024_01_05_212531_rekam-medis-elektronik_collection.json","schema":"https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"},"item":[{"name":"api\/user","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/user","host":["{{base_url}}"],"path":["api","user"],"variable":[]}}},{"name":"api\/integration\/{res_type}\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/integration\/{res_type}\/{satusehat_id}","host":["{{base_url}}"],"path":["api","integration","{res_type}","{satusehat_id}"],"variable":[]}}},{"name":"api\/integration\/{res_type}","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/integration\/{res_type}","host":["{{base_url}}"],"path":["api","integration","{res_type}"],"variable":[]}}},{"name":"api\/integration\/{res_type}\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/integration\/{res_type}\/{satusehat_id}","host":["{{base_url}}"],"path":["api","integration","{res_type}","{satusehat_id}"],"variable":[]}}},{"name":"api\/satusehat\/resource\/{res_type}\/{res_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/resource\/{res_type}\/{res_id}","host":["{{base_url}}"],"path":["api","satusehat","resource","{res_type}","{res_id}"],"variable":[]}}},{"name":"api\/satusehat\/resource\/{res_type}","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/resource\/{res_type}","host":["{{base_url}}"],"path":["api","satusehat","resource","{res_type}"],"variable":[]}}},{"name":"api\/satusehat\/resource\/{res_type}\/{res_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/resource\/{res_type}\/{res_id}","host":["{{base_url}}"],"path":["api","satusehat","resource","{res_type}","{res_id}"],"variable":[]}}},{"name":"api\/satusehat\/consent\/{patient_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/consent\/{patient_id}","host":["{{base_url}}"],"path":["api","satusehat","consent","{patient_id}"],"variable":[]}}},{"name":"api\/satusehat\/consent","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/consent","host":["{{base_url}}"],"path":["api","satusehat","consent"],"variable":[]}}},{"name":"api\/kfa","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/kfa","host":["{{base_url}}"],"path":["api","kfa"],"variable":[]}}},{"name":"api\/satusehat\/search\/practitioner","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/practitioner","host":["{{base_url}}"],"path":["api","satusehat","search","practitioner"],"variable":[]}}},{"name":"api\/satusehat\/search\/organization","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/organization","host":["{{base_url}}"],"path":["api","satusehat","search","organization"],"variable":[]}}},{"name":"api\/satusehat\/search\/location","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/location","host":["{{base_url}}"],"path":["api","satusehat","search","location"],"variable":[]}}},{"name":"api\/satusehat\/search\/patient","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/patient","host":["{{base_url}}"],"path":["api","satusehat","search","patient"],"variable":[]}}},{"name":"api\/satusehat\/search\/encounter","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/encounter","host":["{{base_url}}"],"path":["api","satusehat","search","encounter"],"variable":[]}}},{"name":"api\/satusehat\/search\/condition","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/condition","host":["{{base_url}}"],"path":["api","satusehat","search","condition"],"variable":[]}}},{"name":"api\/satusehat\/search\/observation","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/observation","host":["{{base_url}}"],"path":["api","satusehat","search","observation"],"variable":[]}}},{"name":"api\/satusehat\/search\/procedure","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/procedure","host":["{{base_url}}"],"path":["api","satusehat","search","procedure"],"variable":[]}}},{"name":"api\/satusehat\/search\/medicationrequest","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/medicationrequest","host":["{{base_url}}"],"path":["api","satusehat","search","medicationrequest"],"variable":[]}}},{"name":"api\/satusehat\/search\/composition","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/composition","host":["{{base_url}}"],"path":["api","satusehat","search","composition"],"variable":[]}}},{"name":"api\/satusehat\/search\/allergyintolerance","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/allergyintolerance","host":["{{base_url}}"],"path":["api","satusehat","search","allergyintolerance"],"variable":[]}}},{"name":"api\/satusehat\/search\/clinicalimpression","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/clinicalimpression","host":["{{base_url}}"],"path":["api","satusehat","search","clinicalimpression"],"variable":[]}}},{"name":"api\/satusehat\/search\/servicerequest","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/servicerequest","host":["{{base_url}}"],"path":["api","satusehat","search","servicerequest"],"variable":[]}}},{"name":"api\/satusehat\/search\/medicationstatement","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/medicationstatement","host":["{{base_url}}"],"path":["api","satusehat","search","medicationstatement"],"variable":[]}}},{"name":"api\/satusehat\/search\/questionnaireresponse","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/satusehat\/search\/questionnaireresponse","host":["{{base_url}}"],"path":["api","satusehat","search","questionnaireresponse"],"variable":[]}}},{"name":"api\/profile-details","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/profile-details","host":["{{base_url}}"],"path":["api","profile-details"],"variable":[]}}},{"name":"api\/daftar-pasien\/{class}\/{serviceType}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/daftar-pasien\/:class\/:serviceType","host":["{{base_url}}"],"path":["api","daftar-pasien",":class",":serviceType"],"variable":[]}}},{"name":"api\/daftar-rekam-medis","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/daftar-rekam-medis","host":["{{base_url}}"],"path":["api","daftar-rekam-medis"],"variable":[]}}},{"name":"api\/rekam-medis\/{patient_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/rekam-medis\/{patient_id}","host":["{{base_url}}"],"path":["api","rekam-medis","{patient_id}"],"variable":[]}}},{"name":"api\/rekam-medis\/{patient_id}\/update","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/rekam-medis\/{patient_id}\/update","host":["{{base_url}}"],"path":["api","rekam-medis","{patient_id}","update"],"variable":[]}}},{"name":"api\/analytics\/pasien-hari-ini","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/analytics\/pasien-hari-ini","host":["{{base_url}}"],"path":["api","analytics","pasien-hari-ini"],"variable":[]}}},{"name":"api\/analytics\/pasien-baru-bulan-ini","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/analytics\/pasien-baru-bulan-ini","host":["{{base_url}}"],"path":["api","analytics","pasien-baru-bulan-ini"],"variable":[]}}},{"name":"api\/analytics\/jumlah-pasien","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/analytics\/jumlah-pasien","host":["{{base_url}}"],"path":["api","analytics","jumlah-pasien"],"variable":[]}}},{"name":"api\/analytics\/pasien-per-bulan","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/analytics\/pasien-per-bulan","host":["{{base_url}}"],"path":["api","analytics","pasien-per-bulan"],"variable":[]}}},{"name":"api\/analytics\/sebaran-usia-pasien","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/analytics\/sebaran-usia-pasien","host":["{{base_url}}"],"path":["api","analytics","sebaran-usia-pasien"],"variable":[]}}},{"name":"api\/users","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/users","host":["{{base_url}}"],"path":["api","users"],"variable":[]}}},{"name":"api\/users\/{user_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/users\/{user_id}","host":["{{base_url}}"],"path":["api","users","{user_id}"],"variable":[]}}},{"name":"api\/users","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/users","host":["{{base_url}}"],"path":["api","users"],"variable":[]}}},{"name":"api\/users\/{user_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/users\/{user_id}","host":["{{base_url}}"],"path":["api","users","{user_id}"],"variable":[]}}},{"name":"api\/users\/{user_id}","request":{"method":"DELETE","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/users\/{user_id}","host":["{{base_url}}"],"path":["api","users","{user_id}"],"variable":[]}}},{"name":"api\/{res_type}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/{res_type}","host":["{{base_url}}"],"path":["api","{res_type}"],"variable":[]}}},{"name":"api\/organization\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/organization\/{satusehat_id}","host":["{{base_url}}"],"path":["api","organization","{satusehat_id}"],"variable":[]}}},{"name":"api\/organization","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/organization","host":["{{base_url}}"],"path":["api","organization"],"variable":[]}}},{"name":"api\/organization\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/organization\/{satusehat_id}","host":["{{base_url}}"],"path":["api","organization","{satusehat_id}"],"variable":[]}}},{"name":"api\/location\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/location\/{satusehat_id}","host":["{{base_url}}"],"path":["api","location","{satusehat_id}"],"variable":[]}}},{"name":"api\/location","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/location","host":["{{base_url}}"],"path":["api","location"],"variable":[]}}},{"name":"api\/location\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/location\/{satusehat_id}","host":["{{base_url}}"],"path":["api","location","{satusehat_id}"],"variable":[]}}},{"name":"api\/patient\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/patient\/{satusehat_id}","host":["{{base_url}}"],"path":["api","patient","{satusehat_id}"],"variable":[]}}},{"name":"api\/patient","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/patient","host":["{{base_url}}"],"path":["api","patient"],"variable":[]}}},{"name":"api\/practitioner\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/practitioner\/{satusehat_id}","host":["{{base_url}}"],"path":["api","practitioner","{satusehat_id}"],"variable":[]}}},{"name":"api\/practitioner","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/practitioner","host":["{{base_url}}"],"path":["api","practitioner"],"variable":[]}}},{"name":"api\/encounter\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/encounter\/{satusehat_id}","host":["{{base_url}}"],"path":["api","encounter","{satusehat_id}"],"variable":[]}}},{"name":"api\/encounter","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/encounter","host":["{{base_url}}"],"path":["api","encounter"],"variable":[]}}},{"name":"api\/encounter\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/encounter\/{satusehat_id}","host":["{{base_url}}"],"path":["api","encounter","{satusehat_id}"],"variable":[]}}},{"name":"api\/condition\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/condition\/{satusehat_id}","host":["{{base_url}}"],"path":["api","condition","{satusehat_id}"],"variable":[]}}},{"name":"api\/condition","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/condition","host":["{{base_url}}"],"path":["api","condition"],"variable":[]}}},{"name":"api\/condition\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/condition\/{satusehat_id}","host":["{{base_url}}"],"path":["api","condition","{satusehat_id}"],"variable":[]}}},{"name":"api\/observation\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/observation\/{satusehat_id}","host":["{{base_url}}"],"path":["api","observation","{satusehat_id}"],"variable":[]}}},{"name":"api\/observation","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/observation","host":["{{base_url}}"],"path":["api","observation"],"variable":[]}}},{"name":"api\/observation\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/observation\/{satusehat_id}","host":["{{base_url}}"],"path":["api","observation","{satusehat_id}"],"variable":[]}}},{"name":"api\/procedure\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/procedure\/{satusehat_id}","host":["{{base_url}}"],"path":["api","procedure","{satusehat_id}"],"variable":[]}}},{"name":"api\/procedure","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/procedure","host":["{{base_url}}"],"path":["api","procedure"],"variable":[]}}},{"name":"api\/procedure\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/procedure\/{satusehat_id}","host":["{{base_url}}"],"path":["api","procedure","{satusehat_id}"],"variable":[]}}},{"name":"api\/medication\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medication\/{satusehat_id}","host":["{{base_url}}"],"path":["api","medication","{satusehat_id}"],"variable":[]}}},{"name":"api\/medication","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medication","host":["{{base_url}}"],"path":["api","medication"],"variable":[]}}},{"name":"api\/medication\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medication\/{satusehat_id}","host":["{{base_url}}"],"path":["api","medication","{satusehat_id}"],"variable":[]}}},{"name":"api\/medicationrequest\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medicationrequest\/{satusehat_id}","host":["{{base_url}}"],"path":["api","medicationrequest","{satusehat_id}"],"variable":[]}}},{"name":"api\/medicationrequest","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medicationrequest","host":["{{base_url}}"],"path":["api","medicationrequest"],"variable":[]}}},{"name":"api\/medicationrequest\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medicationrequest\/{satusehat_id}","host":["{{base_url}}"],"path":["api","medicationrequest","{satusehat_id}"],"variable":[]}}},{"name":"api\/composition\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/composition\/{satusehat_id}","host":["{{base_url}}"],"path":["api","composition","{satusehat_id}"],"variable":[]}}},{"name":"api\/composition","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/composition","host":["{{base_url}}"],"path":["api","composition"],"variable":[]}}},{"name":"api\/composition\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/composition\/{satusehat_id}","host":["{{base_url}}"],"path":["api","composition","{satusehat_id}"],"variable":[]}}},{"name":"api\/allergyintolerance\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/allergyintolerance\/{satusehat_id}","host":["{{base_url}}"],"path":["api","allergyintolerance","{satusehat_id}"],"variable":[]}}},{"name":"api\/allergyintolerance","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/allergyintolerance","host":["{{base_url}}"],"path":["api","allergyintolerance"],"variable":[]}}},{"name":"api\/allergyintolerance\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/allergyintolerance\/{satusehat_id}","host":["{{base_url}}"],"path":["api","allergyintolerance","{satusehat_id}"],"variable":[]}}},{"name":"api\/clinicalimpression\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/clinicalimpression\/{satusehat_id}","host":["{{base_url}}"],"path":["api","clinicalimpression","{satusehat_id}"],"variable":[]}}},{"name":"api\/clinicalimpression","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/clinicalimpression","host":["{{base_url}}"],"path":["api","clinicalimpression"],"variable":[]}}},{"name":"api\/clinicalimpression\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/clinicalimpression\/{satusehat_id}","host":["{{base_url}}"],"path":["api","clinicalimpression","{satusehat_id}"],"variable":[]}}},{"name":"api\/servicerequest\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/servicerequest\/{satusehat_id}","host":["{{base_url}}"],"path":["api","servicerequest","{satusehat_id}"],"variable":[]}}},{"name":"api\/servicerequest","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/servicerequest","host":["{{base_url}}"],"path":["api","servicerequest"],"variable":[]}}},{"name":"api\/servicerequest\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/servicerequest\/{satusehat_id}","host":["{{base_url}}"],"path":["api","servicerequest","{satusehat_id}"],"variable":[]}}},{"name":"api\/medicationstatement\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medicationstatement\/{satusehat_id}","host":["{{base_url}}"],"path":["api","medicationstatement","{satusehat_id}"],"variable":[]}}},{"name":"api\/medicationstatement","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medicationstatement","host":["{{base_url}}"],"path":["api","medicationstatement"],"variable":[]}}},{"name":"api\/medicationstatement\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/medicationstatement\/{satusehat_id}","host":["{{base_url}}"],"path":["api","medicationstatement","{satusehat_id}"],"variable":[]}}},{"name":"api\/questionnaireresponse\/{satusehat_id}","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/questionnaireresponse\/{satusehat_id}","host":["{{base_url}}"],"path":["api","questionnaireresponse","{satusehat_id}"],"variable":[]}}},{"name":"api\/questionnaireresponse","request":{"method":"POST","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/questionnaireresponse","host":["{{base_url}}"],"path":["api","questionnaireresponse"],"variable":[]}}},{"name":"api\/questionnaireresponse\/{satusehat_id}","request":{"method":"PUT","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/questionnaireresponse\/{satusehat_id}","host":["{{base_url}}"],"path":["api","questionnaireresponse","{satusehat_id}"],"variable":[]}}},{"name":"api\/test\/get\/organization","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/organization","host":["{{base_url}}"],"path":["api","test","get","organization"],"variable":[]}}},{"name":"api\/test\/get\/location","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/location","host":["{{base_url}}"],"path":["api","test","get","location"],"variable":[]}}},{"name":"api\/test\/get\/practitioner","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/practitioner","host":["{{base_url}}"],"path":["api","test","get","practitioner"],"variable":[]}}},{"name":"api\/test\/get\/patient","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/patient","host":["{{base_url}}"],"path":["api","test","get","patient"],"variable":[]}}},{"name":"api\/test\/get\/encounter","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/encounter","host":["{{base_url}}"],"path":["api","test","get","encounter"],"variable":[]}}},{"name":"api\/test\/get\/condition","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/condition","host":["{{base_url}}"],"path":["api","test","get","condition"],"variable":[]}}},{"name":"api\/test\/get\/observation","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/observation","host":["{{base_url}}"],"path":["api","test","get","observation"],"variable":[]}}},{"name":"api\/test\/get\/procedure","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/procedure","host":["{{base_url}}"],"path":["api","test","get","procedure"],"variable":[]}}},{"name":"api\/test\/get\/medication","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/medication","host":["{{base_url}}"],"path":["api","test","get","medication"],"variable":[]}}},{"name":"api\/test\/get\/medicationrequest","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/medicationrequest","host":["{{base_url}}"],"path":["api","test","get","medicationrequest"],"variable":[]}}},{"name":"api\/test\/get\/composition","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/composition","host":["{{base_url}}"],"path":["api","test","get","composition"],"variable":[]}}},{"name":"api\/test\/get\/allergyintolerance","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/allergyintolerance","host":["{{base_url}}"],"path":["api","test","get","allergyintolerance"],"variable":[]}}},{"name":"api\/test\/get\/clinicalimpression","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/clinicalimpression","host":["{{base_url}}"],"path":["api","test","get","clinicalimpression"],"variable":[]}}},{"name":"api\/test\/get\/servicerequest","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/servicerequest","host":["{{base_url}}"],"path":["api","test","get","servicerequest"],"variable":[]}}},{"name":"api\/test\/get\/questionnaireresponse","request":{"method":"GET","header":[{"key":"Accept","value":"application\/json"},{"key":"Content-Type","value":"application\/json"}],"url":{"raw":"{{base_url}}\/api\/test\/get\/questionnaireresponse","host":["{{base_url}}"],"path":["api","test","get","questionnaireresponse"],"variable":[]}}}],"event":[]}
+{
+    "variable": [
+        { "key": "base_url", "value": "http://localhost:8000" },
+        { "key": "token", "value": "{token}" }
+    ],
+    "info": {
+        "name": "2024_01_05_212531_rekam-medis-elektronik_collection.json",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "api/user",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/user",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "user"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/integration/{res_type}/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/integration/{res_type}/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "integration",
+                        "{res_type}",
+                        "{satusehat_id}"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/integration/{res_type}",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/integration/{res_type}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "integration", "{res_type}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/integration/{res_type}/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/integration/{res_type}/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "integration",
+                        "{res_type}",
+                        "{satusehat_id}"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/resource/{res_type}/{res_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/resource/{res_type}/{res_id}",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "satusehat",
+                        "resource",
+                        "{res_type}",
+                        "{res_id}"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/resource/{res_type}",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/resource/{res_type}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "resource", "{res_type}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/resource/{res_type}/{res_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/resource/{res_type}/{res_id}",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "satusehat",
+                        "resource",
+                        "{res_type}",
+                        "{res_id}"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/consent/{patient_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/consent/{patient_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "consent", "{patient_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/consent",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/consent",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "consent"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/kfa",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/kfa",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "kfa"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/practitioner",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/practitioner",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "practitioner"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/organization",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/organization",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "organization"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/location",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/location",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "location"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/patient",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/patient",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "patient"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/encounter",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/encounter",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "encounter"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/condition",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/condition",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "condition"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/observation",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/observation",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "observation"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/procedure",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/procedure",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "procedure"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/medicationrequest",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/medicationrequest",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "medicationrequest"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/composition",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/composition",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "composition"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/allergyintolerance",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/allergyintolerance",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "satusehat",
+                        "search",
+                        "allergyintolerance"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/clinicalimpression",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/clinicalimpression",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "satusehat",
+                        "search",
+                        "clinicalimpression"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/servicerequest",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/servicerequest",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "satusehat", "search", "servicerequest"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/medicationstatement",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/medicationstatement",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "satusehat",
+                        "search",
+                        "medicationstatement"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/satusehat/search/questionnaireresponse",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/satusehat/search/questionnaireresponse",
+                    "host": ["{{base_url}}"],
+                    "path": [
+                        "api",
+                        "satusehat",
+                        "search",
+                        "questionnaireresponse"
+                    ],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/profile-details",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/profile-details",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "profile-details"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/daftar-pasien/{class}/{serviceType}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/daftar-pasien/:class/:serviceType",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "daftar-pasien", ":class", ":serviceType"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/daftar-rekam-medis",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/daftar-rekam-medis",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "daftar-rekam-medis"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/rekam-medis/{patient_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/rekam-medis/{patient_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "rekam-medis", "{patient_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/rekam-medis/{patient_id}/update",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/rekam-medis/{patient_id}/update",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "rekam-medis", "{patient_id}", "update"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/analytics/pasien-hari-ini",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/analytics/pasien-hari-ini",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "analytics", "pasien-hari-ini"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/analytics/pasien-baru-bulan-ini",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/analytics/pasien-baru-bulan-ini",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "analytics", "pasien-baru-bulan-ini"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/analytics/jumlah-pasien",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/analytics/jumlah-pasien",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "analytics", "jumlah-pasien"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/analytics/pasien-per-bulan",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/analytics/pasien-per-bulan",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "analytics", "pasien-per-bulan"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/analytics/sebaran-usia-pasien",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/analytics/sebaran-usia-pasien",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "analytics", "sebaran-usia-pasien"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/users",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/users",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/users/{user_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/users/{user_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users", "{user_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/users",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/users",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/users/{user_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/users/{user_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users", "{user_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/users/{user_id}",
+            "request": {
+                "method": "DELETE",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/users/{user_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "users", "{user_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/{res_type}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/{res_type}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "{res_type}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/organization/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/organization/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "organization", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/organization",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/organization",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "organization"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/organization/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/organization/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "organization", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/location/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/location/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "location", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/location",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/location",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "location"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/location/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/location/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "location", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/patient/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/patient/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "patient", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/patient",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/patient",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "patient"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/practitioner/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/practitioner/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "practitioner", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/practitioner",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/practitioner",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "practitioner"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/encounter/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/encounter/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "encounter", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/encounter",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/encounter",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "encounter"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/encounter/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/encounter/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "encounter", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/condition/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/condition/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "condition", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/condition",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/condition",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "condition"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/condition/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/condition/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "condition", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/observation/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/observation/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "observation", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/observation",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/observation",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "observation"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/observation/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/observation/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "observation", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/procedure/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/procedure/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "procedure", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/procedure",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/procedure",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "procedure"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/procedure/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/procedure/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "procedure", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medication/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medication/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medication", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medication",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medication",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medication"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medication/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medication/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medication", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medicationrequest/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medicationrequest/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medicationrequest", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medicationrequest",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medicationrequest",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medicationrequest"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medicationrequest/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medicationrequest/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medicationrequest", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/composition/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/composition/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "composition", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/composition",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/composition",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "composition"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/composition/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/composition/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "composition", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/allergyintolerance/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/allergyintolerance/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "allergyintolerance", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/allergyintolerance",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/allergyintolerance",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "allergyintolerance"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/allergyintolerance/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/allergyintolerance/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "allergyintolerance", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/clinicalimpression/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/clinicalimpression/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "clinicalimpression", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/clinicalimpression",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/clinicalimpression",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "clinicalimpression"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/clinicalimpression/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/clinicalimpression/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "clinicalimpression", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/servicerequest/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/servicerequest/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "servicerequest", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/servicerequest",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/servicerequest",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "servicerequest"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/servicerequest/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/servicerequest/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "servicerequest", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medicationstatement/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medicationstatement/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medicationstatement", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medicationstatement",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medicationstatement",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medicationstatement"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/medicationstatement/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/medicationstatement/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "medicationstatement", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/questionnaireresponse/{satusehat_id}",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/questionnaireresponse/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "questionnaireresponse", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/questionnaireresponse",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/questionnaireresponse",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "questionnaireresponse"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/questionnaireresponse/{satusehat_id}",
+            "request": {
+                "method": "PUT",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/questionnaireresponse/{satusehat_id}",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "questionnaireresponse", "{satusehat_id}"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/organization",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/organization",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "organization"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/location",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/location",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "location"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/practitioner",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/practitioner",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "practitioner"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/patient",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/patient",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "patient"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/encounter",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/encounter",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "encounter"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/condition",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/condition",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "condition"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/observation",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/observation",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "observation"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/procedure",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/procedure",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "procedure"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/medication",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/medication",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "medication"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/medicationrequest",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/medicationrequest",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "medicationrequest"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/composition",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/composition",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "composition"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/allergyintolerance",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/allergyintolerance",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "allergyintolerance"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/clinicalimpression",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/clinicalimpression",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "clinicalimpression"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/servicerequest",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/servicerequest",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "servicerequest"],
+                    "variable": []
+                }
+            }
+        },
+        {
+            "name": "api/test/get/questionnaireresponse",
+            "request": {
+                "method": "GET",
+                "header": [
+                    { "key": "Accept", "value": "application/json" },
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                    "raw": "{{base_url}}/api/test/get/questionnaireresponse",
+                    "host": ["{{base_url}}"],
+                    "path": ["api", "test", "get", "questionnaireresponse"],
+                    "variable": []
+                }
+            }
+        }
+    ],
+    "event": []
+}

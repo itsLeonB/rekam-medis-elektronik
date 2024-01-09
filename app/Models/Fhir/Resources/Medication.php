@@ -26,14 +26,10 @@ class Medication extends FhirModel
         parent::boot();
 
         static::created(function ($medication) {
-            $orgId = config('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/medication/' . $orgId;
+            $identifier->system = config('app.identifier_systems.medication');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $medication->identifier()->save($identifier);
         });
     }

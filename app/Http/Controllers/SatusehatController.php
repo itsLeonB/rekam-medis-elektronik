@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Fhir\Satusehat;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fhir\ConsentRequest;
 use App\Http\Requests\Fhir\Search\KfaRequest;
@@ -151,9 +150,9 @@ class SatusehatController extends Controller
 
     public function show($resourceType, $satusehatId)
     {
-        $validResourceTypes = array_keys(Satusehat::AVAILABLE_METHODS);
+        $validResourceTypes = array_keys(config('app.available_methods'));
 
-        $resourceType = ctype_upper($resourceType[0]) ? $resourceType : Satusehat::LOWER_CASE_MAPPING[$resourceType];
+        $resourceType = ctype_upper($resourceType[0]) ? $resourceType : config('app.resource_type_map')[$resourceType];
 
         if (!in_array($resourceType, $validResourceTypes)) {
             return response()->json([
@@ -163,10 +162,10 @@ class SatusehatController extends Controller
         }
 
         $method = 'get';
-        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$resourceType])) {
+        if (!in_array($method, config('app.available_methods')[$resourceType])) {
             return response()->json([
                 'error' => 'Method not allowed for this resource type.',
-                'validMethods' => Satusehat::AVAILABLE_METHODS[$resourceType],
+                'validMethods' => config('app.available_methods')[$resourceType],
             ], 405);
         }
 
@@ -193,10 +192,10 @@ class SatusehatController extends Controller
 
     public function store(FhirRequest $fhirRequest, $res_type)
     {
-        $resourceType = ctype_upper($res_type[0]) ? $res_type : Satusehat::LOWER_CASE_MAPPING[$res_type];
+        $resourceType = ctype_upper($res_type[0]) ? $res_type : config('app.resource_type_map')[$res_type];
 
         $validator = Validator::make($fhirRequest->all(), [
-            'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
+            'resourceType' => ['required', Rule::in(array_keys(config('app.available_methods')))],
         ]);
 
         if ($validator->fails()) {
@@ -204,10 +203,10 @@ class SatusehatController extends Controller
         }
 
         $method = 'post';
-        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')])) {
+        if (!in_array($method, config('app.available_methods')[$fhirRequest->input('resourceType')])) {
             return response()->json([
                 'error' => 'Method not allowed for this resource type.',
-                'validMethods' => Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')],
+                'validMethods' => config('app.available_methods')[$fhirRequest->input('resourceType')],
             ], 405);
         }
 
@@ -244,10 +243,10 @@ class SatusehatController extends Controller
 
     public function update(FhirRequest $fhirRequest, $res_type, $res_id)
     {
-        $res_type = ctype_upper($res_type[0]) ? $res_type : Satusehat::LOWER_CASE_MAPPING[$res_type];
+        $res_type = ctype_upper($res_type[0]) ? $res_type : config('app.resource_type_map')[$res_type];
 
         $validator = Validator::make($fhirRequest->all(), [
-            'resourceType' => ['required', Rule::in(array_keys(Satusehat::AVAILABLE_METHODS))],
+            'resourceType' => ['required', Rule::in(array_keys(config('app.available_methods')))],
             'id' => 'required|string',
         ]);
 
@@ -256,10 +255,10 @@ class SatusehatController extends Controller
         }
 
         $method = 'put';
-        if (!in_array($method, Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')])) {
+        if (!in_array($method, config('app.available_methods')[$fhirRequest->input('resourceType')])) {
             return response()->json([
                 'error' => 'Method not allowed for this resource type.',
-                'validMethods' => Satusehat::AVAILABLE_METHODS[$fhirRequest->input('resourceType')],
+                'validMethods' => config('app.available_methods')[$fhirRequest->input('resourceType')],
             ], 405);
         }
 

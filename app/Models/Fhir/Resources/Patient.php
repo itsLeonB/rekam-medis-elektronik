@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\{
     MorphMany,
     MorphOne,
 };
-use Illuminate\Support\Str;
 
 class Patient extends FhirModel
 {
@@ -51,11 +50,13 @@ class Patient extends FhirModel
     {
         parent::boot();
 
-        static::created(function ($patient) {
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
+        static::created(function ($patient) use ($rmeSystem) {
             $identifier = new Identifier();
-            $identifier->system = 'rme';
+            $identifier->system = $rmeSystem;
             $identifier->use = 'official';
-            $highestValue = Identifier::where('system', 'rme')->max('value');
+            $highestValue = Identifier::where('system', $rmeSystem)->max('value');
             $nextValue = $highestValue + 1;
             $formattedValue = str_pad($nextValue, 6, '0', STR_PAD_LEFT);
             $identifier->value = $formattedValue;

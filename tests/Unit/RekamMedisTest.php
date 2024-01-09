@@ -101,18 +101,20 @@ class RekamMedisTest extends TestCase
         // Assert that the response is successful
         $response->assertStatus(200);
 
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
         // Assert that the response contains the formatted patient data
         $response->assertJson([
             [
                 'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', 'rme')->first()->value,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
                 'name' => $patient->name()->first()->text,
                 'class' => $encounter->class->code,
                 'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
             ],
             [
                 'satusehatId' => $patient2->resource->satusehat_id,
-                'identifier' => $patient2->identifier()->where('system', 'rme')->first()->value,
+                'identifier' => $patient2->identifier()->where('system', $rmeSystem)->first()->value,
                 'name' => $patient2->name()->first()->text,
                 'class' => $encounter2->class->code,
                 'start' => $encounter2->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
@@ -161,11 +163,13 @@ class RekamMedisTest extends TestCase
         // Assert that the response is successful
         $response->assertStatus(200);
 
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
         // Assert that the response contains the formatted patient data
         $response->assertJson([
             [
                 'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', 'rme')->first()->value,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
                 'name' => $patient->name()->first()->text,
                 'class' => $encounter->class->code,
                 'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
@@ -173,13 +177,13 @@ class RekamMedisTest extends TestCase
         ]);
     }
 
-    public function test_index_rekam_medis_with_query_identifier()
+    public function test_index_rekam_medis_with_query_nik()
     {
         $classes = ['AMB', 'IMP', 'EMER'];
         // Create some test patients
         $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
         Identifier::factory()->create([
-            'system' => 'https://fhir.kemkes.go.id/id/nik',
+            'system' => config('app.patient_identifier.nik'),
             'value' => '9271060312000001',
             'identifiable_id' => $patient->id,
             'identifiable_type' => 'Patient',
@@ -216,16 +220,18 @@ class RekamMedisTest extends TestCase
         ]);
 
         // Make a GET request to the index endpoint
-        $response = $this->get(route('rekam-medis.index', ['identifier' => 'https://fhir.kemkes.go.id/id/nik|9271060312000001']));
+        $response = $this->get(route('rekam-medis.index', ['nik' => '9271060312000001']));
 
         // Assert that the response is successful
         $response->assertStatus(200);
+
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
 
         // Assert that the response contains the formatted patient data
         $response->assertJson([
             [
                 'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', 'rme')->first()->value,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
                 'name' => $patient->name()->first()->text,
                 'class' => $encounter->class->code,
                 'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
@@ -233,240 +239,607 @@ class RekamMedisTest extends TestCase
         ]);
     }
 
-    public function test_show_rekam_medis()
+    public function test_index_rekam_medis_with_query_paspor()
     {
+        $classes = ['AMB', 'IMP', 'EMER'];
+        // Create some test patients
         $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
-        $patientSatusehatId = $patient->resource->satusehat_id;
+        Identifier::factory()->create([
+            'system' => config('app.patient_identifier.paspor'),
+            'value' => '9271060312000001',
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        HumanName::factory()->create([
+            'human_nameable_id' => $patient->id,
+            'human_nameable_type' => 'Patient',
+            'attr_type' => 'name'
+        ]);
 
         $encounter = Encounter::factory()->create();
         Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
+            'reference' => 'Patient/' . $patient->resource->satusehat_id,
             'referenceable_id' => $encounter->id,
             'referenceable_type' => 'Encounter',
             'attr_type' => 'subject'
         ]);
-        $encounterSatusehatId = $encounter->resource->satusehat_id;
-
-        $encCondition = Condition::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encCondition->id,
-            'referenceable_type' => 'Condition',
-            'attr_type' => 'subject'
+        Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'class'
         ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encCondition->id,
-            'referenceable_type' => 'Condition',
-            'attr_type' => 'encounter'
+        Period::factory()->create([
+            'periodable_id' => $encounter->id,
+            'periodable_type' => 'Encounter',
+            'attr_type' => 'period'
         ]);
 
-        $encObservation = Observation::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encObservation->id,
-            'referenceable_type' => 'Observation',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encObservation->id,
-            'referenceable_type' => 'Observation',
-            'attr_type' => 'encounter'
-        ]);
+        // Make a GET request to the index endpoint
+        $response = $this->get(route('rekam-medis.index', ['paspor' => '9271060312000001']));
 
-        $encProcedure = Procedure::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encProcedure->id,
-            'referenceable_type' => 'Procedure',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encProcedure->id,
-            'referenceable_type' => 'Procedure',
-            'attr_type' => 'encounter'
-        ]);
-
-        $encMedicationRequest = MedicationRequest::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encMedicationRequest->id,
-            'referenceable_type' => 'MedicationRequest',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encMedicationRequest->id,
-            'referenceable_type' => 'MedicationRequest',
-            'attr_type' => 'encounter'
-        ]);
-
-        $encComposition = Composition::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encComposition->id,
-            'referenceable_type' => 'Composition',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encComposition->id,
-            'referenceable_type' => 'Composition',
-            'attr_type' => 'encounter'
-        ]);
-
-        $encAllergyIntolerance = AllergyIntolerance::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encAllergyIntolerance->id,
-            'referenceable_type' => 'AllergyIntolerance',
-            'attr_type' => 'patient'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encAllergyIntolerance->id,
-            'referenceable_type' => 'AllergyIntolerance',
-            'attr_type' => 'encounter'
-        ]);
-
-        $encClinicalImpression = ClinicalImpression::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encClinicalImpression->id,
-            'referenceable_type' => 'ClinicalImpression',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encClinicalImpression->id,
-            'referenceable_type' => 'ClinicalImpression',
-            'attr_type' => 'encounter'
-        ]);
-
-        $encServiceRequest = ServiceRequest::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encServiceRequest->id,
-            'referenceable_type' => 'ServiceRequest',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encServiceRequest->id,
-            'referenceable_type' => 'ServiceRequest',
-            'attr_type' => 'encounter'
-        ]);
-
-        $encMedicationStatement = MedicationStatement::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encMedicationStatement->id,
-            'referenceable_type' => 'MedicationStatement',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encMedicationStatement->id,
-            'referenceable_type' => 'MedicationStatement',
-            'attr_type' => 'context'
-        ]);
-
-        $encQuestionnaireResponse = QuestionnaireResponse::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encQuestionnaireResponse->id,
-            'referenceable_type' => 'QuestionnaireResponse',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encQuestionnaireResponse->id,
-            'referenceable_type' => 'QuestionnaireResponse',
-            'attr_type' => 'encounter'
-        ]);
-
-        $patMedicationRequest = MedicationRequest::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patMedicationRequest->id,
-            'referenceable_type' => 'MedicationRequest',
-            'attr_type' => 'subject'
-        ]);
-
-        $patComposition = Composition::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patComposition->id,
-            'referenceable_type' => 'Composition',
-            'attr_type' => 'subject'
-        ]);
-
-        $patAllergyIntolerance = AllergyIntolerance::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patAllergyIntolerance->id,
-            'referenceable_type' => 'AllergyIntolerance',
-            'attr_type' => 'patient'
-        ]);
-
-        $patMedicationStatement = MedicationStatement::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patMedicationStatement->id,
-            'referenceable_type' => 'MedicationStatement',
-            'attr_type' => 'subject'
-        ]);
-
-        $patQuestionnaireResponse = QuestionnaireResponse::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patQuestionnaireResponse->id,
-            'referenceable_type' => 'QuestionnaireResponse',
-            'attr_type' => 'subject'
-        ]);
-
-        $response = $this->get(route('rekam-medis.show', $patient->id));
-
+        // Assert that the response is successful
         $response->assertStatus(200);
-        $response->assertJsonFragment($patient->toArray());
-        $response->assertJsonFragment($encounter->toArray());
-        $response->assertJsonFragment($encCondition->toArray());
-        $response->assertJsonFragment($encObservation->toArray());
-        $response->assertJsonFragment($encProcedure->toArray());
-        $response->assertJsonFragment($encMedicationRequest->toArray());
-        $response->assertJsonFragment($encComposition->toArray());
-        $response->assertJsonFragment($encAllergyIntolerance->toArray());
-        $response->assertJsonFragment($encClinicalImpression->toArray());
-        $response->assertJsonFragment($encServiceRequest->toArray());
-        $response->assertJsonFragment($encMedicationStatement->toArray());
-        $response->assertJsonFragment($encQuestionnaireResponse->toArray());
-        $response->assertJsonFragment($patMedicationRequest->toArray());
-        $response->assertJsonFragment($patComposition->toArray());
-        $response->assertJsonFragment($patAllergyIntolerance->toArray());
-        $response->assertJsonFragment($patMedicationStatement->toArray());
-        $response->assertJsonFragment($patQuestionnaireResponse->toArray());
-    }
 
-    public function test_show_rekam_medis_invalid()
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
+        // Assert that the response contains the formatted patient data
+        $response->assertJson([
+            [
+                'satusehatId' => $patient->resource->satusehat_id,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+                'name' => $patient->name()->first()->text,
+                'class' => $encounter->class->code,
+                'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
+            ]
+        ]);
+    }
+    public function test_index_rekam_medis_with_query_kk()
     {
-        $response = $this->get(route('rekam-medis.show', 0));
+        $classes = ['AMB', 'IMP', 'EMER'];
+        // Create some test patients
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        Identifier::factory()->create([
+            'system' => config('app.patient_identifier.kk'),
+            'value' => '9271060312000001',
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        HumanName::factory()->create([
+            'human_nameable_id' => $patient->id,
+            'human_nameable_type' => 'Patient',
+            'attr_type' => 'name'
+        ]);
 
-        $response->assertStatus(404);
+        $encounter = Encounter::factory()->create();
+        Reference::factory()->create([
+            'reference' => 'Patient/' . $patient->resource->satusehat_id,
+            'referenceable_id' => $encounter->id,
+            'referenceable_type' => 'Encounter',
+            'attr_type' => 'subject'
+        ]);
+        Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'class'
+        ]);
+        Period::factory()->create([
+            'periodable_id' => $encounter->id,
+            'periodable_type' => 'Encounter',
+            'attr_type' => 'period'
+        ]);
+
+        // Make a GET request to the index endpoint
+        $response = $this->get(route('rekam-medis.index', ['kk' => '9271060312000001']));
+
+        // Assert that the response is successful
+        $response->assertStatus(200);
+
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
+        // Assert that the response contains the formatted patient data
+        $response->assertJson([
+            [
+                'satusehatId' => $patient->resource->satusehat_id,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+                'name' => $patient->name()->first()->text,
+                'class' => $encounter->class->code,
+                'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
+            ]
+        ]);
     }
-
-    public function test_update_data_invalid()
+    public function test_index_rekam_medis_with_query_nik_ibu()
     {
-        $response = $this->get(route('rekam-medis.update', ['patient_id' => '0']));
+        $classes = ['AMB', 'IMP', 'EMER'];
+        // Create some test patients
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        Identifier::factory()->create([
+            'system' => config('app.patient_identifier.nik-ibu'),
+            'value' => '9271060312000001',
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        HumanName::factory()->create([
+            'human_nameable_id' => $patient->id,
+            'human_nameable_type' => 'Patient',
+            'attr_type' => 'name'
+        ]);
 
-        $this->assertEquals(404, $response->getStatusCode());
+        $encounter = Encounter::factory()->create();
+        Reference::factory()->create([
+            'reference' => 'Patient/' . $patient->resource->satusehat_id,
+            'referenceable_id' => $encounter->id,
+            'referenceable_type' => 'Encounter',
+            'attr_type' => 'subject'
+        ]);
+        Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'class'
+        ]);
+        Period::factory()->create([
+            'periodable_id' => $encounter->id,
+            'periodable_type' => 'Encounter',
+            'attr_type' => 'period'
+        ]);
+
+        // Make a GET request to the index endpoint
+        $response = $this->get(route('rekam-medis.index', ['nik-ibu' => '9271060312000001']));
+
+        // Assert that the response is successful
+        $response->assertStatus(200);
+
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
+        // Assert that the response contains the formatted patient data
+        $response->assertJson([
+            [
+                'satusehatId' => $patient->resource->satusehat_id,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+                'name' => $patient->name()->first()->text,
+                'class' => $encounter->class->code,
+                'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
+            ]
+        ]);
     }
-
-    public function test_update_data()
+    public function test_index_rekam_medis_with_query_ihs_number()
     {
-        $response = $this->get(route('rekam-medis.update', ['patient_id' => '100000030009']));
+        $classes = ['AMB', 'IMP', 'EMER'];
+        // Create some test patients
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        Identifier::factory()->create([
+            'system' => config('app.patient_identifier.ihs-number'),
+            'value' => '9271060312000001',
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        HumanName::factory()->create([
+            'human_nameable_id' => $patient->id,
+            'human_nameable_type' => 'Patient',
+            'attr_type' => 'name'
+        ]);
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $encounter = Encounter::factory()->create();
+        Reference::factory()->create([
+            'reference' => 'Patient/' . $patient->resource->satusehat_id,
+            'referenceable_id' => $encounter->id,
+            'referenceable_type' => 'Encounter',
+            'attr_type' => 'subject'
+        ]);
+        Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'class'
+        ]);
+        Period::factory()->create([
+            'periodable_id' => $encounter->id,
+            'periodable_type' => 'Encounter',
+            'attr_type' => 'period'
+        ]);
+
+        // Make a GET request to the index endpoint
+        $response = $this->get(route('rekam-medis.index', ['ihs-number' => '9271060312000001']));
+
+        // Assert that the response is successful
+        $response->assertStatus(200);
+
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
+        // Assert that the response contains the formatted patient data
+        $response->assertJson([
+            [
+                'satusehatId' => $patient->resource->satusehat_id,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+                'name' => $patient->name()->first()->text,
+                'class' => $encounter->class->code,
+                'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
+            ]
+        ]);
     }
+    public function test_index_rekam_medis_with_query_rekam_medis()
+    {
+        $classes = ['AMB', 'IMP', 'EMER'];
+        // Create some test patients
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        Identifier::factory()->create([
+            'system' => config('app.patient_identifier.rekam-medis'),
+            'value' => '9271060312000001',
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        HumanName::factory()->create([
+            'human_nameable_id' => $patient->id,
+            'human_nameable_type' => 'Patient',
+            'attr_type' => 'name'
+        ]);
+
+        $encounter = Encounter::factory()->create();
+        Reference::factory()->create([
+            'reference' => 'Patient/' . $patient->resource->satusehat_id,
+            'referenceable_id' => $encounter->id,
+            'referenceable_type' => 'Encounter',
+            'attr_type' => 'subject'
+        ]);
+        Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'class'
+        ]);
+        Period::factory()->create([
+            'periodable_id' => $encounter->id,
+            'periodable_type' => 'Encounter',
+            'attr_type' => 'period'
+        ]);
+
+        // Make a GET request to the index endpoint
+        $response = $this->get(route('rekam-medis.index', ['rekam-medis' => '9271060312000001']));
+
+        // Assert that the response is successful
+        $response->assertStatus(200);
+
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
+        // Assert that the response contains the formatted patient data
+        $response->assertJson([
+            [
+                'satusehatId' => $patient->resource->satusehat_id,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+                'name' => $patient->name()->first()->text,
+                'class' => $encounter->class->code,
+                'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
+            ]
+        ]);
+    }
+    public function test_index_rekam_medis_with_query_bpjs()
+    {
+        $classes = ['AMB', 'IMP', 'EMER'];
+        // Create some test patients
+        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+        Identifier::factory()->create([
+            'system' => config('app.patient_identifier.bpjs'),
+            'value' => '9271060312000001',
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        Identifier::factory()->create([
+            'identifiable_id' => $patient->id,
+            'identifiable_type' => 'Patient',
+            'attr_type' => 'identifier'
+        ]);
+        HumanName::factory()->create([
+            'human_nameable_id' => $patient->id,
+            'human_nameable_type' => 'Patient',
+            'attr_type' => 'name'
+        ]);
+
+        $encounter = Encounter::factory()->create();
+        Reference::factory()->create([
+            'reference' => 'Patient/' . $patient->resource->satusehat_id,
+            'referenceable_id' => $encounter->id,
+            'referenceable_type' => 'Encounter',
+            'attr_type' => 'subject'
+        ]);
+        Coding::factory()->create([
+            'code' => fake()->randomElement($classes),
+            'codeable_id' => $encounter->id,
+            'codeable_type' => 'Encounter',
+            'attr_type' => 'class'
+        ]);
+        Period::factory()->create([
+            'periodable_id' => $encounter->id,
+            'periodable_type' => 'Encounter',
+            'attr_type' => 'period'
+        ]);
+
+        // Make a GET request to the index endpoint
+        $response = $this->get(route('rekam-medis.index', ['bpjs' => '9271060312000001']));
+
+        // Assert that the response is successful
+        $response->assertStatus(200);
+
+        $rmeSystem = config('app.patient_identifier.rekam-medis');
+
+        // Assert that the response contains the formatted patient data
+        $response->assertJson([
+            [
+                'satusehatId' => $patient->resource->satusehat_id,
+                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+                'name' => $patient->name()->first()->text,
+                'class' => $encounter->class->code,
+                'start' => $encounter->period->start->setTimezone('Asia/Jakarta')->format('Y-m-d\TH:i:sP'),
+            ]
+        ]);
+    }
+
+    // public function test_show_rekam_medis()
+    // {
+    //     $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+    //     $patientSatusehatId = $patient->resource->satusehat_id;
+
+    //     $encounter = Encounter::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encounter->id,
+    //         'referenceable_type' => 'Encounter',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     $encounterSatusehatId = $encounter->resource->satusehat_id;
+
+    //     $encCondition = Condition::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encCondition->id,
+    //         'referenceable_type' => 'Condition',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encCondition->id,
+    //         'referenceable_type' => 'Condition',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encObservation = Observation::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encObservation->id,
+    //         'referenceable_type' => 'Observation',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encObservation->id,
+    //         'referenceable_type' => 'Observation',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encProcedure = Procedure::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encProcedure->id,
+    //         'referenceable_type' => 'Procedure',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encProcedure->id,
+    //         'referenceable_type' => 'Procedure',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encMedicationRequest = MedicationRequest::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encMedicationRequest->id,
+    //         'referenceable_type' => 'MedicationRequest',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encMedicationRequest->id,
+    //         'referenceable_type' => 'MedicationRequest',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encComposition = Composition::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encComposition->id,
+    //         'referenceable_type' => 'Composition',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encComposition->id,
+    //         'referenceable_type' => 'Composition',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encAllergyIntolerance = AllergyIntolerance::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encAllergyIntolerance->id,
+    //         'referenceable_type' => 'AllergyIntolerance',
+    //         'attr_type' => 'patient'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encAllergyIntolerance->id,
+    //         'referenceable_type' => 'AllergyIntolerance',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encClinicalImpression = ClinicalImpression::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encClinicalImpression->id,
+    //         'referenceable_type' => 'ClinicalImpression',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encClinicalImpression->id,
+    //         'referenceable_type' => 'ClinicalImpression',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encServiceRequest = ServiceRequest::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encServiceRequest->id,
+    //         'referenceable_type' => 'ServiceRequest',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encServiceRequest->id,
+    //         'referenceable_type' => 'ServiceRequest',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $encMedicationStatement = MedicationStatement::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encMedicationStatement->id,
+    //         'referenceable_type' => 'MedicationStatement',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encMedicationStatement->id,
+    //         'referenceable_type' => 'MedicationStatement',
+    //         'attr_type' => 'context'
+    //     ]);
+
+    //     $encQuestionnaireResponse = QuestionnaireResponse::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $encQuestionnaireResponse->id,
+    //         'referenceable_type' => 'QuestionnaireResponse',
+    //         'attr_type' => 'subject'
+    //     ]);
+    //     Reference::factory()->create([
+    //         'reference' => 'Encounter/' . $encounterSatusehatId,
+    //         'referenceable_id' => $encQuestionnaireResponse->id,
+    //         'referenceable_type' => 'QuestionnaireResponse',
+    //         'attr_type' => 'encounter'
+    //     ]);
+
+    //     $patMedicationRequest = MedicationRequest::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $patMedicationRequest->id,
+    //         'referenceable_type' => 'MedicationRequest',
+    //         'attr_type' => 'subject'
+    //     ]);
+
+    //     $patComposition = Composition::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $patComposition->id,
+    //         'referenceable_type' => 'Composition',
+    //         'attr_type' => 'subject'
+    //     ]);
+
+    //     $patAllergyIntolerance = AllergyIntolerance::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $patAllergyIntolerance->id,
+    //         'referenceable_type' => 'AllergyIntolerance',
+    //         'attr_type' => 'patient'
+    //     ]);
+
+    //     $patMedicationStatement = MedicationStatement::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $patMedicationStatement->id,
+    //         'referenceable_type' => 'MedicationStatement',
+    //         'attr_type' => 'subject'
+    //     ]);
+
+    //     $patQuestionnaireResponse = QuestionnaireResponse::factory()->create();
+    //     Reference::factory()->create([
+    //         'reference' => 'Patient/' . $patientSatusehatId,
+    //         'referenceable_id' => $patQuestionnaireResponse->id,
+    //         'referenceable_type' => 'QuestionnaireResponse',
+    //         'attr_type' => 'subject'
+    //     ]);
+
+    //     $response = $this->get(route('rekam-medis.show', $patient->id));
+
+    //     $response->assertStatus(200);
+    //     $response->assertJsonFragment($patient->toArray());
+    //     $response->assertJsonFragment($encounter->toArray());
+    //     $response->assertJsonFragment($encCondition->toArray());
+    //     $response->assertJsonFragment($encObservation->toArray());
+    //     $response->assertJsonFragment($encProcedure->toArray());
+    //     $response->assertJsonFragment($encMedicationRequest->toArray());
+    //     $response->assertJsonFragment($encComposition->toArray());
+    //     $response->assertJsonFragment($encAllergyIntolerance->toArray());
+    //     $response->assertJsonFragment($encClinicalImpression->toArray());
+    //     $response->assertJsonFragment($encServiceRequest->toArray());
+    //     $response->assertJsonFragment($encMedicationStatement->toArray());
+    //     $response->assertJsonFragment($encQuestionnaireResponse->toArray());
+    //     $response->assertJsonFragment($patMedicationRequest->toArray());
+    //     $response->assertJsonFragment($patComposition->toArray());
+    //     $response->assertJsonFragment($patAllergyIntolerance->toArray());
+    //     $response->assertJsonFragment($patMedicationStatement->toArray());
+    //     $response->assertJsonFragment($patQuestionnaireResponse->toArray());
+    // }
+
+    // public function test_show_rekam_medis_invalid()
+    // {
+    //     $response = $this->get(route('rekam-medis.show', 0));
+
+    //     $response->assertStatus(404);
+    // }
+
+    // public function test_update_data_invalid()
+    // {
+    //     $response = $this->get(route('rekam-medis.update', ['patient_id' => '0']));
+
+    //     $this->assertEquals(404, $response->getStatusCode());
+    // }
+
+    // public function test_update_data()
+    // {
+    //     $response = $this->get(route('rekam-medis.update', ['patient_id' => '100000030009']));
+
+    //     $this->assertEquals(200, $response->getStatusCode());
+    // }
 }

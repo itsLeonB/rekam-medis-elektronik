@@ -108,9 +108,8 @@ class Composition extends FhirModel
         parent::boot();
 
         static::created(function ($composition) {
-            $orgId = config('app.organization_id');
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/composition/' . $orgId;
+            $identifier->system = config('app.identifier_systems.composition');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
             $composition->identifier()->save($identifier);

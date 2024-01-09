@@ -34,14 +34,10 @@ class Observation extends FhirModel
         parent::boot();
 
         static::created(function ($observation) {
-            $orgId = config('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/observation/' . $orgId;
+            $identifier->system = config('app.identifier_systems.observation');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $observation->identifier()->save($identifier);
         });
     }

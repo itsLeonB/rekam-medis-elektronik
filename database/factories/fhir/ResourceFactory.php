@@ -14,7 +14,7 @@ class ResourceFactory extends Factory
      */
     public function definition(): array
     {
-        $resTypes = Resource::VALID_RESOURCE_TYPES;
+        $resTypes = array_keys(config('app.resource_type_map'));
         $resType = $resTypes[array_rand($resTypes)];
 
         return [

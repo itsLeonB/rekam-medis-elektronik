@@ -14,22 +14,10 @@ use App\Models\Fhir\Datatypes\Quantity;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Datatypes\TimingRepeat;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class FhirRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    // public function authorize(): bool
-    // {
-    //     if (!Auth::check()) {
-    //         abort(403, 'Anda tidak terotorisasi untuk mengakses halaman ini.');
-    //     }
-    //     return true;
-    // }
-
     public function getIdentifierRules(string $prefix = null): array
     {
         return array_merge(
