@@ -27,18 +27,7 @@ class Resource extends FhirModel
 {
     use HasFactory;
 
-    const VALID_RESOURCE_TYPES = [
-        'patient', 'practitioner', 'location', 'organization', 'encounter', 'condition', 'observation', 'procedure', 'servicerequest', 'medicationrequest', 'medication', 'composition', 'allergyintolerance', 'clinicalimpression', 'medicationstatement', 'questionnaireresponse'
-    ];
-
     protected $table = 'resource';
-
-    protected $attributes = [
-        'res_version' => 1,
-        'fhir_ver' => 'R4'
-    ];
-
-    protected $guarded = ['id'];
 
     public function content(): HasMany
     {

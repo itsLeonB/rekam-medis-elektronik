@@ -19,10 +19,10 @@ class PeriodFactory extends Factory
     {
         return [
             'start' => Carbon::createFromTimeStamp(fake()->dateTimeBetween('-1 year', 'now')->getTimestamp())
-                ->setTimezone('Asia/Jakarta') // Set the timezone explicitly
+                ->setTimezone(config('app.timezone')) // Set the timezone explicitly
                 ->format('Y-m-d\TH:i:sP'),
             'end' => Carbon::createFromTimeStamp(fake()->dateTimeBetween('now', '+1 year')->getTimestamp())
-                ->setTimezone('Asia/Jakarta') // Set the timezone explicitly
+                ->setTimezone(config('app.timezone')) // Set the timezone explicitly
                 ->format('Y-m-d\TH:i:sP'),
         ];
     }

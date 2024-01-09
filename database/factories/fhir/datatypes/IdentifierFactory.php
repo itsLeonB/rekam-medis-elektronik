@@ -17,7 +17,7 @@ class IdentifierFactory extends Factory
     public function definition(): array
     {
         return [
-            'system' => 'rme',
+            'system' => config('app.identifier_systems.patient.rekam-medis'),
             'value' => fake()->numberBetween(000001, 999999),
         ];
     }

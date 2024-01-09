@@ -30,14 +30,10 @@ class ServiceRequest extends FhirModel
         parent::boot();
 
         static::created(function ($serviceRequest) {
-            $orgId = config('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/servicerequest/' . $orgId;
+            $identifier->system = config('app.identifier_systems.servicerequest');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $serviceRequest->identifier()->save($identifier);
         });
     }

@@ -186,9 +186,15 @@ return [
     ])->toArray(),
 
 
-    /**
-     * SATUSEHAT credentials
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | SATUSEHAT Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Nilai konfigurasi untuk integrasi dengan layanan SATUSEHAT
+    |
+    */
+
     'auth_url' => env('auth_url'),
     'base_url' => env('base_url'),
     'consent_url' => env('consent_url'),
@@ -198,4 +204,102 @@ return [
     'client_secret' => env('client_secret'),
     'organization_id' => env('organization_id'),
 
+    'identifier_systems' => [
+        'patient' => [
+            'nik' => 'https://fhir.kemkes.go.id/id/nik',
+            'paspor' => 'https://fhir.kemkes.go.id/id/paspor',
+            'kk' => 'https://fhir.kemkes.go.id/id/kk',
+            'nik-ibu' => 'https://fhir.kemkes.go.id/id/nik-ibu',
+            'ihs-number' => 'https://fhir.kemkes.go.id/id/ihs-number',
+            'rekam-medis' => 'http://sys-ids.kemkes.go.id/' . config('app.organization_id') . '/rekam-medis',
+            'bpjs' => 'http://sys-ids.kemkes.go.id/' . config('app.organization_id') . '/bpjs',
+        ],
+        'practitioner' => [
+            'nik' => 'https://fhir.kemkes.go.id/id/nik',
+            'nakes-his-number' => 'https://fhir.kemkes.go.id/id/nakes-his-number',
+            'nakes-id' => 'https://fhir.kemkes.go.id/id/nakes-id',
+        ],
+        'alleryintolerance' => 'http://sys-ids.kemkes.go.id/allergy/' . config('app.organization_id'),
+        'clinicalimpression' => 'http://sys-ids.kemkes.go.id/clinicalimpression/' . config('app.organization_id'),
+        'composition' => 'http://sys-ids.kemkes.go.id/composition/' . config('app.organization_id'),
+        'condition' => 'http://sys-ids.kemkes.go.id/condition/' . config('app.organization_id'),
+        'encounter' => 'http://sys-ids.kemkes.go.id/encounter/' . config('app.organization_id'),
+        'location' => 'http://sys-ids.kemkes.go.id/location/' . config('app.organization_id'),
+        'medication' => 'http://sys-ids.kemkes.go.id/medication/' . config('app.organization_id'),
+        'medicationrequest' => 'http://sys-ids.kemkes.go.id/prescription/' . config('app.organization_id'),
+        'medicationstatement' => 'http://sys-ids.kemkes.go.id/medicationstatement/' . config('app.organization_id'),
+        'observation' => 'http://sys-ids.kemkes.go.id/observation/' . config('app.organization_id'),
+        'organization' => 'http://sys-ids.kemkes.go.id/organization/' . config('app.organization_id'),
+        'procedure' => 'http://sys-ids.kemkes.go.id/procedure/' . config('app.organization_id'),
+        'questionnaireresponse' => 'http://sys-ids.kemkes.go.id/questionnaireresponse/' . config('app.organization_id'),
+        'servicerequest' => 'http://sys-ids.kemkes.go.id/servicerequest/' . config('app.organization_id'),
+    ],
+
+    'available_methods' => [
+        'Practitioner' => ['get'],
+        'Organization' => ['get', 'post', 'put', 'patch'],
+        'Location' => ['get', 'post', 'put', 'patch'],
+        'Encounter' => ['get', 'post', 'put', 'patch'],
+        'Condition' => ['get', 'post', 'put', 'patch'],
+        'Observation' => ['get', 'post', 'put', 'patch'],
+        'Composition' => ['get', 'post', 'put', 'patch'],
+        'Procedure' => ['get', 'post', 'put', 'patch'],
+        'Medication' => ['get', 'post', 'put', 'patch'],
+        'MedicationRequest' => ['get', 'post', 'put', 'patch'],
+        'MedicationStatement' => ['get', 'post', 'put', 'patch'],  // Dokumentasi Postman tidak ada
+        // 'MedicationDispense' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'DiagnosticReport' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        'AllergyIntolerance' => ['get', 'post', 'put', 'patch'],
+        'ClinicalImpression' => ['get', 'post', 'put', 'patch'],
+        // 'HealthcareService' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'Appointment' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'AppointmentResponse' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'PractitionerRole' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'Slot' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'Immunization' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'ImagingStudy' => ['get', 'post', 'put'],  // Not yet implemented
+        // 'Consent' => ['get', 'post'],  // Tidak perlu local storage/API
+        // 'EpisodeOfCare' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'CarePlan' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'FamilyMemberHistory' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        'QuestionnaireResponse' => ['get', 'post', 'put', 'patch'],
+        'ServiceRequest' => ['get', 'post', 'put', 'patch'],
+        // 'Specimen' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        // 'RelatedPerson' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        'Patient' => ['get', 'post']
+    ],
+
+    'resource_type_map' => [
+        'practitioner' => 'Practitioner',
+        'organization' => 'Organization',
+        'location' => 'Location',
+        'encounter' => 'Encounter',
+        'condition' => 'Condition',
+        'observation' => 'Observation',
+        'composition' => 'Composition',
+        'procedure' => 'Procedure',
+        'medication' => 'Medication',
+        'medicationrequest' => 'MedicationRequest',
+        'medicationstatement' => 'MedicationStatement',
+        // 'medicationdispense' => 'MedicationDispense',  // Not yet implemented
+        // 'diagnosticreport' => 'DiagnosticReport',  // Not yet implemented
+        'allergyintolerance' => 'AllergyIntolerance',
+        'clinicalimpression' => 'ClinicalImpression',
+        // 'healthcareservice' => 'HealthcareService',  // Not yet implemented
+        // 'appointment' => 'Appointment',  // Not yet implemented
+        // 'appointmentresponse' => 'AppointmentResponse',  // Not yet implemented
+        // 'practitionerrole' => 'PractitionerRole',  // Not yet implemented
+        // 'slot' => 'Slot',  // Not yet implemented
+        // 'immunization' => 'Immunization',  // Not yet implemented
+        // 'imagingstudy' => 'ImagingStudy',  // Not yet implemented
+        // 'consent' => 'Consent',  // Tidak perlu local storage
+        // 'episodeofcare' => 'EpisodeOfCare',  // Not yet implemented
+        // 'careplan' => 'CarePlan',  // Not yet implemented
+        // 'familymemberhistory' => 'FamilyMemberHistory',  // Not yet implemented
+        'questionnaireresponse' => 'QuestionnaireResponse',
+        'servicerequest' => 'ServiceRequest',
+        // 'specimen' => 'Specimen',  // Not yet implemented
+        // 'relatedperson' => 'RelatedPerson',  // Not yet implemented
+        'patient' => 'Patient'
+    ]
 ];

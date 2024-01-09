@@ -87,9 +87,6 @@ Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], func
 
 // Web APIs
 
-// Profile
-Route::get('/profile-details', [ProfileController::class, 'getProfile'])->name('profile.details');
-
 // Daftar pasien untuk view Rawat Jalan dan Rawat Inap
 Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
 

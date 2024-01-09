@@ -31,14 +31,10 @@ class AllergyIntolerance extends FhirModel
         parent::boot();
 
         static::created(function ($allergyIntolerance) {
-            $orgId = Config::get('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/allergy/' . $orgId;
+            $identifier->system = config('app.identifier_systems.allergyintolerance');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $allergyIntolerance->identifier()->save($identifier);
         });
     }

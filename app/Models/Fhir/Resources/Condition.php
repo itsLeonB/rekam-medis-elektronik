@@ -31,14 +31,10 @@ class Condition extends FhirModel
         parent::boot();
 
         static::created(function ($condition) {
-            $orgId = config('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/condition/' . $orgId;
+            $identifier->system = config('app.identifier_systems.condition');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $condition->identifier()->save($identifier);
         });
     }

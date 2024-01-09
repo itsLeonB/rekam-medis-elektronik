@@ -29,14 +29,10 @@ class Procedure extends FhirModel
         parent::boot();
 
         static::created(function ($procedure) {
-            $orgId = config('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/procedure/' . $orgId;
+            $identifier->system = config('app.identifier_systems.procedure');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $procedure->identifier()->save($identifier);
         });
     }

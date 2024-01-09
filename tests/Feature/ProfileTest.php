@@ -147,6 +147,6 @@ class ProfileTest extends TestCase
 
         $response = $this->get(route('profile.details'));
 
-        $response->assertUnauthorized();
+        $response->assertRedirect(route('login'));
     }
 }

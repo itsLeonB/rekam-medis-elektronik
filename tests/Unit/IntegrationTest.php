@@ -28,7 +28,7 @@ class IntegrationTest extends TestCase
 
     public function test_check_if_resource_exists_in_local_false()
     {
-        $resourceTypes = array_keys(Satusehat::AVAILABLE_METHODS);
+        $resourceTypes = array_keys(config('app.available_methods'));
         $resourceType = $resourceTypes[array_rand($resourceTypes)];
 
         $controller = new IntegrationController(new SatusehatController());
@@ -81,7 +81,7 @@ class IntegrationTest extends TestCase
 
     public function test_get_resource_does_not_exist()
     {
-        $resourceTypes = array_keys(Satusehat::AVAILABLE_METHODS);
+        $resourceTypes = array_keys(config('app.available_methods'));
         $resourceType = $resourceTypes[array_rand($resourceTypes)];
 
         $response = $this->json('GET', route('integration.show', ['res_type' => $resourceType, 'satusehat_id' => fake()->uuid()]));

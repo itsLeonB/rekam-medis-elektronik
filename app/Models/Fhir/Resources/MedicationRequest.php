@@ -29,14 +29,10 @@ class MedicationRequest extends FhirModel
         parent::boot();
 
         static::created(function ($medicationRequest) {
-            $orgId = config('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/prescription/' . $orgId;
+            $identifier->system = config('app.identifier_systems.medicationrequest');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $medicationRequest->identifier()->save($identifier);
         });
     }

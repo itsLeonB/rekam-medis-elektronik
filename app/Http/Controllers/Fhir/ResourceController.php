@@ -11,7 +11,7 @@ class ResourceController extends FhirController
     public function index($res_type)
     {
         // Validate the resource type
-        if (!in_array($res_type, Resource::VALID_RESOURCE_TYPES)) {
+        if (!in_array($res_type, array_keys(config('app.resource_type_map')))) {
             Log::error('Invalid resource type requested: ' . $res_type);
             return response()->json(['error' => 'Invalid resource type.'], 400);
         }

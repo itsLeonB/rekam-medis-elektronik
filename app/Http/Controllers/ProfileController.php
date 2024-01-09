@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\Fhir\Practitioner;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -74,15 +73,9 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-
-    public function getProfile(Request $request)
+    public function details(Request $request)
     {
         $user = $request->user();
-
-        if ($user) {
-            return $user->practitionerUser;
-        } else {
-            return response()->json(['error' => 'User is not authenticated'], 401);
-        }
+        return $user->practitionerUser;
     }
 }

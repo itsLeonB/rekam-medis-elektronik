@@ -26,7 +26,7 @@ class UserManagementTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the users data
-        $response->assertJson(['users' => User::paginate(15)->toArray()]);
+        $response->assertJson(['users' => User::paginate(15)->withQueryString()->toArray()]);
     }
 
     public function test_index_user_with_query()
@@ -42,7 +42,7 @@ class UserManagementTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the users data
-        $response->assertJson(['users' => User::where('name', 'like', "%{$users[0]->name}%")->paginate(15)->toArray()]);
+        $response->assertJson(['users' => User::where('name', 'like', "%{$users[0]->name}%")->paginate(15)->withQueryString()->toArray()]);
     }
 
     public function test_show_user()

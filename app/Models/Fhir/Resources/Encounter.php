@@ -34,9 +34,8 @@ class Encounter extends FhirModel
     {
         parent::boot();
         static::created(function ($encounter) {
-            $orgId = config('app.organization_id');
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/encounter/' . $orgId;
+            $identifier->system = config('app.identifier_systems.encounter');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
             $encounter->identifier()->save($identifier);

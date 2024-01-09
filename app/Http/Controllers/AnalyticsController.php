@@ -25,11 +25,8 @@ class AnalyticsController extends Controller
 
     public function getThisMonthNewPatients()
     {
-        // Get the current month and year
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
-
-        // Query to get the count of rows created in the current month
         $count = Resource::where('res_type', 'Patient')
             ->whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
@@ -47,10 +44,9 @@ class AnalyticsController extends Controller
 
     public function getEncountersPerMonth()
     {
-        $endDate = now(); // Current date
-        $startDate = now()->subMonths(13); // 12 months ago
+        $endDate = now();
+        $startDate = now()->subMonths(13);
 
-        // Retrieve the counts of Encounters grouped by period start and class code
         $encounterCounts = Encounter::selectRaw('DATE_FORMAT(periods.start, "%Y-%m") as month')
             ->selectRaw('codings.code as class')
             ->selectRaw('COUNT(*) as count')

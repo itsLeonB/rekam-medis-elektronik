@@ -29,14 +29,10 @@ class ClinicalImpression extends FhirModel
         parent::boot();
 
         static::created(function ($clinicalImpression) {
-            $orgId = config('app.organization_id');
-
             $identifier = new Identifier();
-            $identifier->system = 'http://sys-ids.kemkes.go.id/clinicalimpression/' . $orgId;
+            $identifier->system = config('app.identifier_systems.clinicalimpression');
             $identifier->use = 'official';
             $identifier->value = Str::uuid();
-
-            // Save the identifier through the relationship
             $clinicalImpression->identifier()->save($identifier);
         });
     }
