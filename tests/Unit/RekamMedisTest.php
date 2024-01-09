@@ -104,21 +104,19 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ],
-            [
-                'satusehatId' => $patient2->resource->satusehat_id,
-                'identifier' => $patient2->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient2->name()->first()->text,
-                'class' => $encounter2->class->code,
-                'start' => $encounter2->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ],
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
+        ]);
+        $response->assertJsonFragment([
+            'satusehatId' => $patient2->resource->satusehat_id,
+            'identifier' => $patient2->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient2->name()->first()->text,
+            'class' => $encounter2->class->code,
+            'start' => $encounter2->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
 
@@ -166,14 +164,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
 
@@ -228,14 +224,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
 
@@ -290,14 +284,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
     public function test_index_rekam_medis_with_query_kk()
@@ -351,14 +343,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
     public function test_index_rekam_medis_with_query_nik_ibu()
@@ -412,14 +402,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
     public function test_index_rekam_medis_with_query_ihs_number()
@@ -473,14 +461,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
     public function test_index_rekam_medis_with_query_rekam_medis()
@@ -534,14 +520,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
     public function test_index_rekam_medis_with_query_bpjs()
@@ -595,14 +579,12 @@ class RekamMedisTest extends TestCase
         $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
 
         // Assert that the response contains the formatted patient data
-        $response->assertJson([
-            [
-                'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
-                'name' => $patient->name()->first()->text,
-                'class' => $encounter->class->code,
-                'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            ]
+        $response->assertJsonFragment([
+            'satusehatId' => $patient->resource->satusehat_id,
+            'identifier' => $patient->identifier()->where('system', $rmeSystem)->first()->value,
+            'name' => $patient->name()->first()->text,
+            'class' => $encounter->class->code,
+            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
         ]);
     }
 
