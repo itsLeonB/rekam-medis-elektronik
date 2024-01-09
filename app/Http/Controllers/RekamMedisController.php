@@ -57,7 +57,7 @@ class RekamMedisController extends Controller
             }
         }
 
-        $patients = $patients->get();
+        $patients = $patients->paginate(15)->withQueryString();
 
         $formattedPatients = $patients->map(function ($patient) {
             $latestEncounter = $this->getLatestEncounter($patient);
@@ -84,7 +84,23 @@ class RekamMedisController extends Controller
             ];
         });
 
-        return response()->json($formattedPatients);
+        return response()->json([
+            'rekam_medis' => [
+                'current_page' => $patients->currentPage(),
+                'data' => $formattedPatients,
+                'first_page_url' => $patients->url(1),
+                'from' => $patients->firstItem(),
+                'last_page' => $patients->lastPage(),
+                'last_page_url' => $patients->url($patients->lastPage()),
+                'links' => $patients->links(),
+                'next_page_url' => $patients->nextPageUrl() ?? null,
+                'path' => $patients->path(),
+                'per_page' => $patients->perPage(),
+                'prev_page_url' => $patients->previousPageUrl() ?? null,
+                'to' => $patients->lastItem(),
+                'total' => $patients->total(),
+            ],
+        ]);
     }
 
     private function getLatestEncounter($patient)
