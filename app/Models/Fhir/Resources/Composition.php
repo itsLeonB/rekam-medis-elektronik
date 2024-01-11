@@ -108,11 +108,17 @@ class Composition extends FhirModel
         parent::boot();
 
         static::created(function ($composition) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.composition');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $composition->identifier()->save($identifier);
+            $existingIdentifier = $composition->identifier()
+                ->where('system', config('app.identifier_systems.composition'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.composition');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $composition->identifier()->save($identifier);
+            }
         });
     }
 

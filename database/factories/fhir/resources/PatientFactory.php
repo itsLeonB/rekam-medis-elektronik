@@ -19,11 +19,14 @@ class PatientFactory extends Factory
         $gender = fake()->randomElement($genders);
 
         return [
+            'resource_id' => Resource::factory()->create([
+                'res_type' => 'Patient',
+            ]),
             'active' => fake()->boolean(),
             'gender' => $gender,
             'birth_date' => fake()->date(),
             'deceased_boolean' => fake()->boolean(),
-            'multiple_birth_boolean' => fake()->boolean(),
+            'multiple_birth_integer' => fake()->randomDigit(),
         ];
     }
 }

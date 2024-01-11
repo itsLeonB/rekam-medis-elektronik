@@ -34,11 +34,17 @@ class Observation extends FhirModel
         parent::boot();
 
         static::created(function ($observation) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.observation');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $observation->identifier()->save($identifier);
+            $existingIdentifier = $observation->identifier()
+                ->where('system', config('app.identifier_systems.observation'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.observation');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $observation->identifier()->save($identifier);
+            }
         });
     }
 

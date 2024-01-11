@@ -30,11 +30,17 @@ class ServiceRequest extends FhirModel
         parent::boot();
 
         static::created(function ($serviceRequest) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.servicerequest');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $serviceRequest->identifier()->save($identifier);
+            $existingIdentifier = $serviceRequest->identifier()
+                ->where('system', config('app.identifier_systems.servicerequest'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.servicerequest');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $serviceRequest->identifier()->save($identifier);
+            }
         });
     }
 

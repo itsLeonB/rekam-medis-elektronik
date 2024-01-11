@@ -22,7 +22,6 @@ use App\Http\Controllers\Fhir\{
     ServiceRequestController,
 };
 use App\Http\Controllers\IntegrationController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -87,8 +86,12 @@ Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], func
 
 // Web APIs
 
-// Daftar pasien untuk view Rawat Jalan dan Rawat Inap
-Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
+// Daftar Pasien
+Route::group(['prefix' => 'daftar-pasien', 'as' => 'daftar-pasien.'], function () {
+    Route::get('/rawat-jalan/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatJalan'])->name('rawat-jalan');
+    Route::get('/rawat-inap/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
+    Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+});
 
 // Rekam Medis
 Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');

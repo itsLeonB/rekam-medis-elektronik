@@ -2,29 +2,30 @@
 
 namespace Database\Seeders;
 
+use App\Fhir\Processor;
+use App\Models\Fhir\BackboneElements\EncounterClassHistory;
+use App\Models\Fhir\BackboneElements\EncounterHospitalization;
+use App\Models\Fhir\BackboneElements\EncounterLocation;
+use App\Models\Fhir\BackboneElements\EncounterParticipant;
+use App\Models\Fhir\BackboneElements\EncounterStatusHistory;
+use App\Models\Fhir\BackboneElements\PatientCommunication;
+use App\Models\Fhir\BackboneElements\PatientContact;
+use App\Models\Fhir\Datatypes\Address;
 use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Datatypes\Coding;
+use App\Models\Fhir\Datatypes\ComplexExtension;
+use App\Models\Fhir\Datatypes\ContactPoint;
+use App\Models\Fhir\Datatypes\Extension;
 use App\Models\Fhir\Datatypes\HumanName;
 use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resource;
-use App\Models\Fhir\Resources\AllergyIntolerance;
-use App\Models\Fhir\Resources\ClinicalImpression;
-use App\Models\Fhir\Resources\Composition;
-use App\Models\Fhir\Resources\Condition;
 use App\Models\Fhir\Resources\Encounter;
-use App\Models\Fhir\Resources\MedicationRequest;
-use App\Models\Fhir\Resources\MedicationStatement;
-use App\Models\Fhir\Resources\Observation;
 use App\Models\Fhir\Resources\Patient;
-use App\Models\Fhir\Resources\Practitioner;
-use App\Models\Fhir\Resources\Procedure;
-use App\Models\Fhir\Resources\QuestionnaireResponse;
-use App\Models\Fhir\Resources\ServiceRequest;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DummyDataSeeder extends Seeder
 {
@@ -33,431 +34,243 @@ class DummyDataSeeder extends Seeder
      */
     public function run(): void
     {
-        $encounters = Encounter::factory()->count(4)->create();
+        DB::transaction(function () {
+            $processor = new Processor();
 
-        Period::factory()->create([
-            'start' => Carbon::today(),
-            'end' => Carbon::today()->addHours(2),
-            'periodable_id' => $encounters[0]->id,
-            'periodable_type' => 'Encounter',
-        ]);
+            $files = Storage::disk('onboarding-resource')->files();
 
-        Period::factory()->create([
-            'start' => Carbon::today(),
-            'end' => Carbon::today()->addHours(4),
-            'periodable_id' => $encounters[1]->id,
-            'periodable_type' => 'Encounter',
-        ]);
+            foreach ($files as $f) {
+                $resText = Storage::disk('onboarding-resource')->get($f);
+                list($resType, $satusehatId) = explode('-', $f, 2);
+                list($satusehatId, $ext) = explode('.', $satusehatId, 2);
 
-        Period::factory()->create([
-            'start' => Carbon::yesterday(),
-            'end' => Carbon::yesterday()->addHours(2),
-            'periodable_id' => $encounters[2]->id,
-            'periodable_type' => 'Encounter',
-        ]);
+                switch ($resType) {
+                    case 'Organization':
+                        $org = Resource::create(
+                            [
+                                'satusehat_id' => config('app.organization_id'),
+                                'res_type' => $resType
+                            ]
+                        );
 
-        Period::factory()->create([
-            'start' => Carbon::tomorrow(),
-            'end' => Carbon::tomorrow()->addHours(2),
-            'periodable_id' => $encounters[3]->id,
-            'periodable_type' => 'Encounter',
-        ]);
+                        $org->content()->create(
+                            [
+                                'res_text' => $resText,
+                                'res_ver' => 1
+                            ]
+                        );
 
-        $patCount = fake()->numberBetween(1, 10);
-        $lastMonthCount = fake()->numberBetween(1, 10);
+                        $resText = json_decode($resText, true);
+                        $orgData = $processor->generateOrganization($resText);
+                        $orgData = $this->removeEmptyValues($orgData);
+                        $processor->saveOrganization($org, $orgData);
+                        $org->save();
 
-        // Create a new patient resource
-        for ($i = 0; $i < $patCount; $i++) {
-            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
-        }
+                        break;
+                    case 'Location':
+                        $loc = Resource::create(
+                            [
+                                'satusehat_id' => 'mock-location',
+                                'res_type' => $resType
+                            ]
+                        );
 
-        // Create another patient resource from last month
-        for ($i = 0; $i < $lastMonthCount; $i++) {
-            Patient::factory()->for(Resource::factory()->create([
-                'res_type' => 'Patient',
-                'created_at' => now()->subMonth(),
-            ]))->create();
-        }
+                        $loc->content()->create(
+                            [
+                                'res_text' => $resText,
+                                'res_ver' => 1
+                            ]
+                        );
 
-        $patCount = fake()->numberBetween(1, 10);
+                        $resText = json_decode($resText, true);
+                        $locData = $processor->generateLocation($resText);
+                        $locData = $this->removeEmptyValues($locData);
+                        $processor->saveLocation($loc, $locData);
+                        $loc->save();
 
-        // Create a new patient resource
-        for ($i = 0; $i < $patCount; $i++) {
-            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
-        }
+                        break;
+                    case 'Practitioner':
+                        $prac = Resource::create(
+                            [
+                                'satusehat_id' => 'rsum',
+                                'res_type' => $resType
+                            ]
+                        );
 
-        for ($i = 0; $i < 13; $i++) {
-            $count = fake()->randomDigit();
+                        $prac->content()->create(
+                            [
+                                'res_text' => $resText,
+                                'res_ver' => 1
+                            ]
+                        );
 
-            for ($j = 0; $j < $count; $j++) {
-                $encounter = Encounter::factory()->create();
+                        $resText = json_decode($resText, true);
+                        $pracData = $processor->generatePractitioner($resText);
+                        $pracData = $this->removeEmptyValues($pracData);
+                        $processor->savePractitioner($prac, $pracData);
+                        $prac->save();
 
-                Period::factory()->create([
-                    'start' => now()->subMonths(13 - $i),
-                    'end' => now()->subMonths(13 - $i)->addHours(2),
-                    'periodable_id' => $encounter->id,
-                    'periodable_type' => 'Encounter',
-                ]);
-
-                Coding::factory()->create([
-                    'code' => fake()->randomElement(['AMB', 'IMP', 'EMER']),
-                    'attr_type' => 'class',
-                    'codeable_id' => $encounter->id,
-                    'codeable_type' => 'Encounter',
-                ]);
+                        break;
+                }
             }
-        }
 
-        $balita = fake()->numberBetween(1, 10);
-        $kanak = fake()->numberBetween(1, 10);
-        $remaja = fake()->numberBetween(1, 10);
-        $dewasa = fake()->numberBetween(1, 10);
-        $lansia = fake()->numberBetween(1, 10);
-        $manula = fake()->numberBetween(1, 10);
+            for ($i = 0; $i < 20; $i++) {
+                $this->dummyEncounter();
+            }
+        });
+    }
 
-        for ($i = 0; $i < $balita; $i++) {
-            Patient::factory()
-                ->for(Resource::factory()->create(['res_type' => 'Patient']))
-                ->create(['birth_date' => now()->subYears(1)]);
-        }
-
-        for ($i = 0; $i < $kanak; $i++) {
-            Patient::factory()
-                ->for(Resource::factory()->create(['res_type' => 'Patient']))
-                ->create(['birth_date' => now()->subYears(6)]);
-        }
-
-        for ($i = 0; $i < $remaja; $i++) {
-            Patient::factory()
-                ->for(Resource::factory()->create(['res_type' => 'Patient']))
-                ->create(['birth_date' => now()->subYears(12)]);
-        }
-
-        for ($i = 0; $i < $dewasa; $i++) {
-            Patient::factory()
-                ->for(Resource::factory()->create(['res_type' => 'Patient']))
-                ->create(['birth_date' => now()->subYears(26)]);
-        }
-
-        for ($i = 0; $i < $lansia; $i++) {
-            Patient::factory()
-                ->for(Resource::factory()->create(['res_type' => 'Patient']))
-                ->create(['birth_date' => now()->subYears(46)]);
-        }
-
-        for ($i = 0; $i < $manula; $i++) {
-            Patient::factory()
-                ->for(Resource::factory()->create(['res_type' => 'Patient']))
-                ->create(['birth_date' => now()->subYears(66)]);
-        }
-
-        $classes = ['AMB', 'IMP', 'EMER'];
-        $serviceTypes = [124, 177, 186, 88, 168, 218, 221, 286, 263, 189, 221, 124, 286];
-        $class = fake()->randomElement($classes);
-        $serviceType = fake()->randomElement($serviceTypes);
-
-        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
-
-        $patientName = HumanName::factory()->create([
-            'human_nameable_id' => $patient->id,
-            'human_nameable_type' => 'Patient',
-        ]);
-
-        Identifier::factory()->create([
-            'identifiable_id' => $patient->id,
-            'identifiable_type' => 'Patient',
-        ]);
+    private function dummyEncounter()
+    {
+        $patient = $this->dummyPatient();
+        $practitioner = Resource::where('res_type', 'Practitioner')->inRandomOrder()->first();
 
         $encounter = Encounter::factory()->create();
 
-        Coding::factory()->create([
-            'code' => $class,
-            'codeable_id' => $encounter->id,
-            'codeable_type' => 'Encounter',
-            'attr_type' => 'class'
-        ]);
+        for ($i = 0, $iMax = rand(1, 3); $i < $iMax; $i++) {
+            EncounterStatusHistory::factory()
+                ->for($encounter, 'encounter')
+                ->has(Period::factory(), 'period')
+                ->create();
+        }
 
-        $serviceTypeRelation = CodeableConcept::factory()->create([
-            'codeable_id' => $encounter->id,
-            'codeable_type' => 'Encounter',
-            'attr_type' => 'serviceType'
-        ]);
+        $this->fakeCodeableConcept($encounter, 'encounterClass', 'class');
 
-        Coding::factory()->create([
-            'code' => $serviceType,
-            'codeable_id' => $serviceTypeRelation->id,
-            'codeable_type' => 'CodeableConcept',
-            'attr_type' => 'coding'
-        ]);
+        for ($i = 0, $iMax = rand(1, 3); $i < $iMax; $i++) {
+            $encClassHistory = EncounterClassHistory::factory()
+                ->for($encounter, 'encounter')
+                ->has(Period::factory(), 'period')
+                ->create();
+            $this->fakeCodeableConcept($encClassHistory, 'encounterClass', 'class');
+        }
 
-        $encounterPeriod = Period::factory()->create([
-            'periodable_id' => $encounter->id,
-            'periodable_type' => 'Encounter',
-        ]);
+        $this->fakeCodeableConcept($encounter, 'encounterPriority', 'priority');
 
-        Reference::factory()->create([
+        Reference::factory()->for($encounter, 'referenceable')->create([
             'reference' => 'Patient/' . $patient->resource->satusehat_id,
-            'referenceable_id' => $encounter->id,
-            'referenceable_type' => 'Encounter',
             'attr_type' => 'subject'
         ]);
 
-        $classes = ['AMB', 'IMP', 'EMER'];
-        // Create some test patients
-        $patient1 = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
-        Identifier::factory()->create([
-            'identifiable_id' => $patient1->id,
-            'identifiable_type' => 'Patient',
-            'attr_type' => 'identifier'
-        ]);
-        HumanName::factory()->create([
-            'human_nameable_id' => $patient1->id,
-            'human_nameable_type' => 'Patient',
-            'attr_type' => 'name'
+        for ($i = 0, $iMax = rand(1, 3); $i < $iMax; $i++) {
+            $encParticipant = EncounterParticipant::factory()
+                ->for($encounter, 'encounter')
+                ->has(Period::factory(), 'period')
+                ->create();
+            $this->fakeCodeableConcept($encParticipant, 'encounterParticipantType', 'type');
+            Reference::factory()->for($encParticipant, 'referenceable')->create([
+                'reference' => 'Practitioner/' . $practitioner->satusehat_id,
+                'attr_type' => 'individual'
+            ]);
+        }
+
+        Period::factory()->for($encounter, 'periodable')->create();
+
+        $encHosp = EncounterHospitalization::factory()->for($encounter, 'encounter')->create();
+        $this->fakeCodeableConcept($encHosp, 'admitSource', 'admitSource');
+        $this->fakeCodeableConcept($encHosp, 'dietPreference', 'dietPreference');
+        $this->fakeCodeableConcept($encHosp, 'specialArrangement', 'specialArrangement');
+        $this->fakeCodeableConcept($encHosp, 'dischargeDisposition', 'dischargeDisposition');
+
+        $locId = Resource::where('res_type', 'Location')->inRandomOrder()->first()->satusehat_id;
+        $loc = EncounterLocation::factory()->for($encounter, 'encounter')->create();
+        Reference::factory()->for($loc, 'referenceable')->create([
+            'reference' => 'Location/' . $locId,
+            'attr_type' => 'location'
         ]);
 
-        $encounter1 = Encounter::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patient1->resource->satusehat_id,
-            'referenceable_id' => $encounter1->id,
-            'referenceable_type' => 'Encounter',
-            'attr_type' => 'subject'
+        Reference::factory()->for($encounter, 'referenceable')->create([
+            'reference' => 'Organization/' . config('app.organization_id'),
+            'attr_type' => 'serviceProvider'
         ]);
-        Coding::factory()->create([
-            'code' => fake()->randomElement($classes),
-            'codeable_id' => $encounter1->id,
-            'codeable_type' => 'Encounter',
-            'attr_type' => 'class'
-        ]);
-        Period::factory()->create([
-            'periodable_id' => $encounter1->id,
-            'periodable_type' => 'Encounter',
-            'attr_type' => 'period'
-        ]);
+    }
 
-        $patient2 = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
-        Identifier::factory()->create([
-            'identifiable_id' => $patient2->id,
-            'identifiable_type' => 'Patient',
-            'attr_type' => 'identifier'
-        ]);
-        HumanName::factory()->create([
-            'human_nameable_id' => $patient2->id,
-            'human_nameable_type' => 'Patient',
-            'attr_type' => 'name'
-        ]);
+    private function dummyPatient()
+    {
+        $patient = Patient::factory()->create();
 
-        $encounter2 = Encounter::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patient2->resource->satusehat_id,
-            'referenceable_id' => $encounter2->id,
-            'referenceable_type' => 'Encounter',
-            'attr_type' => 'subject'
-        ]);
-        Coding::factory()->create([
-            'code' => fake()->randomElement($classes),
-            'codeable_id' => $encounter2->id,
-            'codeable_type' => 'Encounter',
-            'attr_type' => 'class'
-        ]);
-        Period::factory()->create([
-            'periodable_id' => $encounter2->id,
-            'periodable_type' => 'Encounter',
-            'attr_type' => 'period'
-        ]);
+        $isChild = [true, false];
+        $isChild = fake()->randomElement($isChild);
 
-        $patient = Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
-        $patientSatusehatId = $patient->resource->satusehat_id;
+        Identifier::factory()->rekamMedis()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
 
-        $encounter = Encounter::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encounter->id,
-            'referenceable_type' => 'Encounter',
-            'attr_type' => 'subject'
-        ]);
-        $encounterSatusehatId = $encounter->resource->satusehat_id;
+        if ($isChild) {
+            Identifier::factory()->nikIbu()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
+        } else {
+            Identifier::factory()->nik()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
+            Identifier::factory()->bpjs()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
+            Identifier::factory()->paspor()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
+            Identifier::factory()->kk()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
+        }
 
-        $encCondition = Condition::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encCondition->id,
-            'referenceable_type' => 'Condition',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encCondition->id,
-            'referenceable_type' => 'Condition',
-            'attr_type' => 'encounter'
-        ]);
+        HumanName::factory()->for($patient, 'humanNameable')->create(['attr_type' => 'name']);
+        $this->fakeTelecom($patient);
+        $this->fakeAddress($patient);
+        $this->fakeCodeableConcept($patient, 'patientMaritalStatus', 'maritalStatus');
 
-        $encObservation = Observation::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encObservation->id,
-            'referenceable_type' => 'Observation',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encObservation->id,
-            'referenceable_type' => 'Observation',
-            'attr_type' => 'encounter'
-        ]);
+        for ($i = 0; $i < 2; $i++) {
+            $contact = PatientContact::factory()->for($patient, 'patient')->create();
+            $this->fakeCodeableConcept($contact, 'patientContactRelationship', 'relationship');
+            HumanName::factory()->for($contact, 'humanNameable')->create(['attr_type' => 'name']);
+            $this->fakeTelecom($contact);
+            $this->fakeAddress($contact);
+        }
 
-        $encProcedure = Procedure::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encProcedure->id,
-            'referenceable_type' => 'Procedure',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encProcedure->id,
-            'referenceable_type' => 'Procedure',
-            'attr_type' => 'encounter'
-        ]);
+        for ($i = 0; $i < 2; $i++) {
+            $communication = PatientCommunication::factory()->for($patient, 'patient')->create();
+            $this->fakeCodeableConcept($communication, 'patientCommunicationLanguage', 'language');
+        }
 
-        $encMedicationRequest = MedicationRequest::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encMedicationRequest->id,
-            'referenceable_type' => 'MedicationRequest',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encMedicationRequest->id,
-            'referenceable_type' => 'MedicationRequest',
-            'attr_type' => 'encounter'
-        ]);
+        return $patient;
+    }
 
-        $encComposition = Composition::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encComposition->id,
-            'referenceable_type' => 'Composition',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encComposition->id,
-            'referenceable_type' => 'Composition',
-            'attr_type' => 'encounter'
-        ]);
+    private function fakeCodeableConcept($parent, $attribute, $type)
+    {
+        CodeableConcept::factory()
+            ->for($parent, 'codeable')
+            ->has(Coding::factory()->$attribute(), 'coding')
+            ->create(['attr_type' => $type]);
+    }
 
-        $encAllergyIntolerance = AllergyIntolerance::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encAllergyIntolerance->id,
-            'referenceable_type' => 'AllergyIntolerance',
-            'attr_type' => 'patient'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encAllergyIntolerance->id,
-            'referenceable_type' => 'AllergyIntolerance',
-            'attr_type' => 'encounter'
-        ]);
+    private function fakeComplexExtension($parent, $attribute, $type)
+    {
+        $administrativeCode = ComplexExtension::factory()->$attribute()->for($parent, 'complexExtendable')->create(['attr_type' => $type]);
+        foreach ($administrativeCode->exts as $ext) {
+            Extension::factory()->$ext()->for($administrativeCode, 'extendable')->create(['attr_type' => 'extension']);
+        }
+    }
 
-        $encClinicalImpression = ClinicalImpression::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encClinicalImpression->id,
-            'referenceable_type' => 'ClinicalImpression',
-            'attr_type' => 'subject'
+    private function fakeTelecom($parent)
+    {
+        ContactPoint::factory()->phone()->for($parent, 'contactPointable')->create([
+            'attr_type' => 'telecom',
+            'rank' => 1
         ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encClinicalImpression->id,
-            'referenceable_type' => 'ClinicalImpression',
-            'attr_type' => 'encounter'
+        ContactPoint::factory()->email()->for($parent, 'contactPointable')->create([
+            'attr_type' => 'telecom',
+            'rank' => 2
         ]);
+        ContactPoint::factory()->url()->for($parent, 'contactPointable')->create([
+            'attr_type' => 'telecom',
+            'rank' => 3
+        ]);
+    }
 
-        $encServiceRequest = ServiceRequest::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encServiceRequest->id,
-            'referenceable_type' => 'ServiceRequest',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encServiceRequest->id,
-            'referenceable_type' => 'ServiceRequest',
-            'attr_type' => 'encounter'
-        ]);
+    private function fakeAddress($parent)
+    {
+        for ($i = 0; $i < 2; $i++) {
+            $address = Address::factory()->for($parent, 'addressable')->create(['attr_type' => 'address']);
+            $this->fakeComplexExtension($address, 'administrativeCode', 'administrativeCode');
+            $this->fakeComplexExtension($address, 'geolocation', 'geolocation');
+        }
+    }
 
-        $encMedicationStatement = MedicationStatement::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encMedicationStatement->id,
-            'referenceable_type' => 'MedicationStatement',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encMedicationStatement->id,
-            'referenceable_type' => 'MedicationStatement',
-            'attr_type' => 'context'
-        ]);
-
-        $encQuestionnaireResponse = QuestionnaireResponse::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $encQuestionnaireResponse->id,
-            'referenceable_type' => 'QuestionnaireResponse',
-            'attr_type' => 'subject'
-        ]);
-        Reference::factory()->create([
-            'reference' => 'Encounter/' . $encounterSatusehatId,
-            'referenceable_id' => $encQuestionnaireResponse->id,
-            'referenceable_type' => 'QuestionnaireResponse',
-            'attr_type' => 'encounter'
-        ]);
-
-        $patMedicationRequest = MedicationRequest::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patMedicationRequest->id,
-            'referenceable_type' => 'MedicationRequest',
-            'attr_type' => 'subject'
-        ]);
-
-        $patComposition = Composition::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patComposition->id,
-            'referenceable_type' => 'Composition',
-            'attr_type' => 'subject'
-        ]);
-
-        $patAllergyIntolerance = AllergyIntolerance::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patAllergyIntolerance->id,
-            'referenceable_type' => 'AllergyIntolerance',
-            'attr_type' => 'patient'
-        ]);
-
-        $patMedicationStatement = MedicationStatement::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patMedicationStatement->id,
-            'referenceable_type' => 'MedicationStatement',
-            'attr_type' => 'subject'
-        ]);
-
-        $patQuestionnaireResponse = QuestionnaireResponse::factory()->create();
-        Reference::factory()->create([
-            'reference' => 'Patient/' . $patientSatusehatId,
-            'referenceable_id' => $patQuestionnaireResponse->id,
-            'referenceable_type' => 'QuestionnaireResponse',
-            'attr_type' => 'subject'
-        ]);
-
-        User::factory()->has(Practitioner::factory(), 'practitionerUser')->count(50)->create();
+    private function removeEmptyValues($array)
+    {
+        return array_filter($array, function ($value) {
+            if (is_array($value)) {
+                return !empty($this->removeEmptyValues($value));
+            }
+            return $value !== null && $value !== "";
+        });
     }
 }

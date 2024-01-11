@@ -13,6 +13,7 @@ use App\Models\Fhir\Datatypes\{
     Reference,
 };
 use App\Models\Fhir\Resources\Patient;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     MorphMany,
@@ -21,6 +22,8 @@ use Illuminate\Database\Eloquent\Relations\{
 
 class PatientContact extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'patient_contact';
 
     public $timestamps = false;

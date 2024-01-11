@@ -18,11 +18,15 @@ class HumanNameFactory extends Factory
     public function definition(): array
     {
         $uses = Identifier::USE['binding']['valueset']['code'];
-        $use = $uses[array_rand($uses)];
+        $use = fake()->randomElement($uses);
 
         return [
             'use' => $use,
             'text' => fake()->name(),
+            'family' => fake()->lastName(),
+            'given' => [fake()->firstName()],
+            'prefix' => [fake()->title()],
+            'suffix' => [fake()->suffix()]
         ];
     }
 }

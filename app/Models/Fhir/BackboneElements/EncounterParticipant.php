@@ -8,12 +8,15 @@ use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class EncounterParticipant extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'encounter_participant';
 
     public $timestamps = false;

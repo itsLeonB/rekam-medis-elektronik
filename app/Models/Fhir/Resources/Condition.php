@@ -31,11 +31,17 @@ class Condition extends FhirModel
         parent::boot();
 
         static::created(function ($condition) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.condition');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $condition->identifier()->save($identifier);
+            $existingIdentifier = $condition->identifier()
+                ->where('system', config('app.identifier_systems.condition'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.condition');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $condition->identifier()->save($identifier);
+            }
         });
     }
 

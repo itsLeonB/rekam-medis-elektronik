@@ -5,21 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Encounter;
-use Illuminate\Support\Facades\DB;
 
 class DaftarPasienController extends Controller
 {
-    public function getDaftarPasien(string $class, int $serviceType)
-    {
-        $encounters = Encounter::whereHas('class', function ($query) use ($class) {
-            $query->where('code', $class);
-        })
-            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
-                $query->where('code', $serviceType);
-            })
-            ->get();
+    const ENDED_STATUS = ['finished', 'cancelled', 'entered-in-error', 'unknown'];
 
-        $daftarPasien = $encounters->map(function ($encounter) {
+    public function mapEncounterToPatient($encounters)
+    {
+        return $encounters->map(function ($encounter) {
             $patientId = explode('/', $encounter->subject->reference)[1];
             $patient = Resource::where([
                 ['res_type', 'Patient'],
@@ -33,7 +26,50 @@ class DaftarPasienController extends Controller
                 'period_start' => $encounter->period->start,
             ];
         });
+    }
 
-        return response()->json(['daftar_pasien' => $daftarPasien]);
+    public function getDaftarRawatJalan(int $serviceType)
+    {
+        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
+            ->whereHas('class', function ($query) {
+                $query->where('code', 'AMB');
+            })
+            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
+                $query->where('code', $serviceType);
+            })
+            ->get();
+
+        $daftarPasien = $this->mapEncounterToPatient($encounters);
+
+        return response()->json(['daftar_pasien' => $daftarPasien], 200);
+    }
+
+    public function getDaftarRawatInap(int $serviceType)
+    {
+        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
+            ->whereHas('class', function ($query) {
+                $query->where('code', 'IMP');
+            })
+            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
+                $query->where('code', $serviceType);
+            })
+            ->get();
+
+        $daftarPasien = $this->mapEncounterToPatient($encounters);
+
+        return response()->json(['daftar_pasien' => $daftarPasien], 200);
+    }
+
+    public function getDaftarIgd()
+    {
+        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
+            ->whereHas('class', function ($query) {
+                $query->where('code', 'EMER');
+            })
+            ->get();
+
+        $daftarPasien = $this->mapEncounterToPatient($encounters);
+
+        return response()->json(['daftar_pasien' => $daftarPasien], 200);
     }
 }

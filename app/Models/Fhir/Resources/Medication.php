@@ -26,11 +26,17 @@ class Medication extends FhirModel
         parent::boot();
 
         static::created(function ($medication) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.medication');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $medication->identifier()->save($identifier);
+            $existingIdentifier = $medication->identifier()
+                ->where('system', config('app.identifier_systems.medication'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.medication');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $medication->identifier()->save($identifier);
+            }
         });
     }
 

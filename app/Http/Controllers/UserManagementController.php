@@ -31,6 +31,14 @@ class UserManagementController extends Controller
     {
         try {
             $user = User::findOrFail($id);
+
+            if ($user->practitionerUser()->count() == 0) {
+                return response()->json([
+                    'user' => $user,
+                    'practitioner' => null
+                ], 200);
+            }
+
             $pracResId = $user->practitionerUser()->first()->resource_id;
 
             return response()->json([

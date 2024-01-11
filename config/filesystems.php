@@ -62,9 +62,9 @@ return [
             'throw' => false,
         ],
 
-        'example-payload' => [
+        'onboarding-resource' => [
             'driver' => 'local',
-            'root' => storage_path('example-payload'),
+            'root' => storage_path('onboarding-resource'),
             'throw' => false,
         ],
 

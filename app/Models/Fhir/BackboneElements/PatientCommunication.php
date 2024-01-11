@@ -6,6 +6,7 @@ use App\Fhir\Codesystems;
 use App\Models\FhirModel;
 use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Resources\Patient;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     MorphOne
@@ -13,8 +14,12 @@ use Illuminate\Database\Eloquent\Relations\{
 
 class PatientCommunication extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'patient_communication';
+
     protected $casts = ['preferred' => 'boolean'];
+
     public $timestamps = false;
 
     public function patient(): BelongsTo
@@ -22,9 +27,8 @@ class PatientCommunication extends FhirModel
         return $this->belongsTo(Patient::class);
     }
 
-    public function language(): MorphOne //BelongsTo
+    public function language(): MorphOne
     {
-        // return $this->belongsTo(CodeableConcept::class, 'language_id');
         return $this->morphOne(CodeableConcept::class, 'codeable');
     }
 
