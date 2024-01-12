@@ -18,20 +18,16 @@ class ServiceRequestFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'ServiceRequest']);
-
-        $statuses = ServiceRequest::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
-
-        $intents = ServiceRequest::INTENT['binding']['valueset']['code'];
-        $intent = $intents[array_rand($intents)];
-
-        $code = DB::table(Codesystems::LOINC['table'])->inRandomOrder()->first();
-
         return [
-            'resource_id' => $resource->id,
-            'status' => $status,
-            'intent' => $intent,
+            'resource_id' => Resource::factory()->create(['res_type' => 'ServiceRequest']),
+            'status' => fake()->randomElement(ServiceRequest::STATUS['binding']['valueset']['code']),
+            'intent' => fake()->randomElement(ServiceRequest::INTENT['binding']['valueset']['code']),
+            'priority' => fake()->randomElement(ServiceRequest::PRIORITY['binding']['valueset']['code']),
+            'do_not_perform' => fake()->boolean(),
+            'occurrence_date_time' => fake()->dateTime(),
+            'as_needed_boolean' => fake()->boolean(),
+            'authored_on' => fake()->dateTime(),
+            'patient_instruction' => fake()->text(),
         ];
     }
 }

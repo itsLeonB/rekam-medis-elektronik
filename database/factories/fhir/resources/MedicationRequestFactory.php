@@ -16,18 +16,14 @@ class MedicationRequestFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'MedicationRequest']);
-
-        $statuses = MedicationRequest::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
-
-        $intents = MedicationRequest::INTENT['binding']['valueset']['code'];
-        $intent = $intents[array_rand($intents)];
-
         return [
-            'resource_id' => $resource->id,
-            'status' => $status,
-            'intent' => $intent,
+            'resource_id' => Resource::factory()->create(['res_type' => 'MedicationRequest']),
+            'status' => fake()->randomElement(MedicationRequest::STATUS['binding']['valueset']['code']),
+            'intent' => fake()->randomElement(MedicationRequest::INTENT['binding']['valueset']['code']),
+            'priority' => fake()->randomElement(MedicationRequest::PRIORITY['binding']['valueset']['code']),
+            'do_not_perform' => fake()->boolean(),
+            'reported_boolean' => fake()->boolean(),
+            'authored_on' => fake()->dateTime(),
         ];
     }
 }

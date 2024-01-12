@@ -16,13 +16,10 @@ class QuestionnaireResponseFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'QuestionnaireResponse']);
-        $statuses = QuestionnaireResponse::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
-
         return [
-            'resource_id' => $resource->id,
-            'status' => $status,
+            'resource_id' => Resource::factory()->create(['res_type' => 'QuestionnaireResponse']),
+            'status' => fake()->randomElement(QuestionnaireResponse::STATUS['binding']['valueset']['code']),
+            'authored' => fake()->dateTime(),
         ];
     }
 }

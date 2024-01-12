@@ -8,12 +8,15 @@ use App\Models\Fhir\Datatypes\Annotation;
 use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Resources\AllergyIntolerance;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class AllergyIntoleranceReaction extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'allergy_intolerance_reaction';
 
     protected $casts = ['onset' => 'datetime'];

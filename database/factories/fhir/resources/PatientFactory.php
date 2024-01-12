@@ -15,15 +15,10 @@ class PatientFactory extends Factory
      */
     public function definition(): array
     {
-        $genders = Patient::GENDER['binding']['valueset'];
-        $gender = fake()->randomElement($genders);
-
         return [
-            'resource_id' => Resource::factory()->create([
-                'res_type' => 'Patient',
-            ]),
+            'resource_id' => Resource::factory()->create(['res_type' => 'Patient']),
             'active' => fake()->boolean(),
-            'gender' => $gender,
+            'gender' => fake()->randomElement(Patient::GENDER['binding']['valueset']),
             'birth_date' => fake()->date(),
             'deceased_boolean' => fake()->boolean(),
             'multiple_birth_integer' => fake()->randomDigit(),

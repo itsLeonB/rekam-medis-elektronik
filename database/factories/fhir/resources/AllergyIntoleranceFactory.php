@@ -16,14 +16,14 @@ class AllergyIntoleranceFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'AllergyIntolerance']);
-
-        $categories = AllergyIntolerance::CATEGORY['binding']['valueset']['code'];
-        $category = [$categories[array_rand($categories)]];
-
         return [
-            'resource_id' => $resource->id,
-            'category' => $category,
+            'resource_id' => Resource::factory()->create(['res_type' => 'AllergyIntolerance']),
+            'type' => fake()->randomElement(AllergyIntolerance::TYPE['binding']['valueset']['code']),
+            'category' => [fake()->randomElement(AllergyIntolerance::CATEGORY['binding']['valueset']['code'])],
+            'criticality' => fake()->randomElement(AllergyIntolerance::CRITICALITY['binding']['valueset']['code']),
+            'onset_date_time' => fake()->dateTime(),
+            'recorded_date' => fake()->dateTime(),
+            'last_occurrence' => fake()->dateTime(),
         ];
     }
 }

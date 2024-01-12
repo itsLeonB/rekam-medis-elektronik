@@ -9,6 +9,7 @@ use App\Models\Fhir\Datatypes\Narrative;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\Composition;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -16,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class CompositionSection extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'composition_section';
 
     public $timestamps = false;

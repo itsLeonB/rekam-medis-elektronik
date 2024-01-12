@@ -11,14 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class AnalyticsController extends Controller
 {
-    public function getTodayEncounters()
-    {
-        $today = now()->toDateString();
+    const ENDED_STATUS = ['finished', 'cancelled', 'entered-in-error', 'unknown'];
 
-        $count = Encounter::whereHas('period', function ($query) use ($today) {
-            $query->where('start', '<=', $today)
-                ->where('end', '>=', $today);
-        })->count();
+    public function getActiveEncounters()
+    {
+        $count = Encounter::whereNotIn('status', self::ENDED_STATUS)->count();
 
         return response()->json(['count' => $count]);
     }
@@ -50,15 +47,11 @@ class AnalyticsController extends Controller
         $encounterCounts = Encounter::selectRaw('DATE_FORMAT(periods.start, "%Y-%m") as month')
             ->selectRaw('codings.code as class')
             ->selectRaw('COUNT(*) as count')
-            ->join('periods', function ($join) {
-                $join->on('encounter.id', '=', 'periods.periodable_id')
-                    ->where('periods.periodable_type', 'Encounter');
-            })
-            ->join('codings', function ($join) {
-                $join->on('encounter.id', '=', 'codings.codeable_id')
-                    ->where('codings.codeable_type', 'Encounter')
-                    ->where('codings.attr_type', 'class');
-            })
+            ->join('periods', 'encounter.id', '=', 'periods.periodable_id')
+            ->join('codings', 'encounter.id', '=', 'codings.codeable_id')
+            ->where('periods.periodable_type', 'Encounter')
+            ->where('codings.codeable_type', 'Encounter')
+            ->where('codings.attr_type', 'class')
             ->whereBetween('periods.start', [$startDate, $endDate])
             ->groupBy('month', 'class')
             ->orderBy('month')

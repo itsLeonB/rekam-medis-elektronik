@@ -1,14 +1,14 @@
 <?php
 
-namespace Database\Factories\Fhir\Datatypes;
+namespace Database\Factories\Fhir\BackboneElements;
 
-use Carbon\Carbon;
+use App\Models\Fhir\BackboneElements\CompositionSection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class PeriodFactory extends Factory
+class CompositionSectionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,8 +18,8 @@ class PeriodFactory extends Factory
     public function definition(): array
     {
         return [
-            'start' => fake()->dateTimeBetween('-2 year', 'now'),
-            'end' => fake()->dateTimeBetween('now', '+1 year'),
+            'title' => fake()->sentence(),
+            'mode' => fake()->randomElement(CompositionSection::MODE['binding']['valueset']['code']),
         ];
     }
 }

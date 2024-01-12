@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('composition_section', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('composition_id');
+            $table->unsignedBigInteger('composition_id')->nullable();
             $table->index('composition_id');
             $table->foreign('composition_id')->references('id')->on('composition');
             $table->unsignedBigInteger('parent_id')->nullable();

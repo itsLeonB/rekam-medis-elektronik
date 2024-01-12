@@ -8,15 +8,19 @@ use App\Models\Fhir\Datatypes\Coding;
 use App\Models\Fhir\Datatypes\Quantity;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class QuestionnaireResponseItemAnswer extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'question_item_answer';
 
     public $timestamps = false;
+
     protected $casts = [
         'value_boolean' => 'boolean',
         'value_decimal' => 'decimal:2',

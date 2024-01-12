@@ -16,14 +16,9 @@ class EncounterFactory extends Factory
      */
     public function definition(): array
     {
-        $statuses = ['planned', 'arrived', 'triaged', 'in-progress', 'onleave'];
-        $status = fake()->randomElement($statuses);
-
         return [
-            'resource_id' => Resource::factory()->create([
-                'res_type' => 'Encounter',
-            ]),
-            'status' => $status,
+            'resource_id' => Resource::factory()->create(['res_type' => 'Encounter']),
+            'status' => fake()->randomElement(Encounter::STATUS['binding']['valueset']['code']),
         ];
     }
 }

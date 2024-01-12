@@ -302,6 +302,12 @@ class MedicationStatement extends FhirModel
         'comments' => 'Likely references would be to MedicationRequest, MedicationDispense, Claim, Observation or QuestionnaireAnswers. The most common use cases for deriving a MedicationStatement comes from creating a MedicationStatement from a MedicationRequest or from a lab observation or a claim. it should be noted that the amount of information that is available varies from the type resource that you derive the MedicationStatement from.',
     ];
 
+    public const REASON_CODE = [
+        'binding' => [
+            'valueset' => Valuesets::ConditionProblemDiagnosisCodes
+        ]
+    ];
+
     public const REASON_REFERENCE = [
         'definition' => 'Condition or observation that supports why the medication is being/was taken.',
         'cardinality' => '0...*',

@@ -15,43 +15,22 @@ class AnalyticsTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function test_get_today_encounters()
+    public function test_get_active_encounters()
     {
-        $encounters = Encounter::factory()->count(4)->create();
-
-        Period::factory()->create([
-            'start' => Carbon::today(),
-            'end' => Carbon::today()->addHours(2),
-            'periodable_id' => $encounters[0]->id,
-            'periodable_type' => 'Encounter',
-        ]);
-
-        Period::factory()->create([
-            'start' => Carbon::today(),
-            'end' => Carbon::today()->addHours(4),
-            'periodable_id' => $encounters[1]->id,
-            'periodable_type' => 'Encounter',
-        ]);
-
-        Period::factory()->create([
-            'start' => Carbon::yesterday(),
-            'end' => Carbon::yesterday()->addHours(2),
-            'periodable_id' => $encounters[2]->id,
-            'periodable_type' => 'Encounter',
-        ]);
-
-        Period::factory()->create([
-            'start' => Carbon::tomorrow(),
-            'end' => Carbon::tomorrow()->addHours(2),
-            'periodable_id' => $encounters[3]->id,
-            'periodable_type' => 'Encounter',
-        ]);
+        Encounter::factory()->create(['status' => 'finished']);
+        Encounter::factory()->create(['status' => 'cancelled']);
+        Encounter::factory()->create(['status' => 'entered-in-error']);
+        Encounter::factory()->create(['status' => 'unknown']);
+        Encounter::factory()->create(['status' => 'in-progress']);
+        Encounter::factory()->create(['status' => 'onleave']);
+        Encounter::factory()->create(['status' => 'planned']);
+        Encounter::factory()->create(['status' => 'triaged']);
 
         // Instantiate the controller
-        $response = $this->get(route('analytics.pasien-hari-ini'));
+        $response = $this->get(route('analytics.pasien-dirawat'));
 
         $response->assertStatus(200);
-        $response->assertJson(['count' => 2]);
+        $response->assertJson(['count' => 4]);
     }
 
     public function test_get_this_month_new_patients()
@@ -61,15 +40,14 @@ class AnalyticsTest extends TestCase
 
         // Create a new patient resource
         for ($i = 0; $i < $patCount; $i++) {
-            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+            Patient::factory()->create();
         }
 
         // Create another patient resource from last month
         for ($i = 0; $i < $lastMonthCount; $i++) {
-            Patient::factory()->for(Resource::factory()->create([
-                'res_type' => 'Patient',
-                'created_at' => now()->subMonth(),
-            ]))->create();
+            $pat = Patient::factory()->create();
+            $pat->resource->created_at = now()->subMonth();
+            $pat->resource->save();
         }
 
         // Call the getThisMonthNewPatients method
@@ -90,7 +68,7 @@ class AnalyticsTest extends TestCase
 
         // Create a new patient resource
         for ($i = 0; $i < $patCount; $i++) {
-            Patient::factory()->for(Resource::factory()->create(['res_type' => 'Patient']))->create();
+            Patient::factory()->create();
         }
 
         // Call the countPatients method

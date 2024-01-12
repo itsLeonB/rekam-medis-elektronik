@@ -4,13 +4,31 @@ namespace Database\Factories\Fhir\Datatypes;
 
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
+use App\Models\Fhir\BackboneElements\AllergyIntoleranceReaction;
+use App\Models\Fhir\BackboneElements\ClinicalImpressionInvestigation;
+use App\Models\Fhir\BackboneElements\CompositionSection;
+use App\Models\Fhir\BackboneElements\ConditionStage;
+use App\Models\Fhir\BackboneElements\EncounterDiagnosis;
 use App\Models\Fhir\BackboneElements\EncounterHospitalization;
 use App\Models\Fhir\BackboneElements\EncounterParticipant;
 use App\Models\Fhir\BackboneElements\PatientCommunication;
 use App\Models\Fhir\BackboneElements\PatientContact;
+use App\Models\Fhir\BackboneElements\ProcedureFocalDevice;
+use App\Models\Fhir\BackboneElements\ProcedurePerformer;
+use App\Models\Fhir\Datatypes\Dosage;
+use App\Models\Fhir\Datatypes\DoseAndRate;
+use App\Models\Fhir\Datatypes\Timing;
+use App\Models\Fhir\Resources\AllergyIntolerance;
+use App\Models\Fhir\Resources\ClinicalImpression;
+use App\Models\Fhir\Resources\Composition;
 use App\Models\Fhir\Resources\Condition;
 use App\Models\Fhir\Resources\Encounter;
+use App\Models\Fhir\Resources\MedicationRequest;
+use App\Models\Fhir\Resources\MedicationStatement;
+use App\Models\Fhir\Resources\Observation;
 use App\Models\Fhir\Resources\Patient;
+use App\Models\Fhir\Resources\Procedure;
+use App\Models\Fhir\Resources\ServiceRequest;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -29,6 +47,504 @@ class CodingFactory extends Factory
         return [
             'user_selected' => fake()->boolean(),
         ];
+    }
+
+    public function medicationStatementCategory(): self
+    {
+        $code = fake()->randomElement(MedicationStatement::CATEGORY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => MedicationStatement::CATEGORY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => MedicationStatement::CATEGORY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function medicationStatementStatusReason(): self
+    {
+        $code = fake()->randomElement(MedicationStatement::STATUS_REASON['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => MedicationStatement::STATUS_REASON['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => MedicationStatement::STATUS_REASON['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function serviceRequestPerformerType(): self
+    {
+        $code = DB::table(ServiceRequest::PERFORMER_TYPE['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ServiceRequest::PERFORMER_TYPE['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function serviceRequestOrderDetail(): self
+    {
+        $code = fake()->randomElement(ServiceRequest::ORDER_DETAIL['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ServiceRequest::ORDER_DETAIL['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => ServiceRequest::ORDER_DETAIL['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function serviceRequestCategory(): self
+    {
+        $code = fake()->randomElement(ServiceRequest::CATEGORY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ServiceRequest::CATEGORY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => ServiceRequest::CATEGORY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function prognosis(): self
+    {
+        $code = fake()->randomElement(ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function clinicalImpressionInvestigationCode(): self
+    {
+        $code = fake()->randomElement(ClinicalImpressionInvestigation::CODE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ClinicalImpressionInvestigation::CODE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => ClinicalImpressionInvestigation::CODE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function allergyReactionExposureRoute(): self
+    {
+        $code = fake()->randomElement(AllergyIntoleranceReaction::EXPOSURE_ROUTE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => AllergyIntoleranceReaction::EXPOSURE_ROUTE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => AllergyIntoleranceReaction::EXPOSURE_ROUTE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function allergyReactionManifestation(): self
+    {
+        $code = fake()->randomElement(AllergyIntoleranceReaction::MANIFESTATION['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => AllergyIntoleranceReaction::MANIFESTATION['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => AllergyIntoleranceReaction::MANIFESTATION['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function allergyReactionSubstance(): self
+    {
+        $code = DB::table(AllergyIntoleranceReaction::SUBSTANCE['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => $code->system,
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function allergyCode(): self
+    {
+        $code = DB::table(AllergyIntolerance::CODE['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => $code->system,
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function allergyVerificationStatus(): self
+    {
+        $code = fake()->randomElement(AllergyIntolerance::VERIFICATION_STATUS['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => AllergyIntolerance::VERIFICATION_STATUS['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => AllergyIntolerance::VERIFICATION_STATUS['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function allergyClinicalStatus(): self
+    {
+        $code = fake()->randomElement(AllergyIntolerance::CLINICAL_STATUS['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => AllergyIntolerance::CLINICAL_STATUS['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => AllergyIntolerance::CLINICAL_STATUS['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function compositionSectionEmptyReason(): self
+    {
+        $code = fake()->randomElement(CompositionSection::EMPTY_REASON['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => CompositionSection::EMPTY_REASON['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => CompositionSection::EMPTY_REASON['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function compositionSectionOrderedBy(): self
+    {
+        $code = fake()->randomElement(CompositionSection::ORDERED_BY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => CompositionSection::ORDERED_BY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => CompositionSection::ORDERED_BY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function compositionSectionCode(): self
+    {
+        $code = fake()->randomElement(CompositionSection::CODE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => CompositionSection::CODE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => CompositionSection::CODE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function compositionCategory(): self
+    {
+        $code = fake()->randomElement(Composition::CATEGORY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Composition::CATEGORY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Composition::CATEGORY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function compositionType(): self
+    {
+        $code = DB::table(Codesystems::LOINC['table'])
+            ->where('scale_typ', 'Doc')
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Codesystems::LOINC['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function substitutionReason(): self
+    {
+        $code = fake()->randomElement(MedicationRequest::SUBSTITUTION_REASON['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => MedicationRequest::SUBSTITUTION_REASON['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => MedicationRequest::SUBSTITUTION_REASON['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function doseAndRateType(): self
+    {
+        $code = fake()->randomElement(DoseAndRate::TYPE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => DoseAndRate::TYPE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => DoseAndRate::TYPE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function dosageMethod(): self
+    {
+        $code = fake()->randomElement(Dosage::METHOD['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Dosage::METHOD['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Dosage::METHOD['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function dosageRoute(): self
+    {
+        $code = fake()->randomElement(Dosage::ROUTE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Dosage::ROUTE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Dosage::ROUTE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function dosageSite(): self
+    {
+        $code = DB::table(Dosage::SITE['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Dosage::SITE['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function timingCode(): self
+    {
+        $code = fake()->randomElement(Timing::CODE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Timing::CODE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Timing::CODE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function dosageAdditionalInstruction(): self
+    {
+        $code = fake()->randomElement(Dosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Dosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Dosage::ADDITIONAL_INSTRUCTION['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function medicationRequestCourseOfTherapyType(): self
+    {
+        $code = fake()->randomElement(MedicationRequest::COURSE_OF_THERAPY_TYPE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => MedicationRequest::COURSE_OF_THERAPY_TYPE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => MedicationRequest::COURSE_OF_THERAPY_TYPE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function medicationRequestPerformerType(): self
+    {
+        $code = DB::table(MedicationRequest::PERFORMER_TYPE['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => MedicationRequest::PERFORMER_TYPE['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function medicationRequestCategory(): self
+    {
+        $code = fake()->randomElement(MedicationRequest::CATEGORY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => MedicationRequest::CATEGORY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => MedicationRequest::CATEGORY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function medicationRequestStatusReason(): self
+    {
+        $code = fake()->randomElement(MedicationRequest::STATUS_REASON['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => MedicationRequest::STATUS_REASON['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => MedicationRequest::STATUS_REASON['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function focalDeviceAction(): self
+    {
+        $code = DB::table(ProcedureFocalDevice::ACTION['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ProcedureFocalDevice::ACTION['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function procedureFollowUp(): self
+    {
+        $code = fake()->randomElement(Procedure::FOLLOW_UP['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Procedure::FOLLOW_UP['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Procedure::FOLLOW_UP['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function procedureOutcome(): self
+    {
+        $code = fake()->randomElement(Procedure::OUTCOME['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Procedure::OUTCOME['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Procedure::OUTCOME['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function procedurePerformerFunction(): self
+    {
+        $code = DB::table(ProcedurePerformer::FUNCTION['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ProcedurePerformer::FUNCTION['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function icd9CmProcedure(): self
+    {
+        $code = DB::table(Codesystems::ICD9CMProcedure['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Codesystems::ICD9CMProcedure['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function procedureCategory(): self
+    {
+        $code = fake()->randomElement(Procedure::CATEGORY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Procedure::CATEGORY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Procedure::CATEGORY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function procedureStatusReason(): self
+    {
+        $code = DB::table(Procedure::STATUS_REASON['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Procedure::STATUS_REASON['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function observationInterpretation(): self
+    {
+        $code = fake()->randomElement(Observation::INTERPRETATION['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Observation::INTERPRETATION['binding']['valueset']['system'][$code],
+            'code' => $code,
+            'display' => Observation::INTERPRETATION['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function observationDataAbsentReason(): self
+    {
+        $code = fake()->randomElement(Observation::DATA_ABSENT_REASON['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Observation::DATA_ABSENT_REASON['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Observation::DATA_ABSENT_REASON['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function loinc(): self
+    {
+        $code = DB::table(Codesystems::LOINC['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Codesystems::LOINC['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function observationCategory(): self
+    {
+        $code = fake()->randomElement(Observation::CATEGORY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Observation::CATEGORY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Observation::CATEGORY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function encounterDiagnosisUse(): self
+    {
+        $code = fake()->randomElement(EncounterDiagnosis::USE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => EncounterDiagnosis::USE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => EncounterDiagnosis::USE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function conditionStageType(): self
+    {
+        $code = DB::table(ConditionStage::TYPE['binding']['valueset']['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ConditionStage::TYPE['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function conditionStageSummary(): self
+    {
+        $code = fake()->randomElement(ConditionStage::SUMMARY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => ConditionStage::SUMMARY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => ConditionStage::SUMMARY['binding']['valueset']['display'][$code],
+        ]);
     }
 
     public function snomedBodySite(): self
@@ -51,9 +567,9 @@ class CodingFactory extends Factory
             ->first();
 
         return $this->state(fn (array $attributes) => [
-            'system' => Codesystems::ICD10['binding']['valueset']['system'],
+            'system' => Codesystems::ICD10['system'],
             'code' => $code->code,
-            'display' => $code->display
+            'display' => $code->display_en
         ]);
     }
 
@@ -79,7 +595,7 @@ class CodingFactory extends Factory
         ]);
     }
 
-    public function conditionVerifcationStatus(): self
+    public function conditionVerificationStatus(): self
     {
         $code = fake()->randomElement(Condition::VERIFICATION_STATUS['binding']['valueset']['code']);
 

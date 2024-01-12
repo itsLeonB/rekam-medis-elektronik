@@ -7,11 +7,14 @@ use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\Condition;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class ConditionEvidence extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'condition_evidence';
 
     public $timestamps = false;

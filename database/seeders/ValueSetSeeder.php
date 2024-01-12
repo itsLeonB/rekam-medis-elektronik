@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Valuesets\{
+    AllergyReactionSubstanceSeeder,
     ConditionStageTypeSeeder,
     EncounterReasonCodeSeeder,
     MedicationIngredientStrengthDenominatorSeeder,
@@ -25,6 +26,7 @@ class ValueSetSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            AllergyReactionSubstanceSeeder::class,
             ConditionStageTypeSeeder::class,
             EncounterReasonCodeSeeder::class,
             MedicationIngredientStrengthDenominatorSeeder::class,
