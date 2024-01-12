@@ -7,11 +7,14 @@ use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class EncounterDiagnosis extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'encounter_diagnosis';
 
     public $timestamps = false;

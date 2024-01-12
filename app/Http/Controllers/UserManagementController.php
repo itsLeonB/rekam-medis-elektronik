@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Resources\PractitionerResource;
 use App\Models\Fhir\Resource;
 use App\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,27 +20,30 @@ class UserManagementController extends Controller
     {
         $name = $request->query('name');
 
-        if ($name) {
-            $users = User::where('name', 'like', '%' . addcslashes($name, '%_') . '%')->paginate(15)->withQueryString();
-            return response()->json(['users' => $users], 200);
-        }
+        $users = User::when($name, function ($query) use ($name) {
+            return $query->where('name', 'like', '%' . addcslashes($name, '%_') . '%');
+        })->paginate(15)->withQueryString();
 
-        return response()->json(['users' => User::paginate(15)->withQueryString()], 200);
+        return response()->json(['users' => $users], 200);
     }
 
     public function show($id)
     {
         try {
-            $user = User::findOrFail($id);
-            $pracResId = $user->practitionerUser()->first()->resource_id;
+            $user = User::with('practitionerUser')->findOrFail($id);
+
+            $practitioner = $user->practitionerUser ? new PractitionerResource($user->practitionerUser()->first()->resource) : null;
 
             return response()->json([
                 'user' => $user,
-                'practitioner' => new PractitionerResource(Resource::findOrFail($pracResId))
+                'practitioner' => $practitioner
             ], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
-            return response()->json(['message' => 'User tidak ditemukan'], 404);
+            return response()->json([
+                'error' => 'User tidak ditemukan',
+                'message' => $th->getMessage()
+            ], 404);
         }
     }
 
@@ -53,10 +57,10 @@ class UserManagementController extends Controller
                 'password' => Hash::make($request->input('password')),
             ]);
 
-            $practitioner = Resource::where([
-                ['res_type', 'Practitioner'],
-                ['satusehat_id', $request->input('practitioner_id')]
-            ])->first()->practitioner;
+            $practitioner = Resource::where('res_type', 'Practitioner')
+                ->where('satusehat_id', $request->input('practitioner_id'))
+                ->firstOrFail()
+                ->practitioner;
 
             $user->practitionerUser()->save($practitioner);
 
@@ -68,55 +72,77 @@ class UserManagementController extends Controller
                 'user' => $user,
                 'practitioner' => new PractitionerResource(Resource::findOrFail($pracResId))
             ], 201);
+        } catch (ModelNotFoundException $e) {
+            DB::rollback();
+            return response()->json('Practitioner tidak ditemukan', 404);
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th->getMessage());
-            return response()->json(['message' => 'User gagal dibuat'], 500);
+            return response()->json([
+                'error' => 'Gagal membuat user baru',
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 
     public function update(UserRequest $request, $user_id)
     {
+        DB::beginTransaction();
         try {
             $user = User::findOrFail($user_id);
 
-            $updateData = ['name' => strip_tags($request->input('name'))];
-
-            if ($request->input('password')) {
-                $updateData['password'] = Hash::make($request->input('password'));
-                $updateData['password_changed_at'] = now();
-            }
-
-            if ($request->input('email')) {
-                $updateData['email'] = $request->input('email');
-                $updateData['email_verified_at'] = null;
-            }
+            $updateData = [
+                'name' => strip_tags($request->input('name')),
+                'password' => $request->input('password') ? Hash::make($request->input('password')) : null,
+                'password_changed_at' => $request->input('password') ? now() : null,
+                'email' => $request->input('email'),
+                'email_verified_at' => $request->input('email') ? null : $user->email_verified_at,
+            ];
 
             $user->update($updateData);
 
+            DB::commit();
+
             return response()->json(['user' => $user], 200);
+        } catch (ModelNotFoundException $e) {
+            DB::rollback();
+            return response()->json('User tidak ditemukan', 404);
         } catch (\Throwable $th) {
+            DB::rollback();
             Log::error($th->getMessage());
-            return response()->json(['message' => 'User gagal diperbarui'], 500);
+            return response()->json([
+                'error' => 'Gagal memperbarui user',
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 
-    public function destroy($user_id)
+    public function destroy(Request $request, $user_id)
     {
+        DB::beginTransaction();
         try {
-            $currentUser = Auth::user();
+            $currentUser = $request->user();
 
             if ($currentUser->id != $user_id) {
-                $user = User::findOrFail($user_id);
-                $user->delete();
+                User::destroy($user_id);
+
+                DB::commit();
 
                 return response()->json('User berhasil dihapus', 204);
             } else {
+                DB::rollback();
                 return response()->json('Tidak dapat menghapus akun sendiri', 403);
             }
+        } catch (ModelNotFoundException $e) {
+            DB::rollback();
+            return response()->json('User tidak ditemukan', 404);
         } catch (\Throwable $th) {
+            DB::rollback();
             Log::error($th->getMessage());
-            return response()->json(['message' => 'User gagal dihapus'], 500);
+            return response()->json([
+                'error' => 'User gagal dihapus',
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 }

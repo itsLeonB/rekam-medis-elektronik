@@ -29,11 +29,17 @@ class ClinicalImpression extends FhirModel
         parent::boot();
 
         static::created(function ($clinicalImpression) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.clinicalimpression');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $clinicalImpression->identifier()->save($identifier);
+            $existingIdentifier = $clinicalImpression->identifier()
+                ->where('system', config('app.identifier_systems.clinicalimpression'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.clinicalimpression');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $clinicalImpression->identifier()->save($identifier);
+            }
         });
     }
 

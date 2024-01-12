@@ -16,13 +16,13 @@ class EncounterFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'Encounter']);
-
-        $statuses = Encounter::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
+        $statuses = ['planned', 'arrived', 'triaged', 'in-progress', 'onleave'];
+        $status = fake()->randomElement($statuses);
 
         return [
-            'resource_id' => $resource->id,
+            'resource_id' => Resource::factory()->create([
+                'res_type' => 'Encounter',
+            ]),
             'status' => $status,
         ];
     }

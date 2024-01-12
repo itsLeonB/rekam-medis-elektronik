@@ -29,11 +29,17 @@ class MedicationRequest extends FhirModel
         parent::boot();
 
         static::created(function ($medicationRequest) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.medicationrequest');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $medicationRequest->identifier()->save($identifier);
+            $existingIdentifier = $medicationRequest->identifier()
+                ->where('system', config('app.identifier_systems.medicationrequest'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.medicationrequest');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $medicationRequest->identifier()->save($identifier);
+            }
         });
     }
 

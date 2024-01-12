@@ -23,12 +23,18 @@ class FhirService
             DB::rollBack();
             Log::error('Database error: ' . $e->getMessage());
 
-            return response()->json(['error' => 'Database error dalam input data baru.'], 500);
+            return response()->json([
+                'error' => 'Database error dalam input data baru.',
+                'message' => $e->getMessage()
+            ], 500);
         } catch (Exception $e) {
             DB::rollBack();
             Log::error('Error: ' . $e->getMessage());
 
-            return response()->json(['error' => 'Server error dalam input data baru.'], 500);
+            return response()->json([
+                'error' => 'Server error dalam input data baru.',
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 }

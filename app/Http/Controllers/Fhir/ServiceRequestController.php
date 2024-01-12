@@ -39,7 +39,7 @@ class ServiceRequestController extends FhirController
             $resource = $this->createResource(self::RESOURCE_TYPE, $body['id'] ?? null);
             $processor = new Processor();
             $data = $processor->generateServiceRequest($body);
-            $saved = $processor->saveServiceRequest($resource, $data);
+            $processor->saveServiceRequest($resource, $data);
             $this->createResourceContent(ServiceRequestResource::class, $resource);
             return response()->json(new ServiceRequestResource($resource), 201);
         });

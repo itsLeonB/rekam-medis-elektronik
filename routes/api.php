@@ -22,7 +22,6 @@ use App\Http\Controllers\Fhir\{
     ServiceRequestController,
 };
 use App\Http\Controllers\IntegrationController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -84,11 +83,12 @@ Route::group(['prefix' => 'satusehat/search', 'as' => 'satusehat.search.'], func
     Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
 });
 
-
-// Web APIs
-
-// Daftar pasien untuk view Rawat Jalan dan Rawat Inap
-Route::get('/daftar-pasien/{class}/{serviceType}', [DaftarPasienController::class, 'getDaftarPasien'])->name('daftar-pasien.index');
+// Daftar Pasien
+Route::group(['prefix' => 'daftar-pasien', 'as' => 'daftar-pasien.'], function () {
+    Route::get('/rawat-jalan/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatJalan'])->name('rawat-jalan');
+    Route::get('/rawat-inap/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
+    Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+});
 
 // Rekam Medis
 Route::get('/daftar-rekam-medis', [RekamMedisController::class, 'index'])->name('rekam-medis.index');
@@ -103,11 +103,7 @@ Route::get('/analytics/pasien-per-bulan', [AnalyticsController::class, 'getEncou
 Route::get('/analytics/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('analytics.sebaran-usia-pasien');
 
 // Users dashboard (Super admin)
-Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
-Route::get('/users/{user_id}', [UserManagementController::class, 'show'])->name('users.show');
-Route::post('/users', [UserManagementController::class, 'store'])->name('users.store');
-Route::put('/users/{user_id}', [UserManagementController::class, 'update'])->name('users.update');
-Route::delete('/users/{user_id}', [UserManagementController::class, 'destroy'])->name('users.destroy');
+
 
 
 // Local DB resource endpoint

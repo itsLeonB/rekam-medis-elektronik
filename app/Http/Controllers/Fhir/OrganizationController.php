@@ -10,9 +10,7 @@ use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Organization;
 use App\Services\FhirService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
 
 class OrganizationController extends FhirController
 {
@@ -33,7 +31,6 @@ class OrganizationController extends FhirController
         }
     }
 
-
     public function store(OrganizationRequest $request, FhirService $fhirService)
     {
         $body = $this->retrieveJsonPayload($request);
@@ -46,7 +43,6 @@ class OrganizationController extends FhirController
             return response()->json(new OrganizationResource($resource), 201);
         });
     }
-
 
     public function update(OrganizationRequest $request, string $satusehat_id, FhirService $fhirService)
     {

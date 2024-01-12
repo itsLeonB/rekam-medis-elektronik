@@ -34,11 +34,17 @@ class Encounter extends FhirModel
     {
         parent::boot();
         static::created(function ($encounter) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.encounter');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $encounter->identifier()->save($identifier);
+            $existingIdentifier = $encounter->identifier()
+                ->where('system', config('app.identifier_systems.encounter'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.encounter');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $encounter->identifier()->save($identifier);
+            }
         });
     }
 

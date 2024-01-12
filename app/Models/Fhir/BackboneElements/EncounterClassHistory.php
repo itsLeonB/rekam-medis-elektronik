@@ -7,11 +7,14 @@ use App\Models\Fhir\Datatypes\Coding;
 use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class EncounterClassHistory extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'encounter_class_history';
 
     public $timestamps = false;

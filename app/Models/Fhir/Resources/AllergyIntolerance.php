@@ -31,11 +31,17 @@ class AllergyIntolerance extends FhirModel
         parent::boot();
 
         static::created(function ($allergyIntolerance) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.allergyintolerance');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $allergyIntolerance->identifier()->save($identifier);
+            $existingIdentifier = $allergyIntolerance->identifier()
+                ->where('system', config('app.identifier_systems.allergyintolerance'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.allergyintolerance');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $allergyIntolerance->identifier()->save($identifier);
+            }
         });
     }
 

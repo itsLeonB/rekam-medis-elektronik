@@ -81,11 +81,17 @@ class QuestionnaireResponse extends FhirModel
         parent::boot();
 
         static::created(function ($questionnaireResponse) {
-            $identifier = new Identifier();
-            $identifier->system = config('app.identifier_systems.questionnaireresponse');
-            $identifier->use = 'official';
-            $identifier->value = Str::uuid();
-            $questionnaireResponse->identifier()->save($identifier);
+            $existingIdentifier = $questionnaireResponse->identifier()
+                ->where('system', config('app.identifier_systems.questionnaireresponse'))
+                ->first();
+
+            if (!$existingIdentifier) {
+                $identifier = new Identifier();
+                $identifier->system = config('app.identifier_systems.questionnaireresponse');
+                $identifier->use = 'official';
+                $identifier->value = Str::uuid();
+                $questionnaireResponse->identifier()->save($identifier);
+            }
         });
     }
 
