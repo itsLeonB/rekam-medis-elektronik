@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Database\Seeders\Codesystems\{
     AdministrativeAreaSeeder,
+    Bcp13Seeder,
     Bcp47Seeder,
     ClinicalSpecialtySeeder,
     Icd10Seeder,
@@ -25,6 +26,7 @@ class CodeSystemSeeder extends Seeder
     {
         $this->call([
             AdministrativeAreaSeeder::class,
+            Bcp13Seeder::class,
             Bcp47Seeder::class,
             ClinicalSpecialtySeeder::class,
             Icd9CmProcedureSeeder::class,

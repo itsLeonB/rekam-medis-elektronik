@@ -1,16 +1,16 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\Codesystems;
 
 use Illuminate\Support\Facades\DB;
 use JeroenZwart\CsvSeeder\CsvSeeder;
 
-class BCP13Seeder extends CsvSeeder
+class Bcp13Seeder extends CsvSeeder
 {
     public function __construct()
     {
-        $this->file = '/database/seeders/csvs/codesystems/bcp47.csv';
-        $this->tablename = 'codesystem_bcp47';
+        $this->file = '/database/seeders/csvs/codesystems/bcp13.csv';
+        $this->tablename = 'codesystem_bcp13';
         $this->timestamps = false;
         $this->delimiter = ',';
     }

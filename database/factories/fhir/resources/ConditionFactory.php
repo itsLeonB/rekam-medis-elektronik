@@ -15,10 +15,11 @@ class ConditionFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'Condition']);
-
         return [
-            'resource_id' => $resource->id,
+            'resource_id' => Resource::factory()->create(['res_type' => 'Condition']),
+            'onset_date_time' => fake()->dateTime(),
+            'abatement_date_time' => fake()->dateTime(),
+            'recorded_date' => fake()->dateTime(),
         ];
     }
 }
