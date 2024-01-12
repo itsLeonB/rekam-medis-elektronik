@@ -7,11 +7,14 @@ use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\Composition;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class CompositionRelatesTo extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'composition_relates_to';
 
     public $timestamps = false;

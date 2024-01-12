@@ -16,17 +16,13 @@ class ClinicalImpressionFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'ClinicalImpression']);
-
-        $statuses = ClinicalImpression::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
-
-        $prognoses = ClinicalImpression::PROGNOSIS_CODEABLE_CONCEPT['binding']['valueset']['code'];
-        $prognosis = [$prognoses[array_rand($prognoses)]];
-
         return [
-            'resource_id' => $resource->id,
-            'status' => $status,
+            'resource_id' => Resource::factory()->create(['res_type' => 'ClinicalImpression']),
+            'status' => fake()->randomElement(ClinicalImpression::STATUS['binding']['valueset']['code']),
+            'description' => fake()->sentence(),
+            'effective_date_time' => fake()->dateTime(),
+            'date' => fake()->dateTime(),
+            'summary' => fake()->sentence(),
         ];
     }
 }

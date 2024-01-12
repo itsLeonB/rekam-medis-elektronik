@@ -2,13 +2,14 @@
 
 namespace Database\Factories\Fhir\Datatypes;
 
-use Carbon\Carbon;
+use App\Fhir\Codesystems;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class PeriodFactory extends Factory
+class SimpleQuantityFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +18,13 @@ class PeriodFactory extends Factory
      */
     public function definition(): array
     {
+        $code = DB::table(Codesystems::UCUM['table'])->inRandomOrder()->first();
+
         return [
-            'start' => fake()->dateTimeBetween('-2 year', 'now'),
-            'end' => fake()->dateTimeBetween('now', '+1 year'),
+            'value' => fake()->randomFloat(2, 0, 1000),
+            'unit' => $code->unit,
+            'system' => Codesystems::UCUM['system'],
+            'code' => $code->code,
         ];
     }
 }

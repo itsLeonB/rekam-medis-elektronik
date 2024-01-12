@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('narratives', function (Blueprint $table) {
             $table->id();
             $table->string('status');
-            $table->string('div');
+            $table->text('div');
             $table->unsignedBigInteger('narrateable_id');
             $table->string('narrateable_type');
             $table->string('attr_type')->nullable();

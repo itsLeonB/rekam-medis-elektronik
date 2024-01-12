@@ -15,15 +15,11 @@ class PractitionerFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create([
-            'res_type' => 'Practitioner'
-        ]);
-
         $genders = Practitioner::GENDER['binding']['valueset'];
         $gender = $genders[array_rand($genders)];
 
         return [
-            'resource_id' => $resource->id,
+            'resource_id' => Resource::factory()->create(['res_type' => 'Practitioner']),
             'gender' => $gender
         ];
     }

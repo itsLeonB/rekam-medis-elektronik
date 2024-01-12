@@ -17,17 +17,14 @@ class ObservationFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'Observation']);
-
-        $statuses = Observation::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
-
-        $codes = Observation::CODE['binding']['valueset'][0]['table'];
-        $code = DB::table($codes)->inRandomOrder()->limit(1)->value('code');
+        $status = fake()->randomElement(Observation::STATUS['binding']['valueset']['code']);
 
         return [
-            'resource_id' => $resource->id,
+            'resource_id' => Resource::factory()->create(['res_type' => 'Observation']),
             'status' => $status,
+            'issued' => fake()->dateTime(),
+            'effective_date_time' => fake()->dateTime(),
+            'value_string' => fake()->sentence(),
         ];
     }
 }

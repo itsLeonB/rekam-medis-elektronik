@@ -7,11 +7,14 @@ use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\Procedure;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class ProcedureFocalDevice extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'procedure_focal_device';
     public $timestamps = false;
 

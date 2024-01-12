@@ -4,13 +4,18 @@ namespace App\Models\Fhir\BackboneElements;
 
 use App\Models\Fhir\Resources\QuestionnaireResponse;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class QuestionnaireResponseItem extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'questionnaire_response_item';
+
     public $timestamps = false;
+
     protected $casts = ['item' => 'array'];
 
     public function questionnaireResponse(): BelongsTo

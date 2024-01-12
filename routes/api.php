@@ -96,7 +96,7 @@ Route::get('/rekam-medis/{patient_id}', [RekamMedisController::class, 'show'])->
 Route::get('/rekam-medis/{patient_id}/update', [SatusehatController::class, 'updateRekamMedis'])->name('rekam-medis.update');
 
 // Dashboard Analytics
-Route::get('/analytics/pasien-hari-ini', [AnalyticsController::class, 'getTodayEncounters'])->name('analytics.pasien-hari-ini');
+Route::get('/analytics/pasien-dirawat', [AnalyticsController::class, 'getActiveEncounters'])->name('analytics.pasien-dirawat');
 Route::get('/analytics/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('analytics.pasien-baru-bulan-ini');
 Route::get('/analytics/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('analytics.jumlah-pasien');
 Route::get('/analytics/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('analytics.pasien-per-bulan');

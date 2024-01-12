@@ -18,17 +18,10 @@ class CompositionFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'Composition']);
-
-        $statuses = Composition::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
-
-        $type = DB::table(Codesystems::LOINC['table'])->inRandomOrder()->first();
-
         return [
-            'resource_id' => $resource->id,
-            'status' => $status,
-            'date' => now(),
+            'resource_id' => Resource::factory()->create(['res_type' => 'Composition']),
+            'status' => fake()->randomElement(Composition::STATUS['binding']['valueset']['code']),
+            'date' => fake()->dateTime(),
             'title' => fake()->sentence(),
         ];
     }

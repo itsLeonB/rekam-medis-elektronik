@@ -17,17 +17,12 @@ class ProcedureFactory extends Factory
      */
     public function definition(): array
     {
-        $resource = Resource::factory()->create(['res_type' => 'Procedure']);
-
-        $statuses = Procedure::STATUS['binding']['valueset']['code'];
-        $status = $statuses[array_rand($statuses)];
-
-        $codes = Valuesets::KemkesClinicalTerm['code'];
-        $code = $codes[array_rand($codes)];
+        $status = fake()->randomElement(Procedure::STATUS['binding']['valueset']['code']);
 
         return [
-            'resource_id' => $resource->id,
+            'resource_id' => Resource::factory()->create(['res_type' => 'Procedure']),
             'status' => $status,
+            'performed_date_time' => fake()->dateTime()
         ];
     }
 }

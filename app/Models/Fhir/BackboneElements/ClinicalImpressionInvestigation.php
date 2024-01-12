@@ -7,12 +7,15 @@ use App\Models\Fhir\Datatypes\CodeableConcept;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\ClinicalImpression;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class ClinicalImpressionInvestigation extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'clinical_impression_investigation';
 
     public $timestamps = false;
