@@ -102,9 +102,6 @@ Route::get('/analytics/jumlah-pasien', [AnalyticsController::class, 'countPatien
 Route::get('/analytics/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('analytics.pasien-per-bulan');
 Route::get('/analytics/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('analytics.sebaran-usia-pasien');
 
-// Users dashboard (Super admin)
-
-
 
 // Local DB resource endpoint
 Route::get('/{res_type}', [ResourceController::class, 'index'])->name('resource.index');

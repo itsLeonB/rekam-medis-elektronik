@@ -2,10 +2,13 @@
 
 namespace Database\Factories\Fhir\Datatypes;
 
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Models\Fhir\BackboneElements\EncounterHospitalization;
 use App\Models\Fhir\BackboneElements\EncounterParticipant;
 use App\Models\Fhir\BackboneElements\PatientCommunication;
 use App\Models\Fhir\BackboneElements\PatientContact;
+use App\Models\Fhir\Resources\Condition;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\Fhir\Resources\Patient;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,6 +29,76 @@ class CodingFactory extends Factory
         return [
             'user_selected' => fake()->boolean(),
         ];
+    }
+
+    public function snomedBodySite(): self
+    {
+        $code = DB::table(Valuesets::SNOMEDCTBodySite['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Valuesets::SNOMEDCTBodySite['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function icd10(): self
+    {
+        $code = DB::table(Codesystems::ICD10['table'])
+            ->inRandomOrder()
+            ->first();
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Codesystems::ICD10['binding']['valueset']['system'],
+            'code' => $code->code,
+            'display' => $code->display
+        ]);
+    }
+
+    public function conditionSeverity(): self
+    {
+        $code = fake()->randomElement(Condition::SEVERITY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Condition::SEVERITY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Condition::SEVERITY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function conditionCategory(): self
+    {
+        $code = fake()->randomElement(Condition::CATEGORY['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Condition::CATEGORY['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Condition::CATEGORY['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function conditionVerifcationStatus(): self
+    {
+        $code = fake()->randomElement(Condition::VERIFICATION_STATUS['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Condition::VERIFICATION_STATUS['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Condition::VERIFICATION_STATUS['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function conditionClinicalStatus(): self
+    {
+        $code = fake()->randomElement(Condition::CLINICAL_STATUS['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Condition::CLINICAL_STATUS['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Condition::CLINICAL_STATUS['binding']['valueset']['display'][$code],
+        ]);
     }
 
     public function dischargeDisposition(): self
@@ -145,16 +218,12 @@ class CodingFactory extends Factory
     {
         $code = DB::table(PatientCommunication::LANGUAGE['binding']['valueset']['table'])
             ->inRandomOrder()
-            ->first()
-            ->code;
+            ->first();
 
         return $this->state(fn (array $attributes) => [
             'system' => PatientCommunication::LANGUAGE['binding']['valueset']['system'],
-            'code' => $code,
-            'display' => DB::table(PatientCommunication::LANGUAGE['binding']['valueset']['table'])
-                ->where('code', $code)
-                ->first()
-                ->display,
+            'code' => $code->code,
+            'display' => $code->display
         ]);
     }
 }

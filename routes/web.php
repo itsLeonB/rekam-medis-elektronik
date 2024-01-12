@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ Route::get('/', function () {
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
     ]);
-})->middleware([RedirectIfAuthenticated::class, 'guest']);;
+})->middleware([RedirectIfAuthenticated::class, 'guest']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', function () {
@@ -55,6 +56,23 @@ Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.'], fu
     Route::post('/', [UserManagementController::class, 'store'])->name('store');
     Route::put('/{user_id}', [UserManagementController::class, 'update'])->name('update');
     Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
+});
+
+Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
+    Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
+    Route::get('/icd9cm-procedure', [TerminologyController::class, 'getIcd9CmProcedure'])->name('icd9cm-procedure');
+    Route::get('/loinc', [TerminologyController::class, 'getLoinc'])->name('loinc');
+    Route::get('/snomed-ct', [TerminologyController::class, 'getSnomedCt'])->name('snomed-ct');
+    Route::group(['prefix' => 'wilayah', 'as' => 'wilayah.'], function () {
+        Route::get('/provinsi', [TerminologyController::class, 'getProvinsi'])->name('provinsi');
+        Route::get('/kabko', [TerminologyController::class, 'getKabupatenKota'])->name('kabko');
+        Route::get('/kecamatan', [TerminologyController::class, 'getKecamatan'])->name('kecamatan');
+        Route::get('/kelurahan', [TerminologyController::class, 'getKelurahan'])->name('kelurahan');
+    });
+    Route::get('/bcp13', [TerminologyController::class, 'getBcp13'])->name('bcp13');
+    Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
+    Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
+    Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
 });
 
 require __DIR__ . '/auth.php';
