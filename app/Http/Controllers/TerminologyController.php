@@ -138,7 +138,7 @@ class TerminologyController extends Controller
     {
         $bcp13 = DB::table(Codesystems::MimeTypes['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
-            ->orWhere('code', 'like' . '%' . $request->query('search') . '%')
+            ->orWhere('code', 'like', '%' . $request->query('search') . '%')
             ->distinct()
             ->get();
 
