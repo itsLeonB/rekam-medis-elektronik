@@ -4,6 +4,33 @@ namespace App\Fhir;
 
 class Valuesets
 {
+    public const KemkesCitizenshipStatus = [
+        'system' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/citizenshipStatus',
+        'code' => ['WNI', 'WNA'],
+        'display' => ['WNI' => 'Warga Negara Indonesia', 'WNA' => 'Warga Negara Asing'],
+    ];
+
+    public const IndonesiaReligion = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-ReligiousAffiliation',
+        'code' => ['1023', '1077', '1041', '1059', '1020', '1014'],
+        'display' => [
+            '1014' => 'Confucianism',
+            '1020' => 'Hinduism',
+            '1023' => 'Islam',
+            '1041' => 'Roman Catholic Church',
+            '1059' => 'Zen Buddhism',
+            '1077' => 'Protestant',
+        ],
+        'definition' => [
+            '1014' => 'Konghucu',
+            '1020' => 'Hindu',
+            '1023' => 'Islam',
+            '1041' => 'Katolik',
+            '1059' => 'Buddha',
+            '1077' => 'Kristen',
+        ]
+    ];
+
     public const Comparators = ['<', '<=', '>=', '>'];
 
     public const LocationPhysicalType = [

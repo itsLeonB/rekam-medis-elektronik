@@ -325,7 +325,10 @@ return [
         ],
         'Patient' => [
             'gender' => Codesystems::AdministrativeGender,
-            'maritalStatus' => Valuesets::MaritalStatusCodes
+            'maritalStatus' => Valuesets::MaritalStatusCodes,
+            'citizenship' => Codesystems::ISO3166,
+            'religion' => Valuesets::IndonesiaReligion,
+            'citizenshipStatus' => Valuesets::KemkesCitizenshipStatus,
         ],
         'PatientCommunication' => [
             'language' => Codesystems::BCP47
