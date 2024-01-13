@@ -1,5 +1,7 @@
 <?php
 
+use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -301,5 +303,287 @@ return [
         // 'specimen' => 'Specimen',  // Not yet implemented
         // 'relatedperson' => 'RelatedPerson',  // Not yet implemented
         'patient' => 'Patient'
+    ],
+
+    'terminologi' => [
+        'Organization' => [
+            'type' => Codesystems::OrganizationType
+        ],
+        'OrganizationContact' => [
+            'purpose' => Codesystems::ContactEntityType
+        ],
+        'Location' => [
+            'status' => Codesystems::LocationStatus,
+            'operationalStatus' => Codesystems::v20116,
+            'mode' => Codesystems::LocationMode,
+            'type' => Codesystems::LocationType,
+            'physicalType' => Valuesets::LocationPhysicalType,
+            'serviceClass' => Codesystems::LocationServiceClass,
+        ],
+        'LocationHoursOfOperation' => [
+            'daysOfWeek' => Valuesets::DaysOfWeek
+        ],
+        'Patient' => [
+            'gender' => Codesystems::AdministrativeGender,
+            'maritalStatus' => Valuesets::MaritalStatusCodes
+        ],
+        'PatientCommunication' => [
+            'language' => Codesystems::BCP47
+        ],
+        'PatientContact' => [
+            'relationship' => Valuesets::PatientContactRelationship,
+            'gender' => Codesystems::AdministrativeGender
+        ],
+        'PatientLink' => [
+            'type' => Valuesets::LinkType
+        ],
+        'Encounter' => [
+            'status' => Valuesets::EncounterStatus,
+            'class' => Valuesets::EncounterClass,
+            'type' => Codesystems::EncounterType,
+            'serviceType' => Codesystems::ServiceType,
+            'priority' => Valuesets::EncounterPriority,
+            'reasonCode' => Valuesets::EncounterReasonCodes
+        ],
+        'EncounterClassHistory' => [
+            'class' => Valuesets::EncounterClass
+        ],
+        'EncounterDiagnosis' => [
+            'use' => Codesystems::DiagnosisRole
+        ],
+        'EncounterHospitalization' => [
+            'admitSource' => Codesystems::AdmitSource,
+            'reAdmission' => Codesystems::v20092,
+            'dietPreference' => Codesystems::Diet,
+            'specialArrangement' => Codesystems::SpecialArrangements,
+            'dischargeDisposition' => Valuesets::DischargeDisposition
+        ],
+        'EncounterLocation' => [
+            'status' => Codesystems::LocationStatus,
+            'serviceClass' => Valuesets::LocationServiceClass,
+            'upgradeClass' => Codesystems::LocationUpgradeClass
+        ],
+        'EncounterParticipant' => [
+            'type' => Valuesets::EncounterParticipantType
+        ],
+        'EncounterStatusHistory' => [
+            'status' => Valuesets::EncounterStatus
+        ],
+        'Condition' => [
+            'clinicalStatus' => Codesystems::ConditionClinicalStatusCodes,
+            'verificationStatus' => Codesystems::ConditionVerificationStatus,
+            'category' => Codesystems::ConditionCategoryCodes,
+            'severity' => Valuesets::ConditionDiagnosisSeverity,
+            'code' => Valuesets::ConditionProblemDiagnosisCodes,
+            'bodySite' => Valuesets::SNOMEDCTBodySite
+        ],
+        'ConditionEvidence' => [
+            'code' => Valuesets::ManifestationAndSymptomCodes
+        ],
+        'ConditionStage' => [
+            'summary' => Valuesets::ConditionStage,
+            'type' => Valuesets::ConditionStageType
+        ],
+        'Observation' => [
+            'status' => Codesystems::ObservationStatus,
+            'category' => Codesystems::ObservationCategoryCodes,
+            'code' => Valuesets::ObservationCode,
+            'valueQuantity' => Codesystems::UCUM,
+            'valueCodeableConcept' => [
+                Codesystems::SNOMEDCT,
+                Codesystems::LOINC
+            ],
+            'dataAbsentReason' => Codesystems::DataAbsentReason,
+            'interpretation' => Valuesets::ObservationInterpretationCodes,
+            'bodySite' => Valuesets::SNOMEDCTBodySite,
+            'method' => Valuesets::ObservationMethods
+        ],
+        'ObservationComponent' => [
+            'code' => Codesystems::LOINC,
+            'valueQuantity' => Codesystems::UCUM,
+            'valueCodeableConcept' => [
+                Codesystems::SNOMEDCT,
+                Codesystems::LOINC
+            ],
+            'dataAbsentReason' => Codesystems::DataAbsentReason,
+            'interpretation' => Valuesets::ObservationInterpretationCodes
+        ],
+        'ObservationComponentReferenceRange' => [
+            'type' => Codesystems::ObservationReferenceRangeMeaningCodes,
+            'appliesTo' => Valuesets::ObservationReferenceRangeAppliesToCodes
+        ],
+        'ObservationReferenceRange' => [
+            'type' => Codesystems::ObservationReferenceRangeMeaningCodes,
+            'appliesTo' => Valuesets::ObservationReferenceRangeAppliesToCodes
+        ],
+        'Procedure' => [
+            'status' => Codesystems::EventStatus,
+            'statusReason' => Valuesets::ProcedureNotPerformedReason,
+            'category' => Valuesets::ProcedureCategoryCodes,
+            'code' => Valuesets::ProcedureCodes,
+            'reasonCode' => Codesystems::ICD10,
+            'bodySite' => Valuesets::SNOMEDCTBodySite,
+            'outcome' => Valuesets::ProcedureOutcomeCodes,
+            'complication' => Valuesets::SNOMEDCTClinicalFindings,
+            'followUp' => Valuesets::ProcedureFollowUpCodes,
+            'usedCode' => Codesystems::SNOMEDCT
+        ],
+        'ProcedureFocalDevice' => [
+            'action' => Valuesets::ProcedureDeviceActionCodes
+        ],
+        'ProcedurePerformer' => [
+            'function' => Valuesets::ProcedurePerformerRoleCodes
+        ],
+        'Medication' => [
+            'code' => Codesystems::KFA,
+            'status' => Codesystems::MedicationStatusCodes,
+            'form' => Codesystems::MedicationForm,
+            'medicationType' => Codesystems::MedicationType
+        ],
+        'MedicationIngredient' => [
+            'itemCodeableConcept' => Codesystems::KFA,
+            'strengthDenominator' => [
+                Codesystems::UCUM,
+                Valuesets::MedicationIngredientStrengthDenominator
+            ],
+        ],
+        'MedicationRequest' => [
+            'status' => Codesystems::MedicationRequestStatus,
+            'statusReason' => Codesystems::MedicationRequestStatusReasonCodes,
+            'intent' => Codesystems::MedicationRequestIntent,
+            'category' => Codesystems::MedicationRequestCategoryCodes,
+            'priority' => Codesystems::RequestPriority,
+            'performerType' => Valuesets::ProcedurePerformerRoleCodes,
+            'reasonCode' => Codesystems::ICD10,
+            'courseOfTherapyType' => Codesystems::MedicationRequestCourseOfTherapyCodes,
+        ],
+        'MedicationRequestDispenseRequst' => [
+            'dispenseInterval' => Valuesets::MedicationRequestDispenseInterval,
+            'quantity' => [Valuesets::MedicationIngredientStrengthDenominator, Valuesets::MedicationRequestQuantity],
+            'expectedSupplyDuration' => Valuesets::MedicationRequestSupplyDuration
+        ],
+        'MedicationRequestSubstitution' => [
+            'allowedCodeableConcept' => Codesystems::v3SubstanceAdminSubstitution,
+            'reason' => Codesystems::v3ActReason
+        ],
+        'Composition' => [
+            'status' => Codesystems::CompositionStatus,
+            'type' => Valuesets::FHIRDocumentTypeCodes,
+            'category' => Valuesets::DocumentClassValueSet,
+            'confidentiality' => Valuesets::v3ConfidentialityClassification
+        ],
+        'CompositionAttester' => [
+            'mode' => Codesystems::CompositionAttestationMode
+        ],
+        'CompositionEvent' => [
+            'code' => Codesystems::v3ActCode
+        ],
+        'CompositionRelatesTo' => [
+            'code' => Codesystems::DocumentRelationshipType
+        ],
+        'CompositionSection' => [
+            'code' => Valuesets::DocumentSectionCodes,
+            'mode' => Codesystems::ListMode,
+            'orderedBy' => Codesystems::ListOrderCodes,
+            'emptyReason' => Codesystems::ListEmptyReasons
+        ],
+        'AllergyIntolerance' => [
+            'clinicalStatus' => Codesystems::AllergyIntoleranceClinicalStatusCodes,
+            'verificationStatus' => Codesystems::AllergyIntoleranceVerificationStatusCodes,
+            'type' => Codesystems::AllergyIntoleranceType,
+            'category' => Codesystems::AllergyIntoleranceCategory,
+            'criticality' => Codesystems::AllergyIntoleranceCriticality,
+            'code' => Valuesets::AllergyIntoleranceSubstanceProductConditionAndNegationCodes,
+        ],
+        'AllergyIntoleranceReaction' => [
+            'substance' => Valuesets::AllergyIntoleranceSubstanceProductConditionAndNegationCodes,
+            'manifestation' => Valuesets::SNOMEDCTClinicalFindings,
+            'severity' => Codesystems::AllergyIntoleranceSeverity,
+            'exposureRoute' => Valuesets::SNOMEDCTRouteCodes
+        ],
+        'ClinicalImpression' => [
+            'status' => Valuesets::ClinicalImpressionStatus,
+            'statusReason' => Codesystems::ICD10,
+            'prognosisCodeableConcept' => Valuesets::ClinicalImpressionPrognosis
+        ],
+        'ClinicalImpressionFinding' => [
+            'itemCodeableConcept' => Codesystems::ICD10
+        ],
+        'ClinicalImpressionInvestigation' => [
+            'code' => Valuesets::InvestigationType
+        ],
+        'ServiceRequest' => [
+            'status' => Codesystems::RequestStatus,
+            'intent' => Codesystems::RequestIntent,
+            'category' => Valuesets::ServiceRequestCategoryCodes,
+            'priority' => Codesystems::RequestPriority,
+            'code' => Valuesets::ServiceRequestCodes,
+            'orderDetail' => Valuesets::ServiceRequestOrderDetailsCodes,
+            'asNeededCodeableConcept' => Codesystems::ICD10,
+            'performerType' => Valuesets::ParticipantRoles,
+            'locationCode' => Valuesets::ServiceRequestLocationCode,
+            'reasonCode' => Codesystems::ICD10,
+            'bodySite' => Valuesets::SNOMEDCTBodySite,
+        ],
+        'MedicationStatement' => [
+            'status' => Valuesets::MedicationStatusCodes,
+            'statusReason' => Valuesets::SNOMEDCTDrugTherapyStatusCodes,
+            'category' => Valuesets::MedicationUsageCategoryCodes,
+            'reasonCode' => Valuesets::ConditionProblemDiagnosisCodes
+        ],
+        'QuestionnaireResponse' => [
+            'status' => Valuesets::QuestionnaireResponseStatus
+        ],
+        'QuestionnaireResponseItemAnswer' => [
+            'valueCoding' => Valuesets::QuestionnaireAnswerCodes
+        ],
+        'Address' => [
+            'use' => Codesystems::AddressUse,
+            'type' => Codesystems::AddressType,
+            'country' => Codesystems::ISO3166,
+            'administrativeCode' => Codesystems::AdministrativeArea,
+        ],
+        'Age' => [
+            'comparator' => Valuesets::Comparators
+        ],
+        'Attachment' => [
+            'contentType' => Codesystems::MimeTypes,
+            'language' => Codesystems::BCP47,
+        ],
+        'ContactPoint' => [
+            'system' => Codesystems::ContactPointSystem,
+            'use' => Codesystems::ContactPointUse,
+        ],
+        'Dosage' => [
+            'additionalInstruction' => Valuesets::SNOMEDCTAdditionalDosageInstructions,
+            'site' => Valuesets::SNOMEDCTAnatomicalStructureForAdministrationSiteCodes,
+            'route' => Valuesets::DosageRoute,
+            'method' => Valuesets::SNOMEDCTAdministrationMethodCodes,
+        ],
+        'DoseAndRate' => [
+            'type' => Valuesets::DoseAndRateType,
+        ],
+        'Duration' => [
+            'comparator' => Valuesets::Comparators,
+        ],
+        'HumanName' => [
+            'use' => Codesystems::NameUse,
+        ],
+        'Identifier' => [
+            'use' => Codesystems::IdentifierUse,
+            'type' => Codesystems::v20203,
+        ],
+        'Narrative' => [
+            'status' => Codesystems::NarrativeStatus,
+        ],
+        'Quantity' => [
+            'comparator' => Valuesets::Comparators,
+        ],
+        'TimingRepeat' => [
+            'durationUnit' => Valuesets::UnitsOfTime,
+            'periodUnit' => Valuesets::UnitsOfTime,
+            'dayOfWeek' => Valuesets::DaysOfWeek,
+            'when' => Valuesets::EventTiming,
+        ]
     ]
 ];

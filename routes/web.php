@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/details', [ProfileController::class, 'details'])->name('profile.details');
 });
 
+// Endpoint untuk User Management
 Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.'], function () {
     Route::get('/', [UserManagementController::class, 'index'])->name('index');
     Route::get('/{user_id}', [UserManagementController::class, 'show'])->name('show');
@@ -58,7 +60,49 @@ Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.'], fu
     Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
 });
 
+// Endpoint kode terminologi
 Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
+    // Terminologi per atribut per resource type
+    Route::get('/get', [TerminologyController::class, 'returnTerminologi'])->name('get');
+
+    // Untuk Procedure.code
+    Route::group(['prefix' => 'procedure', 'as' => 'procedure.'], function () {
+        // Tindakan atau prosedur medis untuk keperluan klaim
+        Route::get('/tindakan', [TerminologyController::class, 'returnProcedureTindakan'])->name('tindakan');
+        // Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir
+        Route::get('/edukasi-bayi', [TerminologyController::class, 'returnProcedureEdukasiBayi'])->name('edukasi-bayi');
+        // Prosedur medis lainnya
+        Route::get('/other', [TerminologyController::class, 'returnProcedureOther'])->name('other');
+    });
+
+    // Untuk Condition.code atau MedicationStatement.reasonCode
+    Route::group(['prefix' => 'condition', 'as' => 'condition.'], function () {
+        // Diagnosis pasien saat kunjungan
+        Route::get('/kunjungan', [TerminologyController::class, 'returnConditionKunjungan'])->name('kunjungan');
+        // Kondisi saat meninggalkan rumah sakit
+        Route::get('/keluar', [TerminologyController::class, 'returnConditionKeluar'])->name('keluar');
+        // Keluhan utama, kondisi pasien, temuan pemeriksaan klinis
+        Route::get('/keluhan', [TerminologyController::class, 'returnConditionKeluhan'])->name('keluhan');
+        // Riwayat penyakit pribadi
+        Route::get('/riwayat-pribadi', [TerminologyController::class, 'returnConditionRiwayatPribadi'])->name('riwayat-pribadi');
+        // Riwayat penyakit keluarga
+        Route::get('/riwayat-keluarga', [TerminologyController::class, 'returnConditionRiwayatKeluarga'])->name('riwayat-keluarga');
+    });
+
+    // Untuk QuestionnaireResponse.item.item.answer.valueCoding
+    Route::group(['prefix' => 'questionnaire', 'as' => 'questionnaire.'], function () {
+        // Untuk lokasi kecelakaan
+        Route::get('/lokasi-kecelakaan', [TerminologyController::class, 'returnQuestionLokasiKecelakaan'])->name('lokasi-kecelakaan');
+        // Untuk poli tujuan
+        Route::get('/poli-tujuan', [TerminologyController::class, 'returnQuestionPoliTujuan'])->name('poli-tujuan');
+        // Lainnya
+        Route::get('/other', [TerminologyController::class, 'returnQuestionOther'])->name('other');
+    });
+
+    // Untuk Medication.code atau MedicationIngredient.itemCodeableConcept
+    Route::get('/medication', [SatusehatController::class, 'searchKfaProduct'])->name('medication');
+
+    // Endpoint codesystems
     Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
     Route::get('/icd9cm-procedure', [TerminologyController::class, 'getIcd9CmProcedure'])->name('icd9cm-procedure');
     Route::get('/loinc', [TerminologyController::class, 'getLoinc'])->name('loinc');

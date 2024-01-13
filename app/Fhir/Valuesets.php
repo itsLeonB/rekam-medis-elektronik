@@ -76,11 +76,9 @@ class Valuesets
     ];
 
     public const ServiceRequestCodes = [
+        Codesystems::LOINC,
         [
-            'system' => Codesystems::LOINC,
-        ],
-        [
-            'system' => Codesystems::SNOMEDCT,
+            'system' => 'http://snomed.info/sct',
             'ecl' => '< 71388002 |Procedure (procedure)|'
         ]
     ];
@@ -140,11 +138,12 @@ class Valuesets
 
     public const FHIRDocumentTypeCodes = [
         [
-            'system' => Codesystems::LOINC,
+            'system' => 'http://loinc.org',
+            'table' => 'codesystem_loinc',
             'query' => ['scale_typ', '=', 'Doc']
         ],
         [
-            'system' => Codesystems::SNOMEDCT,
+            'system' => 'http://snomed.info/sct',
             'ecl' => '< 71388002 |Procedure (procedure)|'
         ]
     ];
@@ -222,7 +221,7 @@ class Valuesets
 
     public const ObservationCode = [
         Codesystems::LOINC,
-        'Kode Istilah Klinik Nasional',
+        // 'Kode Istilah Klinik Nasional',
         Codesystems::SNOMEDCT
     ];
 
@@ -264,9 +263,12 @@ class Valuesets
     ];
 
     public const ProcedureCodes = [
-        'Tindakan atau prosedur medis untuk keperluan klaim' => Codesystems::ICD9CMProcedure,
-        'Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir' => [Codesystems::SNOMEDCT, '< 71388002 |Procedure (procedure)|'],
-        'Lainnya' => Valuesets::KemkesClinicalTerm
+        'tindakan' => Codesystems::ICD9CMProcedure,
+        'edukasi-bayi' => [
+            'system' => 'http://snomed.info/sct',
+            'ecl' => '< 71388002 |Procedure (procedure)|'
+        ],
+        'other' => Valuesets::KemkesClinicalTerm
     ];
 
     public const KemkesClinicalTerm = [
@@ -276,11 +278,14 @@ class Valuesets
     ];
 
     public const ConditionProblemDiagnosisCodes = [
-        'Diagnosis pasien saat kunjungan' => Codesystems::ICD10,
-        'Kondisi saat meninggalkan rumah sakit' => Valuesets::KondisiMeninggalkanRumahSakit,
-        'Keluhan utama, kondisi pasien, temuan pemeriksaan klinis' => [Codesystems::SNOMEDCT, '< 404684003 |Clinical finding (finding)|'],
-        'Riwayat penyakit pribadi' => Valuesets::RiwayatPenyakitPribadi,
-        'Riwayat penyakit keluarga' => Valuesets::RiwayatPenyakitKeluarga,
+        'kunjungan' => Codesystems::ICD10,
+        'keluar' => Valuesets::KondisiMeninggalkanRumahSakit,
+        'keluhan' => [
+            'system' => 'http://snomed.info/sct',
+            'ecl' => '< 404684003 |Clinical finding (finding)|'
+        ],
+        'riwayat-pribadi' => Valuesets::RiwayatPenyakitPribadi,
+        'riwayat-keluarga' => Valuesets::RiwayatPenyakitKeluarga,
     ];
 
     public const RiwayatPenyakitPribadi = [
@@ -351,9 +356,9 @@ class Valuesets
     ];
 
     public const QuestionnaireAnswerCodes = [
-        'lokasiKecelakaan' => Codesystems::AdministrativeArea,
-        'poliTujuan' => Codesystems::ClinicalSpecialty,
-        'other' => 'SNOMED-CT'
+        'lokasi-kecelakaan' => Codesystems::AdministrativeArea,
+        'poli-tujuan' => Codesystems::ClinicalSpecialty,
+        'other' => Codesystems::SNOMEDCT
     ];
 
     public const QuestionnaireResponseStatus = [
@@ -370,7 +375,7 @@ class Valuesets
     ];
 
     public const SNOMEDCTMedicationCodes = [
-        'system' => Codesystems::SNOMEDCT,
+        'system' => 'http://snomed.info/sct',
         'ecl' => ['<<410942007', '<<373873005', '<<106181007']
     ];
 
