@@ -1,6 +1,27 @@
 <?php
 
+use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\DaftarPasienController;
+use App\Http\Controllers\Fhir\AllergyIntoleranceController;
+use App\Http\Controllers\Fhir\ClinicalImpressionController;
+use App\Http\Controllers\Fhir\CompositionController;
+use App\Http\Controllers\Fhir\ConditionController;
+use App\Http\Controllers\Fhir\EncounterController;
+use App\Http\Controllers\Fhir\LocationController;
+use App\Http\Controllers\Fhir\MedicationController;
+use App\Http\Controllers\Fhir\MedicationRequestController;
+use App\Http\Controllers\Fhir\MedicationStatementController;
+use App\Http\Controllers\Fhir\ObservationController;
+use App\Http\Controllers\Fhir\OrganizationController;
+use App\Http\Controllers\Fhir\PatientController;
+use App\Http\Controllers\Fhir\PractitionerController;
+use App\Http\Controllers\Fhir\ProcedureController;
+use App\Http\Controllers\Fhir\QuestionnaireResponseController;
+use App\Http\Controllers\Fhir\ResourceController;
+use App\Http\Controllers\Fhir\ServiceRequestController;
+use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
@@ -51,72 +72,243 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/details', [ProfileController::class, 'details'])->name('profile.details');
 });
 
-// Endpoint untuk User Management
-Route::group(['middleware' => 'auth', 'prefix' => 'users', 'as' => 'users.'], function () {
-    Route::get('/', [UserManagementController::class, 'index'])->name('index');
-    Route::get('/{user_id}', [UserManagementController::class, 'show'])->name('show');
-    Route::post('/', [UserManagementController::class, 'store'])->name('store');
-    Route::put('/{user_id}', [UserManagementController::class, 'update'])->name('update');
-    Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
-});
-
-// Endpoint kode terminologi
-Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
-    // Terminologi per atribut per resource type
-    Route::get('/get', [TerminologyController::class, 'returnTerminologi'])->name('get');
-
-    // Untuk Procedure.code
-    Route::group(['prefix' => 'procedure', 'as' => 'procedure.'], function () {
-        // Tindakan atau prosedur medis untuk keperluan klaim
-        Route::get('/tindakan', [TerminologyController::class, 'returnProcedureTindakan'])->name('tindakan');
-        // Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir
-        Route::get('/edukasi-bayi', [TerminologyController::class, 'returnProcedureEdukasiBayi'])->name('edukasi-bayi');
-        // Prosedur medis lainnya
-        Route::get('/other', [TerminologyController::class, 'returnProcedureOther'])->name('other');
+// APIs
+Route::middleware('auth')->group(function () {
+    // Endpoint untuk Integrasi SATUSEHAT
+    Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
+        // Get resource dan simpan local
+        Route::get('/{res_type}/{satusehat_id}', [IntegrationController::class, 'show'])->name('show');
+        // Save resource dan kirim ke SATUSEHAT
+        Route::post('/{res_type}', [IntegrationController::class, 'store'])->name('store');
+        // Update resource dan kirim ke SATUSEHAT
+        Route::put('/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('update');
     });
 
-    // Untuk Condition.code atau MedicationStatement.reasonCode
-    Route::group(['prefix' => 'condition', 'as' => 'condition.'], function () {
-        // Diagnosis pasien saat kunjungan
-        Route::get('/kunjungan', [TerminologyController::class, 'returnConditionKunjungan'])->name('kunjungan');
-        // Kondisi saat meninggalkan rumah sakit
-        Route::get('/keluar', [TerminologyController::class, 'returnConditionKeluar'])->name('keluar');
-        // Keluhan utama, kondisi pasien, temuan pemeriksaan klinis
-        Route::get('/keluhan', [TerminologyController::class, 'returnConditionKeluhan'])->name('keluhan');
-        // Riwayat penyakit pribadi
-        Route::get('/riwayat-pribadi', [TerminologyController::class, 'returnConditionRiwayatPribadi'])->name('riwayat-pribadi');
-        // Riwayat penyakit keluarga
-        Route::get('/riwayat-keluarga', [TerminologyController::class, 'returnConditionRiwayatKeluarga'])->name('riwayat-keluarga');
+    // Endpoint untuk View Rekam Medis
+    Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
+        // Daftar rekam medis pasien
+        Route::get('/', [RekamMedisController::class, 'index'])->name('index');
+        // Detail rekam medis pasien
+        Route::get('/{patient_id}', [RekamMedisController::class, 'show'])->name('show');
+        // Pull update dari rekam medis pasien dari SATUSEHAT
+        Route::get('/{patient_id}/update', [SatusehatController::class, 'updateRekamMedis'])->name('update');
     });
 
-    // Untuk QuestionnaireResponse.item.item.answer.valueCoding
-    Route::group(['prefix' => 'questionnaire', 'as' => 'questionnaire.'], function () {
-        // Untuk lokasi kecelakaan
-        Route::get('/lokasi-kecelakaan', [TerminologyController::class, 'returnQuestionLokasiKecelakaan'])->name('lokasi-kecelakaan');
-        // Untuk poli tujuan
-        Route::get('/poli-tujuan', [TerminologyController::class, 'returnQuestionPoliTujuan'])->name('poli-tujuan');
-        // Lainnya
-        Route::get('/other', [TerminologyController::class, 'returnQuestionOther'])->name('other');
+    // Endpoint untuk View Daftar pasien
+    Route::group(['prefix' => 'daftar-pasien', 'as' => 'daftar-pasien.'], function () {
+        // Daftar pasien rawat jalan, serviceType per poli
+        Route::get('/rawat-jalan/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatJalan'])->name('rawat-jalan');
+        // Daftar pasien rawat inap, serviceType per ruangan
+        Route::get('/rawat-inap/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
+        // Daftar pasien IGD
+        Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
     });
 
-    // Untuk Medication.code atau MedicationIngredient.itemCodeableConcept
-    Route::get('/medication', [SatusehatController::class, 'searchKfaProduct'])->name('medication');
-
-    // Endpoint codesystems
-    Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
-    Route::get('/icd9cm-procedure', [TerminologyController::class, 'getIcd9CmProcedure'])->name('icd9cm-procedure');
-    Route::get('/loinc', [TerminologyController::class, 'getLoinc'])->name('loinc');
-    Route::get('/snomed-ct', [TerminologyController::class, 'getSnomedCt'])->name('snomed-ct');
-    Route::group(['prefix' => 'wilayah', 'as' => 'wilayah.'], function () {
-        Route::get('/provinsi', [TerminologyController::class, 'getProvinsi'])->name('provinsi');
-        Route::get('/kabko', [TerminologyController::class, 'getKabupatenKota'])->name('kabko');
-        Route::get('/kecamatan', [TerminologyController::class, 'getKecamatan'])->name('kecamatan');
-        Route::get('/kelurahan', [TerminologyController::class, 'getKelurahan'])->name('kelurahan');
+    // Endpoint untuk Dashboard Analytics
+    Route::group(['prefix' => 'analytics', 'as' => 'analytics.'], function () {
+        // Jumlah pasien sedang dirawat
+        Route::get('/pasien-dirawat', [AnalyticsController::class, 'getActiveEncounters'])->name('pasien-dirawat');
+        // Jumlah pasien baru mendaftar bulan ini
+        Route::get('/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('pasien-baru-bulan-ini');
+        // Jumlah total pasien yang pernah dirawat
+        Route::get('/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('jumlah-pasien');
+        // Jumlah pasien yang pernah dirawat per bulan untuk 12 bulan kebelakang
+        Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
+        // Jumlah pasien yang pernah dirawat berdasarkan usia
+        Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
     });
-    Route::get('/bcp13', [TerminologyController::class, 'getBcp13'])->name('bcp13');
-    Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
-    Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
-    Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
+
+    // Endpoint untuk User Management
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        // Daftar user
+        Route::get('/', [UserManagementController::class, 'index'])->name('index');
+        // Detail user
+        Route::get('/{user_id}', [UserManagementController::class, 'show'])->name('show');
+        // Tambah user
+        Route::post('/', [UserManagementController::class, 'store'])->name('store');
+        // Update user
+        Route::put('/{user_id}', [UserManagementController::class, 'update'])->name('update');
+        // Hapus user
+        Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
+    });
+
+    // Endpoint kode terminologi
+    Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
+        // Terminologi per atribut per resource type
+        Route::get('/get', [TerminologyController::class, 'returnTerminologi'])->name('get');
+
+        // Untuk Procedure.code
+        Route::group(['prefix' => 'procedure', 'as' => 'procedure.'], function () {
+            // Tindakan atau prosedur medis untuk keperluan klaim
+            Route::get('/tindakan', [TerminologyController::class, 'returnProcedureTindakan'])->name('tindakan');
+            // Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir
+            Route::get('/edukasi-bayi', [TerminologyController::class, 'returnProcedureEdukasiBayi'])->name('edukasi-bayi');
+            // Prosedur medis lainnya
+            Route::get('/other', [TerminologyController::class, 'returnProcedureOther'])->name('other');
+        });
+
+        // Untuk Condition.code atau MedicationStatement.reasonCode
+        Route::group(['prefix' => 'condition', 'as' => 'condition.'], function () {
+            // Diagnosis pasien saat kunjungan
+            Route::get('/kunjungan', [TerminologyController::class, 'returnConditionKunjungan'])->name('kunjungan');
+            // Kondisi saat meninggalkan rumah sakit
+            Route::get('/keluar', [TerminologyController::class, 'returnConditionKeluar'])->name('keluar');
+            // Keluhan utama, kondisi pasien, temuan pemeriksaan klinis
+            Route::get('/keluhan', [TerminologyController::class, 'returnConditionKeluhan'])->name('keluhan');
+            // Riwayat penyakit pribadi
+            Route::get('/riwayat-pribadi', [TerminologyController::class, 'returnConditionRiwayatPribadi'])->name('riwayat-pribadi');
+            // Riwayat penyakit keluarga
+            Route::get('/riwayat-keluarga', [TerminologyController::class, 'returnConditionRiwayatKeluarga'])->name('riwayat-keluarga');
+        });
+
+        // Untuk QuestionnaireResponse.item.item.answer.valueCoding
+        Route::group(['prefix' => 'questionnaire', 'as' => 'questionnaire.'], function () {
+            // Untuk lokasi kecelakaan
+            Route::get('/lokasi-kecelakaan', [TerminologyController::class, 'returnQuestionLokasiKecelakaan'])->name('lokasi-kecelakaan');
+            // Untuk poli tujuan
+            Route::get('/poli-tujuan', [TerminologyController::class, 'returnQuestionPoliTujuan'])->name('poli-tujuan');
+            // Lainnya
+            Route::get('/other', [TerminologyController::class, 'returnQuestionOther'])->name('other');
+        });
+
+        // Untuk Medication.code atau MedicationIngredient.itemCodeableConcept
+        Route::get('/medication', [SatusehatController::class, 'searchKfaProduct'])->name('medication');
+
+        // Endpoint codesystems
+        Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
+        Route::get('/icd9cm-procedure', [TerminologyController::class, 'getIcd9CmProcedure'])->name('icd9cm-procedure');
+        Route::get('/loinc', [TerminologyController::class, 'getLoinc'])->name('loinc');
+        Route::get('/snomed-ct', [TerminologyController::class, 'getSnomedCt'])->name('snomed-ct');
+        Route::group(['prefix' => 'wilayah', 'as' => 'wilayah.'], function () {
+            Route::get('/provinsi', [TerminologyController::class, 'getProvinsi'])->name('provinsi');
+            Route::get('/kabko', [TerminologyController::class, 'getKabupatenKota'])->name('kabko');
+            Route::get('/kecamatan', [TerminologyController::class, 'getKecamatan'])->name('kecamatan');
+            Route::get('/kelurahan', [TerminologyController::class, 'getKelurahan'])->name('kelurahan');
+        });
+        Route::get('/bcp13', [TerminologyController::class, 'getBcp13'])->name('bcp13');
+        Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
+        Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
+        Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
+    });
+
+    // Endpoint untuk call API SATUSEHAT
+    Route::group(['prefix' => 'satusehat', 'as' => 'satusehat.'], function () {
+        // Consent
+        Route::get('/consent/{patient_id}', [SatusehatController::class, 'readConsent'])->name('consent.show');
+        Route::post('/consent', [SatusehatController::class, 'updateConsent'])->name('consent.store');
+
+        // Kamus Farmasi dan Alat Kesehatan
+        Route::get('/kfa', [SatusehatController::class, 'searchKfaProduct'])->name('kfa');
+
+        // Search resource
+        Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
+            Route::get('/practitioner', [SatusehatController::class, 'searchPractitioner'])->name('practitioner');
+            Route::get('/organization', [SatusehatController::class, 'searchOrganization'])->name('organization');
+            Route::get('/location', [SatusehatController::class, 'searchLocation'])->name('location');
+            Route::get('/patient', [SatusehatController::class, 'searchPatient'])->name('patient');
+            Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
+            Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
+            Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
+            Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
+            Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
+            Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
+            Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
+            Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
+            Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
+            Route::get('/medicationstatement', [SatusehatController::class, 'searchMedicationStatement'])->name('medicationstatement');
+            Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
+        });
+
+        // Resource manipulation (only for BE)
+        Route::group(['prefix' => 'resource', 'as' => 'resource.'], function () {
+            Route::get('/{res_type}/{res_id}', [SatusehatController::class, 'show'])->name('show');
+            Route::post('/{res_type}', [SatusehatController::class, 'store'])->name('store');
+            Route::put('/{res_type}/{res_id}', [SatusehatController::class, 'update'])->name('update');
+        });
+    });
+
+    // Endpoint untuk local DB manipulation (only for BE)
+    Route::group(['prefix' => 'local', 'as' => 'local.'], function () {
+        Route::get('/{res_type}', [ResourceController::class, 'index'])->name('resource.index');
+
+        // Organization resource endpoint
+        Route::get('/organization/{satusehat_id}', [OrganizationController::class, 'show'])->name('organization.show');
+        Route::post('/organization', [OrganizationController::class, 'store'])->name('organization.store');
+        Route::put('/organization/{satusehat_id}', [OrganizationController::class, 'update'])->name('organization.update');
+
+        // Location resource endpoint
+        Route::get('/location/{satusehat_id}', [LocationController::class, 'show'])->name('location.show');
+        Route::post('/location', [LocationController::class, 'store'])->name('location.store');
+        Route::put('/location/{satusehat_id}', [LocationController::class, 'update'])->name('location.update');
+
+        // Patient resource endpoint
+        Route::get('/patient/{satusehat_id}', [PatientController::class, 'show'])->name('patient.show');
+        Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
+
+        // Practitioner resource endpoint
+        Route::get('/practitioner/{satusehat_id}', [PractitionerController::class, 'show'])->name('practitioner.show');
+        Route::post('/practitioner', [PractitionerController::class, 'store'])->name('practitioner.store');
+
+        // Encounter resource endpoint
+        Route::get('/encounter/{satusehat_id}', [EncounterController::class, 'show'])->name('encounter.show');
+        Route::post('/encounter', [EncounterController::class, 'store'])->name('encounter.store');
+        Route::put('/encounter/{satusehat_id}', [EncounterController::class, 'update'])->name('encounter.update');
+
+        // Condition resource endpoint
+        Route::get('/condition/{satusehat_id}', [ConditionController::class, 'show'])->name('condition.show');
+        Route::post('/condition', [ConditionController::class, 'store'])->name('condition.store');
+        Route::put('/condition/{satusehat_id}', [ConditionController::class, 'update'])->name('condition.update');
+
+        // Observation resource endpoint
+        Route::get('/observation/{satusehat_id}', [ObservationController::class, 'show'])->name('observation.show');
+        Route::post('/observation', [ObservationController::class, 'store'])->name('observation.store');
+        Route::put('/observation/{satusehat_id}', [ObservationController::class, 'update'])->name('observation.update');
+
+        // Procedure resource endpoint
+        Route::get('/procedure/{satusehat_id}', [ProcedureController::class, 'show'])->name('procedure.show');
+        Route::post('/procedure', [ProcedureController::class, 'store'])->name('procedure.store');
+        Route::put('/procedure/{satusehat_id}', [ProcedureController::class, 'update'])->name('procedure.update');
+
+        // Medication resource endpoint
+        Route::get('/medication/{satusehat_id}', [MedicationController::class, 'show'])->name('medication.show');
+        Route::post('/medication', [MedicationController::class, 'store'])->name('medication.store');
+        Route::put('/medication/{satusehat_id}', [MedicationController::class, 'update'])->name('medication.update');
+
+        // MedicationRequest resource endpoint
+        Route::get('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'show'])->name('medicationrequest.show');
+        Route::post('/medicationrequest', [MedicationRequestController::class, 'store'])->name('medicationrequest.store');
+        Route::put('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'update'])->name('medicationrequest.update');
+
+        // Composition resource endpoint
+        Route::get('/composition/{satusehat_id}', [CompositionController::class, 'show'])->name('composition.show');
+        Route::post('/composition', [CompositionController::class, 'store'])->name('composition.store');
+        Route::put('/composition/{satusehat_id}', [CompositionController::class, 'update'])->name('composition.update');
+
+        // AllergyIntolerance resource endpoint
+        Route::get('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'show'])->name('allergyintolerance.show');
+        Route::post('/allergyintolerance', [AllergyIntoleranceController::class, 'store'])->name('allergyintolerance.store');
+        Route::put('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'update'])->name('allergyintolerance.update');
+
+        // ClinicalImpression resource endpoint
+        Route::get('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'show'])->name('clinicalimpression.show');
+        Route::post('/clinicalimpression', [ClinicalImpressionController::class, 'store'])->name('clinicalimpression.store');
+        Route::put('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'update'])->name('clinicalimpression.update');
+
+        // ServiceRequest resource endpoint
+        Route::get('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'show'])->name('servicerequest.show');
+        Route::post('/servicerequest', [ServiceRequestController::class, 'store'])->name('servicerequest.store');
+        Route::put('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'update'])->name('servicerequest.update');
+
+        // MedicationStatement resource endpoint
+        Route::get('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'show'])->name('medicationstatement.show');
+        Route::post('/medicationstatement', [MedicationStatementController::class, 'store'])->name('medicationstatement.store');
+        Route::put('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'update'])->name('medicationstatement.update');
+
+        // QuestionnaireResponse resource endpoint
+        Route::get('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'show'])->name('questionnaireresponse.show');
+        Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('questionnaireresponse.store');
+        Route::put('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
+    });
 });
 
 require __DIR__ . '/auth.php';

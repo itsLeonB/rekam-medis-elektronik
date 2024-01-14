@@ -38,13 +38,6 @@ class SatusehatTest extends TestCase
         $dataArray = [
             'resourceType' => 'Organization',
             'active' => fake()->boolean(),
-            'identifier' => [
-                [
-                    'system' => 'http://sys-ids.kemkes.go.id/organization/1000079374',
-                    'use' => $idUse,
-                    'value' => fake()->uuid(),
-                ],
-            ],
             'name' => fake()->name(),
         ];
 
@@ -67,19 +60,12 @@ class SatusehatTest extends TestCase
         $idUses = Identifier::USE['binding']['valueset']['code'];
         $idUse = $idUses[array_rand($idUses)];
 
-        $satusehatId = 'abddd50b-b22f-4d68-a1c3-d2c29a27698b';
+        $satusehatId = config('app.organization_id');
 
         $dataArray = [
             'resourceType' => 'Organization',
             'id' => $satusehatId,
             'active' => fake()->boolean(),
-            'identifier' => [
-                [
-                    'system' => 'http://sys-ids.kemkes.go.id/organization/1000079374',
-                    'use' => $idUse,
-                    'value' => fake()->uuid(),
-                ],
-            ],
             'name' => fake()->name(),
         ];
 

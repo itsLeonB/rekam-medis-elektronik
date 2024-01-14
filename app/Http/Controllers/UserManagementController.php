@@ -9,7 +9,6 @@ use App\Models\Fhir\Resource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -30,13 +29,15 @@ class UserManagementController extends Controller
     public function show($id)
     {
         try {
-            $user = User::with('practitionerUser')->findOrFail($id);
+            $user = User::findOrFail($id);
 
-            $practitioner = $user->practitionerUser ? new PractitionerResource($user->practitionerUser()->first()->resource) : null;
+            if ($user->practitionerUser->count() > 0) {
+                $practitioner = new PractitionerResource(data_get($user, 'practitionerUser.0.resource'));
+            }
 
             return response()->json([
                 'user' => $user,
-                'practitioner' => $practitioner
+                'practitioner' => $practitioner ?? null
             ], 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -57,24 +58,24 @@ class UserManagementController extends Controller
                 'password' => Hash::make($request->input('password')),
             ]);
 
-            $practitioner = Resource::where('res_type', 'Practitioner')
-                ->where('satusehat_id', $request->input('practitioner_id'))
-                ->firstOrFail()
-                ->practitioner;
+            if ($request->input('practitioner_id')) {
+                $practitioner = Resource::where('res_type', 'Practitioner')
+                    ->where('satusehat_id', $request->input('practitioner_id'))
+                    ->firstOrFail()
+                    ->practitioner;
 
-            $user->practitionerUser()->save($practitioner);
+                $user->practitionerUser()->save($practitioner);
+
+                $pracRes = new PractitionerResource($practitioner->resource);
+            }
+
 
             DB::commit();
 
-            $pracResId = $user->practitionerUser()->first()->resource_id;
-
             return response()->json([
                 'user' => $user,
-                'practitioner' => new PractitionerResource(Resource::findOrFail($pracResId))
+                'practitioner' => $pracRes ?? null
             ], 201);
-        } catch (ModelNotFoundException $e) {
-            DB::rollback();
-            return response()->json('Practitioner tidak ditemukan', 404);
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th->getMessage());

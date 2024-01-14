@@ -3,6 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AllergyIntoleranceResource;
+use App\Http\Resources\ClinicalImpressionResource;
+use App\Http\Resources\CompositionResource;
+use App\Http\Resources\ConditionResource;
+use App\Http\Resources\EncounterResource;
+use App\Http\Resources\MedicationRequestResource;
+use App\Http\Resources\MedicationStatementResource;
+use App\Http\Resources\ObservationResource;
+use App\Http\Resources\PatientResource;
+use App\Http\Resources\ProcedureResource;
+use App\Http\Resources\QuestionnaireResponseResource;
+use App\Http\Resources\ServiceRequestResource;
+use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\AllergyIntolerance;
 use App\Models\Fhir\Resources\ClinicalImpression;
 use App\Models\Fhir\Resources\Composition;
@@ -17,7 +30,6 @@ use App\Models\Fhir\Resources\QuestionnaireResponse;
 use App\Models\Fhir\Resources\ServiceRequest;
 use DateTime;
 use DateTimeZone;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Client\Pool;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -63,9 +75,9 @@ class RekamMedisController extends Controller
             $latestEncounter = $this->getLatestEncounter($patient);
 
             if (!empty($latestEncounter)) {
-                $start = new DateTime($latestEncounter->start ?? null);
-                $class = $latestEncounter->code ?? null;
-                $start = $start->setTimezone(new DateTimeZone(config('app.timezone')))->format('Y-m-d\TH:i:sP');
+                $class = $latestEncounter->class ? $latestEncounter->class->code : null;
+                $start = $latestEncounter->period ? $this->parseDate($latestEncounter->period->start) : null;
+                $serviceType = $latestEncounter->serviceType ? $latestEncounter->serviceType->coding->first()->code : null;
             }
 
             if (!empty($patient->name())) {
@@ -75,12 +87,19 @@ class RekamMedisController extends Controller
                     $name = $patient->name()->latest()->first()->text ?? null;
                 }
             }
+
             return [
                 'satusehatId' => $patient->resource->satusehat_id,
-                'identifier' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->value('value'),
+                'nik' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik'))->value('value') ?? null,
+                'nik-ibu' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik-ibu'))->value('value') ?? null,
+                'paspor' => $patient->identifier()->where('system', config('app.identifier_systems.patient.paspor'))->value('value') ?? null,
+                'kk' => $patient->identifier()->where('system', config('app.identifier_systems.patient.kk'))->value('value') ?? null,
+                'rekam-medis' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->value('value'),
+                'ihs-number' => $patient->identifier()->where('system', config('app.identifier_systems.patient.ihs-number'))->value('value') ?? null,
                 'name' => $name ?? null,
                 'class' => $class ?? null,
                 'start' => $start ?? null,
+                'serviceType' => $serviceType ?? null
             ];
         });
 
@@ -105,84 +124,85 @@ class RekamMedisController extends Controller
 
     private function getLatestEncounter($patient)
     {
-        return Encounter::join('periods', function ($join) {
+        $enc = Encounter::join('periods', function ($join) {
             $join->on('encounter.id', '=', 'periods.periodable_id')
                 ->where('periods.periodable_type', 'Encounter');
         })
-            ->join('codings', function ($join) {
-                $join->on('encounter.id', '=', 'codings.codeable_id')
-                    ->where('codings.codeable_type', 'Encounter');
-            })
             ->whereHas('subject', function ($query) use ($patient) {
                 $query->where('reference', 'Patient/' . $patient->resource->satusehat_id);
             })
-            ->select('codings.code', 'periods.start')
             ->orderByDesc('periods.start')
-            ->first();
+            ->first()->resource->satusehat_id;
+
+        $enc = Resource::where('satusehat_id', $enc)->first()->encounter;
+
+        return $enc;
     }
 
-    public function getEncounterRelatedData($model, $encSatusehatId, $relation)
+    public function getEncounterRelatedData($model, $encSatusehatId, $relation, $resource)
     {
-        return $model::whereHas($relation, function ($query) use ($encSatusehatId) {
+        $data = $model::whereHas($relation, function ($query) use ($encSatusehatId) {
             $query->where('reference', 'Encounter/' . $encSatusehatId);
         })->get();
+
+        return $data->map(function ($item) use ($resource) {
+            return new $resource($item->resource);
+        });
     }
 
-    public function getPatientRelatedData($model, $patientUuid, $relation, $excludeRelation)
+    public function getPatientRelatedData($model, $patientUuid, $relation, $excludeRelation, $resource)
     {
-        return $model::whereHas($relation, function ($query) use ($patientUuid) {
+        $data = $model::whereHas($relation, function ($query) use ($patientUuid) {
             $query->where('reference', 'Patient/' . $patientUuid);
         })->whereDoesntHave($excludeRelation)->get();
+
+        return $data->map(function ($item) use ($resource) {
+            return new $resource($item->resource);
+        });
     }
 
     public function show($patientId)
     {
-        try {
-            $patient = Patient::findOrFail($patientId);
-            $patientSatusehatId = $patient->resource->satusehat_id;
+        $patient = Resource::where('satusehat_id', $patientId)->where('res_type', 'Patient')->firstOrFail();
 
-            $data = [
-                'patient' => $patient,
-                'encounters' => [],
-                'additionalData' => []
+        $data = [
+            'patient' => new PatientResource($patient),
+            'encounters' => [],
+            'additionalData' => []
+        ];
+
+        $encounters = Encounter::whereHas('subject', function ($query) use ($patientId) {
+            $query->where('reference', 'Patient/' . $patientId);
+        })->get();
+
+        $data['encounters'] = $encounters->map(function ($encounter) {
+            $encSatusehatId = $encounter->resource->satusehat_id;
+
+            return [
+                'encounter' => new EncounterResource($encounter),
+                'conditions' => $this->getEncounterRelatedData(Condition::class, $encSatusehatId, 'encounter', ConditionResource::class),
+                'observations' => $this->getEncounterRelatedData(Observation::class, $encSatusehatId, 'encounter', ObservationResource::class),
+                'procedures' => $this->getEncounterRelatedData(Procedure::class, $encSatusehatId, 'encounter', ProcedureResource::class),
+                'medicationRequests' => $this->getEncounterRelatedData(MedicationRequest::class, $encSatusehatId, 'encounter', MedicationRequestResource::class),
+                'compositions' => $this->getEncounterRelatedData(Composition::class, $encSatusehatId, 'encounter', CompositionResource::class),
+                'allergyIntolerances' => $this->getEncounterRelatedData(AllergyIntolerance::class, $encSatusehatId, 'encounter', AllergyIntoleranceResource::class),
+                'clinicalImpression' => $this->getEncounterRelatedData(ClinicalImpression::class, $encSatusehatId, 'encounter', ClinicalImpressionResource::class),
+                'serviceRequests' => $this->getEncounterRelatedData(ServiceRequest::class, $encSatusehatId, 'encounter', ServiceRequestResource::class),
+                'medicationStatements' => $this->getEncounterRelatedData(MedicationStatement::class, $encSatusehatId, 'context', MedicationStatementResource::class),
+                'questionnaireResponses' => $this->getEncounterRelatedData(QuestionnaireResponse::class, $encSatusehatId, 'encounter', QuestionnaireResponseResource::class),
             ];
+        });
 
-            $encounters = Encounter::whereHas('subject', function ($query) use ($patientSatusehatId) {
-                $query->where('reference', 'Patient/' . $patientSatusehatId);
-            })->get();
 
-            if (!$encounters->isEmpty()) {
-                foreach ($encounters as $encounter) {
-                    $encSatusehatId = $encounter->resource->satusehat_id;
+        $data['additionalData'] = [
+            'medicationRequests' => $this->getPatientRelatedData(MedicationRequest::class, $patientId, 'subject', 'encounter', MedicationRequestResource::class),
+            'compositions' => $this->getPatientRelatedData(Composition::class, $patientId, 'subject', 'encounter', CompositionResource::class),
+            'allergyIntolerances' => $this->getPatientRelatedData(AllergyIntolerance::class, $patientId, 'patient', 'encounter', AllergyIntoleranceResource::class),
+            'medicationStatements' => $this->getPatientRelatedData(MedicationStatement::class, $patientId, 'subject', 'context', MedicationStatementResource::class),
+            'questionnaireResponses' => $this->getPatientRelatedData(QuestionnaireResponse::class, $patientId, 'subject', 'encounter', QuestionnaireResponseResource::class),
+        ];
 
-                    $data['encounters'][] = [
-                        'encounter' => $encounter,
-                        'conditions' => $this->getEncounterRelatedData(Condition::class, $encSatusehatId, 'encounter'),
-                        'observations' => $this->getEncounterRelatedData(Observation::class, $encSatusehatId, 'encounter'),
-                        'procedures' => $this->getEncounterRelatedData(Procedure::class, $encSatusehatId, 'encounter'),
-                        'medicationRequests' => $this->getEncounterRelatedData(MedicationRequest::class, $encSatusehatId, 'encounter'),
-                        'compositions' => $this->getEncounterRelatedData(Composition::class, $encSatusehatId, 'encounter'),
-                        'allergyIntolerances' => $this->getEncounterRelatedData(AllergyIntolerance::class, $encSatusehatId, 'encounter'),
-                        'clinicalImpression' => $this->getEncounterRelatedData(ClinicalImpression::class, $encSatusehatId, 'encounter'),
-                        'serviceRequests' => $this->getEncounterRelatedData(ServiceRequest::class, $encSatusehatId, 'encounter'),
-                        'medicationStatements' => $this->getEncounterRelatedData(MedicationStatement::class, $encSatusehatId, 'context'),
-                        'questionnaireResponses' => $this->getEncounterRelatedData(QuestionnaireResponse::class, $encSatusehatId, 'encounter'),
-                    ];
-                }
-            }
-
-            $data['additionalData'] = [
-                'medicationRequests' => $this->getPatientRelatedData(MedicationRequest::class, $patientSatusehatId, 'subject', 'encounter'),
-                'compositions' => $this->getPatientRelatedData(Composition::class, $patientSatusehatId, 'subject', 'encounter'),
-                'allergyIntolerances' => $this->getPatientRelatedData(AllergyIntolerance::class, $patientSatusehatId, 'patient', 'encounter'),
-                'medicationStatements' => $this->getPatientRelatedData(MedicationStatement::class, $patientSatusehatId, 'subject', 'context'),
-                'questionnaireResponses' => $this->getPatientRelatedData(QuestionnaireResponse::class, $patientSatusehatId, 'subject', 'encounter'),
-            ];
-
-            return response()->json(['data' => $data]);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
-        }
+        return $data;
     }
 
     public function getData($patientId)
@@ -248,5 +268,13 @@ class RekamMedisController extends Controller
                 }
             }
         }
+    }
+
+    public function parseDate($date)
+    {
+        $date = new DateTime($date);
+        $date = $date->setTimezone(new DateTimeZone(config('app.timezone')))->format('Y-m-d\TH:i:sP');
+
+        return $date;
     }
 }

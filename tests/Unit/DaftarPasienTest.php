@@ -67,26 +67,6 @@ class DaftarPasienTest extends TestCase
         return [$patients, $encounters];
     }
 
-    public function test_map_encounter_to_patient()
-    {
-        [$patients, $encounters] = $this->fakePatientAndEncounter(5);
-
-        $controller = new DaftarPasienController();
-
-        $response = $controller->mapEncounterToPatient(collect($encounters));
-
-        $this->assertEquals($response->count(), 5);
-        $this->assertEquals($response->first()['encounter_satusehat_id'], $encounters[0]->resource->satusehat_id);
-        $this->assertEquals($response->first()['patient_name'], $patients[0]->name()->first()->text);
-        $this->assertEquals($response->first()['patient_identifier'], $patients[0]->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->first()->value);
-        $this->assertEquals($response->first()['period_start'], $encounters[0]->period->start);
-
-        $this->assertEquals($response->last()['encounter_satusehat_id'], $encounters[4]->resource->satusehat_id);
-        $this->assertEquals($response->last()['patient_name'], $patients[4]->name()->first()->text);
-        $this->assertEquals($response->last()['patient_identifier'], $patients[4]->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->first()->value);
-        $this->assertEquals($response->last()['period_start'], $encounters[4]->period->start);
-    }
-
     public function test_get_daftar_rawat_jalan()
     {
         $count = fake()->numberBetween(1, 10);
@@ -104,6 +84,19 @@ class DaftarPasienTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonCount($encCount, 'daftar_pasien');
+        $response->assertJsonStructure([
+            'daftar_pasien' => [
+                '*' => [
+                    'encounter_satusehat_id',
+                    'patient_name',
+                    'patient_identifier',
+                    'period_start',
+                    'encounter_status',
+                    'encounter_practitioner',
+                    'procedure'
+                ]
+            ]
+        ]);
     }
 
     public function test_get_daftar_rawat_inap()
@@ -123,6 +116,19 @@ class DaftarPasienTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonCount($encCount, 'daftar_pasien');
+        $response->assertJsonStructure([
+            'daftar_pasien' => [
+                '*' => [
+                    'encounter_satusehat_id',
+                    'patient_name',
+                    'patient_identifier',
+                    'period_start',
+                    'encounter_status',
+                    'encounter_practitioner',
+                    'procedure'
+                ]
+            ]
+        ]);
     }
 
     public function test_get_daftar_igd()
@@ -138,5 +144,17 @@ class DaftarPasienTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonCount($encCount, 'daftar_pasien');
+        $response->assertJsonStructure([
+            'daftar_pasien' => [
+                '*' => [
+                    'encounter_satusehat_id',
+                    'patient_name',
+                    'patient_identifier',
+                    'period_start',
+                    'encounter_practitioner',
+                    'location'
+                ]
+            ]
+        ]);
     }
 }
