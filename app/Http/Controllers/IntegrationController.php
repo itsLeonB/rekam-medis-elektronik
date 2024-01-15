@@ -38,7 +38,7 @@ class IntegrationController extends Controller
         $lastUpdated = Carbon::parse($satusehatResponseBody['meta']['lastUpdated'])->setTimezone(config('app.timezone'));
 
         if ($lastUpdated->gt($resourceUpdatedAt)) {
-            $request = Request::create(route($resourceType . '.update', ['satusehat_id' => $resourceId]), 'PUT', $satusehatResponseBody);
+            $request = Request::create(route('local.' . $resourceType . '.update', ['satusehat_id' => $resourceId]), 'PUT', $satusehatResponseBody);
             $response = app()->handle($request);
             return $response;
         } else {
@@ -53,7 +53,7 @@ class IntegrationController extends Controller
         if ($this->checkIfResourceExistsInLocal($resourceType, $resourceId)) {
             return $this->updateResourceIfNewer($resourceType, $resourceId, $resource);
         } else {
-            $request = Request::create(route($resourceType . '.store'), 'POST', $resource);
+            $request = Request::create(route('local.' . $resourceType . '.store'), 'POST', $resource);
             return app()->handle($request);
         }
     }
@@ -69,7 +69,7 @@ class IntegrationController extends Controller
             Log::error($satusehatResponse->getContent());
 
             $resourceType = strtolower($resourceType);
-            $request = Request::create(route($resourceType . '.show', ['satusehat_id' => $resourceId]), 'GET');
+            $request = Request::create(route('local.' . $resourceType . '.show', ['satusehat_id' => $resourceId]), 'GET');
             $localResponse = app()->handle($request);
 
             if ($localResponse->getStatusCode() === 200) {
@@ -100,7 +100,7 @@ class IntegrationController extends Controller
             if ($statusCode === 201) {
                 $data = json_decode($satusehatResponse->getContent(), true);
                 $res_type = strtolower($res_type);
-                $storeRequest = Request::create(route($res_type . '.store'), 'POST', $data);
+                $storeRequest = Request::create(route('local.' . $res_type . '.store'), 'POST', $data);
                 app()->handle($storeRequest);
                 return $satusehatResponse;
             } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
@@ -141,7 +141,7 @@ class IntegrationController extends Controller
             if ($statusCode === 200) {
                 $data = json_decode($satusehatResponse->getContent(), true);
                 $res_type = strtolower($res_type);
-                $storeRequest = Request::create(route($res_type . '.update', ['satusehat_id' => $satusehat_id]), 'PUT', $data);
+                $storeRequest = Request::create(route('local.' . $res_type . '.update', ['satusehat_id' => $satusehat_id]), 'PUT', $data);
                 app()->handle($storeRequest);
                 return $satusehatResponse;
             } elseif ((400 <= $statusCode) && ($statusCode < 500)) {

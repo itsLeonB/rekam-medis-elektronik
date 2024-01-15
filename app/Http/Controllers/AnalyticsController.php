@@ -17,7 +17,7 @@ class AnalyticsController extends Controller
     {
         $count = Encounter::whereNotIn('status', self::ENDED_STATUS)->count();
 
-        return response()->json(['count' => $count]);
+        return $count;
     }
 
     public function getThisMonthNewPatients()
@@ -29,14 +29,14 @@ class AnalyticsController extends Controller
             ->whereYear('created_at', $currentYear)
             ->count();
 
-        return response()->json(['count' => $count]);
+        return $count;
     }
 
     public function countPatients()
     {
         $count = Patient::count();
 
-        return response()->json(['count' => $count]);
+        return $count;
     }
 
     public function getEncountersPerMonth()
@@ -57,7 +57,7 @@ class AnalyticsController extends Controller
             ->orderBy('month')
             ->get();
 
-        return response()->json(['data' => $encounterCounts]);
+        return $encounterCounts;
     }
 
     public function getPatientAgeGroups()
@@ -76,6 +76,6 @@ class AnalyticsController extends Controller
             ->groupBy('age_group')
             ->get();
 
-        return response()->json(['data' => $patientCounts]);
+        return $patientCounts;
     }
 }

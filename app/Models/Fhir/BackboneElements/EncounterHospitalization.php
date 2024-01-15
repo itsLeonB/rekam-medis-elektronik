@@ -28,54 +28,52 @@ class EncounterHospitalization extends FhirModel
         return $this->morphOne(Identifier::class, 'identifiable');
     }
 
-    public function references(): MorphMany
+    public function origin(): MorphOne
     {
-        return $this->morphMany(Reference::class, 'referenceable');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'origin');
     }
 
-    public function origin()
+    public function admitSource(): MorphOne
     {
-        return $this->references()->where('attr_type', 'origin');
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'admitSource');
     }
 
-    public function codeableConcepts(): MorphMany
+    public function reAdmission(): MorphOne
     {
-        return $this->morphMany(CodeableConcept::class, 'codeable');
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'reAdmission');
     }
 
-    public function admitSource()
+    public function dietPreference(): MorphMany
     {
-        return $this->codeableConcepts()->where('attr_type', 'admitSource');
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'dietPreference');
     }
 
-    public function reAdmission()
+    public function specialCourtesy(): MorphMany
     {
-        return $this->codeableConcepts()->where('attr_type', 'reAdmission');
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'specialCourtesy');
     }
 
-    public function dietPreference()
+    public function specialArrangement(): MorphMany
     {
-        return $this->codeableConcepts()->where('attr_type', 'dietPreference');
+        return $this->morphMany(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'specialArrangement');
     }
 
-    public function specialCourtesy()
+    public function destination(): MorphOne
     {
-        return $this->codeableConcepts()->where('attr_type', 'specialCourtesy');
+        return $this->morphOne(Reference::class, 'referenceable')
+            ->where('attr_type', 'destination');
     }
 
-    public function specialArrangement()
+    public function dischargeDisposition(): MorphOne
     {
-        return $this->codeableConcepts()->where('attr_type', 'specialArrangement');
-    }
-
-    public function destination()
-    {
-        return $this->references()->where('attr_type', 'destination');
-    }
-
-    public function dischargeDisposition()
-    {
-        return $this->codeableConcepts()->where('attr_type', 'dischargeDisposition');
+        return $this->morphOne(CodeableConcept::class, 'codeable')
+            ->where('attr_type', 'dischargeDisposition');
     }
 
     public const ADMIT_SOURCE = [

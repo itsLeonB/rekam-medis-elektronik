@@ -92,6 +92,28 @@ class UserManagementTest extends TestCase
         $response->assertJsonFragment(['email' => $userData['email']]);
     }
 
+    public function test_create_user_non_practitioner()
+    {
+        $admin = User::factory()->create();
+
+        // Create a new user data
+        $user = User::factory()->unverified()->make();
+        $userData = $user->toArray();
+        $password = fake()->password(8);
+        $userData['password'] = $password;
+        $userData['password_confirmation'] = $password;
+
+        // Send a POST request to the store method with the user data
+        $response = $this->actingAs($admin)->post(route('users.store'), $userData);
+
+        // Assert that the response has a 201 status code
+        $response->assertStatus(201);
+
+        // Assert that the response contains the created user data
+        $response->assertJsonFragment(['name' => $userData['name']]);
+        $response->assertJsonFragment(['email' => $userData['email']]);
+    }
+
     public function test_update_user()
     {
         $admin = User::factory()->create();

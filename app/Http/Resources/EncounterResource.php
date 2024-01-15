@@ -13,9 +13,7 @@ class EncounterResource extends FhirResource
      */
     public function toArray(Request $request): array
     {
-        $encounter = $this->getData('encounter');
-
-        $data = $this->resourceStructure($encounter);
+        $data = $this->resourceStructure($this);
 
         $data = $this->removeEmptyValues($data);
 

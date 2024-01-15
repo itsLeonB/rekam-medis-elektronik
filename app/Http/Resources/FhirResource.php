@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 
 class FhirResource extends JsonResource
 {
@@ -249,10 +250,10 @@ class FhirResource extends JsonResource
     {
         if (!empty($reference)) {
             return [
-                'reference' => $reference->reference,
-                'type' => $reference->type,
+                'reference' => $reference['reference'] ?? null,
+                'type' => $reference['type'] ?? null,
                 'identifier' => $this->createIdentifierResource($reference->identifier),
-                'display' => $reference->display,
+                'display' => $reference['display'] ?? null,
             ];
         } else {
             return null;
@@ -462,7 +463,7 @@ class FhirResource extends JsonResource
      */
     public function getData($resourceType)
     {
-        $data = $this->resource ? $this->resource->$resourceType->first() : null;
+        $data = $this->resource ? $this->resource->$resourceType : null;
 
         if ($data == null) {
             throw new ModelNotFoundException('Data tidak ditemukan');

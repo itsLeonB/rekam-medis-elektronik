@@ -71,126 +71,156 @@ class DummyDataSeeder extends Seeder
     public function run(): void
     {
         DB::transaction(function () {
-            $processor = new Processor();
+            $this->seedOnboarding();
 
-            $files = Storage::disk('onboarding-resource')->files();
-
-            // foreach ($files as $f) {
-            //     $resText = Storage::disk('onboarding-resource')->get($f);
-            //     list($resType, $satusehatId) = explode('-', $f, 2);
-            //     list($satusehatId, $ext) = explode('.', $satusehatId, 2);
-
-            //     switch ($resType) {
-            //         case 'Organization':
-            //             $org = Resource::create([
-            //                 'satusehat_id' => config('app.organization_id'),
-            //                 'res_type' => $resType
-            //             ]);
-
-            //             $org->content()->create([
-            //                 'res_text' => $resText,
-            //                 'res_ver' => 1
-            //             ]);
-
-            //             $resText = json_decode($resText, true);
-            //             $orgData = $processor->generateOrganization($resText);
-            //             $orgData = $this->removeEmptyValues($orgData);
-            //             $processor->saveOrganization($org, $orgData);
-            //             $org->save();
-
-            //             break;
-            //         case 'Location':
-            //             $loc = Resource::create([
-            //                 'satusehat_id' => 'mock-location',
-            //                 'res_type' => $resType
-            //             ]);
-
-            //             $loc->content()->create([
-            //                 'res_text' => $resText,
-            //                 'res_ver' => 1
-            //             ]);
-
-            //             $resText = json_decode($resText, true);
-            //             $locData = $processor->generateLocation($resText);
-            //             $locData = $this->removeEmptyValues($locData);
-            //             $processor->saveLocation($loc, $locData);
-            //             $loc->save();
-
-            //             break;
-            //         case 'Practitioner':
-            //             $prac = Resource::create([
-            //                 'satusehat_id' => 'rsum',
-            //                 'res_type' => $resType
-            //             ]);
-
-            //             $prac->content()->create([
-            //                 'res_text' => $resText,
-            //                 'res_ver' => 1
-            //             ]);
-
-            //             $resText = json_decode($resText, true);
-            //             $pracData = $processor->generatePractitioner($resText);
-            //             $pracData = $this->removeEmptyValues($pracData);
-            //             $processor->savePractitioner($prac, $pracData);
-            //             $prac->save();
-
-            //             break;
-            //         case 'Medication':
-            //             $med = Resource::create([
-            //                 'satusehat_id' => 'mock-medication',
-            //                 'res_type' => $resType
-            //             ]);
-
-            //             $med->content()->create([
-            //                 'res_text' => $resText,
-            //                 'res_ver' => 1
-            //             ]);
-
-            //             $resText = json_decode($resText, true);
-            //             $medData = $processor->generateMedication($resText);
-            //             $medData = $this->removeEmptyValues($medData);
-            //             $processor->saveMedication($med, $medData);
-            //             $med->save();
-
-            //             break;
-            //     }
-            // }
-
-            for ($i = 0; $i < 17; $i++) {
-                $patient = $this->dummyPatient();
-                $patientId = $patient->resource->satusehat_id;
-                $encounter = $this->dummyEncounter($patientId);
-                $encounterId = $encounter->resource->satusehat_id;
-
-                for ($j = 1; $j <= 5; $j++) {
-                    $conditionId = $this->dummyCondition($patientId, $encounterId);
-                    $diagnosis = EncounterDiagnosis::factory()->for($encounter, 'encounter')->create(['rank' => $j]);
-                    Reference::factory()->for($diagnosis, 'referenceable')->create([
-                        'reference' => 'Condition/' . $conditionId,
-                        'attr_type' => 'condition'
-                    ]);
-                    $this->fakeCodeableConcept($diagnosis, 'encounterDiagnosisUse', 'use');
-                }
-
-                $this->dummyObservation($patientId, $encounterId);
-                $this->dummyProcedure($patientId, $encounterId);
-                $this->dummyMedicationRequest($patientId, $encounterId);
-                $this->dummyMedicationRequest($patientId);
-                $this->dummyComposition($patientId, $encounterId);
-                $this->dummyComposition($patientId);
-                $this->dummyAllergyIntolerance($patientId, $encounterId);
-                $this->dummyAllergyIntolerance($patientId);
-                $this->dummyClinicalImpression($patientId, $encounterId);
-                $serviceRequest = $this->dummyServiceRequest($patientId, $encounterId);
-                Reference::factory()->for($encounter, 'referenceable')->create([
-                    'reference' => 'ServiceRequest/' . $serviceRequest->resource->satusehat_id,
-                    'attr_type' => 'basedOn'
-                ]);
-                $this->dummyQuestionnaireResponse($patientId, $encounterId);
+            for ($i = 0; $i < 20; $i++) {
+                $this->makeDummies();
             }
 
             User::factory()->count(50)->create();
         });
+    }
+
+    public function seedOnboarding()
+    {
+        $processor = new Processor();
+
+        $files = Storage::disk('onboarding-resource')->files();
+
+        foreach ($files as $f) {
+            $resText = Storage::disk('onboarding-resource')->get($f);
+            list($resType, $satusehatId) = explode('-', $f, 2);
+            list($satusehatId, $ext) = explode('.', $satusehatId, 2);
+
+            switch ($resType) {
+                case 'Organization':
+                    $org = Resource::create([
+                        'satusehat_id' => config('app.organization_id'),
+                        'res_type' => $resType
+                    ]);
+
+                    $org->content()->create([
+                        'res_text' => $resText,
+                        'res_ver' => 1
+                    ]);
+
+                    $resText = json_decode($resText, true);
+                    $orgData = $processor->generateOrganization($resText);
+                    $orgData = $this->removeEmptyValues($orgData);
+                    $processor->saveOrganization($org, $orgData);
+                    $org->save();
+
+                    break;
+                case 'Location':
+                    $loc = Resource::create([
+                        'satusehat_id' => 'mock-location',
+                        'res_type' => $resType
+                    ]);
+
+                    $loc->content()->create([
+                        'res_text' => $resText,
+                        'res_ver' => 1
+                    ]);
+
+                    $resText = json_decode($resText, true);
+                    $locData = $processor->generateLocation($resText);
+                    $locData = $this->removeEmptyValues($locData);
+                    $processor->saveLocation($loc, $locData);
+                    $loc->save();
+
+                    break;
+                case 'Practitioner':
+                    $prac = Resource::create([
+                        'satusehat_id' => 'rsum',
+                        'res_type' => $resType
+                    ]);
+
+                    $prac->content()->create([
+                        'res_text' => $resText,
+                        'res_ver' => 1
+                    ]);
+
+                    $resText = json_decode($resText, true);
+                    $pracData = $processor->generatePractitioner($resText);
+                    $pracData = $this->removeEmptyValues($pracData);
+                    $processor->savePractitioner($prac, $pracData);
+                    $prac->save();
+
+                    break;
+                case 'Medication':
+                    $med = Resource::create([
+                        'satusehat_id' => 'mock-medication',
+                        'res_type' => $resType
+                    ]);
+
+                    $med->content()->create([
+                        'res_text' => $resText,
+                        'res_ver' => 1
+                    ]);
+
+                    $resText = json_decode($resText, true);
+                    $medData = $processor->generateMedication($resText);
+                    $medData = $this->removeEmptyValues($medData);
+                    $processor->saveMedication($med, $medData);
+                    $med->save();
+
+                    break;
+            }
+        }
+    }
+
+    public function makeDummies(bool $forTest = false, bool $patientEncounterOnly = false)
+    {
+        $patient = $this->dummyPatient();
+        $patientId = $patient->resource->satusehat_id;
+        $encounter = $this->dummyEncounter($patientId);
+
+        if ($patientEncounterOnly) {
+            return [$patient, $encounter];
+        }
+
+        $encounterId = $encounter->resource->satusehat_id;
+
+        if ($forTest) {
+            $conditionId = $this->dummyCondition($patientId, $encounterId);
+            $diagnosis = EncounterDiagnosis::factory()->for($encounter, 'encounter')->create(['rank' => 1]);
+            Reference::factory()->for($diagnosis, 'referenceable')->create([
+                'reference' => 'Condition/' . $conditionId,
+                'attr_type' => 'condition'
+            ]);
+            $this->fakeCodeableConcept($diagnosis, 'encounterDiagnosisUse', 'use');
+        } else {
+            for ($j = 1; $j <= 5; $j++) {
+                $conditionId = $this->dummyCondition($patientId, $encounterId);
+                $diagnosis = EncounterDiagnosis::factory()->for($encounter, 'encounter')->create(['rank' => $j]);
+                Reference::factory()->for($diagnosis, 'referenceable')->create([
+                    'reference' => 'Condition/' . $conditionId,
+                    'attr_type' => 'condition'
+                ]);
+                $this->fakeCodeableConcept($diagnosis, 'encounterDiagnosisUse', 'use');
+            }
+        }
+
+        $observationId = $this->dummyObservation($patientId, $encounterId);
+        $procedureId = $this->dummyProcedure($patientId, $encounterId);
+        $encMedReqId = $this->dummyMedicationRequest($patientId, $encounterId);
+        $patMedReqId = $this->dummyMedicationRequest($patientId);
+        $encCompId = $this->dummyComposition($patientId, $encounterId);
+        $patCompId = $this->dummyComposition($patientId);
+        $encAllergyId = $this->dummyAllergyIntolerance($patientId, $encounterId);
+        $patAllergyId = $this->dummyAllergyIntolerance($patientId);
+        $clinicId = $this->dummyClinicalImpression($patientId, $encounterId);
+        $serviceRequest = $this->dummyServiceRequest($patientId, $encounterId);
+        Reference::factory()->for($encounter, 'referenceable')->create([
+            'reference' => 'ServiceRequest/' . $serviceRequest->resource->satusehat_id,
+            'attr_type' => 'basedOn'
+        ]);
+        $encMedStateId = $this->dummyMedicationStatement($patientId, $encounterId);
+        $patMedStateId = $this->dummyMedicationStatement($patientId);
+        $encQuestionId = $this->dummyQuestionnaireResponse($patientId, $encounterId);
+        $patQuestionId = $this->dummyQuestionnaireResponse($patientId);
+
+        return [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $serviceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId];
     }
 
     private function dummyQuestionnaireResponse($patientId, $encounterId = null)
@@ -220,6 +250,8 @@ class DummyDataSeeder extends Seeder
         $item = QuestionnaireResponseItem::factory()->for($questionResp, 'parent')->create();
         $item = QuestionnaireResponseItem::factory()->for($answer, 'parent')->create();
         $answer = QuestionnaireResponseItemAnswer::factory()->for($item, 'parentItem')->create();
+
+        return $questionResp->resource->satusehat_id;
     }
 
     private function dummyMedicationStatement($patientId, $encounterId = null)
@@ -248,6 +280,8 @@ class DummyDataSeeder extends Seeder
         $this->fakeCodeableConcept($medState, 'icd10', 'reasonCode');
         $this->fakeNote($medState);
         $this->fakeDosage($medState, 'dosage');
+
+        return $medState->resource->satusehat_id;
     }
 
     private function dummyEncounter($patientId)
@@ -273,6 +307,7 @@ class DummyDataSeeder extends Seeder
             Coding::factory()->encounterClass()->for($encClassHistory, 'codeable')->create(['attr_type' => 'class']);
         }
 
+        $this->fakeCodeableConcept($encounter, 'encounterServiceType', 'serviceType');
         $this->fakeCodeableConcept($encounter, 'encounterPriority', 'priority');
 
         Reference::factory()->for($encounter, 'referenceable')->create([
@@ -375,6 +410,8 @@ class DummyDataSeeder extends Seeder
 
         $this->fakeCodeableConcept($clinicalImpression, 'prognosis', 'prognosisCodeableConcept');
         $this->fakeNote($clinicalImpression);
+
+        return $clinicalImpression->resource->satusehat_id;
     }
 
     private function dummyAllergyIntolerance($patientId, $encounterId = null)
@@ -408,6 +445,8 @@ class DummyDataSeeder extends Seeder
         $this->fakeCodeableConcept($reaction, 'allergyReactionManifestation', 'manifestation');
         $this->fakeCodeableConcept($reaction, 'allergyReactionExposureRoute', 'exposureRoute');
         $this->fakeNote($reaction);
+
+        return $allergy->resource->satusehat_id;
     }
 
     private function dummyComposition($patientId, $encounterId = null)
@@ -460,6 +499,8 @@ class DummyDataSeeder extends Seeder
         Narrative::factory()->for($section, 'narrateable')->create(['attr_type' => 'text']);
         $this->fakeCodeableConcept($section, 'compositionSectionOrderedBy', 'orderedBy');
         $this->fakeCodeableConcept($section, 'compositionSectionEmptyReason', 'emptyReason');
+
+        return $composition->resource->satusehat_id;
     }
 
     private function dummyMedicationRequest($patientId, $encounterId = null)
@@ -514,6 +555,8 @@ class DummyDataSeeder extends Seeder
 
         $subs = MedicationRequestSubstitution::factory()->for($medReq, 'medicationRequest')->create();
         $this->fakeCodeableConcept($subs, 'substitutionReason', 'reason');
+
+        return $medReq->resource->satusehat_id;
     }
 
     private function dummyProcedure($patientId, $encounterId)
@@ -560,6 +603,8 @@ class DummyDataSeeder extends Seeder
         $this->fakeCodeableConcept($procedure, 'icd10', 'complication');
         $this->fakeCodeableConcept($procedure, 'procedureFollowUp', 'followUp');
         $this->fakeNote($procedure);
+
+        return $procedure->resource->satusehat_id;
     }
 
     private function fakeDosage($parent, $attribute)
@@ -612,6 +657,8 @@ class DummyDataSeeder extends Seeder
         $this->fakeCodeableConcept($observation, 'observationInterpretation', 'interpretation');
         $this->fakeNote($observation);
         $this->fakeCodeableConcept($observation, 'snomedBodySite', 'bodySite');
+
+        return $observation->resource->satusehat_id;
     }
 
     private function dummyCondition($patientId, $encounterId)
@@ -659,8 +706,6 @@ class DummyDataSeeder extends Seeder
 
         $isChild = [true, false];
         $isChild = fake()->randomElement($isChild);
-
-        Identifier::factory()->rekamMedis()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
 
         if ($isChild) {
             Identifier::factory()->nikIbu()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);

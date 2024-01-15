@@ -360,7 +360,7 @@ class SatusehatController extends Controller
         $lastUpdated = Carbon::parse($satusehatResponseBody['meta']['lastUpdated'])->setTimezone(config('app.timezone'));
 
         if ($lastUpdated->gt($resourceUpdatedAt)) {
-            $request = HttpRequest::create(route($resourceType . '.update', ['satusehat_id' => $resourceId]), 'PUT', $satusehatResponseBody);
+            $request = HttpRequest::create(route('local.' . $resourceType . '.update', ['satusehat_id' => $resourceId]), 'PUT', $satusehatResponseBody);
             $response = app()->handle($request);
             return $response;
         } else {
@@ -375,7 +375,7 @@ class SatusehatController extends Controller
         if ($this->checkIfResourceExistsInLocal($resourceType, $resourceId)) {
             return $this->updateResourceIfNewer($resourceType, $resourceId, $resource);
         } else {
-            $request = HttpRequest::create(route($resourceType . '.store'), 'POST', $resource);
+            $request = HttpRequest::create(route('local.' . $resourceType . '.store'), 'POST', $resource);
             return app()->handle($request);
         }
     }

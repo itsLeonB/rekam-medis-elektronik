@@ -108,13 +108,14 @@ class IntegrationTest extends TestCase
         $data = $this->getExampleData('organization');
         $data['id'] = '5fe612fe-eb92-4034-9337-7ad60ab15b94';
         unset($data['meta']);
+        unset($data['identifier']);
 
         $headers = [
             'Content-Type' => 'application/json'
         ];
         $this->json('POST', route('organization.store'), $data, $headers);
 
-        $this->put(
+        $response = $this->put(
             route('satusehat.resource.update', ['res_type' => 'organization', 'res_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']),
             $data
         );
