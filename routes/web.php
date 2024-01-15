@@ -96,8 +96,15 @@ Route::middleware('auth')->group(function () {
 
     // Endpoint untuk View Daftar pasien
     Route::group(['prefix' => 'daftar-pasien', 'as' => 'daftar-pasien.'], function () {
-        // Daftar pasien rawat jalan, serviceType per poli
-        Route::get('/rawat-jalan/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatJalan'])->name('rawat-jalan');
+        // Daftar pasien rawat jalan
+        Route::middleware('permission:akses poli umum')->get('/rawat-jalan/umum', [DaftarPasienController::class, 'getDaftarPoliUmum'])->name('rawat-jalan.umum');
+        Route::middleware('permission:akses poli neurologi')->get('/rawat-jalan/neurologi', [DaftarPasienController::class, 'getDaftarPoliNeurologi'])->name('rawat-jalan.neurologi');
+        Route::middleware('permission:akses poli obgyn')->get('/rawat-jalan/obgyn', [DaftarPasienController::class, 'getDaftarPoliObgyn'])->name('rawat-jalan.obgyn');
+        Route::middleware('permission:akses poli gigi')->get('/rawat-jalan/gigi', [DaftarPasienController::class, 'getDaftarPoliGigi'])->name('rawat-jalan.gigi');
+        Route::middleware('permission:akses poli kulit')->get('/rawat-jalan/kulit', [DaftarPasienController::class, 'getDaftarPoliKulit'])->name('rawat-jalan.kulit');
+        Route::middleware('permission:akses poli penyakit dalam')->get('/rawat-jalan/dalam', [DaftarPasienController::class, 'getDaftarPoliDalam'])->name('rawat-jalan.dalam');
+        Route::middleware('permission:akses poli bedah')->get('/rawat-jalan/bedah', [DaftarPasienController::class, 'getDaftarPoliBedah'])->name('rawat-jalan.bedah');
+        Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
         // Daftar pasien rawat inap, serviceType per ruangan
         Route::get('/rawat-inap/{serviceType}', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
         // Daftar pasien IGD
@@ -119,7 +126,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Endpoint untuk User Management
-    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+    Route::group(['middleware' => 'permission:akses user management', 'prefix' => 'users', 'as' => 'users.'], function () {
         // Daftar user
         Route::get('/', [UserManagementController::class, 'index'])->name('index');
         // Detail user
