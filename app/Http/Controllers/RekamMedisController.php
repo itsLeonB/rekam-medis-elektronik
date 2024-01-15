@@ -75,32 +75,32 @@ class RekamMedisController extends Controller
         $formattedPatients = $patients->map(function ($patient) {
             $latestEncounter = $this->getLatestEncounter($patient);
 
-            if (!empty($latestEncounter)) {
-                $class = $latestEncounter->class ? $latestEncounter->class->code : null;
-                $start = $latestEncounter->period ? $this->parseDate($latestEncounter->period->start) : null;
-                $serviceType = $latestEncounter->serviceType ? $latestEncounter->serviceType->coding->first()->code : null;
-            }
+            // if (!empty($latestEncounter)) {
+            //     $class = $latestEncounter->class ? $latestEncounter->class->code : null;
+            //     $start = $latestEncounter->period ? $this->parseDate($latestEncounter->period->start) : null;
+            //     $serviceType = $latestEncounter->serviceType ? $latestEncounter->serviceType->coding->first()->code : null;
+            // }
 
-            if (!empty($patient->name())) {
-                if (!empty($patient->name()->first())) {
-                    $name = $patient->name()->first()->text ?? null;
-                } else {
-                    $name = $patient->name()->latest()->first()->text ?? null;
-                }
-            }
+            // if (!empty($patient->name())) {
+            //     if (!empty($patient->name()->first())) {
+            //         $name = $patient->name()->first()->text ?? null;
+            //     } else {
+            //         $name = $patient->name()->latest()->first()->text ?? null;
+            //     }
+            // }
 
             return [
-                'satusehatId' => $patient->resource->satusehat_id,
+                'satusehatId' => data_get($patient, 'resource.satusehat_id'),//$patient->resource->satusehat_id,
                 'nik' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik'))->value('value') ?? null,
                 'nik-ibu' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik-ibu'))->value('value') ?? null,
                 'paspor' => $patient->identifier()->where('system', config('app.identifier_systems.patient.paspor'))->value('value') ?? null,
                 'kk' => $patient->identifier()->where('system', config('app.identifier_systems.patient.kk'))->value('value') ?? null,
                 'rekam-medis' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->value('value'),
                 'ihs-number' => $patient->identifier()->where('system', config('app.identifier_systems.patient.ihs-number'))->value('value') ?? null,
-                'name' => $name ?? null,
-                'class' => $class ?? null,
-                'start' => $start ?? null,
-                'serviceType' => $serviceType ?? null
+                'name' => data_get($patient, 'name.0.text'),//$name ?? null,
+                'class' => data_get($latestEncounter, 'class.code'),//$class ?? null,
+                'start' => $this->parseDate(data_get($latestEncounter, 'period.start')),//$start ?? null,
+                'serviceType' => data_get($latestEncounter, 'serviceType.coding.0.code')//$serviceType ?? null
             ];
         });
 
@@ -278,6 +278,10 @@ class RekamMedisController extends Controller
 
     public function parseDate($date)
     {
+        if (empty($date)) {
+            return null;
+        }
+
         $date = new DateTime($date);
         $date = $date->setTimezone(new DateTimeZone(config('app.timezone')))->format('Y-m-d\TH:i:sP');
 

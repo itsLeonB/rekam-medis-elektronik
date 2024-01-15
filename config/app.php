@@ -577,6 +577,14 @@ return [
         ],
         'DoseAndRate' => [
             'type' => Valuesets::DoseAndRateType,
+            'dose' => [
+                Codesystems::UCUM,
+                Valuesets::MedicationIngredientStrengthDenominator
+            ],
+            'rate' => [
+                Codesystems::UCUM,
+                Valuesets::MedicationIngredientStrengthDenominator
+            ]
         ],
         'Duration' => [
             'comparator' => Valuesets::Comparators,
