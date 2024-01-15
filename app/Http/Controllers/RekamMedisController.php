@@ -64,7 +64,8 @@ class RekamMedisController extends Controller
         foreach (array_keys(config('app.identifier_systems.patient')) as $idSystem) {
             if ($request->query($idSystem)) {
                 $patients = $patients->whereHas('identifier', function ($query) use ($request, $idSystem) {
-                    $query->where('system', config('app.identifier_systems.patient.' . $idSystem))->where('value', $request->query($idSystem));
+                    $query->where('system', config('app.identifier_systems.patient.' . $idSystem))
+                    ->where('value', 'like', '%' . addcslashes($request->query($idSystem), '%_') . '%');
                 });
             }
         }
