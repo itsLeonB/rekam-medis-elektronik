@@ -206,6 +206,18 @@ return [
     'client_secret' => env('client_secret'),
     'organization_id' => env('organization_id'),
 
+    'kode_poli' => [
+        'umum' => 124,
+        'neurologi' => 177,
+        'obgyn' => 186,
+        'gigi' => 88,
+        'kulit' => 168,
+        'ortopedi' => 218,
+        'dalam' => 557,
+        'bedah' => 221,
+        'anak' => 286
+    ],
+
     'identifier_systems' => [
         'patient' => [
             'nik' => 'https://fhir.kemkes.go.id/id/nik',

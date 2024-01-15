@@ -132,9 +132,15 @@ class RekamMedisController extends Controller
                 $query->where('reference', 'Patient/' . $patient->resource->satusehat_id);
             })
             ->orderByDesc('periods.start')
-            ->first()->resource->satusehat_id;
+            ->first();
 
-        $enc = Resource::where('satusehat_id', $enc)->first()->encounter;
+        if (!empty($enc)) {
+            $enc = $enc->resource->satusehat_id;
+            $enc = Resource::where('satusehat_id', $enc)->first()->encounter;
+        } else {
+            $enc = null;
+        }
+
 
         return $enc;
     }
@@ -192,7 +198,6 @@ class RekamMedisController extends Controller
                 'questionnaireResponses' => $this->getEncounterRelatedData(QuestionnaireResponse::class, $encSatusehatId, 'encounter', QuestionnaireResponseResource::class),
             ];
         });
-
 
         $data['additionalData'] = [
             'medicationRequests' => $this->getPatientRelatedData(MedicationRequest::class, $patientId, 'subject', 'encounter', MedicationRequestResource::class),

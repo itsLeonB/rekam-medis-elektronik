@@ -16,6 +16,7 @@ class UserManagementTest extends TestCase
     public function test_index_users()
     {
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
         // Create some users
         User::factory()->count(3)->unverified()->create();
 
@@ -32,6 +33,8 @@ class UserManagementTest extends TestCase
     public function test_index_user_with_query()
     {
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
         // Create some users
         $users = User::factory()->count(3)->unverified()->create();
 
@@ -48,6 +51,7 @@ class UserManagementTest extends TestCase
     public function test_show_user()
     {
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
 
         // Create a user
         $user = User::factory()->unverified()->has(Practitioner::factory(), 'practitionerUser')->create();
@@ -70,6 +74,7 @@ class UserManagementTest extends TestCase
     public function test_create_new_user()
     {
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
 
         // Create a new user data
         $user = User::factory()->unverified()->make();
@@ -77,6 +82,7 @@ class UserManagementTest extends TestCase
         $password = fake()->password(8);
         $userData['password'] = $password;
         $userData['password_confirmation'] = $password;
+        $userData['role'] = 'perekammedis';
 
         $practitioner = Practitioner::factory()->create();
         $userData['practitioner_id'] = $practitioner->resource->satusehat_id;
@@ -95,6 +101,7 @@ class UserManagementTest extends TestCase
     public function test_create_user_non_practitioner()
     {
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
 
         // Create a new user data
         $user = User::factory()->unverified()->make();
@@ -102,6 +109,7 @@ class UserManagementTest extends TestCase
         $password = fake()->password(8);
         $userData['password'] = $password;
         $userData['password_confirmation'] = $password;
+        $userData['role'] = 'admin';
 
         // Send a POST request to the store method with the user data
         $response = $this->actingAs($admin)->post(route('users.store'), $userData);
@@ -117,10 +125,10 @@ class UserManagementTest extends TestCase
     public function test_update_user()
     {
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
 
         // Create a user
         $user = User::factory()->create();
-        $practitioner = Practitioner::factory()->create();
 
         $password = fake()->password(8);
 
@@ -130,7 +138,7 @@ class UserManagementTest extends TestCase
             'email' => fake()->email(),
             'password' => $password,
             'password_confirmation' => $password,
-            'practitioner_id' => $practitioner->resource->satusehat_id
+            'role' => 'perekammedis'
         ];
 
         // Send a PUT request to the update method with the user id and updated user data
@@ -153,6 +161,7 @@ class UserManagementTest extends TestCase
     public function test_delete_user()
     {
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
 
         // Create a user
         $user = User::factory()->create();
@@ -171,6 +180,7 @@ class UserManagementTest extends TestCase
     {
         // Create a user
         $admin = User::factory()->create();
+        $admin->assignRole('admin');
 
         // Send a DELETE request to the delete method with the user id
         $response = $this->actingAs($admin)->delete(route('users.destroy', ['user_id' => $admin->id]));

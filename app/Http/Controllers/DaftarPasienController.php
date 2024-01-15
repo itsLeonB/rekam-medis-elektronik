@@ -13,17 +13,8 @@ class DaftarPasienController extends Controller
 {
     const ENDED_STATUS = ['finished', 'cancelled', 'entered-in-error', 'unknown'];
 
-    public function getDaftarRawatJalan(int $serviceType)
+    private function mapEncounters($encounters)
     {
-        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
-            ->whereHas('class', function ($query) {
-                $query->where('code', 'AMB');
-            })
-            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
-                $query->where('code', $serviceType);
-            })
-            ->get();
-
         $daftarPasien = $encounters->map(function ($encounter) {
             $patientId = explode('/', $encounter->subject->reference)[1];
             $patient = Resource::where([
@@ -56,6 +47,83 @@ class DaftarPasienController extends Controller
         });
 
         return $daftarPasien;
+    }
+
+    private function getEncounters(string $class, int $serviceType)
+    {
+        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
+            ->whereHas('class', function ($query) use ($class) {
+                $query->where('code', $class);
+            })
+            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
+                $query->where('code', $serviceType);
+            })
+            ->get();
+
+        return $encounters;
+    }
+
+    public function getDaftarPoliUmum()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.umum'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliNeurologi()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.neurologi'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliObgyn()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.obgyn'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliGigi()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.gigi'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliKulit()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.kulit'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliOrtopedi()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.ortopedi'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliDalam()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.dalam'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliBedah()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.bedah'));
+
+        return $this->mapEncounters($encounters);
+    }
+
+    public function getDaftarPoliAnak()
+    {
+        $encounters = $this->getEncounters('AMB', config('app.kode_poli.anak'));
+
+        return $this->mapEncounters($encounters);
     }
 
     public function getDaftarRawatInap(int $serviceType)

@@ -108,6 +108,9 @@ class AppServiceProvider extends ServiceProvider
 
         Relation::enforceMorphMap(
             array_merge(
+                [
+                    'User' => 'App\Models\User',
+                ],
                 $fhirResources,
                 $fhirDatatypes,
                 $fhirBackboneElements

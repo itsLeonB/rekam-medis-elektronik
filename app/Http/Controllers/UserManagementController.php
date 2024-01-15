@@ -69,6 +69,7 @@ class UserManagementController extends Controller
                 $pracRes = new PractitionerResource($practitioner->resource);
             }
 
+            $user->assignRole($request->input('role'));
 
             DB::commit();
 
@@ -101,6 +102,8 @@ class UserManagementController extends Controller
             ];
 
             $user->update($updateData);
+
+            $user->syncRoles($request->input('role'));
 
             DB::commit();
 
