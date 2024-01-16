@@ -206,6 +206,16 @@ return [
     'client_secret' => env('client_secret'),
     'organization_id' => env('organization_id'),
 
+    'rawat_jalan_org_id' => env('rawat_jalan_org_id'),
+    'rawat_inap_org_id' => env('rawat_inap_org_id'),
+    'igd_org_id' => env('igd_org_id'),
+
+    'kode_layanan' => [
+        'rawat-jalan' => 'AMB',
+        'rawat-inap' => 'IMP',
+        'igd' => 'EMER',
+    ],
+
     'kode_poli' => [
         'umum' => 124,
         'neurologi' => 177,

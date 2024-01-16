@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DaftarPasienController;
+use App\Http\Controllers\EncounterFormController;
 use App\Http\Controllers\Fhir\AllergyIntoleranceController;
 use App\Http\Controllers\Fhir\ClinicalImpressionController;
 use App\Http\Controllers\Fhir\CompositionController;
@@ -73,7 +74,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // APIs
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
     // Endpoint untuk Integrasi SATUSEHAT
     Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
         // Get resource dan simpan local
@@ -124,6 +125,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
         // Jumlah pasien yang pernah dirawat berdasarkan usia
         Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
+    });
+
+    // Endpoint untuk Formulir Perawatan
+    Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
+        // Daftar nakes
+        Route::get('/daftar/practitioner', [EncounterFormController::class, 'indexPractitioner'])->name('index.encounter');
+        // Daftar ruangan/bed
+        Route::get('/daftar/location', [EncounterFormController::class, 'indexLocation'])->name('index.location');
+        // Reference Organization per layanan = rawat-jalan | rawat-inap | igd
+        Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
     });
 
     // Endpoint untuk User Management
@@ -317,6 +328,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('questionnaireresponse.store');
         Route::put('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
     });
-});
+// });
 
 require __DIR__ . '/auth.php';

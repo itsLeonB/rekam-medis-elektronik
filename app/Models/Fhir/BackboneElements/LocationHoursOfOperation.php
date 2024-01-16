@@ -5,10 +5,13 @@ namespace App\Models\Fhir\BackboneElements;
 use App\Fhir\Valuesets;
 use App\Models\FhirModel;
 use App\Models\Fhir\Resources\Location;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LocationHoursOfOperation extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'location_operation_hours';
 
     protected $casts = [

@@ -51,11 +51,13 @@ class DaftarPasienController extends Controller
 
             return [
                 'encounter_satusehat_id' => data_get($encounter, 'resource.satusehat_id'),
+                'patient_satusehat_id' => $patientId,
                 'patient_name' => data_get($patient, 'name.0.text'),
                 'patient_identifier' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->first()->value ?? null,
                 'period_start' => $this->parseDate(data_get($encounter, 'period.start')),
                 'encounter_status' => $encounter->status,
-                'encounter_practitioner' => data_get($practitioner, 'name.0.text'),
+                'practitioner_id' => $practitionerId,
+                'practitioner_name' => data_get($practitioner, 'name.0.text'),
                 'procedure' => data_get($procedure, 'code.coding.0.display'),
                 'location' => data_get($location, 'location.name'),
             ];

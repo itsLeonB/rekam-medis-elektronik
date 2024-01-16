@@ -11,6 +11,7 @@ use App\Models\Fhir\Datatypes\{
     HumanName,
 };
 use App\Models\Fhir\Resources\Organization;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     MorphMany,
@@ -19,6 +20,8 @@ use Illuminate\Database\Eloquent\Relations\{
 
 class OrganizationContact extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'organization_contact';
 
     public $timestamps = false;

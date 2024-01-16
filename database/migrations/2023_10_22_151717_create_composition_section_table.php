@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('composition_id')->nullable();
             $table->index('composition_id');
-            $table->foreign('composition_id')->references('id')->on('composition');
+            $table->foreign('composition_id')->references('id')->on('composition')->onDelete('cascade');
             $table->unsignedBigInteger('parent_id')->nullable();
             $table->index('parent_id');
-            $table->foreign('parent_id')->references('id')->on('composition_section');
+            $table->foreign('parent_id')->references('id')->on('composition_section')->onDelete('cascade');
             $table->string('title')->nullable();
             $table->enum('mode', ['working', 'snapshot', 'changes'])->nullable();
         });

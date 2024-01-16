@@ -2,8 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Http\Resources\PatientResource;
-use App\Models\Fhir\Resource;
 use App\Models\User;
 use Database\Seeders\DummyDataSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -22,10 +20,10 @@ class RekamMedisTest extends TestCase
         $seeder->seedOnboarding();
 
         if ($patientEncounterOnly) {
-            return $seeder->makeDummies(true, true);
+            return $seeder->makeDummies(true, true, 1);
         }
 
-        return $seeder->makeDummies(true);
+        return $seeder->makeDummies(true, false, 1);
     }
 
     private function assertFragment($response, $patient, $encounter)

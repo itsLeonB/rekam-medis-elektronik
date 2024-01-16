@@ -13,6 +13,7 @@ use App\Models\Fhir\Datatypes\{
     Identifier,
     Reference
 };
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     HasMany,
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Relations\{
 
 class Organization extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'organization';
 
     protected $casts = [
