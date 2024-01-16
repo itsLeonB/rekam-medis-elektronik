@@ -39,8 +39,7 @@ class DatabaseSeeder extends Seeder
         $aksesPoliAnak = Permission::create(['name' => 'akses poli anak']);
         $aksesUserManagement = Permission::create(['name' => 'akses user management']);
 
-        // Assign permissions to roles
-        // $admin->givePermissionTo($aksesPoliUmum, $aksesPoliNeurologi, $aksesPoliObgyn, $aksesPoliGigi, $aksesPoliKulit, $aksesPoliOrtopedi, $aksesPoliPenyakitDalam, $aksesPoliBedah, $aksesPoliAnak, $aksesUserManagement);
+        // Assign permissions to roles. Note: admin tidak perlu diassign karena sudah memiliki semua permission
         $perekammedis->givePermissionTo($aksesPoliUmum, $aksesPoliNeurologi, $aksesPoliObgyn, $aksesPoliGigi, $aksesPoliKulit, $aksesPoliOrtopedi, $aksesPoliPenyakitDalam, $aksesPoliBedah, $aksesPoliAnak);
         $poliUmum->givePermissionTo($aksesPoliUmum);
         $poliNeurologi->givePermissionTo($aksesPoliNeurologi);

@@ -14,12 +14,12 @@ class SeederTest extends TestCase
     /**
      * A basic feature test example.
      */
-    // public function test_id_fhir_seeder(): void
-    // {
-    //     $seeder = new IdFhirResourceSeeder();
-    //     $seeder->run();
-    //     $this->assertTrue(true);
-    // }
+    public function test_id_fhir_seeder(): void
+    {
+        $seeder = new IdFhirResourceSeeder();
+        $seeder->run();
+        $this->assertTrue(true);
+    }
 
     public function test_dummy_seeder(): void
     {

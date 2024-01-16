@@ -42,13 +42,6 @@ class DaftarPasienController extends Controller
                 $query->where('reference', 'Encounter/' . $encounterId);
             })->first();
 
-            $locationRef = data_get($encounter, 'location.0.location.reference');
-            $locationId = explode('/', $locationRef)[1];
-            $location = Resource::where([
-                ['res_type', 'Location'],
-                ['satusehat_id', $locationId]
-            ])->first();
-
             return [
                 'encounter_satusehat_id' => data_get($encounter, 'resource.satusehat_id'),
                 'patient_satusehat_id' => $patientId,
