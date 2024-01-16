@@ -51,20 +51,62 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', function () {
         return Inertia::render('Dashboard');
     })->name('home.index');
+});
+
+# Rawat Jalan
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rawat-jalan', function () {
         return Inertia::render('RawatJalan/RawatJalan');
     })->name('rawatjalan');
+    Route::get('/rawat-jalan/daftar', function () {
+        return Inertia::render('RawatJalan/DaftarRawatJalan');
+    })->name('rawatjalan.daftar');
+});
+
+
+
+# Rawat Inap
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rawat-inap', function () {
         return Inertia::render('RawatInap/RawatInap');
     })->name('rawatinap');
-    Route::get('/rekam-medis', function () {
+    Route::get('/rawat-inap/daftar', function () {
+        return Inertia::render('RawatInap/DaftarRawatInap');
+    })->name('rawatinap.daftar');
+    Route::get('/rawat-inap/details/{encounter_satusehat_id}', function ($encounter_satusehat_id) {
+        return Inertia::render('RawatInap/RawatInapDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
+    })->name('rawatinap.details');
+});
+
+
+# Gawat Darurat
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/gawat-darurat', function () {
+        return Inertia::render('GawatDarurat/GawatDarurat');
+    })->name('gawatdarurat');
+});
+
+# Rekam Medis
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/rekam-medis-pasien', function () {
         return Inertia::render('RekamMedis/RekamMedis');
     })->name('rekammedis');
+});
+
+# User Management
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user-management', function () {
         return Inertia::render('UserManagement/UserManagement');
     })->name('usermanagement');
+    Route::get('/user-management/details/{user_id}', function ($user_id) {
+        return Inertia::render('UserManagement/UserDetails', ['user_id' => $user_id]);
+    })->name('usermanagement.details');
+    Route::get('/user-management/tambah-user', function () {
+        return Inertia::render('UserManagement/TambahUser');
+    })->name('usermanagement.tambah');
 });
 
+# Profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

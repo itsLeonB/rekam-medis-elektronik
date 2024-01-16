@@ -1,3 +1,3 @@
 <template>
-    <img src="storage/images/logo-rsum.png">
+    <img :src="'/storage/images/logo-rsum.png'">
 </template>
