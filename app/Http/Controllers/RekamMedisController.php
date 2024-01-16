@@ -65,7 +65,7 @@ class RekamMedisController extends Controller
             if ($request->query($idSystem)) {
                 $patients = $patients->whereHas('identifier', function ($query) use ($request, $idSystem) {
                     $query->where('system', config('app.identifier_systems.patient.' . $idSystem))
-                    ->where('value', 'like', '%' . addcslashes($request->query($idSystem), '%_') . '%');
+                        ->where('value', 'like', '%' . addcslashes($request->query($idSystem), '%_') . '%');
                 });
             }
         }
@@ -75,36 +75,22 @@ class RekamMedisController extends Controller
         $formattedPatients = $patients->map(function ($patient) {
             $latestEncounter = $this->getLatestEncounter($patient);
 
-            if (!empty($latestEncounter)) {
-                $class = $latestEncounter->class ? $latestEncounter->class->code : null;
-                $start = $latestEncounter->period ? $this->parseDate($latestEncounter->period->start) : null;
-                $serviceType = $latestEncounter->serviceType ? $latestEncounter->serviceType->coding->first()->code : null;
-            }
-
-            if (!empty($patient->name())) {
-                if (!empty($patient->name()->first())) {
-                    $name = $patient->name()->first()->text ?? null;
-                } else {
-                    $name = $patient->name()->latest()->first()->text ?? null;
-                }
-            }
-
             return [
-                'satusehatId' => $patient->resource->satusehat_id,
+                'satusehatId' => data_get($patient, 'resource.satusehat_id'),
                 'nik' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik'))->value('value') ?? null,
                 'nik-ibu' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik-ibu'))->value('value') ?? null,
                 'paspor' => $patient->identifier()->where('system', config('app.identifier_systems.patient.paspor'))->value('value') ?? null,
                 'kk' => $patient->identifier()->where('system', config('app.identifier_systems.patient.kk'))->value('value') ?? null,
                 'rekam-medis' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->value('value'),
                 'ihs-number' => $patient->identifier()->where('system', config('app.identifier_systems.patient.ihs-number'))->value('value') ?? null,
-                'name' => $name ?? null,
-                'class' => $class ?? null,
-                'start' => $start ?? null,
-                'serviceType' => $serviceType ?? null
+                'name' => data_get($patient, 'name.0.text'),
+                'class' => data_get($latestEncounter, 'class.code'),
+                'start' => $this->parseDate(data_get($latestEncounter, 'period.start')),
+                'serviceType' => data_get($latestEncounter, 'serviceType.coding.0.code')
             ];
         });
 
-        return response()->json([
+        return [
             'rekam_medis' => [
                 'current_page' => $patients->currentPage(),
                 'data' => $formattedPatients,
@@ -120,7 +106,7 @@ class RekamMedisController extends Controller
                 'to' => $patients->lastItem(),
                 'total' => $patients->total(),
             ],
-        ]);
+        ];
     }
 
     private function getLatestEncounter($patient)
@@ -278,6 +264,10 @@ class RekamMedisController extends Controller
 
     public function parseDate($date)
     {
+        if (empty($date)) {
+            return null;
+        }
+
         $date = new DateTime($date);
         $date = $date->setTimezone(new DateTimeZone(config('app.timezone')))->format('Y-m-d\TH:i:sP');
 

@@ -11,6 +11,7 @@ use App\Models\Fhir\BackboneElements\ConditionStage;
 use App\Models\Fhir\BackboneElements\EncounterDiagnosis;
 use App\Models\Fhir\BackboneElements\EncounterHospitalization;
 use App\Models\Fhir\BackboneElements\EncounterParticipant;
+use App\Models\Fhir\BackboneElements\OrganizationContact;
 use App\Models\Fhir\BackboneElements\PatientCommunication;
 use App\Models\Fhir\BackboneElements\PatientContact;
 use App\Models\Fhir\BackboneElements\ProcedureFocalDevice;
@@ -23,9 +24,11 @@ use App\Models\Fhir\Resources\ClinicalImpression;
 use App\Models\Fhir\Resources\Composition;
 use App\Models\Fhir\Resources\Condition;
 use App\Models\Fhir\Resources\Encounter;
+use App\Models\Fhir\Resources\Location;
 use App\Models\Fhir\Resources\MedicationRequest;
 use App\Models\Fhir\Resources\MedicationStatement;
 use App\Models\Fhir\Resources\Observation;
+use App\Models\Fhir\Resources\Organization;
 use App\Models\Fhir\Resources\Patient;
 use App\Models\Fhir\Resources\Procedure;
 use App\Models\Fhir\Resources\ServiceRequest;
@@ -47,6 +50,72 @@ class CodingFactory extends Factory
         return [
             'user_selected' => fake()->boolean(),
         ];
+    }
+
+    public function locationServiceClass(): self
+    {
+        $code = fake()->randomElement(Location::SERVICE_CLASS['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Location::SERVICE_CLASS['binding']['valueset']['system'][$code],
+            'code' => $code,
+            'display' => Location::SERVICE_CLASS['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function locationPhysicalType(): self
+    {
+        $code = fake()->randomElement(Location::PHYSICAL_TYPE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Location::PHYSICAL_TYPE['binding']['valueset']['system'][$code],
+            'code' => $code,
+            'display' => Location::PHYSICAL_TYPE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function locationType(): self
+    {
+        $code = fake()->randomElement(Location::TYPE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Location::TYPE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Location::TYPE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function locationOperationalStatus(): self
+    {
+        $code = fake()->randomElement(Location::OPERATIONAL_STATUS['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Location::OPERATIONAL_STATUS['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Location::OPERATIONAL_STATUS['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function organizationContactPurpose(): self
+    {
+        $code = fake()->randomElement(OrganizationContact::PURPOSE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => OrganizationContact::PURPOSE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => OrganizationContact::PURPOSE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function organizationType(): self
+    {
+        $code = fake()->randomElement(Organization::TYPE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Organization::TYPE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Organization::TYPE['binding']['valueset']['display'][$code],
+        ]);
     }
 
     public function medicationStatementCategory(): self
@@ -683,9 +752,10 @@ class CodingFactory extends Factory
         ]);
     }
 
-    public function encounterClass(): self
+    public function encounterClass(int $pos): self
     {
-        $code = fake()->randomElement(['AMB', 'IMP', 'EMER']);
+        $codes = ['AMB', 'IMP', 'EMER'];
+        $code = $codes[$pos];
 
         return $this->state(fn (array $attributes) => [
             'system' => Encounter::ENC_CLASS['binding']['valueset']['system'],

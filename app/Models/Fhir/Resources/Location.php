@@ -18,6 +18,7 @@ use App\Models\Fhir\Datatypes\{
     Identifier,
     Reference
 };
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\{
     BelongsTo,
     HasMany,
@@ -28,6 +29,8 @@ use Illuminate\Database\Eloquent\Relations\{
 
 class Location extends FhirModel
 {
+    use HasFactory;
+
     protected $table = 'location';
 
     protected $casts = ['alias' => 'array'];
@@ -135,6 +138,7 @@ class Location extends FhirModel
     ];
 
     public const SERVICE_CLASS = [
+        'url' => 'https://fhir.kemkes.go.id/r4/StructureDefinition/LocationServiceClass',
         'binding' => [
             'valueset' => Codesystems::LocationServiceClass
         ]

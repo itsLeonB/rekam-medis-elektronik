@@ -2,15 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\Http\Controllers\DaftarPasienController;
-use App\Models\Fhir\Datatypes\CodeableConcept;
-use App\Models\Fhir\Datatypes\Coding;
-use App\Models\Fhir\Datatypes\HumanName;
-use App\Models\Fhir\Datatypes\Identifier;
-use App\Models\Fhir\Datatypes\Period;
-use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resources\Encounter;
-use App\Models\Fhir\Resources\Patient;
+use App\Models\User;
+use Database\Seeders\DummyDataSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
@@ -20,141 +14,145 @@ class DaftarPasienTest extends TestCase
     use DatabaseTransactions;
     use WithoutModelEvents;
 
-    private function fakePatientAndEncounter(int $count)
+    private function setUpTestData(bool $patientEncounterOnly = true)
     {
-        $patients = [];
-        $encounters = [];
+        $seeder = new DummyDataSeeder();
 
-        for ($i = 0; $i < $count; $i++) {
-            $patient = Patient::factory()->create();
+        $seeder->seedOnboarding();
 
-            HumanName::factory()
-                ->for($patient, 'humanNameable')
-                ->create(['attr_type' => 'name']);
-
-            Identifier::factory()
-                ->rekamMedis()
-                ->for($patient, 'identifiable')
-                ->create(['attr_type' => 'identifier']);
-
-            $encounter = Encounter::factory()->create();
-
-            CodeableConcept::factory()
-                ->for($encounter, 'codeable')
-                ->has(Coding::factory()->encounterClass(), 'coding')
-                ->create(['attr_type' => 'class']);
-
-            CodeableConcept::factory()
-                ->for($encounter, 'codeable')
-                ->has(Coding::factory()->encounterServiceType(), 'coding')
-                ->create(['attr_type' => 'serviceType']);
-
-            Period::factory()
-                ->for($encounter, 'periodable')
-                ->create();
-
-            Reference::factory()
-                ->for($encounter, 'referenceable')
-                ->create([
-                    'reference' => 'Patient/' . $patient->resource->satusehat_id,
-                    'attr_type' => 'subject'
-                ]);
-
-            $patients[] = $patient;
-            $encounters[] = $encounter;
+        if ($patientEncounterOnly) {
+            return $seeder->makeDummies(true, true, 1);
         }
 
-        return [$patients, $encounters];
+        return $seeder->makeDummies(true, false, 1);
     }
 
-    public function test_get_daftar_rawat_jalan()
+    private function assertCreated($layanan, $poli = null)
     {
-        $count = fake()->numberBetween(1, 10);
-        [$patients, $encounters] = $this->fakePatientAndEncounter($count);
+        $encCount = Encounter::whereHas('class', function ($query) use ($layanan) {
+            $query->where('code', config('app.kode_layanan.' . $layanan));
+        });
 
-        $serviceType = $encounters[0]->serviceType->coding->first()->code;
-        $encCount = Encounter::whereHas('class', function ($query) {
-            $query->where('code', 'AMB');
-        })
-            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
-                $query->where('code', $serviceType);
-            })->count();
+        if ($poli) {
+            $encCount = $encCount->whereHas('serviceType.coding', function ($query) use ($poli) {
+                $query->where('code', config('app.kode_poli.' . $poli));
+            });
+        } elseif ($layanan == 'rawat-inap') {
+            $encCount = $encCount->whereHas('serviceType.coding', function ($query) use ($poli) {
+                $query->where('code', 124);
+            });
+        }
 
-        $response = $this->get(route('daftar-pasien.rawat-jalan', ['serviceType' => $serviceType]));
+        $encCount = $encCount->count();
+
+        $route = 'daftar-pasien.' . $layanan;
+
+        if ($poli) {
+            $route .= '.';
+            $route .= $poli;
+        }
+
+        $admin = User::factory()->create();
+        $admin->assignRole('admin');
+
+        if ($layanan == 'rawat-inap') {
+            $response = $this->actingAs($admin)->get(route($route, ['serviceType' => 124]));
+        } else {
+            $response = $this->actingAs($admin)->get(route($route));
+        }
 
         $response->assertStatus(200);
-        $response->assertJsonCount($encCount, 'daftar_pasien');
+        $response->assertJsonCount($encCount);
         $response->assertJsonStructure([
-            'daftar_pasien' => [
-                '*' => [
-                    'encounter_satusehat_id',
-                    'patient_name',
-                    'patient_identifier',
-                    'period_start',
-                    'encounter_status',
-                    'encounter_practitioner',
-                    'procedure'
-                ]
+            '*' => [
+                'encounter_satusehat_id',
+                'patient_satusehat_id',
+                'patient_name',
+                'patient_identifier',
+                'period_start',
+                'encounter_status',
+                'practitioner_id',
+                'practitioner_name',
+                'procedure',
+                'location'
             ]
         ]);
+    }
+
+    public function test_get_daftar_rawat_jalan_umum()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'umum');
+    }
+
+    public function test_get_daftar_rawat_jalan_neurologi()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'neurologi');
+    }
+
+    public function test_get_daftar_rawat_jalan_obgyn()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'obgyn');
+    }
+
+    public function test_get_daftar_rawat_jalan_gigi()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'gigi');
+    }
+
+    public function test_get_daftar_rawat_jalan_kulit()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'kulit');
+    }
+
+    public function test_get_daftar_rawat_jalan_ortopedi()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'ortopedi');
+    }
+
+    public function test_get_daftar_rawat_jalan_dalam()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'dalam');
+    }
+
+    public function test_get_daftar_rawat_jalan_bedah()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'bedah');
+    }
+
+    public function test_get_daftar_rawat_jalan_anak()
+    {
+        $this->setUpTestData(false);
+
+        $this->assertCreated('rawat-jalan', 'anak');
     }
 
     public function test_get_daftar_rawat_inap()
     {
-        $count = fake()->numberBetween(1, 10);
-        [$patients, $encounters] = $this->fakePatientAndEncounter($count);
+        $this->setUpTestData(false);
 
-        $serviceType = $encounters[0]->serviceType->coding->first()->code;
-        $encCount = Encounter::whereHas('class', function ($query) {
-            $query->where('code', 'IMP');
-        })
-            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
-                $query->where('code', $serviceType);
-            })->count();
-
-        $response = $this->get(route('daftar-pasien.rawat-inap', ['serviceType' => $serviceType]));
-
-        $response->assertStatus(200);
-        $response->assertJsonCount($encCount, 'daftar_pasien');
-        $response->assertJsonStructure([
-            'daftar_pasien' => [
-                '*' => [
-                    'encounter_satusehat_id',
-                    'patient_name',
-                    'patient_identifier',
-                    'period_start',
-                    'encounter_status',
-                    'encounter_practitioner',
-                    'procedure'
-                ]
-            ]
-        ]);
+        $this->assertCreated('rawat-inap');
     }
 
     public function test_get_daftar_igd()
     {
-        $count = fake()->numberBetween(1, 10);
-        [$patients, $encounters] = $this->fakePatientAndEncounter($count);
+        $this->setUpTestData(false);
 
-        $encCount = Encounter::whereHas('class', function ($query) {
-            $query->where('code', 'EMER');
-        })->count();
-
-        $response = $this->get(route('daftar-pasien.igd'));
-
-        $response->assertStatus(200);
-        $response->assertJsonCount($encCount, 'daftar_pasien');
-        $response->assertJsonStructure([
-            'daftar_pasien' => [
-                '*' => [
-                    'encounter_satusehat_id',
-                    'patient_name',
-                    'patient_identifier',
-                    'period_start',
-                    'encounter_practitioner',
-                    'location'
-                ]
-            ]
-        ]);
+        $this->assertCreated('igd');
     }
 }

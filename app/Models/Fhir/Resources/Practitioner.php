@@ -38,7 +38,7 @@ class Practitioner extends FhirModel
 
     public function resource(): BelongsTo
     {
-        return $this->belongsTo(Resource::class);
+        return $this->belongsTo(Resource::class, 'resource_id');
     }
 
     public function identifier(): MorphMany

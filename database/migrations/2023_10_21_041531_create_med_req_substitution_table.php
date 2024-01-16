@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('med_req_id');
             $table->index('med_req_id');
-            $table->foreign('med_req_id')->references('id')->on('medication_request');
+            $table->foreign('med_req_id')->references('id')->on('medication_request')->onDelete('cascade');
             $table->boolean('allowed_boolean')->nullable();
         });
     }

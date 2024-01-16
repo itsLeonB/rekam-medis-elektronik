@@ -53,6 +53,7 @@ use App\Models\Fhir\Resources\Medication;
 use App\Models\Fhir\Resources\MedicationRequest;
 use App\Models\Fhir\Resources\MedicationStatement;
 use App\Models\Fhir\Resources\Observation;
+use App\Models\Fhir\Resources\Organization;
 use App\Models\Fhir\Resources\Patient;
 use App\Models\Fhir\Resources\Practitioner;
 use App\Models\Fhir\Resources\Procedure;
@@ -73,8 +74,12 @@ class DummyDataSeeder extends Seeder
         DB::transaction(function () {
             $this->seedOnboarding();
 
-            for ($i = 0; $i < 20; $i++) {
-                $this->makeDummies();
+            Organization::factory()->rawatJalan()->create();
+            Organization::factory()->rawatInap()->create();
+            Organization::factory()->igd()->create();
+
+            for ($i = 0; $i < 10; $i++) {
+                $this->makeDummies(false, false, $i);
             }
 
             User::factory()->count(50)->create();
@@ -169,11 +174,15 @@ class DummyDataSeeder extends Seeder
         }
     }
 
-    public function makeDummies(bool $forTest = false, bool $patientEncounterOnly = false)
+    public function makeDummies(bool $forTest = false, bool $patientEncounterOnly = false, int $count)
     {
         $patient = $this->dummyPatient();
         $patientId = $patient->resource->satusehat_id;
-        $encounter = $this->dummyEncounter($patientId);
+
+        $location = Location::factory()->create();
+        $locationId = $location->resource->satusehat_id;
+
+        $encounter = $this->dummyEncounter($patientId, $locationId, $count % 3);
 
         if ($patientEncounterOnly) {
             return [$patient, $encounter];
@@ -284,7 +293,7 @@ class DummyDataSeeder extends Seeder
         return $medState->resource->satusehat_id;
     }
 
-    private function dummyEncounter($patientId)
+    private function dummyEncounter($patientId, $locationId, int $pos)
     {
         $practitioner = Resource::where('res_type', 'Practitioner')->inRandomOrder()->first();
 
@@ -297,14 +306,14 @@ class DummyDataSeeder extends Seeder
                 ->create();
         }
 
-        Coding::factory()->encounterClass()->for($encounter, 'codeable')->create(['attr_type' => 'class']);
+        Coding::factory()->encounterClass($pos)->for($encounter, 'codeable')->create(['attr_type' => 'class']);
 
         for ($i = 0, $iMax = rand(1, 3); $i < $iMax; $i++) {
             $encClassHistory = EncounterClassHistory::factory()
                 ->for($encounter, 'encounter')
                 ->has(Period::factory(), 'period')
                 ->create();
-            Coding::factory()->encounterClass()->for($encClassHistory, 'codeable')->create(['attr_type' => 'class']);
+            Coding::factory()->encounterClass($pos)->for($encClassHistory, 'codeable')->create(['attr_type' => 'class']);
         }
 
         $this->fakeCodeableConcept($encounter, 'encounterServiceType', 'serviceType');
@@ -335,15 +344,25 @@ class DummyDataSeeder extends Seeder
         $this->fakeCodeableConcept($encHosp, 'specialArrangement', 'specialArrangement');
         $this->fakeCodeableConcept($encHosp, 'dischargeDisposition', 'dischargeDisposition');
 
-        $locId = Resource::where('res_type', 'Location')->inRandomOrder()->first()->satusehat_id;
         $loc = EncounterLocation::factory()->for($encounter, 'encounter')->create();
         Reference::factory()->for($loc, 'referenceable')->create([
-            'reference' => 'Location/' . $locId,
+            'reference' => 'Location/' . $locationId,
             'attr_type' => 'location'
         ]);
 
+        switch ($encounter->class->code) {
+            case 'AMB':
+                $orgId = config('app.rawat_jalan_org_id');
+                break;
+            case 'IMP':
+                $orgId = config('app.rawat_inap_org_id');
+                break;
+            case 'EMER':
+                $orgId = config('app.igd_org_id');
+                break;
+        }
         Reference::factory()->for($encounter, 'referenceable')->create([
-            'reference' => 'Organization/' . config('app.organization_id'),
+            'reference' => 'Organization/' . $orgId,
             'attr_type' => 'serviceProvider'
         ]);
 
