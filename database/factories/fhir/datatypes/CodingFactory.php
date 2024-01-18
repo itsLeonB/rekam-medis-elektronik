@@ -69,7 +69,7 @@ class CodingFactory extends Factory
         $code = fake()->randomElement(Medication::FORM['binding']['valueset']['code']);
 
         return $this->state(fn (array $attributes) => [
-            'system' => Medication::CODE['binding']['valueset']['system'],
+            'system' => Medication::FORM['binding']['valueset']['system'],
             'code' => $code,
             'display' => Medication::FORM['binding']['valueset']['display'][$code],
         ]);

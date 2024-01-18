@@ -11,9 +11,6 @@ use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Medication;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
- */
 class MedicationFactory extends Factory
 {
     /**
