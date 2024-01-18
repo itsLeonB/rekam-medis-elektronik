@@ -25,6 +25,7 @@ use App\Models\Fhir\Resources\Composition;
 use App\Models\Fhir\Resources\Condition;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\Fhir\Resources\Location;
+use App\Models\Fhir\Resources\Medication;
 use App\Models\Fhir\Resources\MedicationRequest;
 use App\Models\Fhir\Resources\MedicationStatement;
 use App\Models\Fhir\Resources\Observation;
@@ -50,6 +51,28 @@ class CodingFactory extends Factory
         return [
             'user_selected' => fake()->boolean(),
         ];
+    }
+
+    public function medicationType(): self
+    {
+        $code = fake()->randomElement(Medication::MEDICATION_TYPE['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Medication::MEDICATION_TYPE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Medication::MEDICATION_TYPE['binding']['valueset']['display'][$code],
+        ]);
+    }
+
+    public function medicationForm(): self
+    {
+        $code = fake()->randomElement(Medication::FORM['binding']['valueset']['code']);
+
+        return $this->state(fn (array $attributes) => [
+            'system' => Medication::CODE['binding']['valueset']['system'],
+            'code' => $code,
+            'display' => Medication::FORM['binding']['valueset']['display'][$code],
+        ]);
     }
 
     public function locationServiceClass(): self

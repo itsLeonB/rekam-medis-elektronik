@@ -12,6 +12,7 @@ use App\Models\Fhir\Datatypes\Ratio;
 use App\Models\Fhir\Datatypes\Reference;
 use App\Models\Fhir\Resource;
 use App\Models\FhirModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -21,6 +22,8 @@ use Illuminate\Support\Str;
 
 class Medication extends FhirModel
 {
+    use HasFactory;
+
     protected static function boot()
     {
         parent::boot();

@@ -2,20 +2,19 @@
 
 namespace Tests\Unit;
 
-use App\Models\Fhir\Datatypes\CodeableConcept;
-use App\Models\Fhir\Datatypes\Coding;
-use App\Models\Fhir\Datatypes\Extension;
 use App\Models\Fhir\Datatypes\HumanName;
-use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Resources\Location;
+use App\Models\Fhir\Resources\Medication;
 use App\Models\Fhir\Resources\Organization;
 use App\Models\Fhir\Resources\Practitioner;
 use App\Models\User;
-use League\CommonMark\Extension\CommonMark\Node\Inline\Code;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class EncounterFormTest extends TestCase
 {
+    use DatabaseTransactions;
+
     public function test_index_practitioner()
     {
         $user = User::factory()->create();
@@ -95,5 +94,43 @@ class EncounterFormTest extends TestCase
                 'display' => data_get($organization, 'name')
             ]);
         }
+    }
+
+    public function test_index_medication()
+    {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
+        $count = fake()->numberBetween(1, 10);
+
+        for ($i = 0; $i < $count; $i++) {
+            Medication::factory()->create();
+        }
+
+        $response = $this->actingAs($user)->get(route('form.index.medication'));
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => [
+                    'satusehat_id',
+                    'code' => [
+                        'system',
+                        'code',
+                        'display',
+                    ],
+                    'form' => [
+                        'system',
+                        'code',
+                        'display',
+                    ],
+                    'medicationType' => [
+                        'system',
+                        'code',
+                        'display',
+                    ],
+                ]
+            ]
+        ]);
     }
 }
