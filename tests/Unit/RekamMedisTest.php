@@ -117,4 +117,134 @@ class RekamMedisTest extends TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
     }
+
+    public function test_get_condition()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.condition', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['*' => ['resourceType', 'id']],
+        ]);
+    }
+
+    public function test_get_observation()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.observation', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure(
+            ['*' => ['resourceType', 'id']]
+        );
+    }
+
+    public function test_get_procedure()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.procedure', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
+
+    public function test_get_medication_request()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.medicationrequest', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
+
+    public function test_get_composition()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.composition', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
+
+    public function test_get_allergy_intolerance()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.allergyintolerance', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
+
+    public function test_get_clinical_impression()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.clinicalimpression', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
+
+    public function test_get_service_request()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.servicerequest', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
+
+    public function test_get_medication_statement()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId, $medicationStatementId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encMedStateId, $patMedStateId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.medicationstatement', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
+
+    public function test_get_questionnaire_response()
+    {
+        $user = User::factory()->create();
+
+        [$patient, $encounter, $conditionId, $observationId, $procedureId,, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+
+        $response = $this->actingAs($user)->get(route('kunjungan.questionnaireresponse', $encounter->resource->satusehat_id));
+
+        $response->assertJsonStructure([
+            '*' => ['resourceType', 'id']
+        ]);
+    }
 }
