@@ -10,7 +10,7 @@ class Coding extends FhirModel
 {
     use HasFactory;
 
-    protected $casts = ['userSelected' => 'boolean'];
+    protected $casts = ['user_selected' => 'boolean'];
 
     public function codeable(): MorphTo
     {

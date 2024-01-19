@@ -24,7 +24,7 @@ class EncounterResource extends FhirResource
     {
         return [
             'resourceType' => 'Encounter',
-            'id' => $this->satusehat_id,
+            'id' => data_get($encounter, 'resource.satusehat_id'),
             'identifier' => $this->createMany($encounter->identifier, 'createIdentifierResource'),
             'status' => $encounter->status,
             'statusHistory' => $this->createMany($encounter->statusHistory, 'createStatusHistoryResource'),

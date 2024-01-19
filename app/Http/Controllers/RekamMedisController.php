@@ -154,6 +154,36 @@ class RekamMedisController extends Controller
         });
     }
 
+    public function getConditionData($encounterId)
+    {
+        $arr = [
+            'diagnosis' => [],
+            'asesmen-harian' => [],
+            'lainnya' => [],
+        ];
+
+        $conditions = Condition::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $conditions->groupBy(function ($condition) {
+            $category = data_get($condition, 'category.0.coding.0.code');
+            $code = data_get($condition, 'code.coding.0.system');
+
+            if ($category == 'encounter-diagnosis' && $code == 'http://hl7.org/fhir/sid/icd-10') {
+                return 'diagnosis';
+            } elseif ($category == 'encounter-diagnosis' && $code == 'http://snomed.info/sct') {
+                return 'asesmen-harian';
+            } else {
+                return 'lainnya';
+            }
+        })->map(function ($conditions, $category) {
+            return $conditions->map(function ($condition) {
+                return new ConditionResource($condition->resource);
+            });
+        });
+    }
+
     public function show($patientId)
     {
         $patient = Resource::where('satusehat_id', $patientId)->where('res_type', 'Patient')->firstOrFail();
@@ -173,7 +203,7 @@ class RekamMedisController extends Controller
 
             return [
                 'encounter' => new EncounterResource($encounter),
-                'conditions' => $this->getEncounterRelatedData(Condition::class, $encSatusehatId, 'encounter', ConditionResource::class),
+                'conditions' => $this->getConditionData($encSatusehatId),
                 'observations' => $this->getEncounterRelatedData(Observation::class, $encSatusehatId, 'encounter', ObservationResource::class),
                 'procedures' => $this->getEncounterRelatedData(Procedure::class, $encSatusehatId, 'encounter', ProcedureResource::class),
                 'medicationRequests' => $this->getEncounterRelatedData(MedicationRequest::class, $encSatusehatId, 'encounter', MedicationRequestResource::class),
@@ -195,6 +225,105 @@ class RekamMedisController extends Controller
         ];
 
         return $data;
+    }
+
+    public function getObservationData($encounterId)
+    {
+        $observations = Observation::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $observations->map(function ($observation) {
+            return new ObservationResource($observation->resource);
+        });
+    }
+
+    public function getProcedureData($encounterId)
+    {
+        $procedures = Procedure::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $procedures->map(function ($procedure) {
+            return new ProcedureResource($procedure->resource);
+        });
+    }
+
+    public function getMedicationRequestData($encounterId)
+    {
+        $medicationRequests = MedicationRequest::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $medicationRequests->map(function ($medicationRequest) {
+            return new MedicationRequestResource($medicationRequest->resource);
+        });
+    }
+
+    public function getCompositionData($encounterId)
+    {
+        $compositions = Composition::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $compositions->map(function ($composition) {
+            return new CompositionResource($composition->resource);
+        });
+    }
+
+    public function getAllergyIntoleranceData($encounterId)
+    {
+        $allergyIntolerances = AllergyIntolerance::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $allergyIntolerances->map(function ($allergyIntolerance) {
+            return new AllergyIntoleranceResource($allergyIntolerance->resource);
+        });
+    }
+
+    public function getClinicalImpressionData($encounterId)
+    {
+        $clinicalImpressions = ClinicalImpression::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $clinicalImpressions->map(function ($clinicalImpression) {
+            return new ClinicalImpressionResource($clinicalImpression->resource);
+        });
+    }
+
+    public function getServiceRequestData($encounterId)
+    {
+        $serviceRequests = ServiceRequest::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $serviceRequests->map(function ($serviceRequest) {
+            return new ServiceRequestResource($serviceRequest->resource);
+        });
+    }
+
+    public function getMedicationStatementData($encounterId)
+    {
+        $medicationStatements = MedicationStatement::whereHas('context', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $medicationStatements->map(function ($medicationStatement) {
+            return new MedicationStatementResource($medicationStatement->resource);
+        });
+    }
+
+    public function getQuestionnaireResponseData($encounterId)
+    {
+        $questionnaireResponses = QuestionnaireResponse::whereHas('encounter', function ($query) use ($encounterId) {
+            $query->where('reference', 'Encounter/' . $encounterId);
+        })->get();
+
+        return $questionnaireResponses->map(function ($questionnaireResponse) {
+            return new QuestionnaireResponseResource($questionnaireResponse->resource);
+        });
     }
 
     public function getData($patientId)

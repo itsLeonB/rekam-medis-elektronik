@@ -116,7 +116,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // APIs
-// Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
     // Endpoint untuk Integrasi SATUSEHAT
     Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
         // Get resource dan simpan local
@@ -179,6 +179,20 @@ Route::middleware('auth')->group(function () {
         Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
         // Daftar medication
         Route::get('/daftar/medication', [EncounterFormController::class, 'indexMedication'])->name('index.medication');
+    });
+
+    // Endpoint untuk Data Kunjungan Pasien
+    Route::group(['prefix' => 'kunjungan', 'as' => 'kunjungan.'], function () {
+        Route::get('/condition/{encounter_satusehat_id}', [RekamMedisController::class, 'getConditionData'])->name('condition');
+        Route::get('/observation/{encounter_satusehat_id}', [RekamMedisController::class, 'getObservationData'])->name('observation');
+        Route::get('/procedure/{encounter_satusehat_id}', [RekamMedisController::class, 'getProcedureData'])->name('procedure');
+        Route::get('/medicationrequest/{encounter_satusehat_id}', [RekamMedisController::class, 'getMedicationRequestData'])->name('medicationrequest');
+        Route::get('/composition/{encounter_satusehat_id}', [RekamMedisController::class, 'getCompositionData'])->name('composition');
+        Route::get('/allergyintolerance/{encounter_satusehat_id}', [RekamMedisController::class, 'getAllergyIntoleranceData'])->name('allergyintolerance');
+        Route::get('/clinicalimpression/{encounter_satusehat_id}', [RekamMedisController::class, 'getClinicalImpressionData'])->name('clinicalimpression');
+        Route::get('/servicerequest/{encounter_satusehat_id}', [RekamMedisController::class, 'getServiceRequestData'])->name('servicerequest');
+        Route::get('/medicationstatement/{encounter_satusehat_id}', [RekamMedisController::class, 'getMedicationStatementData'])->name('medicationstatement');
+        Route::get('/questionnaireresponse/{encounter_satusehat_id}', [RekamMedisController::class, 'getQuestionnaireResponseData'])->name('questionnaireresponse');
     });
 
     // Endpoint untuk User Management
@@ -372,6 +386,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('questionnaireresponse.store');
         Route::put('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
     });
-// });
+});
 
 require __DIR__ . '/auth.php';
