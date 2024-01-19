@@ -24,7 +24,7 @@ class EncounterController extends FhirController
                 ->json(new EncounterResource(Resource::where([
                     ['res_type', self::RESOURCE_TYPE],
                     ['satusehat_id', $satusehat_id]
-                ])->firstOrFail()), 200);
+                ])->firstOrFail()->encounter), 200);
         } catch (ModelNotFoundException $e) {
             Log::error('Model error: ' . $e->getMessage());
             return response()->json(['error' => 'Data tidak ditemukan.'], 404);
