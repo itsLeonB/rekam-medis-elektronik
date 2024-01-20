@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use App\Fhir\Satusehat;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\SatusehatController;
 use App\Models\Fhir\Resource;
@@ -46,7 +45,7 @@ class IntegrationTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $this->json('POST', route('organization.store'), $data, $headers);
+        $this->json('POST', route('local.organization.store'), $data, $headers);
 
         $data['meta']['lastUpdated'] = now()->addDay()->toDateTimeString();
 
@@ -96,7 +95,7 @@ class IntegrationTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $this->json('POST', route('organization.store'), $data, $headers);
+        $this->json('POST', route('local.organization.store'), $data, $headers);
 
         $response = $this->json('GET', route('integration.show', ['res_type' => 'organization', 'satusehat_id' => $data['id']]));
 
@@ -113,7 +112,7 @@ class IntegrationTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $this->json('POST', route('organization.store'), $data, $headers);
+        $this->json('POST', route('local.organization.store'), $data, $headers);
 
         $response = $this->put(
             route('satusehat.resource.update', ['res_type' => 'organization', 'res_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']),
@@ -171,7 +170,7 @@ class IntegrationTest extends TestCase
 
         $this->json(
             'POST',
-            route('organization.store'),
+            route('local.organization.store'),
             $data
         );
 

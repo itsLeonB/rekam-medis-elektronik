@@ -21,7 +21,12 @@ class UserManagementController extends Controller
 
         $users = User::when($name, function ($query) use ($name) {
             return $query->where('name', 'like', '%' . addcslashes($name, '%_') . '%');
-        })->paginate(15)->withQueryString();
+        })
+            ->whereDoesntHave('roles', function ($query) {
+                $query->where('name', 'admin');
+            })
+            ->paginate(15)
+            ->withQueryString();
 
         return response()->json(['users' => $users], 200);
     }

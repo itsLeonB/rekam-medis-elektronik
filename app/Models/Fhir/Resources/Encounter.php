@@ -30,23 +30,23 @@ class Encounter extends FhirModel
 {
     use HasFactory;
 
-    protected static function boot()
-    {
-        parent::boot();
-        static::created(function ($encounter) {
-            $existingIdentifier = $encounter->identifier()
-                ->where('system', config('app.identifier_systems.encounter'))
-                ->first();
+    // protected static function boot()
+    // {
+    //     parent::boot();
+    //     static::creating(function ($encounter) {
+    //         $existingIdentifier = $encounter->identifier()
+    //             ->where('system', config('app.identifier_systems.encounter'))
+    //             ->first();
 
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.encounter');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $encounter->identifier()->save($identifier);
-            }
-        });
-    }
+    //         if (!$existingIdentifier) {
+    //             $identifier = new Identifier();
+    //             $identifier->system = config('app.identifier_systems.encounter');
+    //             $identifier->use = 'official';
+    //             $identifier->value = Str::uuid();
+    //             $encounter->identifier()->save($identifier);
+    //         }
+    //     });
+    // }
 
     protected $table = 'encounter';
 

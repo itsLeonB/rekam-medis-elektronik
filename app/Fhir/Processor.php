@@ -2,6 +2,22 @@
 
 namespace App\Fhir;
 
+use App\Http\Resources\AllergyIntoleranceResource;
+use App\Http\Resources\ClinicalImpressionResource;
+use App\Http\Resources\CompositionResource;
+use App\Http\Resources\ConditionResource;
+use App\Http\Resources\EncounterResource;
+use App\Http\Resources\LocationResource;
+use App\Http\Resources\MedicationRequestResource;
+use App\Http\Resources\MedicationResource;
+use App\Http\Resources\MedicationStatementResource;
+use App\Http\Resources\ObservationResource;
+use App\Http\Resources\OrganizationResource;
+use App\Http\Resources\PatientResource;
+use App\Http\Resources\PractitionerResource;
+use App\Http\Resources\ProcedureResource;
+use App\Http\Resources\QuestionnaireResponseResource;
+use App\Http\Resources\ServiceRequestResource;
 use App\Models\Fhir\BackboneElements\{
     AllergyIntoleranceReaction,
     ClinicalImpressionFinding,
@@ -86,6 +102,176 @@ use App\Models\Fhir\Resources\{
 
 class Processor
 {
+    public function makeResourceText($savedData, $resType)
+    {
+        switch ($resType) {
+            case 'Organization':
+                return new OrganizationResource($savedData->resource);
+                break;
+            case 'Location':
+                return new LocationResource($savedData->resource);
+                break;
+            case 'Practitioner':
+                return new PractitionerResource($savedData->resource);
+                break;
+            case 'Patient':
+                return new PatientResource($savedData->resource);
+                break;
+            case 'Encounter':
+                return new EncounterResource($savedData);
+                break;
+            case 'Condition':
+                return new ConditionResource($savedData->resource);
+                break;
+            case 'Procedure':
+                return new ProcedureResource($savedData->resource);
+                break;
+            case 'AllergyIntolerance':
+                return new AllergyIntoleranceResource($savedData->resource);
+                break;
+            case 'Medication':
+                return new MedicationResource($savedData->resource);
+                break;
+            case 'MedicationRequest':
+                return new MedicationRequestResource($savedData->resource);
+                break;
+            case 'Observation':
+                return new ObservationResource($savedData->resource);
+                break;
+            case 'ClinicalImpression':
+                return new ClinicalImpressionResource($savedData->resource);
+                break;
+            case 'Composition':
+                return new CompositionResource($savedData->resource);
+                break;
+            case 'QuestionnaireResponse':
+                return new QuestionnaireResponseResource($savedData->resource);
+                break;
+            case 'MedicationStatement':
+                return new MedicationStatementResource($savedData->resource);
+                break;
+            case 'ServiceRequest':
+                return new ServiceRequestResource($savedData->resource);
+                break;
+            default:
+                return null;
+                break;
+        }
+    }
+    public function saveResource(Resource $resource, $array, $resType)
+    {
+        switch ($resType) {
+            case 'Organization':
+                return $this->saveOrganization($resource, $array);
+                break;
+            case 'Location':
+                return $this->saveLocation($resource, $array);
+                break;
+            case 'Practitioner':
+                return $this->savePractitioner($resource, $array);
+                break;
+            case 'Patient':
+                return $this->savePatient($resource, $array);
+                break;
+            case 'Encounter':
+                return $this->saveEncounter($resource, $array);
+                break;
+            case 'Condition':
+                return $this->saveCondition($resource, $array);
+                break;
+            case 'Procedure':
+                return $this->saveProcedure($resource, $array);
+                break;
+            case 'AllergyIntolerance':
+                return $this->saveAllergyIntolerance($resource, $array);
+                break;
+            case 'Medication':
+                return $this->saveMedication($resource, $array);
+                break;
+            case 'MedicationRequest':
+                return $this->saveMedicationRequest($resource, $array);
+                break;
+            case 'Observation':
+                return $this->saveObservation($resource, $array);
+                break;
+            case 'ClinicalImpression':
+                return $this->saveClinicalImpression($resource, $array);
+                break;
+            case 'Composition':
+                return $this->saveComposition($resource, $array);
+                break;
+            case 'QuestionnaireResponse':
+                return $this->saveQuestionnaireResponse($resource, $array);
+                break;
+            case 'MedicationStatement':
+                return $this->saveMedicationStatement($resource, $array);
+                break;
+            case 'ServiceRequest':
+                return $this->saveServiceRequest($resource, $array);
+                break;
+            default:
+                return null;
+                break;
+        }
+    }
+
+    public function generateResource($array, $resType)
+    {
+        switch ($resType) {
+            case 'Organization':
+                return $this->generateOrganization($array);
+                break;
+            case 'Location':
+                return $this->generateLocation($array);
+                break;
+            case 'Practitioner':
+                return $this->generatePractitioner($array);
+                break;
+            case 'Patient':
+                return $this->generatePatient($array);
+                break;
+            case 'Encounter':
+                return $this->generateEncounter($array);
+                break;
+            case 'Condition':
+                return $this->generateCondition($array);
+                break;
+            case 'Procedure':
+                return $this->generateProcedure($array);
+                break;
+            case 'AllergyIntolerance':
+                return $this->generateAllergyIntolerance($array);
+                break;
+            case 'Medication':
+                return $this->generateMedication($array);
+                break;
+            case 'MedicationRequest':
+                return $this->generateMedicationRequest($array);
+                break;
+            case 'Observation':
+                return $this->generateObservation($array);
+                break;
+            case 'ClinicalImpression':
+                return $this->generateClinicalImpression($array);
+                break;
+            case 'Composition':
+                return $this->generateComposition($array);
+                break;
+            case 'QuestionnaireResponse':
+                return $this->generateQuestionnaireResponse($array);
+                break;
+            case 'MedicationStatement':
+                return $this->generateMedicationStatement($array);
+                break;
+            case 'ServiceRequest':
+                return $this->generateServiceRequest($array);
+                break;
+            default:
+                return null;
+                break;
+        }
+    }
+
     public function updateQuestionnaireResponse(Resource $resource, $array): QuestionnaireResponse
     {
         if (!empty($array)) {
