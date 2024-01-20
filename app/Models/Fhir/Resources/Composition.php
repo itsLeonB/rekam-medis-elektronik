@@ -103,25 +103,6 @@ class Composition extends FhirModel
             ->where('url', 'http://hl7.org/fhir/StructureDefinition/composition-status');
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($composition) {
-            $existingIdentifier = $composition->identifier()
-                ->where('system', config('app.identifier_systems.composition'))
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.composition');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $composition->identifier()->save($identifier);
-            }
-        });
-    }
-
     public const STATUS = [
         'binding' => [
             'valueset' => Codesystems::CompositionStatus

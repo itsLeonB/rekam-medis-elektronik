@@ -24,25 +24,6 @@ class ClinicalImpression extends FhirModel
 {
     use HasFactory;
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($clinicalImpression) {
-            $existingIdentifier = $clinicalImpression->identifier()
-                ->where('system', config('app.identifier_systems.clinicalimpression'))
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.clinicalimpression');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $clinicalImpression->identifier()->save($identifier);
-            }
-        });
-    }
-
     protected $table = 'clinical_impression';
 
     protected $casts = [

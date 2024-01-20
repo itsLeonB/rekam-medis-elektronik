@@ -76,26 +76,6 @@ class QuestionnaireResponse extends FhirModel
         return $this->hasMany(QuestionnaireResponseItem::class, 'questionnaire_id');
     }
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($questionnaireResponse) {
-            $existingIdentifier = $questionnaireResponse->identifier()
-                ->where('system', config('app.identifier_systems.questionnaireresponse'))
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.questionnaireresponse');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $questionnaireResponse->identifier()->save($identifier);
-            }
-        });
-    }
-
-
     public const IDENTIFIER = [
         'definition' => 'A business identifier assigned to a particular completed (or partially completed) questionnaire.',
         'cardinality' => '0...1',
