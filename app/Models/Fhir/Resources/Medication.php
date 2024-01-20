@@ -24,25 +24,6 @@ class Medication extends FhirModel
 {
     use HasFactory;
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($medication) {
-            $existingIdentifier = $medication->identifier()
-                ->where('system', config('app.identifier_systems.medication'))
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.medication');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $medication->identifier()->save($identifier);
-            }
-        });
-    }
-
     protected $table = 'medication';
 
     public $timestamps = false;

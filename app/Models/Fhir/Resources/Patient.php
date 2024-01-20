@@ -46,30 +46,6 @@ class Patient extends FhirModel
 
     public $timestamps = false;
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
-
-        static::created(function ($patient) use ($rmeSystem) {
-            $existingIdentifier = $patient->identifier()
-                ->where('system', $rmeSystem)
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = $rmeSystem;
-                $identifier->use = 'official';
-                $highestValue = Identifier::where('system', $rmeSystem)->max('value');
-                $nextValue = $highestValue + 1;
-                $formattedValue = str_pad($nextValue, 6, '0', STR_PAD_LEFT);
-                $identifier->value = $formattedValue;
-                $patient->identifier()->save($identifier);
-            }
-        });
-    }
-
     public function resource(): BelongsTo
     {
         return $this->belongsTo(Resource::class);

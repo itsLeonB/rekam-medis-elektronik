@@ -22,13 +22,15 @@ class UserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = $this->route('user_id');
+
         return [
             'name' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($this->user),
+                Rule::unique('users')->ignore($userId),
             ],
             'password' => 'required|string|confirmed|min:8',
             'practitioner_id' => 'sometimes|string|exists:resource,satusehat_id'

@@ -24,25 +24,6 @@ class Procedure extends FhirModel
 {
     use HasFactory;
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($procedure) {
-            $existingIdentifier = $procedure->identifier()
-                ->where('system', config('app.identifier_systems.procedure'))
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.procedure');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $procedure->identifier()->save($identifier);
-            }
-        });
-    }
-
     protected $table = 'procedure';
     protected $casts = [
         'instantiates_canonical' => 'array',

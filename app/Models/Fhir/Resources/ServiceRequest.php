@@ -25,25 +25,6 @@ class ServiceRequest extends FhirModel
 {
     use HasFactory;
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($serviceRequest) {
-            $existingIdentifier = $serviceRequest->identifier()
-                ->where('system', config('app.identifier_systems.servicerequest'))
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.servicerequest');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $serviceRequest->identifier()->save($identifier);
-            }
-        });
-    }
-
     protected $table = 'service_request';
 
     protected $casts = [

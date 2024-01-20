@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Fhir\Processor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\FhirRequest;
 use App\Models\FailedApiRequest;
+use App\Models\Fhir\Datatypes\Identifier;
 use App\Models\Fhir\Resource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class IntegrationController extends Controller
 {
@@ -83,33 +87,95 @@ class IntegrationController extends Controller
 
     public function store(FhirRequest $request, $res_type)
     {
-        $data = $request->all();
+        DB::beginTransaction();
 
-        if (strtolower($res_type) != strtolower($data['resourceType'])) {
-            Log::error('Resource type mismatch', $res_type, $data['resourceType']);
-            return response()->json(['error' => 'Resource type mismatch'], 400);
-        } else {
-            $satusehatRequest = Request::create(route('satusehat.resource.store', ['res_type' => $res_type]), 'POST', $data);
+        try {
+            $data = $request->all();
+
+            if (strtolower($res_type) != strtolower($data['resourceType'])) {
+                Log::error('Resource type mismatch', $res_type, $data['resourceType']);
+                return response()->json(['error' => 'Resource type mismatch'], 400);
+            }
+
+            $resource = Resource::create(['res_type' => $res_type]);
+
+            $processor = new Processor();
+
+            $data = $processor->generateResource($data, $res_type);
+            $savedData = $processor->saveResource($resource, $data, $res_type);
+
+            $noIdentifiers = ['Organization', 'Location', 'Practitioner'];
+
+            if (!in_array($res_type, $noIdentifiers)) {
+                $resType = strtolower($res_type);
+
+                if ($resType == 'patient') {
+                    $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
+
+                    $existingIdentifier = $savedData->identifier()
+                        ->where('system', $rmeSystem)
+                        ->first();
+
+                    if (!$existingIdentifier) {
+                        $identifier = new Identifier();
+                        $identifier->system = $rmeSystem;
+                        $identifier->use = 'official';
+                        $highestValue = Identifier::where('system', $rmeSystem)->max('value');
+                        $nextValue = $highestValue + 1;
+                        $formattedValue = str_pad($nextValue, 6, '0', STR_PAD_LEFT);
+                        $identifier->value = $formattedValue;
+                        $savedData->identifier()->save($identifier);
+                    }
+                } else {
+                    $existingIdentifier = $savedData->identifier()
+                        ->where('system', config('app.identifier_systems.' . $resType))
+                        ->first();
+
+                    if (!$existingIdentifier) {
+                        $identifier = new Identifier();
+                        $identifier->system = config('app.identifier_systems.' . $resType);
+                        $identifier->use = 'official';
+                        $identifier->value = Str::uuid();
+                        $savedData->identifier()->save($identifier);
+                    }
+                }
+            }
+
+            $resText = $processor->makeResourceText($savedData, $res_type);
+            $resText = json_decode(json_encode($resText), true);
+
+
+            $satusehatRequest = Request::create(route('satusehat.resource.store', ['res_type' => $res_type]), 'POST', $resText);
 
             $satusehatResponse = retry(3, function () use ($satusehatRequest) {
                 return app()->handle($satusehatRequest);
             }, 100);
 
             $statusCode = $satusehatResponse->getStatusCode();
+            $remoteText = $satusehatResponse->getContent();
+            $remoteData = json_decode($remoteText, true);
+            $satusehatId = data_get($remoteData, 'id');
 
             if ($statusCode === 201) {
-                $data = json_decode($satusehatResponse->getContent(), true);
-                $res_type = strtolower($res_type);
-                $storeRequest = Request::create(route('local.' . $res_type . '.store'), 'POST', $data);
-                app()->handle($storeRequest);
+                $resource->satusehat_id = $satusehatId;
+
+                $resource->content()->create(['res_text' => $remoteText]);
+
+                $resource->save();
+
+                DB::commit();
+
                 return $satusehatResponse;
             } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
+                DB::rollBack();
                 Log::error($satusehatResponse->getContent());
                 return response()->json([
                     'error' => 'Client error',
-                    'data' => $request->all()
+                    'content' => $satusehatResponse,
+                    'data' => $resText
                 ], $satusehatResponse->getStatusCode());
             } else {
+                DB::rollBack();
                 Log::error('SATUSEHAT server error: ' . $satusehatResponse->getContent());
 
                 FailedApiRequest::create([
@@ -119,6 +185,9 @@ class IntegrationController extends Controller
 
                 return $satusehatResponse;
             }
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw $e;
         }
     }
 

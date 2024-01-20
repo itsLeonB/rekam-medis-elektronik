@@ -26,25 +26,6 @@ class AllergyIntolerance extends FhirModel
 {
     use HasFactory;
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($allergyIntolerance) {
-            $existingIdentifier = $allergyIntolerance->identifier()
-                ->where('system', config('app.identifier_systems.allergyintolerance'))
-                ->first();
-
-            if (!$existingIdentifier) {
-                $identifier = new Identifier();
-                $identifier->system = config('app.identifier_systems.allergyintolerance');
-                $identifier->use = 'official';
-                $identifier->value = Str::uuid();
-                $allergyIntolerance->identifier()->save($identifier);
-            }
-        });
-    }
-
     protected $table = 'allergy_intolerance';
 
     protected $casts = [
