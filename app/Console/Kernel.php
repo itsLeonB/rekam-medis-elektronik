@@ -14,6 +14,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('app:retry-failed-api-requests')->hourly();
+        $schedule->command('backup:clean')->monthly();
+        $schedule->command('backup:run')->monthly();
     }
 
     /**
