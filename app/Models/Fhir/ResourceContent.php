@@ -2,7 +2,6 @@
 
 namespace App\Models\Fhir;
 
-
 use App\Models\FhirModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 

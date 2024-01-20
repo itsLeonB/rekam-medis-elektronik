@@ -16,7 +16,6 @@ class OrganizationController extends FhirController
 {
     const RESOURCE_TYPE = 'Organization';
 
-
     public function show($satusehat_id)
     {
         try {

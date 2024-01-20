@@ -21,7 +21,7 @@ class RetryFailedApiRequests extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Mengirimkan ulang request API yang gagal';
 
     /**
      * Execute the console command.
