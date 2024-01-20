@@ -375,6 +375,17 @@ class TerminologyController extends Controller
         return $kabupaten;
     }
 
+    public function getKotaLahir(Request $request)
+    {
+        $kabupaten = DB::table(Codesystems::AdministrativeArea['table'])
+            ->select('kode_kabko', 'nama_kabko', 'kode_provinsi', 'nama_provinsi')
+            ->where('nama_kabko', 'like', '%' . $request->query('search') . '%')
+            ->distinct()
+            ->get();
+
+        return $kabupaten;
+    }
+
     public function getKecamatan(Request $request)
     {
         $kecamatan = DB::table(Codesystems::AdministrativeArea['table'])

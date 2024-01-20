@@ -259,6 +259,7 @@ Route::middleware('auth')->group(function () {
         Route::group(['prefix' => 'wilayah', 'as' => 'wilayah.'], function () {
             Route::get('/provinsi', [TerminologyController::class, 'getProvinsi'])->name('provinsi');
             Route::get('/kabko', [TerminologyController::class, 'getKabupatenKota'])->name('kabko');
+            Route::get('/kotalahir', [TerminologyController::class, 'getKotaLahir'])->name('kotalahir');
             Route::get('/kecamatan', [TerminologyController::class, 'getKecamatan'])->name('kecamatan');
             Route::get('/kelurahan', [TerminologyController::class, 'getKelurahan'])->name('kelurahan');
         });
