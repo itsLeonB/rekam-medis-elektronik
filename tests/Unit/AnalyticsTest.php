@@ -7,7 +7,7 @@ use App\Models\Fhir\Datatypes\Period;
 use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Encounter;
 use App\Models\Fhir\Resources\Patient;
-use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -17,6 +17,9 @@ class AnalyticsTest extends TestCase
 
     public function test_get_active_encounters()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         Encounter::factory()->create(['status' => 'finished']);
         Encounter::factory()->create(['status' => 'cancelled']);
         Encounter::factory()->create(['status' => 'entered-in-error']);
@@ -27,14 +30,17 @@ class AnalyticsTest extends TestCase
         Encounter::factory()->create(['status' => 'triaged']);
 
         // Instantiate the controller
-        $response = $this->get(route('analytics.pasien-dirawat'));
+        $response = $this->actingAs($user)->get(route('analytics.pasien-dirawat'));
 
-        $response->assertStatus(200);
-        $response->assertJson(['count' => 4]);
+        $response->assertSuccessful();
+        $this->assertEquals($response->getContent(), 4);
     }
 
     public function test_get_this_month_new_patients()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $patCount = fake()->numberBetween(1, 10);
         $lastMonthCount = fake()->numberBetween(1, 10);
 
@@ -51,19 +57,20 @@ class AnalyticsTest extends TestCase
         }
 
         // Call the getThisMonthNewPatients method
-        $response = $this->get(route('analytics.pasien-baru-bulan-ini'));
-
-        // Assert that the response is successful
-        $response->assertStatus(200);
+        $response = $this->actingAs($user)->get(route('analytics.pasien-baru-bulan-ini'));
 
         // Assert that the response contains the correct count of new patients
+        $response->assertSuccessful();
         $this->assertDatabaseCount('resource', $patCount + $lastMonthCount);
         $this->assertDatabaseCount('patient', $patCount + $lastMonthCount);
-        $response->assertJson(['count' => $patCount]);
+        $this->assertEquals($response->getContent(), $patCount);
     }
 
     public function test_get_total_patient_count()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $patCount = fake()->numberBetween(1, 10);
 
         // Create a new patient resource
@@ -72,17 +79,17 @@ class AnalyticsTest extends TestCase
         }
 
         // Call the countPatients method
-        $response = $this->get(route('analytics.jumlah-pasien'));
+        $response = $this->actingAs($user)->get(route('analytics.jumlah-pasien'));
 
-        // Assert that the response is successful
-        $response->assertStatus(200);
-
-        // Assert that the response contains the correct count of new patients
-        $response->assertJson(['count' => $patCount]);
+        $response->assertSuccessful();
+        $this->assertEquals($response->getContent(), $patCount);
     }
 
     public function test_get_encounters_per_month()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         // Create test data
         $encounters = Encounter::factory()->count(5)->create();
 
@@ -157,45 +164,46 @@ class AnalyticsTest extends TestCase
         ]);
 
         // Call the API endpoint
-        $response = $this->get(route('analytics.pasien-per-bulan'));
+        $response = $this->actingAs($user)->get(route('analytics.pasien-per-bulan'));
 
         // Assert the response status code
         $response->assertStatus(200);
 
         // Assert the response data
         $response->assertJson([
-            'data' => [
-                [
-                    'month' => $encounters[0]->period->start->format('Y-m'),
-                    'class' => $encounters[0]->class->code,
-                    'count' => 1,
-                ],
-                [
-                    'month' => $encounters[1]->period->start->format('Y-m'),
-                    'class' => $encounters[1]->class->code,
-                    'count' => 1,
-                ],
-                [
-                    'month' => $encounters[2]->period->start->format('Y-m'),
-                    'class' => $encounters[2]->class->code,
-                    'count' => 1,
-                ],
-                [
-                    'month' => $encounters[3]->period->start->format('Y-m'),
-                    'class' => $encounters[3]->class->code,
-                    'count' => 1,
-                ],
-                [
-                    'month' => $encounters[4]->period->start->format('Y-m'),
-                    'class' => $encounters[4]->class->code,
-                    'count' => 1,
-                ],
+            [
+                'month' => $encounters[0]->period->start->format('Y-m'),
+                'class' => $encounters[0]->class->code,
+                'count' => 1,
+            ],
+            [
+                'month' => $encounters[1]->period->start->format('Y-m'),
+                'class' => $encounters[1]->class->code,
+                'count' => 1,
+            ],
+            [
+                'month' => $encounters[2]->period->start->format('Y-m'),
+                'class' => $encounters[2]->class->code,
+                'count' => 1,
+            ],
+            [
+                'month' => $encounters[3]->period->start->format('Y-m'),
+                'class' => $encounters[3]->class->code,
+                'count' => 1,
+            ],
+            [
+                'month' => $encounters[4]->period->start->format('Y-m'),
+                'class' => $encounters[4]->class->code,
+                'count' => 1,
             ],
         ]);
     }
 
     public function test_get_patient_age_groups()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         // Create test data
         $balita = fake()->numberBetween(1, 10);
         $kanak = fake()->numberBetween(1, 10);
@@ -241,7 +249,7 @@ class AnalyticsTest extends TestCase
         }
 
         // Make the request to the API endpoint
-        $response = $this->get(route('analytics.sebaran-usia-pasien'));
+        $response = $this->actingAs($user)->get(route('analytics.sebaran-usia-pasien'));
 
         // Assert the response
         $response->assertStatus(200);

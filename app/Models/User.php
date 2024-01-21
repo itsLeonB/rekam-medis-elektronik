@@ -50,6 +50,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    protected $with = ['roles'];
+
     public function practitionerUser(): BelongsToMany
     {
         return $this->belongsToMany(Practitioner::class);

@@ -27,10 +27,10 @@ class EncounterDataTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
+        $response = $this->json('POST', route('local.' . self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
-        $response = $this->json('GET', route(self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
+        $response = $this->json('GET', route('local.' . self::RESOURCE_TYPE . '.show', ['satusehat_id' => $newData['id']]));
         $response->assertStatus(200);
     }
 
@@ -45,7 +45,7 @@ class EncounterDataTest extends TestCase
 
         $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
+        $response = $this->json('POST', route('local.' . self::RESOURCE_TYPE . '.store'), $data, $headers);
         $response->assertStatus(201);
 
         $this->assertDatabaseCount('resource', 1);
@@ -71,13 +71,13 @@ class EncounterDataTest extends TestCase
 
         $data = $this->getExampleData(self::RESOURCE_TYPE);
         $headers = ['Content-Type' => 'application/json'];
-        $response = $this->json('POST', route(self::RESOURCE_TYPE . '.store'), $data, $headers);
+        $response = $this->json('POST', route('local.' . self::RESOURCE_TYPE . '.store'), $data, $headers);
         $newData = json_decode($response->getContent(), true);
 
         $newData['status'] = 'planned';
         $newData['identifier'][0]['value'] = '1234567890';
 
-        $response = $this->json('PUT', route(self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
+        $response = $this->json('PUT', route('local.' . self::RESOURCE_TYPE . '.update', ['satusehat_id' => $newData['id']]), $newData, $headers);
         $response->assertStatus(200);
 
         $this->assertDatabaseCount('resource', 1);

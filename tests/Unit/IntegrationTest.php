@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\SatusehatController;
 use App\Models\Fhir\Resource;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use Tests\Traits\FhirTest;
@@ -39,13 +40,16 @@ class IntegrationTest extends TestCase
 
     public function test_update_resource_if_newer()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $data = $this->getExampleData('organization');
         $data['id'] = '5fe612fe-eb92-4034-9337-7ad60ab15b94';
 
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $this->json('POST', route('local.organization.store'), $data, $headers);
+        $this->actingAs($user)->json('POST', route('local.organization.store'), $data, $headers);
 
         $data['meta']['lastUpdated'] = now()->addDay()->toDateTimeString();
 
@@ -80,30 +84,39 @@ class IntegrationTest extends TestCase
 
     public function test_get_resource_does_not_exist()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $resourceTypes = array_keys(config('app.available_methods'));
         $resourceType = $resourceTypes[array_rand($resourceTypes)];
 
-        $response = $this->json('GET', route('integration.show', ['res_type' => $resourceType, 'satusehat_id' => fake()->uuid()]));
+        $response = $this->actingAs($user)->json('GET', route('integration.show', ['res_type' => $resourceType, 'satusehat_id' => fake()->uuid()]));
 
         $this->assertEquals(404, $response->getStatusCode());
     }
 
     public function test_get_resource_exist_in_local()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $data = $this->getExampleData('Organization');
         $data['id'] = fake()->uuid();
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $this->json('POST', route('local.organization.store'), $data, $headers);
+        $this->actingAs($user)->json('POST', route('local.organization.store'), $data, $headers);
 
-        $response = $this->json('GET', route('integration.show', ['res_type' => 'organization', 'satusehat_id' => $data['id']]));
+        $response = $this->actingAs($user)->json('GET', route('integration.show', ['res_type' => 'organization', 'satusehat_id' => $data['id']]));
 
         $this->assertEquals(200, $response->getStatusCode());
     }
 
     public function test_get_resource_newer_from_local()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $data = $this->getExampleData('organization');
         $data['id'] = '5fe612fe-eb92-4034-9337-7ad60ab15b94';
         unset($data['meta']);
@@ -112,14 +125,14 @@ class IntegrationTest extends TestCase
         $headers = [
             'Content-Type' => 'application/json'
         ];
-        $this->json('POST', route('local.organization.store'), $data, $headers);
+        $this->actingAs($user)->json('POST', route('local.organization.store'), $data, $headers);
 
-        $response = $this->put(
+        $response = $this->actingAs($user)->put(
             route('satusehat.resource.update', ['res_type' => 'organization', 'res_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']),
             $data
         );
 
-        $response = $this->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
+        $response = $this->actingAs($user)->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
 
         $response->assertSuccessful();
         $this->assertDatabaseCount('resource_content', 2);
@@ -127,7 +140,10 @@ class IntegrationTest extends TestCase
 
     public function test_get_new_data()
     {
-        $response = $this->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
+        $response = $this->actingAs($user)->json('GET', route('integration.show', ['res_type' => 'Organization', 'satusehat_id' => '5fe612fe-eb92-4034-9337-7ad60ab15b94']));
 
         $response->assertSuccessful();
         $this->assertDatabaseCount('resource', 1);
@@ -137,12 +153,15 @@ class IntegrationTest extends TestCase
 
     public function test_post_new_data()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $data = $this->getExampleData('Organization');
         $data['name'] = fake()->streetName();
         unset($data['id']);
         unset($data['identifier']);
 
-        $response = $this->json(
+        $response = $this->actingAs($user)->json(
             'POST',
             route('integration.store', ['res_type' => 'Organization']),
             $data
@@ -163,18 +182,21 @@ class IntegrationTest extends TestCase
 
     public function test_update_data()
     {
+        $user = User::factory()->create();
+        $user->assignRole('admin');
+
         $data = $this->getExampleData('Organization');
         $data['name'] = fake()->streetName();
         $data['id'] = '5fe612fe-eb92-4034-9337-7ad60ab15b94';
         unset($data['identifier']);
 
-        $this->json(
+        $this->actingAs($user)->json(
             'POST',
             route('local.organization.store'),
             $data
         );
 
-        $response = $this->json(
+        $response = $this->actingAs($user)->json(
             'PUT',
             route('integration.update', ['res_type' => 'Organization', 'satusehat_id' => $data['id']]),
             $data

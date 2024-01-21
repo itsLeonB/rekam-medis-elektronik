@@ -74,6 +74,7 @@ class IntegrationController extends Controller
 
             $resourceType = strtolower($resourceType);
             $request = Request::create(route('local.' . $resourceType . '.show', ['satusehat_id' => $resourceId]), 'GET');
+            $request->headers->add(['X-CSRF-TOKEN' => csrf_token()]);
             $localResponse = app()->handle($request);
 
             if ($localResponse->getStatusCode() === 200) {
