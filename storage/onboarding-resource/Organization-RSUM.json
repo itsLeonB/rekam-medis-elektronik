@@ -1,10 +1,10 @@
 {
     "resourceType": "Organization",
-    "id": "{org_id}",
+    "id": "5fe612fe-eb92-4034-9337-7ad60ab15b94",
     "identifier": [
         {
             "use": "official",
-            "system": "http://sys-ids.kemkes.go.id/organization/{org_id}",
+            "system": "http://sys-ids.kemkes.go.id/organization/5fe612fe-eb92-4034-9337-7ad60ab15b94",
             "value": "RS Unipdu Medika"
         }
     ],
