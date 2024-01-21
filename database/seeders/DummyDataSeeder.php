@@ -191,7 +191,7 @@ class DummyDataSeeder extends Seeder
         $encounterId = $encounter->resource->satusehat_id;
 
         if ($forTest) {
-            $conditionId = $this->dummyCondition($patientId, $encounterId);
+            $conditionId = $this->dummyCondition($patientId, $encounterId, 1);
             $diagnosis = EncounterDiagnosis::factory()->for($encounter, 'encounter')->create(['rank' => 1]);
             Reference::factory()->for($diagnosis, 'referenceable')->create([
                 'reference' => 'Condition/' . $conditionId,
@@ -200,7 +200,7 @@ class DummyDataSeeder extends Seeder
             $this->fakeCodeableConcept($diagnosis, 'encounterDiagnosisUse', 'use');
         } else {
             for ($j = 1; $j <= 5; $j++) {
-                $conditionId = $this->dummyCondition($patientId, $encounterId);
+                $conditionId = $this->dummyCondition($patientId, $encounterId, $j);
                 $diagnosis = EncounterDiagnosis::factory()->for($encounter, 'encounter')->create(['rank' => $j]);
                 Reference::factory()->for($diagnosis, 'referenceable')->create([
                     'reference' => 'Condition/' . $conditionId,
@@ -680,14 +680,18 @@ class DummyDataSeeder extends Seeder
         return $observation->resource->satusehat_id;
     }
 
-    private function dummyCondition($patientId, $encounterId)
+    private function dummyCondition($patientId, $encounterId, $count)
     {
         $condition = Condition::factory()->create();
         $this->fakeCodeableConcept($condition, 'conditionClinicalStatus', 'clinicalStatus');
         $this->fakeCodeableConcept($condition, 'conditionVerificationStatus', 'verificationStatus');
         $this->fakeCodeableConcept($condition, 'conditionCategory', 'category');
         $this->fakeCodeableConcept($condition, 'conditionSeverity', 'severity');
-        $this->fakeCodeableConcept($condition, 'icd10', 'code');
+        if ($count % 2 == 0) {
+            $this->fakeCodeableConcept($condition, 'conditionCode', 'code');
+        } else {
+            $this->fakeCodeableConcept($condition, 'icd10', 'code');
+        }
         $this->fakeCodeableConcept($condition, 'snomedBodySite', 'bodySite');
 
         Reference::factory()->for($condition, 'referenceable')->create([

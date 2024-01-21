@@ -1,9 +1,9 @@
 {
     "resourceType": "Location",
-    "id": "{res_id}",
+    "id": "92ceb79b-8b62-4da1-a064-bc38f5b8ceaf",
     "identifier": [
         {
-            "system": "http://sys-ids.kemkes.go.id/location/{org_id}",
+            "system": "http://sys-ids.kemkes.go.id/location/5fe612fe-eb92-4034-9337-7ad60ab15b94",
             "use": "official",
             "value": "Gedung RSUM"
         }

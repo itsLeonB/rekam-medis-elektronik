@@ -67,46 +67,4 @@ class EncounterFormController extends Controller
             'display' => data_get($organization, 'organization.name')
         ];
     }
-
-    public function indexMedication()
-    {
-        $medications = Medication::with(['code', 'form', 'medicationType'])->paginate(15, ['id', 'resource_id']);
-
-        $medList = $medications->map(function ($item) {
-            return [
-                'satusehat_id' => data_get($item, 'resource.satusehat_id'),
-                'code' => [
-                    'system' => data_get($item, 'code.coding.0.system'),
-                    'code' => data_get($item, 'code.coding.0.code'),
-                    'display' => data_get($item, 'code.coding.0.display'),
-                ],
-                'form' => [
-                    'system' => data_get($item, 'form.coding.0.system'),
-                    'code' => data_get($item, 'form.coding.0.code'),
-                    'display' => data_get($item, 'form.coding.0.display'),
-                ],
-                'medicationType' => [
-                    'system' => data_get($item, 'medicationType.valueCodeableConcept.coding.0.system'),
-                    'code' => data_get($item, 'medicationType.valueCodeableConcept.coding.0.code'),
-                    'display' => data_get($item, 'medicationType.valueCodeableConcept.coding.0.display'),
-                ],
-            ];
-        });
-
-        return [
-            'current_page' => $medications->currentPage(),
-            'data' => $medList,
-            'first_page_url' => $medications->url(1),
-            'from' => $medications->firstItem(),
-            'last_page' => $medications->lastPage(),
-            'last_page_url' => $medications->url($medications->lastPage()),
-            'links' => $medications->links(),
-            'next_page_url' => $medications->nextPageUrl() ?? null,
-            'path' => $medications->path(),
-            'per_page' => $medications->perPage(),
-            'prev_page_url' => $medications->previousPageUrl() ?? null,
-            'to' => $medications->lastItem(),
-            'total' => $medications->total(),
-        ];
-    }
 }

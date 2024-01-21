@@ -4,6 +4,7 @@ namespace Database\Factories\Fhir\Datatypes;
 
 use App\Fhir\Codesystems;
 use App\Fhir\Valuesets;
+use App\Http\Controllers\TerminologyController;
 use App\Models\Fhir\BackboneElements\AllergyIntoleranceReaction;
 use App\Models\Fhir\BackboneElements\ClinicalImpressionInvestigation;
 use App\Models\Fhir\BackboneElements\CompositionSection;
@@ -674,6 +675,41 @@ class CodingFactory extends Factory
             'code' => $code,
             'display' => Condition::SEVERITY['binding']['valueset']['display'][$code],
         ]);
+    }
+
+    public function conditionCode(): self
+    {
+        $client = new \GuzzleHttp\Client();
+
+        $headers = [
+            'Accept' => 'application/json',
+            'Accept-Language' => 'en-X-900000000000509007,en-X-900000000000508004,en',
+        ];
+
+        $query = [
+            'includeLeafFlag' => 'false',
+            'form' => 'inferred',
+            'offset' => 0,
+            'limit' => 15,
+            'ecl' => '< 404684003 |Clinical finding (finding)|'
+        ];
+
+        $response = $client->request('GET', Codesystems::SNOMEDCT['url'], [
+            'headers' => $headers,
+            'query' => $query,
+        ]);
+
+        $body = json_decode($response->getBody()->getContents(), true);
+
+        $body = collect($body['items'])->map(function ($item) {
+            return [
+                'system' => Codesystems::SNOMEDCT['system'],
+                'code' => $item['conceptId'],
+                'display' => $item['fsn']['term']
+            ];
+        });
+
+        return $this->state(fn (array $attributes) => $body->random());
     }
 
     public function conditionCategory(): self

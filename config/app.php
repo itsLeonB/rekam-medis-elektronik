@@ -205,6 +205,7 @@ return [
     'client_id' => env('client_id'),
     'client_secret' => env('client_secret'),
     'organization_id' => env('organization_id'),
+    'location_id' => env('location_id'),
 
     'rawat_jalan_org_id' => env('rawat_jalan_org_id'),
     'rawat_inap_org_id' => env('rawat_inap_org_id'),
