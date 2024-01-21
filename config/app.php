@@ -228,6 +228,14 @@ return [
         'anak' => 286
     ],
 
+    'roles' => [
+        'admin', 'perekammedis', 'poli-umum', 'poli-neurologi', 'poli-obgyn', 'poli-gigi', 'poli-kulit', 'poli-ortopedi', 'poli-penyakit-dalam', 'poli-bedah', 'poli-anak'
+    ],
+
+    'permissions' => [
+        'akses poli umum', 'akses poli neurologi', 'akses poli obgyn', 'akses poli gigi', 'akses poli kulit', 'akses poli ortopedi', 'akses poli penyakit dalam', 'akses poli bedah', 'akses poli anak', 'akses user management'
+    ],
+
     'identifier_systems' => [
         'patient' => [
             'nik' => 'https://fhir.kemkes.go.id/id/nik',

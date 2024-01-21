@@ -33,7 +33,8 @@ class UserRequest extends FormRequest
                 Rule::unique('users')->ignore($userId),
             ],
             'password' => 'required|string|confirmed|min:8',
-            'practitioner_id' => 'sometimes|string|exists:resource,satusehat_id'
+            'practitioner_id' => 'sometimes|string|exists:resource,satusehat_id',
+            'role' => ['sometimes', 'string', Rule::in(config('app.roles'))],
         ];
     }
 }

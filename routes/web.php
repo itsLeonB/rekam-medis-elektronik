@@ -207,6 +207,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/{user_id}', [UserManagementController::class, 'update'])->name('update');
         // Hapus user
         Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
+        // Daftar roles
+        Route::get('/get/roles', [UserManagementController::class, 'getRoles'])->name('roles');
     });
 
     // Endpoint kode terminologi

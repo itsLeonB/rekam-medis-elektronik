@@ -112,8 +112,18 @@ class Valuesets
 
     public const ServiceRequestCategoryCodes = [
         'system' => 'http://snomed.info/sct',
-        'code' => ['108252007', '152200007', '363679005', '409063005', '309073007', '387713003'],
-        'display' => ["108252007" => "Laboratory procedure", "152200007" => "Laboratory test", "363679005" => "Imaging", "409063005" => "Counseling", "309073007" => "Education", "387713003" => "Surgical procedure"]
+        'code' => ['108252007', '152200007', '363679005', '409063005', '309073007', '387713003', '3457005', '11429006', '306098008'],
+        'display' => [
+            "108252007" => "Laboratory procedure",
+            "152200007" => "Laboratory test",
+            "363679005" => "Imaging",
+            "409063005" => "Counseling",
+            "309073007" => "Education",
+            "387713003" => "Surgical procedure",
+            '3457005' => 'Patient referral',
+            '11429006' => 'Consultation',
+            '306098008' => 'Self-referral'
+        ]
     ];
 
     public const ClinicalImpressionPrognosis = [

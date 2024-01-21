@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Role;
 
 class UserManagementController extends Controller
 {
@@ -153,5 +154,10 @@ class UserManagementController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function getRoles()
+    {
+        return Role::all()->pluck('name');
     }
 }
