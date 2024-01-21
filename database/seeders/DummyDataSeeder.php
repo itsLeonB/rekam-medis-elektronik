@@ -735,6 +735,17 @@ class DummyDataSeeder extends Seeder
             Identifier::factory()->kk()->for($patient, 'identifiable')->create(['attr_type' => 'identifier']);
         }
 
+        $rmeSystem = config('app.identifier_systems.patient.rekam-medis');
+
+        $identifier = new Identifier();
+        $identifier->system = $rmeSystem;
+        $identifier->use = 'official';
+        $highestValue = Identifier::where('system', $rmeSystem)->max('value');
+        $nextValue = $highestValue + 1;
+        $formattedValue = str_pad($nextValue, 6, '0', STR_PAD_LEFT);
+        $identifier->value = $formattedValue;
+        $patient->identifier()->save($identifier);
+
         HumanName::factory()->for($patient, 'humanNameable')->create(['attr_type' => 'name']);
         $this->fakeTelecom($patient);
         $this->fakeAddress($patient);
