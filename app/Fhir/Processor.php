@@ -3014,7 +3014,7 @@ class Processor
                 $this->deleteReference($location->partOf);
                 $location->hoursOfOperation()->delete();
                 $this->deleteMany($location->endpoint(), 'deleteReference');
-                $this->deleteExtension($location->serviceClass);
+                $this->deleteMany($location->serviceClass(), 'deleteExtension');
                 $location->delete();
             });
 
@@ -3045,7 +3045,7 @@ class Processor
             }
 
             $this->saveMany($location, 'endpoint', $array['endpoint'] ?? null, 'saveReference');
-            $this->saveExtension($location, 'serviceClass', $array['serviceClass'] ?? null);
+            $this->saveMany($location, 'serviceClass', $array['serviceClass'] ?? null, 'saveExtension');
             return $location;
         }
     }
@@ -3083,7 +3083,7 @@ class Processor
         }
 
         $endpoint = $this->hasMany('endpoint', $array['endpoint'] ?? null, 'generateReference');
-        $serviceClass = $this->generateExtension('serviceClass', $array['extension'] ?? null);
+        $serviceClass = $this->hasMany('serviceClass', $array['extension'] ?? null, 'generateExtension');
 
         return [
             'location' => $location,

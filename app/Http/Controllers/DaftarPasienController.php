@@ -11,7 +11,7 @@ use DateTimeZone;
 
 class DaftarPasienController extends Controller
 {
-    const ENDED_STATUS = ['finished', 'cancelled', 'entered-in-error', 'unknown'];
+    const ENDED_STATUS = ['finished', 'cancelled'];
 
     private function mapEncounters($encounters)
     {

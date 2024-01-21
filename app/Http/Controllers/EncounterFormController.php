@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Fhir\Resource;
 use App\Models\Fhir\Resources\Location;
-use App\Models\Fhir\Resources\Medication;
 use App\Models\Fhir\Resources\Practitioner;
 
 class EncounterFormController extends Controller
