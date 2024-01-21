@@ -118,7 +118,7 @@ class DummyDataSeeder extends Seeder
                     break;
                 case 'Location':
                     $loc = Resource::create([
-                        'satusehat_id' => 'mock-location',
+                        'satusehat_id' => config('app.location_id'),
                         'res_type' => $resType
                     ]);
 
