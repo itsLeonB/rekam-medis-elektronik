@@ -44,10 +44,17 @@ class EncounterFormController extends Controller
 
     public function getOrganization(string $layanan)
     {
-        $organization = Resource::where([
-            ['res_type', 'Organization'],
-            ['satusehat_id', config('app.' . $layanan . '_org_id')],
-        ])->first();
+        if ($layanan == 'induk') {
+            $organization = Resource::where([
+                ['res_type', 'Organization'],
+                ['satusehat_id', config('app.organization_id')],
+            ])->first();
+        } else {
+            $organization = Resource::where([
+                ['res_type', 'Organization'],
+                ['satusehat_id', config('app.' . $layanan . '_org_id')],
+            ])->first();
+        }
 
         if (!$organization) {
             return response()->json([
@@ -88,18 +95,18 @@ class EncounterFormController extends Controller
 
         return [
             'current_page' => $medications->currentPage(),
-                'data' => $medList,
-                'first_page_url' => $medications->url(1),
-                'from' => $medications->firstItem(),
-                'last_page' => $medications->lastPage(),
-                'last_page_url' => $medications->url($medications->lastPage()),
-                'links' => $medications->links(),
-                'next_page_url' => $medications->nextPageUrl() ?? null,
-                'path' => $medications->path(),
-                'per_page' => $medications->perPage(),
-                'prev_page_url' => $medications->previousPageUrl() ?? null,
-                'to' => $medications->lastItem(),
-                'total' => $medications->total(),
+            'data' => $medList,
+            'first_page_url' => $medications->url(1),
+            'from' => $medications->firstItem(),
+            'last_page' => $medications->lastPage(),
+            'last_page_url' => $medications->url($medications->lastPage()),
+            'links' => $medications->links(),
+            'next_page_url' => $medications->nextPageUrl() ?? null,
+            'path' => $medications->path(),
+            'per_page' => $medications->perPage(),
+            'prev_page_url' => $medications->previousPageUrl() ?? null,
+            'to' => $medications->lastItem(),
+            'total' => $medications->total(),
         ];
     }
 }
