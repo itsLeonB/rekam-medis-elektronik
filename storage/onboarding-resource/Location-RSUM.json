@@ -85,6 +85,6 @@
         "latitude": -7.550000
     },
     "managingOrganization": {
-        "reference": "Organization/{org_id}"
+        "reference": "Organization/5fe612fe-eb92-4034-9337-7ad60ab15b94"
     }
 }
