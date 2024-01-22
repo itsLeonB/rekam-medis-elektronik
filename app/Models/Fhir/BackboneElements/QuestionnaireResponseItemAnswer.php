@@ -23,7 +23,7 @@ class QuestionnaireResponseItemAnswer extends FhirModel
 
     protected $casts = [
         'value_boolean' => 'boolean',
-        'value_decimal' => 'decimal:2',
+        'value_decimal' => 'float',
         'value_date' => 'date',
         'value_date_time' => 'datetime',
         'value_time' => 'datetime'

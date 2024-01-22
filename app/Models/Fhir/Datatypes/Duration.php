@@ -10,7 +10,7 @@ class Duration extends FhirModel
 {
     use HasFactory;
 
-    protected $casts = ['value' => 'decimal:2'];
+    protected $casts = ['value' => 'float'];
 
     public function durationable()
     {

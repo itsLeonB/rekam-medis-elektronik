@@ -15,7 +15,7 @@ class Extension extends FhirModel
         'value_boolean' => 'boolean',
         'value_date' => 'date',
         'value_date_time' => 'datetime',
-        'value_decimal' => 'decimal:2',
+        'value_decimal' => 'float',
         'value_instant' => 'datetime',
         'value_time' => 'datetime',
     ];

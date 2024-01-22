@@ -252,7 +252,7 @@ return [
             'nakes-his-number' => 'https://fhir.kemkes.go.id/id/nakes-his-number',
             'nakes-id' => 'https://fhir.kemkes.go.id/id/nakes-id',
         ],
-        'alleryintolerance' => 'http://sys-ids.kemkes.go.id/allergy/' . env('organization_id'),
+        'allergyintolerance' => 'http://sys-ids.kemkes.go.id/allergy/' . env('organization_id'),
         'clinicalimpression' => 'http://sys-ids.kemkes.go.id/clinicalimpression/' . env('organization_id'),
         'composition' => 'http://sys-ids.kemkes.go.id/composition/' . env('organization_id'),
         'condition' => 'http://sys-ids.kemkes.go.id/condition/' . env('organization_id'),
