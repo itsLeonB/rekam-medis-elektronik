@@ -11,7 +11,7 @@ class Quantity extends FhirModel
 {
     use HasFactory;
 
-    protected $casts = ['value' => 'decimal:2'];
+    protected $casts = ['value' => 'float'];
 
     public function quantifiable(): MorphTo
     {

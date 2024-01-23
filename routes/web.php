@@ -116,7 +116,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // APIs
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
     // Endpoint untuk Integrasi SATUSEHAT
     Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
         // Get resource dan simpan local
@@ -389,6 +389,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('questionnaireresponse.store');
         Route::put('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
     });
-});
+// });
 
 require __DIR__ . '/auth.php';

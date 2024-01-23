@@ -13,10 +13,10 @@ class TimingRepeat extends FhirModel
     use HasFactory;
 
     protected $casts = [
-        'duration' => 'decimal:2',
-        'duration_max' => 'decimal:2',
-        'period' => 'decimal:2',
-        'period_max' => 'decimal:2',
+        'duration' => 'float',
+        'duration_max' => 'float',
+        'period' => 'float',
+        'period_max' => 'float',
         'day_of_week' => 'array',
         'time_of_day' => 'array',
         'when' => 'array',

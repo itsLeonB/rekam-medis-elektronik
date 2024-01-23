@@ -142,9 +142,9 @@ class IntegrationController extends Controller
                 }
             }
 
+            $savedData->refresh();
             $resText = $processor->makeResourceText($savedData, $res_type);
             $resText = json_decode(json_encode($resText), true);
-
 
             $satusehatRequest = Request::create(route('satusehat.resource.store', ['res_type' => $res_type]), 'POST', $resText);
 

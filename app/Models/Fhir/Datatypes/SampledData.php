@@ -13,10 +13,10 @@ class SampledData extends FhirModel
     use HasFactory;
 
     protected $casts = [
-        'period' => 'decimal:2',
-        'factor' => 'decimal:2',
-        'lower_limit' => 'decimal:2',
-        'upper_limit' => 'decimal:2',
+        'period' => 'float',
+        'factor' => 'float',
+        'lower_limit' => 'float',
+        'upper_limit' => 'float',
     ];
 
     public function sampleable(): MorphTo
