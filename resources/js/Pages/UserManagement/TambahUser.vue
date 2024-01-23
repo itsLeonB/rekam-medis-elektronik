@@ -6,6 +6,18 @@
         <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
             <h1 class="text-2xl font-bold text-neutral-black-300">Tambah User</h1>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan user.</p>
+            <Modal :show="creationSuccessModal">
+                <div class="p-6">
+                    <h2 class="text-lg font-medium text-gray-900">
+                        User telah berhasil dibuat. Kembali ke halaman User Management.
+                    </h2>
+                    <div class="mt-6 flex justify-end">
+                        <Link :href="route('usermanagement')"
+                            class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                        Kembali </Link>
+                    </div>
+                </div>
+            </Modal>
             <form>
                 <div>
                     <InputLabel for="name" value="Nama" />
@@ -74,6 +86,14 @@
                     </div>
                     <InputError class="mt-1" :message="form.errors.password_confirmation" />
                 </div>
+                <div class="mt-4">
+                    <InputLabel for="role" value="Peran" />
+                    <select id="role" v-model="form.role"
+                        class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
+                        <option v-for="peran in peranList" :value="peran">{{peran}}</option>
+                    </select>
+                    <InputError class="mt-1" />
+                </div>
             </form>
             <form>
                 <div class="block mt-4">
@@ -85,11 +105,12 @@
                 </div>
 
                 <div class="mt-4" v-show="isPractitioner">
-                    <InputLabel for="practitioner_id" value="Practitioner ID" />
+                    <InputLabel for="nik" value="Cari Practitioner ID" />
                     <div class="w-full flex">
-                        <TextInput id="practitioner_id" type="text" class="mt-1 block w-full mr-3"
-                            v-model="form.practitioner_id" required autofocus placeholder="Masukkan Practitioner ID" />
-                        <MainButtonSmall class="teal-button text-original-white-0">
+                        <TextInput id="nik" type="text" class="mt-1 block w-full mr-3" v-model="nikPractitioner" autofocus
+                            placeholder="Masukkan NIK" />
+                        <MainButtonSmall @click="cariPractitionerID" class="teal-button text-original-white-0"
+                            type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -100,8 +121,76 @@
                     <InputError class="mt-1" />
                 </div>
             </form>
+            <p v-show="!resultsFound && isPractitioner" class="text-center mt-5"> Data tidak ditemukan.</p>
+            <div class="flex mt-5 " v-if="showPractitionerDetails">
+                <div class="relative w-full pl-14 overflow-x-auto mb-5">
+                    <table class="w-full mx-auto text-base text-left text-neutral-grey-200 ">
+                        <tbody class="w-full">
+                            <tr class="bg-original-white-0">
+                                <th scope="row" class="px-6 py-4 font-semibold whitespace-nowrap w-1/3">
+                                    Nama
+                                </th>
+                                <td v-if="practitioner.resource.name" class="px-6 py-4 w-2/3">
+                                    {{ practitioner.resource.name[0].text }}
+                                </td>
+                            </tr>
+                            <tr class="bg-original-white-0">
+                                <th scope="row" class="px-6 py-4 font-semibold whitespace-nowrap w-1/3">
+                                    Tanggal Lahir
+                                </th>
+                                <td class="px-6 py-4 w-full">
+                                    {{ practitioner.resource.birthDate }}
+                                </td>
+                            </tr>
+                            <tr class="bg-original-white-0">
+                                <th scope="row" class="px-6 py-4 font-semibold whitespace-nowrap w-1/3">
+                                    Gender
+                                </th>
+                                <td class="px-6 py-4 w-full">
+                                    {{ practitioner.resource.gender }}
+                                </td>
+                            </tr>
+                            <tr class="bg-original-white-0">
+                                <th scope="row" class="px-6 py-4 font-semibold whitespace-nowrap w-1/3">
+                                    Identifier
+                                </th>
+                                <td class="px-6 py-4 w-2/3">
+                                    <p v-for="item in practitioner.resource.identifier">{{ item.system }}: {{ item.value }}
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr class="bg-original-white-0">
+                                <th scope="row" class="px-6 py-4 font-semibold whitespace-nowrap w-1/3">
+                                    Alamat
+                                </th>
+                                <td v-if="practitioner.resource.address" class="px-6 py-4 w-2/3">
+                                    {{ practitioner.resource.address[0].line[0] }}
+                                </td>
+                            </tr>
+                            <tr class="bg-original-white-0">
+                                <th scope="row" class="px-6 py-4 font-semibold whitespace-nowrap w-1/3">
+                                    Kota
+                                </th>
+                                <td v-if="practitioner.resource.address" class="px-6 py-4 w-2/3">
+                                    {{ practitioner.resource.address[0].city }}
+                                </td>
+                            </tr>
+                            <tr class="bg-original-white-0">
+                                <th scope="row" class="px-6 py-4 font-semibold whitespace-nowrap w-1/3">
+                                    Kontak
+                                </th>
+                                <td v-if="practitioner.resource.telecom" class="px-6 py-4 w-2/3">
+                                    <p v-for="telecom in practitioner.resource.telecom">{{ telecom.system }}: {{
+                                        telecom.value }}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="flex flex-col items-center justify-end mt-10">
-                <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" @click="test">
+                <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
+                    @click="submit">
                     Tambah
                 </MainButton>
             </div>
@@ -116,7 +205,10 @@ import MainButtonSmall from '@/Components/MainButtonSmall.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
-import { ref } from 'vue';
+import Modal from '@/Components/Modal.vue';
+import { Link } from '@inertiajs/vue3';
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
@@ -125,32 +217,55 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     practitioner_id: '',
+    role: ''
 });
 
-const test = async () => {
-    let formDataJson = {
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        password_confirmation: form.password_confirmation,
+
+const creationSuccessModal = ref(false);
+const showPractitionerDetails = ref(false);
+const resultsFound = ref(false);
+const practitioner = ref(null);
+
+const nikPractitioner = ref('');
+const peranList = ref(null);
+const getperanList = async () => {
+    const { data } = await axios.get(route('users.roles'));
+    peranList.value = data;
+};
+
+
+const cariPractitionerID = async () => {
+    const response = await axios.get(route('satusehat.search.practitioner',
+        { 'identifier': "https://fhir.kemkes.go.id/id/nik|" + nikPractitioner.value }));
+    if (response.data.total >= 1) {
+        practitioner.value = response.data.entry[0];
+        showPractitionerDetails.value = true;
+        resultsFound.value = true;
+    } else if (response.data.total === 0) {
+        practitioner.value = null;
+        showPractitionerDetails.value = false;
+        resultsFound.value = false;
+    };
+};
+
+const submit = async () => {
+    if (isPractitioner.value === false || practitioner.value === null) {
+        delete form.practitioner_id;
+    } else if (isPractitioner.value === true && practitioner.value !== null) {
+        form.practitioner_id = practitioner.value.resource.id;
+        await axios.get(route('integration.show', {
+            res_type: 'Practitioner',
+            satusehat_id: form.practitioner_id
+        }));
     };
 
-    if (form.practitioner_id !== '') {
-        formDataJson.practitioner_id = form.practitioner_id;
-    }
-
-    console.log(formDataJson);
-
-    try {
-        const response = form.post(route('users.store'), {
-            data: formDataJson,
-            preserveScroll: true,
-            onFinish: () => form.reset(),
+    axios.post(route('users.store'), form)
+        .then(response => {
+            creationSuccessModal.value = true;
+        })
+        .catch(error => {
+            console.error('Error creating user:', error);
         });
-    } catch (error) {
-        // Handle error
-        console.error(error.response.data);
-    }
 };
 
 const showPassword = ref(false);
@@ -167,10 +282,7 @@ const togglePractitioner = () => {
     isPractitioner.value = !isPractitioner.value;
 };
 
-// const submit = () => {
-//     form.post(route('users.store'), {
-//         preserveScroll: true,
-//         onFinish: () => form.reset(),
-//     });
-// };
+onMounted(() => {
+    getperanList();
+})
 </script>

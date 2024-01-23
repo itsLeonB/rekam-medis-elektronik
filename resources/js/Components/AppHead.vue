@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3'
 
 <template>
   <Head>
-    <link rel="icon" type="image/x-icon" href="storage/images/logo-rsum.png">
+    <link rel="icon" type="image/x-icon" :href="'/storage/images/logo-rsum.png'">
     <slot />
   </Head>
 </template>

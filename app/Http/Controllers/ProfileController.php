@@ -25,6 +25,17 @@ class ProfileController extends Controller
         ]);
     }
 
+        /**
+     * Display the user's profile form.
+     */
+    public function editperekammedis(Request $request): Response
+    {
+        return Inertia::render('PerekamMedis/Profile/Edit', [
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
+        ]);
+    }
+
     /**
      * Update the user's profile information.
      */

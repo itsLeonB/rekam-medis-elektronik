@@ -18,7 +18,10 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@vueform/multiselect": "^2.6.6",
+        "@vuepic/vue-datepicker": "^7.4.1",
         "apexcharts": "^3.45.1",
+        "lodash": "^4.17.21",
         "vue-multiselect": "^3.0.0-beta.3",
         "vue3-apexcharts": "^1.4.4"
     }

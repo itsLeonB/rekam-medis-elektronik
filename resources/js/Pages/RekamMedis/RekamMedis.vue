@@ -23,7 +23,7 @@
             </span>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Rekam Medis Pasien.
             </p>
-            <Link :href="route('usermanagement.tambah')" as="button"
+            <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)" :href="route('rekammedis.tambah')" as="button"
                 class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                 class="w-5 h-5 mr-2">
@@ -69,8 +69,8 @@
                 </div>
             </div>
             <div class="relative overflow-x-auto mb-5">
-                <table class="w-full text-base text-center rtl:text-right text-neutral-grey-200 ">
-                    <thead class="text-base font-thin text-neutral-black-300 bg-gray-50 border-b">
+                <table class="w-full text-sm text-center rtl:text-right text-neutral-grey-200 ">
+                    <thead class="text-sm font-thin text-neutral-black-300 bg-gray-50 border-b">
                         <tr>
                             <th scope="col" class="px-6 py-3 w-3/12">
                                 Nama
@@ -89,18 +89,22 @@
                     <tbody v-for="(patient, index) in patients.data" :key="index">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (patients.data.length - 1) }">
-                            <!-- <Link :href="route('usermanagement.details', { 'user_id': user.id })"> -->
+                            <Link :href="route('rekammedis.details', { 'patient_satusehat_id': patient.satusehatId })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-3/12">
                                 <P>{{ patient.name }}</P>
-                                <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id === searchWith_id).label }}: {{ patient[searchWith_id] }}</p>
+                                <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
+                                    searchWith_id).label }}: {{ patient[searchWith_id] }}</p>
                             </th>
-                            <!-- </Link> -->
+                            </Link>
                             <td class="px-6 py-4 w-3/12">
-                                {{ patient.identifier == null ? '-' : patient.identifier }}
+                                {{ patient['rekam-medis'] == null ? '-' : patient['rekam-medis'] }}
                             </td>
                             <td class="px-6 py-4 w-3/12">
-                                {{ patient.class == 'AMB' ? 'Rawat Jalan' : patient.class == 'IMP' ? 'Rawat Inap' :
-                                    patient.class == 'EMER' ? 'IGD' : '-' }}
+                                <p>{{ patient.class == 'AMB' ? 'Rawat Jalan' : patient.class == 'IMP' ? 'Rawat Inap' :
+                                    patient.class == 'EMER' ? 'IGD' : '-' }}</p>
+                                <!-- <p v-if="patient.class === 'AMB'">{{ patient.serviceType }}</p>
+                                <p v-else-if="patient.class === 'IMP'">{{ patient.serviceType }}</p> -->
+
                             </td>
                             <td class="px-6 py-4 w-3/12">
                                 <p>{{ formatTimestamp(patient.start).split('/')[0] }}</p>
@@ -153,7 +157,7 @@ const patients = ref([]);
 const hide = ref(false);
 
 const fetchPatients = async (page = 1) => {
-    const { data } = await axios.get(route('rekam-medis.index', {'page': page}));
+    const { data } = await axios.get(route('rekam-medis.index', { 'page': page }));
     patients.value = data.rekam_medis;
     generateNumbers(1, patients.value.current_page, patients.value.last_page);
 };
@@ -188,15 +192,30 @@ const fetchPagination = async (page = 1) => {
 };
 
 const searchWith_id = ref('name');
-
 const searchWith = [
-    {"id": 'name', "label": 'Nama'},
-    {"id": 'nik', "label": 'NIK'},
-    {"id": 'nik-ibu', "label": 'NIK Ibu'},
-    {"id": 'paspor', "label": 'Paspor'},
-    {"id": 'kk', "label": 'No KK'},
-    {"id": 'ihs-number', "label": 'IHS Number'}
+    { "id": 'name', "label": 'Nama' },
+    { "id": 'nik', "label": 'NIK' },
+    { "id": 'nik-ibu', "label": 'NIK Ibu' },
+    { "id": 'paspor', "label": 'Paspor' },
+    { "id": 'kk', "label": 'No KK' },
+    { "id": 'ihs-number', "label": 'IHS Number' }
 ];
+
+const poli = [
+    { "id": '124', "value": 'umum', "label": 'Poli Umum' },
+    { "id": '177', "value": 'neurologi', "label": 'Poli Neurologi' },
+    { "id": '186', "value": 'obgyn', "label": 'Poli Obgyn' },
+    { "id": '88', "value": 'gigi', "label": 'Poli Gigi' },
+    { "id": '168', "value": 'kulit', "label": 'Poli Kulit dan Kelamin' },
+    { "id": '218', "value": 'ortopedi', "label": 'Poli Ortopedi' },
+    { "id": '557', "value": 'dalam', "label": 'Poli Penyakit Dalam' },
+    { "id": '221', "value": 'bedah', "label": 'Poli Bedah' },
+    { "id": '286', "value": 'anak', "label": 'Poli Anak' }
+];
+
+const findPoli = (serviceType) => {
+    return poli.find(pol => pol.id === serviceType).label;
+};
 
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
