@@ -1,0 +1,1 @@
+import{_ as t}from"./AppHead-dd4b1773.js";import{o as a,b as o,d as r,w as n,aU as s,a as l,F as c}from"./app-bf8fb3e4.js";const _={class:"min-h-screen min-w-full flex justify-center items-center bg-white"},f={__name:"GuestLayout",setup(i){return(e,m)=>(a(),o(c,null,[r(t,null,{default:n(()=>[s(e.$slots,"apphead")]),_:3}),l("div",_,[s(e.$slots,"default")])],64))}};export{f as _};
