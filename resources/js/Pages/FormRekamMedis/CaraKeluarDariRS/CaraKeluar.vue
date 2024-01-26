@@ -69,7 +69,6 @@
             <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
             <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
         </form>
-        {{ encounter }}
     </div>
 </template>
 
