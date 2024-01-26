@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-between">
+            <div class="flex justify-end">
                 <div class="mt-2 mr-3">
                     <MainButtonSmall type="submit" class="teal-button text-original-white-0">Submit</MainButtonSmall>
                 </div>
