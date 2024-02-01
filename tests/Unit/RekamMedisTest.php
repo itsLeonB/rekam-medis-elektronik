@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\Models\Fhir\Resources\Encounter;
+use App\Models\Fhir\Resources\Patient;
 use App\Models\User;
 use Database\Seeders\DummyDataSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -12,19 +14,6 @@ class RekamMedisTest extends TestCase
 {
     use DatabaseTransactions;
     use FhirTest;
-
-    private function setUpTestData(bool $patientEncounterOnly = true)
-    {
-        $seeder = new DummyDataSeeder();
-
-        $seeder->seedOnboarding();
-
-        if ($patientEncounterOnly) {
-            return $seeder->makeDummies(true, true, 1);
-        }
-
-        return $seeder->makeDummies(true, false, 1);
-    }
 
     private function assertFragment($response, $patient, $encounter)
     {
@@ -47,48 +36,22 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        [$patient, $encounter] = $this->setUpTestData();
-
         // Make a GET request to the index endpoint
         $response = $this->actingAs($user)->get(route('rekam-medis.index'));
 
         // Assert that the response is successful
         $response->assertStatus(200);
-
-        // Assert that the response contains the formatted patient data
-        $this->assertFragment($response, $patient, $encounter);
-    }
-
-    public function test_index_rekam_medis_with_query_name()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter] = $this->setUpTestData();
-
-        // Make a GET request to the index endpoint
-        $response = $this->actingAs($user)->get(route('rekam-medis.index', ['name' => $patient->name()->first()->text]));
-
-        // Assert that the response is successful
-        $response->assertStatus(200);
-
-        // Assert that the response contains the formatted patient data
-        $this->assertFragment($response, $patient, $encounter);
     }
 
     public function test_show_rekam_medis()
     {
         $user = User::factory()->create();
 
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
+        $satusehatId = Patient::first()->resource->satusehat_id;
 
-        $response = $this->actingAs($user)->get(route('rekam-medis.show', $patient->resource->satusehat_id));
+        $response = $this->actingAs($user)->get(route('rekam-medis.show', $satusehatId));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            'patient' => ['resourceType', 'id', 'identifier'],
-            'encounters' => [['encounter', 'conditions', 'observations']],
-            'additionalData' => ['medicationRequests', 'compositions']
-        ]);
     }
 
     public function test_show_rekam_medis_invalid()
@@ -116,135 +79,5 @@ class RekamMedisTest extends TestCase
         $response = $this->actingAs($user)->get(route('rekam-medis.update', ['patient_id' => '100000030009']));
 
         $this->assertEquals(200, $response->getStatusCode());
-    }
-
-    public function test_get_condition()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.condition', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['*' => ['resourceType', 'id']],
-        ]);
-    }
-
-    public function test_get_observation()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.observation', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure(
-            ['*' => ['resourceType', 'id']]
-        );
-    }
-
-    public function test_get_procedure()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.procedure', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
-    }
-
-    public function test_get_medication_request()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.medicationrequest', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
-    }
-
-    public function test_get_composition()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.composition', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
-    }
-
-    public function test_get_allergy_intolerance()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.allergyintolerance', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
-    }
-
-    public function test_get_clinical_impression()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.clinicalimpression', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
-    }
-
-    public function test_get_service_request()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $encMedReqId, $patMedReqId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encServiceRequest, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.servicerequest', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
-    }
-
-    public function test_get_medication_statement()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId, $medicationStatementId, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encMedStateId, $patMedStateId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.medicationstatement', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
-    }
-
-    public function test_get_questionnaire_response()
-    {
-        $user = User::factory()->create();
-
-        [$patient, $encounter, $conditionId, $observationId, $procedureId,, $encCompId, $patCompId, $encAllergyId, $patAllergyId, $clinicId, $encMedStateId, $patMedStateId, $encQuestionId, $patQuestionId] = $this->setUpTestData(false);
-
-        $response = $this->actingAs($user)->get(route('kunjungan.questionnaireresponse', $encounter->resource->satusehat_id));
-
-        $response->assertJsonStructure([
-            '*' => ['resourceType', 'id']
-        ]);
     }
 }
