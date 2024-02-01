@@ -80,4 +80,114 @@ class RekamMedisTest extends TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
     }
+
+    public function test_get_condition()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.condition', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_observation()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.observation', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_procedure()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.procedure', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_medication_request()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.medicationrequest', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_composition()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.composition', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_allergy_intolerance()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.allergyintolerance', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_clinical_impression()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.clinicalimpression', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_service_request()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.servicerequest', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_medication_statement()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.medicationstatement', $encounterId));
+
+        $response->assertStatus(200);
+    }
+
+    public function test_get_questionnaire_response()
+    {
+        $user = User::factory()->create();
+
+        $encounterId = Encounter::first()->resource->satusehat_id;
+
+        $response = $this->actingAs($user)->get(route('kunjungan.questionnaireresponse', $encounterId));
+
+        $response->assertStatus(200);
+    }
 }
