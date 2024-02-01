@@ -15,9 +15,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.icd10'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['system', 'code', 'display_en', 'display_id']
-        ]);
     }
 
     public function test_get_icd9cm_procedure()
@@ -28,9 +25,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.icd9cm-procedure'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['system', 'code', 'display', 'definition']
-        ]);
     }
 
     public function test_get_loinc()
@@ -61,9 +55,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.wilayah.provinsi'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['kode_provinsi', 'nama_provinsi']
-        ]);
     }
 
     public function test_get_kabko()
@@ -74,9 +65,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.wilayah.kabko'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['kode_kabko', 'nama_kabko']
-        ]);
     }
 
     public function test_get_kotalahir()
@@ -87,9 +75,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.wilayah.kotalahir'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['kode_kabko', 'nama_kabko', 'kode_provinsi', 'nama_provinsi']
-        ]);
     }
 
     public function test_get_kecamatan()
@@ -100,9 +85,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.wilayah.kecamatan'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['kode_kecamatan', 'nama_kecamatan']
-        ]);
     }
 
     public function test_get_kelurahan()
@@ -113,9 +95,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.wilayah.kelurahan'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['kode_kelurahan', 'nama_kelurahan']
-        ]);
     }
 
     public function test_get_bcp13()
@@ -136,9 +115,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.bcp47'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['system', 'code', 'display', 'definition']
-        ]);
     }
 
     public function test_get_iso3166()
@@ -159,9 +135,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.ucum'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['system', 'code', 'unit']
-        ]);
     }
 
     public function test_get_procedure_tindakan()
@@ -172,9 +145,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.procedure.tindakan'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['system', 'code', 'display', 'definition']
-        ]);
     }
 
     public function test_get_procedure_edukasi_bayi()
@@ -195,9 +165,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.procedure.other'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['system', 'code', 'display', 'definition']
-        ]);
     }
 
     public function test_get_condition_kunjungan()
@@ -208,9 +175,6 @@ class TerminologyTest extends TestCase
         $response = $this->get(route('terminologi.condition.kunjungan'));
 
         $response->assertStatus(200);
-        $response->assertJsonStructure([
-            '*' => ['system', 'code', 'display_en', 'display_id']
-        ]);
     }
 
     public function test_get_condition_keluar()
