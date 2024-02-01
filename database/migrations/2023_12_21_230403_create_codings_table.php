@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('system')->nullable();
             $table->string('version')->nullable();
             $table->string('code')->nullable();
-            $table->string('display')->nullable();
+            $table->text('display')->nullable();
             $table->boolean('user_selected')->nullable();
             $table->unsignedBigInteger('codeable_id');
             $table->string('codeable_type');
