@@ -95,7 +95,7 @@ class TerminologyController extends Controller
             ->select($codeColumn, $displayColumn)
             ->where($displayColumn, 'like', '%' . $searchTerm . '%')
             ->distinct()
-            ->get();
+            ->paginate();
 
         return $codes->map(function ($item) use ($codesystem, $codeColumn, $displayColumn) {
             return [
@@ -271,7 +271,7 @@ class TerminologyController extends Controller
     {
         $loinc = DB::table(Codesystems::LOINC['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
-            ->get();
+            ->paginate(15);
 
         $loinc->map(function ($item) {
             $item->system = Codesystems::LOINC['system'];
