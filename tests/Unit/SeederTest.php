@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use Database\Seeders\DummyDataSeeder;
 use Database\Seeders\IdFhirResourceSeeder;
