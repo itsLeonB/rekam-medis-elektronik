@@ -242,7 +242,7 @@ class TerminologyController extends Controller
         $icd10 = DB::table(Codesystems::ICD10['table'])
             ->where('display_en', 'like', '%' . $request->query('search') . '%')
             ->orWhere('display_id', 'like', '%' . $request->query('search') . '%')
-            ->get();
+            ->paginate();
 
         $icd10->map(function ($item) {
             $item->system = Codesystems::ICD10['system'];
