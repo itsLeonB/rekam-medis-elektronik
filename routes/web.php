@@ -125,6 +125,11 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('UserManagement/EditUser', ['user_id' => $user_id]);
         })->name('usermanagement.edit');
     });
+
+    // Klaim
+    Route::get('/klaim', function () {
+        return Inertia::render('Klaim/Klaim');
+    })->name('klaim');
 });
 
 // APIs
