@@ -126,10 +126,13 @@ Route::middleware('auth')->group(function () {
         })->name('usermanagement.edit');
     });
 
-    // Klaim
-    Route::get('/klaim', function () {
-        return Inertia::render('Klaim/Klaim');
-    })->name('klaim');
+    // Finance
+    Route::get('/finance', function () {
+        return Inertia::render('Finance/Finance');
+    })->name('finance');
+    Route::get('/finance/invoice/index', function () {
+        return Inertia::render('Finance/InvoiceIndex');
+    })->name('finance.invoice.index');
 });
 
 // APIs
