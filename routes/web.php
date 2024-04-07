@@ -21,6 +21,7 @@ use App\Http\Controllers\Fhir\QuestionnaireResponseController;
 use App\Http\Controllers\Fhir\ResourceController;
 use App\Http\Controllers\Fhir\ServiceRequestController;
 use App\Http\Controllers\IntegrationController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
@@ -130,9 +131,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance', function () {
         return Inertia::render('Finance/Finance');
     })->name('finance');
-    Route::get('/finance/invoice/index', function () {
+    Route::get('/finance/invoice', function () {
         return Inertia::render('Finance/InvoiceIndex');
-    })->name('finance.invoice.index');
+    })->name('finance.invoice');
 });
 
 // APIs
