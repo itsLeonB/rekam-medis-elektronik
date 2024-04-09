@@ -27,14 +27,52 @@
                     </Link>
                 </div>
             </div>
-            <div class="overflow-hidden hidden lg:block lg:h-48">
+            <!-- <div class="overflow-hidden hidden lg:block lg:h-48">
                 <img :src="'storage/images/emer.png'" class="h-full" alt="">
-            </div>
+            </div> -->
         </div>
+            <div class="relative overflow-x-auto mb-5">
+                <div v-if="invoice">
+                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
+                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 w-2/5">
+                                Subjek
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-2/5">
+                                Resipien
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-1/5">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody v-for="(item, index) in invoice.data" :key="invoice.id">
+                        <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+                            :class="{ 'border-b': index !== (invoice.data.length - 1) }">
+                            <!-- <Link :href="route('usermanagement.details', { 'user_id': invoice.id })"> -->
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
+                                {{ item.subject }}
+                            </th>
+                            <!-- </Link> -->
+                            <td class="px-6 py-4 w-2/5">
+                                {{ item.recipient }}
+                            </td>
+                            <td v-html="item.status ? 'Sudah' : '<strong>Belum</strong>'"
+                                class="px-6 py-4 w-1/5">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-else>Loading..</div>
+            </div>
     </AuthenticatedLayout>
 </template>
 
 <script setup>
+import {ref, onMounted} from "vue";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import axios from 'axios';
 
@@ -54,4 +92,8 @@ const getData = async (currentPage = 1) => {
         console.log(error);
     }
 }
+
+onMounted(() => {
+    getData()
+})
 </script>

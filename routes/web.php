@@ -134,6 +134,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/invoice', function () {
         return Inertia::render('Finance/InvoiceIndex');
     })->name('finance.invoice');
+    Route::get('/finance/invoice/create', function () {
+        return Inertia::render('Finance/FormInvoice');
+    })->name('finance.newinvoice');
 });
 
 // APIs
