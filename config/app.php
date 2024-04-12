@@ -338,6 +338,25 @@ return [
         'patient' => 'Patient'
     ],
 
+    'resourceTypes' => [
+        'organization',
+        'location',
+        'practitioner',
+        'patient',
+        'encounter',
+        'condition',
+        'observation',
+        'procedure',
+        'servicerequest',
+        'medicationrequest',
+        'medication',
+        'composition',
+        'allergyintolerance',
+        'clinicalimpression',
+        'medicationstatement',
+        'questionnaireresponse',
+    ],
+
     'terminologi' => [
         'Organization' => [
             'type' => Codesystems::OrganizationType
