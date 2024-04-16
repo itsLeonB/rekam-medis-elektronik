@@ -20,10 +20,9 @@
             <!-- Pilih Pasien -->
             <div class="mt-4">
                 <InputLabel for="pasien" value="Identitas Pasien" />
-                <Multiselect mode="single" placeholder="NIK Pasien"
-                    :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="300"
-                    :searchable="true" :options="searchPatient" label="label" valueProp="satusehatId"
-                    track-by="satusehatId" :classes="combo_classes" required />
+                <Multiselect mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true"
+                    :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
+                    label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required />
                 <InputError class="mt-1" />
             </div>
             <!-- Pilih Penanggungjawab pasien -->
@@ -41,11 +40,11 @@
             <!-- Kasir -->
             <div class="mt-4">
                 <InputLabel value="Kasir" />
-                    <Multiselect mode="single" placeholder="Kasir" :object="true"
-                        :options="practitionerList" label="name" valueProp="satusehat_id" track-by="satusehat_id"
-                        class="mt-1" :classes="combo_classes" required />
-                    <InputError class="mt-1" />
+                <Multiselect mode="single" placeholder="Kasir" :object="true" :options="practitionerList" label="name"
+                    valueProp="satusehat_id" track-by="satusehat_id" class="mt-1" :classes="combo_classes" required />
+                <InputError class="mt-1" />
             </div>
+            <!-- Rincian Biaya -->
             <div class="mt-4">
                 <InputLabel value="Rincian Biaya" />
                 <select
@@ -105,7 +104,6 @@ const resourceForm = ref({
     participant: null,
 });
 
-
 const combo_classes = {
     container: 'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border-2 border-neutral-grey-0 ring-0 shadow-sm rounded-xl bg-white text-base leading-snug outline-none',
     search: 'w-full absolute inset-0 outline-none border-0 ring-0 focus:ring-original-teal-300 focus:ring-2 appearance-none box-border text-base font-sans bg-white rounded-xl pl-3.5 rtl:pl-0 rtl:pr-3.5',
@@ -129,9 +127,6 @@ const searchPatient = async (query) => {
     }
     return originalData;
 };
-
-const searchPenanggung = async (query) => {
-}
 
 const practitionerList = ref(null);
 const getpractitionerList = async () => {
