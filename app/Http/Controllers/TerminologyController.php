@@ -95,7 +95,7 @@ class TerminologyController extends Controller
             ->select($codeColumn, $displayColumn)
             ->where($displayColumn, 'like', '%' . $searchTerm . '%')
             ->distinct()
-            ->get();
+            ->paginate();
 
         return $codes->map(function ($item) use ($codesystem, $codeColumn, $displayColumn) {
             return [
@@ -242,7 +242,7 @@ class TerminologyController extends Controller
         $icd10 = DB::table(Codesystems::ICD10['table'])
             ->where('display_en', 'like', '%' . $request->query('search') . '%')
             ->orWhere('display_id', 'like', '%' . $request->query('search') . '%')
-            ->get();
+            ->paginate();
 
         $icd10->map(function ($item) {
             $item->system = Codesystems::ICD10['system'];
@@ -271,7 +271,7 @@ class TerminologyController extends Controller
     {
         $loinc = DB::table(Codesystems::LOINC['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
-            ->get();
+            ->paginate(15);
 
         $loinc->map(function ($item) {
             $item->system = Codesystems::LOINC['system'];

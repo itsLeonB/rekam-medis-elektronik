@@ -136,9 +136,13 @@ class DaftarPasienController extends Controller
         return $this->mapEncounters($encounters);
     }
 
-    public function getDaftarRawatInap(int $serviceType)
+    public function getDaftarRawatInap()
     {
-        $encounters = $this->getEncounters('IMP', $serviceType);
+        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
+            ->whereHas('class', function ($query) {
+                $query->where('code', 'IMP');
+            })
+            ->get();
 
         return $this->mapEncounters($encounters);
     }

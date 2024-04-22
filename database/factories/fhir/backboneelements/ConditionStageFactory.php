@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Fhir\Backboneelements;
+namespace Database\Factories\Fhir\BackboneElements;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

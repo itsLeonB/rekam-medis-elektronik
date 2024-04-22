@@ -171,6 +171,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         MongoDB\Laravel\MongoDBServiceProvider::class,
+        MongoDB\Laravel\Auth\PasswordResetServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -335,6 +336,25 @@ return [
         // 'specimen' => 'Specimen',  // Not yet implemented
         // 'relatedperson' => 'RelatedPerson',  // Not yet implemented
         'patient' => 'Patient'
+    ],
+
+    'resourceTypes' => [
+        'organization',
+        'location',
+        'practitioner',
+        'patient',
+        'encounter',
+        'condition',
+        'observation',
+        'procedure',
+        'servicerequest',
+        'medicationrequest',
+        'medication',
+        'composition',
+        'allergyintolerance',
+        'clinicalimpression',
+        'medicationstatement',
+        'questionnaireresponse',
     ],
 
     'terminologi' => [

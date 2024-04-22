@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\KitasehatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,5 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Invoice
-Route::get('/invoice', [InvoiceController::class, 'show']);
+Route::post('kitasehat/patient', [KitasehatController::class, 'retrievePatient']);
+
+Route::get('resources/{resType}', [ResourceController::class, 'index']);
+Route::post('resources/{resType}', [ResourceController::class, 'store']);
+Route::get('resources/{resType}/{id}', [ResourceController::class, 'show']);
+Route::put('resources/{resType}/{id}', [ResourceController::class, 'update']);
+Route::delete('resources/{resType}/{id}', [ResourceController::class, 'destroy']);
