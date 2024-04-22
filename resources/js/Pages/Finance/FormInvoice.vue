@@ -34,7 +34,7 @@
             <div class="mt-4">
                 <InputLabel value="Tanggal Invoice" />
                 <div class="flex pt-1">
-                    <VueDatePicker class="border-[1.5px] border-neutral-grey-0 rounded-xl" required></VueDatePicker>
+                    <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required></VueDatePicker>
                 </div>
             </div>
             <!-- Kasir -->
