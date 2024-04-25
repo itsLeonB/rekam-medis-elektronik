@@ -1,0 +1,986 @@
+[
+    {
+        "system": "http://snomed.info/sct",
+        "code": "385057009",
+        "display": "Film-coated tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "385120001",
+        "display": "Impregnated dressing",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "385174007",
+        "display": "Pessary",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "385286003",
+        "display": "Implant",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "385292009",
+        "display": "Vaginal dose form",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "421366001",
+        "display": "Tablet for oral suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "421701006",
+        "display": "Tablet for conventional release oral solution",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "442015005",
+        "display": "Intrauterine dose form",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "738998008",
+        "display": "Emulsion",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "761877007",
+        "display": "Effervescent tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "763824009",
+        "display": "Gas",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "764296002",
+        "display": "Prolonged-release",
+        "definition": ""
+    },
+    {
+        "system": "http://snomed.info/sct",
+        "code": "764772008",
+        "display": "Prolonged-release vaginal ring",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "AER",
+        "display": "Aerosol",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "APPFUL",
+        "display": "Applicatorful",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "BAINHL",
+        "display": "Breath Activated Inhaler",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "BAINHLPWD",
+        "display": "Breath Activated Powder Inhaler",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "BAR",
+        "display": "Bar",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "BARSOAP",
+        "display": "Bar Soap",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "BEAD",
+        "display": "Beads",
+        "definition": "A solid dosage form in the shape of a small ball."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "BUCTAB",
+        "display": "Buccal Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CAKE",
+        "display": "Cake",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CAP",
+        "display": "Capsule",
+        "definition": "A solid dosage form in which the drug is enclosed within either a hard or soft soluble container or \"shell\" made from a suitable form of gelatin."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CAPLET",
+        "display": "Caplet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CEMENT",
+        "display": "Cement",
+        "definition": "A substance that serves to produce solid union between two surfaces."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CHEWBAR",
+        "display": "Chewable Bar",
+        "definition": "A solid dosage form usually in the form of a rectangle that is meant to be chewed."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CHEWTAB",
+        "display": "Chewable Tablet",
+        "definition": "A solid dosage form containing medicinal substances with or without suitable diluents that is intended to be chewed, producing a pleasant tasting residue in the oral cavity that is easily swallowed and does not leave a bitter or unpleasant after-taste."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CPTAB",
+        "display": "Coated Particles Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CRM",
+        "display": "Cream",
+        "definition": "A semisolid dosage form containing one or more drug substances dissolved or dispersed in a suitable base; more recently, the term has been restricted to products consisting of oil-in-water emulsions or aqueous microcrystalline dispersions of long chain fatty acids or alcohols that are water washable and more cosmetically and aesthetically acceptable."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "CRYS",
+        "display": "Crystals",
+        "definition": "A naturally produced angular solid of definite form in which the ultimate units from which it is built up are systematically arranged; they are usually evenly spaced on a regular space lattice."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "DERMSPRY",
+        "display": "Dermal Spray",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "DISINTAB",
+        "display": "Disintegrating Tablet",
+        "definition": "A solid dosage form containing medicinal substances which disintegrates rapidly, usually within a matter of seconds, when placed upon the tongue."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "DISK",
+        "display": "Disk",
+        "definition": "A circular plate-like organ or structure."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "DOUCHE",
+        "display": "Douche",
+        "definition": "A liquid preparation, intended for the irrigative cleansing of the vagina, that is prepared from powders, liquid solutions, or liquid concentrates and contains one or more chemical substances dissolved in a suitable solvent or mutually miscible solvents."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "DROP",
+        "display": "Drops",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "DRTAB",
+        "display": "Delayed Release Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ECTAB",
+        "display": "Enteric Coated Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ELIXIR",
+        "display": "Elixir",
+        "definition": "A clear, pleasantly flavored, sweetened hydroalcoholic liquid containing dissolved medicinal agents; it is intended for oral use."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ENEMA",
+        "display": "Enema",
+        "definition": "A rectal preparation for therapeutic, diagnostic, or nutritive purposes."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ENTCAP",
+        "display": "Enteric Coated Capsule",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERCAP",
+        "display": "Extended Release Capsule",
+        "definition": "A solid dosage form in which the drug is enclosed within either a hard or soft soluble container made from a suitable form of gelatin, and which releases a drug (or drugs) in such a manner to allow a reduction in dosing frequency as compared to that drug (or drugs) presented as a conventional dosage form."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERCAP12",
+        "display": "12 Hour Extended Release Capsule",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERCAP24",
+        "display": "24 Hour Extended Release Capsule",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERECTAB",
+        "display": "Extended Release Enteric Coated Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERENTCAP",
+        "display": "Extended Release Enteric Coated Capsule",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERSUSP",
+        "display": "Extended-Release Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERSUSP12",
+        "display": "12 Hour Extended-Release Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERSUSP24",
+        "display": "24 Hour Extended Release Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERTAB",
+        "display": "Extended Release Tablet",
+        "definition": "A solid dosage form containing a drug which allows at least a reduction in dosing frequency as compared to that drug presented in conventional dosage form."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERTAB12",
+        "display": "12 Hour Extended Release Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ERTAB24",
+        "display": "24 Hour Extended Release Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "FLAKE",
+        "display": "Flakes",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "FOAM",
+        "display": "Foam",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "FOAMAPL",
+        "display": "Foam with Applicator",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "GASINHL",
+        "display": "Gas for Inhalation",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "GEL",
+        "display": "Gel",
+        "definition": "A semisolid system consisting of either suspensions made up of small inorganic particles or large organic molecules interpenetrated by a liquid."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "GELAPL",
+        "display": "Gel with Applicator",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "GRAN",
+        "display": "Granules",
+        "definition": "A small particle or grain."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "GUM",
+        "display": "ChewingGum",
+        "definition": "A sweetened and flavored insoluble plastic material of various shapes which when chewed, releases a drug substance into the oral cavity."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "INHL",
+        "display": "Inhalant",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "INHLPWD",
+        "display": "Inhalant Powder",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "INHLSOL",
+        "display": "Inhalant Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "IPSOL",
+        "display": "Intraperitoneal Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "IRSOL",
+        "display": "Irrigation Solution",
+        "definition": "A sterile solution intended to bathe or flush open wounds or body cavities; they're used topically, never parenterally."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ITSUSP",
+        "display": "Intrathecal Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "IVSOL",
+        "display": "Intravenous Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "LIN",
+        "display": "Liniment",
+        "definition": "A solution or mixture of various substances in oil, alcoholic solutions of soap, or emulsions intended for external application."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "LIQCLN",
+        "display": "Liquid Cleanser",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "LIQSOAP",
+        "display": "Medicated Liquid Soap",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "LTN",
+        "display": "Lotion",
+        "definition": "The term \"lotion\" has been used to categorize many topical suspensions, solutions and emulsions intended for application to the skin."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "MDINHL",
+        "display": "Metered Dose Inhaler",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "MDINHLPWD",
+        "display": "Metered Dose Powder Inhaler",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "MEDBAR",
+        "display": "Medicated Bar Soap",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "MEDPAD",
+        "display": "Medicated Pad",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "MEDSWAB",
+        "display": "Medicated swab",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "MUCTOPSOL",
+        "display": "Mucous Membrane Topical Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "NASCRM",
+        "display": "Nasal Cream",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "NASGEL",
+        "display": "Nasal Gel",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "NASINHL",
+        "display": "Nasal Inhalant",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "NASOINT",
+        "display": "Nasal Ointment",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "NASSPRY",
+        "display": "Nasal Spray",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "NDROP",
+        "display": "Nasal Drops",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OIL",
+        "display": "Oil",
+        "definition": "An unctuous, combustible substance which is liquid, or easily liquefiable, on warming, and is soluble in ether but insoluble in water. Such substances, depending on their origin, are classified as animal, mineral, or vegetable oils."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OINT",
+        "display": "Ointment",
+        "definition": "A semisolid preparation intended for external application to the skin or mucous membranes."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OINTAPL",
+        "display": "Ointment with Applicator",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OPCRM",
+        "display": "Ophthalmic Cream",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OPDROP",
+        "display": "Ophthalmic Drops",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OPGEL",
+        "display": "Ophthalmic Gel",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OPIRSOL",
+        "display": "Ophthalmic Irrigation Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OPOINT",
+        "display": "Ophthalmic Ointment",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OPSUSP",
+        "display": "Ophthalmic Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORALSOL",
+        "display": "Oral Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORCAP",
+        "display": "Oral Capsule",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORCRM",
+        "display": "Oral Cream",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORDROP",
+        "display": "Oral Drops",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORINHL",
+        "display": "Oral Inhalant",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORSUSP",
+        "display": "Oral Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORTAB",
+        "display": "Oral Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "ORTROCHE",
+        "display": "Lozenge/Oral Troche",
+        "definition": "A solid preparation containing one or more medicaments, usually in a flavored, sweetened base which is intended to dissolve or disintegrate slowly in the mouth."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OTCRM",
+        "display": "Otic Cream",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OTDROP",
+        "display": "Otic Drops",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OTGEL",
+        "display": "Otic Gel",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OTOINT",
+        "display": "Otic Ointment",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "OTSUSP",
+        "display": "Otic Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PAD",
+        "display": "Pad",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PASTE",
+        "display": "Paste",
+        "definition": "A semisolid dosage form that contains one or more drug substances intended for topical application."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PATCH",
+        "display": "Patch",
+        "definition": "A drug delivery system that contains an adhesived backing and that permits its ingredients to diffuse from some portion of it (e.g., the backing itself, a reservoir, the adhesive, or some other component) into the body from the external site where it is applied."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PELLET",
+        "display": "Pellet",
+        "definition": "A small sterile solid mass consisting of a highly purified drug (with or without excipients) made by the formation of granules, or by compression and molding."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PILL",
+        "display": "Pill",
+        "definition": "A small, round solid dosage form containing a medicinal agent intended for oral administration."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "POWD",
+        "display": "Powder",
+        "definition": "An intimate mixture of dry, finely divided drugs and/or chemicals that may be intended for internal or external use."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PUD",
+        "display": "Pudding",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PUFF",
+        "display": "Puff",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "PWDSPRY",
+        "display": "Powder Spray",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECCRM",
+        "display": "Rectal Cream",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECFORM",
+        "display": "Rectal foam",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECOINT",
+        "display": "Rectal Ointment",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECPWD",
+        "display": "Rectal Powder",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECSOL",
+        "display": "Rectal Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECSPRY",
+        "display": "Rectal Spray",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECSUPP",
+        "display": "Rectal Suppository",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RECSUSP",
+        "display": "Rectal Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "RINSE",
+        "display": "Mouthwash/Rinse",
+        "definition": "An aqueous solution which is most often used for its deodorant, refreshing, or antiseptic effect."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SCOOP",
+        "display": "Scoops",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SHMP",
+        "display": "Shampoo",
+        "definition": "A liquid soap or detergent used to clean the hair and scalp and is often used as a vehicle for dermatologic agents."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SLTAB",
+        "display": "Sublingual Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SOL",
+        "display": "Solution",
+        "definition": "A liquid preparation that contains one or more chemical substances dissolved, i.e., molecularly dispersed, in a suitable solvent or mixture of mutually miscible solvents."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SPRY",
+        "display": "Sprays",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SPRYADAPT",
+        "display": "Spray with Adaptor",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SRBUCTAB",
+        "display": "Sustained Release Buccal Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SUPP",
+        "display": "Suppository",
+        "definition": "A solid body of various weights and shapes, adapted for introduction into the rectal, vaginal, or urethral orifice of the human body; they usually melt, soften, or dissolve at body temperature."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SUSP",
+        "display": "Suspension",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SWAB",
+        "display": "Swab",
+        "definition": "A wad of absorbent material usually wound around one end of a small stick and used for applying medication or for removing material from an area."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "SYRUP",
+        "display": "Syrup",
+        "definition": "An oral solution containing high concentrations of sucrose or other sugars; the term has also been used to include any other liquid dosage form prepared in a sweet and viscid vehicle, including oral suspensions."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TAB",
+        "display": "Tablet",
+        "definition": "A solid dosage form containing medicinal substances with or without suitable diluents."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TINC",
+        "display": "Tincture",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TOPCRM",
+        "display": "Topical Cream",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TOPGEL",
+        "display": "Topical Gel",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TOPLTN",
+        "display": "Topical Lotion",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TOPOIL",
+        "display": "Topical Oil",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TOPOINT",
+        "display": "Topical Ointment",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TOPPWD",
+        "display": "Topical Powder",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TOPSOL",
+        "display": "Topical Solution",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TPASTE",
+        "display": "Toothpaste",
+        "definition": "A paste formulation intended to clean and/or polish the teeth, and which may contain certain additional agents."
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TPATCH",
+        "display": "Transdermal Patch",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TPATH16",
+        "display": "16 Hour Transdermal Patch",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TPATH24",
+        "display": "24 Hour Transdermal Patch",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TPATH2WK",
+        "display": "Biweekly Transdermal Patch",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TPATH72",
+        "display": "72 Hour Transdermal Patch",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "TPATHWK",
+        "display": "Weekly Transdermal Patch",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "URETHGEL",
+        "display": "Urethral Gel",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "URETHSUPP",
+        "display": "Urethral suppository",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGCRM",
+        "display": "Vaginal Cream",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGCRMAPL",
+        "display": "Vaginal Cream with Applicator",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGFOAM",
+        "display": "Vaginal foam",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGFOAMAPL",
+        "display": "Vaginal foam with applicator",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGGEL",
+        "display": "Vaginal Gel",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGOINT",
+        "display": "Vaginal Ointment",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGOINTAPL",
+        "display": "Vaginal Ointment with Applicator",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGPWD",
+        "display": "Vaginal Powder",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGSPRY",
+        "display": "Vaginal Spray",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGSUPP",
+        "display": "Vaginal Suppository",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VAGTAB",
+        "display": "Vaginal Tablet",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "VGELAPL",
+        "display": "Vaginal Gel with Applicator",
+        "definition": ""
+    },
+    {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+        "code": "WAFER",
+        "display": "Wafer",
+        "definition": "A thin slice of material containing a medicinal agent."
+    }
+]

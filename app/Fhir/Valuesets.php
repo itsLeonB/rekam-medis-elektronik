@@ -285,7 +285,7 @@ class Valuesets
 
     public const ConditionStageType = [
         'system' => 'http://snomed.info/sct',
-        'table' => 'valueset_conditionstagetype'
+        'table' => 'valueset_condition_stagetype'
     ];
 
     public const ConditionStage = [

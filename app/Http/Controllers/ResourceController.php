@@ -22,10 +22,14 @@ class ResourceController extends Controller
             return response()->json(['error' => 'Invalid resource type'], 400);
         }
 
+        DB::beginTransaction();
+
         try {
             $id = DB::table($resType)->insertGetId($request->all());
+            DB::commit();
             return response()->json(DB::table($resType)->find($id), 201);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -55,10 +59,14 @@ class ResourceController extends Controller
             return response()->json(['error' => 'Invalid resource type'], 400);
         }
 
+        DB::beginTransaction();
+
         try {
             DB::table($resType)->where('id', $id)->update($request->all());
+            DB::commit();
             return response()->json(DB::table($resType)->where('id', $id)->get(), 200);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
@@ -69,9 +77,14 @@ class ResourceController extends Controller
             return response()->json(['error' => 'Invalid resource type'], 400);
         }
 
+        DB::beginTransaction();
+
         try {
             DB::table($resType)->where('id', $id)->delete();
+            DB::commit();
+            return response()->json(null, 204);
         } catch (\Exception $e) {
+            DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
