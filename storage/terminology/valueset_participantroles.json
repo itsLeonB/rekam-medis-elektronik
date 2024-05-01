@@ -1,0 +1,3846 @@
+[
+    {
+        "code": "442041000124107",
+        "display": "Paternal uncle (person)"
+    },
+    {
+        "code": "442031000124102",
+        "display": "Maternal uncle (person)"
+    },
+    {
+        "code": "34431000087102",
+        "display": "Extended criteria donor for organ transplant (person)"
+    },
+    {
+        "code": "5181000124106",
+        "display": "Mother-in-law (person)"
+    },
+    {
+        "code": "5171000124108",
+        "display": "Father-in-law (person)"
+    },
+    {
+        "code": "5161000124101",
+        "display": "Parent in-law (person)"
+    },
+    {
+        "code": "471000122100",
+        "display": "Multi-organ donor (person)"
+    },
+    {
+        "code": "1287116005",
+        "display": "Chaperone (person)"
+    },
+    {
+        "code": "1286885008",
+        "display": "Natural first cousin (person)"
+    },
+    {
+        "code": "1285625002",
+        "display": "Natural great grandparent (person)"
+    },
+    {
+        "code": "1285596001",
+        "display": "Great nephew (person)"
+    },
+    {
+        "code": "1285595002",
+        "display": "Great niece (person)"
+    },
+    {
+        "code": "1285594003",
+        "display": "Natural great niece (person)"
+    },
+    {
+        "code": "1285593009",
+        "display": "Natural great nephew (person)"
+    },
+    {
+        "code": "1285592004",
+        "display": "Natural great aunt (person)"
+    },
+    {
+        "code": "1285591006",
+        "display": "Natural great uncle (person)"
+    },
+    {
+        "code": "1285432000",
+        "display": "Natural niece (person)"
+    },
+    {
+        "code": "1285416003",
+        "display": "Natural uncle (person)"
+    },
+    {
+        "code": "1285415004",
+        "display": "Natural aunt (person)"
+    },
+    {
+        "code": "1285414000",
+        "display": "Second degree male blood relative (person)"
+    },
+    {
+        "code": "1285411008",
+        "display": "Natural nephew (person)"
+    },
+    {
+        "code": "1269519005",
+        "display": "Deputy (person)"
+    },
+    {
+        "code": "1269487002",
+        "display": "Third degree blood relative (person)"
+    },
+    {
+        "code": "1269486006",
+        "display": "Fourth degree blood relative (person)"
+    },
+    {
+        "code": "1258961002",
+        "display": "Daughter-in-law (person)"
+    },
+    {
+        "code": "1258960001",
+        "display": "Son-in-law (person)"
+    },
+    {
+        "code": "1236822007",
+        "display": "Second degree female blood relative (person)"
+    },
+    {
+        "code": "1187334000",
+        "display": "Emergency contact (person)"
+    },
+    {
+        "code": "1187236000",
+        "display": "Donor after neurological death (person)"
+    },
+    {
+        "code": "1187235001",
+        "display": "Donor after circulatory death (person)"
+    },
+    {
+        "code": "1148563002",
+        "display": "Live donor for lung transplant (person)"
+    },
+    {
+        "code": "736456008",
+        "display": "Maternal first cousin (person)"
+    },
+    {
+        "code": "736455007",
+        "display": "Paternal aunt (person)"
+    },
+    {
+        "code": "736454006",
+        "display": "Maternal aunt (person)"
+    },
+    {
+        "code": "719771001",
+        "display": "Maternal great grandfather (person)"
+    },
+    {
+        "code": "719770000",
+        "display": "Paternal great grandfather (person)"
+    },
+    {
+        "code": "719769001",
+        "display": "Maternal great grandmother (person)"
+    },
+    {
+        "code": "719768009",
+        "display": "Paternal great grandmother (person)"
+    },
+    {
+        "code": "719766008",
+        "display": "Maternal half brother (person)"
+    },
+    {
+        "code": "719765007",
+        "display": "Maternal half sister (person)"
+    },
+    {
+        "code": "719764006",
+        "display": "Paternal half sister (person)"
+    },
+    {
+        "code": "719762005",
+        "display": "Paternal half brother (person)"
+    },
+    {
+        "code": "719760002",
+        "display": "Paternal cousin (person)"
+    },
+    {
+        "code": "719759007",
+        "display": "Maternal cousin (person)"
+    },
+    {
+        "code": "718723009",
+        "display": "Live donor of kidney (person)"
+    },
+    {
+        "code": "715167002",
+        "display": "Open Episcopal Church, follower of religion (person)"
+    },
+    {
+        "code": "713369009",
+        "display": "Live related kidney donor (person)"
+    },
+    {
+        "code": "713353002",
+        "display": "Live related liver donor (person)"
+    },
+    {
+        "code": "713352007",
+        "display": "Skin donor (person)"
+    },
+    {
+        "code": "713184006",
+        "display": "Blood product donor (person)"
+    },
+    {
+        "code": "713183000",
+        "display": "Cadaver donor for kidney transplant (person)"
+    },
+    {
+        "code": "713179000",
+        "display": "Cadaver donor for corneal transplant (person)"
+    },
+    {
+        "code": "713178008",
+        "display": "Cadaver donor for liver transplant (person)"
+    },
+    {
+        "code": "713177003",
+        "display": "Cadaver donor for heart transplant (person)"
+    },
+    {
+        "code": "713176007",
+        "display": "Cadaver donor for lung transplant (person)"
+    },
+    {
+        "code": "699110007",
+        "display": "Second degree blood relative (person)"
+    },
+    {
+        "code": "446654005",
+        "display": "Refugee (person)"
+    },
+    {
+        "code": "444870008",
+        "display": "Apostolic Pentecostalist, follower of religion (person)"
+    },
+    {
+        "code": "444464007",
+        "display": "Recipient of biological material from subject (person)"
+    },
+    {
+        "code": "444169005",
+        "display": "House husband (person)"
+    },
+    {
+        "code": "444168002",
+        "display": "Homemaker (person)"
+    },
+    {
+        "code": "444018008",
+        "display": "Person with characteristic related to subject of record (person)"
+    },
+    {
+        "code": "441468006",
+        "display": "Unrelated known spermatozoa donor for artificial insemination (person)"
+    },
+    {
+        "code": "441465009",
+        "display": "Unknown spermatozoa donor for artificial insemination (person)"
+    },
+    {
+        "code": "441463002",
+        "display": "Spermatozoa donor (person)"
+    },
+    {
+        "code": "438347000",
+        "display": "Person categorized by affiliation with belief system (person)"
+    },
+    {
+        "code": "433475001",
+        "display": "Human oocyte donor, age 35 and older (person)"
+    },
+    {
+        "code": "433152004",
+        "display": "Male child (person)"
+    },
+    {
+        "code": "431549007",
+        "display": "Female child (person)"
+    },
+    {
+        "code": "430882007",
+        "display": "Human oocyte donor (person)"
+    },
+    {
+        "code": "430792005",
+        "display": "Stem cell donor (person)"
+    },
+    {
+        "code": "430101000",
+        "display": "Whole blood donor (person)"
+    },
+    {
+        "code": "430098004",
+        "display": "Donor for intestine transplant (person)"
+    },
+    {
+        "code": "429790000",
+        "display": "Zoroastrian, follower of religion (person)"
+    },
+    {
+        "code": "429787006",
+        "display": "Jain, follower of religion (person)"
+    },
+    {
+        "code": "429732005",
+        "display": "Baha'i, follower of religion (person)"
+    },
+    {
+        "code": "429708003",
+        "display": "Unitarian, follower of religion (person)"
+    },
+    {
+        "code": "429644000",
+        "display": "Orthodox Jew, follower of religion (person)"
+    },
+    {
+        "code": "429577009",
+        "display": "Patient advocate (person)"
+    },
+    {
+        "code": "429547003",
+        "display": "Shinto, follower of religion (person)"
+    },
+    {
+        "code": "429545006",
+        "display": "Sanatana Dharma, follower of religion (person)"
+    },
+    {
+        "code": "429544005",
+        "display": "Russian Orthodox, follower of religion (person)"
+    },
+    {
+        "code": "429543004",
+        "display": "Taoist, follower of religion (person)"
+    },
+    {
+        "code": "429539003",
+        "display": "Calvinist, follower of religion (person)"
+    },
+    {
+        "code": "429534008",
+        "display": "Masorti Jew, follower of religion (person)"
+    },
+    {
+        "code": "429533002",
+        "display": "Mahayana Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "429527006",
+        "display": "New Kadampa Tradition Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "429511004",
+        "display": "Vaishnava Hindu, follower of religion (person)"
+    },
+    {
+        "code": "429509008",
+        "display": "Reform Jew, follower of religion (person)"
+    },
+    {
+        "code": "429379008",
+        "display": "Shiva Hindu, follower of religion (person)"
+    },
+    {
+        "code": "429171004",
+        "display": "Spiritualist, follower of religion (person)"
+    },
+    {
+        "code": "429158002",
+        "display": "Greek Orthodox, follower of religion (person)"
+    },
+    {
+        "code": "428821008",
+        "display": "Seventh Day Adventist, follower of religion (person)"
+    },
+    {
+        "code": "428820009",
+        "display": "Pure Land Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "428816005",
+        "display": "Armenian Catholic, follower of religion (person)"
+    },
+    {
+        "code": "428815009",
+        "display": "Ahmadi, follower of religion (person)"
+    },
+    {
+        "code": "428801007",
+        "display": "Ismaili Muslim, follower of religion (person)"
+    },
+    {
+        "code": "428792000",
+        "display": "Person exposed to disease (person)"
+    },
+    {
+        "code": "428666001",
+        "display": "Nichiren Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "428620006",
+        "display": "Smarta Hindu, follower of religion (person)"
+    },
+    {
+        "code": "428506007",
+        "display": "Druid, follower of religion (person)"
+    },
+    {
+        "code": "428504005",
+        "display": "Christian Spiritualist, follower of religion (person)"
+    },
+    {
+        "code": "428503004",
+        "display": "Orthodox Christian, follower of religion (person)"
+    },
+    {
+        "code": "428496003",
+        "display": "Tibetan Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "428410008",
+        "display": "Shakti Hindu, follower of religion (person)"
+    },
+    {
+        "code": "428408006",
+        "display": "Wiccan, follower of religion (person)"
+    },
+    {
+        "code": "428407001",
+        "display": "Theravada Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "428378008",
+        "display": "Ethiopian Orthodox Tewahedo, follower of religion (person)"
+    },
+    {
+        "code": "428376007",
+        "display": "Eastern Catholic, follower of religion (person)"
+    },
+    {
+        "code": "428373004",
+        "display": "Coptic Orthodox, follower of religion (person)"
+    },
+    {
+        "code": "428347009",
+        "display": "Arya Samaj Hindu, follower of religion (person)"
+    },
+    {
+        "code": "428315004",
+        "display": "Anabaptist, follower of religion (person)"
+    },
+    {
+        "code": "428024001",
+        "display": "Clinical trial participant (person)"
+    },
+    {
+        "code": "427981006",
+        "display": "Zen Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "427963008",
+        "display": "Advaitin Hindu, follower of religion (person)"
+    },
+    {
+        "code": "427950002",
+        "display": "Haredi Jew, follower of religion (person)"
+    },
+    {
+        "code": "427874000",
+        "display": "Congregationalist, follower of religion (person)"
+    },
+    {
+        "code": "427755002",
+        "display": "Lutheran, follower of religion (person)"
+    },
+    {
+        "code": "427754003",
+        "display": "Liberal Jew, follower of religion (person)"
+    },
+    {
+        "code": "427729003",
+        "display": "Elim Pentecostalist, follower of religion (person)"
+    },
+    {
+        "code": "427568008",
+        "display": "Neighbor (person)"
+    },
+    {
+        "code": "420158005",
+        "display": "Performer of method (person)"
+    },
+    {
+        "code": "420058008",
+        "display": "Provider of history other than subject (person)"
+    },
+    {
+        "code": "419358007",
+        "display": "Subject of record or other provider of history (person)"
+    },
+    {
+        "code": "416800000",
+        "display": "Inpatient (person)"
+    },
+    {
+        "code": "416625007",
+        "display": "Family reunion immigrant (person)"
+    },
+    {
+        "code": "416035002",
+        "display": "Secondary screener (person)"
+    },
+    {
+        "code": "416034003",
+        "display": "Primary screener (person)"
+    },
+    {
+        "code": "414043009",
+        "display": "Domestic partner (person)"
+    },
+    {
+        "code": "410604004",
+        "display": "Subject of record (person)"
+    },
+    {
+        "code": "410603005",
+        "display": "Person in the legal environment (person)"
+    },
+    {
+        "code": "410602000",
+        "display": "Preschool child (person)"
+    },
+    {
+        "code": "410601007",
+        "display": "Childhood age person (person)"
+    },
+    {
+        "code": "410600008",
+        "display": "Pre-teen (person)"
+    },
+    {
+        "code": "410599005",
+        "display": "Minor (person)"
+    },
+    {
+        "code": "410598002",
+        "display": "Person categorized by age (person)"
+    },
+    {
+        "code": "410597007",
+        "display": "Person categorized by religious affiliation (person)"
+    },
+    {
+        "code": "407543004",
+        "display": "Primary caregiver (person)"
+    },
+    {
+        "code": "407542009",
+        "display": "Informal caregiver (person)"
+    },
+    {
+        "code": "394921008",
+        "display": "Cohabitee (person)"
+    },
+    {
+        "code": "394863008",
+        "display": "Non-family member (person)"
+    },
+    {
+        "code": "394862003",
+        "display": "Great aunt (person)"
+    },
+    {
+        "code": "394861005",
+        "display": "Great uncle (person)"
+    },
+    {
+        "code": "394860006",
+        "display": "Distant relative (person)"
+    },
+    {
+        "code": "394859001",
+        "display": "Maternal grandmother (person)"
+    },
+    {
+        "code": "394858009",
+        "display": "Paternal grandmother (person)"
+    },
+    {
+        "code": "394857004",
+        "display": "Maternal grandfather (person)"
+    },
+    {
+        "code": "394856008",
+        "display": "Paternal grandfather (person)"
+    },
+    {
+        "code": "394855007",
+        "display": "Non-immediate family member (person)"
+    },
+    {
+        "code": "394854006",
+        "display": "Immediate family member (person)"
+    },
+    {
+        "code": "394619001",
+        "display": "Guardian (person)"
+    },
+    {
+        "code": "394571004",
+        "display": "Employer (person)"
+    },
+    {
+        "code": "394568007",
+        "display": "Extended family member (person)"
+    },
+    {
+        "code": "394567002",
+        "display": "Great granddaughter (person)"
+    },
+    {
+        "code": "394566006",
+        "display": "Great grandson (person)"
+    },
+    {
+        "code": "394560000",
+        "display": "Adopted son (person)"
+    },
+    {
+        "code": "393549001",
+        "display": "Adopted daughter (person)"
+    },
+    {
+        "code": "393547004",
+        "display": "Adopted child (person)"
+    },
+    {
+        "code": "390790000",
+        "display": "Asylum seeker (person)"
+    },
+    {
+        "code": "373929005",
+        "display": "Orphan child (person)"
+    },
+    {
+        "code": "373864002",
+        "display": "Outpatient (person)"
+    },
+    {
+        "code": "366740002",
+        "display": "Sikh, follower of religion (person)"
+    },
+    {
+        "code": "360984002",
+        "display": "Hasidic Jew, follower of religion (person)"
+    },
+    {
+        "code": "360863008",
+        "display": "Beggar (person)"
+    },
+    {
+        "code": "339947000",
+        "display": "Man (person)"
+    },
+    {
+        "code": "314767008",
+        "display": "Bird fancier (person)"
+    },
+    {
+        "code": "314712007",
+        "display": "Parachutist (person)"
+    },
+    {
+        "code": "313416000",
+        "display": "Fraternal twin (person)"
+    },
+    {
+        "code": "313415001",
+        "display": "Identical twin (person)"
+    },
+    {
+        "code": "310543008",
+        "display": "Graduate (person)"
+    },
+    {
+        "code": "309886003",
+        "display": "Quaker, follower of religion (person)"
+    },
+    {
+        "code": "309885004",
+        "display": "Protestant, follower of religion (person)"
+    },
+    {
+        "code": "309884000",
+        "display": "Muslim, follower of religion (person)"
+    },
+    {
+        "code": "309687009",
+        "display": "Buddhist, follower of religion (person)"
+    },
+    {
+        "code": "309456003",
+        "display": "Clergy (person)"
+    },
+    {
+        "code": "303993008",
+        "display": "Coach passenger (person)"
+    },
+    {
+        "code": "303992003",
+        "display": "Car passenger (person)"
+    },
+    {
+        "code": "303991005",
+        "display": "Trespasser (person)"
+    },
+    {
+        "code": "303990006",
+        "display": "Passenger of motor vehicle (person)"
+    },
+    {
+        "code": "303989002",
+        "display": "Crewmember on aircraft (person)"
+    },
+    {
+        "code": "303988005",
+        "display": "Passenger on aircraft (person)"
+    },
+    {
+        "code": "303987000",
+        "display": "Horse rider (person)"
+    },
+    {
+        "code": "303986009",
+        "display": "Occupant of aircraft (person)"
+    },
+    {
+        "code": "303985008",
+        "display": "Occupant of watercraft (person)"
+    },
+    {
+        "code": "303984007",
+        "display": "Passenger on pedal cycle (person)"
+    },
+    {
+        "code": "303983001",
+        "display": "Passenger of animal-drawn vehicle (person)"
+    },
+    {
+        "code": "303981004",
+        "display": "Driver of animal-drawn vehicle (person)"
+    },
+    {
+        "code": "303980003",
+        "display": "Driver of motor vehicle (person)"
+    },
+    {
+        "code": "303977004",
+        "display": "Occupant of railway vehicle (person)"
+    },
+    {
+        "code": "303122009",
+        "display": "Crewmember (person)"
+    },
+    {
+        "code": "303121002",
+        "display": "Person in the educational environment (person)"
+    },
+    {
+        "code": "303120001",
+        "display": "Person in the recreational environment (person)"
+    },
+    {
+        "code": "303119007",
+        "display": "Person in the community environment (person)"
+    },
+    {
+        "code": "303118004",
+        "display": "Person in the healthcare environment (person)"
+    },
+    {
+        "code": "303073003",
+        "display": "Person in the religious environment (person)"
+    },
+    {
+        "code": "303072008",
+        "display": "Person in the home environment (person)"
+    },
+    {
+        "code": "303071001",
+        "display": "Person in the family (person)"
+    },
+    {
+        "code": "303069001",
+        "display": "Person in the transport environment (person)"
+    },
+    {
+        "code": "276119007",
+        "display": "Nonconformist (person)"
+    },
+    {
+        "code": "276037005",
+        "display": "Volunteer helper (person)"
+    },
+    {
+        "code": "276036001",
+        "display": "Voluntary visitor (person)"
+    },
+    {
+        "code": "276035002",
+        "display": "Voluntary helper (person)"
+    },
+    {
+        "code": "271448006",
+        "display": "Anglican, follower of religion (person)"
+    },
+    {
+        "code": "268557009",
+        "display": "Sportsman (person)"
+    },
+    {
+        "code": "266943008",
+        "display": "Single parent (person)"
+    },
+    {
+        "code": "262043009",
+        "display": "Partner in relationship (person)"
+    },
+    {
+        "code": "257526008",
+        "display": "Water skier (person)"
+    },
+    {
+        "code": "257525007",
+        "display": "Watercraft dweller (person)"
+    },
+    {
+        "code": "257524006",
+        "display": "User of animal-drawn vehicle (person)"
+    },
+    {
+        "code": "257523000",
+        "display": "Swimmer (person)"
+    },
+    {
+        "code": "257522005",
+        "display": "Recreational watercraft user (person)"
+    },
+    {
+        "code": "257521003",
+        "display": "Railway employee on train (person)"
+    },
+    {
+        "code": "257519008",
+        "display": "Person trespassing on railway line (person)"
+    },
+    {
+        "code": "257518000",
+        "display": "Pedestrian (person)"
+    },
+    {
+        "code": "257517005",
+        "display": "Occupant of nonmotor vehicle (person)"
+    },
+    {
+        "code": "257516001",
+        "display": "Member of public on ground (person)"
+    },
+    {
+        "code": "257514003",
+        "display": "Member of public involved incidentally (person)"
+    },
+    {
+        "code": "257513009",
+        "display": "Member of public (person)"
+    },
+    {
+        "code": "257512004",
+        "display": "Passenger on train (person)"
+    },
+    {
+        "code": "257511006",
+        "display": "Passenger on station (person)"
+    },
+    {
+        "code": "257510007",
+        "display": "Passenger on commercial watercraft (person)"
+    },
+    {
+        "code": "257509002",
+        "display": "Occupant of animal-drawn vehicle (person)"
+    },
+    {
+        "code": "257508005",
+        "display": "Back seat passenger (person)"
+    },
+    {
+        "code": "257506009",
+        "display": "Front seat passenger (person)"
+    },
+    {
+        "code": "257505008",
+        "display": "Person traveling on outside of train (person)"
+    },
+    {
+        "code": "257504007",
+        "display": "Person riding on outside of vehicle (person)"
+    },
+    {
+        "code": "257503001",
+        "display": "Pillion passenger (person)"
+    },
+    {
+        "code": "257502006",
+        "display": "Occupant of tram (person)"
+    },
+    {
+        "code": "257501004",
+        "display": "Occupant of motor vehicle (person)"
+    },
+    {
+        "code": "257500003",
+        "display": "Passenger (person)"
+    },
+    {
+        "code": "257499007",
+        "display": "Rider of pedal cycle (person)"
+    },
+    {
+        "code": "257498004",
+        "display": "Rider of motorcycle (person)"
+    },
+    {
+        "code": "257497009",
+        "display": "Rider of animal (person)"
+    },
+    {
+        "code": "255409004",
+        "display": "Pregnant woman (person)"
+    },
+    {
+        "code": "248544006",
+        "display": "Rastafarian, follower of religion (person)"
+    },
+    {
+        "code": "224627004",
+        "display": "General category of person (person)"
+    },
+    {
+        "code": "224619008",
+        "display": "Migrant (person)"
+    },
+    {
+        "code": "224528001",
+        "display": "Employee (person)"
+    },
+    {
+        "code": "224527006",
+        "display": "Person in the work environment (person)"
+    },
+    {
+        "code": "224526002",
+        "display": "Woman (person)"
+    },
+    {
+        "code": "224080001",
+        "display": "Committed Christian, follower of religion (person)"
+    },
+    {
+        "code": "161158003",
+        "display": "Immigrant (person)"
+    },
+    {
+        "code": "160772005",
+        "display": "Voluntary worker (person)"
+    },
+    {
+        "code": "160567004",
+        "display": "Agnostic (person)"
+    },
+    {
+        "code": "160566008",
+        "display": "Christadelphian, follower of religion (person)"
+    },
+    {
+        "code": "160563000",
+        "display": "Evangelist, follower of religion (person)"
+    },
+    {
+        "code": "160562005",
+        "display": "Pentecostalist, follower of religion (person)"
+    },
+    {
+        "code": "160560002",
+        "display": "Presbyterian, follower of religion (person)"
+    },
+    {
+        "code": "160558004",
+        "display": "Methodist, follower of religion (person)"
+    },
+    {
+        "code": "160557009",
+        "display": "Baptist, follower of religion (person)"
+    },
+    {
+        "code": "160549006",
+        "display": "Christian, follower of religion (person)"
+    },
+    {
+        "code": "160545000",
+        "display": "Hindu, follower of religion (person)"
+    },
+    {
+        "code": "160544001",
+        "display": "Christian Scientist, follower of religion (person)"
+    },
+    {
+        "code": "160543007",
+        "display": "Jewish, follower of religion (person)"
+    },
+    {
+        "code": "160542002",
+        "display": "Atheist (person)"
+    },
+    {
+        "code": "160540005",
+        "display": "Roman Catholic, follower of religion (person)"
+    },
+    {
+        "code": "160506005",
+        "display": "Common-law wife (person)"
+    },
+    {
+        "code": "160505009",
+        "display": "Common-law husband (person)"
+    },
+    {
+        "code": "160234004",
+        "display": "Salvation Army member (person)"
+    },
+    {
+        "code": "133937008",
+        "display": "Adolescent (person)"
+    },
+    {
+        "code": "133936004",
+        "display": "Adult (person)"
+    },
+    {
+        "code": "133933007",
+        "display": "Newborn (person)"
+    },
+    {
+        "code": "133932002",
+        "display": "Caregiver (person)"
+    },
+    {
+        "code": "133931009",
+        "display": "Infant (person)"
+    },
+    {
+        "code": "127851002",
+        "display": "Fiance (person)"
+    },
+    {
+        "code": "127850001",
+        "display": "Wife (person)"
+    },
+    {
+        "code": "127849001",
+        "display": "Husband (person)"
+    },
+    {
+        "code": "127848009",
+        "display": "Spouse (person)"
+    },
+    {
+        "code": "125679009",
+        "display": "Blood relative (person)"
+    },
+    {
+        "code": "125678001",
+        "display": "First degree blood relative (person)"
+    },
+    {
+        "code": "125677006",
+        "display": "Relative (person)"
+    },
+    {
+        "code": "116154003",
+        "display": "Patient (person)"
+    },
+    {
+        "code": "116153009",
+        "display": "Donor of control material (person)"
+    },
+    {
+        "code": "113163005",
+        "display": "Friend (person)"
+    },
+    {
+        "code": "113161007",
+        "display": "Female fiance (person)"
+    },
+    {
+        "code": "113160008",
+        "display": "Natural son (person)"
+    },
+    {
+        "code": "113159003",
+        "display": "Legal daughter (person)"
+    },
+    {
+        "code": "113158006",
+        "display": "Fraternal twin sibling (person)"
+    },
+    {
+        "code": "113157001",
+        "display": "Grandmother (person)"
+    },
+    {
+        "code": "105474003",
+        "display": "Related spermatozoa donor for artificial insemination (person)"
+    },
+    {
+        "code": "105473009",
+        "display": "Husband spermatozoa donor for artificial insemination (person)"
+    },
+    {
+        "code": "105472004",
+        "display": "Spermatozoa donor for artificial insemination (person)"
+    },
+    {
+        "code": "105471006",
+        "display": "Bone marrow donor (person)"
+    },
+    {
+        "code": "105470007",
+        "display": "Blood donor (person)"
+    },
+    {
+        "code": "105469006",
+        "display": "Bone tissue donor (person)"
+    },
+    {
+        "code": "105468003",
+        "display": "Tissue donor (person)"
+    },
+    {
+        "code": "105467008",
+        "display": "Donor for heart-lung transplant (person)"
+    },
+    {
+        "code": "105466004",
+        "display": "Donor for lung transplant (person)"
+    },
+    {
+        "code": "105465000",
+        "display": "Donor for heart transplant (person)"
+    },
+    {
+        "code": "105464001",
+        "display": "Eye donor for corneal transplant (person)"
+    },
+    {
+        "code": "105463007",
+        "display": "Donor for liver transplant (person)"
+    },
+    {
+        "code": "105462002",
+        "display": "Donor of kidney for transplant (person)"
+    },
+    {
+        "code": "105461009",
+        "display": "Organ donor (person)"
+    },
+    {
+        "code": "105460005",
+        "display": "Rejected donor (person)"
+    },
+    {
+        "code": "105459000",
+        "display": "Accepted donor (person)"
+    },
+    {
+        "code": "105458008",
+        "display": "Candidate donor (person)"
+    },
+    {
+        "code": "105457003",
+        "display": "Cadaver donor (person)"
+    },
+    {
+        "code": "105456007",
+        "display": "Live donor (person)"
+    },
+    {
+        "code": "105455006",
+        "display": "Donor for medical or surgical procedure (person)"
+    },
+    {
+        "code": "105438007",
+        "display": "Elderly woman (person)"
+    },
+    {
+        "code": "105437002",
+        "display": "Elderly man (person)"
+    },
+    {
+        "code": "105436006",
+        "display": "Elderly person (person)"
+    },
+    {
+        "code": "105431001",
+        "display": "Adopted person (person)"
+    },
+    {
+        "code": "105429005",
+        "display": "Elderly parents (family) (person)"
+    },
+    {
+        "code": "105428002",
+        "display": "Homosexual parents (family) (person)"
+    },
+    {
+        "code": "90921004",
+        "display": "Foster parent (person)"
+    },
+    {
+        "code": "89681006",
+        "display": "Youngest son (person)"
+    },
+    {
+        "code": "88510002",
+        "display": "Stepsibling (person)"
+    },
+    {
+        "code": "86764008",
+        "display": "Stepchild (person)"
+    },
+    {
+        "code": "86372007",
+        "display": "Grandchild (person)"
+    },
+    {
+        "code": "85683001",
+        "display": "Single father (person)"
+    },
+    {
+        "code": "85411004",
+        "display": "Younger brother (person)"
+    },
+    {
+        "code": "85058002",
+        "display": "Adoptive grandfather (person)"
+    },
+    {
+        "code": "84390006",
+        "display": "Girlfriend (person)"
+    },
+    {
+        "code": "83559000",
+        "display": "Nephew (person)"
+    },
+    {
+        "code": "83420006",
+        "display": "Natural daughter (person)"
+    },
+    {
+        "code": "83408003",
+        "display": "Working parent (person)"
+    },
+    {
+        "code": "82101005",
+        "display": "Natural sibling (person)"
+    },
+    {
+        "code": "81706006",
+        "display": "Ashkenazi Jew, follower of religion (person)"
+    },
+    {
+        "code": "81467001",
+        "display": "Fraternal twin brother (person)"
+    },
+    {
+        "code": "81276006",
+        "display": "Twin brother (person)"
+    },
+    {
+        "code": "81173009",
+        "display": "Only son (person)"
+    },
+    {
+        "code": "80587008",
+        "display": "Jehovah's Witness, follower of religion (person)"
+    },
+    {
+        "code": "80386000",
+        "display": "Great great grandfather (person)"
+    },
+    {
+        "code": "79756005",
+        "display": "Boyfriend (person)"
+    },
+    {
+        "code": "79508001",
+        "display": "Adoptive sibling (person)"
+    },
+    {
+        "code": "78872000",
+        "display": "Orphan male (person)"
+    },
+    {
+        "code": "78652007",
+        "display": "Great grandmother (person)"
+    },
+    {
+        "code": "78272007",
+        "display": "Natural grandparent (person)"
+    },
+    {
+        "code": "78194006",
+        "display": "Identical twin brother (person)"
+    },
+    {
+        "code": "76087000",
+        "display": "Stepbrother (person)"
+    },
+    {
+        "code": "76022008",
+        "display": "Adoptive sister (person)"
+    },
+    {
+        "code": "75615008",
+        "display": "Surrogate father (person)"
+    },
+    {
+        "code": "75226009",
+        "display": "Natural child (person)"
+    },
+    {
+        "code": "74489007",
+        "display": "Younger child (person)"
+    },
+    {
+        "code": "74128007",
+        "display": "Stepparent (person)"
+    },
+    {
+        "code": "73678001",
+        "display": "Natural sister (person)"
+    },
+    {
+        "code": "72705000",
+        "display": "Mother (person)"
+    },
+    {
+        "code": "72012000",
+        "display": "Great grandchild (person)"
+    },
+    {
+        "code": "70924004",
+        "display": "Brother (person)"
+    },
+    {
+        "code": "70862002",
+        "display": "Contact person (person)"
+    },
+    {
+        "code": "70578009",
+        "display": "Grandson (person)"
+    },
+    {
+        "code": "68021009",
+        "display": "Great great grandparent (person)"
+    },
+    {
+        "code": "67822003",
+        "display": "Child (person)"
+    },
+    {
+        "code": "67147004",
+        "display": "Legal father (person)"
+    },
+    {
+        "code": "66839005",
+        "display": "Father (person)"
+    },
+    {
+        "code": "66089001",
+        "display": "Daughter (person)"
+    },
+    {
+        "code": "65656005",
+        "display": "Natural mother (person)"
+    },
+    {
+        "code": "65616008",
+        "display": "Son (person)"
+    },
+    {
+        "code": "65412001",
+        "display": "Stepmother (person)"
+    },
+    {
+        "code": "64988008",
+        "display": "Sunni muslim, follower of religion (person)"
+    },
+    {
+        "code": "62296006",
+        "display": "Natural grandfather (person)"
+    },
+    {
+        "code": "62090008",
+        "display": "Legal mother (person)"
+    },
+    {
+        "code": "60614009",
+        "display": "Natural brother (person)"
+    },
+    {
+        "code": "58626002",
+        "display": "Legal guardian (person)"
+    },
+    {
+        "code": "58293006",
+        "display": "Foster sister (person)"
+    },
+    {
+        "code": "55538000",
+        "display": "Cousin (person)"
+    },
+    {
+        "code": "54056000",
+        "display": "Trustee (person)"
+    },
+    {
+        "code": "53201003",
+        "display": "Older sister (person)"
+    },
+    {
+        "code": "51616000",
+        "display": "Sephardic Jew, follower of religion (person)"
+    },
+    {
+        "code": "50261002",
+        "display": "Great grandfather (person)"
+    },
+    {
+        "code": "50058005",
+        "display": "Identical twin sister (person)"
+    },
+    {
+        "code": "48385004",
+        "display": "Acquaintance (person)"
+    },
+    {
+        "code": "47801002",
+        "display": "Male cousin (person)"
+    },
+    {
+        "code": "46363003",
+        "display": "Stepsister (person)"
+    },
+    {
+        "code": "45929001",
+        "display": "Half-brother (person)"
+    },
+    {
+        "code": "44181008",
+        "display": "Granddaughter (person)"
+    },
+    {
+        "code": "41953004",
+        "display": "Adoptive parent (person)"
+    },
+    {
+        "code": "41795004",
+        "display": "Legal son (person)"
+    },
+    {
+        "code": "41057000",
+        "display": "Surrogate son (person)"
+    },
+    {
+        "code": "40683002",
+        "display": "Parent (person)"
+    },
+    {
+        "code": "39062003",
+        "display": "Foster child (person)"
+    },
+    {
+        "code": "38312007",
+        "display": "Grandparent (person)"
+    },
+    {
+        "code": "38265003",
+        "display": "Foster mother (person)"
+    },
+    {
+        "code": "38248007",
+        "display": "Oldest son (person)"
+    },
+    {
+        "code": "38048003",
+        "display": "Uncle (person)"
+    },
+    {
+        "code": "34972000",
+        "display": "Only daughter (person)"
+    },
+    {
+        "code": "34871008",
+        "display": "Grandfather (person)"
+    },
+    {
+        "code": "34581001",
+        "display": "Niece (person)"
+    },
+    {
+        "code": "33969000",
+        "display": "Great grandparent (person)"
+    },
+    {
+        "code": "31831004",
+        "display": "Foster daughter (person)"
+    },
+    {
+        "code": "31656007",
+        "display": "Adoptive grandmother (person)"
+    },
+    {
+        "code": "30578000",
+        "display": "Stepfather (person)"
+    },
+    {
+        "code": "29787005",
+        "display": "Foster brother (person)"
+    },
+    {
+        "code": "29644004",
+        "display": "Fraternal twin sister (person)"
+    },
+    {
+        "code": "29539002",
+        "display": "Younger sibling (person)"
+    },
+    {
+        "code": "28010004",
+        "display": "Shiite muslim, follower of religion (person)"
+    },
+    {
+        "code": "27733009",
+        "display": "Sister (person)"
+    },
+    {
+        "code": "27508009",
+        "display": "Surrogate mother (person)"
+    },
+    {
+        "code": "25211005",
+        "display": "Aunt (person)"
+    },
+    {
+        "code": "22963000",
+        "display": "Legal sister (person)"
+    },
+    {
+        "code": "22609000",
+        "display": "Adoptive grandparent (person)"
+    },
+    {
+        "code": "22573006",
+        "display": "Stepdaughter (person)"
+    },
+    {
+        "code": "22387007",
+        "display": "Surrogate child (person)"
+    },
+    {
+        "code": "21506002",
+        "display": "Female second cousin (person)"
+    },
+    {
+        "code": "21464003",
+        "display": "Adoptive mother (person)"
+    },
+    {
+        "code": "21093007",
+        "display": "Half-sibling (person)"
+    },
+    {
+        "code": "19686009",
+        "display": "Younger sister (person)"
+    },
+    {
+        "code": "19343003",
+        "display": "Twin sister (person)"
+    },
+    {
+        "code": "18906004",
+        "display": "Foster sibling (person)"
+    },
+    {
+        "code": "18205005",
+        "display": "Wesleyan Methodist, follower of religion (person)"
+    },
+    {
+        "code": "17945006",
+        "display": "Natural grandmother (person)"
+    },
+    {
+        "code": "17925003",
+        "display": "Adoptive brother (person)"
+    },
+    {
+        "code": "17219007",
+        "display": "Male fiance (person)"
+    },
+    {
+        "code": "15130002",
+        "display": "Surrogate parent (person)"
+    },
+    {
+        "code": "14469008",
+        "display": "Legal child (person)"
+    },
+    {
+        "code": "13646006",
+        "display": "Natural parent (person)"
+    },
+    {
+        "code": "13443008",
+        "display": "Second cousin (person)"
+    },
+    {
+        "code": "13157002",
+        "display": "Older sibling (person)"
+    },
+    {
+        "code": "13038009",
+        "display": "Older brother (person)"
+    },
+    {
+        "code": "12629003",
+        "display": "Single mother (person)"
+    },
+    {
+        "code": "12241003",
+        "display": "Foster son (person)"
+    },
+    {
+        "code": "11993008",
+        "display": "Male first cousin (person)"
+    },
+    {
+        "code": "11773006",
+        "display": "Legal brother (person)"
+    },
+    {
+        "code": "11434005",
+        "display": "Male second cousin (person)"
+    },
+    {
+        "code": "11393001",
+        "display": "Great great grandchild (person)"
+    },
+    {
+        "code": "11286003",
+        "display": "Twin sibling (person)"
+    },
+    {
+        "code": "10960006",
+        "display": "Working father (person)"
+    },
+    {
+        "code": "10896006",
+        "display": "Identical twin sibling (person)"
+    },
+    {
+        "code": "9947008",
+        "display": "Natural father (person)"
+    },
+    {
+        "code": "9306000",
+        "display": "Legal parent (person)"
+    },
+    {
+        "code": "8674003",
+        "display": "Stepson (person)"
+    },
+    {
+        "code": "8458002",
+        "display": "Foster father (person)"
+    },
+    {
+        "code": "6676009",
+        "display": "Youngest daughter (person)"
+    },
+    {
+        "code": "4577005",
+        "display": "First cousin (person)"
+    },
+    {
+        "code": "3851003",
+        "display": "Surrogate daughter (person)"
+    },
+    {
+        "code": "3425009",
+        "display": "Oldest daughter (person)"
+    },
+    {
+        "code": "2959006",
+        "display": "Female cousin (person)"
+    },
+    {
+        "code": "2481008",
+        "display": "Working mother (person)"
+    },
+    {
+        "code": "2368000",
+        "display": "Great great grandmother (person)"
+    },
+    {
+        "code": "2272004",
+        "display": "Half-sister (person)"
+    },
+    {
+        "code": "1354005",
+        "display": "Orphan female (person)"
+    },
+    {
+        "code": "609005",
+        "display": "Adoptive father (person)"
+    },
+    {
+        "code": "444000",
+        "display": "Legal sibling (person)"
+    },
+    {
+        "code": "375005",
+        "display": "Sibling (person)"
+    },
+    {
+        "code": "270002",
+        "display": "Female first cousin (person)"
+    },
+    {
+        "code": "450044741000087104",
+        "display": "Acupuncturist (occupation)"
+    },
+    {
+        "code": "1276571000168108",
+        "display": "Orthotist and prosthetist (occupation)"
+    },
+    {
+        "code": "1276561000168102",
+        "display": "Prosthetist (occupation)"
+    },
+    {
+        "code": "1032781000168105",
+        "display": "Kinesiology practitioner (occupation)"
+    },
+    {
+        "code": "1012901000168106",
+        "display": "Gynecologic oncologist (occupation)"
+    },
+    {
+        "code": "611601000124100",
+        "display": "Neonatal nurse practitioner (occupation)"
+    },
+    {
+        "code": "90981000221101",
+        "display": "Endoscopist physician (occupation)"
+    },
+    {
+        "code": "68191000052106",
+        "display": "Neuropsychologist (occupation)"
+    },
+    {
+        "code": "67811000052107",
+        "display": "Pediatric hematology and oncology physician (occupation)"
+    },
+    {
+        "code": "50681000087109",
+        "display": "Bariatric surgeon (occupation)"
+    },
+    {
+        "code": "45201000087106",
+        "display": "Pediatric urologist (occupation)"
+    },
+    {
+        "code": "45191000087109",
+        "display": "Pediatric otorhinolaryngologist (occupation)"
+    },
+    {
+        "code": "45181000087107",
+        "display": "Pediatric ophthalmologist (occupation)"
+    },
+    {
+        "code": "26091000087104",
+        "display": "Public health nurse practitioner (occupation)"
+    },
+    {
+        "code": "26071000087103",
+        "display": "Primary health care nurse practitioner (occupation)"
+    },
+    {
+        "code": "26031000087100",
+        "display": "Pediatric nurse practitioner (occupation)"
+    },
+    {
+        "code": "25941000087102",
+        "display": "Adult gerontology primary care nurse practitioner (occupation)"
+    },
+    {
+        "code": "9371000175105",
+        "display": "Adolescent medicine specialist (occupation)"
+    },
+    {
+        "code": "3981000175106",
+        "display": "Nurse complex case manager (occupation)"
+    },
+    {
+        "code": "1290289004",
+        "display": "Fellow physician (occupation)"
+    },
+    {
+        "code": "1287641002",
+        "display": "Oncologist (occupation)"
+    },
+    {
+        "code": "1268923002",
+        "display": "Obstetric nurse (occupation)"
+    },
+    {
+        "code": "1259964002",
+        "display": "Oral medicine specialist (occupation)"
+    },
+    {
+        "code": "1259214004",
+        "display": "Immunohemotherapy specialist (occupation)"
+    },
+    {
+        "code": "1256114007",
+        "display": "Nuclear medicine technologist (occupation)"
+    },
+    {
+        "code": "1255719001",
+        "display": "Neurophysiology technician (occupation)"
+    },
+    {
+        "code": "1255519003",
+        "display": "Cardiopulmonary technician (occupation)"
+    },
+    {
+        "code": "1255518006",
+        "display": "Organizational and social psychologist (occupation)"
+    },
+    {
+        "code": "1255517001",
+        "display": "Intern in healthcare (occupation)"
+    },
+    {
+        "code": "1255515009",
+        "display": "Pharmacogenomics pharmacist (occupation)"
+    },
+    {
+        "code": "1255514008",
+        "display": "Regulatory affairs pharmacist (occupation)"
+    },
+    {
+        "code": "1255374004",
+        "display": "Clinical nutritionist (occupation)"
+    },
+    {
+        "code": "1255373005",
+        "display": "Specialist in traditional Chinese medicine (occupation)"
+    },
+    {
+        "code": "1255372000",
+        "display": "Phytotherapist (occupation)"
+    },
+    {
+        "code": "1255371007",
+        "display": "Specialist in homeopathy (occupation)"
+    },
+    {
+        "code": "1255370008",
+        "display": "Specialist in naturopathy (occupation)"
+    },
+    {
+        "code": "1254984000",
+        "display": "Rehabilitation nurse (occupation)"
+    },
+    {
+        "code": "1254983006",
+        "display": "Chronic care nurse (occupation)"
+    },
+    {
+        "code": "1254982001",
+        "display": "Medical surgical nurse (occupation)"
+    },
+    {
+        "code": "1251548000",
+        "display": "Neuroradiologist (occupation)"
+    },
+    {
+        "code": "1251542004",
+        "display": "Medical coder (occupation)"
+    },
+    {
+        "code": "1251537007",
+        "display": "Sport medicine specialist (occupation)"
+    },
+    {
+        "code": "1186914001",
+        "display": "Intellectual disability nurse (occupation)"
+    },
+    {
+        "code": "1186716007",
+        "display": "Intellectual disability psychiatrist (occupation)"
+    },
+    {
+        "code": "1172950003",
+        "display": "Massage therapist (occupation)"
+    },
+    {
+        "code": "897187007",
+        "display": "Sexual assault nurse examiner (occupation)"
+    },
+    {
+        "code": "878787005",
+        "display": "Anesthesia technician (occupation)"
+    },
+    {
+        "code": "878786001",
+        "display": "Operating room technician (occupation)"
+    },
+    {
+        "code": "878785002",
+        "display": "Clinical respiratory physiologist (occupation)"
+    },
+    {
+        "code": "840584008",
+        "display": "Allied health student (occupation)"
+    },
+    {
+        "code": "840583002",
+        "display": "Allied health assistant (occupation)"
+    },
+    {
+        "code": "789543004",
+        "display": "Sonographer (occupation)"
+    },
+    {
+        "code": "768839008",
+        "display": "Consultant (occupation)"
+    },
+    {
+        "code": "768837005",
+        "display": "Hospitalist (occupation)"
+    },
+    {
+        "code": "768836001",
+        "display": "Patient navigator (occupation)"
+    },
+    {
+        "code": "768834003",
+        "display": "Disease manager (occupation)"
+    },
+    {
+        "code": "768833009",
+        "display": "Discharging physician (occupation)"
+    },
+    {
+        "code": "768832004",
+        "display": "Case manager (occupation)"
+    },
+    {
+        "code": "768829002",
+        "display": "Community dietician (occupation)"
+    },
+    {
+        "code": "768828005",
+        "display": "Epidemiologist (occupation)"
+    },
+    {
+        "code": "768827000",
+        "display": "Nutritionist (occupation)"
+    },
+    {
+        "code": "768826009",
+        "display": "Crisis counselor (occupation)"
+    },
+    {
+        "code": "768825008",
+        "display": "Doula (occupation)"
+    },
+    {
+        "code": "768819009",
+        "display": "Medically responsible investigator (occupation)"
+    },
+    {
+        "code": "768732009",
+        "display": "School health educator (occupation)"
+    },
+    {
+        "code": "768731002",
+        "display": "Home helper (occupation)"
+    },
+    {
+        "code": "768730001",
+        "display": "Home health aide (occupation)"
+    },
+    {
+        "code": "763292005",
+        "display": "Radiation oncologist (occupation)"
+    },
+    {
+        "code": "734294007",
+        "display": "Pharmacist prescriber (occupation)"
+    },
+    {
+        "code": "734293001",
+        "display": "Clinical pharmacist (occupation)"
+    },
+    {
+        "code": "721943002",
+        "display": "Clinical immunology and allergy specialist (occupation)"
+    },
+    {
+        "code": "721942007",
+        "display": "Cardiovascular perfusionist (occupation)"
+    },
+    {
+        "code": "721941000",
+        "display": "Health psychologist (occupation)"
+    },
+    {
+        "code": "721940004",
+        "display": "Legal medicine specialist (occupation)"
+    },
+    {
+        "code": "721939001",
+        "display": "Vascular medicine specialist (occupation)"
+    },
+    {
+        "code": "721938009",
+        "display": "Tropical medicine specialist (occupation)"
+    },
+    {
+        "code": "721937004",
+        "display": "Preventive medicine specialist (occupation)"
+    },
+    {
+        "code": "721936008",
+        "display": "Occupation medicine specialist (occupation)"
+    },
+    {
+        "code": "720503005",
+        "display": "Sleep medicine specialist (occupation)"
+    },
+    {
+        "code": "471302004",
+        "display": "Government midwife (occupation)"
+    },
+    {
+        "code": "449161006",
+        "display": "Physician assistant (occupation)"
+    },
+    {
+        "code": "446701002",
+        "display": "Addiction medicine specialist (occupation)"
+    },
+    {
+        "code": "446050000",
+        "display": "Primary care physician (occupation)"
+    },
+    {
+        "code": "445451001",
+        "display": "Nurse case manager (occupation)"
+    },
+    {
+        "code": "445313000",
+        "display": "Asthma nurse specialist (occupation)"
+    },
+    {
+        "code": "444912007",
+        "display": "Hypnotherapist (occupation)"
+    },
+    {
+        "code": "443090005",
+        "display": "Podiatric surgeon (occupation)"
+    },
+    {
+        "code": "442867008",
+        "display": "Respiratory therapist (occupation)"
+    },
+    {
+        "code": "432100008",
+        "display": "Health coach (occupation)"
+    },
+    {
+        "code": "422234006",
+        "display": "Ophthalmologist (occupation)"
+    },
+    {
+        "code": "422140007",
+        "display": "Medical ophthalmologist (occupation)"
+    },
+    {
+        "code": "421841007",
+        "display": "Admitting physician (occupation)"
+    },
+    {
+        "code": "420678001",
+        "display": "Retinal surgeon (occupation)"
+    },
+    {
+        "code": "420409002",
+        "display": "Oculoplastic surgeon (occupation)"
+    },
+    {
+        "code": "416160000",
+        "display": "Fellow of American Academy of Osteopathy (occupation)"
+    },
+    {
+        "code": "415506007",
+        "display": "Scrub nurse (occupation)"
+    },
+    {
+        "code": "415075003",
+        "display": "Perioperative nurse (occupation)"
+    },
+    {
+        "code": "413854007",
+        "display": "Circulating nurse (occupation)"
+    },
+    {
+        "code": "409975003",
+        "display": "Certified health education specialist (occupation)"
+    },
+    {
+        "code": "409974004",
+        "display": "Health educator (occupation)"
+    },
+    {
+        "code": "408799001",
+        "display": "Consultant neonatologist (occupation)"
+    },
+    {
+        "code": "408798009",
+        "display": "Consultant pediatrician (occupation)"
+    },
+    {
+        "code": "405685006",
+        "display": "Professional providing staff relief during surgical procedure (occupation)"
+    },
+    {
+        "code": "405684005",
+        "display": "Professional initiating surgical case (occupation)"
+    },
+    {
+        "code": "405623001",
+        "display": "Assigned practitioner (occupation)"
+    },
+    {
+        "code": "405279007",
+        "display": "Attending physician (occupation)"
+    },
+    {
+        "code": "405278004",
+        "display": "Certified registered nurse anesthetist (occupation)"
+    },
+    {
+        "code": "405277009",
+        "display": "Resident physician (occupation)"
+    },
+    {
+        "code": "404940000",
+        "display": "Physiotherapist technical instructor (occupation)"
+    },
+    {
+        "code": "398238009",
+        "display": "Acting obstetric registrar (occupation)"
+    },
+    {
+        "code": "398130009",
+        "display": "Medical student (occupation)"
+    },
+    {
+        "code": "397908005",
+        "display": "Staff grade practitioner (occupation)"
+    },
+    {
+        "code": "397903001",
+        "display": "Staff grade obstetrician (occupation)"
+    },
+    {
+        "code": "397897005",
+        "display": "Paramedic (occupation)"
+    },
+    {
+        "code": "394618009",
+        "display": "Hospital nurse (occupation)"
+    },
+    {
+        "code": "394572006",
+        "display": "Medical secretary (occupation)"
+    },
+    {
+        "code": "387619007",
+        "display": "Optician (occupation)"
+    },
+    {
+        "code": "372102007",
+        "display": "Registered nurse first assist (occupation)"
+    },
+    {
+        "code": "312485001",
+        "display": "Integrated midwife (occupation)"
+    },
+    {
+        "code": "311441001",
+        "display": "School medical officer (occupation)"
+    },
+    {
+        "code": "310512001",
+        "display": "Medical oncologist (occupation)"
+    },
+    {
+        "code": "310194009",
+        "display": "Appliance officer (occupation)"
+    },
+    {
+        "code": "310193003",
+        "display": "Coroner (occupation)"
+    },
+    {
+        "code": "310192008",
+        "display": "Educational psychologist (occupation)"
+    },
+    {
+        "code": "310191001",
+        "display": "Clinical psychologist (occupation)"
+    },
+    {
+        "code": "310190000",
+        "display": "Mental health counselor (occupation)"
+    },
+    {
+        "code": "310189009",
+        "display": "Genetic counselor (occupation)"
+    },
+    {
+        "code": "310188001",
+        "display": "Hospital midwife (occupation)"
+    },
+    {
+        "code": "310187006",
+        "display": "Company nurse (occupation)"
+    },
+    {
+        "code": "310186002",
+        "display": "Nurse psychotherapist (occupation)"
+    },
+    {
+        "code": "310185003",
+        "display": "Diabetic liaison nurse (occupation)"
+    },
+    {
+        "code": "310184004",
+        "display": "Liaison nurse (occupation)"
+    },
+    {
+        "code": "310182000",
+        "display": "General nurse (occupation)"
+    },
+    {
+        "code": "310181007",
+        "display": "Contact tracing nurse (occupation)"
+    },
+    {
+        "code": "310180008",
+        "display": "Continence nurse (occupation)"
+    },
+    {
+        "code": "310179005",
+        "display": "Rheumatology nurse specialist (occupation)"
+    },
+    {
+        "code": "310178002",
+        "display": "Genitourinary nurse (occupation)"
+    },
+    {
+        "code": "310177007",
+        "display": "Cardiac rehabilitation nurse (occupation)"
+    },
+    {
+        "code": "310176003",
+        "display": "Behavioral therapist nurse (occupation)"
+    },
+    {
+        "code": "310175004",
+        "display": "Agency nurse (occupation)"
+    },
+    {
+        "code": "310174000",
+        "display": "Private doctor (occupation)"
+    },
+    {
+        "code": "310173006",
+        "display": "Clinical pharmacologist (occupation)"
+    },
+    {
+        "code": "310172001",
+        "display": "Audiological physician (occupation)"
+    },
+    {
+        "code": "310171008",
+        "display": "Immunopathologist (occupation)"
+    },
+    {
+        "code": "310170009",
+        "display": "Pediatric audiologist (occupation)"
+    },
+    {
+        "code": "309460000",
+        "display": "Restorative dentist (occupation)"
+    },
+    {
+        "code": "309459005",
+        "display": "Healthcare professional grade (occupation)"
+    },
+    {
+        "code": "309455004",
+        "display": "Parentcraft sister (occupation)"
+    },
+    {
+        "code": "309454000",
+        "display": "Student midwife (occupation)"
+    },
+    {
+        "code": "309453006",
+        "display": "Registered midwife (occupation)"
+    },
+    {
+        "code": "309452001",
+        "display": "Midwifery grade (occupation)"
+    },
+    {
+        "code": "309450009",
+        "display": "Nurse administrator (occupation)"
+    },
+    {
+        "code": "309446002",
+        "display": "Nurse manager (occupation)"
+    },
+    {
+        "code": "309445003",
+        "display": "Anesthetic nurse (occupation)"
+    },
+    {
+        "code": "309444004",
+        "display": "Outreach nurse (occupation)"
+    },
+    {
+        "code": "309443005",
+        "display": "Nurse lecturer practitioner (occupation)"
+    },
+    {
+        "code": "309442000",
+        "display": "Nurse teacher practitioner (occupation)"
+    },
+    {
+        "code": "309441007",
+        "display": "Nurse tutor (occupation)"
+    },
+    {
+        "code": "309440008",
+        "display": "Community practice nurse teacher (occupation)"
+    },
+    {
+        "code": "309439006",
+        "display": "Clinical nurse teacher (occupation)"
+    },
+    {
+        "code": "309437008",
+        "display": "Community learning disabilities nurse (occupation)"
+    },
+    {
+        "code": "309436004",
+        "display": "Lymphedema nurse (occupation)"
+    },
+    {
+        "code": "309435000",
+        "display": "Podiatry assistant (occupation)"
+    },
+    {
+        "code": "309434001",
+        "display": "Hospital-based podiatrist (occupation)"
+    },
+    {
+        "code": "309429000",
+        "display": "Surgical fitter (occupation)"
+    },
+    {
+        "code": "309428008",
+        "display": "Orthotist (occupation)"
+    },
+    {
+        "code": "309427003",
+        "display": "Social services occupational therapist (occupation)"
+    },
+    {
+        "code": "309423004",
+        "display": "Hospital-based occupational therapist (occupation)"
+    },
+    {
+        "code": "309422009",
+        "display": "Community-based occupational therapist (occupation)"
+    },
+    {
+        "code": "309421002",
+        "display": "Hearing aid dispenser (occupation)"
+    },
+    {
+        "code": "309420001",
+        "display": "Audiological scientist (occupation)"
+    },
+    {
+        "code": "309419007",
+        "display": "Hearing therapist (occupation)"
+    },
+    {
+        "code": "309418004",
+        "display": "Audiologist (occupation)"
+    },
+    {
+        "code": "309417009",
+        "display": "Diabetes dietitian (occupation)"
+    },
+    {
+        "code": "309416000",
+        "display": "Pediatric dietitian (occupation)"
+    },
+    {
+        "code": "309415001",
+        "display": "Oncology dietitian (occupation)"
+    },
+    {
+        "code": "309414002",
+        "display": "Liver dietitian (occupation)"
+    },
+    {
+        "code": "309413008",
+        "display": "Renal dietitian (occupation)"
+    },
+    {
+        "code": "309412003",
+        "display": "Music therapist (occupation)"
+    },
+    {
+        "code": "309411005",
+        "display": "Dance therapist (occupation)"
+    },
+    {
+        "code": "309410006",
+        "display": "Arts therapist (occupation)"
+    },
+    {
+        "code": "309409001",
+        "display": "Hospital-based speech and language therapist (occupation)"
+    },
+    {
+        "code": "309404006",
+        "display": "Physiotherapy helper (occupation)"
+    },
+    {
+        "code": "309403000",
+        "display": "Private physiotherapist (occupation)"
+    },
+    {
+        "code": "309402005",
+        "display": "Hospital-based physiotherapist (occupation)"
+    },
+    {
+        "code": "309401003",
+        "display": "General practitioner-based physiotherapist (occupation)"
+    },
+    {
+        "code": "309400002",
+        "display": "Domiciliary physiotherapist (occupation)"
+    },
+    {
+        "code": "309399009",
+        "display": "Hospital-based dietitian (occupation)"
+    },
+    {
+        "code": "309398001",
+        "display": "Profession allied to medicine (occupation)"
+    },
+    {
+        "code": "309397006",
+        "display": "Research fellow (occupation)"
+    },
+    {
+        "code": "309396002",
+        "display": "Associate specialist (occupation)"
+    },
+    {
+        "code": "309395003",
+        "display": "Hospital specialist (occupation)"
+    },
+    {
+        "code": "309394004",
+        "display": "General practitioner principal (occupation)"
+    },
+    {
+        "code": "309393005",
+        "display": "General practitioner grade (occupation)"
+    },
+    {
+        "code": "309392000",
+        "display": "Research registrar (occupation)"
+    },
+    {
+        "code": "309391007",
+        "display": "Visiting specialist registrar (occupation)"
+    },
+    {
+        "code": "309390008",
+        "display": "Hospital consultant (occupation)"
+    },
+    {
+        "code": "309389004",
+        "display": "Medical practitioner grade (occupation)"
+    },
+    {
+        "code": "309388007",
+        "display": "Vascular surgeon (occupation)"
+    },
+    {
+        "code": "309386006",
+        "display": "Trauma surgeon (occupation)"
+    },
+    {
+        "code": "309385005",
+        "display": "Transplant surgeon (occupation)"
+    },
+    {
+        "code": "309384009",
+        "display": "Pancreatic surgeon (occupation)"
+    },
+    {
+        "code": "309383003",
+        "display": "Pediatric surgeon (occupation)"
+    },
+    {
+        "code": "309382008",
+        "display": "Ophthalmic surgeon (occupation)"
+    },
+    {
+        "code": "309381001",
+        "display": "Hepatobiliary surgeon (occupation)"
+    },
+    {
+        "code": "309380000",
+        "display": "Hand surgeon (occupation)"
+    },
+    {
+        "code": "309379003",
+        "display": "Colorectal surgeon (occupation)"
+    },
+    {
+        "code": "309378006",
+        "display": "Upper gastrointestinal surgeon (occupation)"
+    },
+    {
+        "code": "309377001",
+        "display": "General gastrointestinal surgeon (occupation)"
+    },
+    {
+        "code": "309376005",
+        "display": "Gastrointestinal surgeon (occupation)"
+    },
+    {
+        "code": "309375009",
+        "display": "Pituitary surgeon (occupation)"
+    },
+    {
+        "code": "309374008",
+        "display": "Thyroid surgeon (occupation)"
+    },
+    {
+        "code": "309373002",
+        "display": "Endocrine surgeon (occupation)"
+    },
+    {
+        "code": "309372007",
+        "display": "Ear, nose and throat surgeon (occupation)"
+    },
+    {
+        "code": "309371000",
+        "display": "Cardiac surgeon (occupation)"
+    },
+    {
+        "code": "309369000",
+        "display": "Cardiothoracic surgeon (occupation)"
+    },
+    {
+        "code": "309368008",
+        "display": "Breast surgeon (occupation)"
+    },
+    {
+        "code": "309367003",
+        "display": "Obstetrician and gynecologist (occupation)"
+    },
+    {
+        "code": "309366007",
+        "display": "Rehabilitation psychiatrist (occupation)"
+    },
+    {
+        "code": "309364005",
+        "display": "Psychogeriatrician (occupation)"
+    },
+    {
+        "code": "309363004",
+        "display": "Liaison psychiatrist (occupation)"
+    },
+    {
+        "code": "309362009",
+        "display": "Forensic psychiatrist (occupation)"
+    },
+    {
+        "code": "309361002",
+        "display": "Child and adolescent psychiatrist (occupation)"
+    },
+    {
+        "code": "309360001",
+        "display": "Rehabilitation physician (occupation)"
+    },
+    {
+        "code": "309359006",
+        "display": "Palliative care physician (occupation)"
+    },
+    {
+        "code": "309358003",
+        "display": "Genitourinary medicine physician (occupation)"
+    },
+    {
+        "code": "309357008",
+        "display": "Clinical molecular geneticist (occupation)"
+    },
+    {
+        "code": "309356004",
+        "display": "Clinical cytogeneticist (occupation)"
+    },
+    {
+        "code": "309355000",
+        "display": "Clinical geneticist (occupation)"
+    },
+    {
+        "code": "309354001",
+        "display": "Thyroidologist (occupation)"
+    },
+    {
+        "code": "309353007",
+        "display": "Reproductive endocrinologist (occupation)"
+    },
+    {
+        "code": "309352002",
+        "display": "Neuroendocrinologist (occupation)"
+    },
+    {
+        "code": "309351009",
+        "display": "Andrologist (occupation)"
+    },
+    {
+        "code": "309350005",
+        "display": "Diabetologist (occupation)"
+    },
+    {
+        "code": "309349005",
+        "display": "Clinical physiologist (occupation)"
+    },
+    {
+        "code": "309348002",
+        "display": "Clinical neurophysiologist (occupation)"
+    },
+    {
+        "code": "309347007",
+        "display": "Clinical hematologist (occupation)"
+    },
+    {
+        "code": "309346003",
+        "display": "Thoracic physician (occupation)"
+    },
+    {
+        "code": "309345004",
+        "display": "Chest physician (occupation)"
+    },
+    {
+        "code": "309343006",
+        "display": "Physician (occupation)"
+    },
+    {
+        "code": "309342001",
+        "display": "Histopathologist (occupation)"
+    },
+    {
+        "code": "309341008",
+        "display": "Blood transfusion doctor (occupation)"
+    },
+    {
+        "code": "309340009",
+        "display": "Pediatric intensive care specialist (occupation)"
+    },
+    {
+        "code": "309339007",
+        "display": "Adult intensive care specialist (occupation)"
+    },
+    {
+        "code": "309338004",
+        "display": "Intensive care specialist (occupation)"
+    },
+    {
+        "code": "309337009",
+        "display": "Pain management specialist (occupation)"
+    },
+    {
+        "code": "309336000",
+        "display": "Pediatric oncologist (occupation)"
+    },
+    {
+        "code": "309335001",
+        "display": "Pediatric rheumatologist (occupation)"
+    },
+    {
+        "code": "309334002",
+        "display": "Pediatric neurologist (occupation)"
+    },
+    {
+        "code": "309333008",
+        "display": "Pediatric nephrologist (occupation)"
+    },
+    {
+        "code": "309332003",
+        "display": "Pediatric gastroenterologist (occupation)"
+    },
+    {
+        "code": "309331005",
+        "display": "Pediatric endocrinologist (occupation)"
+    },
+    {
+        "code": "309330006",
+        "display": "Pediatric cardiologist (occupation)"
+    },
+    {
+        "code": "309329001",
+        "display": "Community pediatrician (occupation)"
+    },
+    {
+        "code": "309328009",
+        "display": "Ambulatory pediatrician (occupation)"
+    },
+    {
+        "code": "309327004",
+        "display": "General practitioner registrar (occupation)"
+    },
+    {
+        "code": "309326008",
+        "display": "Deputizing general practitioner (occupation)"
+    },
+    {
+        "code": "309324006",
+        "display": "General practitioner assistant (occupation)"
+    },
+    {
+        "code": "309323000",
+        "display": "Partner of general practitioner (occupation)"
+    },
+    {
+        "code": "309322005",
+        "display": "Associate general practitioner (occupation)"
+    },
+    {
+        "code": "309296004",
+        "display": "Family planning doctor (occupation)"
+    },
+    {
+        "code": "309295000",
+        "display": "Clinical oncologist (occupation)"
+    },
+    {
+        "code": "309294001",
+        "display": "Emergency department physician (occupation)"
+    },
+    {
+        "code": "308002005",
+        "display": "Remedial therapist (occupation)"
+    },
+    {
+        "code": "307988006",
+        "display": "Medical technician (occupation)"
+    },
+    {
+        "code": "304292004",
+        "display": "Surgeon (occupation)"
+    },
+    {
+        "code": "304291006",
+        "display": "Bereavement counselor (occupation)"
+    },
+    {
+        "code": "303134001",
+        "display": "Independent doctor (occupation)"
+    },
+    {
+        "code": "303133007",
+        "display": "Responsible medical officer (occupation)"
+    },
+    {
+        "code": "303129000",
+        "display": "Hospital manager (occupation)"
+    },
+    {
+        "code": "303124005",
+        "display": "Member of mental health review tribunal (occupation)"
+    },
+    {
+        "code": "302211009",
+        "display": "Specialist registrar (occupation)"
+    },
+    {
+        "code": "283875005",
+        "display": "Parkinson's disease nurse (occupation)"
+    },
+    {
+        "code": "265939002",
+        "display": "Medical/dental technicians (occupation)"
+    },
+    {
+        "code": "265937000",
+        "display": "Nursing occupation (occupation)"
+    },
+    {
+        "code": "225727002",
+        "display": "Midwife counselor (occupation)"
+    },
+    {
+        "code": "225726006",
+        "display": "Lactation consultant (occupation)"
+    },
+    {
+        "code": "224936003",
+        "display": "General practitioner locum (occupation)"
+    },
+    {
+        "code": "224626008",
+        "display": "Interpreter for Signs supporting English (occupation)"
+    },
+    {
+        "code": "224625007",
+        "display": "Interpreter for British sign language (occupation)"
+    },
+    {
+        "code": "224624006",
+        "display": "Lipspeaker (occupation)"
+    },
+    {
+        "code": "224623000",
+        "display": "Cuer (occupation)"
+    },
+    {
+        "code": "224622005",
+        "display": "Note taker (occupation)"
+    },
+    {
+        "code": "224621003",
+        "display": "Palantypist (occupation)"
+    },
+    {
+        "code": "224620002",
+        "display": "Human aid to communication (occupation)"
+    },
+    {
+        "code": "224615002",
+        "display": "Research nurse (occupation)"
+    },
+    {
+        "code": "224614003",
+        "display": "Research associate (occupation)"
+    },
+    {
+        "code": "224610007",
+        "display": "Supporting services personnel (occupation)"
+    },
+    {
+        "code": "224609002",
+        "display": "Complementary health worker (occupation)"
+    },
+    {
+        "code": "224608005",
+        "display": "Administrative healthcare staff (occupation)"
+    },
+    {
+        "code": "224607000",
+        "display": "Occupational therapy technical instructor (occupation)"
+    },
+    {
+        "code": "224606009",
+        "display": "Technical healthcare occupation (occupation)"
+    },
+    {
+        "code": "224604007",
+        "display": "Audiometrician (occupation)"
+    },
+    {
+        "code": "224603001",
+        "display": "Foot care worker (occupation)"
+    },
+    {
+        "code": "224602006",
+        "display": "Community-based podiatrist (occupation)"
+    },
+    {
+        "code": "224601004",
+        "display": "Assistant psychologist (occupation)"
+    },
+    {
+        "code": "224600003",
+        "display": "Psychoanalyst (occupation)"
+    },
+    {
+        "code": "224599001",
+        "display": "Trained personnel counselor (occupation)"
+    },
+    {
+        "code": "224598009",
+        "display": "Trained social worker counselor (occupation)"
+    },
+    {
+        "code": "224597004",
+        "display": "Trained nurse counselor (occupation)"
+    },
+    {
+        "code": "224596008",
+        "display": "Marriage guidance counselor (occupation)"
+    },
+    {
+        "code": "224595007",
+        "display": "Professional counselor (occupation)"
+    },
+    {
+        "code": "224594006",
+        "display": "Speech/language assistant (occupation)"
+    },
+    {
+        "code": "224593000",
+        "display": "Community-based speech/language therapist (occupation)"
+    },
+    {
+        "code": "224592005",
+        "display": "Play leader (occupation)"
+    },
+    {
+        "code": "224591003",
+        "display": "Play specialist (occupation)"
+    },
+    {
+        "code": "224590002",
+        "display": "Play therapist (occupation)"
+    },
+    {
+        "code": "224589006",
+        "display": "Community-based physiotherapist (occupation)"
+    },
+    {
+        "code": "224588003",
+        "display": "Psychotherapist (occupation)"
+    },
+    {
+        "code": "224587008",
+        "display": "Occupational therapy helper (occupation)"
+    },
+    {
+        "code": "224586004",
+        "display": "Domiciliary occupational therapist (occupation)"
+    },
+    {
+        "code": "224585000",
+        "display": "Drama therapist (occupation)"
+    },
+    {
+        "code": "224584001",
+        "display": "Behavior therapy assistant (occupation)"
+    },
+    {
+        "code": "224583007",
+        "display": "Behavior therapist (occupation)"
+    },
+    {
+        "code": "224581009",
+        "display": "Community nurse manager (occupation)"
+    },
+    {
+        "code": "224580005",
+        "display": "Occupational health service manager (occupation)"
+    },
+    {
+        "code": "224579007",
+        "display": "Healthcare service manager (occupation)"
+    },
+    {
+        "code": "224578004",
+        "display": "Nursery nurse (occupation)"
+    },
+    {
+        "code": "224577009",
+        "display": "Healthcare assistant (occupation)"
+    },
+    {
+        "code": "224576000",
+        "display": "Nursing assistant (occupation)"
+    },
+    {
+        "code": "224575001",
+        "display": "Nursing team leader (occupation)"
+    },
+    {
+        "code": "224574002",
+        "display": "Ward manager (occupation)"
+    },
+    {
+        "code": "224573008",
+        "display": "Charge nurse (occupation)"
+    },
+    {
+        "code": "224572003",
+        "display": "Nursing sister (occupation)"
+    },
+    {
+        "code": "224571005",
+        "display": "Nurse practitioner (occupation)"
+    },
+    {
+        "code": "224570006",
+        "display": "Clinical nurse specialist (occupation)"
+    },
+    {
+        "code": "224569005",
+        "display": "Nurse grade (occupation)"
+    },
+    {
+        "code": "224567007",
+        "display": "Tissue viability nurse (occupation)"
+    },
+    {
+        "code": "224566003",
+        "display": "Hemodialysis nurse (occupation)"
+    },
+    {
+        "code": "224565004",
+        "display": "Renal nurse (occupation)"
+    },
+    {
+        "code": "224564000",
+        "display": "Community mental health nurse (occupation)"
+    },
+    {
+        "code": "224563006",
+        "display": "Mental health nurse (occupation)"
+    },
+    {
+        "code": "224562001",
+        "display": "Pediatric nurse (occupation)"
+    },
+    {
+        "code": "224560009",
+        "display": "Stoma care nurse (occupation)"
+    },
+    {
+        "code": "224559004",
+        "display": "Recovery nurse (occupation)"
+    },
+    {
+        "code": "224558007",
+        "display": "Radiotherapy nurse (occupation)"
+    },
+    {
+        "code": "224557002",
+        "display": "Chemotherapy nurse (occupation)"
+    },
+    {
+        "code": "224556006",
+        "display": "Palliative care nurse (occupation)"
+    },
+    {
+        "code": "224555005",
+        "display": "Pain control nurse (occupation)"
+    },
+    {
+        "code": "224554009",
+        "display": "Marie Curie nurse (occupation)"
+    },
+    {
+        "code": "224552008",
+        "display": "Oncology nurse (occupation)"
+    },
+    {
+        "code": "224551001",
+        "display": "Industrial nurse (occupation)"
+    },
+    {
+        "code": "224550000",
+        "display": "Neurology nurse (occupation)"
+    },
+    {
+        "code": "224549000",
+        "display": "Neonatal nurse (occupation)"
+    },
+    {
+        "code": "224548008",
+        "display": "Learning disabilities nurse (occupation)"
+    },
+    {
+        "code": "224547003",
+        "display": "Intensive therapy nurse (occupation)"
+    },
+    {
+        "code": "224546007",
+        "display": "Infection control nurse (occupation)"
+    },
+    {
+        "code": "224545006",
+        "display": "Care of the elderly nurse (occupation)"
+    },
+    {
+        "code": "224544005",
+        "display": "Family planning nurse (occupation)"
+    },
+    {
+        "code": "224543004",
+        "display": "Diabetic nurse (occupation)"
+    },
+    {
+        "code": "224542009",
+        "display": "Coronary care nurse (occupation)"
+    },
+    {
+        "code": "224541002",
+        "display": "Nursing continence advisor (occupation)"
+    },
+    {
+        "code": "224540001",
+        "display": "Community nurse (occupation)"
+    },
+    {
+        "code": "224538006",
+        "display": "Triage nurse (occupation)"
+    },
+    {
+        "code": "224537001",
+        "display": "Accident and Emergency nurse (occupation)"
+    },
+    {
+        "code": "224536005",
+        "display": "Midwifery tutor (occupation)"
+    },
+    {
+        "code": "224535009",
+        "display": "Registered nurse (occupation)"
+    },
+    {
+        "code": "224534008",
+        "display": "Health visitor, nurse/midwife (occupation)"
+    },
+    {
+        "code": "224533002",
+        "display": "Medical officer (occupation)"
+    },
+    {
+        "code": "224532007",
+        "display": "Senior house officer (occupation)"
+    },
+    {
+        "code": "224531000",
+        "display": "Registrar (occupation)"
+    },
+    {
+        "code": "224530004",
+        "display": "Senior registrar (occupation)"
+    },
+    {
+        "code": "224529009",
+        "display": "Clinical assistant (occupation)"
+    },
+    {
+        "code": "160008000",
+        "display": "Dental technician (occupation)"
+    },
+    {
+        "code": "159972006",
+        "display": "Surgical corset fitter (occupation)"
+    },
+    {
+        "code": "159141008",
+        "display": "Geneticist (occupation)"
+    },
+    {
+        "code": "159041005",
+        "display": "Trainee medical technician (occupation)"
+    },
+    {
+        "code": "159040006",
+        "display": "Pharmacy technician (occupation)"
+    },
+    {
+        "code": "159039009",
+        "display": "Audiology technician (occupation)"
+    },
+    {
+        "code": "159038001",
+        "display": "Artificial limb fitter (occupation)"
+    },
+    {
+        "code": "159037006",
+        "display": "Electroencephalogram technician (occupation)"
+    },
+    {
+        "code": "159036002",
+        "display": "Electrocardiogram technician (occupation)"
+    },
+    {
+        "code": "159035003",
+        "display": "Dental auxiliary (occupation)"
+    },
+    {
+        "code": "159034004",
+        "display": "Podiatrist (occupation)"
+    },
+    {
+        "code": "159033005",
+        "display": "Dietitian (occupation)"
+    },
+    {
+        "code": "159028006",
+        "display": "Trainee remedial therapist (occupation)"
+    },
+    {
+        "code": "159027001",
+        "display": "Orthoptist (occupation)"
+    },
+    {
+        "code": "159026005",
+        "display": "Speech/language therapist (occupation)"
+    },
+    {
+        "code": "159025009",
+        "display": "Remedial gymnast (occupation)"
+    },
+    {
+        "code": "159022007",
+        "display": "Trainee optician (occupation)"
+    },
+    {
+        "code": "159021000",
+        "display": "Ophthalmic optician (occupation)"
+    },
+    {
+        "code": "159019005",
+        "display": "Trainee radiographer (occupation)"
+    },
+    {
+        "code": "159018002",
+        "display": "Therapeutic radiographer (occupation)"
+    },
+    {
+        "code": "159017007",
+        "display": "Diagnostic radiographer (occupation)"
+    },
+    {
+        "code": "159016003",
+        "display": "Medical radiographer (occupation)"
+    },
+    {
+        "code": "159014000",
+        "display": "Trainee pharmacist (occupation)"
+    },
+    {
+        "code": "159012001",
+        "display": "Industrial pharmacist (occupation)"
+    },
+    {
+        "code": "159011008",
+        "display": "Retail pharmacist (occupation)"
+    },
+    {
+        "code": "159010009",
+        "display": "Hospital pharmacist (occupation)"
+    },
+    {
+        "code": "159007002",
+        "display": "Community pediatric nurse (occupation)"
+    },
+    {
+        "code": "159006006",
+        "display": "Dental nurse (occupation)"
+    },
+    {
+        "code": "159005005",
+        "display": "Student nurse (occupation)"
+    },
+    {
+        "code": "159004009",
+        "display": "Nurse teacher (occupation)"
+    },
+    {
+        "code": "159003003",
+        "display": "School nurse (occupation)"
+    },
+    {
+        "code": "159002008",
+        "display": "Practice nurse (occupation)"
+    },
+    {
+        "code": "159001001",
+        "display": "Clinic nurse (occupation)"
+    },
+    {
+        "code": "158999002",
+        "display": "Community midwife (occupation)"
+    },
+    {
+        "code": "158998005",
+        "display": "Private nurse (occupation)"
+    },
+    {
+        "code": "158997000",
+        "display": "District nurse (occupation)"
+    },
+    {
+        "code": "158996009",
+        "display": "State enrolled nurse (occupation)"
+    },
+    {
+        "code": "158995008",
+        "display": "Staff midwife (occupation)"
+    },
+    {
+        "code": "158994007",
+        "display": "Staff nurse (occupation)"
+    },
+    {
+        "code": "158993001",
+        "display": "Nursing sister (theater) (occupation)"
+    },
+    {
+        "code": "158992006",
+        "display": "Midwifery sister (occupation)"
+    },
+    {
+        "code": "158990003",
+        "display": "Nursing officer (occupation)"
+    },
+    {
+        "code": "158989007",
+        "display": "Occupational health nursing officer (occupation)"
+    },
+    {
+        "code": "158988004",
+        "display": "Nurse education director (occupation)"
+    },
+    {
+        "code": "158987009",
+        "display": "Nursing officer - division (occupation)"
+    },
+    {
+        "code": "158986000",
+        "display": "Nursing administrator - professional body (occupation)"
+    },
+    {
+        "code": "158985001",
+        "display": "Nursing officer - district (occupation)"
+    },
+    {
+        "code": "158984002",
+        "display": "Nursing officer - region (occupation)"
+    },
+    {
+        "code": "158983008",
+        "display": "Nurse administrator - national (occupation)"
+    },
+    {
+        "code": "158980006",
+        "display": "Dental practitioner - teaching (occupation)"
+    },
+    {
+        "code": "158979008",
+        "display": "Dental general practitioner (occupation)"
+    },
+    {
+        "code": "158978000",
+        "display": "Dental consultant (occupation)"
+    },
+    {
+        "code": "158977005",
+        "display": "Dental administrator (occupation)"
+    },
+    {
+        "code": "158975002",
+        "display": "Medical practitioner - teaching (occupation)"
+    },
+    {
+        "code": "158974003",
+        "display": "Clinical medical officer (occupation)"
+    },
+    {
+        "code": "158973009",
+        "display": "Occupational physician (occupation)"
+    },
+    {
+        "code": "158972004",
+        "display": "House officer (occupation)"
+    },
+    {
+        "code": "158971006",
+        "display": "Hospital registrar (occupation)"
+    },
+    {
+        "code": "158969006",
+        "display": "Consultant gynecology/obstetrics (occupation)"
+    },
+    {
+        "code": "158968003",
+        "display": "Consultant surgeon (occupation)"
+    },
+    {
+        "code": "158967008",
+        "display": "Consultant physician (occupation)"
+    },
+    {
+        "code": "158966004",
+        "display": "Medical administrator - national (occupation)"
+    },
+    {
+        "code": "158965000",
+        "display": "Medical practitioner (occupation)"
+    },
+    {
+        "code": "106330007",
+        "display": "Philologist, translator/interpreter (occupation)"
+    },
+    {
+        "code": "106294002",
+        "display": "Midwifery personnel (occupation)"
+    },
+    {
+        "code": "106293008",
+        "display": "Nursing personnel (occupation)"
+    },
+    {
+        "code": "106292003",
+        "display": "Professional nurse (occupation)"
+    },
+    {
+        "code": "106289002",
+        "display": "Dentist (occupation)"
+    },
+    {
+        "code": "90655003",
+        "display": "Geriatrics specialist (occupation)"
+    },
+    {
+        "code": "90201008",
+        "display": "Pedodontist (occupation)"
+    },
+    {
+        "code": "88189002",
+        "display": "Anesthesiologist (occupation)"
+    },
+    {
+        "code": "85733003",
+        "display": "General pathologist (occupation)"
+    },
+    {
+        "code": "83685006",
+        "display": "Gynecologist (occupation)"
+    },
+    {
+        "code": "83273008",
+        "display": "Anatomic pathologist (occupation)"
+    },
+    {
+        "code": "82296001",
+        "display": "Pediatrician (occupation)"
+    },
+    {
+        "code": "81464008",
+        "display": "Clinical pathologist (occupation)"
+    },
+    {
+        "code": "80933006",
+        "display": "Nuclear medicine specialist (occupation)"
+    },
+    {
+        "code": "80584001",
+        "display": "Psychiatrist (occupation)"
+    },
+    {
+        "code": "80546007",
+        "display": "Occupational therapist (occupation)"
+    },
+    {
+        "code": "80409005",
+        "display": "Translator (occupation)"
+    },
+    {
+        "code": "79898004",
+        "display": "Auxiliary midwife (occupation)"
+    },
+    {
+        "code": "78729002",
+        "display": "Diagnostic radiologist (occupation)"
+    },
+    {
+        "code": "78703002",
+        "display": "General surgeon (occupation)"
+    },
+    {
+        "code": "76899008",
+        "display": "Infectious disease specialist (occupation)"
+    },
+    {
+        "code": "76231001",
+        "display": "Osteopath (occupation)"
+    },
+    {
+        "code": "76166008",
+        "display": "Practical aid (pharmacy) (occupation)"
+    },
+    {
+        "code": "75271001",
+        "display": "Professional midwife (occupation)"
+    },
+    {
+        "code": "73265009",
+        "display": "Nursing aid (occupation)"
+    },
+    {
+        "code": "71838004",
+        "display": "Gastroenterologist (occupation)"
+    },
+    {
+        "code": "69280009",
+        "display": "Specialized physician (occupation)"
+    },
+    {
+        "code": "68950000",
+        "display": "Prosthodontist (occupation)"
+    },
+    {
+        "code": "68867008",
+        "display": "Public health dentist (occupation)"
+    },
+    {
+        "code": "66862007",
+        "display": "Radiologist (occupation)"
+    },
+    {
+        "code": "66476003",
+        "display": "Oral pathologist (occupation)"
+    },
+    {
+        "code": "63098009",
+        "display": "Clinical immunologist (occupation)"
+    },
+    {
+        "code": "62247001",
+        "display": "Family medicine specialist (occupation)"
+    },
+    {
+        "code": "61894003",
+        "display": "Endocrinologist (occupation)"
+    },
+    {
+        "code": "61345009",
+        "display": "Otorhinolaryngologist (occupation)"
+    },
+    {
+        "code": "61246008",
+        "display": "Laboratory medicine specialist (occupation)"
+    },
+    {
+        "code": "61207006",
+        "display": "Medical pathologist (occupation)"
+    },
+    {
+        "code": "60008001",
+        "display": "Public health nutritionist (occupation)"
+    },
+    {
+        "code": "59944000",
+        "display": "Psychologist (occupation)"
+    },
+    {
+        "code": "59317003",
+        "display": "Dental prosthesis maker and repairer (occupation)"
+    },
+    {
+        "code": "59169001",
+        "display": "Orthopedic technician (occupation)"
+    },
+    {
+        "code": "59058001",
+        "display": "General physician (occupation)"
+    },
+    {
+        "code": "57654006",
+        "display": "Fixed prosthodontist (occupation)"
+    },
+    {
+        "code": "56545009",
+        "display": "Cardiovascular surgeon (occupation)"
+    },
+    {
+        "code": "56542007",
+        "display": "Medical record administrator (occupation)"
+    },
+    {
+        "code": "56466003",
+        "display": "Public health physician (occupation)"
+    },
+    {
+        "code": "56397003",
+        "display": "Neurologist (occupation)"
+    },
+    {
+        "code": "54503009",
+        "display": "Faith healer (occupation)"
+    },
+    {
+        "code": "50149000",
+        "display": "Endodontist (occupation)"
+    },
+    {
+        "code": "49993003",
+        "display": "Oral surgeon (occupation)"
+    },
+    {
+        "code": "49203003",
+        "display": "Dispensing optician (occupation)"
+    },
+    {
+        "code": "48740002",
+        "display": "Philologist (occupation)"
+    },
+    {
+        "code": "46255001",
+        "display": "Pharmacist (occupation)"
+    },
+    {
+        "code": "45956004",
+        "display": "Sanitarian (occupation)"
+    },
+    {
+        "code": "45544007",
+        "display": "Neurosurgeon (occupation)"
+    },
+    {
+        "code": "45440000",
+        "display": "Rheumatologist (occupation)"
+    },
+    {
+        "code": "44652006",
+        "display": "Pharmaceutical assistant (occupation)"
+    },
+    {
+        "code": "43702002",
+        "display": "Occupational health nurse (occupation)"
+    },
+    {
+        "code": "41904004",
+        "display": "Medical X-ray technician (occupation)"
+    },
+    {
+        "code": "41672002",
+        "display": "Respiratory disease specialist (occupation)"
+    },
+    {
+        "code": "40570005",
+        "display": "Interpreter (occupation)"
+    },
+    {
+        "code": "40204001",
+        "display": "Hematologist (occupation)"
+    },
+    {
+        "code": "40127002",
+        "display": "Dietitian (general) (occupation)"
+    },
+    {
+        "code": "39677007",
+        "display": "Internal medicine specialist (occupation)"
+    },
+    {
+        "code": "37504001",
+        "display": "Orthodontist (occupation)"
+    },
+    {
+        "code": "37154003",
+        "display": "Periodontist (occupation)"
+    },
+    {
+        "code": "36682004",
+        "display": "Physiotherapist (occupation)"
+    },
+    {
+        "code": "28544002",
+        "display": "Medical biochemist (occupation)"
+    },
+    {
+        "code": "28411006",
+        "display": "Neonatologist (occupation)"
+    },
+    {
+        "code": "28229004",
+        "display": "Optometrist (occupation)"
+    },
+    {
+        "code": "26369006",
+        "display": "Public health nurse (occupation)"
+    },
+    {
+        "code": "26042002",
+        "display": "Dental hygienist (occupation)"
+    },
+    {
+        "code": "25961008",
+        "display": "Electroencephalography specialist (occupation)"
+    },
+    {
+        "code": "24590004",
+        "display": "Urologist (occupation)"
+    },
+    {
+        "code": "24430003",
+        "display": "Physical medicine specialist (occupation)"
+    },
+    {
+        "code": "23278007",
+        "display": "Community health physician (occupation)"
+    },
+    {
+        "code": "22983004",
+        "display": "Thoracic surgeon (occupation)"
+    },
+    {
+        "code": "22731001",
+        "display": "Orthopedic surgeon (occupation)"
+    },
+    {
+        "code": "22515006",
+        "display": "Medical assistant (occupation)"
+    },
+    {
+        "code": "21450003",
+        "display": "Neuropsychiatrist (occupation)"
+    },
+    {
+        "code": "21365001",
+        "display": "Specialized dentist (occupation)"
+    },
+    {
+        "code": "20145008",
+        "display": "Removable prosthodontist (occupation)"
+    },
+    {
+        "code": "19244007",
+        "display": "Gerodontist (occupation)"
+    },
+    {
+        "code": "18850004",
+        "display": "Laboratory hematologist (occupation)"
+    },
+    {
+        "code": "18803008",
+        "display": "Dermatologist (occupation)"
+    },
+    {
+        "code": "17561000",
+        "display": "Cardiologist (occupation)"
+    },
+    {
+        "code": "14698002",
+        "display": "Medical microbiologist (occupation)"
+    },
+    {
+        "code": "13580004",
+        "display": "School dental assistant (occupation)"
+    },
+    {
+        "code": "11935004",
+        "display": "Obstetrician (occupation)"
+    },
+    {
+        "code": "11911009",
+        "display": "Nephrologist (occupation)"
+    },
+    {
+        "code": "11661002",
+        "display": "Neuropathologist (occupation)"
+    },
+    {
+        "code": "8724009",
+        "display": "Plastic surgeon (occupation)"
+    },
+    {
+        "code": "6868009",
+        "display": "Hospital administrator (occupation)"
+    },
+    {
+        "code": "6816002",
+        "display": "Specialized nurse (occupation)"
+    },
+    {
+        "code": "5275007",
+        "display": "Auxiliary nurse (occupation)"
+    },
+    {
+        "code": "4162009",
+        "display": "Dental assistant (occupation)"
+    },
+    {
+        "code": "3842006",
+        "display": "Chiropractor (occupation)"
+    },
+    {
+        "code": "3430008",
+        "display": "Radiation therapist (occupation)"
+    },
+    {
+        "code": "1421009",
+        "display": "Specialized surgeon (occupation)"
+    }
+]

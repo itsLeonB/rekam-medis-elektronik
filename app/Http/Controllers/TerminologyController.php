@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Fhir\Codesystems;
 use App\Http\Controllers\Controller;
+use Dotenv\Util\Regex;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -79,32 +81,63 @@ class TerminologyController extends Controller
     {
         $searchTerm = $request->query('search');
 
-        $provinsi = $this->getWilayahCodes('kode_provinsi', 'nama_provinsi', $searchTerm);
-        $kabko = $this->getWilayahCodes('kode_kabko', 'nama_kabko', $searchTerm);
-        $kecamatan = $this->getWilayahCodes('kode_kecamatan', 'nama_kecamatan', $searchTerm);
-        $kelurahan = $this->getWilayahCodes('kode_kelurahan', 'nama_kelurahan', $searchTerm);
-
-        return array_merge($provinsi, $kabko, $kecamatan, $kelurahan);
-    }
-
-    private function getWilayahCodes($codeColumn, $displayColumn, $searchTerm)
-    {
         $codesystem = config('app.terminologi.QuestionnaireResponseItemAnswer.valueCoding.lokasi-kecelakaan');
 
-        $codes = DB::table($codesystem['table'])
-            ->select($codeColumn, $displayColumn)
-            ->where($displayColumn, 'like', '%' . $searchTerm . '%')
-            ->distinct()
-            ->paginate();
+        $codes = DB::collection($codesystem['table'])->get();
 
-        return $codes->map(function ($item) use ($codesystem, $codeColumn, $displayColumn) {
-            return [
-                'system' => $codesystem['system'],
-                'code' => $item->$codeColumn,
-                'display' => $item->$displayColumn,
-                'area' => $displayColumn
-            ];
-        })->toArray();
+        $results = [];
+
+        foreach ($codes as $code) {
+            if (strpos(strtolower($code['nama_provinsi']), strtolower($searchTerm)) !== false) {
+                array_push($results, [
+                    'system' => $codesystem['system'],
+                    'code' => $code['kode_provinsi'],
+                    'display' => $code['nama_provinsi'],
+                    'area' => 'nama_provinsi'
+                ]);
+            }
+
+            if (isset($code['kabko'])) {
+                foreach ($code['kabko'] as $kabko) {
+                    if (strpos(strtolower($kabko['nama_kabko']), strtolower($searchTerm)) !== false) {
+                        array_push($results, [
+                            'system' => $codesystem['system'],
+                            'code' => $kabko['kode_kabko'],
+                            'display' => $kabko['nama_kabko'],
+                            'area' => 'nama_kabko'
+                        ]);
+                    }
+
+                    if (isset($kabko['kecamatan'])) {
+                        foreach ($kabko['kecamatan'] as $kecamatan) {
+                            if (strpos(strtolower($kecamatan['nama_kecamatan']), strtolower($searchTerm)) !== false) {
+                                array_push($results, [
+                                    'system' => $codesystem['system'],
+                                    'code' => $kecamatan['kode_kecamatan'],
+                                    'display' => $kecamatan['nama_kecamatan'],
+                                    'area' => 'nama_kecamatan'
+                                ]);
+                            }
+
+                            if (isset($kecamatan['kelurahan'])) {
+                                foreach ($kecamatan['kelurahan'] as $kelurahan) {
+                                    if (strpos(strtolower($kelurahan['nama_kelurahan']), strtolower($searchTerm)) !== false) {
+                                        array_push($results, [
+                                            'system' => $codesystem['system'],
+                                            'code' => $kelurahan['kode_kelurahan'],
+                                            'display' => $kelurahan['nama_kelurahan'],
+                                            'area' => 'nama_kelurahan'
+                                        ]);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $results;
     }
 
     public function returnQuestionPoliTujuan(Request $request)
@@ -162,31 +195,22 @@ class TerminologyController extends Controller
 
     private function handleCodes($request, $valueset)
     {
-        if (is_array($valueset['system'])) {
-            $codes = $valueset['code'];
-            $codes = collect($codes)->map(function ($item) use ($valueset) {
-                return [
-                    'system' => $valueset['system'][$item],
-                    'code' => $item,
-                    'display' => $valueset['display'][$item],
-                    'definition' => $valueset['definition'][$item] ?? null
-                ];
-            });
+        $codes = $valueset['code'];
+        $codes = collect($codes)->map(function ($item) use ($valueset) {
+            return [
+                'system' => is_array($valueset['system']) ? $valueset['system'][$item] : $valueset['system'],
+                'code' => $item,
+                'display' => $valueset['display'][$item],
+                'definition' => $valueset['definition'][$item] ?? null
+            ];
+        });
 
-            return $codes;
-        } else {
-            $codes = $valueset['code'];
-            $codes = collect($codes)->map(function ($item) use ($valueset) {
-                return [
-                    'system' => $valueset['system'],
-                    'code' => $item,
-                    'display' => $valueset['display'][$item],
-                    'definition' => $valueset['definition'][$item] ?? null
-                ];
-            });
+        $search = $request->query('search');
+        $codes = $codes->filter(function ($code) use ($search) {
+            return stripos($code['display'], $search) !== false || stripos($code['definition'], $search) !== false;
+        });
 
-            return $codes;
-        }
+        return $codes;
     }
 
     private function handleEcl($request, $valueset)
@@ -227,12 +251,13 @@ class TerminologyController extends Controller
         }
         $codes = $codes->get();
 
-        if (isset($valueset['system'])) {
-            $codes->map(function ($item) use ($valueset) {
-                $item->system = $valueset['system'];
-                return $item;
-            });
-        }
+        $codes->transform(function ($item) use ($valueset) {
+            if (isset($valueset['system'])) {
+                $item['system'] = $valueset['system'];
+            }
+            unset($item['_id']);
+            return $item;
+        });
 
         return $codes;
     }
@@ -244,8 +269,9 @@ class TerminologyController extends Controller
             ->orWhere('display_id', 'like', '%' . $request->query('search') . '%')
             ->paginate();
 
-        $icd10->map(function ($item) {
-            $item->system = Codesystems::ICD10['system'];
+        $icd10->getCollection()->transform(function ($item) {
+            $item['system'] = Codesystems::ICD10['system'];
+            unset($item['_id']);
             return $item;
         });
 
@@ -257,10 +283,11 @@ class TerminologyController extends Controller
         $icd9 = DB::table(Codesystems::ICD9CMProcedure['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
             ->orWhere('definition', 'like', '%' . $request->query('search') . '%')
-            ->get();
+            ->paginate();
 
-        $icd9->map(function ($item) {
-            $item->system = Codesystems::ICD9CMProcedure['system'];
+        $icd9->getCollection()->transform(function ($item) {
+            $item['system'] = Codesystems::ICD9CMProcedure['system'];
+            unset($item['_id']);
             return $item;
         });
 
@@ -271,10 +298,11 @@ class TerminologyController extends Controller
     {
         $loinc = DB::table(Codesystems::LOINC['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
-            ->paginate(15);
+            ->paginate();
 
-        $loinc->map(function ($item) {
-            $item->system = Codesystems::LOINC['system'];
+        $loinc->getCollection()->transform(function ($item) {
+            $item['system'] = Codesystems::LOINC['system'];
+            unset($item['_id']);
             return $item;
         });
 
@@ -357,8 +385,12 @@ class TerminologyController extends Controller
         $provinsi = DB::table(Codesystems::AdministrativeArea['table'])
             ->select('kode_provinsi', 'nama_provinsi')
             ->where('nama_provinsi', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
             ->get();
+
+        $provinsi->transform(function ($item) {
+            unset($item['_id']);
+            return $item;
+        });
 
         return $provinsi;
     }
@@ -366,48 +398,76 @@ class TerminologyController extends Controller
     public function getKabupatenKota(Request $request)
     {
         $kabupaten = DB::table(Codesystems::AdministrativeArea['table'])
-            ->select('kode_kabko', 'nama_kabko')
+            ->select(['kabko.kode_kabko', 'kabko.nama_kabko'])
             ->where('kode_provinsi', $request->query('kode_provinsi'))
-            ->where('nama_kabko', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
-            ->get();
+            ->first();
 
-        return $kabupaten;
+        $filteredArray = Arr::where($kabupaten['kabko'], function ($value, $key) use ($request) {
+            return stripos($value['nama_kabko'], $request->query('search')) !== false;
+        });
+
+        return array_values($filteredArray);
     }
 
     public function getKotaLahir(Request $request)
     {
         $kabupaten = DB::table(Codesystems::AdministrativeArea['table'])
-            ->select('kode_kabko', 'nama_kabko', 'kode_provinsi', 'nama_provinsi')
-            ->where('nama_kabko', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
+            ->select(['kabko.kode_kabko', 'kabko.nama_kabko', 'kode_provinsi', 'nama_provinsi'])
+            ->where('kabko.nama_kabko', 'like', '%' . $request->query('search') . '%')
             ->get();
 
-        return $kabupaten;
+        $filteredKabko = $kabupaten->flatMap(function ($item) use ($request) {
+            return collect($item['kabko'])->filter(function ($kabko) use ($request) {
+                return stripos($kabko['nama_kabko'], $request->query('search')) !== false;
+            })->map(function ($kabko) use ($item) {
+                return [
+                    'kode_kabko' => $kabko['kode_kabko'],
+                    'nama_kabko' => $kabko['nama_kabko'],
+                    'kode_provinsi' => $item['kode_provinsi'],
+                    'nama_provinsi' => $item['nama_provinsi'],
+                ];
+            });
+        })->values();
+
+        return $filteredKabko;
     }
 
     public function getKecamatan(Request $request)
     {
         $kecamatan = DB::table(Codesystems::AdministrativeArea['table'])
-            ->select('kode_kecamatan', 'nama_kecamatan')
-            ->where('kode_kabko', $request->query('kode_kabko'))
-            ->where('nama_kecamatan', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
-            ->get();
+            ->select(['kabko.kode_kabko', 'kabko.kecamatan.kode_kecamatan', 'kabko.kecamatan.nama_kecamatan'])
+            ->where('kabko.kode_kabko', $request->query('kode_kabko'))
+            ->first();
 
-        return $kecamatan;
+        $filteredArray = Arr::where($kecamatan['kabko'], function ($value, $key) use ($request) {
+            return $value['kode_kabko'] === $request->query('kode_kabko');
+        });
+
+        $filteredArray = Arr::where(array_values($filteredArray)[0]['kecamatan'], function ($value, $key) use ($request) {
+            return stripos($value['nama_kecamatan'], $request->query('search')) !== false;
+        });
+
+        return array_values($filteredArray);
     }
 
     public function getKelurahan(Request $request)
     {
         $kelurahan = DB::table(Codesystems::AdministrativeArea['table'])
-            ->select('kode_kelurahan', 'nama_kelurahan')
-            ->where('kode_kecamatan', $request->query('kode_kecamatan'))
-            ->where('nama_kelurahan', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
-            ->get();
+            ->select(['kabko.kecamatan.kode_kecamatan', 'kabko.kecamatan.kelurahan'])
+            ->where('kabko.kecamatan.kode_kecamatan', $request->query('kode_kecamatan'))
+            ->first();
 
-        return $kelurahan;
+        $filteredKelurahan = collect($kelurahan['kabko'])->flatMap(function ($kabko) use ($request) {
+            return collect($kabko['kecamatan'])->filter(function ($kecamatan) use ($request) {
+                return $kecamatan['kode_kecamatan'] == $request->query('kode_kecamatan');
+            });
+        });
+
+        $filteredArray = Arr::where($filteredKelurahan[0]['kelurahan'], function ($value, $key) use ($request) {
+            return stripos($value['nama_kelurahan'], $request->query('search')) !== false;
+        });
+
+        return array_values($filteredArray);
     }
 
     public function getBcp13(Request $request)
@@ -415,11 +475,11 @@ class TerminologyController extends Controller
         $bcp13 = DB::table(Codesystems::MimeTypes['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
             ->orWhere('code', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
-            ->get();
+            ->paginate();
 
-        $bcp13->map(function ($item) {
-            $item->system = Codesystems::MimeTypes['system'];
+        $bcp13->getCollection()->transform(function ($item) {
+            $item['system'] = Codesystems::MimeTypes['system'];
+            unset($item['_id']);
             return $item;
         });
 
@@ -431,11 +491,11 @@ class TerminologyController extends Controller
         $bcp47 = DB::table(Codesystems::BCP47['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
             ->orWhere('definition', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
-            ->get();
+            ->paginate();
 
-        $bcp47->map(function ($item) {
-            $item->system = Codesystems::BCP47['system'];
+        $bcp47->getCollection()->transform(function ($item) {
+            $item['system'] = Codesystems::BCP47['system'];
+            unset($item['_id']);
             return $item;
         });
 
@@ -446,11 +506,11 @@ class TerminologyController extends Controller
     {
         $iso3166 = DB::table(Codesystems::ISO3166['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
-            ->get();
+            ->paginate();
 
-        $iso3166->map(function ($item) {
-            $item->system = Codesystems::ISO3166['system'];
+        $iso3166->getCollection()->transform(function ($item) {
+            $item['system'] = Codesystems::ISO3166['system'];
+            unset($item['_id']);
             return $item;
         });
 
@@ -462,12 +522,11 @@ class TerminologyController extends Controller
         $ucum = DB::table(Codesystems::UCUM['table'])
             ->where('unit', 'like', '%' . $request->query('search') . '%')
             ->orWhere('code', 'like', '%' . $request->query('search') . '%')
-            ->distinct()
-            ->get();
+            ->paginate();
 
-        $ucum->map(function ($item) {
-            $item->system = Codesystems::UCUM['system'];
-            unset($item->id);
+        $ucum->getCollection()->transform(function ($item) {
+            $item['system'] = Codesystems::UCUM['system'];
+            unset($item['_id']);
             return $item;
         });
 

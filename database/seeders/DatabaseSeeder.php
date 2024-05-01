@@ -60,8 +60,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-            // CodeSystemSeeder::class,
-            // ValueSetSeeder::class,
+            TerminologySeeder::class,
         ]);
     }
 }
