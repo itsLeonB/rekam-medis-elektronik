@@ -19,7 +19,7 @@ This project is built using:
 
 -   PHP 8.2
 -   Laravel 10
--   MySQL
+-   MongoDB
 -   Vue.js 3 with Inertia.js
 -   Tailwind CSS 3
 
@@ -32,12 +32,9 @@ This project is built using:
 5. Change these values in `.env`:
 
     ```
-    DB_CONNECTION=mysql
+    DB_CONNECTION=mongodb
     DB_DATABASE=rme
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
-    DB_USERNAME=root
-    DB_PASSWORD=
+    DB_URI=mongodb://localhost:27017
 
     MAIL_MAILER=smtp
     MAIL_HOST=mailpit
@@ -71,8 +68,6 @@ This project is built using:
 
 ## Contributors
 
-[@itsLeonB](https://github.com/itsLeonB) - Back-end
-
-[@mandorzqy](https://github.com/mandorzqy) - Front-end
-
-[@salmahatta](https://github.com/salmahatta) - UI/UX
+-   [@itsLeonB](https://github.com/itsLeonB) - Back-end
+-   [@mandorzqy](https://github.com/mandorzqy) - Front-end
+-   [@salmahatta](https://github.com/salmahatta) - UI/UX
