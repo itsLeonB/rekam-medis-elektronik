@@ -41,13 +41,8 @@ class ResourceController extends Controller
         }
 
         try {
-            $resource = DB::table($resType)->where('id', $id)->get();
-
-            if ($resource->isEmpty()) {
-                return response()->json(['error' => 'Resource not found'], 404);
-            }
-
-            return response()->json(DB::table($resType)->where('id', $id)->get(), 200);
+            $resource = DB::table($resType)->where('id', $id)->first();
+            return response()->json($resource, 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

@@ -232,11 +232,30 @@ return [
     ],
 
     'roles' => [
-        'admin', 'perekammedis', 'poli-umum', 'poli-neurologi', 'poli-obgyn', 'poli-gigi', 'poli-kulit', 'poli-ortopedi', 'poli-penyakit-dalam', 'poli-bedah', 'poli-anak'
+        'admin',
+        'perekammedis',
+        'poli-umum',
+        'poli-neurologi',
+        'poli-obgyn',
+        'poli-gigi',
+        'poli-kulit',
+        'poli-ortopedi',
+        'poli-penyakit-dalam',
+        'poli-bedah',
+        'poli-anak'
     ],
 
     'permissions' => [
-        'akses poli umum', 'akses poli neurologi', 'akses poli obgyn', 'akses poli gigi', 'akses poli kulit', 'akses poli ortopedi', 'akses poli penyakit dalam', 'akses poli bedah', 'akses poli anak', 'akses user management'
+        'akses poli umum',
+        'akses poli neurologi',
+        'akses poli obgyn',
+        'akses poli gigi',
+        'akses poli kulit',
+        'akses poli ortopedi',
+        'akses poli penyakit dalam',
+        'akses poli bedah',
+        'akses poli anak',
+        'akses user management'
     ],
 
     'identifier_systems' => [
@@ -648,5 +667,25 @@ return [
             'dayOfWeek' => Valuesets::DaysOfWeek,
             'when' => Valuesets::EventTiming,
         ]
+    ],
+
+    'patient_related_data' => [ // Resource type dengan API search by subject tersedia
+        'Encounter' => 'subject',
+        'Condition' => 'subject',
+        'Observation' => 'subject',
+        'Composition' => 'subject',
+        'Procedure' => 'subject',
+        'MedicationRequest' => 'subject',
+        'MedicationDispense' => 'subject',
+        'DiagnosticReport' => 'subject',
+        'AllergyIntolerance' => 'patient',
+        'ClinicalImpression' => 'subject',
+        'Immunization' => 'patient',
+        'EpisodeOfCare' => 'patient',
+        'CarePlan' => 'subject',
+        'FamilyMemberHistory' => 'patient',
+        // 'QuestionnaireResponse' => ['encounter', 'patient'],
+        'ServiceRequest' => 'subject',
+        'Specimen' => 'subject',
     ]
 ];
