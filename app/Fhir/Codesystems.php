@@ -557,12 +557,53 @@ class Codesystems
     public const ClaimRelatedRelationship = [
         'system' => 'http://terminology.hl7.org/CodeSystem/ex-relatedclaimrelationship',
         'code' => ['prior', 'associated'],
-        'display' => ['prior' => 'Prior Claim', 'associated' => 'Associated Claim', 'subscriber' => 'Subscriber', 'provider' => 'Provider', 'other' => 'Provider']
+        'display' => ['prior' => 'Prior Claim', 'associated' => 'Associated Claim']
     ];
 
     public const ClaimPayeeType = [
         'system' => 'http://terminology.hl7.org/CodeSystem/payeetype',
         'code' => ['subscriber', 'provider', 'other'],
         'display' => ['subscriber' => 'Subscriber', 'provider' => 'Provider', 'other' => 'Provider']
+    ];
+
+    public const ClaimCareTeamRole = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/claimcareteamrole',
+        'code' => ['primary', 'assist', 'supervisor', 'other'],
+        'display' => ['primary' => 'Primary provider', 'assist' => 'Assisting Provider', 'supervisor' => 'Supervising Provider', 'other' => 'Other']
+    ];
+
+    public const ClaimCareTeamQualification = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-providerqualification',
+        'code' => ['311405', '604215', '604210'],
+        'display' => ['311405' => 'Dentist', '604215' => 'Ophthamologist', '604210' => 'Optometrist'],
+    ];
+
+    public const ClaimSupportingInfoCategory = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/claiminformationcategory',
+        'code' => ['upgrade-class-indicator', 'upgrade-class-class', 'claim-text-encoded', 'e-klaim-version', 'unu-grouper-version', 'info', 'discharge', 'onset', 'related', 'exception', 'material', 'attachment', 'missingtooth', 'prosthesis', 'other', 'hospitalized', 'employmentimpacted', 'externalcause', 'patientreasonforvisit'],
+        'display' => ['upgrade-class-indicator' => 'Indikator naik kelas', 'upgrade-class-class' => 'Kenaikan Kelas', 'claim-text-encoded' => 'Claim Text Encoded', 'e-klaim-version' => 'Versi Aplikasi E-Klaim', 'unu-grouper-version' => 'Versi Grouper INACBG', 'info' => 'Information', 'discharge' => 'Discharge', 'onset' => 'Onset', 'related' => 'Related Services', 'exception' => 'Exception', 'material' => 'Materials Forwarded', 'attachment' => 'Attachment', 'missingtooth' => 'Missing Tooth', 'prosthesis' => 'Prosthesis', 'other' => 'Other', 'hospitalized' => 'Hospitalized', 'employmentimpacted' => 'EmploymentImpacted', 'externalcause' => 'External Cause', 'patientreasonforvisit' => 'Patient Reason for Visit'],
+    ];
+
+    public const ClaimSupportingInfoCode = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/upgradeClassIndicator',
+        'code' => ['upgrade', 'no-upgrade', 'student', 'disabled'],
+        'display' => ['upgrade' => 'Ada Kenaikan Kelas', 'no-upgrade' => 'Tidak Ada Kenaikan Kelas', 'student' => 'Student (Fulltime)', 'disabled' => 'Disabled']
+    ];
+
+    public const ClaimDiagnosisType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-diagnosistype',
+        'code' => ['admitting', 'clinical', 'differential', 'discharge', 'labolatory', 'nursing', 'prenatal', 'principal', 'radiology', 'remote', 'retrospective', 'self'],
+        'display' => ['admitting' => 'Admitting Diagnosis', 'clinical' => 'Clinical Diagnosis', 'differential' => 'Differential Diagnosis', 'discharge' => 'Discharge Diagnosis', 'laboratory' => 'Laboratory Diagnosis', 'nursing' => 'Nursing Diagnosis', 'prenatal' => 'Prenatal Diagnosis', 'principal' => 'Principal Diagnosis', 'radiology' => 'Radiology Diagnosis', 'remote' => 'Remote Diagnosis', 'retrospective' => 'Retrospective Diagnosis', 'self' => 'Self Diagnosis']
+    ];
+
+    public const ClaimExtensionPackageTariffClass = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/tariffClass',
+        'code' => ['AP', 'AS', 'BP', 'BS', 'CP', 'CS', 'DP', 'DS', 'RSCM', 'RSJP', 'RSD', 'RSAB', 'RSPON'],
+        'display' => ['AP' => 'Tarif Kelas A Pemerintah', 'AS' => 'Tarif Kelas A Swasta', 'BP' => 'Tarif Kelas B Pemerintah', 'BS' => 'Tarif Kelas B Swasta', 'CP' => 'Tarif Kelas C Pemerintah', 'CS' => 'Tarif Kelas C Swasta', 'DP' => 'Tarif Kelas D Pemerintah', 'DS' => 'Tarif Kelas D Swasta', 'RSCM' => 'Tarif RSUPN Cipto Mangunkusumo', 'RSJP' => 'Tarif RSJPD Harapan Kita', 'RSD' => 'Tarif RS Kanker Dharmais', 'RSAB' => 'Tarif RSAB Harapan Kita', 'RSPON' => 'Tarif RS Pusat Otak Nasioinal']
+    ];
+
+    public const ClaimExtensionPackageINACBG = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/inacbg-v5',
+        'table' => 'codesystem_claimextensionpackageinacbg'
     ];
 }
