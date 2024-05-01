@@ -1,6 +1,17 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v10.2.4...10.x)
+## [Unreleased](https://github.com/laravel/laravel/compare/v0.1...master)
+
+## [v0.1](https://github.com/laravel/laravel/compare/v10.2.4...v0.1) - 2024-05-01
+
+Base app with features:
+
+- User Registration
+- Practitioner Onboarding
+- Patient Onboarding
+- Rawat Jalan Jilid 1
+- Rawat Inap Jilid 1
+- IGD Jilid 1
 
 ## [v10.2.4](https://github.com/laravel/laravel/compare/v10.2.3...v10.2.4) - 2023-06-07
 
