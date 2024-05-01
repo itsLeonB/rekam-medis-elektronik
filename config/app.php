@@ -355,6 +355,11 @@ return [
         'clinicalimpression',
         'medicationstatement',
         'questionnaireresponse',
+        'invoice',
+        'claim',
+        'account',
+        'chargeitem',
+        'coverage'
     ],
 
     'terminologi' => [

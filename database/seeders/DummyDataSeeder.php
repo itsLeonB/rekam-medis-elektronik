@@ -723,6 +723,7 @@ class DummyDataSeeder extends Seeder
         return $condition->resource->satusehat_id;
     }
 
+
     private function dummyPatient()
     {
         $patient = Patient::factory()->create();
@@ -829,5 +830,11 @@ class DummyDataSeeder extends Seeder
             }
             return $value !== null && $value !== "";
         });
+    }
+
+
+    // Dummy invoice
+    private function dummyInvoice()
+    {
     }
 }

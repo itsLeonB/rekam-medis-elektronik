@@ -499,4 +499,70 @@ class Codesystems
         'system' => 'http://sys-ids.kemkes.go.id/administrative-area',
         'table' => 'codesystem_administrativearea',
     ];
+
+    public const InvoiceStatus =  [
+        'system' => 'http://hl7.org/fhir/invoice-status',
+        'code' => ['draft', 'issued', 'balanced', 'cancelled', 'entered-in-error'],
+        'display' => ['draft' => 'draft', 'issued' => 'issued', 'balanced' => 'balanced', 'cancelled' => 'cancelled', 'entered-in-error' => 'entered in error']
+    ];
+
+    public const InvoicePriceComponentType = [
+        'system' => 'http://hl7.org/fhir/invoice-priceComponentType',
+        'code' => ['base', 'surcharge', 'deduction', 'discount', 'tax', 'informational'],
+        'display' => ['base' => 'base', 'surcharge' => 'surcharge', 'deduction' => 'deduction', 'discount' => 'discount', 'tax' => 'tax', 'informational' => 'informational']
+    ];
+
+    public const InvoicePriceComponentcode = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/invoice-lineitem',
+        'code' => ['IN000001', 'IN000002'],
+        'display' => ['IN000001' => 'Invoice Biaya Poli Eksekutif', 'IN000002' => 'Invoice Biaya Naik Kelas']
+    ];
+
+    public const ClaimStatus = [
+        'system' => 'http://hl7.org/fhir/invoice-status',
+        'code' => ['draft', 'issued', 'balanced', 'cancelled', 'entered-in-error'],
+        'display' => ['draft' => 'draft', 'issued' => 'issued', 'balanced' => 'balanced', 'cancelled' => 'cancelled', 'entered-in-error' => 'entered in error']
+    ];
+
+    public const ClaimType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/claim-type',
+        'code' => ['institutional', 'oral', 'pharmacy', 'professional', 'vision'],
+        'display' => ['institutional' => 'Institional', 'oral' => 'Oral', 'pharmacy' => 'Pharmacy', 'professional' => 'Professional', 'vision' => 'Vision']
+    ];
+
+    public const ClaimSubType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-claimsubtype',
+        'code' => ['ortho', 'emergency'],
+        'display' => ['ortho' => 'Orthodontic Claim', 'emergency' => 'Emergency Claim']
+    ];
+
+    public const ClaimUse = [
+        'system' => 'http://hl7.org/fhir/claim-use',
+        'code' => ['claim', 'preauthorization', 'predetermination'],
+        'display' => ['claim' => 'Claim', 'preauthorization' => 'Preauthorization', 'predetermination' => 'Predetermination']
+    ];
+
+    public const ClaimPriority = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/processpriority',
+        'code' => ['stat', 'normal', 'deferred'],
+        'display' => ['stat' => 'Immediate', 'normal' => 'Normal', 'deferred' => 'Deferred']
+    ];
+
+    public const ClaimFundsReserve = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/fundsreserve',
+        'code' => ['patient', 'provider', 'none'],
+        'display' => ['patient' => 'Patient', 'provider' => 'Provider', 'none' => 'None']
+    ];
+
+    public const ClaimRelatedRelationship = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-relatedclaimrelationship',
+        'code' => ['prior', 'associated'],
+        'display' => ['prior' => 'Prior Claim', 'associated' => 'Associated Claim', 'subscriber' => 'Subscriber', 'provider' => 'Provider', 'other' => 'Provider']
+    ];
+
+    public const ClaimPayeeType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/payeetype',
+        'code' => ['subscriber', 'provider', 'other'],
+        'display' => ['subscriber' => 'Subscriber', 'provider' => 'Provider', 'other' => 'Provider']
+    ];
 }
