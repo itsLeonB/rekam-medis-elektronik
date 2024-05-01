@@ -19,7 +19,7 @@ This project is built using:
 
 -   PHP 8.2
 -   Laravel 10
--   MongoDB
+-   MySQL
 -   Vue.js 3 with Inertia.js
 -   Tailwind CSS 3
 
