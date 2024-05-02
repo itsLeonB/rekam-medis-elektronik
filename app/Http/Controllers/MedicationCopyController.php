@@ -1,10 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request as HttpRequest;
-use Illuminate\Support\Facades\DB;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fhir\ConsentRequest;
 use App\Http\Requests\Fhir\Search\KfaRequest;
@@ -17,12 +13,15 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Http\Client\Pool;
+use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use App\Models\MedicationCopy;
+use Illuminate\Support\Facades\DB;
 
-class ResourceController extends Controller
+class MedicationCopyController extends Controller
 {
+    //
     public string $authUrl;
     public string $baseUrl;
     public string $consentUrl;
@@ -43,7 +42,47 @@ class ResourceController extends Controller
         $this->clientSecret = config('app.client_secret');
         $this->organizationId = config('app.organization_id');
     }
-     public function getToken()
+
+    public function readConsent($patientId)
+    {
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->consentUrl . '/Consent';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => ['patient_id' => $patientId],
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function updateConsent(ConsentRequest $request)
+    {
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->consentUrl . '/Consent';
+
+        $data = $request->validated();
+
+        $response = $client->request('POST', $url, [
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token,
+                'Content-Type' => 'application/json',
+            ],
+            'json' => $data,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function getToken()
     {
         if (session()->has('token')) {
             if (session()->has('token_created_at')) {
@@ -78,18 +117,8 @@ class ResourceController extends Controller
         return $token;
     }
 
-    public function index($resType)
-    {
-        if (!in_array($resType, config('app.resourceTypes'))) {
-            return response()->json(['error' => 'Invalid resource type'], 400);
-        }
-
-        return response()->json(DB::table($resType)->get(), 200);
-    }
-
-   
-    public function store($resType, HttpRequest $request) {
-        $res_type = ucfirst(strtolower($resType));
+    public function saveData(HttpRequest $request) {
+        $res_type = 'Medication';
 
         $token = $this->getToken();
         $client = new Client();
@@ -111,19 +140,30 @@ class ResourceController extends Controller
                 'validMethods' => config('app.available_methods')[$res_type],
             ], 405);
         }
-        $requestData = new Request('POST', $url, $headers, json_encode($data)); 
+        $requestData = new Request('POST', $url, $headers, json_encode($data));
+        
         
         try {
-            $response = $client->sendAsync($requestData, ['verify' => false])->wait();       
-            $contents = json_decode($response->getBody()->getContents(), true);
-           
+            // Get data from request body
+            $response = $client->sendAsync($requestData, ['verify' => false])->wait();
+            
+            $contents = json_decode($response->getBody()->getContents());
+            
             $statusCode = $response->getStatusCode();
                 if ($statusCode==201){
-
+                    //return response()->json(["content" => $contents], 201);
                     DB::beginTransaction();
-                    $id = DB::table($resType)->insertGetId($contents);
-                    DB::commit();
-                    return response()->json(DB::table($resType)->find($id), 201);
+                    MedicationCopy::create([
+                        'resourceType' => $contents->resourceType,
+                        'identifier' => $contents->identifier,
+                        'id' => $contents->id,
+                        'meta' => $contents->meta,
+                        'code' => $contents->code,
+                        'form' => $contents->form,
+                        'extension' => $contents->extension,
+                    ]);
+                   
+                    return response()->json(['message' => 'Data saved successfully'], 201);
                 } else {
                     $errorMessage = $response->json()['error'] ?? 'Unknown error occurred';
                     
@@ -131,63 +171,14 @@ class ResourceController extends Controller
                     DB::rollBack();
                     return response()->json(['error' => 'Failed to save data to the API'], $response->status());
                 }
-                return response()->json($contents, 201);
+                //return response()->json($contents, 201);
             } catch (ClientException $e) {
                 return response()->json(json_decode(
-                $e->getResponse()->getBody()->getContents()
+                    $e->getResponse()->getBody()->getContents()
                 ), $e->getCode());
             }
+
+            //$response = Http::post('https://api-satusehat-stg.dto.kemkes.go.id/fhir-r4/v1/Medication', $data);
+            
     }
-    
-    public function show($resType, $id)
-    {
-        if (!in_array($resType, config('app.resourceTypes'))) {
-            return response()->json(['error' => 'Invalid resource type'], 400);
-        }
-
-        try {
-            $resource = DB::table($resType)->where('id', $id)->first();
-            return response()->json($resource, 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-
-    public function update($resType, $id, Request $request)
-    {
-        if (!in_array($resType, config('app.resourceTypes'))) {
-            return response()->json(['error' => 'Invalid resource type'], 400);
-        }
-
-        DB::beginTransaction();
-
-        try {
-            DB::table($resType)->where('id', $id)->update($request->all());
-            DB::commit();
-            return response()->json(DB::table($resType)->where('id', $id)->get(), 200);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-
-    public function destroy($resType, $id)
-    {
-        if (!in_array($resType, config('app.resourceTypes'))) {
-            return response()->json(['error' => 'Invalid resource type'], 400);
-        }
-
-        DB::beginTransaction();
-
-        try {
-            DB::table($resType)->where('id', $id)->delete();
-            DB::commit();
-            return response()->json(null, 204);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-    }
-
-   
 }

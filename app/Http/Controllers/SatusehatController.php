@@ -102,7 +102,8 @@ class SatusehatController extends Controller
             'query' => $request->validated(),
             'verify' => false,
         ]);
-
+        $contents = json_decode($response->getBody()->getContents());
+        return response()->json($contents, 200);
         return $response;
     }
 

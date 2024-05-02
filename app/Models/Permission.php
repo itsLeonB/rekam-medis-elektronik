@@ -21,7 +21,7 @@ class Permission extends Model implements PermissionContract
 {
     use HasRoles;
     use RefreshesPermissionCache;
-
+    protected $connection = 'mongodb';
     protected $guarded = [];
 
     public function __construct(array $attributes = [])

@@ -26,6 +26,10 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\MedicationManagementController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\MedicationCopyController;
+use App\Http\Controllers\GuzzleController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -94,6 +98,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('rekammedis');
 });
 
+# Daftar (admin and perekam medis)
+    Route::middleware('role:admin|perekammedis')->group(function () {
+        Route::get('/rekam-medis-pasien/daftar', function () {
+            return Inertia::render('RekamMedis/TambahRekamMedis');
+        })->name('rekammedis.tambah');
+        Route::get('/gawat-darurat/daftar', function () {
+            return Inertia::render('GawatDarurat/DaftarGawatDarurat');
+        })->name('gawatdarurat.daftar');
+        Route::get('/rawat-inap/daftar', function () {
+            return Inertia::render('RawatInap/DaftarRawatInap');
+        })->name('rawatinap.daftar');
+        Route::get('/rawat-jalan/daftar', function () {
+            return Inertia::render('RawatJalan/DaftarRawatJalan');
+        })->name('rawatjalan.daftar');
+    });
+
 # User Management
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user-management', function () {
@@ -105,6 +125,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user-management/tambah-user', function () {
         return Inertia::render('UserManagement/TambahUser');
     })->name('usermanagement.tambah');
+});
+
+# Medication Management
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/medication-management', function () {
+        return Inertia::render('MedicationManagement/MedicationManagement');
+    })->name('medicationmanagement');
+    Route::get('/medication-management/details/{medication_id}', function ($medication_id) {
+        return Inertia::render('MedicationManagement/UserMedication', ['medication_id' => $medication_id]);
+    })->name('medicationmanagement.details');
+    Route::get('/medication-management/tambah-medication', function () {
+        return Inertia::render('MedicationManagement/TambahMedication');
+    })->name('medicationmanagement.tambah');
 });
 
 # Profile
@@ -127,7 +160,6 @@ Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
     Route::put('/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('update');
 });
 
-// Endpoint untuk View Rekam Medis
 Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
     // Daftar rekam medis pasien
     Route::get('/', [RekamMedisController::class, 'index'])->name('index');
@@ -295,6 +327,5 @@ Route::group(['prefix' => 'satusehat', 'as' => 'satusehat.'], function () {
         Route::put('/{res_type}/{res_id}', [SatusehatController::class, 'update'])->name('update');
     });
 });
-// });
 
 require __DIR__ . '/auth.php';

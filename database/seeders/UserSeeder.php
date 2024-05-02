@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10)
         ]);
 
-        $leon->assignRole('perekammedis');
+         $leon->assignRole('perekammedis');
 
         $mando = User::create([
             'name' => 'Yushi',
@@ -30,5 +30,14 @@ class UserSeeder extends Seeder
         ]);
 
         $mando->assignRole('perekammedis');
+
+        $putri = User::create([
+            'name' => 'Putri Isabella',
+            'email' => 'putriisabella@gmail.com',
+            'password' => '12345678',
+            'remember_token' => Str::random(10)
+        ]);
+
+        $putri->assignRole('poli-umum');
     }
 }

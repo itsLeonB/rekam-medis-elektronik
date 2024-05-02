@@ -57,7 +57,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $admin->assignRole('admin');
-
         $this->call([
             UserSeeder::class,
             TerminologySeeder::class,

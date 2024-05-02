@@ -27,3 +27,4 @@ Route::post('resources/{resType}', [ResourceController::class, 'store']);
 Route::get('resources/{resType}/{id}', [ResourceController::class, 'show']);
 Route::put('resources/{resType}/{id}', [ResourceController::class, 'update']);
 Route::delete('resources/{resType}/{id}', [ResourceController::class, 'destroy']);
+

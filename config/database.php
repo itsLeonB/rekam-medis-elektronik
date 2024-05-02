@@ -37,7 +37,7 @@ return [
 
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI', '<connection string>'),
+            'dsn' => env('DB_URI', 'mongodb+srv://putriisabella1007:irAy7S15RF7aVyfn@cluster0.7rajyce.mongodb.net/'),
             'database' => env('DB_DATABASE', 'rme'),
         ],
 
