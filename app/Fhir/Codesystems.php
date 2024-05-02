@@ -500,7 +500,7 @@ class Codesystems
         'table' => 'codesystem_administrativearea',
     ];
 
-    public const InvoiceStatus =  [
+    public const InvoiceClaimStatus =  [
         'system' => 'http://hl7.org/fhir/invoice-status',
         'code' => ['draft', 'issued', 'balanced', 'cancelled', 'entered-in-error'],
         'display' => ['draft' => 'draft', 'issued' => 'issued', 'balanced' => 'balanced', 'cancelled' => 'cancelled', 'entered-in-error' => 'entered in error']
@@ -516,12 +516,6 @@ class Codesystems
         'system' => 'http://terminology.kemkes.go.id/CodeSystem/invoice-lineitem',
         'code' => ['IN000001', 'IN000002'],
         'display' => ['IN000001' => 'Invoice Biaya Poli Eksekutif', 'IN000002' => 'Invoice Biaya Naik Kelas']
-    ];
-
-    public const ClaimStatus = [
-        'system' => 'http://hl7.org/fhir/invoice-status',
-        'code' => ['draft', 'issued', 'balanced', 'cancelled', 'entered-in-error'],
-        'display' => ['draft' => 'draft', 'issued' => 'issued', 'balanced' => 'balanced', 'cancelled' => 'cancelled', 'entered-in-error' => 'entered in error']
     ];
 
     public const ClaimType = [
@@ -560,6 +554,7 @@ class Codesystems
         'display' => ['prior' => 'Prior Claim', 'associated' => 'Associated Claim']
     ];
 
+    //Valueset
     public const ClaimPayeeType = [
         'system' => 'http://terminology.hl7.org/CodeSystem/payeetype',
         'code' => ['subscriber', 'provider', 'other'],
@@ -604,6 +599,19 @@ class Codesystems
 
     public const ClaimExtensionPackageINACBG = [
         'system' => 'http://terminology.kemkes.go.id/CodeSystem/inacbg-v5',
+        'keterangan' => 'Kode INACBG',
         'table' => 'codesystem_claimextensionpackageinacbg'
+    ];
+
+    public const SpecialCodeCMG = [
+        'system' => "http://terminology.kemkes.go.id/CodeSystem/inacbg-special-cmg-v5",
+        'keterangan' => 'Kode Spesial CMG',
+        'table' => 'codesystem_specialcodecmg'
+    ];
+
+    public const SubacuteChronic = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/inacbg-sac-v5',
+        'keterangan' => 'Kode Subacute Chronic',
+        'table' => 'codesystem_subacutechronic'
     ];
 }

@@ -1,0 +1,150 @@
+[
+    {
+        "code": "DD-01-I",
+        "display": "Streptokinase"
+    },
+    {
+        "code": "DD-02-II",
+        "display": "Deferiprone (IP)"
+    },
+    {
+        "code": "DD-03-II",
+        "display": "Deferoksamin (IP)"
+    },
+    {
+        "code": "DD-04-II",
+        "display": "Deferasirox (IP)"
+    },
+    {
+        "code": "DD-05-II",
+        "display": "Human Albumin for Septicaemia"
+    },
+    {
+        "code": "DD-06-II",
+        "display": "Anti Hemofilia Factor (IP)"
+    },
+    {
+        "code": "DD-07-II",
+        "display": "Deferiprone (OP)"
+    },
+    {
+        "code": "DD-08-II",
+        "display": "Deferoksamin (OP)"
+    },
+    {
+        "code": "DD-09-II",
+        "display": "Deferasirox (OP)"
+    },
+    {
+        "code": "DD-10-II",
+        "display": "Anti Hemofilia Factor (OP)"
+    },
+    {
+        "code": "DD-11-II",
+        "display": "Human Albumin for Burn"
+    },
+    {
+        "code": "II-01-III",
+        "display": "Nuclear Medicine"
+    },
+    {
+        "code": "II-02-III",
+        "display": "MRI"
+    },
+    {
+        "code": "II-03-III",
+        "display": "Diagnostic and Imaging Procedure of Eye"
+    },
+    {
+        "code": "RR-01-II",
+        "display": "Subdural Grid Electrode"
+    },
+    {
+        "code": "RR-02-II",
+        "display": "Contegra"
+    },
+    {
+        "code": "RR-03-III",
+        "display": "TMJ Prosthesis"
+    },
+    {
+        "code": "RR-04-III-Hip",
+        "display": "Hip Implant"
+    },
+    {
+        "code": "RR-05-III",
+        "display": "Evar / Tevar / Hevar Prosthesis"
+    },
+    {
+        "code": "YY-01-II",
+        "display": "Hip Replacement / Knee Replacement"
+    },
+    {
+        "code": "YY-02-III",
+        "display": "PCI"
+    },
+    {
+        "code": "YY-03-III",
+        "display": "Keratoplasty"
+    },
+    {
+        "code": "YY-04-III",
+        "display": "Pancreatectomy"
+    },
+    {
+        "code": "YY-05-III",
+        "display": "Repair of Septal Defect of Heart with Prosthesis"
+    },
+    {
+        "code": "YY-06-III",
+        "display": "Stereotactic Surgery & Radiotheraphy"
+    },
+    {
+        "code": "YY-07-III",
+        "display": "Torakotomi"
+    },
+    {
+        "code": "YY-08-III",
+        "display": "Lobektomi / Bilobektomi / Pneumonektomi"
+    },
+    {
+        "code": "YY-09-III",
+        "display": "Vitrectomy"
+    },
+    {
+        "code": "YY-10-III",
+        "display": "Phacoemulsification"
+    },
+    {
+        "code": "YY-11-III",
+        "display": "Microlaringoscopy"
+    },
+    {
+        "code": "YY-12-III",
+        "display": "Cholangiograph"
+    },
+    {
+        "code": "YY-13-III",
+        "display": "Coil"
+    },
+    {
+        "code": "YY-14-III",
+        "display": "Trombektomi"
+    },
+    {
+        "code": "YY-15-III",
+        "display": "Percutaneous Endoscopy Gastrostomy"
+    },
+    {
+        "code": "YY-16-III",
+        "display": "Odontektomi"
+    },
+    {
+        "code": "YY-17-III",
+        "display": "Brakiterapi"
+    },
+    {
+        "code": "RR-04-III-Knee",
+        "display": "Knee Implant"
+    }
+]
