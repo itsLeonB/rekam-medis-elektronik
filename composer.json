@@ -9,12 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-<<<<<<< Updated upstream
-        "guzzlehttp/guzzle": "^7.2",
-=======
         "andreaselia/laravel-api-to-postman": "^1.15",
         "guzzlehttp/guzzle": "^7.8",
->>>>>>> Stashed changes
         "inertiajs/inertia-laravel": "^0.6.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
