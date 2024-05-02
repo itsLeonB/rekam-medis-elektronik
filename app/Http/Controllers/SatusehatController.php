@@ -12,24 +12,16 @@ use App\Http\Requests\Fhir\Search\PatientSearchRequest;
 use App\Http\Requests\Fhir\Search\PractitionerSearchRequest;
 use App\Http\Requests\FhirRequest;
 use App\Models\Fhir\Resource;
-use App\Models\Fhir\Resources\AllergyIntolerance;
-use App\Models\Fhir\Resources\ClinicalImpression;
-use App\Models\Fhir\Resources\Composition;
-use App\Models\Fhir\Resources\Condition;
-use App\Models\Fhir\Resources\Encounter;
-use App\Models\Fhir\Resources\MedicationRequest;
-use App\Models\Fhir\Resources\MedicationStatement;
-use App\Models\Fhir\Resources\Observation;
-use App\Models\Fhir\Resources\Procedure;
-use App\Models\Fhir\Resources\QuestionnaireResponse;
-use App\Models\Fhir\Resources\ServiceRequest;
 use Carbon\Carbon;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
-use Illuminate\Http\Client\Pool;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request as HttpRequest;
-use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -96,7 +88,8 @@ class SatusehatController extends Controller
         return $response;
     }
 
-    public function searchKfaProduct(KfaRequest $request) {
+    public function searchKfaProduct(KfaRequest $request)
+    {
         $client = new Client();
 
         $token = $this->getToken();
@@ -117,7 +110,7 @@ class SatusehatController extends Controller
     {
         if (session()->has('token')) {
             if (session()->has('token_created_at')) {
-                if (now()->diffInMinutes(session('token_created_at')) < 55) {
+                if (now()->diffInMinutes(session('token_created_at')) < 235) {
                     return session()->get('token');
                 }
             }
@@ -294,51 +287,42 @@ class SatusehatController extends Controller
         }
     }
 
-    public function updateRekamMedis($patientId)
+    public function bundleHandler($bundle)
     {
-        $token = $this->getToken();
-
-        $checkResponse = Http::withToken($token)->get($this->baseUrl . '/Patient/' . $patientId);
-
-        if (!$checkResponse->successful()) {
-            return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
+        if (empty($bundle) || empty($bundle['entry'])) {
+            Log::info('No entries to process.');
+            return;
         }
 
-        $responses = Http::pool(function (Pool $pool) use ($patientId, $token) {
-            foreach (self::PATIENT_RELATED_DATA as $resType => $model) {
-                if ($resType == 'Allergyintolerance') {
-                    $pool->as($resType)->withToken($token)->get($this->baseUrl . '/' . $resType, ['patient' => $patientId]);
-                } else {
-                    $pool->as($resType)->withToken($token)->get($this->baseUrl . '/' . $resType, ['subject' => $patientId]);
-                }
-            }
-        });
+        $inserted = 0;
+        $ignored = 0;
 
-        foreach (self::PATIENT_RELATED_DATA as $resType => $model) {
-            if ($responses[$resType]->successful()) {
-                $bundle = json_decode($responses[$resType]->getBody()->getContents(), true);
-                $this->bundleHandler($bundle, $resType);
-            }
-        }
+        DB::beginTransaction();
 
-        return response()->json('Data berhasil diperbarui', 200);
-    }
-
-    public function bundleHandler($bundle, $resType)
-    {
-        if (!empty($bundle)) {
-            if (!empty($bundle['entry'])) {
-                foreach ($bundle['entry'] as $e) {
-                    if (!empty($e['resource'])) {
-                        if (isset($e['resource']['resourceType'])) {
-                            if (strtolower($e['resource']['resourceType']) == strtolower($resType)) {
-                                $this->updateOrCreate($resType, $e['resource']['id'], $e['resource']);
-                            }
-                        }
+        try {
+            foreach ($bundle['entry'] as $e) {
+                if (!empty($e['resource']) && isset($e['resource']['resourceType'])) {
+                    $resType = $e['resource']['resourceType'];
+                    if (in_array($resType, array_keys(config('app.patient_related_data')))) {
+                        DB::table(strtolower($resType))->updateOrInsert(
+                            ['id' => $e['resource']['id']],
+                            $e['resource']
+                        );
+                        $inserted++;
+                    } else {
+                        $ignored++;
                     }
                 }
             }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error processing entries: ' . $e->getMessage());
+            throw $e;
         }
+
+        Log::info('Inserted: ' . $inserted . ', Ignored: ' . $ignored);
     }
 
     public function checkIfResourceExistsInLocal($resourceType, $resourceId)
@@ -379,20 +363,6 @@ class SatusehatController extends Controller
             return app()->handle($request);
         }
     }
-
-    public const PATIENT_RELATED_DATA = [
-        'Encounter' => Encounter::class,
-        'Condition' => Condition::class,
-        'Observation' => Observation::class,
-        'Procedure' => Procedure::class,
-        'MedicationRequest' => MedicationRequest::class,
-        'Composition' => Composition::class,
-        'AllergyIntolerance' => AllergyIntolerance::class,
-        'ClinicalImpression' => ClinicalImpression::class,
-        'ServiceRequest' => ServiceRequest::class,
-        'MedicationStatement' => MedicationStatement::class,
-        'QuestionnaireResponse' => QuestionnaireResponse::class,
-    ];
 
     public function searchPractitioner(PractitionerSearchRequest $request)
     {
@@ -837,5 +807,50 @@ class SatusehatController extends Controller
         ]);
 
         return $response;
+    }
+
+    public function updateRekamMedis($patientId)
+    {
+        try {
+            $patResponse = $this->show('Patient', $patientId);
+
+            if ($patResponse->getStatusCode() != 200) {
+                return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
+            }
+
+            $client = new Client();
+            $headers = ['Authorization' => 'Bearer ' . $this->getToken()];
+
+            $requests = function () use ($client, $headers, $patientId) {
+                foreach (config('app.patient_related_data') as $resType => $query) {
+                    yield function () use ($client, $headers, $patientId, $resType, $query) {
+                        return $client->getAsync($this->baseUrl . '/' . $resType, [
+                            'headers' => $headers,
+                            'query' => [$query => $patientId]
+                        ]);
+                    };
+                }
+            };
+
+            $pool = new Pool($client, $requests(), [
+                'concurrency' => 20,
+                'fulfilled' => function (Response $response, $index) {
+                    // this is delivered each successful response
+                    $bundle = json_decode($response->getBody()->getContents(), true);
+                    $this->bundleHandler($bundle);
+                },
+                'rejected' => function (RequestException $reason, $index) {
+                    // this is delivered each failed request
+                    Log::error($reason);
+                },
+            ]);
+
+            $pool->promise()->wait();
+
+            return response()->json(['message' => 'Update rekam medis berhasil'], 200);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'Terjadi kesalahan saat mengupdate rekam medis'], 500);
+        }
     }
 }
