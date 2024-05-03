@@ -1,93 +1,94 @@
 <template>
-    <!-- <AuthenticatedLayout> -->
-    <!-- <template #apphead>
+    <AuthenticatedLayout>
+        <template #apphead>
             <title>Buat Invoice - </title>
-        </template> -->
-    <form @submit.prevent="submit">
-        <!-- Status Invoice -->
-        <div class="mt-4">
-            <InputLabel value="Status" />
-            <select id="status"
-                class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                <option v-for="(label, id) in invoiceStatus" :value=id>{{ label }}</option>
-            </select>
-        </div>
-        <!-- Cancelled Reason -->
-        <div class="mt-4">
-            <InputLabel value="Cancelled Reason" />
-            <TextInput />
-        </div>
-        <!-- Pilih Pasien -->
-        <div class="mt-4">
-            <InputLabel for="pasien" value="Identitas Pasien" />
-            <Multiselect mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true" :min-chars="1"
-                :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient" label="label"
-                valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required />
-            <InputError class="mt-1" />
-        </div>
-        <!-- Pilih Penanggungjawab pasien -->
-        <div class="mt-4">
-            <InputLabel value="Penanggung Jawab" />
-            <TextInput />
-        </div>
-        <!-- Tanggal Invoice -->
-        <div class="mt-4">
-            <InputLabel value="Tanggal Invoice" />
-            <div class="flex pt-1">
-                <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required></VueDatePicker>
+        </template>
+        <form @submit.prevent="submit">
+            <!-- Status Invoice -->
+            <div class="mt-4">
+                <InputLabel value="Status" />
+                <select id="status"
+                    class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
+                    <option v-for="(label, id) in invoiceStatus" :value=id>{{ label }}</option>
+                </select>
             </div>
+            <!-- Cancelled Reason -->
+            <div class="mt-4">
+                <InputLabel value="Cancelled Reason" />
+                <TextInput />
+            </div>
+            <!-- Pilih Pasien -->
+            <div class="mt-4">
+                <InputLabel for="pasien" value="Identitas Pasien" />
+                <Multiselect mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true"
+                    :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
+                    label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required />
+                <InputError class="mt-1" />
+            </div>
+            <!-- Pilih Penanggungjawab pasien -->
+            <div class="mt-4">
+                <InputLabel value="Penanggung Jawab" />
+                <TextInput />
+            </div>
+            <!-- Tanggal Invoice -->
+            <div class="mt-4">
+                <InputLabel value="Tanggal Invoice" />
+                <div class="flex pt-1">
+                    <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required></VueDatePicker>
+                </div>
+            </div>
+            <!-- Kasir -->
+            <div class="mt-4">
+                <InputLabel value="Kasir" />
+                <Multiselect mode="single" placeholder="Kasir" :object="true" :options="practitionerList" label="name"
+                    valueProp="satusehat_id" track-by="satusehat_id" class="mt-1" :classes="combo_classes" required />
+                <InputError class="mt-1" />
+            </div>
+            <!-- Rincian Biaya -->
+            <div class="mt-4">
+                <InputLabel value="Rincian Biaya" />
+                <select
+                    class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
+                    <option>NO. RM</option>
+                </select>
+                <table class="border w-full h-auto">
+                    <tr>
+                        <td>No</td>
+                        <td>CONTOH</td>
+                        <td>CONTOH</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="mt-4">
+                <InputLabel value="Total Price Component" />
+                <TextInput />
+            </div>
+            <div class="mt-4">
+                <InputLabel value="Total Nett" />
+                <TextInput />
+            </div>
+            <div class="mt-4">
+                <InputLabel value="Total Gross" />
+                <TextInput />
+            </div>
+            <div class="mt-4">
+                <InputLabel value="Payment Terms" />
+                <TextInput />
+            </div>
+            <div class="mt-4">
+                <InputLabel value="Note" />
+                <TextInput />
+            </div>
+        </form>
+        <div class="flex flex-col items-center justify-end mt-10">
+            <MainButton :isLoading="isLoading"
+                class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
+                Daftar
+            </MainButton>
         </div>
-        <!-- Kasir -->
-        <div class="mt-4">
-            <InputLabel value="Kasir" />
-            <Multiselect mode="single" placeholder="Kasir" :object="true" :options="practitionerList" label="name"
-                valueProp="satusehat_id" track-by="satusehat_id" class="mt-1" :classes="combo_classes" required />
-            <InputError class="mt-1" />
-        </div>
-        <!-- Rincian Biaya -->
-        <div class="mt-4">
-            <InputLabel value="Rincian Biaya" />
-            <select
-                class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                <option>NO. RM</option>
-            </select>
-            <table class="border w-full h-auto">
-                <tr>
-                    <td>No</td>
-                    <td>CONTOH</td>
-                    <td>CONTOH</td>
-                </tr>
-            </table>
-        </div>
-        <div class="mt-4">
-            <InputLabel value="Total Price Component" />
-            <TextInput />
-        </div>
-        <div class="mt-4">
-            <InputLabel value="Total Nett" />
-            <TextInput />
-        </div>
-        <div class="mt-4">
-            <InputLabel value="Total Gross" />
-            <TextInput />
-        </div>
-        <div class="mt-4">
-            <InputLabel value="Payment Terms" />
-            <TextInput />
-        </div>
-        <div class="mt-4">
-            <InputLabel value="Note" />
-            <TextInput />
-        </div>
-    </form>
-    <div class="flex flex-col items-center justify-end mt-10">
-        <MainButton :isLoading="isLoading"
-            class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
-            Daftar
-        </MainButton>
-    </div>
+    </AuthenticatedLayout>
 </template>
-<!-- </AuthenticatedLayout> -->
+
 
 
 <script setup>
