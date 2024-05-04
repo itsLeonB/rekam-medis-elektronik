@@ -4,6 +4,8 @@
 
 This is a web-based Electronic Medical Record systems application which complies with Indonesia's FHIR Implementation (SATUSEHAT).
 
+API Documentation can be accessed through [Postman](https://documenter.getpostman.com/view/29785588/2s9Yynm4LB)
+
 ## Available Features
 
 -   [x] User Registration
