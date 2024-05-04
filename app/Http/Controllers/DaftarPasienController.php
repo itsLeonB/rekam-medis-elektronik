@@ -3,11 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fhir\Resource;
-use App\Models\Fhir\Resources\Encounter;
-use App\Models\Fhir\Resources\Procedure;
-use DateTime;
-use DateTimeZone;
+use Illuminate\Support\Facades\DB;
 
 class DaftarPasienController extends Controller
 {
@@ -17,38 +13,45 @@ class DaftarPasienController extends Controller
     {
         $daftarPasien = $encounters->map(function ($encounter) {
             $patientId = explode('/', data_get($encounter, 'subject.reference'))[1];
-            $patient = Resource::where([
-                ['res_type', 'Patient'],
-                ['satusehat_id', $patientId]
-            ])->first()->patient()->first();
+            $patient = DB::table('patient')
+                ->where('id', $patientId)
+                ->first();
+
+            $patientRMID = null;
+            $identifiers = data_get($patient, 'identifier');
+
+            foreach ($identifiers as $identifier) {
+                if (data_get($identifier, 'system') == config('app.identifier_systems.patient.rekam-medis')) {
+                    $patientRMID = data_get($identifier, 'value');
+                    break;
+                }
+            }
 
             $participant = data_get($encounter, 'participant.0.individual.reference');
             $practitionerId = explode('/', $participant)[1];
-            $practitioner = Resource::where([
-                ['res_type', 'Practitioner'],
-                ['satusehat_id', $practitionerId]
-            ])->first()->practitioner;
+            $practitioner = DB::table('practitioner')
+                ->where('id', $practitionerId)
+                ->first();
 
             $locationRef = data_get($encounter, 'location.0.location.reference');
             $locationId = explode('/', $locationRef)[1];
-            $location = Resource::where([
-                ['res_type', 'Location'],
-                ['satusehat_id', $locationId]
-            ])->first();
+            $location = DB::table('location')
+                ->where('id', $locationId)
+                ->first();
 
-            $encounterId = data_get($encounter, 'resource.satusehat_id');
+            $encounterId = data_get($encounter, 'id');
 
-            $procedure = Procedure::whereHas('encounter', function ($query) use ($encounterId) {
-                $query->where('reference', 'Encounter/' . $encounterId);
-            })->first();
+            $procedure = DB::table('procedure')
+                ->where('encounter.reference', 'Encounter/' . $encounterId)
+                ->first();
 
             return [
-                'encounter_satusehat_id' => data_get($encounter, 'resource.satusehat_id'),
+                'encounter_satusehat_id' => $encounterId,
                 'patient_satusehat_id' => $patientId,
                 'patient_name' => data_get($patient, 'name.0.text'),
-                'patient_identifier' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->first()->value ?? null,
-                'period_start' => $this->parseDate(data_get($encounter, 'period.start')),
-                'encounter_status' => $encounter->status,
+                'patient_identifier' => $patientRMID,
+                'period_start' => data_get($encounter, 'period.start'),
+                'encounter_status' => data_get($encounter, 'status'),
                 'practitioner_id' => $practitionerId,
                 'practitioner_name' => data_get($practitioner, 'name.0.text'),
                 'procedure' => data_get($procedure, 'code.coding.0.display'),
@@ -59,15 +62,12 @@ class DaftarPasienController extends Controller
         return $daftarPasien;
     }
 
-    private function getEncounters(string $class, int $serviceType)
+    private function getEncounters(string $class, string $serviceType)
     {
-        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
-            ->whereHas('class', function ($query) use ($class) {
-                $query->where('code', $class);
-            })
-            ->whereHas('serviceType.coding', function ($query) use ($serviceType) {
-                $query->where('code', $serviceType);
-            })
+        $encounters = DB::table('encounter')
+            ->whereNotIn('status', self::ENDED_STATUS)
+            ->where('class.code', $class)
+            ->where('serviceType.coding.0.code', $serviceType)
             ->get();
 
         return $encounters;
@@ -138,10 +138,9 @@ class DaftarPasienController extends Controller
 
     public function getDaftarRawatInap()
     {
-        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
-            ->whereHas('class', function ($query) {
-                $query->where('code', 'IMP');
-            })
+        $encounters = DB::table('encounter')
+            ->whereNotIn('status', self::ENDED_STATUS)
+            ->where('class.code', 'IMP')
             ->get();
 
         return $this->mapEncounters($encounters);
@@ -149,24 +148,11 @@ class DaftarPasienController extends Controller
 
     public function getDaftarIgd()
     {
-        $encounters = Encounter::whereNotIn('status', self::ENDED_STATUS)
-            ->whereHas('class', function ($query) {
-                $query->where('code', 'EMER');
-            })
+        $encounters = DB::table('encounter')
+            ->whereNotIn('status', self::ENDED_STATUS)
+            ->where('class.code', 'EMER')
             ->get();
 
         return $this->mapEncounters($encounters);
-    }
-
-    public function parseDate($date)
-    {
-        if (!$date) {
-            return null;
-        }
-
-        $date = new DateTime($date);
-        $date = $date->setTimezone(new DateTimeZone(config('app.timezone')))->format('Y-m-d\TH:i:sP');
-
-        return $date;
     }
 }

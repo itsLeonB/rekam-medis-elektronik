@@ -4,6 +4,8 @@
 
 This is a web-based Electronic Medical Record systems application which complies with Indonesia's FHIR Implementation (SATUSEHAT).
 
+API Documentation can be accessed through [Postman](https://documenter.getpostman.com/view/29785588/2s9Yynm4LB)
+
 ## Available Features
 
 -   [x] User Registration
@@ -19,6 +21,9 @@ This project is built using:
 
 -   PHP 8.2
 -   Laravel 10
+-   MongoDB
+-   Vue.js 3 with Inertia.js
+-   Tailwind CSS 3
 
 ## Installation
 
@@ -30,11 +35,7 @@ This project is built using:
 
     ```
     DB_CONNECTION=mongodb
-    DB_HOST=127.0.0.1
-    DB_PORT=3306
     DB_DATABASE=rme
-    DB_USERNAME=root
-    DB_PASSWORD=
     DB_URI=mongodb://localhost:27017
 
     MAIL_MAILER=smtp
@@ -48,7 +49,7 @@ This project is built using:
     MAIL_ADMIN=hello@example.com
     ```
 
-6. Change these values in `.env`, get your id through `https://satusehat.kemkes.go.id/platform`
+6. Change these values in `.env`, get the latest values through `https://satusehat.kemkes.go.id/platform`
     ```
     auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
     base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
@@ -65,11 +66,10 @@ This project is built using:
 10. (Optional) If example SATUSEHAT data is needed, run `php artisan db:seed IdFhirResourceSeeder`
 11. Run `npm run build`
 12. Serve the app using web servers or local server with `php artisan serve`
+13. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
 
 ## Contributors
 
-[Ellion Blessan](https://github.com/itsLeonB) - Back-end
-
-[Muhammad Armando Nur Rizqy Ansar](https://github.com/mandorzqy) - Front-end
-
-[Hanif Mitsal M](https://github.com/salmahatta) - UI/UX
+-   [@itsLeonB](https://github.com/itsLeonB) - Back-end
+-   [@mandorzqy](https://github.com/mandorzqy) - Front-end
+-   [@salmahatta](https://github.com/salmahatta) - UI/UX
