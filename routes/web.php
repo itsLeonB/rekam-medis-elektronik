@@ -3,23 +3,7 @@
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\EncounterFormController;
-use App\Http\Controllers\Fhir\AllergyIntoleranceController;
-use App\Http\Controllers\Fhir\ClinicalImpressionController;
-use App\Http\Controllers\Fhir\CompositionController;
-use App\Http\Controllers\Fhir\ConditionController;
-use App\Http\Controllers\Fhir\EncounterController;
-use App\Http\Controllers\Fhir\LocationController;
-use App\Http\Controllers\Fhir\MedicationController;
-use App\Http\Controllers\Fhir\MedicationRequestController;
-use App\Http\Controllers\Fhir\MedicationStatementController;
-use App\Http\Controllers\Fhir\ObservationController;
-use App\Http\Controllers\Fhir\OrganizationController;
-use App\Http\Controllers\Fhir\PatientController;
-use App\Http\Controllers\Fhir\PractitionerController;
-use App\Http\Controllers\Fhir\ProcedureController;
-use App\Http\Controllers\Fhir\QuestionnaireResponseController;
-use App\Http\Controllers\Fhir\ResourceController;
-use App\Http\Controllers\Fhir\ServiceRequestController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
@@ -64,8 +48,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('rawatjalan.daftar');
 });
 
-
-
 # Rawat Inap
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rawat-inap', function () {
@@ -78,7 +60,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('RawatInap/RawatInapDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
     })->name('rawatinap.details');
 });
-
 
 # Gawat Darurat
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -294,6 +275,14 @@ Route::group(['prefix' => 'satusehat', 'as' => 'satusehat.'], function () {
         Route::post('/{res_type}', [SatusehatController::class, 'store'])->name('store');
         Route::put('/{res_type}/{res_id}', [SatusehatController::class, 'update'])->name('update');
     });
+});
+
+Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
+    Route::get('/{resType}', [ResourceController::class, 'index']);
+    Route::post('/{resType}', [ResourceController::class, 'store']);
+    Route::get('/{resType}/{id}', [ResourceController::class, 'show']);
+    Route::put('/{resType}/{id}', [ResourceController::class, 'update']);
+    Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy']);
 });
 // });
 
