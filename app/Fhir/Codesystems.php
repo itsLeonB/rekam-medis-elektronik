@@ -614,4 +614,37 @@ class Codesystems
         'keterangan' => 'Kode Subacute Chronic',
         'table' => 'codesystem_subacutechronic'
     ];
+
+    public const ChargeItemIdentifier = [
+        'system' => 'https://terminology.kemkes.go.id/CodeSystem/chargeitem-billingGroup',
+        'value' => [
+            'prosedur-non-bedah',
+            'prosedur-bedah',
+            'konsultasi',
+            'tenaga-ahli',
+            'keperawatan',
+            'penunjang',
+            'radiologi',
+            'laboratorium',
+            'pelayanan-darah',
+            'rehabilitasi',
+            'kamar-akomodasi',
+            'rawat-intensif',
+            'obat',
+            'obat-kronis',
+            'obat-kemoterapi',
+            'alat-kesehatan',
+            'bmhp',
+            'sewa-alat',
+            'tarif-rumah-sakit',
+            'tarif-poli-eksekutif',
+            'tambahan-biaya-naik-kelas'
+        ]
+    ];
+
+    public const ChargeItemStatus = [
+        'system' => 'http://hl7.org/fhir/chargeitem-status',
+        'code' => ['planned', 'billable', 'not-billable', 'aborted', 'billed', 'entered-in-error', 'unknown'],
+        'display' => ['planned' => 'Planned', 'billable' => 'Billable', 'not-billable' => 'Not billable', 'aborted' => 'Aborted', 'billed' => 'Billed', 'entered-in-error' => 'Entered in Error', 'unknown' => 'Unknown']
+    ];
 }
