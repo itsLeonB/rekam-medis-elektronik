@@ -104,7 +104,7 @@ class SatusehatController extends Controller
             'verify' => false,
         ]);
 
-        return $response;
+        return response()->json(json_decode($response->getBody()->getContents(), true), 200);
     }
 
     public function getToken()

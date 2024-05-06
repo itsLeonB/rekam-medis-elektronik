@@ -18,7 +18,7 @@ class PractitionerSearchRequest extends FhirRequest
         return [
             'identifier' => 'sometimes|string',
             'name' => 'sometimes|string',
-            'gender' => ['sometimes', 'required_with:name', Rule::in(Practitioner::GENDER['binding']['valueset'])],
+            'gender' => ['sometimes', 'required_with:name', Rule::in(config('app.terminologi.Practitioner.gender'))],
             'birthdate' => 'sometimes|required_with:name|string',
         ];
     }

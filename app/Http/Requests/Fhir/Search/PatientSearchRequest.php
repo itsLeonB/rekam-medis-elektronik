@@ -17,7 +17,7 @@ class PatientSearchRequest extends FhirRequest
     {
         return [
             'identifier' => 'sometimes|string',
-            'gender' => ['sometimes', Rule::in(Patient::GENDER['binding']['valueset'])],
+            'gender' => ['sometimes', Rule::in(config('app.terminologi.Patient.gender'))],
             'birthdate' => 'sometimes|required_with:gender|date',
             'name' => 'sometimes|required_with:gender|string',
         ];

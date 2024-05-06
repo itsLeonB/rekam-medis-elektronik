@@ -394,6 +394,9 @@ return [
         'LocationHoursOfOperation' => [
             'daysOfWeek' => Valuesets::DaysOfWeek
         ],
+        'Practitioner' => [
+            'gender' => Codesystems::AdministrativeGender,
+        ],
         'Patient' => [
             'gender' => Codesystems::AdministrativeGender,
             'maritalStatus' => Valuesets::MaritalStatusCodes,
