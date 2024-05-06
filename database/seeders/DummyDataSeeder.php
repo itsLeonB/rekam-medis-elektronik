@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Fhir\Processor;
 use App\Models\Fhir\BackboneElements\AllergyIntoleranceReaction;
 use App\Models\Fhir\BackboneElements\ClinicalImpressionFinding;
 use App\Models\Fhir\BackboneElements\ClinicalImpressionInvestigation;
@@ -62,7 +61,6 @@ use App\Models\Fhir\Resources\ServiceRequest;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class DummyDataSeeder extends Seeder
 {
@@ -72,8 +70,6 @@ class DummyDataSeeder extends Seeder
     public function run(): void
     {
         DB::transaction(function () {
-            $this->seedOnboarding();
-
             Organization::factory()->rawatJalan()->create();
             Organization::factory()->rawatInap()->create();
             Organization::factory()->igd()->create();
@@ -84,94 +80,6 @@ class DummyDataSeeder extends Seeder
 
             User::factory()->count(50)->create();
         });
-    }
-
-    public function seedOnboarding()
-    {
-        $processor = new Processor();
-
-        $files = Storage::disk('onboarding-resource')->files();
-
-        foreach ($files as $f) {
-            $resText = Storage::disk('onboarding-resource')->get($f);
-            list($resType, $satusehatId) = explode('-', $f, 2);
-            list($satusehatId, $ext) = explode('.', $satusehatId, 2);
-
-            switch ($resType) {
-                case 'Organization':
-                    $org = Resource::create([
-                        'satusehat_id' => config('app.organization_id'),
-                        'res_type' => $resType
-                    ]);
-
-                    $org->content()->create([
-                        'res_text' => $resText,
-                        'res_ver' => 1
-                    ]);
-
-                    $resText = json_decode($resText, true);
-                    $orgData = $processor->generateOrganization($resText);
-                    $orgData = $this->removeEmptyValues($orgData);
-                    $processor->saveOrganization($org, $orgData);
-                    $org->save();
-
-                    break;
-                case 'Location':
-                    $loc = Resource::create([
-                        'satusehat_id' => config('app.location_id'),
-                        'res_type' => $resType
-                    ]);
-
-                    $loc->content()->create([
-                        'res_text' => $resText,
-                        'res_ver' => 1
-                    ]);
-
-                    $resText = json_decode($resText, true);
-                    $locData = $processor->generateLocation($resText);
-                    $locData = $this->removeEmptyValues($locData);
-                    $processor->saveLocation($loc, $locData);
-                    $loc->save();
-
-                    break;
-                case 'Practitioner':
-                    $prac = Resource::create([
-                        'satusehat_id' => 'rsum',
-                        'res_type' => $resType
-                    ]);
-
-                    $prac->content()->create([
-                        'res_text' => $resText,
-                        'res_ver' => 1
-                    ]);
-
-                    $resText = json_decode($resText, true);
-                    $pracData = $processor->generatePractitioner($resText);
-                    $pracData = $this->removeEmptyValues($pracData);
-                    $processor->savePractitioner($prac, $pracData);
-                    $prac->save();
-
-                    break;
-                case 'Medication':
-                    $med = Resource::create([
-                        'satusehat_id' => 'mock-medication',
-                        'res_type' => $resType
-                    ]);
-
-                    $med->content()->create([
-                        'res_text' => $resText,
-                        'res_ver' => 1
-                    ]);
-
-                    $resText = json_decode($resText, true);
-                    $medData = $processor->generateMedication($resText);
-                    $medData = $this->removeEmptyValues($medData);
-                    $processor->saveMedication($med, $medData);
-                    $med->save();
-
-                    break;
-            }
-        }
     }
 
     public function makeDummies(bool $forTest = false, bool $patientEncounterOnly = false, int $count)
@@ -819,15 +727,5 @@ class DummyDataSeeder extends Seeder
             $this->fakeComplexExtension($address, 'administrativeCode', 'administrativeCode');
             $this->fakeComplexExtension($address, 'geolocation', 'geolocation');
         }
-    }
-
-    private function removeEmptyValues($array)
-    {
-        return array_filter($array, function ($value) {
-            if (is_array($value)) {
-                return !empty($this->removeEmptyValues($value));
-            }
-            return $value !== null && $value !== "";
-        });
     }
 }

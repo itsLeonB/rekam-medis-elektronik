@@ -34,9 +34,12 @@ This project is built using:
 5. Change these values in `.env`:
 
     ```
-    DB_CONNECTION=mongodb
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
     DB_DATABASE=rme
-    DB_URI=mongodb://localhost:27017
+    DB_USERNAME=root
+    DB_PASSWORD=
 
     MAIL_MAILER=smtp
     MAIL_HOST=mailpit
@@ -49,7 +52,9 @@ This project is built using:
     MAIL_ADMIN=hello@example.com
     ```
 
-6. Change these values in `.env`, get the latest values through `https://satusehat.kemkes.go.id/platform`
+6. Use [SATUSEHAT Postman](https://www.postman.com/satusehat/workspace/satusehat-public/overview) to create Organization and Location resource. Paste the resource data in `storage/onboarding-resource`.
+
+7. Change these values in `.env`, get the latest values through `https://satusehat.kemkes.go.id/platform`
     ```
     auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
     base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
@@ -59,14 +64,15 @@ This project is built using:
     client_id=your_client_id
     client_secret=your_client_secret
     organization_id=your_organization_id
+    location_id=your_location_id
     ```
-7. Run `php artisan key:generate`
-8. Migrate and seed database using: `php artisan migrate --seed`
-9. (Optional) If dummy data is needed, run `php artisan db:seed DummyDataSeeder`
-10. (Optional) If example SATUSEHAT data is needed, run `php artisan db:seed IdFhirResourceSeeder`
-11. Run `npm run build`
-12. Serve the app using web servers or local server with `php artisan serve`
-13. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
+8. Run `php artisan key:generate`
+9. Migrate and seed database using: `php artisan migrate --seed`
+10. (Optional) If dummy data is needed, run `php artisan db:seed DummyDataSeeder`
+11. (Optional) If example SATUSEHAT data is needed, run `php artisan db:seed IdFhirResourceSeeder`
+12. Run `npm run build`
+13. Serve the app using web servers or local server with `php artisan serve`
+14. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
 
 ## Contributors
 
