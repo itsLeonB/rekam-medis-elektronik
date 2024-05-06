@@ -30,10 +30,10 @@ class UserRequest extends FormRequest
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($userId),
+                Rule::unique('users')->ignore($userId, '_id'),
             ],
             'password' => 'required|string|confirmed|min:8',
-            'practitioner_id' => 'sometimes|string|exists:resource,satusehat_id',
+            'practitioner_id' => 'sometimes|string|exists:fhir_resources,id',
             'role' => ['sometimes', 'string', Rule::in(config('app.roles'))],
         ];
     }

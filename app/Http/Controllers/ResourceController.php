@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FhirResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,7 +14,7 @@ class ResourceController extends Controller
             return response()->json(['error' => 'Invalid resource type'], 400);
         }
 
-        return response()->json(DB::table($resType)->get(), 200);
+        return response()->json(FhirResource::where('resourceType', $resType)->get(), 200);
     }
 
     public function store($resType, Request $request)
@@ -25,9 +26,9 @@ class ResourceController extends Controller
         DB::beginTransaction();
 
         try {
-            $id = DB::table($resType)->insertGetId($request->all());
+            $res = FhirResource::create($request->all());
             DB::commit();
-            return response()->json(DB::table($resType)->find($id), 201);
+            return response()->json($res, 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
@@ -41,10 +42,13 @@ class ResourceController extends Controller
         }
 
         try {
-            $resource = DB::table($resType)->where('id', $id)->first();
+            $resource = FhirResource::where([
+                ['resourceType', $resType],
+                ['id', $id]
+            ])->firstOrFail();
             return response()->json($resource, 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 404);
         }
     }
 
@@ -57,9 +61,13 @@ class ResourceController extends Controller
         DB::beginTransaction();
 
         try {
-            DB::table($resType)->where('id', $id)->update($request->all());
+            $resource = FhirResource::where([
+                ['resourceType', $resType],
+                ['id', $id]
+            ])->first();
+            $resource->update($request->all());
             DB::commit();
-            return response()->json(DB::table($resType)->where('id', $id)->get(), 200);
+            return response()->json($resource, 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['error' => $e->getMessage()], 500);
@@ -75,7 +83,10 @@ class ResourceController extends Controller
         DB::beginTransaction();
 
         try {
-            DB::table($resType)->where('id', $id)->delete();
+            FhirResource::where([
+                ['resourceType', $resType],
+                ['id', $id]
+            ])->delete();
             DB::commit();
             return response()->json(null, 204);
         } catch (\Exception $e) {

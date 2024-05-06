@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fhir\Resource;
-use App\Models\Fhir\Resources\Encounter;
 use App\Models\Fhir\Resources\Patient;
+use App\Models\FhirResource;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +14,9 @@ class AnalyticsController extends Controller
 
     public function getActiveEncounters()
     {
-        $count = Encounter::whereNotIn('status', self::ENDED_STATUS)->count();
+        $count = FhirResource::where('resourceType', 'Encounter')
+            ->whereNotIn('status', self::ENDED_STATUS)
+            ->count();
 
         return $count;
     }
@@ -24,7 +25,8 @@ class AnalyticsController extends Controller
     {
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
-        $count = Resource::where('res_type', 'Patient')
+
+        $count = FhirResource::where('resourceType', 'Patient')
             ->whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
             ->count();
@@ -34,47 +36,118 @@ class AnalyticsController extends Controller
 
     public function countPatients()
     {
-        $count = Patient::count();
+        $count = FhirResource::where('resourceType', 'Patient')
+            ->count();
 
         return $count;
     }
 
     public function getEncountersPerMonth()
     {
-        $endDate = now();
-        $startDate = now()->subMonths(13);
+        $endDate = new \MongoDB\BSON\UTCDateTime(now()->getTimestamp() * 1000);
+        $startDate = new \MongoDB\BSON\UTCDateTime(now()->subYear(13)->getTimestamp() * 1000);
 
-        $encounterCounts = Encounter::selectRaw('DATE_FORMAT(periods.start, "%Y-%m") as month')
-            ->selectRaw('codings.code as class')
-            ->selectRaw('COUNT(*) as count')
-            ->join('periods', 'encounter.id', '=', 'periods.periodable_id')
-            ->join('codings', 'encounter.id', '=', 'codings.codeable_id')
-            ->where('periods.periodable_type', 'Encounter')
-            ->where('codings.codeable_type', 'Encounter')
-            ->where('codings.attr_type', 'class')
-            ->whereBetween('periods.start', [$startDate, $endDate])
-            ->groupBy('month', 'class')
-            ->orderBy('month')
-            ->get();
+        $encounters = FhirResource::raw(function ($collection) use ($startDate, $endDate) {
+            return $collection->aggregate([
+                [
+                    '$addFields' => [
+                        'date' => [
+                            '$dateFromString' => [
+                                'dateString' => '$period.start'
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    '$match' => [
+                        'resourceType' => 'Encounter',
+                        'date' => [
+                            '$gte' => $startDate,
+                            '$lte' => $endDate
+                        ]
+                    ]
+                ],
+                [
+                    '$group' => [
+                        "_id" => [
+                            'date' => [
+                                '$dateToString' => [
+                                    'format' => '%Y-%m',
+                                    'date' => [
+                                        '$dateFromParts' => [
+                                            'year' => [
+                                                '$year' => '$date'
+                                            ],
+                                            'month' => [
+                                                '$month' => '$date'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            'class' => '$class.code'
+                        ],
+                        'count' => ['$sum' => 1]
+                    ]
+                ],
+            ]);
+        });
 
-        return $encounterCounts;
+        return $encounters;
     }
 
     public function getPatientAgeGroups()
     {
-        $patientCounts = Patient::select(
-            DB::raw('CASE
-                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 0 AND 5 THEN "balita"
-                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 5 AND 11 THEN "kanak"
-                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 11 AND 25 THEN "remaja"
-                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 25 AND 45 THEN "dewasa"
-                WHEN DATEDIFF(CURDATE(), birth_date) / 365.25 BETWEEN 45 AND 65 THEN "lansia"
-                ELSE "manula"
-            END as age_group'),
-            DB::raw('count(*) as count')
-        )
-            ->groupBy('age_group')
-            ->get();
+        $patientCounts = FhirResource::raw(function ($collection) {
+            return $collection->aggregate([
+                [
+                    '$match' => ['resourceType' => 'Patient']
+                ],
+                [
+                    '$set' => [
+                        'birthday' => [
+                            '$dateFromString' => [
+                                'dateString' => '$birthDate',
+                                'format' => '%Y-%m-%d'
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    '$set' => [
+                        'age' => [
+                            '$subtract' => [
+                                ['$subtract' => [['$year' => '$$NOW'], ['$year' => '$birthday']]],
+                                ['$cond' => [['$lt' => [['$dayOfYear' => '$birthday'], ['$dayOfYear' => '$$NOW']]], 0, 1]]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    '$addFields' => [
+                        'age_group' => [
+                            '$switch' => [
+                                'branches' => [
+                                    ['case' => ['$and' => [['$gte' => ['$age', 0]], ['$lt' => ['$age', 5]]]], 'then' => 'balita'],
+                                    ['case' => ['$and' => [['$gte' => ['$age', 5]], ['$lt' => ['$age', 11]]]], 'then' => 'kanak'],
+                                    ['case' => ['$and' => [['$gte' => ['$age', 11]], ['$lt' => ['$age', 25]]]], 'then' => 'remaja'],
+                                    ['case' => ['$and' => [['$gte' => ['$age', 25]], ['$lt' => ['$age', 45]]]], 'then' => 'dewasa'],
+                                    ['case' => ['$and' => [['$gte' => ['$age', 45]], ['$lt' => ['$age', 65]]]], 'then' => 'lansia'],
+                                    ['case' => ['$gte' => ['$age', 65]], 'then' => 'manula'],
+                                ],
+                                'default' => 'unknown'
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    '$group' => [
+                        '_id' => '$age_group',
+                        'count' => ['$sum' => 1]
+                    ]
+                ]
+            ]);
+        });
 
         return $patientCounts;
     }

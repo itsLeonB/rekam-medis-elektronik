@@ -3,20 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fhir\Resource;
-use App\Models\Fhir\Resources\Location;
-use App\Models\Fhir\Resources\Practitioner;
+use App\Models\FhirResource;
 
 class EncounterFormController extends Controller
 {
     public function indexPractitioner()
     {
-        $practitioners = Practitioner::with(['name', 'resource'])
-            ->get(['id', 'resource_id']);
+        $practitioners = FhirResource::where('resourceType', 'Practitioner')
+            ->get(['id', 'name']);
 
         $practitioners = $practitioners->map(function ($item) {
             return [
-                'satusehat_id' => data_get($item, 'resource.satusehat_id'),
+                'satusehat_id' => data_get($item, 'id'),
                 'name' => data_get($item, 'name.0.text'),
             ];
         });
@@ -26,12 +24,12 @@ class EncounterFormController extends Controller
 
     public function indexLocation()
     {
-        $locations = Location::with(['resource', 'identifier', 'serviceClass'])
-            ->get(['id', 'resource_id', 'name']);
+        $locations = FhirResource::where('resourceType', 'Location')
+            ->get(['id', 'identifier', 'name', 'serviceClass']);
 
         $locations = $locations->map(function ($item) {
             return [
-                'satusehat_id' => data_get($item, 'resource.satusehat_id'),
+                'satusehat_id' => data_get($item, 'id'),
                 'identifier' => data_get($item, 'identifier.0.value'),
                 'name' => data_get($item, 'name'),
                 'serviceClass' => data_get($item, 'serviceClass.valueCodeableConcept.coding.0.display'),
@@ -44,15 +42,13 @@ class EncounterFormController extends Controller
     public function getOrganization(string $layanan)
     {
         if ($layanan == 'induk') {
-            $organization = Resource::where([
-                ['res_type', 'Organization'],
-                ['satusehat_id', config('app.organization_id')],
-            ])->first();
+            $organization = FhirResource::where('resourceType', 'Organization')
+                ->where('id', config('app.organization_id'))
+                ->first();
         } else {
-            $organization = Resource::where([
-                ['res_type', 'Organization'],
-                ['satusehat_id', config('app.' . $layanan . '_org_id')],
-            ])->first();
+            $organization = FhirResource::where('resourceType', 'Organization')
+                ->where('id', config('app.' . $layanan . '_org_id'))
+                ->first();
         }
 
         if (!$organization) {
@@ -62,8 +58,8 @@ class EncounterFormController extends Controller
         }
 
         return [
-            'reference' => 'Organization/' . data_get($organization, 'satusehat_id'),
-            'display' => data_get($organization, 'organization.name')
+            'reference' => 'Organization/' . data_get($organization, 'id'),
+            'display' => data_get($organization, 'name')
         ];
     }
 }

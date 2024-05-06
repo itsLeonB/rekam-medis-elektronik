@@ -221,15 +221,15 @@ return [
     ],
 
     'kode_poli' => [
-        'umum' => 124,
-        'neurologi' => 177,
-        'obgyn' => 186,
-        'gigi' => 88,
-        'kulit' => 168,
-        'ortopedi' => 218,
-        'dalam' => 557,
-        'bedah' => 221,
-        'anak' => 286
+        'umum' => '124',
+        'neurologi' => '177',
+        'obgyn' => '186',
+        'gigi' => '88',
+        'kulit' => '168',
+        'ortopedi' => '218',
+        'dalam' => '557',
+        'bedah' => '221',
+        'anak' => '286'
     ],
 
     'roles' => [
@@ -359,27 +359,27 @@ return [
     ],
 
     'resourceTypes' => [
-        'organization',
-        'location',
-        'practitioner',
-        'patient',
-        'encounter',
-        'condition',
-        'observation',
-        'procedure',
-        'servicerequest',
-        'medicationrequest',
-        'medication',
-        'composition',
-        'allergyintolerance',
-        'clinicalimpression',
-        'medicationstatement',
-        'questionnaireresponse',
-        'invoice',
-        'claim',
-        'account',
-        'chargeitem',
-        'coverage'
+        'Organization',
+        'Location',
+        'Practitioner',
+        'Patient',
+        'Encounter',
+        'Condition',
+        'Observation',
+        'Procedure',
+        'ServiceRequest',
+        'MedicationRequest',
+        'Medication',
+        'Composition',
+        'AllergyIntolerance',
+        'ClinicalImpression',
+        'MedicationStatement',
+        'QuestionnaireResponse',
+        'Invoice',
+        'Claim',
+        'Account',
+        'Chargeitem',
+        'Coverage'
     ],
 
     'terminologi' => [
@@ -399,6 +399,9 @@ return [
         ],
         'LocationHoursOfOperation' => [
             'daysOfWeek' => Valuesets::DaysOfWeek
+        ],
+        'Practitioner' => [
+            'gender' => Codesystems::AdministrativeGender,
         ],
         'Patient' => [
             'gender' => Codesystems::AdministrativeGender,

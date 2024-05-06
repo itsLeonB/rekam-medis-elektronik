@@ -3,23 +3,7 @@
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\EncounterFormController;
-use App\Http\Controllers\Fhir\AllergyIntoleranceController;
-use App\Http\Controllers\Fhir\ClinicalImpressionController;
-use App\Http\Controllers\Fhir\CompositionController;
-use App\Http\Controllers\Fhir\ConditionController;
-use App\Http\Controllers\Fhir\EncounterController;
-use App\Http\Controllers\Fhir\LocationController;
-use App\Http\Controllers\Fhir\MedicationController;
-use App\Http\Controllers\Fhir\MedicationRequestController;
-use App\Http\Controllers\Fhir\MedicationStatementController;
-use App\Http\Controllers\Fhir\ObservationController;
-use App\Http\Controllers\Fhir\OrganizationController;
-use App\Http\Controllers\Fhir\PatientController;
-use App\Http\Controllers\Fhir\PractitionerController;
-use App\Http\Controllers\Fhir\ProcedureController;
-use App\Http\Controllers\Fhir\QuestionnaireResponseController;
-use App\Http\Controllers\Fhir\ResourceController;
-use App\Http\Controllers\Fhir\ServiceRequestController;
+use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
@@ -57,7 +41,58 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Dashboard');
     })->name('home.index');
 
-    # Profile
+# Rawat Jalan
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/rawat-jalan', function () {
+        return Inertia::render('RawatJalan/RawatJalan');
+    })->name('rawatjalan');
+    Route::get('/rawat-jalan/daftar', function () {
+        return Inertia::render('RawatJalan/DaftarRawatJalan');
+    })->name('rawatjalan.daftar');
+});
+
+# Rawat Inap
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/rawat-inap', function () {
+        return Inertia::render('RawatInap/RawatInap');
+    })->name('rawatinap');
+    Route::get('/rawat-inap/daftar', function () {
+        return Inertia::render('RawatInap/DaftarRawatInap');
+    })->name('rawatinap.daftar');
+    Route::get('/rawat-inap/details/{encounter_satusehat_id}', function ($encounter_satusehat_id) {
+        return Inertia::render('RawatInap/RawatInapDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
+    })->name('rawatinap.details');
+});
+
+# Gawat Darurat
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/gawat-darurat', function () {
+        return Inertia::render('GawatDarurat/GawatDarurat');
+    })->name('gawatdarurat');
+});
+
+# Rekam Medis
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/rekam-medis-pasien', function () {
+        return Inertia::render('RekamMedis/RekamMedis');
+    })->name('rekammedis');
+});
+
+# User Management
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/user-management', function () {
+        return Inertia::render('UserManagement/UserManagement');
+    })->name('usermanagement');
+    Route::get('/user-management/details/{user_id}', function ($user_id) {
+        return Inertia::render('UserManagement/UserDetails', ['user_id' => $user_id]);
+    })->name('usermanagement.details');
+    Route::get('/user-management/tambah-user', function () {
+        return Inertia::render('UserManagement/TambahUser');
+    })->name('usermanagement.tambah');
+});
+
+# Profile
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -144,15 +179,101 @@ Route::get('/finance/invoice/create', function () {
 })->name('finance.newinvoice');
 
 // APIs
-Route::middleware('auth')->group(function () {
-    // Endpoint untuk Integrasi SATUSEHAT
-    Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
-        // Get resource dan simpan local
-        Route::get('/{res_type}/{satusehat_id}', [IntegrationController::class, 'show'])->name('show');
-        // Save resource dan kirim ke SATUSEHAT
-        Route::post('/{res_type}', [IntegrationController::class, 'store'])->name('store');
-        // Update resource dan kirim ke SATUSEHAT
-        Route::put('/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('update');
+// Route::middleware('auth')->group(function () {
+// Endpoint untuk Integrasi SATUSEHAT
+Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
+    // Get resource dan simpan local
+    Route::get('/{res_type}/{satusehat_id}', [IntegrationController::class, 'show'])->name('show');
+    // Save resource dan kirim ke SATUSEHAT
+    Route::post('/{res_type}', [IntegrationController::class, 'store'])->name('store');
+    // Update resource dan kirim ke SATUSEHAT
+    Route::put('/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('update');
+});
+
+// Endpoint untuk View Rekam Medis
+Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
+    // Daftar rekam medis pasien
+    Route::get('/', [RekamMedisController::class, 'index'])->name('index');
+    // Detail rekam medis pasien
+    Route::get('/{patient_id}', [RekamMedisController::class, 'show'])->name('show');
+    // Pull update dari rekam medis pasien dari SATUSEHAT
+    Route::get('/{patient_id}/update', [SatusehatController::class, 'updateRekamMedis'])->name('update');
+});
+
+// Endpoint untuk View Daftar pasien
+Route::group(['prefix' => 'daftar-pasien', 'as' => 'daftar-pasien.'], function () {
+    // Daftar pasien rawat jalan
+    Route::middleware('permission:akses poli umum')->get('/rawat-jalan/umum', [DaftarPasienController::class, 'getDaftarPoliUmum'])->name('rawat-jalan.umum');
+    Route::middleware('permission:akses poli neurologi')->get('/rawat-jalan/neurologi', [DaftarPasienController::class, 'getDaftarPoliNeurologi'])->name('rawat-jalan.neurologi');
+    Route::middleware('permission:akses poli obgyn')->get('/rawat-jalan/obgyn', [DaftarPasienController::class, 'getDaftarPoliObgyn'])->name('rawat-jalan.obgyn');
+    Route::middleware('permission:akses poli gigi')->get('/rawat-jalan/gigi', [DaftarPasienController::class, 'getDaftarPoliGigi'])->name('rawat-jalan.gigi');
+    Route::middleware('permission:akses poli kulit')->get('/rawat-jalan/kulit', [DaftarPasienController::class, 'getDaftarPoliKulit'])->name('rawat-jalan.kulit');
+    Route::middleware('permission:akses poli ortopedi')->get('/rawat-jalan/ortopedi', [DaftarPasienController::class, 'getDaftarPoliOrtopedi'])->name('rawat-jalan.ortopedi');
+    Route::middleware('permission:akses poli penyakit dalam')->get('/rawat-jalan/dalam', [DaftarPasienController::class, 'getDaftarPoliDalam'])->name('rawat-jalan.dalam');
+    Route::middleware('permission:akses poli bedah')->get('/rawat-jalan/bedah', [DaftarPasienController::class, 'getDaftarPoliBedah'])->name('rawat-jalan.bedah');
+    Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
+    // Daftar pasien rawat inap, serviceType per ruangan
+    Route::get('/rawat-inap', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
+    // Daftar pasien IGD
+    Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+});
+
+// Endpoint untuk Dashboard Analytics
+Route::group(['prefix' => 'analytics', 'as' => 'analytics.'], function () {
+    // Jumlah pasien sedang dirawat
+    Route::get('/pasien-dirawat', [AnalyticsController::class, 'getActiveEncounters'])->name('pasien-dirawat');
+    // Jumlah pasien baru mendaftar bulan ini
+    Route::get('/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('pasien-baru-bulan-ini');
+    // Jumlah total pasien yang pernah dirawat
+    Route::get('/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('jumlah-pasien');
+    // Jumlah pasien yang pernah dirawat per bulan untuk 12 bulan kebelakang
+    Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
+    // Jumlah pasien yang pernah dirawat berdasarkan usia
+    Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
+});
+
+// Endpoint untuk Formulir Perawatan
+Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
+    // Daftar nakes
+    Route::get('/daftar/practitioner', [EncounterFormController::class, 'indexPractitioner'])->name('index.encounter');
+    // Daftar ruangan/bed
+    Route::get('/daftar/location', [EncounterFormController::class, 'indexLocation'])->name('index.location');
+    // Reference Organization per layanan = rawat-jalan | rawat-inap | igd
+    Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
+});
+
+// Endpoint untuk Data Kunjungan Pasien
+Route::get('/kunjungan/{resType}/{encounterId}', [RekamMedisController::class, 'getKunjunganData'])->name('kunjungan');
+
+// Endpoint untuk User Management
+Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+    // Daftar user
+    Route::get('/', [UserManagementController::class, 'index'])->name('index');
+    // Detail user
+    Route::get('/{user_id}', [UserManagementController::class, 'show'])->name('show');
+    // Tambah user
+    Route::post('/', [UserManagementController::class, 'store'])->name('store');
+    // Update user
+    Route::put('/{user_id}', [UserManagementController::class, 'update'])->name('update');
+    // Hapus user
+    Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
+    // Daftar roles
+    Route::get('/get/roles', [UserManagementController::class, 'getRoles'])->name('roles');
+});
+
+// Endpoint kode terminologi
+Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
+    // Terminologi per atribut per resource type
+    Route::get('/get', [TerminologyController::class, 'returnTerminologi'])->name('get');
+
+    // Untuk Procedure.code
+    Route::group(['prefix' => 'procedure', 'as' => 'procedure.'], function () {
+        // Tindakan atau prosedur medis untuk keperluan klaim
+        Route::get('/tindakan', [TerminologyController::class, 'returnProcedureTindakan'])->name('tindakan');
+        // Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir
+        Route::get('/edukasi-bayi', [TerminologyController::class, 'returnProcedureEdukasiBayi'])->name('edukasi-bayi');
+        // Prosedur medis lainnya
+        Route::get('/other', [TerminologyController::class, 'returnProcedureOther'])->name('other');
     });
 
     // Untuk Condition.code atau MedicationStatement.reasonCode
@@ -244,147 +365,13 @@ Route::group(['prefix' => 'satusehat', 'as' => 'satusehat.'], function () {
     });
 });
 
-// Endpoint untuk local DB manipulation (only for BE)
-Route::group(['prefix' => 'local', 'as' => 'local.'], function () {
-    Route::get('/{res_type}', [ResourceController::class, 'index'])->name('resource.index');
-
-    // Organization resource endpoint
-    Route::get('/organization/{satusehat_id}', [OrganizationController::class, 'show'])->name('organization.show');
-    Route::post('/organization', [OrganizationController::class, 'store'])->name('organization.store');
-    Route::put('/organization/{satusehat_id}', [OrganizationController::class, 'update'])->name('organization.update');
-
-    // Location resource endpoint
-    Route::get('/location/{satusehat_id}', [LocationController::class, 'show'])->name('location.show');
-    Route::post('/location', [LocationController::class, 'store'])->name('location.store');
-    Route::put('/location/{satusehat_id}', [LocationController::class, 'update'])->name('location.update');
-
-    // Patient resource endpoint
-    Route::get('/patient/{satusehat_id}', [PatientController::class, 'show'])->name('patient.show');
-    Route::post('/patient', [PatientController::class, 'store'])->name('patient.store');
-
-    // Practitioner resource endpoint
-    Route::get('/practitioner/{satusehat_id}', [PractitionerController::class, 'show'])->name('practitioner.show');
-    Route::post('/practitioner', [PractitionerController::class, 'store'])->name('practitioner.store');
-
-    // Encounter resource endpoint
-    Route::get('/encounter/{satusehat_id}', [EncounterController::class, 'show'])->name('encounter.show');
-    Route::post('/encounter', [EncounterController::class, 'store'])->name('encounter.store');
-    Route::put('/encounter/{satusehat_id}', [EncounterController::class, 'update'])->name('encounter.update');
-
-    // Condition resource endpoint
-    Route::get('/condition/{satusehat_id}', [ConditionController::class, 'show'])->name('condition.show');
-    Route::post('/condition', [ConditionController::class, 'store'])->name('condition.store');
-    Route::put('/condition/{satusehat_id}', [ConditionController::class, 'update'])->name('condition.update');
-
-    // Observation resource endpoint
-    Route::get('/observation/{satusehat_id}', [ObservationController::class, 'show'])->name('observation.show');
-    Route::post('/observation', [ObservationController::class, 'store'])->name('observation.store');
-    Route::put('/observation/{satusehat_id}', [ObservationController::class, 'update'])->name('observation.update');
-
-    // Procedure resource endpoint
-    Route::get('/procedure/{satusehat_id}', [ProcedureController::class, 'show'])->name('procedure.show');
-    Route::post('/procedure', [ProcedureController::class, 'store'])->name('procedure.store');
-    Route::put('/procedure/{satusehat_id}', [ProcedureController::class, 'update'])->name('procedure.update');
-
-    // Medication resource endpoint
-    Route::get('/medication/{satusehat_id}', [MedicationController::class, 'show'])->name('medication.show');
-    Route::post('/medication', [MedicationController::class, 'store'])->name('medication.store');
-    Route::put('/medication/{satusehat_id}', [MedicationController::class, 'update'])->name('medication.update');
-
-    // MedicationRequest resource endpoint
-    Route::get('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'show'])->name('medicationrequest.show');
-    Route::post('/medicationrequest', [MedicationRequestController::class, 'store'])->name('medicationrequest.store');
-    Route::put('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'update'])->name('medicationrequest.update');
-
-    // Composition resource endpoint
-    Route::get('/composition/{satusehat_id}', [CompositionController::class, 'show'])->name('composition.show');
-    Route::post('/composition', [CompositionController::class, 'store'])->name('composition.store');
-    Route::put('/composition/{satusehat_id}', [CompositionController::class, 'update'])->name('composition.update');
-
-    // AllergyIntolerance resource endpoint
-    Route::get('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'show'])->name('allergyintolerance.show');
-    Route::post('/allergyintolerance', [AllergyIntoleranceController::class, 'store'])->name('allergyintolerance.store');
-    Route::put('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'update'])->name('allergyintolerance.update');
-
-    // ClinicalImpression resource endpoint
-    Route::get('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'show'])->name('clinicalimpression.show');
-    Route::post('/clinicalimpression', [ClinicalImpressionController::class, 'store'])->name('clinicalimpression.store');
-    Route::put('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'update'])->name('clinicalimpression.update');
-
-    // ServiceRequest resource endpoint
-    Route::get('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'show'])->name('servicerequest.show');
-    Route::post('/servicerequest', [ServiceRequestController::class, 'store'])->name('servicerequest.store');
-    Route::put('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'update'])->name('servicerequest.update');
-
-    // MedicationStatement resource endpoint
-    Route::get('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'show'])->name('medicationstatement.show');
-    Route::post('/medicationstatement', [MedicationStatementController::class, 'store'])->name('medicationstatement.store');
-    Route::put('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'update'])->name('medicationstatement.update');
-
-    // Practitioner resource endpoint
-    Route::get('/practitioner/{satusehat_id}', [PractitionerController::class, 'show'])->name('practitioner.show');
-    Route::post('/practitioner', [PractitionerController::class, 'store'])->name('practitioner.store');
-
-    // Encounter resource endpoint
-    Route::get('/encounter/{satusehat_id}', [EncounterController::class, 'show'])->name('encounter.show');
-    Route::post('/encounter', [EncounterController::class, 'store'])->name('encounter.store');
-    Route::put('/encounter/{satusehat_id}', [EncounterController::class, 'update'])->name('encounter.update');
-
-    // Condition resource endpoint
-    Route::get('/condition/{satusehat_id}', [ConditionController::class, 'show'])->name('condition.show');
-    Route::post('/condition', [ConditionController::class, 'store'])->name('condition.store');
-    Route::put('/condition/{satusehat_id}', [ConditionController::class, 'update'])->name('condition.update');
-
-    // Observation resource endpoint
-    Route::get('/observation/{satusehat_id}', [ObservationController::class, 'show'])->name('observation.show');
-    Route::post('/observation', [ObservationController::class, 'store'])->name('observation.store');
-    Route::put('/observation/{satusehat_id}', [ObservationController::class, 'update'])->name('observation.update');
-
-    // Procedure resource endpoint
-    Route::get('/procedure/{satusehat_id}', [ProcedureController::class, 'show'])->name('procedure.show');
-    Route::post('/procedure', [ProcedureController::class, 'store'])->name('procedure.store');
-    Route::put('/procedure/{satusehat_id}', [ProcedureController::class, 'update'])->name('procedure.update');
-
-    // Medication resource endpoint
-    Route::get('/medication/{satusehat_id}', [MedicationController::class, 'show'])->name('medication.show');
-    Route::post('/medication', [MedicationController::class, 'store'])->name('medication.store');
-    Route::put('/medication/{satusehat_id}', [MedicationController::class, 'update'])->name('medication.update');
-
-    // MedicationRequest resource endpoint
-    Route::get('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'show'])->name('medicationrequest.show');
-    Route::post('/medicationrequest', [MedicationRequestController::class, 'store'])->name('medicationrequest.store');
-    Route::put('/medicationrequest/{satusehat_id}', [MedicationRequestController::class, 'update'])->name('medicationrequest.update');
-
-    // Composition resource endpoint
-    Route::get('/composition/{satusehat_id}', [CompositionController::class, 'show'])->name('composition.show');
-    Route::post('/composition', [CompositionController::class, 'store'])->name('composition.store');
-    Route::put('/composition/{satusehat_id}', [CompositionController::class, 'update'])->name('composition.update');
-
-    // AllergyIntolerance resource endpoint
-    Route::get('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'show'])->name('allergyintolerance.show');
-    Route::post('/allergyintolerance', [AllergyIntoleranceController::class, 'store'])->name('allergyintolerance.store');
-    Route::put('/allergyintolerance/{satusehat_id}', [AllergyIntoleranceController::class, 'update'])->name('allergyintolerance.update');
-
-    // ClinicalImpression resource endpoint
-    Route::get('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'show'])->name('clinicalimpression.show');
-    Route::post('/clinicalimpression', [ClinicalImpressionController::class, 'store'])->name('clinicalimpression.store');
-    Route::put('/clinicalimpression/{satusehat_id}', [ClinicalImpressionController::class, 'update'])->name('clinicalimpression.update');
-
-    // ServiceRequest resource endpoint
-    Route::get('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'show'])->name('servicerequest.show');
-    Route::post('/servicerequest', [ServiceRequestController::class, 'store'])->name('servicerequest.store');
-    Route::put('/servicerequest/{satusehat_id}', [ServiceRequestController::class, 'update'])->name('servicerequest.update');
-
-    // MedicationStatement resource endpoint
-    Route::get('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'show'])->name('medicationstatement.show');
-    Route::post('/medicationstatement', [MedicationStatementController::class, 'store'])->name('medicationstatement.store');
-    Route::put('/medicationstatement/{satusehat_id}', [MedicationStatementController::class, 'update'])->name('medicationstatement.update');
-
-    // QuestionnaireResponse resource endpoint
-    Route::get('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'show'])->name('questionnaireresponse.show');
-    Route::post('/questionnaireresponse', [QuestionnaireResponseController::class, 'store'])->name('questionnaireresponse.store');
-    Route::put('/questionnaireresponse/{satusehat_id}', [QuestionnaireResponseController::class, 'update'])->name('questionnaireresponse.update');
+Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
+    Route::get('/{resType}', [ResourceController::class, 'index']);
+    Route::post('/{resType}', [ResourceController::class, 'store']);
+    Route::get('/{resType}/{id}', [ResourceController::class, 'show']);
+    Route::put('/{resType}/{id}', [ResourceController::class, 'update']);
+    Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy']);
 });
-
+// });
 
 require __DIR__ . '/auth.php';

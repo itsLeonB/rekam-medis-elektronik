@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\FhirResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class RekamMedisController extends Controller
 {
     public function index(Request $request)
     {
-        $patients = DB::table('patient');
+        $patients = FhirResource::where('resourceType', 'Patient');
 
         if ($request->query('name')) {
             $patients = $patients->where('name.text', 'like', '%' . addcslashes($request->query('name'), '%_') . '%');
@@ -27,7 +27,7 @@ class RekamMedisController extends Controller
         $patients = $patients->paginate(15)->withQueryString();
 
         $formattedPatients = $patients->map(function ($patient) {
-            $latestEncounter = DB::table('encounter')
+            $latestEncounter = FhirResource::where('resourceType', 'Encounter')
                 ->where('subject.reference', 'Patient/' . $patient['id'])
                 ->orderByDesc('period.start')
                 ->first();
@@ -85,14 +85,14 @@ class RekamMedisController extends Controller
 
     public function getEncounterRelatedData($table, $encSatusehatId, $relation)
     {
-        return DB::table($table)
+        return FhirResource::where('resourceType', $table)
             ->where($relation . '.reference', 'Encounter/' . $encSatusehatId)
             ->get();
     }
 
     public function getPatientRelatedData($table, $patientUuid, $relation, $excludeRelation)
     {
-        return DB::table($table)
+        return FhirResource::where('resourceType', $table)
             ->where($relation . '.reference', 'Patient/' . $patientUuid)
             ->where($excludeRelation, '=', null)
             ->get();
@@ -100,15 +100,10 @@ class RekamMedisController extends Controller
 
     public function getConditionData($encounterId)
     {
-        $arr = [
-            'diagnosis' => [],
-            'asesmen-harian' => [],
-            'lainnya' => [],
-        ];
-
-        $conditions = DB::table('condition')
-            ->where('encounter.reference', 'Encounter/' . $encounterId)
-            ->get();
+        $conditions = FhirResource::where([
+            ['resourceType', 'Condition'],
+            'encounter.reference', 'Encounter/' . $encounterId
+        ])->get();
 
         return $conditions->groupBy(function ($condition) {
             $category = data_get($condition, 'category.0.coding.0.code');
@@ -130,7 +125,10 @@ class RekamMedisController extends Controller
 
     public function show($patientId)
     {
-        $patient = DB::table('patient')->where('id', $patientId)->first();
+        $patient = FhirResource::where([
+            ['resourceType', 'Patient'],
+            ['id', $patientId]
+        ])->first();
 
         $data = [
             'patient' => $patient,
@@ -138,7 +136,7 @@ class RekamMedisController extends Controller
             'additionalData' => []
         ];
 
-        $encounters = DB::table('encounter')->where('subject.reference', 'Patient/' . $patientId)->get();
+        $encounters = FhirResource::where('resourceType', 'Encounter')->where('subject.reference', 'Patient/' . $patientId)->get();
 
         $data['encounters'] = $encounters->map(function ($encounter) {
             $encSatusehatId = $encounter['id'];
@@ -146,24 +144,24 @@ class RekamMedisController extends Controller
             return [
                 'encounter' => $encounter,
                 'conditions' => $this->getConditionData($encSatusehatId),
-                'observations' => $this->getEncounterRelatedData('observation', $encSatusehatId, 'encounter'),
-                'procedures' => $this->getEncounterRelatedData('procedure', $encSatusehatId, 'encounter'),
-                'medicationRequests' => $this->getEncounterRelatedData('medicationrequest', $encSatusehatId, 'encounter'),
-                'compositions' => $this->getEncounterRelatedData('composition', $encSatusehatId, 'encounter'),
-                'allergyIntolerances' => $this->getEncounterRelatedData('allergyintolerance', $encSatusehatId, 'encounter'),
-                'clinicalImpression' => $this->getEncounterRelatedData('clinicalimpression', $encSatusehatId, 'encounter'),
-                'serviceRequests' => $this->getEncounterRelatedData('servicerequest', $encSatusehatId, 'encounter'),
-                'medicationStatements' => $this->getEncounterRelatedData('medicationstatement', $encSatusehatId, 'context'),
-                'questionnaireResponses' => $this->getEncounterRelatedData('questionnaireresponse', $encSatusehatId, 'encounter'),
+                'observations' => $this->getEncounterRelatedData('Observation', $encSatusehatId, 'encounter'),
+                'procedures' => $this->getEncounterRelatedData('Procedure', $encSatusehatId, 'encounter'),
+                'medicationRequests' => $this->getEncounterRelatedData('MedicationRequest', $encSatusehatId, 'encounter'),
+                'compositions' => $this->getEncounterRelatedData('Composition', $encSatusehatId, 'encounter'),
+                'allergyIntolerances' => $this->getEncounterRelatedData('AllergyIntolerance', $encSatusehatId, 'encounter'),
+                'clinicalImpression' => $this->getEncounterRelatedData('ClinicalImpression', $encSatusehatId, 'encounter'),
+                'serviceRequests' => $this->getEncounterRelatedData('ServiceRequest', $encSatusehatId, 'encounter'),
+                'medicationStatements' => $this->getEncounterRelatedData('MedicationStatement', $encSatusehatId, 'context'),
+                'questionnaireResponses' => $this->getEncounterRelatedData('QuestionnaireResponse', $encSatusehatId, 'encounter'),
             ];
         });
 
         $data['additionalData'] = [
-            'medicationRequests' => $this->getPatientRelatedData('medicationrequest', $patientId, 'subject', 'encounter'),
-            'compositions' => $this->getPatientRelatedData('composition', $patientId, 'subject', 'encounter'),
-            'allergyIntolerances' => $this->getPatientRelatedData('allergyintolerance', $patientId, 'patient', 'encounter'),
-            'medicationStatements' => $this->getPatientRelatedData('medicationstatement', $patientId, 'subject', 'context'),
-            'questionnaireResponses' => $this->getPatientRelatedData('questionnaireresponse', $patientId, 'subject', 'encounter'),
+            'medicationRequests' => $this->getPatientRelatedData('MedicationRequest', $patientId, 'subject', 'encounter'),
+            'compositions' => $this->getPatientRelatedData('Composition', $patientId, 'subject', 'encounter'),
+            'allergyIntolerances' => $this->getPatientRelatedData('AllergyIntolerance', $patientId, 'patient', 'encounter'),
+            'medicationStatements' => $this->getPatientRelatedData('MedicationStatement', $patientId, 'subject', 'context'),
+            'questionnaireResponses' => $this->getPatientRelatedData('QuestionnaireResponse', $patientId, 'subject', 'encounter'),
         ];
 
         return $data;
@@ -171,44 +169,44 @@ class RekamMedisController extends Controller
 
     public function getKunjunganData($resType, $encounterId)
     {
-        $attr = 'encounter';
+        $attr = 'Encounter';
         switch ($resType) {
-            case 'condition':
+            case 'Condition':
                 $attr = 'encounter';
                 break;
-            case 'observation':
+            case 'Observation':
                 $attr = 'encounter';
                 break;
-            case 'procedure':
+            case 'Procedure':
                 $attr = 'encounter';
                 break;
-            case 'medicationrequest':
+            case 'MedicationRequest':
                 $attr = 'encounter';
                 break;
-            case 'composition':
+            case 'Composition':
                 $attr = 'encounter';
                 break;
-            case 'allergyintolerance':
+            case 'AllergyIntolerance':
                 $attr = 'encounter';
                 break;
-            case 'clinicalimpression':
+            case 'ClinicalImpression':
                 $attr = 'encounter';
                 break;
-            case 'servicerequest':
+            case 'ServiceRequest':
                 $attr = 'encounter';
                 break;
-            case 'medicationstatement':
+            case 'MedicationStatement':
                 $attr = 'context';
                 break;
-            case 'questionnaireresponse':
+            case 'QuestionnaireResponse':
                 $attr = 'encounter';
                 break;
         }
 
-        if ($resType == 'condition') {
+        if ($resType == 'Condition') {
             return $this->getConditionData($encounterId);
         } else {
-            return DB::table($resType)
+            return FhirResource::where('resourceType', $resType)
                 ->where($attr . '.reference', 'Encounter/' . $encounterId)
                 ->get();
         }
