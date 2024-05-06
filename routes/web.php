@@ -158,8 +158,6 @@ Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
     Route::get('/daftar/location', [EncounterFormController::class, 'indexLocation'])->name('index.location');
     // Reference Organization per layanan = rawat-jalan | rawat-inap | igd
     Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
-    // Daftar medication
-    Route::get('/daftar/medication', [EncounterFormController::class, 'indexMedication'])->name('index.medication');
 });
 
 // Endpoint untuk Data Kunjungan Pasien

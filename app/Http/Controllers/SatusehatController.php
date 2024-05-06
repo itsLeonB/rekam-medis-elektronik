@@ -12,6 +12,7 @@ use App\Http\Requests\Fhir\Search\PatientSearchRequest;
 use App\Http\Requests\Fhir\Search\PractitionerSearchRequest;
 use App\Http\Requests\FhirRequest;
 use App\Models\Fhir\Resource;
+use App\Models\FhirResource;
 use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
@@ -304,8 +305,11 @@ class SatusehatController extends Controller
                 if (!empty($e['resource']) && isset($e['resource']['resourceType'])) {
                     $resType = $e['resource']['resourceType'];
                     if (in_array($resType, array_keys(config('app.patient_related_data')))) {
-                        DB::table(strtolower($resType))->updateOrInsert(
-                            ['id' => $e['resource']['id']],
+                        FhirResource::updateOrInsert(
+                            [
+                                'id' => $e['resource']['id'],
+                                'resourceType' => $resType
+                            ],
                             $e['resource']
                         );
                         $inserted++;

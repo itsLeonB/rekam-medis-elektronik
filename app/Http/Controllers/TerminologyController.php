@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Fhir\Codesystems;
 use App\Http\Controllers\Controller;
-use Dotenv\Util\Regex;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;

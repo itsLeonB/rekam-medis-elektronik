@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\FhirResource;
 use Illuminate\Support\Facades\DB;
 
 class DaftarPasienController extends Controller
@@ -13,9 +14,10 @@ class DaftarPasienController extends Controller
     {
         $daftarPasien = $encounters->map(function ($encounter) {
             $patientId = explode('/', data_get($encounter, 'subject.reference'))[1];
-            $patient = DB::table('patient')
-                ->where('id', $patientId)
-                ->first();
+            $patient = FhirResource::where([
+                ['resourceType', 'patient'],
+                ['id', $patientId]
+            ])->first();
 
             $patientRMID = null;
             $identifiers = data_get($patient, 'identifier');
@@ -29,21 +31,24 @@ class DaftarPasienController extends Controller
 
             $participant = data_get($encounter, 'participant.0.individual.reference');
             $practitionerId = explode('/', $participant)[1];
-            $practitioner = DB::table('practitioner')
-                ->where('id', $practitionerId)
-                ->first();
+            $practitioner = FhirResource::where([
+                ['resourceType', 'practitioner'],
+                ['id', $practitionerId]
+            ])->first();
 
             $locationRef = data_get($encounter, 'location.0.location.reference');
             $locationId = explode('/', $locationRef)[1];
-            $location = DB::table('location')
-                ->where('id', $locationId)
-                ->first();
+            $location = FhirResource::where([
+                ['resourceType', 'location'],
+                ['id', $locationId]
+            ])->first();
 
             $encounterId = data_get($encounter, 'id');
 
-            $procedure = DB::table('procedure')
-                ->where('encounter.reference', 'Encounter/' . $encounterId)
-                ->first();
+            $procedure = FhirResource::where([
+                ['resourceType', 'procedure'],
+                ['encounter.reference', 'Encounter/' . $encounterId]
+            ])->first();
 
             return [
                 'encounter_satusehat_id' => $encounterId,
@@ -64,10 +69,12 @@ class DaftarPasienController extends Controller
 
     private function getEncounters(string $class, string $serviceType)
     {
-        $encounters = DB::table('encounter')
+        $encounters = FhirResource::where([
+            ['resourceType', 'encounter'],
+            ['class.code', $class],
+            ['serviceType.coding.0.code', $serviceType]
+        ])
             ->whereNotIn('status', self::ENDED_STATUS)
-            ->where('class.code', $class)
-            ->where('serviceType.coding.0.code', $serviceType)
             ->get();
 
         return $encounters;
@@ -138,9 +145,11 @@ class DaftarPasienController extends Controller
 
     public function getDaftarRawatInap()
     {
-        $encounters = DB::table('encounter')
+        $encounters = FhirResource::where([
+            ['resourceType', 'encounter'],
+            ['class.code', 'IMP']
+        ])
             ->whereNotIn('status', self::ENDED_STATUS)
-            ->where('class.code', 'IMP')
             ->get();
 
         return $this->mapEncounters($encounters);
@@ -148,9 +157,11 @@ class DaftarPasienController extends Controller
 
     public function getDaftarIgd()
     {
-        $encounters = DB::table('encounter')
+        $encounters = FhirResource::where([
+            ['resourceType', 'encounter'],
+            ['class.code', 'EMER']
+        ])
             ->whereNotIn('status', self::ENDED_STATUS)
-            ->where('class.code', 'EMER')
             ->get();
 
         return $this->mapEncounters($encounters);

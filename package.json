@@ -18,6 +18,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@vueform/multiselect": "^2.6.7",
         "apexcharts": "^3.45.1",
         "vue-multiselect": "^3.0.0-beta.3",
         "vue3-apexcharts": "^1.4.4"

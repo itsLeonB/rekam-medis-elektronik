@@ -45,10 +45,10 @@ class ResourceController extends Controller
             $resource = FhirResource::where([
                 ['resourceType', $resType],
                 ['id', $id]
-            ])->first();
+            ])->firstOrFail();
             return response()->json($resource, 200);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => $e->getMessage()], 404);
         }
     }
 
@@ -64,7 +64,8 @@ class ResourceController extends Controller
             $resource = FhirResource::where([
                 ['resourceType', $resType],
                 ['id', $id]
-            ])->update($request->all());
+            ])->first();
+            $resource->update($request->all());
             DB::commit();
             return response()->json($resource, 200);
         } catch (\Exception $e) {

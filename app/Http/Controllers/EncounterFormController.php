@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use App\Models\FhirResource;
 
 class EncounterFormController extends Controller
 {
     public function indexPractitioner()
     {
-        $practitioners = DB::table('practitioner')
+        $practitioners = FhirResource::where('resourceType', 'Practitioner')
             ->get(['id', 'name']);
 
         $practitioners = $practitioners->map(function ($item) {
@@ -24,7 +24,7 @@ class EncounterFormController extends Controller
 
     public function indexLocation()
     {
-        $locations = DB::table('location')
+        $locations = FhirResource::where('resourceType', 'Location')
             ->get(['id', 'identifier', 'name', 'serviceClass']);
 
         $locations = $locations->map(function ($item) {
@@ -42,11 +42,11 @@ class EncounterFormController extends Controller
     public function getOrganization(string $layanan)
     {
         if ($layanan == 'induk') {
-            $organization = DB::table('organization')
+            $organization = FhirResource::where('resourceType', 'Organization')
                 ->where('id', config('app.organization_id'))
                 ->first();
         } else {
-            $organization = DB::table('organization')
+            $organization = FhirResource::where('resourceType', 'Organization')
                 ->where('id', config('app.' . $layanan . '_org_id'))
                 ->first();
         }
