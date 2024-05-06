@@ -100,12 +100,6 @@ class RekamMedisController extends Controller
 
     public function getConditionData($encounterId)
     {
-        $arr = [
-            'diagnosis' => [],
-            'asesmen-harian' => [],
-            'lainnya' => [],
-        ];
-
         $conditions = DB::table('condition')
             ->where('encounter.reference', 'Encounter/' . $encounterId)
             ->get();

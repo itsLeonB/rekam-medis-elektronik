@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\FhirResource;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class IdFhirResourceSeeder extends Seeder
@@ -32,9 +32,6 @@ class IdFhirResourceSeeder extends Seeder
         foreach ($files as $file) {
             if (pathinfo($file, PATHINFO_EXTENSION) == 'json') {  // Check if the file is a JSON file
                 $this->fileName = $file;
-                $fname = pathinfo($file, PATHINFO_FILENAME);  // Get the filename without the extension
-                $this->collectionName = strtolower(explode('-', $fname)[0]);
-
                 $fileContent = $local->get($this->fileName);
 
                 $content = json_decode($fileContent, true);
@@ -50,7 +47,7 @@ class IdFhirResourceSeeder extends Seeder
 
     private function doImport($content)
     {
-        DB::table($this->collectionName)->insert($content);
+        FhirResource::create($content);
     }
 
     /**
