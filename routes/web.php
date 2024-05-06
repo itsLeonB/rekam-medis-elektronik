@@ -164,7 +164,7 @@ Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
 Route::get('/kunjungan/{resType}/{encounterId}', [RekamMedisController::class, 'getKunjunganData'])->name('kunjungan');
 
 // Endpoint untuk User Management
-Route::group(['middleware' => 'permission:akses user management', 'prefix' => 'users', 'as' => 'users.'], function () {
+Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
     // Daftar user
     Route::get('/', [UserManagementController::class, 'index'])->name('index');
     // Detail user

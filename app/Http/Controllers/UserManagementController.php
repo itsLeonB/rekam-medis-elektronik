@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-use App\Http\Resources\PractitionerResource;
-use App\Models\Fhir\Resource;
+use App\Models\FhirResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -23,9 +22,7 @@ class UserManagementController extends Controller
         $users = User::when($name, function ($query) use ($name) {
             return $query->where('name', 'like', '%' . addcslashes($name, '%_') . '%');
         })
-            ->whereDoesntHave('roles', function ($query) {
-                $query->where('name', 'admin');
-            })
+            // ->withoutRole('admin') // broken
             ->paginate(15)
             ->withQueryString();
 
@@ -35,16 +32,9 @@ class UserManagementController extends Controller
     public function show($id)
     {
         try {
-            $user = User::findOrFail($id);
+            $user = User::with('practitionerUser')->findOrFail($id);
 
-            if ($user->practitionerUser->count() > 0) {
-                $practitioner = new PractitionerResource(data_get($user, 'practitionerUser.0.resource'));
-            }
-
-            return response()->json([
-                'user' => $user,
-                'practitioner' => $practitioner ?? null
-            ], 200);
+            return response()->json($user, 200);
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
             return response()->json([
@@ -65,24 +55,20 @@ class UserManagementController extends Controller
             ]);
 
             if ($request->input('practitioner_id')) {
-                $practitioner = Resource::where('res_type', 'Practitioner')
-                    ->where('satusehat_id', $request->input('practitioner_id'))
-                    ->firstOrFail()
-                    ->practitioner;
+                $practitioner = FhirResource::where([
+                    ['resourceType', 'Practitioner'],
+                    ['id', $request->input('practitioner_id')]
+                ])
+                    ->firstOrFail();
 
                 $user->practitionerUser()->save($practitioner);
-
-                $pracRes = new PractitionerResource($practitioner->resource);
             }
 
             $user->assignRole($request->input('role'));
 
             DB::commit();
 
-            return response()->json([
-                'user' => $user,
-                'practitioner' => $pracRes ?? null
-            ], 201);
+            return response()->json($user, 201);
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th->getMessage());
@@ -113,7 +99,7 @@ class UserManagementController extends Controller
 
             DB::commit();
 
-            return response()->json(['user' => $user], 200);
+            return response()->json($user, 200);
         } catch (ModelNotFoundException $e) {
             DB::rollback();
             return response()->json('User tidak ditemukan', 404);
@@ -133,7 +119,7 @@ class UserManagementController extends Controller
         try {
             $currentUser = $request->user();
 
-            if ($currentUser->id != $user_id) {
+            if ($currentUser->_id != $user_id) {
                 User::destroy($user_id);
 
                 DB::commit();

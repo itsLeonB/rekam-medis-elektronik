@@ -16,8 +16,6 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
-    protected $connection = 'mongodb';
-
     /**
      * The attributes that are mass assignable.
      *
@@ -52,10 +50,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    protected $with = ['roles'];
+    protected $with = ['roles', 'practitionerUser'];
 
     public function practitionerUser(): BelongsToMany
     {
-        return $this->belongsToMany(Practitioner::class);
+        return $this->belongsToMany(FhirResource::class)->where('resourceType', 'Practitioner');
     }
 }
