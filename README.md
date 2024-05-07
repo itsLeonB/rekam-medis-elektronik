@@ -8,22 +8,22 @@ API Documentation can be accessed through [Postman](https://documenter.getpostma
 
 ## Available Features
 
--   [x] User Registration
--   [x] Practitioner Onboarding
--   [x] Patient Onboarding
--   [x] Rawat Jalan Jilid 1
--   [x] Rawat Inap Jilid 1
--   [x] IGD Jilid 1
+- [x] User Registration
+- [x] Practitioner Onboarding
+- [x] Patient Onboarding
+- [x] Rawat Jalan Jilid 1
+- [x] Rawat Inap Jilid 1
+- [x] IGD Jilid 1
 
 ## Prerequisites
 
 This project is built using:
 
--   PHP 8.2
--   Laravel 10
--   MongoDB
--   Vue.js 3 with Inertia.js
--   Tailwind CSS 3
+- PHP 8.2
+- Laravel 10
+- MongoDB
+- Vue.js 3 with Inertia.js
+- Tailwind CSS 3
 
 ## Installation
 
@@ -33,33 +33,34 @@ This project is built using:
 4. Run `cp .env.example .env`
 5. Change these values in `.env`:
 
-    ```
-    DB_CONNECTION=mongodb
-    DB_DATABASE=rme
-    DB_URI=mongodb://localhost:27017
+   ```
+   DB_CONNECTION=mongodb
+   DB_DATABASE=rme
+   DB_URI=mongodb://localhost:27017
 
-    MAIL_MAILER=smtp
-    MAIL_HOST=mailpit
-    MAIL_PORT=1025
-    MAIL_USERNAME=null
-    MAIL_PASSWORD=null
-    MAIL_ENCRYPTION=null
-    MAIL_FROM_ADDRESS="hello@example.com"
-    MAIL_FROM_NAME="${APP_NAME}"
-    MAIL_ADMIN=hello@example.com
-    ```
+   MAIL_MAILER=smtp
+   MAIL_HOST=mailpit
+   MAIL_PORT=1025
+   MAIL_USERNAME=null
+   MAIL_PASSWORD=null
+   MAIL_ENCRYPTION=null
+   MAIL_FROM_ADDRESS="hello@example.com"
+   MAIL_FROM_NAME="${APP_NAME}"
+   MAIL_ADMIN=hello@example.com
+   ```
 
 6. Change these values in `.env`, get the latest values through `https://satusehat.kemkes.go.id/platform`
-    ```
-    auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
-    base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
-    consent_url=https://api-satusehat-dev.dto.kemkes.go.id/consent/v1
-    kfa_v1_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa
-    kfa_v2_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa-v2
-    client_id=your_client_id
-    client_secret=your_client_secret
-    organization_id=your_organization_id
-    ```
+   ```
+   auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
+   base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
+   consent_url=https://api-satusehat-dev.dto.kemkes.go.id/consent/v1
+   kfa_v1_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa
+   kfa_v2_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa-v2
+   client_id=your_client_id
+   client_secret=your_client_secret
+   organization_id=your_organization_id
+   location_id=your_location_id
+   ```
 7. Run `php artisan key:generate`
 8. Migrate and seed database using: `php artisan migrate --seed`
 9. (Optional) If dummy data is needed, run `php artisan db:seed DummyDataSeeder`
@@ -70,6 +71,6 @@ This project is built using:
 
 ## Contributors
 
--   [@itsLeonB](https://github.com/itsLeonB) - Back-end
--   [@mandorzqy](https://github.com/mandorzqy) - Front-end
--   [@salmahatta](https://github.com/salmahatta) - UI/UX
+- [@itsLeonB](https://github.com/itsLeonB) - Back-end
+- [@mandorzqy](https://github.com/mandorzqy) - Front-end
+- [@salmahatta](https://github.com/salmahatta) - UI/UX
