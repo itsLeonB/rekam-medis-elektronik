@@ -28,10 +28,18 @@ This project is built using:
 ## Installation
 
 1. Clone the project
-2. Run `composer install`
-3. Run `npm install`
-4. Run `cp .env.example .env`
-5. Change these values in `.env`:
+2. Run these commands:
+    ```sh
+    # install Laravel dependencies
+    composer install
+
+    # install Vue dependencies
+    npm install
+
+    # Create env file from example
+    cp .env.example .env
+    ```
+3. Change these values in `.env`:
 
     ```
     DB_CONNECTION=mysql
@@ -52,9 +60,7 @@ This project is built using:
     MAIL_ADMIN=hello@example.com
     ```
 
-6. Use [SATUSEHAT Postman](https://www.postman.com/satusehat/workspace/satusehat-public/overview) to create Organization and Location resource. Paste the resource data in `storage/onboarding-resource`.
-
-7. Change these values in `.env`, get the latest values through `https://satusehat.kemkes.go.id/platform`
+4. Change these values in `.env`, get the latest values through `https://satusehat.kemkes.go.id/platform`
     ```
     auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
     base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
@@ -66,13 +72,25 @@ This project is built using:
     organization_id=your_organization_id
     location_id=your_location_id
     ```
-8. Run `php artisan key:generate`
-9. Migrate and seed database using: `php artisan migrate --seed`
-10. (Optional) If dummy data is needed, run `php artisan db:seed DummyDataSeeder`
-11. (Optional) If example SATUSEHAT data is needed, run `php artisan db:seed IdFhirResourceSeeder`
-12. Run `npm run build`
-13. Serve the app using web servers or local server with `php artisan serve`
-14. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
+5. Run these commands:
+    ```sh
+    # Generate app key
+    php artisan key:generate
+
+    # Migrate and seed database
+    php artisan migrate --seed
+
+    # (Optional) seed database with dummies if needed
+    php artisan db:seed DummyDataSeeder
+
+    # (Optional) seed database with example data if needed
+    php artisan db:seed IdFhirResourceSeeder
+
+    # Build the front-end
+    npm run build
+    ```
+6. Serve the app using web servers or local server with `php artisan serve`
+7. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
 
 ## Contributors
 
