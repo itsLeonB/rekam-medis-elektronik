@@ -60,7 +60,9 @@ This project is built using:
     MAIL_ADMIN=hello@example.com
     ```
 
-4. Change these values in `.env`, get the latest values through `https://satusehat.kemkes.go.id/platform`
+4. Use [SATUSEHAT Postman](https://www.postman.com/satusehat/workspace/satusehat-public/overview) to create Organization and Location resource. Paste the resource data in `storage/onboarding-resource`.
+   
+5. Change these values in `.env`, get the latest values through [SATUSEHAT Developer Portal](https://satusehat.kemkes.go.id/platform)
     ```
     auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
     base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
@@ -72,7 +74,7 @@ This project is built using:
     organization_id=your_organization_id
     location_id=your_location_id
     ```
-5. Run these commands:
+6. Run these commands:
     ```sh
     # Generate app key
     php artisan key:generate
@@ -89,8 +91,8 @@ This project is built using:
     # Build the front-end
     npm run build
     ```
-6. Serve the app using web servers or local server with `php artisan serve`
-7. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
+7. Serve the app using web servers or local server with `php artisan serve`
+8. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
 
 ## Contributors
 
