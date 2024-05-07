@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/laravel/compare/v0.1...master)
+## [Unreleased](https://github.com/laravel/laravel/compare/v0.1.1...master)
+
+## [v0.1.1](https://github.com/laravel/laravel/compare/v0.1...v0.1.1) - 2024-05-07
+
+### What's changed
+
+- Fixed onboarding process https://github.com/itsLeonB/rekam-medis-elektronik/commit/557bbd04dad235ad6fa38569d852a6e9b90d3150
 
 ## [v0.1](https://github.com/laravel/laravel/compare/v10.2.4...v0.1) - 2024-05-01
 
