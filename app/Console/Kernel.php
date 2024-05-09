@@ -13,8 +13,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('app:retry-failed-api-requests')->hourly();
-        $schedule->command('backup:clean')->monthly();
-        $schedule->command('backup:run')->monthly();
         $schedule->command('telescope:prune')->daily();
     }
 

@@ -116,187 +116,185 @@ Route::middleware('auth')->group(function () {
 });
 
 // APIs
-// Route::middleware('auth')->group(function () {
-// Endpoint untuk Integrasi SATUSEHAT
-Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
-    // Get resource dan simpan local
-    Route::get('/{resourceType}/{id}', [SatusehatController::class, 'integrationGet'])->name('show');
-    // Save resource dan kirim ke SATUSEHAT
-    Route::post('/{resourceType}', [SatusehatController::class, 'integrationPost'])->name('store');
-    // Update resource dan kirim ke SATUSEHAT
-    Route::put('/{resourceType}/{id}', [SatusehatController::class, 'integrationPut'])->name('update');
-});
-
-// Endpoint untuk View Rekam Medis
-Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
-    // Daftar rekam medis pasien
-    Route::get('/', [RekamMedisController::class, 'index'])->name('index');
-    // Detail rekam medis pasien
-    Route::get('/{patient_id}', [RekamMedisController::class, 'show'])->name('show');
-    // Pull update dari rekam medis pasien dari SATUSEHAT
-    Route::get('/{patient_id}/update', [SatusehatController::class, 'updateRekamMedis'])->name('update');
-});
-
-// Endpoint untuk View Daftar pasien
-Route::group(['prefix' => 'daftar-pasien', 'as' => 'daftar-pasien.'], function () {
-    // Daftar pasien rawat jalan
-    Route::middleware('permission:akses poli umum')->get('/rawat-jalan/umum', [DaftarPasienController::class, 'getDaftarPoliUmum'])->name('rawat-jalan.umum');
-    Route::middleware('permission:akses poli neurologi')->get('/rawat-jalan/neurologi', [DaftarPasienController::class, 'getDaftarPoliNeurologi'])->name('rawat-jalan.neurologi');
-    Route::middleware('permission:akses poli obgyn')->get('/rawat-jalan/obgyn', [DaftarPasienController::class, 'getDaftarPoliObgyn'])->name('rawat-jalan.obgyn');
-    Route::middleware('permission:akses poli gigi')->get('/rawat-jalan/gigi', [DaftarPasienController::class, 'getDaftarPoliGigi'])->name('rawat-jalan.gigi');
-    Route::middleware('permission:akses poli kulit')->get('/rawat-jalan/kulit', [DaftarPasienController::class, 'getDaftarPoliKulit'])->name('rawat-jalan.kulit');
-    Route::middleware('permission:akses poli ortopedi')->get('/rawat-jalan/ortopedi', [DaftarPasienController::class, 'getDaftarPoliOrtopedi'])->name('rawat-jalan.ortopedi');
-    Route::middleware('permission:akses poli penyakit dalam')->get('/rawat-jalan/dalam', [DaftarPasienController::class, 'getDaftarPoliDalam'])->name('rawat-jalan.dalam');
-    Route::middleware('permission:akses poli bedah')->get('/rawat-jalan/bedah', [DaftarPasienController::class, 'getDaftarPoliBedah'])->name('rawat-jalan.bedah');
-    Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
-    // Daftar pasien rawat inap, serviceType per ruangan
-    Route::get('/rawat-inap', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
-    // Daftar pasien IGD
-    Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
-});
-
-// Endpoint untuk Dashboard Analytics
-Route::group(['prefix' => 'analytics', 'as' => 'analytics.'], function () {
-    // Jumlah pasien sedang dirawat
-    Route::get('/pasien-dirawat', [AnalyticsController::class, 'getActiveEncounters'])->name('pasien-dirawat');
-    // Jumlah pasien baru mendaftar bulan ini
-    Route::get('/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('pasien-baru-bulan-ini');
-    // Jumlah total pasien yang pernah dirawat
-    Route::get('/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('jumlah-pasien');
-    // Jumlah pasien yang pernah dirawat per bulan untuk 12 bulan kebelakang
-    Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
-    // Jumlah pasien yang pernah dirawat berdasarkan usia
-    Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
-});
-
-// Endpoint untuk Formulir Perawatan
-Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
-    // Daftar nakes
-    Route::get('/daftar/practitioner', [EncounterFormController::class, 'indexPractitioner'])->name('index.encounter');
-    // Daftar ruangan/bed
-    Route::get('/daftar/location', [EncounterFormController::class, 'indexLocation'])->name('index.location');
-    // Reference Organization per layanan = rawat-jalan | rawat-inap | igd
-    Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
-});
-
-// Endpoint untuk Data Kunjungan Pasien
-Route::get('/kunjungan/{resType}/{encounterId}', [RekamMedisController::class, 'getKunjunganData'])->name('kunjungan');
-
-// Endpoint untuk User Management
-Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
-    // Daftar user
-    Route::get('/', [UserManagementController::class, 'index'])->name('index');
-    // Detail user
-    Route::get('/{user_id}', [UserManagementController::class, 'show'])->name('show');
-    // Tambah user
-    Route::post('/', [UserManagementController::class, 'store'])->name('store');
-    // Update user
-    Route::put('/{user_id}', [UserManagementController::class, 'update'])->name('update');
-    // Hapus user
-    Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
-    // Daftar roles
-    Route::get('/get/roles', [UserManagementController::class, 'getRoles'])->name('roles');
-});
-
-// Endpoint kode terminologi
-Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
-    // Terminologi per atribut per resource type
-    Route::get('/get', [TerminologyController::class, 'returnTerminologi'])->name('get');
-
-    // Untuk Procedure.code
-    Route::group(['prefix' => 'procedure', 'as' => 'procedure.'], function () {
-        // Tindakan atau prosedur medis untuk keperluan klaim
-        Route::get('/tindakan', [TerminologyController::class, 'returnProcedureTindakan'])->name('tindakan');
-        // Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir
-        Route::get('/edukasi-bayi', [TerminologyController::class, 'returnProcedureEdukasiBayi'])->name('edukasi-bayi');
-        // Prosedur medis lainnya
-        Route::get('/other', [TerminologyController::class, 'returnProcedureOther'])->name('other');
+Route::middleware('auth')->group(function () {
+    // Endpoint untuk Integrasi SATUSEHAT
+    Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
+        // Get resource dan simpan local
+        Route::get('/{resourceType}/{id}', [SatusehatController::class, 'integrationGet'])->name('show');
+        // Save resource dan kirim ke SATUSEHAT
+        Route::post('/{resourceType}', [SatusehatController::class, 'integrationPost'])->name('store');
+        // Update resource dan kirim ke SATUSEHAT
+        Route::put('/{resourceType}/{id}', [SatusehatController::class, 'integrationPut'])->name('update');
     });
 
-    // Untuk Condition.code atau MedicationStatement.reasonCode
-    Route::group(['prefix' => 'condition', 'as' => 'condition.'], function () {
-        // Diagnosis pasien saat kunjungan
-        Route::get('/kunjungan', [TerminologyController::class, 'returnConditionKunjungan'])->name('kunjungan');
-        // Kondisi saat meninggalkan rumah sakit
-        Route::get('/keluar', [TerminologyController::class, 'returnConditionKeluar'])->name('keluar');
-        // Keluhan utama, kondisi pasien, temuan pemeriksaan klinis
-        Route::get('/keluhan', [TerminologyController::class, 'returnConditionKeluhan'])->name('keluhan');
-        // Riwayat penyakit pribadi
-        Route::get('/riwayat-pribadi', [TerminologyController::class, 'returnConditionRiwayatPribadi'])->name('riwayat-pribadi');
-        // Riwayat penyakit keluarga
-        Route::get('/riwayat-keluarga', [TerminologyController::class, 'returnConditionRiwayatKeluarga'])->name('riwayat-keluarga');
+    // Endpoint untuk View Rekam Medis
+    Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
+        // Daftar rekam medis pasien
+        Route::get('/', [RekamMedisController::class, 'index'])->name('index');
+        // Detail rekam medis pasien
+        Route::get('/{patient_id}', [RekamMedisController::class, 'show'])->name('show');
+        // Pull update dari rekam medis pasien dari SATUSEHAT
+        Route::get('/{patient_id}/update', [SatusehatController::class, 'updateRekamMedis'])->name('update');
     });
 
-    // Untuk QuestionnaireResponse.item.item.answer.valueCoding
-    Route::group(['prefix' => 'questionnaire', 'as' => 'questionnaire.'], function () {
-        // Untuk lokasi kecelakaan
-        Route::get('/lokasi-kecelakaan', [TerminologyController::class, 'returnQuestionLokasiKecelakaan'])->name('lokasi-kecelakaan');
-        // Untuk poli tujuan
-        Route::get('/poli-tujuan', [TerminologyController::class, 'returnQuestionPoliTujuan'])->name('poli-tujuan');
-        // Lainnya
-        Route::get('/other', [TerminologyController::class, 'returnQuestionOther'])->name('other');
+    // Endpoint untuk View Daftar pasien
+    Route::group(['prefix' => 'daftar-pasien', 'as' => 'daftar-pasien.'], function () {
+        // Daftar pasien rawat jalan
+        Route::middleware('permission:akses poli umum')->get('/rawat-jalan/umum', [DaftarPasienController::class, 'getDaftarPoliUmum'])->name('rawat-jalan.umum');
+        Route::middleware('permission:akses poli neurologi')->get('/rawat-jalan/neurologi', [DaftarPasienController::class, 'getDaftarPoliNeurologi'])->name('rawat-jalan.neurologi');
+        Route::middleware('permission:akses poli obgyn')->get('/rawat-jalan/obgyn', [DaftarPasienController::class, 'getDaftarPoliObgyn'])->name('rawat-jalan.obgyn');
+        Route::middleware('permission:akses poli gigi')->get('/rawat-jalan/gigi', [DaftarPasienController::class, 'getDaftarPoliGigi'])->name('rawat-jalan.gigi');
+        Route::middleware('permission:akses poli kulit')->get('/rawat-jalan/kulit', [DaftarPasienController::class, 'getDaftarPoliKulit'])->name('rawat-jalan.kulit');
+        Route::middleware('permission:akses poli ortopedi')->get('/rawat-jalan/ortopedi', [DaftarPasienController::class, 'getDaftarPoliOrtopedi'])->name('rawat-jalan.ortopedi');
+        Route::middleware('permission:akses poli penyakit dalam')->get('/rawat-jalan/dalam', [DaftarPasienController::class, 'getDaftarPoliDalam'])->name('rawat-jalan.dalam');
+        Route::middleware('permission:akses poli bedah')->get('/rawat-jalan/bedah', [DaftarPasienController::class, 'getDaftarPoliBedah'])->name('rawat-jalan.bedah');
+        Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
+        // Daftar pasien rawat inap, serviceType per ruangan
+        Route::get('/rawat-inap', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
+        // Daftar pasien IGD
+        Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
     });
 
-    // Untuk Medication.code atau MedicationIngredient.itemCodeableConcept
-    Route::get('/medication', [SatusehatController::class, 'searchKfaProduct'])->name('medication');
-
-    // Endpoint codesystems
-    Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
-    Route::get('/icd9cm-procedure', [TerminologyController::class, 'getIcd9CmProcedure'])->name('icd9cm-procedure');
-    Route::get('/loinc', [TerminologyController::class, 'getLoinc'])->name('loinc');
-    Route::get('/snomed-ct', [TerminologyController::class, 'getSnomedCt'])->name('snomed-ct');
-    Route::group(['prefix' => 'wilayah', 'as' => 'wilayah.'], function () {
-        Route::get('/provinsi', [TerminologyController::class, 'getProvinsi'])->name('provinsi');
-        Route::get('/kabko', [TerminologyController::class, 'getKabupatenKota'])->name('kabko');
-        Route::get('/kotalahir', [TerminologyController::class, 'getKotaLahir'])->name('kotalahir');
-        Route::get('/kecamatan', [TerminologyController::class, 'getKecamatan'])->name('kecamatan');
-        Route::get('/kelurahan', [TerminologyController::class, 'getKelurahan'])->name('kelurahan');
+    // Endpoint untuk Dashboard Analytics
+    Route::group(['prefix' => 'analytics', 'as' => 'analytics.'], function () {
+        // Jumlah pasien sedang dirawat
+        Route::get('/pasien-dirawat', [AnalyticsController::class, 'getActiveEncounters'])->name('pasien-dirawat');
+        // Jumlah pasien baru mendaftar bulan ini
+        Route::get('/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('pasien-baru-bulan-ini');
+        // Jumlah total pasien yang pernah dirawat
+        Route::get('/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('jumlah-pasien');
+        // Jumlah pasien yang pernah dirawat per bulan untuk 12 bulan kebelakang
+        Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
+        // Jumlah pasien yang pernah dirawat berdasarkan usia
+        Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
     });
-    Route::get('/bcp13', [TerminologyController::class, 'getBcp13'])->name('bcp13');
-    Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
-    Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
-    Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
+
+    // Endpoint untuk Formulir Perawatan
+    Route::group(['prefix' => 'form', 'as' => 'form.'], function () {
+        // Daftar nakes
+        Route::get('/daftar/practitioner', [EncounterFormController::class, 'indexPractitioner'])->name('index.encounter');
+        // Daftar ruangan/bed
+        Route::get('/daftar/location', [EncounterFormController::class, 'indexLocation'])->name('index.location');
+        // Reference Organization per layanan = rawat-jalan | rawat-inap | igd
+        Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
+    });
+
+    // Endpoint untuk Data Kunjungan Pasien
+    Route::get('/kunjungan/{resType}/{encounterId}', [RekamMedisController::class, 'getKunjunganData'])->name('kunjungan');
+
+    // Endpoint untuk User Management
+    Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        // Daftar user
+        Route::get('/', [UserManagementController::class, 'index'])->name('index');
+        // Detail user
+        Route::get('/{user_id}', [UserManagementController::class, 'show'])->name('show');
+        // Tambah user
+        Route::post('/', [UserManagementController::class, 'store'])->name('store');
+        // Update user
+        Route::put('/{user_id}', [UserManagementController::class, 'update'])->name('update');
+        // Hapus user
+        Route::delete('/{user_id}', [UserManagementController::class, 'destroy'])->name('destroy');
+        // Daftar roles
+        Route::get('/get/roles', [UserManagementController::class, 'getRoles'])->name('roles');
+    });
+
+    // Endpoint kode terminologi
+    Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
+        // Terminologi per atribut per resource type
+        Route::get('/get', [TerminologyController::class, 'returnTerminologi'])->name('get');
+
+        // Untuk Procedure.code
+        Route::group(['prefix' => 'procedure', 'as' => 'procedure.'], function () {
+            // Tindakan atau prosedur medis untuk keperluan klaim
+            Route::get('/tindakan', [TerminologyController::class, 'returnProcedureTindakan'])->name('tindakan');
+            // Prosedur medis seperti edukasi, perawatan terhadap bayi baru lahir
+            Route::get('/edukasi-bayi', [TerminologyController::class, 'returnProcedureEdukasiBayi'])->name('edukasi-bayi');
+            // Prosedur medis lainnya
+            Route::get('/other', [TerminologyController::class, 'returnProcedureOther'])->name('other');
+        });
+
+        // Untuk Condition.code atau MedicationStatement.reasonCode
+        Route::group(['prefix' => 'condition', 'as' => 'condition.'], function () {
+            // Diagnosis pasien saat kunjungan
+            Route::get('/kunjungan', [TerminologyController::class, 'returnConditionKunjungan'])->name('kunjungan');
+            // Kondisi saat meninggalkan rumah sakit
+            Route::get('/keluar', [TerminologyController::class, 'returnConditionKeluar'])->name('keluar');
+            // Keluhan utama, kondisi pasien, temuan pemeriksaan klinis
+            Route::get('/keluhan', [TerminologyController::class, 'returnConditionKeluhan'])->name('keluhan');
+            // Riwayat penyakit pribadi
+            Route::get('/riwayat-pribadi', [TerminologyController::class, 'returnConditionRiwayatPribadi'])->name('riwayat-pribadi');
+            // Riwayat penyakit keluarga
+            Route::get('/riwayat-keluarga', [TerminologyController::class, 'returnConditionRiwayatKeluarga'])->name('riwayat-keluarga');
+        });
+
+        // Untuk QuestionnaireResponse.item.item.answer.valueCoding
+        Route::group(['prefix' => 'questionnaire', 'as' => 'questionnaire.'], function () {
+            // Untuk lokasi kecelakaan
+            Route::get('/lokasi-kecelakaan', [TerminologyController::class, 'returnQuestionLokasiKecelakaan'])->name('lokasi-kecelakaan');
+            // Untuk poli tujuan
+            Route::get('/poli-tujuan', [TerminologyController::class, 'returnQuestionPoliTujuan'])->name('poli-tujuan');
+            // Lainnya
+            Route::get('/other', [TerminologyController::class, 'returnQuestionOther'])->name('other');
+        });
+
+        // Untuk Medication.code atau MedicationIngredient.itemCodeableConcept
+        Route::get('/medication', [SatusehatController::class, 'searchKfaProduct'])->name('medication');
+
+        // Endpoint codesystems
+        Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
+        Route::get('/icd9cm-procedure', [TerminologyController::class, 'getIcd9CmProcedure'])->name('icd9cm-procedure');
+        Route::get('/loinc', [TerminologyController::class, 'getLoinc'])->name('loinc');
+        Route::get('/snomed-ct', [TerminologyController::class, 'getSnomedCt'])->name('snomed-ct');
+        Route::group(['prefix' => 'wilayah', 'as' => 'wilayah.'], function () {
+            Route::get('/provinsi', [TerminologyController::class, 'getProvinsi'])->name('provinsi');
+            Route::get('/kabko', [TerminologyController::class, 'getKabupatenKota'])->name('kabko');
+            Route::get('/kotalahir', [TerminologyController::class, 'getKotaLahir'])->name('kotalahir');
+            Route::get('/kecamatan', [TerminologyController::class, 'getKecamatan'])->name('kecamatan');
+            Route::get('/kelurahan', [TerminologyController::class, 'getKelurahan'])->name('kelurahan');
+        });
+        Route::get('/bcp13', [TerminologyController::class, 'getBcp13'])->name('bcp13');
+        Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
+        Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
+        Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
+    });
+
+    // Endpoint untuk call API SATUSEHAT
+    Route::group(['prefix' => 'satusehat', 'as' => 'satusehat.'], function () {
+        // Consent
+        Route::get('/consent/{patient_id}', [SatusehatController::class, 'readConsent'])->name('consent.show');
+        Route::post('/consent', [SatusehatController::class, 'updateConsent'])->name('consent.store');
+
+        // Kamus Farmasi dan Alat Kesehatan
+        Route::get('/kfa', [SatusehatController::class, 'searchKfaProduct'])->name('kfa');
+
+        // Search resource
+        Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
+            Route::get('/practitioner', [SatusehatController::class, 'searchPractitioner'])->name('practitioner');
+            Route::get('/organization', [SatusehatController::class, 'searchOrganization'])->name('organization');
+            Route::get('/location', [SatusehatController::class, 'searchLocation'])->name('location');
+            Route::get('/patient', [SatusehatController::class, 'searchPatient'])->name('patient');
+            // Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
+            // Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
+            // Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
+            // Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
+            // Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
+            // Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
+            // Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
+            // Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
+            // Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
+            // Route::get('/medicationstatement', [SatusehatController::class, 'searchMedicationStatement'])->name('medicationstatement');
+            // Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
+        });
+    });
+
+    // Local resource manipulation
+    Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
+        Route::get('/{resType}', [ResourceController::class, 'index']);
+        Route::post('/{resType}', [ResourceController::class, 'store']);
+        Route::get('/{resType}/{id}', [ResourceController::class, 'show']);
+        Route::put('/{resType}/{id}', [ResourceController::class, 'update']);
+        Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy']);
+    });
 });
-
-// Endpoint untuk call API SATUSEHAT
-Route::group(['prefix' => 'satusehat', 'as' => 'satusehat.'], function () {
-    // Consent
-    Route::get('/consent/{patient_id}', [SatusehatController::class, 'readConsent'])->name('consent.show');
-    Route::post('/consent', [SatusehatController::class, 'updateConsent'])->name('consent.store');
-
-    // Kamus Farmasi dan Alat Kesehatan
-    Route::get('/kfa', [SatusehatController::class, 'searchKfaProduct'])->name('kfa');
-
-    // Search resource
-    Route::group(['prefix' => 'search', 'as' => 'search.'], function () {
-        Route::get('/practitioner', [SatusehatController::class, 'searchPractitioner'])->name('practitioner');
-        Route::get('/organization', [SatusehatController::class, 'searchOrganization'])->name('organization');
-        Route::get('/location', [SatusehatController::class, 'searchLocation'])->name('location');
-        Route::get('/patient', [SatusehatController::class, 'searchPatient'])->name('patient');
-        // Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
-        // Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
-        // Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
-        // Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
-        // Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
-        // Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
-        // Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
-        // Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
-        // Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
-        // Route::get('/medicationstatement', [SatusehatController::class, 'searchMedicationStatement'])->name('medicationstatement');
-        // Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
-    });
-});
-
-// Local resource manipulation
-Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
-    Route::get('/{resType}', [ResourceController::class, 'index']);
-    Route::post('/{resType}', [ResourceController::class, 'store']);
-    Route::get('/{resType}/{id}', [ResourceController::class, 'show']);
-    Route::put('/{resType}/{id}', [ResourceController::class, 'update']);
-    Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy']);
-});
-
-
-// });
 
 require __DIR__ . '/auth.php';

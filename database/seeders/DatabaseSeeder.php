@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             TerminologySeeder::class,
-            IdFhirResourceSeeder::class,
+            OnboardingSeeder::class,
         ]);
     }
 }

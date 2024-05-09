@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('method');
             $table->string('res_type');
-            $table->string('satusehat_id')->nullable();
+            $table->string('res_id')->nullable();
             $table->json('data');
             $table->timestamps();
         });

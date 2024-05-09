@@ -10,6 +10,7 @@ use App\Http\Requests\Fhir\Search\OrganizationSearchRequest;
 use App\Http\Requests\Fhir\Search\PractitionerSearchRequest;
 use App\Http\Requests\Fhir\Search\PatientSearchRequest;
 use App\Http\Requests\Fhir\PostRequest;
+use App\Http\Requests\Fhir\PutRequest;
 use App\Models\FailedApiRequest;
 use App\Models\FhirResource;
 use Exception;
@@ -226,7 +227,7 @@ class SatusehatController extends Controller
         }
     }
 
-    public function update(PostRequest $fhirRequest, $res_type, $res_id)
+    public function update(PutRequest $fhirRequest, $res_type, $res_id)
     {
         $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(config('app.available_methods')))],
@@ -871,6 +872,7 @@ class SatusehatController extends Controller
 
             FailedApiRequest::create([
                 'method' => 'POST',
+                'res_type' => $resourceType,
                 'data' => $request->all(),
             ]);
 
@@ -882,7 +884,7 @@ class SatusehatController extends Controller
         }
     }
 
-    public function integrationPut(PostRequest $request, $resourceType, $id)
+    public function integrationPut(PutRequest $request, $resourceType, $id)
     {
         DB::beginTransaction();
 
@@ -922,6 +924,8 @@ class SatusehatController extends Controller
 
             FailedApiRequest::create([
                 'method' => 'PUT',
+                'res_type' => $resourceType,
+                'res_id' => $id,
                 'data' => $request->all(),
             ]);
 
