@@ -74,6 +74,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('rekammedis');
 });
 
+# Daftar (admin and perekam medis)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/rekam-medis-pasien/daftar', function () {
+        return Inertia::render('RekamMedis/TambahRekamMedis');
+    })->name('rekammedis.tambah');
+});
+
 # User Management
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user-management', function () {
@@ -85,6 +92,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user-management/tambah-user', function () {
         return Inertia::render('UserManagement/TambahUser');
     })->name('usermanagement.tambah');
+});
+
+# Medication
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/medication', function () {
+        return Inertia::render('Medication/Medication');
+    })->name('medication');
+    // Route::get('/user-management/details/{user_id}', function ($user_id) {
+    //     return Inertia::render('Medication/MedicationDetails', ['user_id' => $user_id]);
+    // })->name('medication.details');
+    Route::get('/medication/tambah', function () {
+        return Inertia::render('Medication/TambahMedication');
+    })->name('medication.tambah');
 });
 
 # Profile

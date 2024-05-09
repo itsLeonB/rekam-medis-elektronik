@@ -8,6 +8,7 @@ use App\Http\Requests\Fhir\Search\KfaRequest;
 use App\Http\Requests\Fhir\Search\LocationSearchRequest;
 use App\Http\Requests\Fhir\Search\OrganizationSearchRequest;
 use App\Http\Requests\Fhir\Search\PractitionerSearchRequest;
+use App\Http\Requests\Fhir\Search\PatientSearchRequest;
 use App\Http\Requests\Fhir\PostRequest;
 use App\Models\FailedApiRequest;
 use App\Models\FhirResource;
@@ -703,41 +704,41 @@ class SatusehatController extends Controller
     //     return $response;
     // }
 
-    // public function searchPatient(PatientSearchRequest $request)
-    // {
-    //     $query = [];
+    public function searchPatient(PatientSearchRequest $request)
+    {
+        $query = [];
 
-    //     if ($request->query('gender')) {
-    //         $query = [
-    //             'name' => $request->query('name'),
-    //             'birthdate' => $request->query('birthdate'),
-    //             'gender' => $request->query('gender')
-    //         ];
-    //     } elseif ($request->query('identifier')) {
-    //         $query = ['identifier' => $request->query('identifier')];
+        if ($request->query('gender')) {
+            $query = [
+                'name' => $request->query('name'),
+                'birthdate' => $request->query('birthdate'),
+                'gender' => $request->query('gender')
+            ];
+        } elseif ($request->query('identifier')) {
+            $query = ['identifier' => $request->query('identifier')];
 
-    //         if ($request->query('name')) {
-    //             $query['name'] = $request->query('name');
-    //             $query['birthdate'] = $request->query('birthdate');
-    //         }
-    //     } else {
-    //         return response()->json(['error' => 'Either identifier, or combination of: 1) name, birthdate, identifier, or 2) name, birthdate, and gender must be provided.'], 400);
-    //     }
+            if ($request->query('name')) {
+                $query['name'] = $request->query('name');
+                $query['birthdate'] = $request->query('birthdate');
+            }
+        } else {
+            return response()->json(['error' => 'Either identifier, or combination of: 1) name, birthdate, identifier, or 2) name, birthdate, and gender must be provided.'], 400);
+        }
 
-    //     $token = $this->getToken();
+        $token = $this->getToken();
 
-    //     $client = new Client();
+        $client = new Client();
 
-    //     $url = $this->baseUrl . '/Patient';
+        $url = $this->baseUrl . '/Patient';
 
-    //     $response = $client->request('GET', $url, [
-    //         'headers' => ['Authorization' => 'Bearer ' . $token,],
-    //         'query' => $query,
-    //         'verify' => false,
-    //     ]);
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token,],
+            'query' => $query,
+            'verify' => false,
+        ]);
 
-    //     return $response;
-    // }
+        return $response;
+    }
 
     // public function searchMedicationStatement(FhirRequest $request)
     // {
@@ -843,7 +844,6 @@ class SatusehatController extends Controller
 
         if ($statusCode == 201) {
             $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
-
             try {
                 $savedData = FhirResource::create($satusehatResponseBody);
 
