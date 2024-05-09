@@ -36,10 +36,10 @@ class RetryFailedApiRequests extends Command
 
                 switch ($method) {
                     case 'POST':
-                        $request = Request::create(route('integration.store', ['res_type' => $fr->res_type]), $method, json_decode($fr->data, true));
+                        $request = Request::create(route('integration.store', ['resourceType' => $fr->res_type]), $method, json_decode($fr->data, true));
                         break;
                     case 'PUT':
-                        $request = Request::create(route('integration.update', ['res_type' => $fr->res_type, 'satusehat_id' => $fr->satusehat_id]), $method, json_decode($fr->data, true));
+                        $request = Request::create(route('integration.update', ['resourceType' => $fr->res_type, 'id' => $fr->res_id]), $method, json_decode($fr->data, true));
                         break;
                     default:
                         throw new \Exception('Invalid method');

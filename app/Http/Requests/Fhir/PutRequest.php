@@ -5,7 +5,7 @@ namespace App\Http\Requests\Fhir;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PostRequest extends FormRequest
+class PutRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,6 +15,7 @@ class PostRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => 'required|string',
             'resourceType' => ['required', 'string', Rule::in(config('app.resourceTypes'))],
         ];
     }
