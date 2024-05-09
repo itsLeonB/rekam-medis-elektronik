@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/home', function () {
         return Inertia::render('Dashboard');
     })->name('home.index');
+});
 
 # Rawat Jalan
 Route::middleware(['auth', 'verified'])->group(function () {

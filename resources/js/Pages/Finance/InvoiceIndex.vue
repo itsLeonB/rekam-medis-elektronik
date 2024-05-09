@@ -17,11 +17,11 @@
                 </p>
                 <div class="flex flex-col sm:flex-row">
                     <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
-                        :href="route('gawatdarurat.daftar')" as="button"
+                        :href="route('finance.newinvoice')" as="button"
                         class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5 h-5 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
                     Tambah Invoice
                     </Link>
@@ -31,8 +31,8 @@
                 <img :src="'storage/images/emer.png'" class="h-full" alt="">
             </div> -->
         </div>
-            <div class="relative overflow-x-auto mb-5">
-                <div v-if="invoice">
+        <div class="relative overflow-x-auto mb-5">
+            <div v-if="invoice">
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
                     <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
                         <tr>
@@ -59,20 +59,20 @@
                             <td class="px-6 py-4 w-2/5">
                                 {{ item.recipient }}
                             </td>
-                            <td v-html="item.status ? 'Sudah' : '<strong>Belum</strong>'"
-                                class="px-6 py-4 w-1/5">
+                            <td v-html="item.status ? 'Sudah' : '<strong>Belum</strong>'" class="px-6 py-4 w-1/5">
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div v-else>Loading..</div>
-            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
 
 <script setup>
-import {ref, onMounted} from "vue";
+import { ref, onMounted } from "vue";
+import { Link } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import axios from 'axios';
 
