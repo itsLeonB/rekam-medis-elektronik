@@ -115,7 +115,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/details', [ProfileController::class, 'details'])->name('profile.details');
 });
 
-// APIs
+// APIs 
 Route::middleware('auth')->group(function () {
     // Endpoint untuk Integrasi SATUSEHAT
     Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {

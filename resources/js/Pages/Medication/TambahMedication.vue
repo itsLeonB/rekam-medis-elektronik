@@ -149,7 +149,7 @@ const test = async () => {
    ]
   };
 
-  try {
+  try { 
     const resourceType = 'Medication';
     const response = await axios.post(route('integration.store', { resourceType: resourceType }), formDataJson) ;
     console.log(response.data);

@@ -169,4 +169,4 @@ import NavLink from '@/Components/NavLink.vue';
             <ResponsiveNavLink :href="route('medication')" :active="route().current('medication')">Medication</ResponsiveNavLink>
         </template>
     </AuthenticatedLayout>
-</template>
+</template> 

@@ -10,7 +10,7 @@
                 <h1 class="text-2xl font-bold text-neutral-black-300">Medication Management</h1>
             </span>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Apoteker untuk mengelola obat.
-            </p>
+            </p> 
             <Link :href="route('medication.tambah')" as="button"
                 class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

@@ -437,7 +437,7 @@ const cariPatientID = async () => {
       showPatientDetails.value = false;
       resultsFound.value = false;
    };
-};
+}; 
 
 const submitSatusehat = async () => {
    if (patient.value !== null) {

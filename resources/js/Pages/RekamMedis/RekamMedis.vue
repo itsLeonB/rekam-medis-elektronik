@@ -20,7 +20,7 @@
                         fill="currentColor" />
                 </svg>
                 <h1 class="text-2xl font-bold text-neutral-black-300">Rekam Medis Pasien</h1>
-            </span>
+            </span> 
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Rekam Medis Pasien.
             </p>
             <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)" :href="route('rekammedis.tambah')" as="button"

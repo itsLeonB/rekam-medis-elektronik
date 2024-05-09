@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build"
-    },
+    }, 
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",

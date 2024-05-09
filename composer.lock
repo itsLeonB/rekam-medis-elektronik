@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
-    ],
+    ], 
     "content-hash": "1460c4b5b0ff42a84343faf93ab39bee",
     "packages": [
         {
