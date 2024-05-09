@@ -3,9 +3,18 @@
 namespace App\Http\Requests\Fhir;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ConsentRequest extends FormRequest
+class PostRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -14,9 +23,7 @@ class ConsentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'patient_id' => 'required|string',
-            'action' => 'required|in:OPTIN,OPTOUT',
-            'agent' => 'required|string'
+            'resourceType' => ['required', 'string', Rule::in(config('app.resourceTypes'))],
         ];
     }
 }

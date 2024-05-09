@@ -184,11 +184,11 @@ Route::get('/finance/invoice/create', function () {
 // Endpoint untuk Integrasi SATUSEHAT
 Route::group(['prefix' => 'integration', 'as' => 'integration.'], function () {
     // Get resource dan simpan local
-    Route::get('/{res_type}/{satusehat_id}', [IntegrationController::class, 'show'])->name('show');
+    Route::get('/{resourceType}/{id}', [SatusehatController::class, 'integrationGet'])->name('show');
     // Save resource dan kirim ke SATUSEHAT
-    Route::post('/{res_type}', [IntegrationController::class, 'store'])->name('store');
+    Route::post('/{resourceType}', [SatusehatController::class, 'integrationPost'])->name('store');
     // Update resource dan kirim ke SATUSEHAT
-    Route::put('/{res_type}/{satusehat_id}', [IntegrationController::class, 'update'])->name('update');
+    Route::put('/{resourceType}/{id}', [SatusehatController::class, 'integrationPut'])->name('update');
 });
 
 // Endpoint untuk View Rekam Medis
@@ -345,27 +345,21 @@ Route::group(['prefix' => 'satusehat', 'as' => 'satusehat.'], function () {
         Route::get('/organization', [SatusehatController::class, 'searchOrganization'])->name('organization');
         Route::get('/location', [SatusehatController::class, 'searchLocation'])->name('location');
         Route::get('/patient', [SatusehatController::class, 'searchPatient'])->name('patient');
-        Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
-        Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
-        Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
-        Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
-        Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
-        Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
-        Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
-        Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
-        Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
-        Route::get('/medicationstatement', [SatusehatController::class, 'searchMedicationStatement'])->name('medicationstatement');
-        Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
-    });
-
-    // Resource manipulation (only for BE)
-    Route::group(['prefix' => 'resource', 'as' => 'resource.'], function () {
-        Route::get('/{res_type}/{res_id}', [SatusehatController::class, 'show'])->name('show');
-        Route::post('/{res_type}', [SatusehatController::class, 'store'])->name('store');
-        Route::put('/{res_type}/{res_id}', [SatusehatController::class, 'update'])->name('update');
+        // Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
+        // Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
+        // Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
+        // Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
+        // Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
+        // Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
+        // Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
+        // Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
+        // Route::get('/servicerequest', [SatusehatController::class, 'searchServiceRequest'])->name('servicerequest');
+        // Route::get('/medicationstatement', [SatusehatController::class, 'searchMedicationStatement'])->name('medicationstatement');
+        // Route::get('/questionnaireresponse', [SatusehatController::class, 'searchQuestionnaireResponse'])->name('questionnaireresponse');
     });
 });
 
+// Local resource manipulation
 Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
     Route::get('/{resType}', [ResourceController::class, 'index']);
     Route::post('/{resType}', [ResourceController::class, 'store']);
@@ -373,6 +367,8 @@ Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
     Route::put('/{resType}/{id}', [ResourceController::class, 'update']);
     Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy']);
 });
+
+
 // });
 
 require __DIR__ . '/auth.php';

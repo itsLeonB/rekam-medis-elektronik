@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Fhir\ConsentRequest;
 use App\Http\Requests\Fhir\Search\KfaRequest;
 use App\Http\Requests\Fhir\Search\LocationSearchRequest;
-use App\Http\Requests\Fhir\Search\ObservationSearchRequest;
 use App\Http\Requests\Fhir\Search\OrganizationSearchRequest;
-use App\Http\Requests\Fhir\Search\PatientSearchRequest;
 use App\Http\Requests\Fhir\Search\PractitionerSearchRequest;
-use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\Resource;
+use App\Http\Requests\Fhir\PostRequest;
+use App\Models\FailedApiRequest;
 use App\Models\FhirResource;
-use Carbon\Carbon;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -21,7 +18,6 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
-use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -146,8 +142,6 @@ class SatusehatController extends Controller
     {
         $validResourceTypes = array_keys(config('app.available_methods'));
 
-        $resourceType = ctype_upper($resourceType[0]) ? $resourceType : config('app.resource_type_map')[$resourceType];
-
         if (!in_array($resourceType, $validResourceTypes)) {
             return response()->json([
                 'error' => 'Invalid resource type. Keep in mind that resource type is case sensitive.',
@@ -156,6 +150,7 @@ class SatusehatController extends Controller
         }
 
         $method = 'get';
+
         if (!in_array($method, config('app.available_methods')[$resourceType])) {
             return response()->json([
                 'error' => 'Method not allowed for this resource type.',
@@ -166,7 +161,6 @@ class SatusehatController extends Controller
         $token = $this->getToken();
 
         $client = new Client();
-
 
         $url = $this->baseUrl . '/' . $resourceType . '/' . $satusehatId;
         $headers = ['Authorization' => 'Bearer ' . $token,];
@@ -184,10 +178,8 @@ class SatusehatController extends Controller
         }
     }
 
-    public function store(FhirRequest $fhirRequest, $res_type)
+    public function store(PostRequest $fhirRequest, $resourceType)
     {
-        $resourceType = ctype_upper($res_type[0]) ? $res_type : config('app.resource_type_map')[$res_type];
-
         $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(config('app.available_methods')))],
         ]);
@@ -208,9 +200,7 @@ class SatusehatController extends Controller
 
         $client = new Client();
 
-        $resourceType = $fhirRequest->input('resourceType');
-
-        if ($resourceType != $res_type) {
+        if ($resourceType != $fhirRequest->input('resourceType')) {
             return response()->json([
                 'error' => 'Resource type mismatch, check your request body.',
             ], 400);
@@ -227,7 +217,7 @@ class SatusehatController extends Controller
         try {
             $response = $client->sendAsync($request, ['verify' => false])->wait();
             $contents = json_decode($response->getBody()->getContents());
-            return response()->json($contents, 201);
+            return response()->json($contents, $response->getStatusCode());
         } catch (ClientException $e) {
             return response()->json(json_decode(
                 $e->getResponse()->getBody()->getContents()
@@ -235,10 +225,8 @@ class SatusehatController extends Controller
         }
     }
 
-    public function update(FhirRequest $fhirRequest, $res_type, $res_id)
+    public function update(PostRequest $fhirRequest, $res_type, $res_id)
     {
-        $res_type = ctype_upper($res_type[0]) ? $res_type : config('app.resource_type_map')[$res_type];
-
         $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(config('app.available_methods')))],
             'id' => 'required|string',
@@ -329,45 +317,6 @@ class SatusehatController extends Controller
         Log::info('Inserted: ' . $inserted . ', Ignored: ' . $ignored);
     }
 
-    public function checkIfResourceExistsInLocal($resourceType, $resourceId)
-    {
-        return Resource::where([
-            ['res_type', $resourceType],
-            ['satusehat_id', $resourceId],
-        ])->exists();
-    }
-
-    public function updateResourceIfNewer($resourceType, $resourceId, $satusehatResponseBody)
-    {
-        $resourceType = strtolower($resourceType);
-
-        $resourceUpdatedAt = Resource::where([
-            ['res_type', $satusehatResponseBody['resourceType']],
-            ['satusehat_id', $satusehatResponseBody['id']],
-        ])->first()->updated_at;
-        $lastUpdated = Carbon::parse($satusehatResponseBody['meta']['lastUpdated'])->setTimezone(config('app.timezone'));
-
-        if ($lastUpdated->gt($resourceUpdatedAt)) {
-            $request = HttpRequest::create(route('local.' . $resourceType . '.update', ['satusehat_id' => $resourceId]), 'PUT', $satusehatResponseBody);
-            $response = app()->handle($request);
-            return $response;
-        } else {
-            return $satusehatResponseBody;
-        }
-    }
-
-    public function updateOrCreate($resourceType, $resourceId, $resource)
-    {
-        $resourceType = strtolower($resourceType);
-
-        if ($this->checkIfResourceExistsInLocal($resourceType, $resourceId)) {
-            return $this->updateResourceIfNewer($resourceType, $resourceId, $resource);
-        } else {
-            $request = HttpRequest::create(route('local.' . $resourceType . '.store'), 'POST', $resource);
-            return app()->handle($request);
-        }
-    }
-
     public function searchPractitioner(PractitionerSearchRequest $request)
     {
         if ($request->query('identifier')) {
@@ -449,369 +398,369 @@ class SatusehatController extends Controller
         return $response;
     }
 
-    public function searchEncounter(FhirRequest $request)
-    {
-        if ($request->query('subject')) {
-            $query = ['subject' => $request->query('subject')];
-        } else {
-            return response()->json(['error' => 'subject must be provided.'], 400);
-        }
+    // public function searchEncounter(FhirRequest $request)
+    // {
+    //     if ($request->query('subject')) {
+    //         $query = ['subject' => $request->query('subject')];
+    //     } else {
+    //         return response()->json(['error' => 'subject must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/Encounter';
+    //     $url = $this->baseUrl . '/Encounter';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchCondition(FhirRequest $request)
-    {
-        $query = [];
+    // public function searchCondition(FhirRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('subject')) {
-            $query['subject'] = $request->query('subject');
-        }
+    //     if ($request->query('subject')) {
+    //         $query['subject'] = $request->query('subject');
+    //     }
 
-        if ($request->query('encounter')) {
-            $query['encounter'] = $request->query('encounter');
-        }
+    //     if ($request->query('encounter')) {
+    //         $query['encounter'] = $request->query('encounter');
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/Condition';
+    //     $url = $this->baseUrl . '/Condition';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchObservation(ObservationSearchRequest $request)
-    {
-        $query = [];
+    // public function searchObservation(ObservationSearchRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('based-on')) {
-            $query = [
-                'based-on' => $request->query('based-on'),
-                'subject' => $request->query('subject'),
-            ];
-        } else {
-            if ($request->query('subject')) {
-                $query['subject'] = $request->query('subject');
-            }
+    //     if ($request->query('based-on')) {
+    //         $query = [
+    //             'based-on' => $request->query('based-on'),
+    //             'subject' => $request->query('subject'),
+    //         ];
+    //     } else {
+    //         if ($request->query('subject')) {
+    //             $query['subject'] = $request->query('subject');
+    //         }
 
-            if ($request->query('encounter')) {
-                $query['encounter'] = $request->query('encounter');
-            }
-        }
+    //         if ($request->query('encounter')) {
+    //             $query['encounter'] = $request->query('encounter');
+    //         }
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either a combination of based-on and subject, or encounter and/or subject must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either a combination of based-on and subject, or encounter and/or subject must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/Observation';
+    //     $url = $this->baseUrl . '/Observation';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchComposition(FhirRequest $request)
-    {
-        $query = [];
+    // public function searchComposition(FhirRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('subject')) {
-            $query['subject'] = $request->query('subject');
-        }
+    //     if ($request->query('subject')) {
+    //         $query['subject'] = $request->query('subject');
+    //     }
 
-        if ($request->query('encounter')) {
-            $query['encounter'] = $request->query('encounter');
-        }
+    //     if ($request->query('encounter')) {
+    //         $query['encounter'] = $request->query('encounter');
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/Composition';
+    //     $url = $this->baseUrl . '/Composition';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchProcedure(FhirRequest $request)
-    {
-        $query = [];
+    // public function searchProcedure(FhirRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('subject')) {
-            $query['subject'] = $request->query('subject');
-        }
+    //     if ($request->query('subject')) {
+    //         $query['subject'] = $request->query('subject');
+    //     }
 
-        if ($request->query('encounter')) {
-            $query['encounter'] = $request->query('encounter');
-        }
+    //     if ($request->query('encounter')) {
+    //         $query['encounter'] = $request->query('encounter');
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/Procedure';
+    //     $url = $this->baseUrl . '/Procedure';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchMedicationRequest(FhirRequest $request)
-    {
-        $query = [];
+    // public function searchMedicationRequest(FhirRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('subject')) {
-            $query['subject'] = $request->query('subject');
-        }
+    //     if ($request->query('subject')) {
+    //         $query['subject'] = $request->query('subject');
+    //     }
 
-        if ($request->query('encounter')) {
-            $query['encounter'] = $request->query('encounter');
-        }
+    //     if ($request->query('encounter')) {
+    //         $query['encounter'] = $request->query('encounter');
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/MedicationRequest';
+    //     $url = $this->baseUrl . '/MedicationRequest';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchAllergyIntolerance(FhirRequest $request)
-    {
-        $query = ['patient' => $request->query('patient')];
+    // public function searchAllergyIntolerance(FhirRequest $request)
+    // {
+    //     $query = ['patient' => $request->query('patient')];
 
-        if ($request->query('code')) {
-            $query['code'] = $request->query('code');
-        }
+    //     if ($request->query('code')) {
+    //         $query['code'] = $request->query('code');
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/AllergyIntolerance';
+    //     $url = $this->baseUrl . '/AllergyIntolerance';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchClinicalImpression(FhirRequest $request)
-    {
-        $query = [];
+    // public function searchClinicalImpression(FhirRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('subject')) {
-            $query['subject'] = $request->query('subject');
-        }
+    //     if ($request->query('subject')) {
+    //         $query['subject'] = $request->query('subject');
+    //     }
 
-        if ($request->query('encounter')) {
-            $query['encounter'] = $request->query('encounter');
-        }
+    //     if ($request->query('encounter')) {
+    //         $query['encounter'] = $request->query('encounter');
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/ClinicalImpression';
+    //     $url = $this->baseUrl . '/ClinicalImpression';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchQuestionnaireResponse(FhirRequest $request)
-    {
-        $query = [];
+    // public function searchQuestionnaireResponse(FhirRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('subject')) {
-            $query['subject'] = $request->query('subject');
-        }
+    //     if ($request->query('subject')) {
+    //         $query['subject'] = $request->query('subject');
+    //     }
 
-        if ($request->query('encounter')) {
-            $query['encounter'] = $request->query('encounter');
-        }
+    //     if ($request->query('encounter')) {
+    //         $query['encounter'] = $request->query('encounter');
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/QuestionnaireResponse';
+    //     $url = $this->baseUrl . '/QuestionnaireResponse';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchServiceRequest(FhirRequest $request)
-    {
-        $query = [];
+    // public function searchServiceRequest(FhirRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('identifier')) {
-            $query = ['identifier' => $request->query('identifier')];
-        } else {
-            if ($request->query('subject')) {
-                $query['subject'] = $request->query('subject');
-            }
+    //     if ($request->query('identifier')) {
+    //         $query = ['identifier' => $request->query('identifier')];
+    //     } else {
+    //         if ($request->query('subject')) {
+    //             $query['subject'] = $request->query('subject');
+    //         }
 
-            if ($request->query('encounter')) {
-                $query['encounter'] = $request->query('encounter');
-            }
-        }
+    //         if ($request->query('encounter')) {
+    //             $query['encounter'] = $request->query('encounter');
+    //         }
+    //     }
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Either identifier, or subject and/or encounter must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Either identifier, or subject and/or encounter must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/ServiceRequest';
+    //     $url = $this->baseUrl . '/ServiceRequest';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token,],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token,],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchPatient(PatientSearchRequest $request)
-    {
-        $query = [];
+    // public function searchPatient(PatientSearchRequest $request)
+    // {
+    //     $query = [];
 
-        if ($request->query('gender')) {
-            $query = [
-                'name' => $request->query('name'),
-                'birthdate' => $request->query('birthdate'),
-                'gender' => $request->query('gender')
-            ];
-        } elseif ($request->query('identifier')) {
-            $query = ['identifier' => $request->query('identifier')];
+    //     if ($request->query('gender')) {
+    //         $query = [
+    //             'name' => $request->query('name'),
+    //             'birthdate' => $request->query('birthdate'),
+    //             'gender' => $request->query('gender')
+    //         ];
+    //     } elseif ($request->query('identifier')) {
+    //         $query = ['identifier' => $request->query('identifier')];
 
-            if ($request->query('name')) {
-                $query['name'] = $request->query('name');
-                $query['birthdate'] = $request->query('birthdate');
-            }
-        } else {
-            return response()->json(['error' => 'Either identifier, or combination of: 1) name, birthdate, identifier, or 2) name, birthdate, and gender must be provided.'], 400);
-        }
+    //         if ($request->query('name')) {
+    //             $query['name'] = $request->query('name');
+    //             $query['birthdate'] = $request->query('birthdate');
+    //         }
+    //     } else {
+    //         return response()->json(['error' => 'Either identifier, or combination of: 1) name, birthdate, identifier, or 2) name, birthdate, and gender must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/Patient';
+    //     $url = $this->baseUrl . '/Patient';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token,],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token,],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
-    public function searchMedicationStatement(FhirRequest $request)
-    {
-        $query = ['subject' => $request->query('subject')];
+    // public function searchMedicationStatement(FhirRequest $request)
+    // {
+    //     $query = ['subject' => $request->query('subject')];
 
-        if (empty($query)) {
-            return response()->json(['error' => 'Subject must be provided.'], 400);
-        }
+    //     if (empty($query)) {
+    //         return response()->json(['error' => 'Subject must be provided.'], 400);
+    //     }
 
-        $token = $this->getToken();
+    //     $token = $this->getToken();
 
-        $client = new Client();
+    //     $client = new Client();
 
-        $url = $this->baseUrl . '/MedicationStatement';
+    //     $url = $this->baseUrl . '/MedicationStatement';
 
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token,],
-            'query' => $query,
-            'verify' => false,
-        ]);
+    //     $response = $client->request('GET', $url, [
+    //         'headers' => ['Authorization' => 'Bearer ' . $token,],
+    //         'query' => $query,
+    //         'verify' => false,
+    //     ]);
 
-        return $response;
-    }
+    //     return $response;
+    // }
 
     public function updateRekamMedis($patientId)
     {
@@ -855,6 +804,132 @@ class SatusehatController extends Controller
         } catch (Exception $e) {
             Log::error($e->getMessage());
             return response()->json(['error' => 'Terjadi kesalahan saat mengupdate rekam medis'], 500);
+        }
+    }
+
+    public function integrationGet($resourceType, $id)
+    {
+        $satusehatResponse = $this->show($resourceType, $id);
+        if ($satusehatResponse->getStatusCode() === 200) {
+            $satusehatResponseBody = json_decode($satusehatResponse->getBody()->getContents(), true);
+
+            return FhirResource::updateOrCreate(
+                [
+                    'id' => $id,
+                    'resourceType' => $resourceType
+                ],
+                $satusehatResponseBody
+            );
+        } else {
+            Log::error($satusehatResponse->getContent());
+
+            try {
+                return FhirResource::where([
+                    ['resourceType', $resourceType],
+                    ['id', $id],
+                ])->firstOrFail();
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Resource not found'], 404);
+            }
+        }
+    }
+
+    public function integrationPost(PostRequest $request, $resourceType)
+    {
+        DB::beginTransaction();
+
+        $satusehatResponse = $this->store($request, $resourceType);
+        $statusCode = $satusehatResponse->getStatusCode();
+
+        if ($statusCode == 201) {
+            $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
+
+            try {
+                $savedData = FhirResource::create($satusehatResponseBody);
+
+                DB::commit();
+
+                return response()->json($savedData, 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json([
+                    'error' => 'Failed to save resource',
+                    'message' => $e->getMessage(),
+                ], 500);
+            }
+        } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
+            DB::rollBack();
+            Log::error($satusehatResponse->getContent());
+            return response()->json([
+                'error' => 'Client error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
+        } else {
+            DB::rollBack();
+            Log::error('SATUSEHAT server error: ' . $satusehatResponse->getContent());
+
+            FailedApiRequest::create([
+                'method' => 'POST',
+                'data' => $request->all(),
+            ]);
+
+            return response()->json([
+                'error' => 'Server error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
+        }
+    }
+
+    public function integrationPut(PostRequest $request, $resourceType, $id)
+    {
+        DB::beginTransaction();
+
+        $satusehatResponse = $this->update($request, $resourceType, $id);
+        $statusCode = $satusehatResponse->getStatusCode();
+
+        if ($statusCode == 200) {
+            $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
+
+            try {
+                $data = FhirResource::where([
+                    ['resourceType', $resourceType],
+                    ['id', $id]
+                ])->first();
+                $data->update($satusehatResponseBody);
+                DB::commit();
+
+                return response()->json($data, 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json([
+                    'error' => 'Failed to update resource',
+                    'message' => $e->getMessage(),
+                ], 500);
+            }
+        } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
+            DB::rollBack();
+            Log::error($satusehatResponse);
+            return response()->json([
+                'error' => 'Client error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
+        } else {
+            DB::rollBack();
+            Log::error('SATUSEHAT server error: ' . $satusehatResponse->getContent());
+
+            FailedApiRequest::create([
+                'method' => 'PUT',
+                'data' => $request->all(),
+            ]);
+
+            return response()->json([
+                'error' => 'Server error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
         }
     }
 }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Requests\Fhir\Search;
 
-use App\Http\Requests\FhirRequest;
-use App\Models\Fhir\Resources\Practitioner;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class PractitionerSearchRequest extends FhirRequest
+class PractitionerSearchRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

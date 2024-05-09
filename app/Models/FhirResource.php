@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\BaseModel;
+use MongoDB\Laravel\Eloquent\Model;
 
-class FhirResource extends BaseModel
+class FhirResource extends Model
 {
+    protected $guarded = [];
 }

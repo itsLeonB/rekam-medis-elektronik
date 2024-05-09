@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Fhir\Search;
 
-use App\Http\Requests\FhirRequest;
+use Illuminate\Foundation\Http\FormRequest;
 
-class LocationSearchRequest extends FhirRequest
+class LocationSearchRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
