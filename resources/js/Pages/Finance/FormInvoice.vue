@@ -142,7 +142,7 @@ const resourceForm = ref({
     totalPriceComponent: null,
     totalNett: null,
     totalGross: null,
-    lineItem: [...chargeItem]
+    lineItem: null
 });
 
 const chargeItem = ref({
