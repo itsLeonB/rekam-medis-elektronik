@@ -8,91 +8,94 @@ API Documentation can be accessed through [Postman](https://documenter.getpostma
 
 ## Available Features
 
-- [x] User Registration
-- [x] Practitioner Onboarding
-- [x] Patient Onboarding
-- [x] Rawat Jalan Jilid 1
-- [x] Rawat Inap Jilid 1
-- [x] IGD Jilid 1
+-   [x] User Registration
+-   [x] Practitioner Onboarding
+-   [x] Patient Onboarding
+-   [x] Rawat Jalan Jilid 1
+-   [x] Rawat Inap Jilid 1
+-   [x] IGD Jilid 1
 
 ## Prerequisites
 
 This project is built using:
 
-- PHP 8.2
-- Laravel 10
-- MongoDB
-- Vue.js 3 with Inertia.js
-- Tailwind CSS 3
+-   PHP 8.2
+-   Laravel 10
+-   MySQL
+-   Vue.js 3 with Inertia.js
+-   Tailwind CSS 3
 
 ## Installation
 
 1. Clone the project
 2. Run these commands:
+    ```sh
+    # install Laravel dependencies
+    composer install
 
-   ```sh
-   # install Laravel dependencies
-   composer install
+    # install Vue dependencies
+    npm install
 
-   # install Vue dependencies
-   npm install
-
-   # Create env file from example
-   cp .env.example .env
-   ```
-
+    # Create env file from example
+    cp .env.example .env
+    ```
 3. Change these values in `.env`:
 
-   ```
-   DB_CONNECTION=mongodb
-   DB_DATABASE=rme
-   DB_URI=mongodb://localhost:27017
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=rme
+    DB_USERNAME=root
+    DB_PASSWORD=
 
-   MAIL_MAILER=smtp
-   MAIL_HOST=mailpit
-   MAIL_PORT=1025
-   MAIL_USERNAME=null
-   MAIL_PASSWORD=null
-   MAIL_ENCRYPTION=null
-   MAIL_FROM_ADDRESS="hello@example.com"
-   MAIL_FROM_NAME="${APP_NAME}"
-   MAIL_ADMIN=hello@example.com
-   ```
+    MAIL_MAILER=smtp
+    MAIL_HOST=mailpit
+    MAIL_PORT=1025
+    MAIL_USERNAME=null
+    MAIL_PASSWORD=null
+    MAIL_ENCRYPTION=null
+    MAIL_FROM_ADDRESS="hello@example.com"
+    MAIL_FROM_NAME="${APP_NAME}"
+    MAIL_ADMIN=hello@example.com
+    ```
 
-4. Use [SATUSEHAT Postman](https://www.postman.com/satusehat/workspace/satusehat-public/overview) to create Organization and Location resources as needed. Save the resource data with json format in `storage/onboarding-resource`.
+4. Use [SATUSEHAT Postman](https://www.postman.com/satusehat/workspace/satusehat-public/overview) to create Organization and Location resource. Paste the resource data in `storage/onboarding-resource`.
+   
 5. Change these values in `.env`, get the latest values through [SATUSEHAT Developer Portal](https://satusehat.kemkes.go.id/platform)
-   ```
-   auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
-   base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
-   consent_url=https://api-satusehat-dev.dto.kemkes.go.id/consent/v1
-   kfa_v1_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa
-   kfa_v2_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa-v2
-   client_id=your_client_id
-   client_secret=your_client_secret
-   organization_id=your_organization_id
-   location_id=your_location_id
-   ```
+    ```
+    auth_url=https://api-satusehat-dev.dto.kemkes.go.id/oauth2/v1
+    base_url=https://api-satusehat-dev.dto.kemkes.go.id/fhir-r4/v1
+    consent_url=https://api-satusehat-dev.dto.kemkes.go.id/consent/v1
+    kfa_v1_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa
+    kfa_v2_url=https://api-satusehat-dev.dto.kemkes.go.id/kfa-v2
+    client_id=your_client_id
+    client_secret=your_client_secret
+    organization_id=your_organization_id
+    location_id=your_location_id
+    ```
 6. Run these commands:
+    ```sh
+    # Generate app key
+    php artisan key:generate
 
-   ```sh
-   # Generate app key
-   php artisan key:generate
+    # Migrate and seed database
+    php artisan migrate --seed
 
-   # Migrate and seed database
-   php artisan migrate --seed
+    # (Optional) seed database with dummies if needed
+    php artisan db:seed DummyDataSeeder
 
-   # (Optional) seed database with example data if needed
-   php artisan db:seed IdFhirResourceSeeder
+    # (Optional) seed database with example data if needed
+    php artisan db:seed IdFhirResourceSeeder
 
-   # Build the front-end
-   npm run build
-   ```
-
+    # Build the front-end
+    npm run build
+    ```
 7. Serve the app using web servers or local server with `php artisan serve`
 8. Run Task Scheduler. Please refer to [Laravel's documentation](https://laravel.com/docs/10.x/scheduling#running-the-scheduler)
 
 ## Contributors
 
-- [@itsLeonB](https://github.com/itsLeonB) - Back-end
-- [@mandorzqy](https://github.com/mandorzqy) - Front-end
-- [@salmahatta](https://github.com/salmahatta) - UI/UX
+-   [@itsLeonB](https://github.com/itsLeonB) - Back-end
+-   [@mandorzqy](https://github.com/mandorzqy) - Front-end
+-   [@salmahatta](https://github.com/salmahatta) - UI/UX
