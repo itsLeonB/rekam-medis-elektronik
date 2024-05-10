@@ -11,7 +11,8 @@
                 <div class="mt-4">
                     <InputLabel value="Status" />
                     <select id="status"
-                        class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
+                        class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit"
+                        v-model="resourceForm.status">
                         <option v-for="(label, id) in invoiceStatus" :value=id>{{ label }}</option>
                     </select>
                 </div>
@@ -20,20 +21,25 @@
                     <InputLabel for="pasien" value="Identitas Pasien" />
                     <Multiselect mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true"
                         :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
-                        label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes"
-                        required />
+                        label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required
+                        v-model="resourceForm.subject" />
                     <InputError class="mt-1" />
                 </div>
                 <!-- Pilih Penanggungjawab pasien -->
                 <div class="mt-4">
                     <InputLabel value="Penanggung Jawab" />
-                    <TextInput />
+                    <Multiselect mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true"
+                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
+                        label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required
+                        v-model="resourceForm.recipient" />
+                    <InputError class="mt-1" />
                 </div>
                 <!-- Tanggal Invoice -->
                 <div class="mt-4">
                     <InputLabel value="Tanggal Invoice" />
                     <div class="flex pt-1">
-                        <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required>
+                        <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required
+                            v-model="resourceForm.date">
                         </VueDatePicker>
                     </div>
                 </div>
@@ -42,44 +48,59 @@
                     <InputLabel value="Kasir" />
                     <Multiselect mode="single" placeholder="Kasir" :object="true" :options="practitionerList"
                         label="name" valueProp="satusehat_id" track-by="satusehat_id" class="mt-1"
-                        :classes="combo_classes" required />
+                        :classes="combo_classes" required v-model="resourceForm.participant" />
                     <InputError class="mt-1" />
                 </div>
-                <div class="mt-4">
-                    <InputLabel value="Payment Terms" />
-                    <TextInput />
+                <div class="mt-4 row col-lg-2">
+                    <div>
+                        <InputLabel value="Payment Method" />
+                        <select id="status"
+                            class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit"
+                            v-model="resourceForm.bank">
+                            <option v-for="(label, id) in paymentMethods" :value=id>{{ label }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <InputLabel value="Payment Details" />
+                        <TextInput />
+                    </div>
                 </div>
                 <!-- Rincian Biaya -->
                 <div class="mt-4">
                     <InputLabel value="Kunjungan" />
-                    <!-- TODO 1: Tampilkan Label yang Friendly dan mudah dibedakan -->
                     <Multiselect mode="single" placeholder="Rincian Biaya" :object="true" :options="encounterList"
-                        label="id" valueProp="id" track-by="id" class="mt-1" :classes="combo_classes" required />
+                        label="period" valueProp="id" track-by="id" class="mt-1" :classes="combo_classes" required
+                        v-on:change="getChargeItemList" />
                     <InputError class="mt-1" />
-                    <!-- TODO 2: Pick Encounter dan Pick Observation/Procedure/Medication yang relate sama Encounter tersebut dan berikan harga -->
-                    <table class="border w-full h-auto">
+                    <table class="w-full h-auto mt-2 border">
                         <tr>
-                            <td>No</td>
-                            <td>Procedure/Observation</td>
+                            <th>No</th>
+                            <th>Procedure/Observation</th>
+                            <th>Harga</th>
+                        </tr>
+                        <tr class=" text-center" v-for="(item, index) in chargeItemList" :key="index">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ item.code.coding[0].display }}</td>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
 
                 <div class="mt-4">
-                    <InputLabel value="Total Price Component" />
-                    <TextInput />
+                    <InputLabel value="Total Biaya" />
+                    <TextInput v-model="resourceForm.totalPriceComponent" />
                 </div>
                 <div class="mt-4">
-                    <InputLabel value="Total Nett" />
-                    <TextInput />
+                    <InputLabel value="Total Biaya Kotor" />
+                    <TextInput v-model="resourceForm.totalGross" />
                 </div>
                 <div class="mt-4">
-                    <InputLabel value="Total Gross" />
-                    <TextInput />
+                    <InputLabel value="Total Biaya Nett" />
+                    <TextInput v-model="resourceForm.totalNett" />
                 </div>
                 <div class="mt-4">
-                    <InputLabel value="Note Tambahan" />
-                    <TextInput />
+                    <InputLabel value="Catatan" />
+                    <TextInput v-model="resourceForm.note" />
                 </div>
             </form>
         </div>
@@ -106,7 +127,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import MainButton from '@/Components/MainButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const resourceForm = ref({
     status: 'drafted',
@@ -115,7 +136,18 @@ const resourceForm = ref({
     recipient: null,
     date: null,
     participant: null,
+    bank: null,
+    rekening: null,
+    note: null,
+    totalPriceComponent: null,
+    totalNett: null,
+    totalGross: null,
+    lineItem: [...chargeItem]
 });
+
+const chargeItem = ref({
+
+})
 
 const combo_classes = {
     container: 'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border-2 border-neutral-grey-0 ring-0 shadow-sm rounded-xl bg-white text-base leading-snug outline-none',
@@ -133,7 +165,12 @@ const submit = async () => {
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
     const submitResource = {
         "resourceType": "Encounter",
-    } // TODO 3: Atur Resource
+        "status": resourceForm.status,
+        "subject": resourceForm.subject,
+        "recipient": resourceForm.recipient,
+        "date": resourceForm.date,
+        "participant": resourceForm.participant
+    } // TODO: 3: Atur Resource
 
     axios.post(route('integration.store', { res_type: "Invoice" }), submitResource)
         .then(response => {
@@ -147,6 +184,7 @@ const submit = async () => {
 }
 
 const invoiceStatus = { 'draft': 'draft', 'issued': 'issued', 'balanced': 'balanced', 'cancelled': 'cancelled', 'entered-in-error': 'entered in error' }
+const paymentMethods = { 'bank': 'Bank Transfer', 'cash': 'Cash', 'qris': 'QRIS', 'debit': 'Debit Card', 'credit': 'Credit Card' }
 
 const searchPatient = async (query) => {
     const { data } = await axios.get(route('rekam-medis.index', { 'nik': query }));
@@ -160,29 +198,36 @@ const searchPatient = async (query) => {
 };
 
 const practitionerList = ref(null);
+const encounterList = ref(null);
+const procedureList = ref(null);
+const medicationList = ref(null);
+const organizationList = ref(null);
+
+const chargeItemList = computed(() => {
+    if (!medicationList.value || !procedureList.value) {
+        return [];
+    }
+    return [...medicationList.value, ...procedureList.value]
+})
+
 const getpractitionerList = async () => {
     const { data } = await axios.get(route('form.index.encounter'));
     practitionerList.value = data;
 };
 
-const encounterList = ref(null);
-const getEncounterList = async () => {
-    const { data } = await axios.get('/resources/Encounter');
-    encounterList.value = data
+const getResourceList = async (resourceName, list) => {
+    const { data } = await axios.get(`/resources/${resourceName}`);
+    list.value = data;
 }
 
-const procedureList = ref(null)
-const getProcedureList = async () => {
-    const { data } = await axios.get('/resources/Procedure');
-    procedureList.value = data
+const getChargeItemList = async () => {
+    getResourceList('Procedure', procedureList);
+    getResourceList('Medication', medicationList);
 }
 
 onMounted(() => {
     getpractitionerList();
-    getEncounterList();
+    getResourceList('Encounter', encounterList)
 })
-
-console.log(encounterList.value)
-
 
 </script>
