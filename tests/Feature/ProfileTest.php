@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Fhir\Resources\Practitioner;
+use App\Models\FhirResource;
 use App\Models\User;
 use Faker\Factory;
 use Illuminate\Auth\Notifications\VerifyEmail;
@@ -125,25 +125,20 @@ class ProfileTest extends TestCase
     public function test_practitioner_resource_returned_from_profile(): void
     {
         $user = User::factory()->create();
-        $practitioner = Practitioner::factory()->create();
-        $user->practitionerUser()->attach($practitioner->id);
+        $practitioner = FhirResource::factory()->specific('Practitioner')->create();
+        $user->practitionerUser()->save($practitioner);
 
         $response = $this->actingAs($user)->get(route('profile.details'));
 
         $response->assertOk();
-        $response->assertJsonFragment([
-            'pivot' => [
-                'user_id' => $user->id,
-                'practitioner_id' => $practitioner->id
-            ]
-        ]);
+        $response->assertJsonFragment($practitioner->toArray());
     }
 
     public function test_practitioner_resource_not_returned_if_not_logged_in(): void
     {
         $user = User::factory()->create();
-        $practitioner = Practitioner::factory()->create();
-        $user->practitionerUser()->attach($practitioner->id);
+        $practitioner = FhirResource::factory()->specific('Practitioner')->create();
+        $user->practitionerUser()->save($practitioner);
 
         $response = $this->get(route('profile.details'));
 

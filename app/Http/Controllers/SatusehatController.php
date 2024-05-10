@@ -48,6 +48,41 @@ class SatusehatController extends Controller
         $this->organizationId = config('app.organization_id');
     }
 
+    public function getToken()
+    {
+        if (session()->has('token')) {
+            if (session()->has('token_created_at')) {
+                if (now()->diffInMinutes(session('token_created_at')) < 235) {
+                    return session()->get('token');
+                }
+            }
+        }
+        session()->forget('token');
+        session()->forget('token_created_at');
+
+        $client = new Client();
+        $url = $this->authUrl . '/accesstoken?grant_type=client_credentials';
+        $headers = ['Content-Type' => 'application/x-www-form-urlencoded',];
+        $options = [
+            'form_params' => [
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+            ],
+            'verify' => false,
+        ];
+
+        $request = new Request('POST', $url, $headers);
+
+        $response = $client->sendAsync($request, $options)->wait();
+        $contents = json_decode($response->getBody()->getContents());
+        $token = $contents->access_token;
+
+        session()->put('token', $token);
+        session()->put('token_created_at', now());
+
+        return $token;
+    }
+
     public function readConsent($patientId)
     {
         $token = $this->getToken();
@@ -103,41 +138,6 @@ class SatusehatController extends Controller
         ]);
 
         return response()->json(json_decode($response->getBody()->getContents(), true), 200);
-    }
-
-    public function getToken()
-    {
-        if (session()->has('token')) {
-            if (session()->has('token_created_at')) {
-                if (now()->diffInMinutes(session('token_created_at')) < 235) {
-                    return session()->get('token');
-                }
-            }
-        }
-        session()->forget('token');
-        session()->forget('token_created_at');
-
-        $client = new Client();
-        $url = $this->authUrl . '/accesstoken?grant_type=client_credentials';
-        $headers = ['Content-Type' => 'application/x-www-form-urlencoded',];
-        $options = [
-            'form_params' => [
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-            ],
-            'verify' => false,
-        ];
-
-        $request = new Request('POST', $url, $headers);
-
-        $response = $client->sendAsync($request, $options)->wait();
-        $contents = json_decode($response->getBody()->getContents());
-        $token = $contents->access_token;
-
-        session()->put('token', $token);
-        session()->put('token_created_at', now());
-
-        return $token;
     }
 
     public function show($resourceType, $satusehatId)
@@ -398,6 +398,215 @@ class SatusehatController extends Controller
         ]);
 
         return $response;
+    }
+
+    public function searchPatient(PatientSearchRequest $request)
+    {
+        $query = [];
+
+        if ($request->query('gender')) {
+            $query = [
+                'name' => $request->query('name'),
+                'birthdate' => $request->query('birthdate'),
+                'gender' => $request->query('gender')
+            ];
+        } elseif ($request->query('identifier')) {
+            $query = ['identifier' => $request->query('identifier')];
+
+            if ($request->query('name')) {
+                $query['name'] = $request->query('name');
+                $query['birthdate'] = $request->query('birthdate');
+            }
+        } else {
+            return response()->json(['error' => 'Either identifier, or combination of: 1) name, birthdate, identifier, or 2) name, birthdate, and gender must be provided.'], 400);
+        }
+
+        $token = $this->getToken();
+
+        $client = new Client();
+
+        $url = $this->baseUrl . '/Patient';
+
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token,],
+            'query' => $query,
+            'verify' => false,
+        ]);
+
+        return $response;
+    }
+
+    public function updateRekamMedis($patientId)
+    {
+        try {
+            $patResponse = $this->show('Patient', $patientId);
+
+            if ($patResponse->getStatusCode() != 200) {
+                return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
+            }
+
+            $client = new Client();
+            $headers = ['Authorization' => 'Bearer ' . $this->getToken()];
+
+            $requests = function () use ($client, $headers, $patientId) {
+                foreach (config('app.patient_related_data') as $resType => $query) {
+                    yield function () use ($client, $headers, $patientId, $resType, $query) {
+                        return $client->getAsync($this->baseUrl . '/' . $resType, [
+                            'headers' => $headers,
+                            'query' => [$query => $patientId]
+                        ]);
+                    };
+                }
+            };
+
+            $pool = new Pool($client, $requests(), [
+                'concurrency' => 20,
+                'fulfilled' => function (Response $response, $index) {
+                    // this is delivered each successful response
+                    $bundle = json_decode($response->getBody()->getContents(), true);
+                    $this->bundleHandler($bundle);
+                },
+                'rejected' => function (RequestException $reason, $index) {
+                    // this is delivered each failed request
+                    Log::error($reason);
+                },
+            ]);
+
+            $pool->promise()->wait();
+
+            return response()->json(['message' => 'Update rekam medis berhasil'], 200);
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'Terjadi kesalahan saat mengupdate rekam medis'], 500);
+        }
+    }
+
+    public function integrationGet($resourceType, $id)
+    {
+        $satusehatResponse = $this->show($resourceType, $id);
+        if ($satusehatResponse->getStatusCode() === 200) {
+            $satusehatResponseBody = json_decode($satusehatResponse->getBody()->getContents(), true);
+
+            return FhirResource::updateOrCreate(
+                [
+                    'id' => $id,
+                    'resourceType' => $resourceType
+                ],
+                $satusehatResponseBody
+            );
+        } else {
+            Log::error($satusehatResponse->getContent());
+
+            try {
+                return FhirResource::where([
+                    ['resourceType', $resourceType],
+                    ['id', $id],
+                ])->firstOrFail();
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Resource not found'], 404);
+            }
+        }
+    }
+
+    public function integrationPost(PostRequest $request, $resourceType)
+    {
+        DB::beginTransaction();
+
+        $satusehatResponse = $this->store($request, $resourceType);
+        $statusCode = $satusehatResponse->getStatusCode();
+
+        if ($statusCode == 201) {
+            $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
+            try {
+                $savedData = FhirResource::create($satusehatResponseBody);
+
+                DB::commit();
+
+                return response()->json($savedData, 201);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json([
+                    'error' => 'Failed to save resource',
+                    'message' => $e->getMessage(),
+                ], 500);
+            }
+        } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
+            DB::rollBack();
+            Log::error($satusehatResponse->getContent());
+            return response()->json([
+                'error' => 'Client error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
+        } else {
+            DB::rollBack();
+            Log::error('SATUSEHAT server error: ' . $satusehatResponse->getContent());
+
+            FailedApiRequest::create([
+                'method' => 'POST',
+                'res_type' => $resourceType,
+                'data' => $request->all(),
+            ]);
+
+            return response()->json([
+                'error' => 'Server error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
+        }
+    }
+
+    public function integrationPut(PutRequest $request, $resourceType, $id)
+    {
+        DB::beginTransaction();
+
+        $satusehatResponse = $this->update($request, $resourceType, $id);
+        $statusCode = $satusehatResponse->getStatusCode();
+
+        if ($statusCode == 200) {
+            $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
+
+            try {
+                $data = FhirResource::where([
+                    ['resourceType', $resourceType],
+                    ['id', $id]
+                ])->first();
+                $data->update($satusehatResponseBody);
+                DB::commit();
+
+                return response()->json($data, 200);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return response()->json([
+                    'error' => 'Failed to update resource',
+                    'message' => $e->getMessage(),
+                ], 500);
+            }
+        } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
+            DB::rollBack();
+            Log::error($satusehatResponse);
+            return response()->json([
+                'error' => 'Client error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
+        } else {
+            DB::rollBack();
+            Log::error('SATUSEHAT server error: ' . $satusehatResponse->getContent());
+
+            FailedApiRequest::create([
+                'method' => 'PUT',
+                'res_type' => $resourceType,
+                'res_id' => $id,
+                'data' => $request->all(),
+            ]);
+
+            return response()->json([
+                'error' => 'Server error',
+                'content' => $satusehatResponse->getContent(),
+                'data' => $request->all()
+            ], $satusehatResponse->getStatusCode());
+        }
     }
 
     // public function searchEncounter(FhirRequest $request)
@@ -705,42 +914,6 @@ class SatusehatController extends Controller
     //     return $response;
     // }
 
-    public function searchPatient(PatientSearchRequest $request)
-    {
-        $query = [];
-
-        if ($request->query('gender')) {
-            $query = [
-                'name' => $request->query('name'),
-                'birthdate' => $request->query('birthdate'),
-                'gender' => $request->query('gender')
-            ];
-        } elseif ($request->query('identifier')) {
-            $query = ['identifier' => $request->query('identifier')];
-
-            if ($request->query('name')) {
-                $query['name'] = $request->query('name');
-                $query['birthdate'] = $request->query('birthdate');
-            }
-        } else {
-            return response()->json(['error' => 'Either identifier, or combination of: 1) name, birthdate, identifier, or 2) name, birthdate, and gender must be provided.'], 400);
-        }
-
-        $token = $this->getToken();
-
-        $client = new Client();
-
-        $url = $this->baseUrl . '/Patient';
-
-        $response = $client->request('GET', $url, [
-            'headers' => ['Authorization' => 'Bearer ' . $token,],
-            'query' => $query,
-            'verify' => false,
-        ]);
-
-        return $response;
-    }
-
     // public function searchMedicationStatement(FhirRequest $request)
     // {
     //     $query = ['subject' => $request->query('subject')];
@@ -763,177 +936,4 @@ class SatusehatController extends Controller
 
     //     return $response;
     // }
-
-    public function updateRekamMedis($patientId)
-    {
-        try {
-            $patResponse = $this->show('Patient', $patientId);
-
-            if ($patResponse->getStatusCode() != 200) {
-                return response()->json(['error' => 'Data pasien tidak ditemukan'], 404);
-            }
-
-            $client = new Client();
-            $headers = ['Authorization' => 'Bearer ' . $this->getToken()];
-
-            $requests = function () use ($client, $headers, $patientId) {
-                foreach (config('app.patient_related_data') as $resType => $query) {
-                    yield function () use ($client, $headers, $patientId, $resType, $query) {
-                        return $client->getAsync($this->baseUrl . '/' . $resType, [
-                            'headers' => $headers,
-                            'query' => [$query => $patientId]
-                        ]);
-                    };
-                }
-            };
-
-            $pool = new Pool($client, $requests(), [
-                'concurrency' => 20,
-                'fulfilled' => function (Response $response, $index) {
-                    // this is delivered each successful response
-                    $bundle = json_decode($response->getBody()->getContents(), true);
-                    $this->bundleHandler($bundle);
-                },
-                'rejected' => function (RequestException $reason, $index) {
-                    // this is delivered each failed request
-                    Log::error($reason);
-                },
-            ]);
-
-            $pool->promise()->wait();
-
-            return response()->json(['message' => 'Update rekam medis berhasil'], 200);
-        } catch (Exception $e) {
-            Log::error($e->getMessage());
-            return response()->json(['error' => 'Terjadi kesalahan saat mengupdate rekam medis'], 500);
-        }
-    }
-
-    public function integrationGet($resourceType, $id)
-    {
-        $satusehatResponse = $this->show($resourceType, $id);
-        if ($satusehatResponse->getStatusCode() === 200) {
-            $satusehatResponseBody = json_decode($satusehatResponse->getBody()->getContents(), true);
-
-            return FhirResource::updateOrCreate(
-                [
-                    'id' => $id,
-                    'resourceType' => $resourceType
-                ],
-                $satusehatResponseBody
-            );
-        } else {
-            Log::error($satusehatResponse->getContent());
-
-            try {
-                return FhirResource::where([
-                    ['resourceType', $resourceType],
-                    ['id', $id],
-                ])->firstOrFail();
-            } catch (\Exception $e) {
-                return response()->json(['error' => 'Resource not found'], 404);
-            }
-        }
-    }
-
-    public function integrationPost(PostRequest $request, $resourceType)
-    {
-        DB::beginTransaction();
-
-        $satusehatResponse = $this->store($request, $resourceType);
-        $statusCode = $satusehatResponse->getStatusCode();
-
-        if ($statusCode == 201) {
-            $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
-            try {
-                $savedData = FhirResource::create($satusehatResponseBody);
-
-                DB::commit();
-
-                return response()->json($savedData, 201);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return response()->json([
-                    'error' => 'Failed to save resource',
-                    'message' => $e->getMessage(),
-                ], 500);
-            }
-        } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
-            DB::rollBack();
-            Log::error($satusehatResponse->getContent());
-            return response()->json([
-                'error' => 'Client error',
-                'content' => $satusehatResponse->getContent(),
-                'data' => $request->all()
-            ], $satusehatResponse->getStatusCode());
-        } else {
-            DB::rollBack();
-            Log::error('SATUSEHAT server error: ' . $satusehatResponse->getContent());
-
-            FailedApiRequest::create([
-                'method' => 'POST',
-                'res_type' => $resourceType,
-                'data' => $request->all(),
-            ]);
-
-            return response()->json([
-                'error' => 'Server error',
-                'content' => $satusehatResponse->getContent(),
-                'data' => $request->all()
-            ], $satusehatResponse->getStatusCode());
-        }
-    }
-
-    public function integrationPut(PutRequest $request, $resourceType, $id)
-    {
-        DB::beginTransaction();
-
-        $satusehatResponse = $this->update($request, $resourceType, $id);
-        $statusCode = $satusehatResponse->getStatusCode();
-
-        if ($statusCode == 200) {
-            $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
-
-            try {
-                $data = FhirResource::where([
-                    ['resourceType', $resourceType],
-                    ['id', $id]
-                ])->first();
-                $data->update($satusehatResponseBody);
-                DB::commit();
-
-                return response()->json($data, 200);
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return response()->json([
-                    'error' => 'Failed to update resource',
-                    'message' => $e->getMessage(),
-                ], 500);
-            }
-        } elseif ((400 <= $statusCode) && ($statusCode < 500)) {
-            DB::rollBack();
-            Log::error($satusehatResponse);
-            return response()->json([
-                'error' => 'Client error',
-                'content' => $satusehatResponse->getContent(),
-                'data' => $request->all()
-            ], $satusehatResponse->getStatusCode());
-        } else {
-            DB::rollBack();
-            Log::error('SATUSEHAT server error: ' . $satusehatResponse->getContent());
-
-            FailedApiRequest::create([
-                'method' => 'PUT',
-                'res_type' => $resourceType,
-                'res_id' => $id,
-                'data' => $request->all(),
-            ]);
-
-            return response()->json([
-                'error' => 'Server error',
-                'content' => $satusehatResponse->getContent(),
-                'data' => $request->all()
-            ], $satusehatResponse->getStatusCode());
-        }
-    }
 }

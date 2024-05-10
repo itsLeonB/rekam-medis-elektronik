@@ -2,35 +2,14 @@
 
 namespace Tests\Unit;
 
-use App\Models\Fhir\Resources\Encounter;
-use App\Models\Fhir\Resources\Patient;
+use App\Models\FhirResource;
 use App\Models\User;
-use Database\Seeders\DummyDataSeeder;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
-use Tests\Traits\FhirTest;
 
 class RekamMedisTest extends TestCase
 {
     use DatabaseTransactions;
-    use FhirTest;
-
-    private function assertFragment($response, $patient, $encounter)
-    {
-        $response->assertJsonFragment([
-            'satusehatId' => $patient->resource->satusehat_id,
-            'nik' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik'))->first()->value ?? null,
-            'nik-ibu' => $patient->identifier()->where('system', config('app.identifier_systems.patient.nik-ibu'))->first()->value ?? null,
-            'paspor' => $patient->identifier()->where('system', config('app.identifier_systems.patient.paspor'))->first()->value ?? null,
-            'kk' => $patient->identifier()->where('system', config('app.identifier_systems.patient.kk'))->first()->value ?? null,
-            'rekam-medis' => $patient->identifier()->where('system', config('app.identifier_systems.patient.rekam-medis'))->first()->value ?? null,
-            'ihs-number' => $patient->identifier()->where('system', config('app.identifier_systems.patient.ihs-number'))->first()->value ?? null,
-            'name' => $patient->name()->first()->text,
-            'class' => $encounter->class->code,
-            'start' => $encounter->period->start->setTimezone(config('app.timezone'))->format('Y-m-d\TH:i:sP'),
-            'serviceType' => data_get($encounter, 'serviceType.coding.0.code'),
-        ]);
-    }
 
     public function test_index_rekam_medis()
     {
@@ -47,7 +26,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $satusehatId = Patient::first()->resource->satusehat_id;
+        $satusehatId = FhirResource::where('resourceType', 'Patient')->first()->id;
 
         $response = $this->actingAs($user)->get(route('rekam-medis.show', $satusehatId));
 
@@ -85,7 +64,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.condition', $encounterId));
 
@@ -96,7 +75,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.observation', $encounterId));
 
@@ -107,7 +86,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.procedure', $encounterId));
 
@@ -118,7 +97,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.medicationrequest', $encounterId));
 
@@ -129,7 +108,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.composition', $encounterId));
 
@@ -140,7 +119,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.allergyintolerance', $encounterId));
 
@@ -151,7 +130,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.clinicalimpression', $encounterId));
 
@@ -162,7 +141,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.servicerequest', $encounterId));
 
@@ -173,7 +152,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.medicationstatement', $encounterId));
 
@@ -184,7 +163,7 @@ class RekamMedisTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $encounterId = Encounter::first()->resource->satusehat_id;
+        $encounterId = FhirResource::where('resourceType', 'Encounter')->first()->id;
 
         $response = $this->actingAs($user)->get(route('kunjungan.questionnaireresponse', $encounterId));
 
