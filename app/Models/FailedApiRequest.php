@@ -9,7 +9,7 @@ class FailedApiRequest extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['method', 'data'];
+    protected $fillable = ['method', 'res_type', 'res_id', 'data'];
 
     protected $casts = ['data' => 'array'];
 }
