@@ -369,11 +369,11 @@ Route::middleware('auth')->group(function () {
 
     // Local resource manipulation
     Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
-        Route::get('/{resType}', [ResourceController::class, 'index']);
-        Route::post('/{resType}', [ResourceController::class, 'store']);
-        Route::get('/{resType}/{id}', [ResourceController::class, 'show']);
-        Route::put('/{resType}/{id}', [ResourceController::class, 'update']);
-        Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy']);
+        Route::get('/{resType}', [ResourceController::class, 'index'])->name('index');
+        Route::post('/{resType}', [ResourceController::class, 'store'])->name('store');
+        Route::get('/{resType}/{id}', [ResourceController::class, 'show'])->name('show');
+        Route::put('/{resType}/{id}', [ResourceController::class, 'update'])->name('update');
+        Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
     });
 });
 

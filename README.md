@@ -85,8 +85,14 @@ This project is built using:
     # (Optional) seed database with dummies if needed
     php artisan db:seed DummyDataSeeder
 
-    # (Optional) seed database with example data if needed
-    php artisan db:seed IdFhirResourceSeeder
+   # (Optional) seed database with example data if needed
+   php artisan db:seed IdFhirResourceSeeder
+
+   # Build the front-end (or run for development)
+   npm run build
+   # or
+   npm run dev
+   ```
 
     # Build the front-end
     npm run build

@@ -2,32 +2,24 @@
 
 namespace Tests\Unit;
 
-use App\Models\Fhir\Resources\Encounter;
+use App\Models\FhirResource;
+use App\Models\Role;
 use App\Models\User;
-use Database\Seeders\DummyDataSeeder;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class DaftarPasienTest extends TestCase
 {
     use DatabaseTransactions;
-    use WithoutModelEvents;
 
     private function assertCreated($layanan, $poli = null)
     {
-        $encCount = Encounter::whereHas('class', function ($query) use ($layanan) {
-            $query->where('code', config('app.kode_layanan.' . $layanan));
-        });
+        $encCount = FhirResource::where('class.code', config('app.kode_layanan.' . $layanan));
 
         if ($poli) {
-            $encCount = $encCount->whereHas('serviceType.coding', function ($query) use ($poli) {
-                $query->where('code', config('app.kode_poli.' . $poli));
-            });
+            $encCount = $encCount->where('serviceType.coding.code', config('app.kode_poli.' . $poli));
         } elseif ($layanan == 'rawat-inap') {
-            $encCount = $encCount->whereHas('serviceType.coding', function ($query) use ($poli) {
-                $query->where('code', 124);
-            });
+            $encCount = $encCount->where('serviceType.coding.code', 124);
         }
 
         $encCount = $encCount->count();
@@ -39,6 +31,7 @@ class DaftarPasienTest extends TestCase
             $route .= $poli;
         }
 
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
