@@ -51,19 +51,18 @@
                         :classes="combo_classes" required v-model="resourceForm.participant" />
                     <InputError class="mt-1" />
                 </div>
-                <div class="mt-4 row col-lg-2">
-                    <div>
-                        <InputLabel value="Payment Method" />
-                        <select id="status"
-                            class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit"
-                            v-model="resourceForm.bank">
-                            <option v-for="(label, id) in paymentMethods" :value=id>{{ label }}</option>
-                        </select>
-                    </div>
-                    <div>
-                        <InputLabel value="Payment Details" />
-                        <TextInput />
-                    </div>
+                <div class="mt-4">
+                    <InputLabel value="Payment Method" />
+                    <select id="status"
+                        class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit"
+                        v-model="resourceForm.bank">
+                        <option v-for="(label, id) in paymentMethods" :value=id>{{ label }}</option>
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel value="Payment Details" />
+                    <TextInput />
                 </div>
                 <!-- Rincian Biaya -->
                 <div class="mt-4">
@@ -125,12 +124,12 @@ import TextInput from '@/Components/TextInput.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import MainButton from '@/Components/MainButton.vue';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import axios from 'axios';
 import { ref, onMounted, computed } from 'vue';
 
 const resourceForm = ref({
-    status: 'drafted',
+    status: '1',
     cancelledReason: null,
     subject: null,
     recipient: null,
@@ -149,17 +148,6 @@ const chargeItem = ref({
 
 })
 
-const combo_classes = {
-    container: 'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border-2 border-neutral-grey-0 ring-0 shadow-sm rounded-xl bg-white text-base leading-snug outline-none',
-    search: 'w-full absolute inset-0 outline-none border-0 ring-0 focus:ring-original-teal-300 focus:ring-2 appearance-none box-border text-base font-sans bg-white rounded-xl pl-3.5 rtl:pl-0 rtl:pr-3.5',
-    placeholder: 'flex items-center h-full absolute left-0 top-0 pointer-events-none bg-transparent leading-snug pl-3.5 text-gray-500 rtl:left-auto rtl:right-0 rtl:pl-0 rtl:pr-3.5',
-    optionPointed: 'text-white bg-original-teal-300',
-    optionSelected: 'text-white bg-original-teal-300',
-    optionDisabled: 'text-gray-300 cursor-not-allowed',
-    optionSelectedPointed: 'text-white bg-original-teal-300 opacity-90',
-    optionSelectedDisabled: 'text-green-100 bg-original-teal-300 bg-opacity-50 cursor-not-allowed',
-};
-
 const submit = async () => {
     isLoading.value = true;
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
@@ -170,7 +158,7 @@ const submit = async () => {
         "recipient": resourceForm.recipient,
         "date": resourceForm.date,
         "participant": resourceForm.participant
-    } // TODO: 3: Atur Resource
+    }
 
     axios.post(route('integration.store', { res_type: "Invoice" }), submitResource)
         .then(response => {
@@ -229,5 +217,16 @@ onMounted(() => {
     getpractitionerList();
     getResourceList('Encounter', encounterList)
 })
+
+const combo_classes = {
+    container: 'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border-2 border-neutral-grey-0 ring-0 shadow-sm rounded-xl bg-white text-base leading-snug outline-none',
+    search: 'w-full absolute inset-0 outline-none border-0 ring-0 focus:ring-original-teal-300 focus:ring-2 appearance-none box-border text-base font-sans bg-white rounded-xl pl-3.5 rtl:pl-0 rtl:pr-3.5',
+    placeholder: 'flex items-center h-full absolute left-0 top-0 pointer-events-none bg-transparent leading-snug pl-3.5 text-gray-500 rtl:left-auto rtl:right-0 rtl:pl-0 rtl:pr-3.5',
+    optionPointed: 'text-white bg-original-teal-300',
+    optionSelected: 'text-white bg-original-teal-300',
+    optionDisabled: 'text-gray-300 cursor-not-allowed',
+    optionSelectedPointed: 'text-white bg-original-teal-300 opacity-90',
+    optionSelectedDisabled: 'text-green-100 bg-original-teal-300 bg-opacity-50 cursor-not-allowed',
+};
 
 </script>

@@ -1,6 +1,7 @@
 <template>
     <AuthenticatedLayout>
-        <div class="bg-original-white-0 flex justify-between shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-0 md:px-10">
+        <div
+            class="bg-original-white-0 flex justify-between shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-0 md:px-10">
             <div class="md:py-8">
                 <span class="inline-flex">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2" viewBox="0 0 24 24" fill="none">
@@ -36,8 +37,9 @@
                 </div>
             </div>
         </div>
-        
-        <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
+
+        <div
+            class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
             <!-- Search bar -->
             <div class="flex justify-end items-center mb-5 w-full">
                 <form class="mr-3 w-full">
@@ -51,8 +53,8 @@
                         </div>
                         <input v-model="searchNama" id="search-nama" placeholder="Cari Nama"
                             class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
-                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer" @click="cancelSearch"
-                            v-show="hide">
+                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
+                            @click="cancelSearch" v-show="hide">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
                                 class="w-5 h-5 hover:fill-thirdouter-red-200">
                                 <path fill-rule="evenodd"
@@ -75,7 +77,7 @@
                                 Tanggal
                             </th>
                             <th scope="col" class="px-6 py-3 w-2/5">
-                                Nama 
+                                Nama
                             </th>
                             <th scope="col" class="px-6 py-3 w-1/5">
                                 Status
@@ -140,7 +142,7 @@ const users = ref([]);
 const hide = ref(false);
 
 const fetchUsers = async (page = 1) => {
-    const { data } = await axios.get(route('users.index', {'page': page}));
+    const { data } = await axios.get(route('users.index', { 'page': page }));
     users.value = data.users;
 };
 
@@ -155,17 +157,17 @@ const searchNama = ref('');
 const searchUsers = async () => {
     hide.value = true;
     const query = searchNama.value;
-    const { data } = await axios.get(route('users.index', {'name': query}));
+    const { data } = await axios.get(route('users.index', { 'name': query }));
     users.value = data.users;
 };
 
 const fetchPagination = async (page = 1) => {
     if (searchNama.value == '') {
-        const { data } = await axios.get(route('users.index', {'page': page}));
+        const { data } = await axios.get(route('users.index', { 'page': page }));
         users.value = data.users;
     } else {
         const query = searchNama.value;
-        const { data } = await axios.get(route('users.index'), {params: {'name': query, 'page': page}});
+        const { data } = await axios.get(route('users.index'), { params: { 'name': query, 'page': page } });
         users.value = data.users;
     };
 };
