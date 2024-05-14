@@ -11,9 +11,9 @@
                         <path d="M12 12V14M12 14L9.5 16.5M12 14L14.5 16.5" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <h1 class="text-2xl font-bold text-neutral-black-300">Modul Finance</h1>
+                    <h1 class="text-2xl font-bold text-neutral-black-300">Katalog Harga Layanan dan Produk</h1>
                 </span>
-                <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk mengelola invoice dan claim
+                <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk mengelola harga dan keterangan layanan
                 </p>
                 <div class="flex flex-col gap-4 sm:flex-row">
                     <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
@@ -28,5 +28,136 @@
                 </div>
             </div>
         </div>
+
+        <div
+            class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
+            <!-- Search bar -->
+            <div class="flex justify-end items-center mb-5 w-full">
+                <form class="mr-3 w-full">
+                    <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
+                        <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="#8f8f8f" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                        </div>
+                        <input v-model="searchItem" id="search-item" placeholder="Cari Layanan/Produk"
+                            class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
+                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
+                            @click="cancelSearch" v-show="hide">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
+                                class="w-5 h-5 hover:fill-thirdouter-red-200">
+                                <path fill-rule="evenodd"
+                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+
+                        </div>
+                    </div>
+                </form>
+                <MainButton @click="searchitems" class="teal-button text-original-white-0">
+                    Cari
+                </MainButton>
+            </div>
+            <div class="relative overflow-x-auto mb-5">
+                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
+                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 w-2/5">
+                                Nama
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-2/5">
+                                Harga
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(user, index) in items.data" :key="user.id">
+                        <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+                            :class="{ 'border-b': index !== (items.data.length - 1) }">
+                            <Link :href="route('catalogue.details', { 'item_id': item.id })">
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
+                                {{ user.name }}
+                            </th>
+                            </Link>
+                            <td class="px-6 py-4 w-2/5">
+                                {{ user.price }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <nav class="flex justify-end">
+                <ul v-for="(link, index) in items.links" class="inline-flex -space-x-px text-base h-10">
+                    <li v-if="index === 0">
+                        <button @click="fetchPagination((items.current_page - 1) < 1 ? 1 : (items.current_page - 1))"
+                            class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">&laquo;</button>
+                    </li>
+                    <li v-else-if="index !== 0 && index !== (items.links.length - 1) && link.active == false">
+                        <button @click="fetchPagination(link.url === null ? items.current_page : link.label)"
+                            class="flex items-center justify-center px-4 h-10 text-neutral-grey-200 bg-original-white-0 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{
+                                link.label }}</button>
+                    </li>
+                    <li v-else-if="index !== 0 && index !== (items.links.length - 1) && link.active == true">
+                        <button @click="fetchPagination(link.label)"
+                            class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 ">{{
+                                link.label }}</button>
+                    </li>
+                    <li v-else-if="index === (items.links.length - 1)">
+                        <button
+                            @click="fetchPagination((items.current_page + 1) > items.last_page ? items.last_page : (items.current_page + 1))"
+                            class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">&raquo;</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </AuthenticatedLayout>
 </template>
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
+import MainButton from '@/Components/MainButton.vue';
+import { Link } from '@inertiajs/vue3';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const items = ref([]);
+
+const hide = ref(false);
+
+const fetchitems = async (page = 1) => {
+    const { data } = await axios.get(route('items.index', { 'page': page }));
+    items.value = data.items;
+};
+
+const cancelSearch = async () => {
+    hide.value = false;
+    searchNama.value = '';
+    fetchitems(1);
+};
+
+const searchNama = ref('');
+
+const searchItem = async () => {
+    hide.value = true;
+    const query = searchNama.value;
+    const { data } = await axios.get(route('items.index', { 'name': query }));
+    items.value = data.items;
+};
+
+const fetchPagination = async (page = 1) => {
+    if (searchNama.value == '') {
+        const { data } = await axios.get(route('items.index', { 'page': page }));
+        items.value = data.items;
+    } else {
+        const query = searchNama.value;
+        const { data } = await axios.get(route('items.index'), { params: { 'name': query, 'page': page } });
+        items.value = data.items;
+    };
+};
+
+onMounted(() => {
+    fetchitems();
+}
+);
+</script>
