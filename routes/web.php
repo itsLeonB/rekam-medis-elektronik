@@ -193,6 +193,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/invoice/create', function () {
         return Inertia::render('Finance/FormInvoice');
     })->name('finance.newinvoice');
+    Route::get('/finance/catalogue', function () {
+        return Inertia::render('Finance/DaftarHarga/Index');
+    })->name('finance.catalogue');
 });
 
 // APIs 
