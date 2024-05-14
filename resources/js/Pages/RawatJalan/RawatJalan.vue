@@ -13,12 +13,15 @@
                             stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    <h1 class="text-2xl font-bold text-neutral-black-300">Rawat Jalan</h1>
+                    <h1 v-if="poli_label === ''" class="text-2xl font-bold text-neutral-black-300">Rawat Jalan</h1>
+                    <h1 v-else class="text-2xl font-bold text-neutral-black-300">Rawat Jalan - {{ poli_label }}</h1>
                 </span>
                 <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Pasien Rawat Jalan.
                 </p>
                 <div class="flex flex-col sm:flex-row">
-                    <Link :href="route('rawatjalan.daftar')" as="button"
+                    <Link
+                        v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
+                        :href="route('rawatjalan.daftar')" as="button"
                         class="w-fit inline-flex mb-3 mr-5 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-5 h-5 mr-2">
@@ -26,7 +29,7 @@
                     </svg>
                     Pendaftaran Rawat Jalan
                     </Link>
-                    <select id="poli_id" v-model="poli_id" @change="fetchPatient"
+                    <select v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)" id="poli_id" v-model="poli_id" @change="fetchPatient"
                         class="bg-original-white-0 border border-neutral-grey-0 text-neutral-black-300 text-sm rounded-lg focus:ring-original-teal-300 focus:border-original-teal-300 block w-52 px-2.5 h-fit">
                         <option v-for="item in poli" :value=item.id>{{ item.label }}</option>
                     </select>
@@ -37,41 +40,49 @@
             </div>
         </div>
         <div class="bg-original-white-0 overflow-hidden shadow sm:rounded-2xl mb-8 py-8 pl-10 pr-14">
-            <h1 class="mb-4 text-2xl font-bold text-secondhand-orange-300">Daftar Pasien</h1>
             <div class="relative overflow-x-auto mb-5">
-                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
-                    <thead class="text-base text-center text-neutral-black-300 bg-gray-50 border-b">
+                <table class="w-full text-sm text-center rtl:text-right text-neutral-grey-200">
+                    <thead class="text-sm text-neutral-black-300 bg-original-white-0 border-b">
                         <tr>
-                            <th scope="col" class="px-6 py-3 w-2/6">
-                                Nama
+                            <th scope="col" class="px-6 py-3 w-3/12">
+                                Nama Pasien
                             </th>
-                            <th scope="col" class="px-6 py-3 w-1/6">
-                                Nomor Rekam Medis
+                            <th scope="col" class="px-6 py-3 w-1/12">
+                                No RM
                             </th>
-                            <th scope="col" class="px-6 py-3 w-1/6">
-                                Waktu dan Status
+                            <th scope="col" class="px-6 py-3 w-3/12">
+                                Waktu Masuk
                             </th>
-                            <th scope="col" class="px-6 py-3 w-2/6">
-                                Dokter
+                            <th scope="col" class="px-6 py-3 w-2/12">
+                                Status & <br> Tindakan
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-3/12">
+                                DPJP
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="(patient, index) in patients" :key="index">
+                    <tbody v-for="(patient, index) in patients">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (patients.length - 1) }">
-                            <!-- <Link :href="route('usermanagement.details', { 'user_id': user.id })"> -->
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
+                            <Link
+                                :href="route('rawatjalan.details', { 'encounter_satusehat_id': patient.encounter_satusehat_id })">
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline 3/12">
                                 {{ patient.patient_name }}
                             </th>
-                            <!-- </Link> -->
-                            <td class="px-6 py-4 w-2/5">
+                            </Link>
+                            <td class="px-6 py-4 w-1/12">
                                 {{ patient.patient_identifier }}
                             </td>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ formatTimestamp(patient.period_start) }}
+                            <td class="px-6 py-4 w-3/12">
+                                <p>{{ formatTimestamp(patient.period_start).split('/')[0] }}</p>
+                                <p>Jam {{ formatTimestamp(patient.period_start).split('/')[1] }}</p>
                             </td>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ patient.encounter_practitioner }}
+                            <td class="px-6 py-4 w-2/12">
+                                <p class="font-semibold">Status: {{ patient.encounter_status }}</p>
+                                <p>{{ patient.procedure }}</p>
+                            </td>
+                            <td class="px-6 py-4 w-3/12">
+                                {{ patient.practitioner_name }}
                             </td>
                         </tr>
                     </tbody>
@@ -85,62 +96,69 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import axios from 'axios';
 import { ref } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
 
 const poli_id = ref(124);
+const poli_label = ref('');
 
 const poli = [
-    {
-        "id": 124,
-        "label": 'Poli Umum'
-    },
-    {
-        "id": 177,
-        "label": 'Poli Neurologi'
-    },
-    {
-        "id": 186,
-        "label": 'Poli Obgyn'
-    },
-    {
-        "id": 88,
-        "label": 'Poli Gigi'
-    },
-    {
-        "id": 168,
-        "label": 'Poli Kulit'
-    },
-    {
-        "id": 218,
-        "label": 'Poli Ortopedi'
-    },
-    {
-        "id": 557,
-        "label": 'Poli Penyakit Dalam'
-    },
-    {
-        "id": 221,
-        "label": 'Poli Bedah'
-    },
-    {
-        "id": 286,
-        "label": 'Poli Anak'
-    }
+    { "id": 124, "value": 'umum', "label": 'Poli Umum', "role": 'poli-umum' },
+    { "id": 177, "value": 'neurologi', "label": 'Poli Neurologi', "role": 'poli-neurologi' },
+    { "id": 186, "value": 'obgyn', "label": 'Poli Obgyn', "role": 'poli-obgyn' },
+    { "id": 88, "value": 'gigi', "label": 'Poli Gigi', "role": 'poli-gigi' },
+    { "id": 168, "value": 'kulit', "label": 'Poli Kulit dan Kelamin', "role": 'poli-kulit' },
+    { "id": 218, "value": 'ortopedi', "label": 'Poli Ortopedi', "role": 'poli-ortopedi' },
+    { "id": 557, "value": 'dalam', "label": 'Poli Penyakit Dalam', "role": 'poli-penyakit-dalam' },
+    { "id": 221, "value": 'bedah', "label": 'Poli Bedah', "role": 'poli-bedah' },
+    { "id": 286, "value": 'anak', "label": 'Poli Anak', "role": 'poli-anak' }
+];
+
+const status_kunjungan = [
+    { "id": 'planned', "label": 'Planned' },
+    { "id": 'arrived', "label": 'Arrived' },
+    { "id": 'triaged', "label": 'Triaged' },
+    { "id": 'in-progress', "label": 'In Progress' },
+    { "id": 'onleave', "label": 'Onleave' },
+    { "id": 'finished', "label": 'Finished' },
+    { "id": 'cancelled', "label": 'Cancelled' }
 ];
 
 const patients = ref([]);
 
 const fetchPatient = async () => {
-    const { data } = await axios.get(route('daftar-pasien.rawat-jalan', { serviceType: poli_id.value }));
+    const myRole = usePage().props.auth.user.roles[0].name;
+    if (myRole !== 'admin' && myRole !== 'perekammedis'){
+        poli_id.value = poli.find(item => item.role === myRole).id;
+        poli_label.value = poli.find(item => item.role === myRole).label;
+    };
+    const { data } = await axios.get(route('daftar-pasien.rawat-jalan.' + poli.find(item => item.id === poli_id.value).value));
     patients.value = data;
+    patients.value.forEach(item => {
+        item.encounter_status = status_kunjungan.find(staku => staku.id === item.encounter_status).label;
+    });
 };
 
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     date.setHours(date.getHours() + 7);
-    const options = { day: '2-digit', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZone: 'UTC' };
-    return date.toLocaleDateString('id-ID', options);
+
+    const daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    const dayOfWeek = daysOfWeek[date.getUTCDay()];
+    const day = date.getUTCDate();
+    const month = months[date.getUTCMonth()];
+    const year = date.getUTCFullYear();
+    const hour = date.getUTCHours().toString().padStart(2, '0');
+    const minute = date.getUTCMinutes().toString().padStart(2, '0');
+
+    return `${dayOfWeek}, ${day} ${month} ${year} / ${hour}:${minute}`;
 };
+
+onMounted(() => {
+    fetchPatient();
+}
+);
 
 </script>

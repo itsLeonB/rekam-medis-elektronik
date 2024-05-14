@@ -36,7 +36,7 @@
                 <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
                 <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
             </form>
-
+            
         </div>
     </AuthenticatedLayout>
 </template>
@@ -151,7 +151,7 @@ const test = async () => {
 
   try { 
     const resourceType = 'Medication';
-    const response = await axios.post(route('integration.store', { resourceType: resourceType }), formDataJson) ;
+    const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
     console.log(response.data);
     
     // Handle successful response

@@ -45,6 +45,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rawat-jalan/daftar', function () {
         return Inertia::render('RawatJalan/DaftarRawatJalan');
     })->name('rawatjalan.daftar');
+    Route::get('/rawat-jalan/details/{encounter_satusehat_id}', function ($encounter_satusehat_id) {
+        return Inertia::render('RawatJalan/RawatJalanDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
+    })->name('rawatjalan.details');
 });
 
 # Rawat Inap
