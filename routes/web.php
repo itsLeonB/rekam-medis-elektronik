@@ -7,6 +7,7 @@ use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
@@ -196,6 +197,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/catalogue', function () {
         return Inertia::render('Finance/DaftarHarga/Index');
     })->name('finance.catalogue');
+    Route::get('/finance/catalogue/{id}', function () {
+        return Inertia::render('Finance/DaftarHarga/Index/Detail');
+    })->name('finance.catalogue.detail');
 });
 
 // APIs 
@@ -377,6 +381,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/{resType}/{id}', [ResourceController::class, 'show'])->name('show');
         Route::put('/{resType}/{id}', [ResourceController::class, 'update'])->name('update');
         Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
+    });
+
+    // Harga Jasa Kesehatan (Catalogue) API 
+    Route::group(['prefix' => 'catalogue', 'as' => 'catalogue'], function () {
+        Route::get('/', [ServicePriceController::class, 'index'])->name('index');
+        Route::get('/{id}', [ServicePriceController::class, 'show'])->name('index');
     });
 });
 

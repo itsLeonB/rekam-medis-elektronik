@@ -13,7 +13,8 @@
                     </svg>
                     <h1 class="text-2xl font-bold text-neutral-black-300">Katalog Harga Layanan dan Produk</h1>
                 </span>
-                <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk mengelola harga dan keterangan layanan
+                <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk mengelola harga dan keterangan
+                    layanan
                 </p>
                 <div class="flex flex-col gap-4 sm:flex-row">
                     <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
@@ -56,7 +57,7 @@
                         </div>
                     </div>
                 </form>
-                <MainButton @click="searchitems" class="teal-button text-original-white-0">
+                <MainButton @click="searchItems" class="teal-button text-original-white-0">
                     Cari
                 </MainButton>
             </div>
@@ -72,16 +73,14 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="(user, index) in items.data" :key="user.id">
+                    <tbody v-for="(item, index) in items.data" :key="item.id">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (items.data.length - 1) }">
-                            <Link :href="route('catalogue.details', { 'item_id': item.id })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
-                                {{ user.name }}
+                                {{ item.display }}
                             </th>
-                            </Link>
                             <td class="px-6 py-4 w-2/5">
-                                {{ user.price }}
+                                {{ item.price.value }}
                             </td>
                         </tr>
                     </tbody>
@@ -126,7 +125,7 @@ const items = ref([]);
 const hide = ref(false);
 
 const fetchitems = async (page = 1) => {
-    const { data } = await axios.get(route('items.index', { 'page': page }));
+    const { data } = await axios.get('/catalogue', { page }); // Use double quotes
     items.value = data.items;
 };
 
@@ -136,22 +135,22 @@ const cancelSearch = async () => {
     fetchitems(1);
 };
 
-const searchNama = ref('');
+const searchItem = ref('');
 
-const searchItem = async () => {
+const searchItems = async () => {
     hide.value = true;
-    const query = searchNama.value;
-    const { data } = await axios.get(route('items.index', { 'name': query }));
+    const query = searchItem.value;
+    const { data } = await axios.get(route('catalogue.index', { 'name': query }));
     items.value = data.items;
 };
 
 const fetchPagination = async (page = 1) => {
-    if (searchNama.value == '') {
-        const { data } = await axios.get(route('items.index', { 'page': page }));
+    if (searchItem.value == '') {
+        const { data } = await axios.get(route('catalogue.index', { 'page': page }));
         items.value = data.items;
     } else {
-        const query = searchNama.value;
-        const { data } = await axios.get(route('items.index'), { params: { 'name': query, 'page': page } });
+        const query = searchItem.value;
+        const { data } = await axios.get(route('catalogue.index'), { params: { 'name': query, 'page': page } });
         items.value = data.items;
     };
 };
