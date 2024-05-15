@@ -34,7 +34,7 @@
             class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
             <!-- Search bar -->
             <div class="flex justify-end items-center mb-5 w-full">
-                <form class="mr-3 w-full">
+                <form class="mr-3 w-full" @submit.prevent="searchItems">
                     <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
                         <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -80,7 +80,7 @@
                                 {{ item.display }}
                             </th>
                             <td class="px-6 py-4 w-2/5">
-                                {{ item.price.value }}
+                                Rp{{ item.price.value }}
                             </td>
                         </tr>
                     </tbody>
@@ -125,13 +125,13 @@ const items = ref([]);
 const hide = ref(false);
 
 const fetchitems = async (page = 1) => {
-    const { data } = await axios.get('/catalogue', { page }); // Use double quotes
+    const {data} = await axios.get('/catalogue', { params: { page } });
     items.value = data.items;
 };
 
 const cancelSearch = async () => {
     hide.value = false;
-    searchNama.value = '';
+    searchItem.value = '';
     fetchitems(1);
 };
 
@@ -140,17 +140,17 @@ const searchItem = ref('');
 const searchItems = async () => {
     hide.value = true;
     const query = searchItem.value;
-    const { data } = await axios.get(route('catalogue.index', { 'name': query }));
+    const { data } = await axios.get('/catalogue', { params: { name: query } });
     items.value = data.items;
-};
+}; 
 
 const fetchPagination = async (page = 1) => {
     if (searchItem.value == '') {
-        const { data } = await axios.get(route('catalogue.index', { 'page': page }));
+        const { data } = await axios.get('/catalogue', { params: { page } });
         items.value = data.items;
     } else {
         const query = searchItem.value;
-        const { data } = await axios.get(route('catalogue.index'), { params: { 'name': query, 'page': page } });
+        const { data } = await axios.get('/catalogue', { params: { name: query, page: page } });
         items.value = data.items;
     };
 };

@@ -12,7 +12,7 @@ class ServicePriceController extends Controller
         $name = $request->query('name');
 
         $items = ServicePrice::when($name, function ($query) use ($name) {
-            return $query->where('name', 'like', '%' . addcslashes($name, '%_') . '%');
+            return $query->where('display', 'like', '%' . addcslashes($name, '%_') . '%');
         })
             ->paginate(15)
             ->withQueryString();

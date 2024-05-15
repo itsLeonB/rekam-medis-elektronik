@@ -1,6 +1,6 @@
 <template>
     <Authenticatedlayout>
-
+        
     </Authenticatedlayout>
 </template>
 <script setup>
