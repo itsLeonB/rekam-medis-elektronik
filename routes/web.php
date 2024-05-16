@@ -198,7 +198,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Finance/DaftarHarga/Index');
     })->name('finance.catalogue');
     Route::get('/finance/catalogue/{id}', function () {
-        return Inertia::render('Finance/DaftarHarga/Index/Detail');
+        return Inertia::render('Finance/DaftarHarga/Detail');
     })->name('finance.catalogue.detail');
 });
 

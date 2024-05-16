@@ -76,9 +76,11 @@
                     <tbody v-for="(item, index) in items.data" :key="item.id">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (items.data.length - 1) }">
+                            <Link :href="route('finance.cataloguedetail', { 'id': item.code })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
                                 {{ item.display }}
                             </th>
+                            </Link>
                             <td class="px-6 py-4 w-2/5">
                                 Rp{{ item.price.value }}
                             </td>
@@ -125,7 +127,7 @@ const items = ref([]);
 const hide = ref(false);
 
 const fetchitems = async (page = 1) => {
-    const {data} = await axios.get('/catalogue', { params: { page } });
+    const { data } = await axios.get('/catalogue', { params: { page } });
     items.value = data.items;
 };
 
@@ -142,7 +144,7 @@ const searchItems = async () => {
     const query = searchItem.value;
     const { data } = await axios.get('/catalogue', { params: { name: query } });
     items.value = data.items;
-}; 
+};
 
 const fetchPagination = async (page = 1) => {
     if (searchItem.value == '') {
