@@ -76,7 +76,7 @@
                     <tbody v-for="(item, index) in items.data" :key="item.id">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (items.data.length - 1) }">
-                            <Link :href="route('finance.cataloguedetail', { 'id': item.code })">
+                            <Link :href="route('finance.catalogue.detail', { 'id': item.code })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
                                 {{ item.display }}
                             </th>
