@@ -9,6 +9,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\ExpertSystemController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -277,10 +278,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/location', [SatusehatController::class, 'searchLocation'])->name('location');
             Route::get('/patient', [SatusehatController::class, 'searchPatient'])->name('patient');
             // Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
-            // Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
+            Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
             // Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
             // Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
-            // Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
+            Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
             // Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
             // Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
             // Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
@@ -299,5 +300,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
     });
 });
+Route::get('medicationOrg', [ExpertSystemController::class, 'indexMedication'])->name('get.medicationOrg');
 
 require __DIR__ . '/auth.php';

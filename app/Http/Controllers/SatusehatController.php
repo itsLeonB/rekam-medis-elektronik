@@ -561,11 +561,11 @@ class SatusehatController extends Controller
         DB::beginTransaction();
 
         $satusehatResponse = $this->update($request, $resourceType, $id);
+        
         $statusCode = $satusehatResponse->getStatusCode();
-
         if ($statusCode == 200) {
             $satusehatResponseBody = json_decode($satusehatResponse->getContent(), true);
-
+            return response()->json($satusehatResponseBody);
             try {
                 $data = FhirResource::where([
                     ['resourceType', $resourceType],
@@ -632,36 +632,36 @@ class SatusehatController extends Controller
     //     return $response;
     // }
 
-    // public function searchCondition(FhirRequest $request)
-    // {
-    //     $query = [];
+    public function searchCondition(FhirRequest $request)
+    {
+        $query = [];
 
-    //     if ($request->query('subject')) {
-    //         $query['subject'] = $request->query('subject');
-    //     }
+        if ($request->query('subject')) {
+            $query['subject'] = $request->query('subject');
+        }
 
-    //     if ($request->query('encounter')) {
-    //         $query['encounter'] = $request->query('encounter');
-    //     }
+        if ($request->query('encounter')) {
+            $query['encounter'] = $request->query('encounter');
+        }
 
-    //     if (empty($query)) {
-    //         return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
-    //     }
+        if (empty($query)) {
+            return response()->json(['error' => 'Either subject and/or encounter must be provided.'], 400);
+        }
 
-    //     $token = $this->getToken();
+        $token = $this->getToken();
 
-    //     $client = new Client();
+        $client = new Client();
 
-    //     $url = $this->baseUrl . '/Condition';
+        $url = $this->baseUrl . '/Condition';
 
-    //     $response = $client->request('GET', $url, [
-    //         'headers' => ['Authorization' => 'Bearer ' . $token],
-    //         'query' => $query,
-    //         'verify' => false,
-    //     ]);
+        $response = $client->request('GET', $url, [
+            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'query' => $query,
+            'verify' => false,
+        ]);
 
-    //     return $response;
-    // }
+        return $response;
+    }
 
     // public function searchObservation(ObservationSearchRequest $request)
     // {
