@@ -200,6 +200,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/catalogue/{id}', function ($id) {
         return Inertia::render('Finance/DaftarHarga/Detail', ['item_id' => $id]);
     })->name('finance.catalogue.detail');
+    Route::get('/finance/catalogue/edit/{id}', function($id) {
+        return Inertia::render('Finance/DaftarHarga/Edit', ['item_id'=>$id]);
+    })->name('finance.catalogue.edit');
 });
 
 // APIs 
