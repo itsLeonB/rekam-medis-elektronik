@@ -197,8 +197,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/catalogue', function () {
         return Inertia::render('Finance/DaftarHarga/Index');
     })->name('finance.catalogue');
-    Route::get('/finance/catalogue/{id}', function () {
-        return Inertia::render('Finance/DaftarHarga/Detail');
+    Route::get('/finance/catalogue/{id}', function ($id) {
+        return Inertia::render('Finance/DaftarHarga/Detail', ['item_id' => $id]);
     })->name('finance.catalogue.detail');
 });
 
@@ -386,7 +386,7 @@ Route::middleware('auth')->group(function () {
     // Harga Jasa Kesehatan (Catalogue) API 
     Route::group(['prefix' => 'catalogue', 'as' => 'catalogue'], function () {
         Route::get('/', [ServicePriceController::class, 'index'])->name('index');
-        Route::get('/{id}', [ServicePriceController::class, 'show'])->name('index');
+        Route::get('/{id}', [ServicePriceController::class, 'show'])->name('show');
     });
 });
 

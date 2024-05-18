@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\ServicePrice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ServicePriceController extends Controller
 {
@@ -24,8 +26,18 @@ class ServicePriceController extends Controller
     {
     }
 
-    public function show()
+    public function show($id) 
     {
+        try {
+            $item = ServicePrice::where('code',$id)->first();
+            return response()->json($item, 200);
+        } catch (Throwable $th){
+            Log::error($th->getMessage());
+            return response()->json([
+                'error' => 'item tidak ditemukan',
+                'message' => $th->getMessage()
+            ], 404);
+        }   
     }
 
     public function update()
