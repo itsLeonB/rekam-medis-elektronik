@@ -14,8 +14,8 @@
     "laravel/framework": "^10.10",
     "laravel/sanctum": "^3.2",
     "laravel/tinker": "^2.8",
-    "mongodb/laravel-mongodb": "4.2",
-    "mongodb/mongodb": "^1.17",
+    "mongodb/laravel-mongodb": "^4.3",
+    "mongodb/mongodb": "^1.19",
     "spatie/laravel-permission": "^6.3",
     "symfony/psr-http-message-bridge": "^6.4",
     "tightenco/ziggy": "^1.0"
