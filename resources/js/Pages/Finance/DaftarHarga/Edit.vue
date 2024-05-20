@@ -13,7 +13,7 @@
                                     Nama
                                 </th>
                                 <td class="px-6 py-4 w-2/3">
-                                    <TextInput v-if="item" v-model="resourceForm.display" />
+                                    <TextInput v-if="item" v-model="form.display" />
                                 </td>
                             </tr>
                             <tr class="bg-original-white-0">
@@ -21,7 +21,7 @@
                                     Kode
                                 </th>
                                 <td class="px-6 py-4 w-2/3">
-                                    {{ item.code }}
+                                    <TextInput v-model="form.code" />
                                 </td>
                             </tr>
                             <tr class="bg-original-white-0">
@@ -29,7 +29,7 @@
                                     Harga
                                 </th>
                                 <td class="px-6 py-4 w-2/3">
-                                    {{ item.price.currency }} {{ item.price.value }}
+                                   <TextInput v-model="form.price.value"/>
                                 </td>
                             </tr>
                         </tbody>
@@ -39,7 +39,7 @@
             <div class="flex flex-col items-center justify-end mt-10">
                 <MainButton
                     class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
-
+                        Submit
                 </MainButton>
             </div>
         </div>
@@ -50,17 +50,17 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import MainButton from '@/Components/MainButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 
 const item = ref(null)
 
-const resourceForm = ref({
-    code: '',
-    display: '',
+const form = useForm({
+    code: 'Hello',
+    display: 'Hello',
     price: 0,
-});
+})
 
 const props = defineProps({
     item_id: {
@@ -71,13 +71,13 @@ const props = defineProps({
 const fetchItem = async () => {
     const { data } = await axios.get('/catalogue/' + props.item_id);
     item.value = data
-    resourceForm.code = item.value.code
-    resourceForm.display = item.value.display
-    resourceForm.price = item.value.price
-    console.log(resourceForm)
+    form.code = item.value.code
+    form.display = item.value.display
+    form.price = item.value.price
 }
 
 onMounted(() => {
     fetchItem();
 })
+
 </script>
