@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\EncounterFormController;
+use App\Http\Controllers\IdentifierController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RekamMedisController;
@@ -181,6 +182,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/daftar/location', [EncounterFormController::class, 'indexLocation'])->name('index.location');
         // Reference Organization per layanan = rawat-jalan | rawat-inap | igd
         Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
+        Route::get('/ref/identifier/{layanan}/{res_type}', [IdentifierController::class, 'getIdentifier'])->name('ref.identifier');
     });
 
     // Endpoint untuk Data Kunjungan Pasien
