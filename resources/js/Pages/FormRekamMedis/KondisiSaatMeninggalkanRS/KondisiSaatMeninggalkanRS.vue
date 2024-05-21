@@ -99,7 +99,7 @@ const submit = () => {
         "encounter": props.encounter_reference
     };
 
-    axios.post(route('integration.store', { res_type: submitResource.resourceType }), submitResource)
+    axios.post(route('integration.store', { resourceType: submitResource.resourceType }), submitResource)
         .then(response => {
             successAlertVisible.value = true;
             setTimeout(() => {

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FhirResource;;
+use App\Models\FhirResource;
+use App\Models\RulePeresepanObat;
 
 class ExpertSystemController extends Controller
 {
@@ -21,5 +22,18 @@ class ExpertSystemController extends Controller
         });
 
         return $medications;
+    }
+    public function rulePeresepanStore(Request $request)
+    {
+        $validated = $request->validate([
+            'keluhan' => 'required|array',
+            'keluhan.*' => 'required',
+            'diagnosa' => 'required',
+            'umur' => 'required',
+        ]);
+
+        $data = RulePeresepanObat::create($validated);
+
+        return response()->json(['message' => 'Data berhasil disimpan', 'data' => $data], 201);
     }
 }

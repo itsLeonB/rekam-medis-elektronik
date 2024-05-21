@@ -15,12 +15,6 @@
                                 track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
                    
                 </div>
-                <!-- <div class="mt-4">
-                        <InputLabel for="form" value="Tipe Obat" />
-                        <Multiselect v-model="form.form" mode="single" placeholder="Tipe"
-                            :object="true" :options="medicationForm" label="display" valueProp="code" track-by="code"
-                            class="mt-1" :classes="combo_classes" required />
-                </div> -->
                 <div class="mt-4">
                         <InputLabel for="extension" value="Extension" />
                         <Multiselect v-model="form.extension" mode="single" placeholder="Extension"
@@ -56,7 +50,6 @@ import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     code_obat: '',
-    form: '',
     extension: '',
 });
 
@@ -73,16 +66,6 @@ const searchMedication = async (query) => {
     return originalData;
 }
 
-const medicationForm = ref(null);
-const getMedicationForm = async () => {
-    const { data } = await axios.get(route('terminologi.get'), {
-        params: {
-            'resourceType': 'Medication',
-            'attribute': 'form'
-        }
-    });
-medicationForm.value = data;
-};
 const organizationRef = ref(null);
 const getorganizationRef = async () => {
     const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
@@ -100,7 +83,6 @@ medicationExtension.value = data;
 };
 
 onMounted(() => {
-    getMedicationForm();
     getMedicationExtension();
     getorganizationRef();
 });

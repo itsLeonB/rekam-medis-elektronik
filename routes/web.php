@@ -110,6 +110,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/medication/tambah', function () {
         return Inertia::render('Medication/TambahMedication');
     })->name('medication.tambah');
+
+    // Route::get('/expertsystems', function () {
+    //     return Inertia::render('Medication/ExpertSystem');
+    // })->name('expertsystems.index');
 });
 
 # Profile
@@ -301,6 +305,15 @@ Route::middleware('auth')->group(function () {
         Route::put('/{resType}/{id}', [ResourceController::class, 'update'])->name('update');
         Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
     });
+    Route::middleware('auth')->group(function () {
+        Route::get('/expertsystems', function () {
+            return Inertia::render('ExpertSystem/index');
+        })->name('expertsystems.index');
+
+        Route::post('/rule-peresepan-obat', [ExpertSystemController::class, 'rulePeresepanStore'])->name('expertsystems.rule.peresepanobat');
+
+    });
+    
 });
 Route::get('medicationOrg', [ExpertSystemController::class, 'indexMedication'])->name('get.medicationOrg');
 
