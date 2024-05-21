@@ -16,12 +16,6 @@
                    
                 </div>
                 <div class="mt-4">
-                        <InputLabel for="form" value="Tipe Obat" />
-                        <Multiselect v-model="form.form" mode="single" placeholder="Tipe"
-                            :object="true" :options="medicationForm" label="display" valueProp="code" track-by="code"
-                            class="mt-1" :classes="combo_classes" required />
-                </div>
-                <div class="mt-4">
                         <InputLabel for="extension" value="Extension" />
                         <Multiselect v-model="form.extension" mode="single" placeholder="Extension"
                             :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
@@ -36,7 +30,7 @@
                 <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
                 <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
             </form>
-
+            
         </div>
     </AuthenticatedLayout>
 </template>
@@ -56,7 +50,6 @@ import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     code_obat: '',
-    form: '',
     extension: '',
 });
 
@@ -74,17 +67,11 @@ const searchMedication = async (query) => {
     return originalData;
 }
 
-const medicationForm = ref(null);
-const getMedicationForm = async () => {
-    const { data } = await axios.get(route('terminologi.get'), {
-        params: {
-            'resourceType': 'Medication',
-            'attribute': 'form'
-        }
-    });
-medicationForm.value = data;
+const organizationRef = ref(null);
+const getorganizationRef = async () => {
+    const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
+    organizationRef.value = data;
 };
-
 const medicationExtension = ref(null);
 const getMedicationExtension = async () => {
     const { data } = await axios.get(route('terminologi.get'), {
@@ -97,8 +84,8 @@ medicationExtension.value = data;
 };
 
 onMounted(() => {
-    getMedicationForm();
     getMedicationExtension();
+    getorganizationRef();
 });
 
 const successAlertVisible = ref(false);
@@ -115,6 +102,7 @@ const test = async () => {
            value: '123456789'
        }
    ],
+    // identifier: [organizationRef.value],
     meta: {
         profile: [
             'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
@@ -127,11 +115,13 @@ const test = async () => {
         display: form.code_obat.name,
       }],
     },
+    
+   status: form.code_obat.active ? 'active' : 'inactive',
     form: {
       coding: [{
         system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
-        code: form.form.code,
-        display: form.form.display,
+        code: form.code_obat.dosage_form.code,
+        display: form.code_obat.dosage_form.name,
       }],
     },
     extension: [
@@ -147,12 +137,22 @@ const test = async () => {
                ]
            }
        }
-   ]
+   ],
+   ingredient: form.code_obat.active_ingredients.map(ingredient => ({
+                itemCodeableConcept: {
+                    coding: [{
+                        system: 'http://sys-ids.kemkes.go.id/kfa',
+                        code: ingredient.kfa_code,
+                        display: ingredient.zat_aktif
+                    }]
+                },
+                isActive: ingredient.active,
+            }))
   };
 
   try { 
     const resourceType = 'Medication';
-    const response = await axios.post(route('integration.store', { resourceType: resourceType }), formDataJson) ;
+    const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
     console.log(response.data);
     
     // Handle successful response

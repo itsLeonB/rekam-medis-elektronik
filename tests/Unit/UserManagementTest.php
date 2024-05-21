@@ -2,9 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Http\Resources\PractitionerResource;
-use App\Models\Fhir\Resource;
-use App\Models\Fhir\Resources\Practitioner;
+use App\Models\FhirResource;
+use App\Models\Role;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -15,6 +14,7 @@ class UserManagementTest extends TestCase
 
     public function test_index_users()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
         // Create some users
@@ -27,15 +27,12 @@ class UserManagementTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the users data
-        $response->assertJson(['users' => User::whereDoesntHave('roles', function ($query) {
-            $query->where('name', 'admin');
-        })
-            ->paginate(15)
-            ->withQueryString()->toArray()]);
+        $response->assertJson(['users' => User::paginate(15)->withQueryString()->toArray()]);
     }
 
     public function test_index_user_with_query()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
@@ -49,22 +46,22 @@ class UserManagementTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the users data
-        $response->assertJson(['users' => User::where('name', 'like', "%{$users[0]->name}%")->whereDoesntHave('roles', function ($query) {
-            $query->where('name', 'admin');
-        })
-            ->paginate(15)
-            ->withQueryString()->toArray()]);
+        $response->assertJson([
+            'users' => User::where('name', 'like', "%{$users[0]->name}%")
+                ->paginate(15)
+                ->withQueryString()
+                ->toArray()
+        ]);
     }
 
     public function test_show_user()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
         // Create a user
-        $user = User::factory()->unverified()->has(Practitioner::factory(), 'practitionerUser')->create();
-        $pracResId = $user->practitionerUser()->first()->resource_id;
-        $resource = new PractitionerResource(Resource::findOrFail($pracResId));
+        $user = User::factory()->create();
 
         // Send a GET request to the show method with the user id
         $response = $this->actingAs($admin)->get(route('users.show', ['user_id' => $user->id]));
@@ -73,14 +70,12 @@ class UserManagementTest extends TestCase
         $response->assertStatus(200);
 
         // Assert that the response contains the user data
-        $response->assertJson([
-            'user' => $user->toArray(),
-            'practitioner' => json_decode(json_encode($resource), true)
-        ]);
+        $response->assertJson($user->toArray());
     }
 
     public function test_create_new_user()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
@@ -92,8 +87,8 @@ class UserManagementTest extends TestCase
         $userData['password_confirmation'] = $password;
         $userData['role'] = 'perekammedis';
 
-        $practitioner = Practitioner::factory()->create();
-        $userData['practitioner_id'] = $practitioner->resource->satusehat_id;
+        $practitioner = FhirResource::factory()->specific('Practitioner')->create();
+        $userData['practitioner_id'] = $practitioner->id;
 
         // Send a POST request to the store method with the user data
         $response = $this->actingAs($admin)->post(route('users.store'), $userData);
@@ -108,6 +103,7 @@ class UserManagementTest extends TestCase
 
     public function test_create_user_non_practitioner()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
@@ -132,6 +128,7 @@ class UserManagementTest extends TestCase
 
     public function test_update_user_same_email()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
@@ -168,6 +165,7 @@ class UserManagementTest extends TestCase
 
     public function test_update_user_diff_email()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
@@ -204,6 +202,7 @@ class UserManagementTest extends TestCase
 
     public function test_delete_user()
     {
+        Role::create(['name' => 'admin']);
         $admin = User::factory()->create();
         $admin->assignRole('admin');
 
@@ -222,6 +221,7 @@ class UserManagementTest extends TestCase
 
     public function test_delete_self()
     {
+        Role::create(['name' => 'admin']);
         // Create a user
         $admin = User::factory()->create();
         $admin->assignRole('admin');

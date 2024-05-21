@@ -15,7 +15,7 @@ class DaftarPasienController extends Controller
         $daftarPasien = $encounters->map(function ($encounter) {
             $patientId = explode('/', data_get($encounter, 'subject.reference'))[1];
             $patient = FhirResource::where([
-                ['resourceType', 'patient'],
+                ['resourceType', 'Patient'],
                 ['id', $patientId]
             ])->first();
 
@@ -32,26 +32,27 @@ class DaftarPasienController extends Controller
             $participant = data_get($encounter, 'participant.0.individual.reference');
             $practitionerId = explode('/', $participant)[1];
             $practitioner = FhirResource::where([
-                ['resourceType', 'practitioner'],
+                ['resourceType', 'Practitioner'],
                 ['id', $practitionerId]
             ])->first();
 
             $locationRef = data_get($encounter, 'location.0.location.reference');
             $locationId = explode('/', $locationRef)[1];
             $location = FhirResource::where([
-                ['resourceType', 'location'],
+                ['resourceType', 'Location'],
                 ['id', $locationId]
             ])->first();
 
             $encounterId = data_get($encounter, 'id');
 
             $procedure = FhirResource::where([
-                ['resourceType', 'procedure'],
+                ['resourceType', 'Procedure'],
                 ['encounter.reference', 'Encounter/' . $encounterId]
             ])->first();
 
             return [
-                'encounter_satusehat_id' => $encounterId,
+                'encounter_satusehat_id'
+                 => $encounterId,
                 'patient_satusehat_id' => $patientId,
                 'patient_name' => data_get($patient, 'name.0.text'),
                 'patient_identifier' => $patientRMID,
@@ -70,7 +71,7 @@ class DaftarPasienController extends Controller
     private function getEncounters(string $class, string $serviceType)
     {
         $encounters = FhirResource::where([
-            ['resourceType', 'encounter'],
+            ['resourceType', 'Encounter'],
             ['class.code', $class],
             ['serviceType.coding.0.code', $serviceType]
         ])
@@ -146,7 +147,7 @@ class DaftarPasienController extends Controller
     public function getDaftarRawatInap()
     {
         $encounters = FhirResource::where([
-            ['resourceType', 'encounter'],
+            ['resourceType', 'Encounter'],
             ['class.code', 'IMP']
         ])
             ->whereNotIn('status', self::ENDED_STATUS)
@@ -158,7 +159,7 @@ class DaftarPasienController extends Controller
     public function getDaftarIgd()
     {
         $encounters = FhirResource::where([
-            ['resourceType', 'encounter'],
+            ['resourceType', 'Encounter'],
             ['class.code', 'EMER']
         ])
             ->whereNotIn('status', self::ENDED_STATUS)

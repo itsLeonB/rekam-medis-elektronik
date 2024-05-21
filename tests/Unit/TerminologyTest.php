@@ -62,7 +62,7 @@ class TerminologyTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->get(route('terminologi.wilayah.kabko'));
+        $response = $this->get(route('terminologi.wilayah.kabko'), ['kode_provinsi' => '35']);
 
         $response->assertStatus(200);
     }
@@ -82,7 +82,7 @@ class TerminologyTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->get(route('terminologi.wilayah.kecamatan'));
+        $response = $this->get(route('terminologi.wilayah.kecamatan'), ['kode_kabko' => '3578']);
 
         $response->assertStatus(200);
     }
@@ -92,7 +92,7 @@ class TerminologyTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
-        $response = $this->get(route('terminologi.wilayah.kelurahan'));
+        $response = $this->get(route('terminologi.wilayah.kelurahan'), ['kode_kecamatan' => '357802']);
 
         $response->assertStatus(200);
     }

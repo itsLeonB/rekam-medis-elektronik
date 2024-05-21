@@ -84,8 +84,10 @@ This project is built using:
    # (Optional) seed database with example data if needed
    php artisan db:seed IdFhirResourceSeeder
 
-   # Build the front-end
+   # Build the front-end (or run for development)
    npm run build
+   # or
+   npm run dev
    ```
 
 7. Serve the app using web servers or local server with `php artisan serve`

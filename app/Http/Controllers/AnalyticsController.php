@@ -45,7 +45,7 @@ class AnalyticsController extends Controller
     public function getEncountersPerMonth()
     {
         $endDate = new \MongoDB\BSON\UTCDateTime(now()->getTimestamp() * 1000);
-        $startDate = new \MongoDB\BSON\UTCDateTime(now()->subYear(13)->getTimestamp() * 1000);
+        $startDate = new \MongoDB\BSON\UTCDateTime(now()->subMonth(13)->getTimestamp() * 1000);
 
         $encounters = FhirResource::raw(function ($collection) use ($startDate, $endDate) {
             return $collection->aggregate([
