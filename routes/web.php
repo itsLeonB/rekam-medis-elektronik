@@ -13,6 +13,7 @@ use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Models\ServicePrice;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -390,6 +391,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'catalogue', 'as' => 'catalogue'], function () {
         Route::get('/', [ServicePriceController::class, 'index'])->name('index');
         Route::get('/{id}', [ServicePriceController::class, 'show'])->name('show');
+        Route::put('/{id}', [ServicePriceController::class,'update'])->name('update');
     });
 });
 

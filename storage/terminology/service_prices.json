@@ -1,5 +1,6 @@
 [
     {
+        "type":"icd9cm",
         "code": "00.01",
         "definition": "Therapeutic ultrasound of vessels of head and neck",
         "display": "Ther ult head & neck ves",

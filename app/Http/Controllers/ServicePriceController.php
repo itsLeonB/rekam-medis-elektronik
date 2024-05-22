@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\ServicePrice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Throwable;
 
@@ -40,8 +42,31 @@ class ServicePriceController extends Controller
         }   
     }
 
-    public function update()
+    public function update(Request $request, $item_id)
     {
+        DB::beginTransaction();
+        // dd($request);
+        try {
+            $item = ServicePrice::where('code',$item_id)->first();
+            $updateData = [
+                'code'=> $request->input('code'),
+                'display'=>$request->input('display'),
+                'price'=> [
+                    'currency'=>$request->input('price.currencyß'),
+                    'value'=>$request->input('price.value')
+                ]
+            ];
+            $item->update($updateData);
+            DB::commit();
+            return response()->json($item, 200);
+        }catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error($th->getMessage());
+            return response()->json([
+                'error' => 'Gagal memperbarui item',
+                'message' => $th->getMessage()
+            ], 500);
+        }
     }
 
     public function destroy()

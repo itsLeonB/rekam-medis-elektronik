@@ -38,7 +38,7 @@
             </div>
             <div class="flex flex-col items-center justify-end mt-10">
                 <MainButton
-                    class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
+                    class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"  @click.prevent="submit" type="submit">
                         Submit
                 </MainButton>
             </div>
@@ -56,10 +56,13 @@ import { ref, onMounted } from 'vue';
 
 const item = ref(null)
 
-const form = useForm({
+const form = ref({
     code: 'Hello',
     display: 'Hello',
-    price: 0,
+    price: {
+        currency: "IDR",
+        value: 0,
+    },
 })
 
 const props = defineProps({
@@ -71,10 +74,20 @@ const props = defineProps({
 const fetchItem = async () => {
     const { data } = await axios.get('/catalogue/' + props.item_id);
     item.value = data
-    form.code = item.value.code
-    form.display = item.value.display
-    form.price = item.value.price
+    console.log(item.value)
+    form.value.code = item.value.code
+    form.value.display = item.value.display
+    form.value.price.currency = item.value.price
 }
+
+const submit = async () => {
+    try {
+        const response = await axios.put('/catalogue/' + props.item_id, form);
+        console.log(response);
+    } catch (error) {
+        console.error("damn");
+    }
+};
 
 onMounted(() => {
     fetchItem();
