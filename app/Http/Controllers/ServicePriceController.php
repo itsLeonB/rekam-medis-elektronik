@@ -45,14 +45,14 @@ class ServicePriceController extends Controller
     public function update(Request $request, $item_id)
     {
         DB::beginTransaction();
-        // dd($request);
         try {
             $item = ServicePrice::where('code',$item_id)->first();
+
             $updateData = [
                 'code'=> $request->input('code'),
                 'display'=>$request->input('display'),
                 'price'=> [
-                    'currency'=>$request->input('price.currencyß'),
+                    'currency'=>$request->input('price.currency'),
                     'value'=>$request->input('price.value')
                 ]
             ];
