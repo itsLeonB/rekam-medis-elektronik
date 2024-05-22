@@ -54,7 +54,7 @@ const form = useForm({
 });
 
 const searchMedication = async (query) => {
-    const { data } = await axios.get(route('terminologi.get'), {
+    const { data } = await axios.get(route('terminologi.medication'), {
         params: {
             'page': 1,
             'size': 10,
@@ -62,7 +62,6 @@ const searchMedication = async (query) => {
             'keyword': query
         }
     });
-    console.log(query, 'print this bitch')
     const originalData = data.items.data;
     return originalData;
 }
