@@ -148,7 +148,7 @@ const submit = () => {
             "recorder": props.practitioner_reference
         };
 
-        axios.post(route('integration.store', { res_type: riwayatAlergiResource.resourceType }), riwayatAlergiResource)
+        axios.post(route('integration.store', { resourceType: riwayatAlergiResource.resourceType }), riwayatAlergiResource)
             .then(response => {
                 successAlertVisible.value = true;
                 setTimeout(() => {

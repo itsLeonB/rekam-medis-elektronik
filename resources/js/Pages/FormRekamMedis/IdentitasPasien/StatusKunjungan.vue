@@ -83,8 +83,8 @@ const submit = async () => {
     newEncounter.value.statusHistory.push(submitResource);
 
     await axios.put(route('integration.update', {
-        res_type: 'Encounter',
-        satusehat_id: props.encounter.id
+        resourceType: 'Encounter',
+        id: props.encounter.id
     }), newEncounter.value)
         .then(response => {
             successAlertVisible.value = true;

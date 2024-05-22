@@ -96,7 +96,7 @@ function submit() {
             ]
         },
         "valueQuantity": {
-            "value": resourceForm.value.text,
+            "value": parseInt(resourceForm.value.text),
             "unit": "C",
             "system": "http://unitsofmeasure.org",
             "code": "Cel"
@@ -108,7 +108,7 @@ function submit() {
         ]
     };
 
-    axios.post(route('integration.store', { res_type: submitResource.resourceType }), submitResource)
+    axios.post(route('integration.store', { resourceType: submitResource.resourceType }), submitResource)
         .then(response => {
             successAlertVisible.value = true;
             setTimeout(() => {

@@ -88,7 +88,7 @@ const submit = () => {
         "valueString": resourceForm.value.text
     };
 
-    axios.post(route('integration.store', { res_type: pemeriksaanPsikologisResource.resourceType }), pemeriksaanPsikologisResource)
+    axios.post(route('integration.store', { resourceType: pemeriksaanPsikologisResource.resourceType }), pemeriksaanPsikologisResource)
         .then(response => {
             successAlertVisible.value = true;
             setTimeout(() => {

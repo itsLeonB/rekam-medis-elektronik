@@ -65,11 +65,14 @@
                     <InputError class="mt-1" />
                 </div>
                 <div class="flex flex-col items-center justify-end mt-10">
-                    <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
+                    <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
                         Daftar
                     </MainButton>
                 </div>
             </form>
+            <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
+                <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
+                <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
         </div>
     </AuthenticatedLayout>
 </template>
@@ -84,6 +87,10 @@ import Modal from '@/Components/Modal.vue';
 import { Link } from '@inertiajs/vue3';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
+
+const successAlertVisible = ref(false);
+const failAlertVisible = ref(false);
+const errorMessage = ref('');
 
 const resourceForm = ref({
     status_kunjungan: 'arrived',
@@ -192,28 +199,28 @@ const submit = async () => {
                     "reference": "Location/" + resourceForm.value.lokasi_ruangan.satusehat_id,
                     "display": resourceForm.value.lokasi_ruangan.name
                 },
-                "period": {
-                    "start": currentTime
-                },
-                "extension": [
-                    {
-                        "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass",
-                        "extension": [
-                            {
-                                "url": "value",
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient",
-                                            "code": resourceForm.value.lokasi_ruangan.serviceClass.split(' ')[1].toLowerCase(),
-                                            "display": resourceForm.value.lokasi_ruangan.serviceClass
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                ]
+                // "period": {
+                //     "start": currentTime
+                // },
+                // "extension": [
+                //     {
+                //         "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass",
+                //         "extension": [
+                //             {
+                //                 "url": "value",
+                //                 "valueCodeableConcept": {
+                //                     "coding": [
+                //                         {
+                //                             "system": "http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient",
+                //                             "code": resourceForm.value.lokasi_ruangan.serviceClass.split(' ')[1].toLowerCase(),
+                //                             "display": resourceForm.value.lokasi_ruangan.serviceClass
+                //                         }
+                //                     ]
+                //                 }
+                //             }
+                //         ]
+                //     }
+                // ]
             }
         ],
         "statusHistory": [
@@ -224,18 +231,41 @@ const submit = async () => {
                 }
             }
         ],
-        "serviceProvider": organizationRef.value
+        "serviceProvider": organizationRef.value,
+        "identifier": [
+            {
+                "system": "http://sys-ids.kemkes.go.id/encounter/d7c204fd-7c20-4c59-bd61-4dc55b78438c",
+                "value": resourceForm.value.patient['ihs-number']
+            }
+    ]
     };
 
-    axios.post(route('integration.store', { res_type: "Encounter" }), submitResource)
-        .then(response => {
-            isLoading.value = false;
-            creationSuccessModal.value = true;
-        })
-        .catch(error => {
-            isLoading.value = false;
-            console.error('Error creating user:', error);
-        });
+    try { 
+    const resourceType = 'Encounter';
+    const response = await axios.post(route('integration.store', { resourceType:  resourceType}), submitResource) ;
+    console.log(response.data);
+    
+    // Handle successful response
+    successAlertVisible.value = true;
+    failAlertVisible.value = false;
+    errorMessage.value = ''; // Clear error message
+
+  } catch (error) {
+       console.error(error.response ? error.response.data : error.message);
+        // Handle error response
+            failAlertVisible.value = true;
+            successAlertVisible.value = false;
+
+       if (error.response && error.response.data) {
+            console.error('Response:', error.response.data); // Display server response data
+            // Assign the error message from the server response to the errorMessage property
+            errorMessage.value = error.response.data.error || 'Failed to save data';
+        } else {
+            // If there is no response, assign a general error message
+            errorMessage.value = 'An error occurred while saving data';
+        }
+        
+    }
 };
 
 const creationSuccessModal = ref(false);

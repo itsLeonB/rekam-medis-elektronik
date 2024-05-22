@@ -1,4 +1,41 @@
 {
+    "resourceType": "Location",
+    "id": "a196d3d2-c8cd-42e8-903b-45cab78eeccc",
+    "identifier": [
+        {
+            "system": "http://sys-ids.kemkes.go.id/location/5fe612fe-eb92-4034-9337-7ad60ab15b94",
+            "use": "official",
+            "value": "Gedung RSUM"
+        }
+    ],
+    "status": "active",
+    "name": "Gedung Rumah Sakit Unipdu Medika",
+    "alias": ["Gedung RSUM", "RSUM"],
+    "description": "Gedung Utama untuk operasional Rumah Sakit Unipdu Medika",
+    "mode": "instance",
+    "type": [
+        {
+            "coding": [
+                {
+                    "system": "http://terminology.kemkes.go.id/CodeSystem/location-type",
+                    "code": "RT0003",
+                    "display": "RS Pendidikan"
+                }
+            ]
+        }
+    ],
+    "telecom": [
+        {
+            "system": "phone",
+            "value": "031-8700000",
+            "use": "work"
+        },
+        {
+            "system": "email",
+            "value": "rsum@mail.com",
+            "use": "work"
+        }
+    ],
     "address": {
         "city": "Surabaya",
         "country": "ID",

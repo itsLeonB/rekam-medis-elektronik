@@ -3,6 +3,7 @@
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\EncounterFormController;
+use App\Http\Controllers\IdentifierController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\IntegrationController;
 use App\Http\Controllers\InvoiceController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\ExpertSystemController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Models\ServicePrice;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rawat-jalan/daftar', function () {
         return Inertia::render('RawatJalan/DaftarRawatJalan');
     })->name('rawatjalan.daftar');
+    Route::get('/rawat-jalan/details/{encounter_satusehat_id}', function ($encounter_satusehat_id) {
+        return Inertia::render('RawatJalan/RawatJalanDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
+    })->name('rawatjalan.details');
 });
 
 # Rawat Inap
@@ -112,6 +117,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/medication/tambah', function () {
         return Inertia::render('Medication/TambahMedication');
     })->name('medication.tambah');
+
+    // Route::get('/expertsystems', function () {
+    //     return Inertia::render('Medication/ExpertSystem');
+    // })->name('expertsystems.index');
 });
 
 # Profile
@@ -268,6 +277,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/daftar/location', [EncounterFormController::class, 'indexLocation'])->name('index.location');
         // Reference Organization per layanan = rawat-jalan | rawat-inap | igd
         Route::get('/ref/organization/{layanan}', [EncounterFormController::class, 'getOrganization'])->name('ref.organization');
+        Route::get('/ref/identifier/{layanan}/{res_type}', [IdentifierController::class, 'getIdentifier'])->name('ref.identifier');
     });
 
     // Endpoint untuk Data Kunjungan Pasien
@@ -365,10 +375,10 @@ Route::middleware('auth')->group(function () {
             Route::get('/location', [SatusehatController::class, 'searchLocation'])->name('location');
             Route::get('/patient', [SatusehatController::class, 'searchPatient'])->name('patient');
             // Route::get('/encounter', [SatusehatController::class, 'searchEncounter'])->name('encounter');
-            // Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
+            Route::get('/condition', [SatusehatController::class, 'searchCondition'])->name('condition');
             // Route::get('/observation', [SatusehatController::class, 'searchObservation'])->name('observation');
             // Route::get('/procedure', [SatusehatController::class, 'searchProcedure'])->name('procedure');
-            // Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
+            Route::get('/medicationrequest', [SatusehatController::class, 'searchMedicationRequest'])->name('medicationrequest');
             // Route::get('/composition', [SatusehatController::class, 'searchComposition'])->name('composition');
             // Route::get('/allergyintolerance', [SatusehatController::class, 'searchAllergyIntolerance'])->name('allergyintolerance');
             // Route::get('/clinicalimpression', [SatusehatController::class, 'searchClinicalImpression'])->name('clinicalimpression');
@@ -393,6 +403,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}', [ServicePriceController::class, 'show'])->name('show');
         Route::put('/{id}', [ServicePriceController::class,'update'])->name('update');
     });
+    Route::middleware('auth')->group(function () {
+        Route::get('/expertsystems', function () {
+            return Inertia::render('ExpertSystem/index');
+        })->name('expertsystems.index');
+
+        Route::post('/rule-peresepan-obat', [ExpertSystemController::class, 'rulePeresepanStore'])->name('expertsystems.rule.peresepanobat');
+
+    });
+    
 });
+Route::get('medicationOrg', [ExpertSystemController::class, 'indexMedication'])->name('get.medicationOrg');
 
 require __DIR__ . '/auth.php';

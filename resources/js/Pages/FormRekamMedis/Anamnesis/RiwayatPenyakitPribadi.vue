@@ -112,7 +112,7 @@ const submit = () => {
             "encounter": props.encounter_reference
         };
 
-        axios.post(route('integration.store', { res_type: riwayatPenyakitPribadiResource.resourceType }), riwayatPenyakitPribadiResource)
+        axios.post(route('integration.store', { resourceType: riwayatPenyakitPribadiResource.resourceType }), riwayatPenyakitPribadiResource)
             .then(response => {
                 successAlertVisible.value = true;
                 setTimeout(() => {

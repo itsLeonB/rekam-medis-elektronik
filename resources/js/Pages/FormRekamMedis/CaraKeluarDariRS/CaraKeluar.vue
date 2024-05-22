@@ -217,8 +217,8 @@ const submit = async () => {
     };
 
     axios.put(route('integration.update', {
-        res_type: 'Encounter',
-        satusehat_id: props.encounter_satusehat_id
+        resourceType: 'Encounter',
+        id: props.encounter_satusehat_id
     }), encounter.value)
         .then(response => {
             successAlertVisible.value = true;

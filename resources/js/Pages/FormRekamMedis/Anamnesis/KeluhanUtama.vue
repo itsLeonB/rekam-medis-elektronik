@@ -60,7 +60,7 @@ const props = defineProps({
     encounter_reference: {
         type: Object,
         required: true
-    },
+     },
 });
 
 const keluhan = ref([{
@@ -112,8 +112,7 @@ const submit = () => {
             "subject": props.subject_reference,
             "encounter": props.encounter_reference
         };
-
-        axios.post(route('integration.store', { res_type: keluhanUtamaResource.resourceType }), keluhanUtamaResource)
+        axios.post(route('integration.store', { resourceType: keluhanUtamaResource.resourceType}), keluhanUtamaResource)
             .then(response => {
                 successAlertVisible.value = true;
                 setTimeout(() => {

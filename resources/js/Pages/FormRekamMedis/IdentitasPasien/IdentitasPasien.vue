@@ -95,7 +95,11 @@ const props = defineProps({
 const patient = ref({});
 
 const fetchPatient = async () => {
-    const { data } = await axios.get(route('local.patient.show', { 'satusehat_id': props.encounter.subject.reference.split('/')[1] }));
+    const { data } = await axios.get(route('resources.show', 
+    {
+        'resType': 'Patient',
+        'id': props.encounter.subject.reference.split('/')[1] 
+    }));
     patient.value = data;
 };
 
