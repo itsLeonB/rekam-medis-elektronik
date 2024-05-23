@@ -165,6 +165,14 @@ import NavLink from '@/Components/NavLink.vue';
                             <span class="pt-1">Expert Systems</span>
                         </NavLink>
                     </li>
+                    <li>
+                        <NavLink :href="route('finance')" :active="route().current('finance')">
+                            <span class="mr-2">
+                                <img width="24" height="24" src="https://img.icons8.com/material-two-tone/24/money.png" alt="money"/>
+                            </span>
+                            <span class="pt-1">Finance</span>
+                        </NavLink>
+                    </li>
                 </ul>
             </aside>
             <div class="min-h-full px-5 md:px-10 xl:pl-80 xl:pr-14 pb-10 w-full">
@@ -180,6 +188,7 @@ import NavLink from '@/Components/NavLink.vue';
             <ResponsiveNavLink :href="route('usermanagement')" :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('medication')" :active="route().current('medication')">Medication</ResponsiveNavLink>
             <ResponsiveNavLink :href="route('expertsystems.index')" :active="route().current('expertsystems.index')">Expert Systems</ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('finance')" :active="route().current('finance')">Finance</ResponsiveNavLink>
         </template>
     </AuthenticatedLayout>
 </template> 

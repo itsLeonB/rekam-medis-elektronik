@@ -69,6 +69,9 @@
                                 Nama
                             </th>
                             <th scope="col" class="px-6 py-3 w-2/5">
+                                Deskripsi
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-2/5">
                                 Harga
                             </th>
                         </tr>
@@ -81,6 +84,9 @@
                                 {{ item.display }}
                             </th>
                             </Link>
+                            <td>
+                                {{ item.definition }}
+                            </td>
                             <td class="px-6 py-4 w-2/5">
                                 Rp{{ item.price.value }}
                             </td>

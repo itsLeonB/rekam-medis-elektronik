@@ -68,19 +68,19 @@
                 <div class="mt-4">
                     <InputLabel value="Kunjungan" />
                     <Multiselect mode="single" placeholder="Rincian Biaya" :object="true" :options="encounterList"
-                        label="period" valueProp="id" track-by="id" class="mt-1" :classes="combo_classes" required
+                        label="label" valueProp="id" track-by="id" class="mt-1" :classes="combo_classes" required
                         v-on:change="getChargeItemList" />
                     <InputError class="mt-1" />
-                    <table class="w-full h-auto mt-2 border">
+                    <table class="w-full h-auto mt-2 border" v-if="procedureList">
                         <tr>
                             <th>No</th>
                             <th>Procedure/Observation</th>
                             <th>Harga</th>
                         </tr>
-                        <tr class=" text-center" v-for="(item, index) in chargeItemList" :key="index">
+                        <tr class="text-center" v-for="(item, index) in chargeItemList" :key="index" v-if="procedureList">
                             <td>{{ index + 1 }}</td>
                             <td>{{ item.code.coding[0].display }}</td>
-                            <td></td>
+                            <td>{{ item.resourceType=="Procedure" ? item.price.price.value : 0 }}</td>
                         </tr>
                     </table>
                 </div>
@@ -126,7 +126,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import MainButton from '@/Components/MainButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import axios from 'axios';
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, provide } from 'vue';
 
 const resourceForm = ref({
     status: '1',
@@ -198,19 +198,54 @@ const chargeItemList = computed(() => {
     return [...medicationList.value, ...procedureList.value]
 })
 
+const formatDate = (isoString) => {
+    const date = new Date(isoString);
+
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const dayOfWeek = daysOfWeek[date.getDay()]; // Get the day of the week
+
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+
+    return `${dayOfWeek} ${day}/${month}/${year}`;
+};
+
+
 const getpractitionerList = async () => {
     const { data } = await axios.get(route('form.index.encounter'));
     practitionerList.value = data;
 };
 
 const getResourceList = async (resourceName, list) => {
-    const { data } = await axios.get(`/resources/${resourceName}`);
-    list.value = data;
+    try {
+        const { data } = await axios.get(`/resources/${resourceName}`);
+
+        if (resourceName == 'Encounter') {
+            list.value = data.map((item, index) => ({
+                ...item,
+                label: `${item.subject.display} | ${formatDate(item.period.start)}`
+            }));
+        } else {
+            list.value = data
+        }
+    } catch (error) {
+        console.error('Error fetching resources:', error);
+    }
 }
 
 const getChargeItemList = async () => {
-    getResourceList('Procedure', procedureList);
-    getResourceList('Medication', medicationList);
+    await getResourceList('Procedure', procedureList);
+    await getResourceList('Medication', medicationList);
+    const updatedProcedures = await Promise.all(procedureList.value.map(async (item) => {
+        const { data } = await axios.get(`/catalogue/${item.code.coding[0].code}`);
+        return {
+            ...item,
+            price: data
+        };
+    }));
+
+    procedureList.value = updatedProcedures
 }
 
 onMounted(() => {
