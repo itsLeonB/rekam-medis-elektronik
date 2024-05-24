@@ -11,6 +11,7 @@ use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\ExpertSystemController;
+use App\Http\Controllers\MedicationController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -101,15 +102,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 # Medication
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/medication', function () {
+    Route::get('/medication/table', function () {
         return Inertia::render('Medication/Medication');
-    })->name('medication');
+    })->name('medication.table');
     Route::get('/user-management/details/{user_id}', function ($user_id) {
         return Inertia::render('Medication/MedicationDetails', ['user_id' => $user_id]);
     })->name('medication.details');
     Route::get('/medication/tambah', function () {
         return Inertia::render('Medication/TambahMedication');
     })->name('medication.tambah');
+    Route::get('/medication', function () {
+        return Inertia::render('Medication/DashboardMedication');
+    })->name('medication');
 
     // Route::get('/expertsystems', function () {
     //     return Inertia::render('Medication/ExpertSystem');
@@ -160,6 +164,24 @@ Route::middleware('auth')->group(function () {
         Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
         // Daftar pasien rawat inap, serviceType per ruangan
         Route::get('/rawat-inap', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
+        // Daftar pasien IGD
+        Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+    });
+
+    // Endpoint untuk View Medication
+    Route::group(['prefix' => 'medication', 'as' => 'medication.'], function () {
+        // Daftar pasien rawat jalan
+        Route::middleware('permission:akses poli umum')->get('/rawat-jalan/umum', [DaftarPasienController::class, 'getDaftarPoliUmum'])->name('rawat-jalan.umum');
+        Route::middleware('permission:akses poli neurologi')->get('/rawat-jalan/neurologi', [DaftarPasienController::class, 'getDaftarPoliNeurologi'])->name('rawat-jalan.neurologi');
+        Route::middleware('permission:akses poli obgyn')->get('/rawat-jalan/obgyn', [DaftarPasienController::class, 'getDaftarPoliObgyn'])->name('rawat-jalan.obgyn');
+        Route::middleware('permission:akses poli gigi')->get('/rawat-jalan/gigi', [DaftarPasienController::class, 'getDaftarPoliGigi'])->name('rawat-jalan.gigi');
+        Route::middleware('permission:akses poli kulit')->get('/rawat-jalan/kulit', [DaftarPasienController::class, 'getDaftarPoliKulit'])->name('rawat-jalan.kulit');
+        Route::middleware('permission:akses poli ortopedi')->get('/rawat-jalan/ortopedi', [DaftarPasienController::class, 'getDaftarPoliOrtopedi'])->name('rawat-jalan.ortopedi');
+        Route::middleware('permission:akses poli penyakit dalam')->get('/rawat-jalan/dalam', [DaftarPasienController::class, 'getDaftarPoliDalam'])->name('rawat-jalan.dalam');
+        Route::middleware('permission:akses poli bedah')->get('/rawat-jalan/bedah', [DaftarPasienController::class, 'getDaftarPoliBedah'])->name('rawat-jalan.bedah');
+        Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
+        // Daftar pasien rawat inap, serviceType per ruangan
+        Route::get('/medication', [MedicationController::class, 'getDaftarObat'])->name('medication');
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
     });

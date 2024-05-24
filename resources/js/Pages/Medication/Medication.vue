@@ -74,19 +74,19 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="(user, index) in users.data" :key="user.id">
+                    <tbody v-for="(patient, index) in patients" :key="index">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                            :class="{ 'border-b': index !== (users.data.length - 1) }">
-                            <Link :href="route('usermanagement.details', { 'user_id': user.id })">
+                            :class="{ 'border-b': index !== (patients.length - 1) }">
+                            <Link :href="route('medication.details', { 'encounter_satusehat_id': patient.encounter_satusehat_id })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
-                                {{ user.name }}
+                                {{ patient.medication_name }}
                             </th>
                             </Link>
                             <td class="px-6 py-4 w-2/5">
-                                {{ user.email }}
+                                {{ patient.patient_identifier }}
                             </td>
-                            <td v-html="user.email_verified_at ? 'Sudah' : '<strong>Belum</strong>'"
-                                class="px-6 py-4 w-1/5">
+                            <td class="px-6 py-4 w-2/5">
+                                {{ patient.medication_name }}
                             </td>
                         </tr>
                     </tbody>
@@ -151,6 +151,12 @@ const searchUsers = async () => {
     const { data } = await axios.get(route('users.index', {'name': query}));
     users.value = data.users;
 };
+const fetchObat = async () => {
+    const { data } = await axios.get(route('medication'));
+    patients.value = data;
+    console.log(patients.value)
+};
+
 
 const fetchPagination = async (page = 1) => {
     if (searchNama.value == '') {

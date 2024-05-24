@@ -64,6 +64,48 @@
                         Pasien</span>
                 </div>
             </div>
+            <div class="px-10 py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
+                <div class="mr-5 h-fit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 74 74" fill="none">
+                        <circle cx="37" cy="37" r="37" fill="#ECFBF4" />
+                        <path
+                            d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091"
+                            stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />
+                        <path
+                            d="M40.3634 41.4847C39.8028 40.9241 43.0057 41.0642 45.4482 38.5415C46.6694 37.2801 43.0057 37.2801 43.0057 30.9733C43.0057 26.7692 44.6336 24.6665 47.8907 24.6665C51.1478 24.6665 52.7758 26.7692 52.7758 30.9733C52.7758 37.2801 49.112 37.2801 50.3332 38.5415C52.7758 41.0642 57.6608 41.0642 57.6608 44.8483"
+                            stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />
+                        <path
+                            d="M15.6973 44.8483C15.6973 41.0642 20.5823 41.0642 23.0248 38.5415C24.2461 37.2801 20.5823 37.2801 20.5823 30.9733C20.5823 26.7692 22.2103 24.6665 25.4674 24.6665C28.7245 24.6665 30.3524 26.7692 30.3524 30.9733C30.3524 37.2801 26.6886 37.2801 27.9099 38.5415C30.3524 41.0642 32.5154 39.8029 32.5154 41.4847"
+                            stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />
+                    </svg>
+                </div>
+                <div class="h-fit">
+                    <h2 class="text-base font-normal text-neutral-grey-100">Total Pasien Terdaftar</h2>
+                    <span class="text-xl font-semibold text-neutral-black-500">{{ totalPasienTerdaftar }}
+                        Pasien</span>
+                </div>
+            </div>
+            <div class="px-5  py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
+                <div class="mr-5 h-fit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 74 74" fill="none">
+                        <circle cx="37" cy="37" r="37" fill="#ECFBF4" />
+                        <path
+                            d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091"
+                            stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />
+                        <path
+                            d="M40.3634 41.4847C39.8028 40.9241 43.0057 41.0642 45.4482 38.5415C46.6694 37.2801 43.0057 37.2801 43.0057 30.9733C43.0057 26.7692 44.6336 24.6665 47.8907 24.6665C51.1478 24.6665 52.7758 26.7692 52.7758 30.9733C52.7758 37.2801 49.112 37.2801 50.3332 38.5415C52.7758 41.0642 57.6608 41.0642 57.6608 44.8483"
+                            stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />
+                        <path
+                            d="M15.6973 44.8483C15.6973 41.0642 20.5823 41.0642 23.0248 38.5415C24.2461 37.2801 20.5823 37.2801 20.5823 30.9733C20.5823 26.7692 22.2103 24.6665 25.4674 24.6665C28.7245 24.6665 30.3524 26.7692 30.3524 30.9733C30.3524 37.2801 26.6886 37.2801 27.9099 38.5415C30.3524 41.0642 32.5154 39.8029 32.5154 41.4847"
+                            stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />
+                    </svg>
+                </div>
+                <div class="h-fit">
+                    <h2 class="text-base font-normal text-neutral-grey-100">Total Pasien Terdaftar</h2>
+                    <span class="text-xl font-semibold text-neutral-black-500">{{ totalPasienTerdaftar }}
+                        Pasien</span>
+                </div>
+            </div>
         </div>
         <div class="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
             <div class="p-5 flex flex-col basis-3/5 h-fit bg-white overflow-hidden shadow sm:rounded-xl">
