@@ -62,7 +62,7 @@
 
                 <div class="mt-4">
                     <InputLabel value="Payment Details" />
-                    <TextInput />
+                    <TextInput v-model="resourceForm.rekening" />
                 </div>
                 <!-- Rincian Biaya -->
                 <div class="mt-4">
@@ -71,16 +71,17 @@
                         label="label" valueProp="id" track-by="id" class="mt-1" :classes="combo_classes" required
                         v-on:change="getChargeItemList" />
                     <InputError class="mt-1" />
-                    <table class="w-full h-auto mt-2 border" v-if="procedureList">
+                    <table class="w-full h-auto mt-2 border">
                         <tr>
                             <th>No</th>
                             <th>Procedure/Observation</th>
                             <th>Harga</th>
                         </tr>
-                        <tr class="text-center" v-for="(item, index) in chargeItemList" :key="index" v-if="procedureList">
+                        <tr class="text-center" v-for="(item, index) in chargeItemList" :key="index">
                             <td>{{ index + 1 }}</td>
                             <td>{{ item.code.coding[0].display }}</td>
-                            <td>{{ item.resourceType=="Procedure" ? item.price.price.value : 0 }}</td>
+                            <td v-if="item.price">{{ item.resourceType == "Procedure" ? item.price.price.value : 0 }}
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -126,8 +127,31 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import MainButton from '@/Components/MainButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import axios from 'axios';
-import { ref, onMounted, computed, provide } from 'vue';
+import { ref, onMounted, computed, provide, watch } from 'vue';
 
+// List Practitioner, Encounter, Procedure, Medication
+const practitionerList = ref(null);
+const encounterList = ref(null);
+const procedureList = ref(null);
+const medicationList = ref(null);
+const isLoading = ref(false); // Status loading
+
+// List ChargeItem = procedure + medication
+const chargeItemList = computed(() => {
+    if (!medicationList.value || !procedureList.value) {
+        return [];
+    }
+    return [...medicationList.value, ...procedureList.value]
+});
+
+// Total price
+const chargeItemTotal = computed(() => {
+    return chargeItemList.value
+        .filter(item => item.price)
+        .reduce((total, item) => total + Number(item.price.price.value), 0);
+});
+
+// Resource Form
 const resourceForm = ref({
     status: '1',
     cancelledReason: null,
@@ -136,18 +160,20 @@ const resourceForm = ref({
     date: null,
     participant: null,
     bank: null,
-    rekening: null,
-    note: null,
-    totalPriceComponent: null,
-    totalNett: null,
-    totalGross: null,
-    lineItem: null
+    rekening: "",
+    note: '',
+    totalPriceComponent: `${chargeItemTotal.value}`,
+    totalNett: "0",
+    totalGross: "0",
+    lineItem: []
 });
 
-const chargeItem = ref({
+// Watch for changes in chargeItemList to update total price
+watch(chargeItemTotal, (newValue) => {
+    resourceForm.value.totalPriceComponent = newValue;
+});
 
-})
-
+// Submit Form
 const submit = async () => {
     isLoading.value = true;
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
@@ -171,9 +197,10 @@ const submit = async () => {
         });
 }
 
-const invoiceStatus = { 'draft': 'draft', 'issued': 'issued', 'balanced': 'balanced', 'cancelled': 'cancelled', 'entered-in-error': 'entered in error' }
-const paymentMethods = { 'bank': 'Bank Transfer', 'cash': 'Cash', 'qris': 'QRIS', 'debit': 'Debit Card', 'credit': 'Credit Card' }
+const invoiceStatus = { 'draft': 'draft', 'issued': 'issued', 'balanced': 'balanced', 'cancelled': 'cancelled', 'entered-in-error': 'entered in error' } // Status Invoice
+const paymentMethods = { 'bank': 'Bank Transfer', 'cash': 'Cash', 'qris': 'QRIS', 'debit': 'Debit Card', 'credit': 'Credit Card' } // Payment Methods
 
+// Searching Patient By NIK
 const searchPatient = async (query) => {
     const { data } = await axios.get(route('rekam-medis.index', { 'nik': query }));
     const originalData = data.rekam_medis.data;
@@ -185,19 +212,7 @@ const searchPatient = async (query) => {
     return originalData;
 };
 
-const practitionerList = ref(null);
-const encounterList = ref(null);
-const procedureList = ref(null);
-const medicationList = ref(null);
-const organizationList = ref(null);
-
-const chargeItemList = computed(() => {
-    if (!medicationList.value || !procedureList.value) {
-        return [];
-    }
-    return [...medicationList.value, ...procedureList.value]
-})
-
+// Format Date
 const formatDate = (isoString) => {
     const date = new Date(isoString);
 
@@ -211,12 +226,13 @@ const formatDate = (isoString) => {
     return `${dayOfWeek} ${day}/${month}/${year}`;
 };
 
-
+// Function for getting practitioner resource
 const getpractitionerList = async () => {
     const { data } = await axios.get(route('form.index.encounter'));
     practitionerList.value = data;
 };
 
+// Function for getting fhir resource
 const getResourceList = async (resourceName, list) => {
     try {
         const { data } = await axios.get(`/resources/${resourceName}`);
@@ -234,6 +250,7 @@ const getResourceList = async (resourceName, list) => {
     }
 }
 
+// 
 const getChargeItemList = async () => {
     await getResourceList('Procedure', procedureList);
     await getResourceList('Medication', medicationList);
@@ -243,7 +260,9 @@ const getChargeItemList = async () => {
             ...item,
             price: data
         };
-    }));
+    }
+
+    ));
 
     procedureList.value = updatedProcedures
 }
