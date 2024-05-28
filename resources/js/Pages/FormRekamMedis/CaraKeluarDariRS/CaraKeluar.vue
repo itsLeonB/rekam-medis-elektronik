@@ -93,14 +93,13 @@ const encounter = ref({});
 const fetchEncounter = async () => {
     const { data } = await axios.get(route('resources.show', { 'resType':'Encounter', 'id': props.encounter_satusehat_id }));
     encounter.value = data;
+    console.log(encounter.value)
 };
 
 const conditionList = ref(null);
 const getconditionList = async () => {
     try {
         const { data } = await axios.get(route('kunjungan', { 'resType': 'Condition', 'encounterId': props.encounter_satusehat_id }));
-        console.log('Data received:', data); // Debugging: Lihat struktur data yang diterima
-
         if (data && data.diagnosis) {
             conditionList.value = data.diagnosis.map(diagnosis => ({
                 id: diagnosis.id,
@@ -146,12 +145,13 @@ const isLoading = ref(false);
 
 const submit = async () => {
 try {
-    isLoading.value = true;
+    //isLoading.value = true;
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
     encounter.value.status = 'finished';
+
     encounter.value.period.end = currentTime;
     encounter.value.statusHistory[encounter.value.statusHistory.length - 1].period.end = currentTime;
-    encounter.value.location[encounter.value.location.length - 1].period.end = currentTime;
+    // encounter.value.location[encounter.value.location.length - 1].period.end = currentTime;
     encounter.value.statusHistory.push({
         "status": 'finished',
         "period": {
