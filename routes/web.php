@@ -11,6 +11,7 @@ use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\ExpertSystemController;
+use App\Http\Controllers\ObatController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -162,6 +163,16 @@ Route::middleware('auth')->group(function () {
         Route::get('/rawat-inap', [DaftarPasienController::class, 'getDaftarRawatInap'])->name('rawat-inap');
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+    });
+    
+     // Endpoint untuk View mediation
+    Route::group(['prefix' => 'obat', 'as' => 'obat.'], function () {
+        // Daftar obat
+        Route::get('/', [ObatController::class, 'index'])->name('index');
+        // Detail obat
+        Route::get('/{medication_id}', [ObatController::class, 'show'])->name('show');
+        // Pull update dari obat dari SATUSEHAT
+        Route::get('/{medication_id}/update', [ObatController::class, 'updateObat'])->name('update');
     });
 
     // Endpoint untuk Dashboard Analytics

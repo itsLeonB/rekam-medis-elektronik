@@ -3,6 +3,18 @@
         <template #apphead>
             <title>Tambah Obat - </title>
         </template>
+        <Modal :show="creationSuccessModal">
+            <div class="p-6">
+                <h2 class="text-lg text-center font-medium text-gray-900">
+                    Data Obat berhasil ditambahkan. <br> Kembali ke halaman Obat.
+                </h2>
+                <div class="mt-6 flex justify-end">
+                    <Link :href="route('medication')"
+                        class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    Kembali </Link>
+                </div>
+            </div>
+        </Modal>
         <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
             <h1 class="text-2xl font-bold text-neutral-black-300">Tambah Obat</h1>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan user.</p>
@@ -44,6 +56,8 @@ import Multiselect from '@vueform/multiselect';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import { Link } from '@inertiajs/vue3';
+import Modal from '@/Components/Modal.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
@@ -90,8 +104,11 @@ onMounted(() => {
 const successAlertVisible = ref(false);
 const failAlertVisible = ref(false);
 const errorMessage = ref('');
+const creationSuccessModal = ref(false);
+const isLoading = ref(false);
 
 const test = async () => {
+  isLoading.value = true;
   let formDataJson = {
     resourceType: 'Medication',
     identifier: [
@@ -154,23 +171,19 @@ const test = async () => {
     const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
     console.log(response.data);
     
-    // Handle successful response
-    successAlertVisible.value = true;
+    creationSuccessModal.value = true;
     failAlertVisible.value = false;
-    errorMessage.value = ''; // Clear error message
+    errorMessage.value = ''; 
 
   } catch (error) {
        console.error(error.response ? error.response.data : error.message);
-        // Handle error response
             failAlertVisible.value = true;
-            successAlertVisible.value = false;
+            creationSuccessModal.value = true;
 
        if (error.response && error.response.data) {
-            console.error('Response:', error.response.data); // Display server response data
-            // Assign the error message from the server response to the errorMessage property
+            console.error('Response:', error.response.data); 
             errorMessage.value = error.response.data.error || 'Failed to save data';
         } else {
-            // If there is no response, assign a general error message
             errorMessage.value = 'An error occurred while saving data';
         }
         

@@ -246,7 +246,7 @@ const submit = async () => {
     console.log(response.data);
     
     // Handle successful response
-    successAlertVisible.value = true;
+    creationSuccessModal.value = true;
     failAlertVisible.value = false;
     errorMessage.value = ''; // Clear error message
 
@@ -254,7 +254,7 @@ const submit = async () => {
        console.error(error.response ? error.response.data : error.message);
         // Handle error response
             failAlertVisible.value = true;
-            successAlertVisible.value = false;
+            creationSuccessModal.value = false;
 
        if (error.response && error.response.data) {
             console.error('Response:', error.response.data); // Display server response data

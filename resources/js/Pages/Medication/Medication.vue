@@ -20,14 +20,6 @@
                 </svg>
                 Tambah Obat
             </Link>
-            <Link :href="route('expertsystems.index')" as="button"
-                class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                Expert System
-            </Link>
         </div>
         <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
             <!-- Search bar -->
@@ -63,30 +55,36 @@
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
                     <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
                         <tr>
-                            <th scope="col" class="px-6 py-3 w-2/5">
+                            <th scope="col" class="px-6 py-3 w-1/5">
                                 Kode
                             </th>
-                            <th scope="col" class="px-6 py-3 w-2/5">
+                            <th scope="col" class="px-6 py-3 w-3/5">
                                 Nama 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-2/5">
+                                Tipe 
                             </th>
                             <th scope="col" class="px-6 py-3 w-1/5">
                                 Status
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="(user, index) in users.data" :key="user.id">
+                    <tbody v-for="(medication, index) in medications.data" :key="index">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                            :class="{ 'border-b': index !== (users.data.length - 1) }">
-                            <Link :href="route('usermanagement.details', { 'user_id': user.id })">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
-                                {{ user.name }}
+                            :class="{ 'border-b': index !== (medications.data.length - 1) }">
+                            <!-- <Link :href="route('usermanagement.details', { 'user_id': user.id })"> -->
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">
+                                {{ medication.code }}
                             </th>
-                            </Link>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ user.email }}
+                            <!-- </Link> -->
+                            <td class="px-6 py-4 w-3/5">
+                                {{ medication.name }}
                             </td>
-                            <td v-html="user.email_verified_at ? 'Sudah' : '<strong>Belum</strong>'"
-                                class="px-6 py-4 w-1/5">
+                            <td class="px-6 py-4 w-2/5">
+                                {{ medication.form }}
+                            </td>
+                           <td class="px-6 py-4 w-2/5">
+                                {{ medication.status }}
                             </td>
                         </tr>
                     </tbody>
@@ -94,24 +92,26 @@
             </div>
 
             <nav class="flex justify-end">
-                <ul v-for="(link, index) in users.links" class="inline-flex -space-x-px text-base h-10">
-                    <li v-if="index === 0">
-                        <button @click="fetchPagination((users.current_page - 1) < 1 ? 1 : (users.current_page - 1))"
+                <ul class="inline-flex -space-x-px text-base h-10">
+                    <li>
+                        <button @click="fetchPagination((medications.current_page - 1) < 1 ? 1 : (medications.current_page - 1))"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">&laquo;</button>
                     </li>
-                    <li v-else-if="index !== 0 && index !== (users.links.length - 1) && link.active == false">
-                        <button @click="fetchPagination(link.url === null ? users.current_page : link.label)"
-                            class="flex items-center justify-center px-4 h-10 text-neutral-grey-200 bg-original-white-0 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{
-                                link.label }}</button>
-                    </li>
-                    <li v-else-if="index !== 0 && index !== (users.links.length - 1) && link.active == true">
-                        <button @click="fetchPagination(link.label)"
-                            class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 ">{{
-                                link.label }}</button>
-                    </li>
-                    <li v-else-if="index === (users.links.length - 1)">
+                    <template v-for="(item, index) in paging">
+                        <li v-if="item !== medications.current_page">
+                            <button @click="fetchPagination(item === '...' ? medications.current_page : item)"
+                                class="flex items-center justify-center px-4 h-10 text-neutral-grey-200 bg-original-white-0 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{
+                                    item }}</button>
+                        </li>
+                        <li v-else-if="item === medications.current_page">
+                            <button @click="fetchPagination(item)"
+                                class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 ">{{
+                                    item }}</button>
+                        </li>
+                    </template>
+                    <li>
                         <button
-                            @click="fetchPagination((users.current_page + 1) > users.last_page ? users.last_page : (users.current_page + 1))"
+                            @click="fetchPagination((medications.current_page + 1) > medications.last_page ? medications.last_page : (medications.current_page + 1))"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">&raquo;</button>
                     </li>
                 </ul>
@@ -124,18 +124,11 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import MainButton from '@/Components/MainButton.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage} from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const users = ref([]);
-
 const hide = ref(false);
-
-const fetchUsers = async (page = 1) => {
-    const { data } = await axios.get(route('users.index', {'page': page}));
-    users.value = data.users;
-};
 
 const cancelSearch = async () => {
     hide.value = false;
@@ -143,28 +136,26 @@ const cancelSearch = async () => {
     fetchUsers(1);
 };
 
-const searchNama = ref('');
-
-const searchUsers = async () => {
-    hide.value = true;
-    const query = searchNama.value;
-    const { data } = await axios.get(route('users.index', {'name': query}));
-    users.value = data.users;
+const medications = ref([]);
+const fetchMedications = async (page = 1) => {
+    const { data } = await axios.get(route('obat.index', {'page': page}));
+    medications.value = data.obat;
+    generateNumbers(1, medications.value.current_page, medications.value.last_page);
 };
 
 const fetchPagination = async (page = 1) => {
     if (searchNama.value == '') {
-        const { data } = await axios.get(route('users.index', {'page': page}));
-        users.value = data.users;
+        const { data } = await axios.get(route('obat.index', {'page': page}));
+        medications.value = data.obat;
     } else {
         const query = searchNama.value;
-        const { data } = await axios.get(route('users.index'), {params: {'name': query, 'page': page}});
-        users.value = data.users;
+        const { data } = await axios.get(route('obat.index'), {params: {'name': query, 'page': page}});
+        medications.value = data.obat;
     };
 };
 
 onMounted(() => {
-    fetchUsers();
+    fetchMedications();
 }
 );
 

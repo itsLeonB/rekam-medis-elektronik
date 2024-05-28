@@ -41,8 +41,9 @@
                     </select>
                    <InputError class="mt-1" />
                 </div>
+    
                     
-                <!-- <div class="mt-4">
+                <div class="mt-4">
                     <InputLabel for="name" value="Obat" />
                     <Multiselect v-model="form.obat" mode="multiple" placeholder="Obat"
                                 :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="400"
@@ -55,7 +56,7 @@
                     <TextArea v-model="form.instruksi" id="text" type="text"
                                 class="text-sm mt-1 block w-full" placeholder="Instruksi Obat yang diberikan" required></TextArea>
                 <InputError class="mt-1" />
-                </div> -->
+                </div>
                 <div v-for="(field, index) in form.obatInstruksi" :key="index" class="mt-4">
                     <div>
                         <InputLabel for="name" value="Obat" />
@@ -136,9 +137,8 @@ const form = useForm({
     keluhan: [],
     diagnosa: '',
     umur_id: '',
-    obat: [null],
-    instruski: [null]
-    //instruksi:'',
+    obat: [],
+    instruski: []
 });
 const addField = () => {
     let data = {
