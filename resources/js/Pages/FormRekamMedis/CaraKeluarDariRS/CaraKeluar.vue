@@ -91,18 +91,29 @@ const props = defineProps({
 
 const encounter = ref({});
 const fetchEncounter = async () => {
-    const { data } = await axios.get(route('local.encounter.show', { 'satusehat_id': props.encounter_satusehat_id }));
+    const { data } = await axios.get(route('resources.show', { 'resType':'Encounter', 'id': props.encounter_satusehat_id }));
     encounter.value = data;
+    console.log(encounter.value)
 };
 
 const conditionList = ref(null);
 const getconditionList = async () => {
-    const { data } = await axios.get(route('kunjungan.condition', { 'encounter_satusehat_id': props.encounter_satusehat_id }));
-    conditionList.value = data.diagnosis.map(diagnosis => ({
-        id: diagnosis.id,
-        codeDisplay: diagnosis.code.coding[0].display
-    }));
+    try {
+        const { data } = await axios.get(route('kunjungan', { 'resType': 'Condition', 'encounterId': props.encounter_satusehat_id }));
+        if (data && data.diagnosis) {
+            conditionList.value = data.diagnosis.map(diagnosis => ({
+                id: diagnosis.id,
+                codeDisplay: diagnosis.code.coding[0].display
+            }));
+        } else {
+            console.error('Diagnosis data is undefined or null');
+        }
+    } catch (error) {
+        console.error('Error fetching condition list:', error);
+    }
 };
+
+getconditionList();
 
 const dischargeDispositionList = ref(null);
 const getdischargeDispositionList = async () => {
@@ -133,12 +144,14 @@ const failAlertVisible = ref(false);
 const isLoading = ref(false);
 
 const submit = async () => {
-    isLoading.value = true;
+try {
+    //isLoading.value = true;
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
     encounter.value.status = 'finished';
+
     encounter.value.period.end = currentTime;
     encounter.value.statusHistory[encounter.value.statusHistory.length - 1].period.end = currentTime;
-    encounter.value.location[encounter.value.location.length - 1].period.end = currentTime;
+    // encounter.value.location[encounter.value.location.length - 1].period.end = currentTime;
     encounter.value.statusHistory.push({
         "status": 'finished',
         "period": {
@@ -216,25 +229,36 @@ const submit = async () => {
         });
     };
 
-    axios.put(route('integration.update', {
+    await axios.put(route('integration.update', {
         resourceType: 'Encounter',
         id: props.encounter_satusehat_id
-    }), encounter.value)
-        .then(response => {
-            successAlertVisible.value = true;
-            setTimeout(() => {
-                successAlertVisible.value = false;
-            }, 3000);
-            isLoading.value = false;
-        })
-        .catch(error => {
-            console.error('Error creating user:', error);
-            failAlertVisible.value = true;
-            setTimeout(() => {
-                failAlertVisible.value = false;
-            }, 3000);
-            isLoading.value = false;
-        });
+    }), encounter.value);
+    successAlertVisible.value = true;
+        setTimeout(() => {
+            successAlertVisible.value = false;
+        }, 3000);
+    } catch (error) {
+        console.error('Error updating encounter:', error.message);
+        failAlertVisible.value = true;
+        setTimeout(() => {
+            failAlertVisible.value = false;
+        }, 3000);
+        // .then(response => {
+        //     successAlertVisible.value = true;
+        //     setTimeout(() => {
+        //         successAlertVisible.value = false;
+        //     }, 3000);
+        //     isLoading.value = false;
+        // })
+        // .catch(error => {
+        //     console.error('Error creating user:', error);
+        //     failAlertVisible.value = true;
+        //     setTimeout(() => {
+        //         failAlertVisible.value = false;
+        //     }, 3000);
+        //     isLoading.value = false;
+        // });
+}
 };
 
 onMounted(() => {

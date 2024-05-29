@@ -102,13 +102,12 @@ class RekamMedisController extends Controller
     {
         $conditions = FhirResource::where([
             ['resourceType', 'Condition'],
-            'encounter.reference', 'Encounter/' . $encounterId
+            ['encounter.reference', 'Encounter/' . $encounterId]
         ])->get();
-
-        return $conditions->groupBy(function ($condition) {
+        
+        $conditions->groupBy(function ($condition) {
             $category = data_get($condition, 'category.0.coding.0.code');
             $code = data_get($condition, 'code.coding.0.system');
-
             if ($category == 'encounter-diagnosis' && $code == 'http://hl7.org/fhir/sid/icd-10') {
                 return 'diagnosis';
             } elseif ($category == 'encounter-diagnosis' && $code == 'http://snomed.info/sct') {
@@ -121,6 +120,20 @@ class RekamMedisController extends Controller
                 return $condition;
             });
         });
+       $data = FhirResource::where([
+        ['encounter.reference', '=', 'Encounter/' . $encounterId],
+        ['resourceType', '=', 'Condition']
+    ])->get();
+    
+    // return response()->json($groupedConditions);
+        return response()->json([
+        'diagnosis' => $conditions->map(function ($condition) {
+            return [
+                'id' => $condition->id,
+                'code' => $condition->code
+            ];
+        })
+    ]);
     }
 
     public function show($patientId)
@@ -206,9 +219,26 @@ class RekamMedisController extends Controller
         if ($resType == 'Condition') {
             return $this->getConditionData($encounterId);
         } else {
-            return FhirResource::where('resourceType', $resType)
-                ->where($attr . '.reference', 'Encounter/' . $encounterId)
-                ->get();
+        $attr = 'Encounter';
+        switch ($resType) {
+            case 'Observation':
+            case 'Procedure':
+            case 'MedicationRequest':
+            case 'Composition':
+            case 'AllergyIntolerance':
+            case 'ClinicalImpression':
+            case 'ServiceRequest':
+            case 'QuestionnaireResponse':
+                $attr = 'encounter';
+                break;
+            case 'MedicationStatement':
+                $attr = 'context';
+                break;
         }
+
+        return FhirResource::where('resourceType', $resType)
+            ->where($attr . '.reference', 'Encounter/' . $encounterId)
+            ->get();
+    }
     }
 }

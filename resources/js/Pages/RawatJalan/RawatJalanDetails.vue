@@ -77,7 +77,7 @@
                         <div class="w-full lg:w-2/3 py-2 lg:pr-7 lg:pb-0">
                             <h2 class="text-xl font-semibold text-secondhand-orange-300">a. Identitas Pasien</h2>
                             <div class="space-y-4">
-                                <IdentitasPasien :encounter="encounter" />
+                                <IdentitasPasien :encounter="encounter" :subject_reference="subject_ref"/>
                             </div>
                         </div>
                         <!-- Kanan -->

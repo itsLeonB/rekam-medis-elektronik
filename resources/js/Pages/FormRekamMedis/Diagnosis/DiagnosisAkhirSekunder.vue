@@ -145,15 +145,28 @@ const submit = () => {
         });
 };
 
+// const searchicd10 = async (query) => {
+//     const { data } = await axios.get(route('terminologi.icd10', { 'search': query }));
+//     const originalData = data;
+//     for (const key in originalData) {
+//         const currentObject = originalData[key];
+//         const label = `${currentObject.display_id} | Code: ${currentObject.code}`;
+//         currentObject.label = label;
+//     }
+//     return originalData;
+// };
+
 const searchicd10 = async (query) => {
     const { data } = await axios.get(route('terminologi.icd10', { 'search': query }));
     const originalData = data;
-    for (const key in originalData) {
-        const currentObject = originalData[key];
-        const label = `${currentObject.display_id} | Code: ${currentObject.code}`;
-        currentObject.label = label;
-    }
-    return originalData;
+    originalData.data = originalData.data.map(item => {
+        return {
+                ...item,
+                label: `${item.display_id} | Code: ${item.code}`,
+                value: item.code
+            };
+        });
+    return originalData.data;
 };
 
 const clinicalStatusList = ref(null);
