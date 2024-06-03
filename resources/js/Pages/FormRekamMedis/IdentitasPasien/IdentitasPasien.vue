@@ -90,18 +90,39 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    subject_reference: {
+        type: Object,
+        required: false
+    },
 });
 
 const patient = ref({});
 
+// const fetchPatient = async () => {
+//     const { data } = await axios.get(route('resources.show', 
+//     {
+//         'resType': 'Patient',
+//         'id': props.encounter.subject.reference.split('/')[1] 
+//     }));
+//     patient.value = data;
+// };
+
 const fetchPatient = async () => {
-    const { data } = await axios.get(route('resources.show', 
-    {
-        'resType': 'Patient',
-        'id': props.encounter.subject.reference.split('/')[1] 
-    }));
-    patient.value = data;
+    try {
+        const id = props.subject_reference.reference.split('/')[1]
+        props.encounter.subject.display;
+        const { data } = await axios.get(route('resources.show', {
+            resType: 'Patient',
+            id: id
+        }));
+        console.log(id)
+        patient.value = data;
+    } catch (error) {
+        console.error("Error fetching patient data:", error.message);
+    }
 };
+
+
 
 watch(() => props.encounter, () => {
     fetchPatient();

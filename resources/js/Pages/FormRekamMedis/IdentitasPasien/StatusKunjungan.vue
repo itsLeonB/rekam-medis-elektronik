@@ -59,46 +59,88 @@ const status_kunjungan_list = [
     { "id": 'cancelled', "label": 'Cancelled' }
 ];
 
-const newEncounter = ref({});
+// const newEncounter = ref({});
 
-watch(() => props.encounter, () => {
-    newEncounter.value = props.encounter;
-    status_kunjungan.value = newEncounter.value.status
-}, { immediate: true });
+// watch(() => props.encounter, () => {
+//     newEncounter.value = props.encounter;
+//     status_kunjungan.value = newEncounter.value.status
+//     console.log(newEncounter.value);
+// }, { immediate: true });
 
 const successAlertVisible = ref(false);
 const failAlertVisible = ref(false);
 
+// const submit = async () => {
+//     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
+//     newEncounter.value.statusHistory[newEncounter.value.statusHistory.length - 1].period.end = currentTime;
+//     newEncounter.value.status = status_kunjungan.value;
+//     const submitResource = {
+//         "status": status_kunjungan.value,
+//         "period": {
+//             "start": currentTime,
+//         }
+
+//     };
+//     newEncounter.value.statusHistory.push(submitResource);
+
+//     await axios.put(route('integration.update', {
+//         resourceType: 'Encounter',
+//         id: props.encounter.id
+//     }), newEncounter.value)
+//         .then(response => {
+//             successAlertVisible.value = true;
+//             setTimeout(() => {
+//                 successAlertVisible.value = false;
+//             }, 3000);
+//         })
+//         .catch(error => {
+//             console.error('Error creating user:', error);
+//             failAlertVisible.value = true;
+//             setTimeout(() => {
+//                 failAlertVisible.value = false;
+//             }, 3000);
+//         });
+// };
+const newEncounter = ref({});
+
+watch(() => props.encounter, () => {
+    newEncounter.value = props.encounter;
+    status_kunjungan.value = newEncounter.value.status;
+}, { immediate: true });
+
 const submit = async () => {
-    const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
-    newEncounter.value.statusHistory[newEncounter.value.statusHistory.length - 1].period.end = currentTime;
-    newEncounter.value.status = status_kunjungan.value;
-    const submitResource = {
-        "status": status_kunjungan.value,
-        "period": {
-            "start": currentTime,
+    try {
+        const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
+
+        if (newEncounter.value.statusHistory.length > 0) {
+            newEncounter.value.statusHistory[newEncounter.value.statusHistory.length - 1].period.end = currentTime;
         }
+        newEncounter.value.status = status_kunjungan.value;
+        
+        const submitResource = {
+            "status": status_kunjungan.value,
+            "period": {
+                "start": currentTime
+            }
+        };   
+        newEncounter.value.statusHistory.push(submitResource);
 
-    };
-    newEncounter.value.statusHistory.push(submitResource);
+        await axios.put(route('integration.update', {
+            resourceType: 'Encounter',
+            id: props.encounter.id
+        }), newEncounter.value);
 
-    await axios.put(route('integration.update', {
-        resourceType: 'Encounter',
-        id: props.encounter.id
-    }), newEncounter.value)
-        .then(response => {
-            successAlertVisible.value = true;
-            setTimeout(() => {
-                successAlertVisible.value = false;
-            }, 3000);
-        })
-        .catch(error => {
-            console.error('Error creating user:', error);
-            failAlertVisible.value = true;
-            setTimeout(() => {
-                failAlertVisible.value = false;
-            }, 3000);
-        });
+        successAlertVisible.value = true;
+        setTimeout(() => {
+            successAlertVisible.value = false;
+        }, 3000);
+    } catch (error) {
+        console.error('Error updating encounter:', error.message);
+        failAlertVisible.value = true;
+        setTimeout(() => {
+            failAlertVisible.value = false;
+        }, 3000);
+    }
 };
 
 </script>
