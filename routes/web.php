@@ -194,16 +194,26 @@ Route::middleware('auth')->group(function () {
         })->name('usermanagement.edit');
     });
 
+
     // Halaman Finance
     Route::get('/finance', function () {
         return Inertia::render('Finance/Finance');
     })->name('finance');
+    // Invoice
     Route::get('/finance/invoice', function () {
         return Inertia::render('Finance/InvoiceIndex');
     })->name('finance.invoice');
     Route::get('/finance/invoice/create', function () {
         return Inertia::render('Finance/FormInvoice');
     })->name('finance.newinvoice');
+    // ChargeItem
+    Route::get('/finance/charge-item', function() {
+        return Inertia::render('Finance/ChargeItem/PilihEncounter');
+    })->name('finance.chargeitem.index');
+    Route::get('finance/charge-item/{resType}/{id}', function($resType, $id) {
+        return Inertia::render('Finance/ChargeItem/Buat', ['item_id'=>$id, 'item_res_type'=>$resType]);
+    })->name('finance.chargeitem.create');
+    // Catalogue
     Route::get('/finance/catalogue', function () {
         return Inertia::render('Finance/DaftarHarga/Index');
     })->name('finance.catalogue');

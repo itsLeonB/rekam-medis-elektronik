@@ -151,6 +151,15 @@ const chargeItemTotal = computed(() => {
         .reduce((total, item) => total + Number(item.price.price.value), 0);
 });
 
+const grossPrice = computed(() => {
+    return chargeItemTotal.value;
+})
+
+const nettPrice = computed(() => {
+    return chargeItemTotal.value;
+})
+
+
 // Resource Form
 const resourceForm = ref({
     status: '1',
@@ -163,8 +172,8 @@ const resourceForm = ref({
     rekening: "",
     note: '',
     totalPriceComponent: `${chargeItemTotal.value}`,
-    totalNett: "0",
-    totalGross: "0",
+    totalNett: 0,
+    totalGross: 0,
     lineItem: []
 });
 
@@ -173,17 +182,44 @@ watch(chargeItemTotal, (newValue) => {
     resourceForm.value.totalPriceComponent = newValue;
 });
 
+// Watch for changes in chargeItemList to update total price
+watch(grossPrice, (newValue) => {
+    resourceForm.value.totalGross = newValue;
+});
+
+// Watch for changes in chargeItemList to update total price
+watch(nettPrice, (newValue) => {
+    resourceForm.value.totalNett = newValue;
+});
+
 // Submit Form
 const submit = async () => {
     isLoading.value = true;
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
     const submitResource = {
-        "resourceType": "Encounter",
+        "resourceType": "Invoice",
         "status": resourceForm.status,
         "subject": resourceForm.subject,
+        "type": resourceForm.type,
         "recipient": resourceForm.recipient,
         "date": resourceForm.date,
-        "participant": resourceForm.participant
+        "participant": resourceForm.participant,
+        "issuer": "Organization/id",
+        "lineItem": [],
+        "totalPriceComponent": {
+            "currency": "IDR",
+            "value": resourceForm.totalPriceComponent
+        },
+        "totalNet": {
+            "currency": "IDR",
+            "value": resourceForm.totalNet
+        },
+        "totalGross": {
+            "currency": "IDR",
+            "value": resourceForm.totalGross
+        },
+        "paymentTerms": resourceForm.paymentMethods,
+        "note": resourceForm.note,
     }
 
     axios.post(route('integration.store', { res_type: "Invoice" }), submitResource)
@@ -250,7 +286,7 @@ const getResourceList = async (resourceName, list) => {
     }
 }
 
-// 
+// Get data based on encounter dan beri harga untuk yang memiliki hargas
 const getChargeItemList = async () => {
     await getResourceList('Procedure', procedureList);
     await getResourceList('Medication', medicationList);
@@ -261,11 +297,12 @@ const getChargeItemList = async () => {
             price: data
         };
     }
-
     ));
 
     procedureList.value = updatedProcedures
 }
+
+const chargeItem = ref([])
 
 onMounted(() => {
     getpractitionerList();

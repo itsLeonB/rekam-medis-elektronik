@@ -321,7 +321,9 @@ return [
         'ServiceRequest' => ['get', 'post', 'put', 'patch'],
         // 'Specimen' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
         // 'RelatedPerson' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
-        'Patient' => ['get', 'post']
+        'Patient' => ['get', 'post'],
+        'Invoice' => ['get', 'post', 'put', 'patch'],
+        'ChargeItem' => ['get', 'post', 'put', 'patch']
     ],
 
     'resource_type_map' => [
