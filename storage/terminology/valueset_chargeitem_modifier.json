@@ -1,0 +1,8037 @@
+[
+    {
+        "code": "AU001",
+        "display": "Urinalisis",
+        "Kategori": "Analisis Urin"
+    },
+    {
+        "code": "AU002",
+        "display": "Esbach",
+        "Kategori": "Analisis Urin"
+    },
+    {
+        "code": "AU003",
+        "display": "Hemoglobin urin",
+        "Kategori": "Analisis Urin"
+    },
+    {
+        "code": "AP001",
+        "display": "Anak",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP002",
+        "display": "Pediatrik",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP003",
+        "display": "AP/PA & Lateral",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP004",
+        "display": "AP/PA & Top Lordotik",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP005",
+        "display": "AP/PA/Lateral/Top",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP006",
+        "display": "BMH (Bone Metabolic Health)/ Total body Composition",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP007",
+        "display": "CITO (on site radiography)",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP008",
+        "display": "DBT (digital breast tomosynthesis)",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP009",
+        "display": "Enema",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP010",
+        "display": "Follow Throught",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP011",
+        "display": "Impingment Series",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP012",
+        "display": "Implant Orthopedic Series",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP013",
+        "display": "Instability",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP014",
+        "display": "Lumbal Dinamic",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP015",
+        "display": "Meal",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP016",
+        "display": "Panoramic",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP017",
+        "display": "Panoramic 3D",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP018",
+        "display": "Rest",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP019",
+        "display": "Sonde",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP020",
+        "display": "Stereotactic biopsy/guided localization",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP021",
+        "display": "Stress Test",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP022",
+        "display": "Tomografi",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP023",
+        "display": "Total Body Composition",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP024",
+        "display": "Ultrasonografi Mammae",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP025",
+        "display": "Vertebral Mophometry",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP026",
+        "display": "Dengan Pesawat Panoramic",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP027",
+        "display": "AP+Lateral",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP028",
+        "display": "AP+Lateral+Towne",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP029",
+        "display": "AP+Lateral+Waters",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP030",
+        "display": "Stress Perfusion",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP031",
+        "display": "BNO",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP032",
+        "display": "BNO dengan Sonde",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "AP033",
+        "display": "Waters",
+        "Kategori": "Arah/Teknik Pemindaian"
+    },
+    {
+        "code": "OC001",
+        "display": "Jantung",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "OC002",
+        "display": "Abdomen",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "OC003",
+        "display": "Airway",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "OC004",
+        "display": "Functional Hemodynamic Assesment",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "OC005",
+        "display": "Doppler cranial",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "OC006",
+        "display": "Paru",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "OC007",
+        "display": "Vaskular",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "OC008",
+        "display": "doppler cranial/vascular/jantung/paru/abdomen/airway",
+        "Kategori": "Area Point of Care"
+    },
+    {
+        "code": "BA001",
+        "display": "Ristocetin",
+        "Kategori": "Bahan Agregasi"
+    },
+    {
+        "code": "BA002",
+        "display": "ADP/TAT",
+        "Kategori": "Bahan Agregasi"
+    },
+    {
+        "code": "BE001",
+        "display": "Coil",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE002",
+        "display": "Alkohol/polyvinyl alcohol (PVA)/beads",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE003",
+        "display": "Cerebral-glue",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE004",
+        "display": "Gelatine foam",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE005",
+        "display": "Glue",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE006",
+        "display": "Liquid embolic adhesive material (NBCA, etc)",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE007",
+        "display": "Liquid embolic non-adhesive material (Onyx, etc)",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE008",
+        "display": "Onyx",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BE009",
+        "display": "Vascular plug/balloon occluder",
+        "Kategori": "Bahan Embolan"
+    },
+    {
+        "code": "BP001",
+        "display": "Akrilik",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP002",
+        "display": "All Porcelain",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP003",
+        "display": "Bone graft dan atau membran",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP004",
+        "display": "Emax",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP005",
+        "display": "Metal",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP006",
+        "display": "MTA",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP007",
+        "display": "Ortholux",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP008",
+        "display": "Plat",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP009",
+        "display": "Porcelain Fused to Metal (PFM)",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP010",
+        "display": "PRP/PRF",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP011",
+        "display": "Tambalan",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BP012",
+        "display": "Zirconia",
+        "Kategori": "Bahan Perawatan Gigi"
+    },
+    {
+        "code": "BS001",
+        "display": "Bleomisin",
+        "Kategori": "Bahan sklerosan"
+    },
+    {
+        "code": "BS002",
+        "display": "Doksisiklin",
+        "Kategori": "Bahan Sklerosan"
+    },
+    {
+        "code": "BS003",
+        "display": "Talc",
+        "Kategori": "Bahan Sklerosan"
+    },
+    {
+        "code": "BS004",
+        "display": "Triamsinolon",
+        "Kategori": "Bahan sklerosan"
+    },
+    {
+        "code": "BS005",
+        "display": "Histoakril",
+        "Kategori": "Bahan sklerosan"
+    },
+    {
+        "code": "BT001",
+        "display": "Elastis (Neuromusculoskeletal)",
+        "Kategori": "Bahan Tapping"
+    },
+    {
+        "code": "BT002",
+        "display": "Rigid",
+        "Kategori": "Bahan Tapping"
+    },
+    {
+        "code": "CP001",
+        "display": "Dioleskan",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP002",
+        "display": "Disuntikkan 1-2 cc",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP003",
+        "display": "Disuntikkan 3-4 cc",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP004",
+        "display": "Intramuskular",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP005",
+        "display": "Intratekal",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP006",
+        "display": "Intravena",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP007",
+        "display": "IV Bolus",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP008",
+        "display": "Oral",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP009",
+        "display": "Pervaginam",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP010",
+        "display": "Subkutan",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP011",
+        "display": "Sublingual",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP012",
+        "display": "Transabdominal",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP013",
+        "display": "Interstitial",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP014",
+        "display": "Intrakaviter",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP015",
+        "display": "Superficial/mould",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP016",
+        "display": "Transkutan",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP017",
+        "display": "Transvena",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP018",
+        "display": "Enteral",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP019",
+        "display": "Parenteral",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP020",
+        "display": "Parenteral compounding",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP021",
+        "display": "Intrakameral/COA/Bubble",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP022",
+        "display": "Intrastromal Kornea",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP023",
+        "display": "Intravitreal",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP024",
+        "display": "Subkonjungtiva/Subkutis",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP025",
+        "display": "Subtenon/Sclera",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP026",
+        "display": "IM bolus",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP027",
+        "display": "Intraperitoneal (HIPEC)",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP028",
+        "display": "Intraomaya",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP029",
+        "display": "Injeksi",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP030",
+        "display": "Ekstraoral",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "CP031",
+        "display": "Intraoral",
+        "Kategori": "Cara Pemberian"
+    },
+    {
+        "code": "DG001",
+        "display": "2D",
+        "Kategori": "Dimensi Gambar"
+    },
+    {
+        "code": "DG002",
+        "display": "3D",
+        "Kategori": "Dimensi Gambar"
+    },
+    {
+        "code": "DG003",
+        "display": "4D",
+        "Kategori": "Dimensi Gambar"
+    },
+    {
+        "code": "DG004",
+        "display": "2D/3D",
+        "Kategori": "Dimensi Gambar"
+    },
+    {
+        "code": "DO001",
+        "display": ">100-124 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO002",
+        "display": ">10-14 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO003",
+        "display": ">125-149 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO004",
+        "display": ">150-199 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO005",
+        "display": ">15-29 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO006",
+        "display": ">30-49 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO007",
+        "display": ">50-79 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO008",
+        "display": ">5-9 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO009",
+        "display": ">80-99 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO010",
+        "display": "1 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO011",
+        "display": "100 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO012",
+        "display": "120 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO013",
+        "display": "150 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO014",
+        "display": "2 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO015",
+        "display": "200 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO016",
+        "display": "3 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO017",
+        "display": "50 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO018",
+        "display": "75 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DO019",
+        "display": "80 mCi",
+        "Kategori": "Dosis"
+    },
+    {
+        "code": "DP001",
+        "display": "<3 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP002",
+        "display": ">3 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP003",
+        "display": "<1 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP004",
+        "display": "1-3 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP005",
+        "display": "14 Hari",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP006",
+        "display": "48 Jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP007",
+        "display": "7 Hari",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP008",
+        "display": "72 Jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP009",
+        "display": "Per hari standar",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP010",
+        "display": "1 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP011",
+        "display": "12 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP012",
+        "display": "24 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP013",
+        "display": "4 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP014",
+        "display": "6 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP015",
+        "display": "6-8 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP016",
+        "display": "Jahit ulang besar (90 menit)",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP017",
+        "display": "Jahit ulang kecil (60 menit)",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP018",
+        "display": "Long exercise",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP019",
+        "display": "Short exercise",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP020",
+        "display": "Long term",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP021",
+        "display": "2 hari",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP022",
+        "display": "3 hari",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP023",
+        "display": "4 hari",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP024",
+        "display": ">1 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP025",
+        "display": "5 hari",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP026",
+        "display": "semi-permanen/long-term/CDL Tunnelling",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP027",
+        "display": "temporer/short-term",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP028",
+        "display": "<30 menit",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP029",
+        "display": ">30 menit",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP030",
+        "display": "hemodialisis short-term/long-term",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP031",
+        "display": "temporer dan semipermanen",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP032",
+        "display": "4 sesi",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP033",
+        "display": "2 sesi",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP034",
+        "display": "3 sesi",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP035",
+        "display": "1 sesi",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP036",
+        "display": "6 sesi",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP037",
+        "display": "6x pertemuan",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP038",
+        "display": "12x pertemuan",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP039",
+        "display": "30 menit-1 jam",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP040",
+        "display": "<15 menit",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DP041",
+        "display": ">15 menit",
+        "Kategori": "Durasi Pelayanan/Tindakan"
+    },
+    {
+        "code": "DT001",
+        "display": "Dosis rendah",
+        "Kategori": "Durasi Terapi"
+    },
+    {
+        "code": "DT002",
+        "display": "Dosis tinggi",
+        "Kategori": "Durasi Terapi"
+    },
+    {
+        "code": "FR001",
+        "display": "Kateterisasi Intermiten Berkala atau Clean Intermittent Catheterization (CIC)",
+        "Kategori": "Fungsi Rehabilitasi"
+    },
+    {
+        "code": "FR002",
+        "display": "Transcranial Magnetic Stimulation (TMS)",
+        "Kategori": "Fungsi Rehabilitasi"
+    },
+    {
+        "code": "FR003",
+        "display": "Neuromuscular Activation System",
+        "Kategori": "Fungsi Rehabilitasi"
+    },
+    {
+        "code": "IT001",
+        "display": "High Level",
+        "Kategori": "Intensitas Terapi"
+    },
+    {
+        "code": "IT002",
+        "display": "Low Level",
+        "Kategori": "Intensitas Terapi"
+    },
+    {
+        "code": "JL001",
+        "display": "Dalam kota",
+        "Kategori": "Jarak Layanan"
+    },
+    {
+        "code": "JL002",
+        "display": "Luar Kota",
+        "Kategori": "Jarak Layanan"
+    },
+    {
+        "code": "AK001",
+        "display": "Hemodialys Catheter Fibrin Occlusion",
+        "Kategori": "Jenis Akses"
+    },
+    {
+        "code": "AK002",
+        "display": "Peritoneal Dialysis Catheter Fibrin Occlusion",
+        "Kategori": "Jenis Akses"
+    },
+    {
+        "code": "AK003",
+        "display": "Eksterna",
+        "Kategori": "Jenis Akses"
+    },
+    {
+        "code": "AK004",
+        "display": "Interna",
+        "Kategori": "Jenis Akses"
+    },
+    {
+        "code": "JA001",
+        "display": "Badan",
+        "Kategori": "Jenis Akupresur"
+    },
+    {
+        "code": "JA002",
+        "display": "Bayi",
+        "Kategori": "Jenis Akupresur"
+    },
+    {
+        "code": "JA003",
+        "display": "Instrument-Assisted",
+        "Kategori": "Jenis Akupresur"
+    },
+    {
+        "code": "JA004",
+        "display": "Vaccaria seed",
+        "Kategori": "Jenis Akupresur"
+    },
+    {
+        "code": "AI001",
+        "display": "Tanam Benang",
+        "Kategori": "Jenis Akupunktur Invasif"
+    },
+    {
+        "code": "AI002",
+        "display": "Wajah Estetik Advance",
+        "Kategori": "Jenis Akupunktur Invasif"
+    },
+    {
+        "code": "AL001",
+        "display": "Intraarticular",
+        "Kategori": "Jenis Akupunktur Laser"
+    },
+    {
+        "code": "AL002",
+        "display": "Intravaskular",
+        "Kategori": "Jenis Akupunktur Laser"
+    },
+    {
+        "code": "AL003",
+        "display": "Laser Multilead",
+        "Kategori": "Jenis Akupunktur Laser"
+    },
+    {
+        "code": "AL004",
+        "display": "Laser Portable",
+        "Kategori": "Jenis Akupunktur Laser"
+    },
+    {
+        "code": "AL005",
+        "display": "Transcranial",
+        "Kategori": "Jenis Akupunktur Laser"
+    },
+    {
+        "code": "AR001",
+        "display": "Elektroakupunktur",
+        "Kategori": "Jenis Akupunktur Listrik"
+    },
+    {
+        "code": "AR002",
+        "display": "Transcutaneous Electrical Acupoint Stimulation",
+        "Kategori": "Jenis Akupunktur Listrik"
+    },
+    {
+        "code": "AM001",
+        "display": "Kepala",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM002",
+        "display": "Obesitas",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM003",
+        "display": "Mikroakupunktur 1 (Short; 20 menit)",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM004",
+        "display": "Mikroakupunktur 2 (Moderate; 45 menit)",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM005",
+        "display": "Mikroakupunktur 3 (Long; 60 menit)",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM006",
+        "display": "Cupping",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM007",
+        "display": "Fertilitas",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM008",
+        "display": "Kecantikan",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM009",
+        "display": "Manual Tubuh 1 posisi",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM010",
+        "display": "Manual Tubuh 2 posisi",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AM011",
+        "display": "Press needle",
+        "Kategori": "Jenis Akupunktur Manual"
+    },
+    {
+        "code": "AT001",
+        "display": "Sonopunktur",
+        "Kategori": "Jenis Akupunktur Ultrasound"
+    },
+    {
+        "code": "DV001",
+        "display": "Dengan spekulum",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV002",
+        "display": "Scalpel",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV003",
+        "display": "Tanpa spekulum",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV004",
+        "display": "Balloon",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV005",
+        "display": "Balloon+Stent (1 balon, 1 stent)",
+        "Kategori": "Jenis alat"
+    },
+    {
+        "code": "DV006",
+        "display": "Dengan graft",
+        "Kategori": "Jenis alat"
+    },
+    {
+        "code": "DV007",
+        "display": "Savary-Gilliard",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV008",
+        "display": "Single Balloon",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV009",
+        "display": "tanpa graft",
+        "Kategori": "Jenis alat"
+    },
+    {
+        "code": "DV010",
+        "display": "Treadmill",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV011",
+        "display": "with shunt",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV012",
+        "display": "without shunt",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV013",
+        "display": "Dengan Stapler",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV014",
+        "display": "Dengan Mesh",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV015",
+        "display": "Tanpa Stapler (Konvensional)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV016",
+        "display": "Tanpa alat",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV017",
+        "display": "Bioelectrical impedance analysis",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV018",
+        "display": "DEXA/densitometri",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV019",
+        "display": "Musculoskeletal MRI/USG",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV020",
+        "display": "Single use",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV021",
+        "display": "Chamber",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV022",
+        "display": "dengan BIVAD",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV023",
+        "display": "dengan LVAD",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV024",
+        "display": "tanpa BIVAD",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV025",
+        "display": "tanpa LVAD",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV026",
+        "display": "NK Table/Leg Press/EN Tree dsb",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV027",
+        "display": "Tanpa Alat (Theraband, dumble)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV028",
+        "display": "mechanical compression",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV029",
+        "display": "tanpa alat, manual (MLDV)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV030",
+        "display": "Elektromyogram",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV031",
+        "display": "Sistometri Sederhana",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV032",
+        "display": "Urodinamik Uroflometri",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV033",
+        "display": "Uretral Pressure Profile/UPP",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV034",
+        "display": "Urodinamik Sistometrogram",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV035",
+        "display": "Bowel Diary Dan Anorectal",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV036",
+        "display": "Manometry",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV037",
+        "display": "Pressure Biofeedback",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV038",
+        "display": "Ergocycle (Arm/Leg)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV039",
+        "display": "Cybex",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV040",
+        "display": "Dinamometer",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV041",
+        "display": "Tanpa Alat (Miotom)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV042",
+        "display": "Tanpa Alat (MMT pada kasus kompleks)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV043",
+        "display": "Pinchmeter",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV044",
+        "display": "NK Table/EN Tree",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV045",
+        "display": "Standar",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV046",
+        "display": "Computerized/Robotic",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV047",
+        "display": "Fiberoptic Endoscopic Evaluation of Swallowing Study (FEES)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV048",
+        "display": "Video Fluoroskopi Swallowing Study (VFSS)",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV049",
+        "display": "EMG",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV050",
+        "display": "Surface EMG",
+        "Kategori": "Jenis Alat"
+    },
+    {
+        "code": "DV051",
+        "display": "ECG telemetry",
+        "Kategori": "Jenis alat"
+    },
+    {
+        "code": "DV052",
+        "display": "Menggunakan Oksigen",
+        "Kategori": "Jenis alat"
+    },
+    {
+        "code": "AA001",
+        "display": "alat atherectomy",
+        "Kategori": "Jenis Alat Angioplasti"
+    },
+    {
+        "code": "AA002",
+        "display": "Drug-eluting/covered stent",
+        "Kategori": "Jenis Alat Angioplasti"
+    },
+    {
+        "code": "AA003",
+        "display": "Bare stent",
+        "Kategori": "Jenis Alat Angioplasti"
+    },
+    {
+        "code": "AA004",
+        "display": "Balloon",
+        "Kategori": "Jenis Alat Angioplasti"
+    },
+    {
+        "code": "AA005",
+        "display": "Stent",
+        "Kategori": "Jenis Alat Angioplasti"
+    },
+    {
+        "code": "LM001",
+        "display": "Infra Red (IR)",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM002",
+        "display": "Magnetotherapy",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM003",
+        "display": "Micro Wave Diathermy (MWD)",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM004",
+        "display": "NMES, Electrical Stimulation (ES), FES",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM005",
+        "display": "Other Hydrotherapy",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM006",
+        "display": "Parafin Bath",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM007",
+        "display": "Short Wave Diathermy (SWD)",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM008",
+        "display": "Terapi Dingin",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM009",
+        "display": "Transcutaneous Electrical Nerve Stimulation (TENS)",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM010",
+        "display": "Ultrasound Diathermy (USD)",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "LM011",
+        "display": "Whirlpool Treatment",
+        "Kategori": "Jenis Alat Modalitas"
+    },
+    {
+        "code": "AF001",
+        "display": "pH Feses",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF002",
+        "display": "Telur Cacing",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF003",
+        "display": "Amuba",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF004",
+        "display": "Darah Samar AB Monoklonal",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF005",
+        "display": "Darah Samar Feses",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF006",
+        "display": "Feses Lengkap",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF007",
+        "display": "Feses Lengkap Parasitologi",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF008",
+        "display": "Feses Rutin",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF009",
+        "display": "Feses Sterkobilin",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AF010",
+        "display": "Khusus/Gastro",
+        "Kategori": "Jenis Analisa Feses"
+    },
+    {
+        "code": "AN001",
+        "display": "Epidural",
+        "Kategori": "Jenis Anestesi"
+    },
+    {
+        "code": "AN002",
+        "display": "Kaudal",
+        "Kategori": "Jenis Anestesi"
+    },
+    {
+        "code": "AN003",
+        "display": "Sedasi",
+        "Kategori": "Jenis Anestesi"
+    },
+    {
+        "code": "AN004",
+        "display": "Spinal",
+        "Kategori": "Jenis Anestesi"
+    },
+    {
+        "code": "AN005",
+        "display": "Umum ETT",
+        "Kategori": "Jenis Anestesi"
+    },
+    {
+        "code": "AN006",
+        "display": "Umum LMA",
+        "Kategori": "Jenis Anestesi"
+    },
+    {
+        "code": "AN007",
+        "display": "Umum",
+        "Kategori": "Jenis Anestesi"
+    },
+    {
+        "code": "AS001",
+        "display": "Akupunktur Abdomen",
+        "Kategori": "Jenis Asesmen Akupunktur"
+    },
+    {
+        "code": "AS002",
+        "display": "Akupunktur Kulit Kepala",
+        "Kategori": "Jenis Asesmen Akupunktur"
+    },
+    {
+        "code": "AS003",
+        "display": "Algometer",
+        "Kategori": "Jenis Asesmen Akupunktur"
+    },
+    {
+        "code": "AS004",
+        "display": "INMAS",
+        "Kategori": "Jenis Asesmen Akupunktur"
+    },
+    {
+        "code": "AS005",
+        "display": "Postural",
+        "Kategori": "Jenis Asesmen Akupunktur"
+    },
+    {
+        "code": "AS006",
+        "display": "Sensasi Penjaruman",
+        "Kategori": "Jenis Asesmen Akupunktur"
+    },
+    {
+        "code": "AS007",
+        "display": "Vascular Autonomic Signal Auriculo",
+        "Kategori": "Jenis Asesmen Akupunktur"
+    },
+    {
+        "code": "JB001",
+        "display": "ALK",
+        "Kategori": "Jenis Biomarker"
+    },
+    {
+        "code": "JB002",
+        "display": "dMMR",
+        "Kategori": "Jenis Biomarker"
+    },
+    {
+        "code": "JB003",
+        "display": "IDHR132H",
+        "Kategori": "Jenis Biomarker"
+    },
+    {
+        "code": "JB004",
+        "display": "PD-L1",
+        "Kategori": "Jenis Biomarker"
+    },
+    {
+        "code": "EN001",
+        "display": "Peripheral Neurostimulator Lead(s)",
+        "Kategori": "Jenis Elektroda Neurostimulator"
+    },
+    {
+        "code": "EN002",
+        "display": "Spinal Neurostimulator Lead(s)",
+        "Kategori": "Jenis Elektroda Neurostimulator"
+    },
+    {
+        "code": "EN003",
+        "display": "Dual Array",
+        "Kategori": "Jenis Elektroda Neurostimulator"
+    },
+    {
+        "code": "EN004",
+        "display": "Single Array",
+        "Kategori": "Jenis Elektroda Neurostimulator"
+    },
+    {
+        "code": "JF001",
+        "display": "Distal femur fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF002",
+        "display": "Distal tibia fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF003",
+        "display": "Femoral neck fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF004",
+        "display": "Femoral shaft fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF005",
+        "display": "Humerus fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF006",
+        "display": "Intertrochanter fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF007",
+        "display": "Proximal tibia fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF008",
+        "display": "Radius and/or ulna fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF009",
+        "display": "Subtrochanter fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF010",
+        "display": "Supracondyler humerus fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF011",
+        "display": "Tibia shaft fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF012",
+        "display": "pediatric femoral shaft fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF013",
+        "display": "pediatric tibia shaft fracture",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF014",
+        "display": "Mandibula",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF015",
+        "display": "Panfasial/Wajah Multipel",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF016",
+        "display": "Lefort I",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF017",
+        "display": "Lefort II",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "JF018",
+        "display": "Lefort III",
+        "Kategori": "Jenis Fraktur"
+    },
+    {
+        "code": "FT001",
+        "display": "berkemih",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT002",
+        "display": "Defekasi",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT003",
+        "display": "Kapasitas Fungsional Sistem Neuromuskular",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT004",
+        "display": "Ketahanan Kardiorespirasi",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT005",
+        "display": "Kekuatan otot",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT006",
+        "display": "Kelenturan Tubuh (Flexibility), Koordinasi dan Daya Ledak Otot",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT007",
+        "display": "Keseimbangan",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT008",
+        "display": "Kognisi/Fungsi Luhur",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT009",
+        "display": "Lingkup Gerak Sendi dan Fleksibilitas pada kasus kompleks",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT010",
+        "display": "menelan dan bicara",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT011",
+        "display": "Performa Saraf dan Otot",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT012",
+        "display": "Pola Jalan",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT013",
+        "display": "Postur/Kontrol Postur Computerized",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT014",
+        "display": "Sensori Integrasi Dan Praksis",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT015",
+        "display": "Neuromuskuloskeletal",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT016",
+        "display": "Diafragma",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT017",
+        "display": "Agility/Ketangkasan",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT018",
+        "display": "Perawatan Diri/ADL-IADL",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT019",
+        "display": "Fungsi Berkemih dan Defekasi",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT020",
+        "display": "Fungsi Menelan",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT021",
+        "display": "Fungsi Otot",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT022",
+        "display": "Eksekusi",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT023",
+        "display": "Kelainan Tungkai/Kaki",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT024",
+        "display": "Komunikasi",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT025",
+        "display": "Lokomotor",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT026",
+        "display": "Makan dan Menelan",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT027",
+        "display": "Paru",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT028",
+        "display": "Postur/Kontrol Postur",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT029",
+        "display": "Seksual",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "FT030",
+        "display": "Tangan",
+        "Kategori": "Jenis Fungsi Tubuh"
+    },
+    {
+        "code": "JG001",
+        "display": "Gigi decidui",
+        "Kategori": "Jenis Gigi"
+    },
+    {
+        "code": "JG002",
+        "display": "Gigi permanen",
+        "Kategori": "Jenis Gigi"
+    },
+    {
+        "code": "JH001",
+        "display": "ACTH",
+        "Kategori": "Jenis Hormon"
+    },
+    {
+        "code": "JH002",
+        "display": "GnRH",
+        "Kategori": "Jenis Hormon"
+    },
+    {
+        "code": "JH003",
+        "display": "Hormon pertumbuhan",
+        "Kategori": "Jenis Hormon"
+    },
+    {
+        "code": "JI001",
+        "display": "Branched",
+        "Kategori": "Jenis Implant"
+    },
+    {
+        "code": "JI002",
+        "display": "Chimney",
+        "Kategori": "Jenis Implant"
+    },
+    {
+        "code": "JI003",
+        "display": "Fenestrated",
+        "Kategori": "Jenis Implant"
+    },
+    {
+        "code": "JI004",
+        "display": "Beban Emas (Goldweight)",
+        "Kategori": "Jenis Implant"
+    },
+    {
+        "code": "IR001",
+        "display": "Non sitostatika",
+        "Kategori": "Jenis Iritant"
+    },
+    {
+        "code": "IR002",
+        "display": "Sitostatika",
+        "Kategori": "Jenis Iritant"
+    },
+    {
+        "code": "KA001",
+        "display": "Akut",
+        "Kategori": "Jenis Kasus"
+    },
+    {
+        "code": "KA002",
+        "display": "Kronik",
+        "Kategori": "Jenis Kasus"
+    },
+    {
+        "code": "KA003",
+        "display": "Non Residif",
+        "Kategori": "Jenis Kasus"
+    },
+    {
+        "code": "KA004",
+        "display": "Residif",
+        "Kategori": "Jenis Kasus"
+    },
+    {
+        "code": "TH001",
+        "display": "Bedah saraf",
+        "Kategori": "Jenis Kasus Anestesi"
+    },
+    {
+        "code": "TH002",
+        "display": "Transplan ginjal",
+        "Kategori": "Jenis Kasus Anestesi"
+    },
+    {
+        "code": "TH003",
+        "display": "Transplan hepar",
+        "Kategori": "Jenis Kasus Anestesi"
+    },
+    {
+        "code": "TH004",
+        "display": "Kembar siam",
+        "Kategori": "Jenis Kasus Anestesi"
+    },
+    {
+        "code": "FK001",
+        "display": "Clinical assessment/evaluasi hasil farmakogenomik dan rekomendasi terapi",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK002",
+        "display": "Clinical assessment/evaluasi therapeutic drug monitoring (TDM)",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK003",
+        "display": "Farmakoekonomi",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK004",
+        "display": "Kausalitas obat penyebab medication-related adverse event",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK005",
+        "display": "Labeling atau de-labeling drug allergy",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK006",
+        "display": "Obat baru/obat yang baru masuk formularium RS",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK007",
+        "display": "Obat untuk menetapkan kebijakan penggunaan obat di faskes",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK008",
+        "display": "Otorisasi pemberian obat non formularium",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK009",
+        "display": "Pemberian antimikroba dan rekomendasi tata laksana resistensi antimikroba",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK010",
+        "display": "Pemeriksaan toksikologi",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK011",
+        "display": "Penggunaan obat",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK012",
+        "display": "Polifarmasi dan interaksi obat",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK013",
+        "display": "Status farmakokinetik pasien terhadap obat",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "FK014",
+        "display": "Tata laksana penggunaan obat pada populasi khusus",
+        "Kategori": "Jenis Kasus Farmakologi Klinik"
+    },
+    {
+        "code": "KF001",
+        "display": "Anak",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF002",
+        "display": "Aborsi",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF003",
+        "display": "Anak WNA",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF004",
+        "display": "Aniaya berat",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF005",
+        "display": "Aniaya ringan sedang",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF006",
+        "display": "DNA Uji Paternitas",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF007",
+        "display": "DNA/Sampel",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF008",
+        "display": "Ekstraksi alat medis",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF009",
+        "display": "Ekstraksi benda asing",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF010",
+        "display": "Infanticide",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF011",
+        "display": "Intoksikasi",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF012",
+        "display": "Jenazah Pembusukan lanjut",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF013",
+        "display": "Jenazah utuh",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF014",
+        "display": "Kejahatan seksual",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF015",
+        "display": "Keracunan",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF016",
+        "display": "Muslim",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF017",
+        "display": "Non muslim",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF018",
+        "display": "Pasca Autopsi",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF019",
+        "display": "Penyakit menular",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF020",
+        "display": "Penyalahgunaan narkoba",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF021",
+        "display": "Pidana KDRT",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF022",
+        "display": "Pidana kejahatan khusus",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF023",
+        "display": "Pidana lalu lintas",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF024",
+        "display": "Pidana penganiayaan anak",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF025",
+        "display": "Pidana penganiayaan ringan",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF026",
+        "display": "Pidana umum",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF027",
+        "display": "Sudden natural death",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF028",
+        "display": "Sudden unnatural death",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KF029",
+        "display": "Undetermined death",
+        "Kategori": "Jenis Kasus Forensik"
+    },
+    {
+        "code": "KS001",
+        "display": "Dislokasi ligamen dan tendon",
+        "Kategori": "Jenis Kelainan Sendi"
+    },
+    {
+        "code": "KS002",
+        "display": "Kekakuan/spasme/kontraktur sendi ekstremitas atas",
+        "Kategori": "Jenis Kelainan Sendi"
+    },
+    {
+        "code": "KS003",
+        "display": "Kekakuan/spasme/kontraktur sendi ekstremitas bawah",
+        "Kategori": "Jenis Kelainan Sendi"
+    },
+    {
+        "code": "NA001",
+        "display": "Repair Esofagus",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA002",
+        "display": "Repair Trakea",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA003",
+        "display": "Total Laringektomi",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA004",
+        "display": "Varises esofagus",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA005",
+        "display": "Hemoroid",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA006",
+        "display": "Hipertensi Porta",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA007",
+        "display": "Hemangioma",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA008",
+        "display": "Kelenjar Getah Bening Leher",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA009",
+        "display": "Kista Tiroid",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA010",
+        "display": "Nodul Tiroid",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA011",
+        "display": "Adenoma Paratiroid",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA012",
+        "display": "Tiroid",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA013",
+        "display": "Ekstremitas",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA014",
+        "display": "Pasien Dialisis Peritoneal",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA015",
+        "display": "Pasien Transplantasi Ginjal",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "NA016",
+        "display": "Massa Paru",
+        "Kategori": "Jenis Kelainan/Penyakit"
+    },
+    {
+        "code": "KD001",
+        "display": "PRC",
+        "Kategori": "Jenis Komponen Darah"
+    },
+    {
+        "code": "KD002",
+        "display": "Trombosit",
+        "Kategori": "Jenis Komponen Darah"
+    },
+    {
+        "code": "SK001",
+        "display": "Double curve",
+        "Kategori": "Jenis Koreksi Skoliosis"
+    },
+    {
+        "code": "SK002",
+        "display": "Severe curve",
+        "Kategori": "Jenis Koreksi Skoliosis"
+    },
+    {
+        "code": "SK003",
+        "display": "Single curve",
+        "Kategori": "Jenis Koreksi Skoliosis"
+    },
+    {
+        "code": "PY001",
+        "display": "Interpretasi",
+        "Kategori": "Jenis Layanan PA"
+    },
+    {
+        "code": "PY002",
+        "display": "Tindakan+Interpretasi",
+        "Kategori": "Jenis Layanan PA"
+    },
+    {
+        "code": "PY003",
+        "display": "Tindakan",
+        "Kategori": "Jenis Layanan PA"
+    },
+    {
+        "code": "LR001",
+        "display": "Akhir hayat",
+        "Kategori": "Jenis Layanan Rohani"
+    },
+    {
+        "code": "LR002",
+        "display": "Ibadah jenazah",
+        "Kategori": "Jenis Layanan Rohani"
+    },
+    {
+        "code": "LR003",
+        "display": "On call",
+        "Kategori": "Jenis Layanan Rohani"
+    },
+    {
+        "code": "LR004",
+        "display": "Paliatif",
+        "Kategori": "Jenis Layanan Rohani"
+    },
+    {
+        "code": "LR005",
+        "display": "Pasien masuk",
+        "Kategori": "Jenis Layanan Rohani"
+    },
+    {
+        "code": "LI001",
+        "display": "AC joint instability",
+        "Kategori": "Jenis Ligamen"
+    },
+    {
+        "code": "LI002",
+        "display": "ATFL/Deltoid injury",
+        "Kategori": "Jenis Ligamen"
+    },
+    {
+        "code": "LI003",
+        "display": "elbow instability",
+        "Kategori": "Jenis Ligamen"
+    },
+    {
+        "code": "LI004",
+        "display": "MCL/LCL injury",
+        "Kategori": "Jenis Ligamen"
+    },
+    {
+        "code": "MN001",
+        "display": "Balloon Compression",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN002",
+        "display": "Facial/ Trigeminal Injection",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN003",
+        "display": "Gliserol Injection",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN004",
+        "display": "Occipital Injection",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN005",
+        "display": "P.Paraverteb/Visceral Block",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN006",
+        "display": "Percutaneus Kordotomi",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN007",
+        "display": "PRPP injection",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN008",
+        "display": "Radiofrekuensi",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN009",
+        "display": "Adhesiolysis",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN010",
+        "display": "Steroid",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN011",
+        "display": "Lokal Anestesi",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN012",
+        "display": "Neurolisis",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN013",
+        "display": "Neurolisis Steroid/Ablasi",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN014",
+        "display": "Agen Neurolitik",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN015",
+        "display": "Cryoanalgesia",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN016",
+        "display": "Radiofrequency Ablation",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "MN017",
+        "display": "Cryotherapy",
+        "Kategori": "Jenis Manajemen Nyeri"
+    },
+    {
+        "code": "JM001",
+        "display": "manipulasi lain (Manipulasi TMJ, Spine)",
+        "Kategori": "Jenis Manipulasi"
+    },
+    {
+        "code": "JM002",
+        "display": "Manipulasi ekstremitas",
+        "Kategori": "Jenis Manipulasi"
+    },
+    {
+        "code": "MP001",
+        "display": "Cuci/wash eritrosit (WE)",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP002",
+        "display": "Cuci/wash eritrosit (WE) NAT",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP003",
+        "display": "Cuci/wash eritrosit (WE) NAT skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP004",
+        "display": "Cuci/wash eritrosit (WE) skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP005",
+        "display": "Leuko depleted",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP006",
+        "display": "Leuko depleted iradiasi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP007",
+        "display": "Leuko depleted iradiasi NAT",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP008",
+        "display": "Leuko depleted NAT",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP009",
+        "display": "Leuko depleted/reduksi iradiasi NAT skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP010",
+        "display": "Leuko depleted/reduksi iradiasi skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP011",
+        "display": "Leuko depleted/reduksi NAT skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP012",
+        "display": "Leuko depleted/reduksi skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP013",
+        "display": "NAT",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP014",
+        "display": "NAT skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MP015",
+        "display": "Skrining antibodi",
+        "Kategori": "Jenis Modifikasi Produk (Darah)"
+    },
+    {
+        "code": "MH001",
+        "display": "Lainnya",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MH002",
+        "display": "EV1000",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MH003",
+        "display": "Hemosphere",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MH004",
+        "display": "ICON",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MH005",
+        "display": "LIDCO",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MH006",
+        "display": "Mostcare",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MH007",
+        "display": "PICCO",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MH008",
+        "display": "USCOM",
+        "Kategori": "Jenis Monitor Hemodinamik"
+    },
+    {
+        "code": "MU001",
+        "display": "1p/19q codeletion",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU002",
+        "display": "All-RAS (KRAS & NRAS)",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU003",
+        "display": "BRAF",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU004",
+        "display": "EGFR",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU005",
+        "display": "IDH1/2",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU006",
+        "display": "KRAS",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU007",
+        "display": "Lainnya",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU008",
+        "display": "MGMT",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU009",
+        "display": "MSI",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU010",
+        "display": "NRAS",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU011",
+        "display": "PIK3CA",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "MU012",
+        "display": "gen sarkoma",
+        "Kategori": "Jenis Mutasi"
+    },
+    {
+        "code": "NR001",
+        "display": "Neurostimulator Pulse Generator, Not Specified As Rechargeable Pulse Generator",
+        "Kategori": "Jenis Neurostimulator"
+    },
+    {
+        "code": "NR002",
+        "display": "Rechargeable Neurostimulator Pulse Generator",
+        "Kategori": "Jenis Neurostimulator"
+    },
+    {
+        "code": "NR003",
+        "display": "Other Neurostimulator Pulse Generator (Kecuali, Single Dan Dual Array Neurostimulator)",
+        "Kategori": "Jenis Neurostimulator"
+    },
+    {
+        "code": "NR004",
+        "display": "Skeletal Muscle Stimulator (Implantation, Insertion, Placement, Or Replacement Of Skeletal Muscle: Electrodes, Stimulator)",
+        "Kategori": "Jenis Neurostimulator"
+    },
+    {
+        "code": "OB001",
+        "display": "Rifampisin",
+        "Kategori": "Jenis Obat"
+    },
+    {
+        "code": "OB002",
+        "display": "Aspirin",
+        "Kategori": "Jenis Obat"
+    },
+    {
+        "code": "OB003",
+        "display": "Dapson",
+        "Kategori": "Jenis Obat"
+    },
+    {
+        "code": "OB004",
+        "display": "Ofloksasin",
+        "Kategori": "Jenis Obat"
+    },
+    {
+        "code": "OB005",
+        "display": "P2Y12",
+        "Kategori": "Jenis Obat"
+    },
+    {
+        "code": "OR001",
+        "display": "Ginjal",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR002",
+        "display": "Panggul",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR003",
+        "display": "Prostat",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR004",
+        "display": "Antroduodenal",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR005",
+        "display": "Bahu",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR006",
+        "display": "Bokong",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR007",
+        "display": "Buli/Vesica Urinaria",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR008",
+        "display": "Dada/ Punggung/ Tungkai Kanan dan Kiri",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR009",
+        "display": "Ekstremitas atas atau bawah",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR010",
+        "display": "Esofagus",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR011",
+        "display": "Kaki",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR012",
+        "display": "Kaki/pergelangan kaki",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR013",
+        "display": "Lengan Atas Kanan dan Kiri",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR014",
+        "display": "Lutut",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR015",
+        "display": "Organ Urologi Lainnya",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR016",
+        "display": "Payudara",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR017",
+        "display": "Penis",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR018",
+        "display": "Pergelangan kaki",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR019",
+        "display": "Pergelangan Tangan",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR020",
+        "display": "Perut Atas/ Perut Bawah/ Pinggang/ Pinggul",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR021",
+        "display": "Rektal",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR022",
+        "display": "Siku",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR023",
+        "display": "Skrotum dan Lainnya",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR024",
+        "display": "Tangan",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR025",
+        "display": "Tangan dan jari",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR026",
+        "display": "Tangan dan pergelangan tangan",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR027",
+        "display": "Ureter",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR028",
+        "display": "Uretra",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR029",
+        "display": "Wajah Area Kecil (1 pipi/ double chin)",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR030",
+        "display": "Wajah/Area Kecil (dahi/pelipis/pipi 1 area/dagu/nasolabial kanan kiri)",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR031",
+        "display": "Kulit",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR032",
+        "display": "Lainnya",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR033",
+        "display": "Esofagus/gaster/colon/kulit",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR034",
+        "display": "Hati",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR035",
+        "display": "Sumsum Tulang",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR036",
+        "display": "Thoracoabdominal aorta",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR037",
+        "display": "Aortic root",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR038",
+        "display": "Pulmonal",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR039",
+        "display": "Tangan dan lengan bawah",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR040",
+        "display": "Ekstremitas",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR041",
+        "display": "Bronkus",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR042",
+        "display": "Diafragma",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR043",
+        "display": "Ductus torasikus",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR044",
+        "display": "Bronkopleura",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR045",
+        "display": "Parenkim paru",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR046",
+        "display": "Paru",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR047",
+        "display": "Trakea",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR048",
+        "display": "Bursa",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR049",
+        "display": "Sendi dan ligamen",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR050",
+        "display": "Sendi Tangan",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR051",
+        "display": "Sendi Temporomandibular",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR052",
+        "display": "Tendon",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR053",
+        "display": "Intramuscular",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR054",
+        "display": "Spinal, Anggota Gerak Atas, Anggota Gerak Bawah",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR055",
+        "display": "Leher",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR056",
+        "display": "Atas Lutut",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR057",
+        "display": "Bawah Lutut",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR058",
+        "display": "Kaki, Not Otherwise Specified",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR059",
+        "display": "Lengan Atas dan Bahu",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR060",
+        "display": "Lengan Bawah dan Tangan",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR061",
+        "display": "Lengan, Tidak pada Lengan Spesifik",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR062",
+        "display": "Carpal Tunnel",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR063",
+        "display": "Tarsal Tunnel",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR064",
+        "display": "Bursa Pada Tangan",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR065",
+        "display": "Soft Tissue Lain",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR066",
+        "display": "Sendi",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR067",
+        "display": "Soft tissue Tangan",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR068",
+        "display": "pilorus, duodenum, jejunum, ileum dan kolon",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR069",
+        "display": "Limpa",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR070",
+        "display": "Atas Siku",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR071",
+        "display": "Bawah Siku",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR072",
+        "display": "Ekstremitas Atas",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR073",
+        "display": "Ekstremitas Bawah",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR074",
+        "display": "Alveolar",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR075",
+        "display": "Maksila",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR076",
+        "display": "Abdomen",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR077",
+        "display": "Trunk",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "OR078",
+        "display": "Mandibula",
+        "Kategori": "Jenis Organ"
+    },
+    {
+        "code": "GU001",
+        "display": "USG",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU002",
+        "display": "TEE",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU003",
+        "display": "EKG",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU004",
+        "display": "EUS",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU005",
+        "display": "TBLB",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU006",
+        "display": "Tanpa panduan",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU007",
+        "display": "CT",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU008",
+        "display": "Fluoroskopi",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU009",
+        "display": "C ARM",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU010",
+        "display": "EMG",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "GU011",
+        "display": "Radiologi Guided",
+        "Kategori": "Jenis Panduan"
+    },
+    {
+        "code": "PF001",
+        "display": "Pemeriksaan dalam",
+        "Kategori": "Jenis Pemeriksaan Forensik"
+    },
+    {
+        "code": "PF002",
+        "display": "Pemeriksaan luar",
+        "Kategori": "Jenis Pemeriksaan Forensik"
+    },
+    {
+        "code": "LE001",
+        "display": "Albumin",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE002",
+        "display": "Gangguan elektrolit",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE003",
+        "display": "Gangguan mikronutrien",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE004",
+        "display": "Laboratorium hormon",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE005",
+        "display": "Laboratorium mineral",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE006",
+        "display": "Laboratorium nutrigenomik",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE007",
+        "display": "Laboratorium profil asam amino",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE008",
+        "display": "Laboratorium profil asam lemak",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "LE009",
+        "display": "Laboratorium vitamin",
+        "Kategori": "Jenis Pemeriksaan Laboratorium"
+    },
+    {
+        "code": "PU001",
+        "display": "Semikuantitatif",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU002",
+        "display": "antropometri khusus (berat badan estimasi, berat badan koreksi, berat badan adjusted)",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU003",
+        "display": "berat badan",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU004",
+        "display": "indeks massa tubuh",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU005",
+        "display": "knee height",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU006",
+        "display": "Kualitatif",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU007",
+        "display": "Kuantitatif",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU008",
+        "display": "lingkar betis (calf circumference)",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU009",
+        "display": "lingkar kepala",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU010",
+        "display": "lingkar pinggang/panggul",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU011",
+        "display": "MUAC (Mid Upper Arm Circumference) atau Lingkar Lengan Atas",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU012",
+        "display": "panjang lengan (armspan/demispan)",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU013",
+        "display": "tebal lipatan kulit",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU014",
+        "display": "tinggi badan",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "PU015",
+        "display": "Tinggi Lutut",
+        "Kategori": "Jenis Pengukuran"
+    },
+    {
+        "code": "RG001",
+        "display": "Orthotik",
+        "Kategori": "Jenis Perangkat"
+    },
+    {
+        "code": "RG002",
+        "display": "Prosthetik",
+        "Kategori": "Jenis Perangkat"
+    },
+    {
+        "code": "PW001",
+        "display": "GRAM LAIN-LAIN",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW002",
+        "display": "GRAM PUS",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW003",
+        "display": "GRAM SPUTUM",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW004",
+        "display": "Gram Swab",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW005",
+        "display": "KOH",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW006",
+        "display": "KOH BAHAN KLINIK",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW007",
+        "display": "KOH DARI JARINGAN",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW008",
+        "display": "LACTOPHENOL COTTON BLUE",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW009",
+        "display": "Lugol (Telur Cacing)",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW010",
+        "display": "BTA MORBUS HANSEN",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW011",
+        "display": "DIFTERI (ALBERT/NEISSER)",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW012",
+        "display": "PANEL IMS PRIA (DV)-(KOH, GRAM URETRA)",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW013",
+        "display": "PANEL IMS WANITA DENGAN SPEKULUM (DV)- (KOH, GRAM CERVIX, VAGINA DAN URETRA)",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW014",
+        "display": "PANEL IMS WANITA TANPA SPEKULUM (DV)- (KOH, GRAM CERVIX, VAGINA DAN URETRA)",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW015",
+        "display": "Tahan Asam (Protozoa)",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW016",
+        "display": "Tahan Asam Darah",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW017",
+        "display": "Tahan Asam Darah II",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW018",
+        "display": "Tahan Asam Darah III",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW019",
+        "display": "Tahan Asam Lain-lain",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW020",
+        "display": "Tahan Asam Lain-lain II",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW021",
+        "display": "Tahan Asam Lain-lain III",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW022",
+        "display": "Tahan Asam Pus",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW023",
+        "display": "Tahan Asam Pus II",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW024",
+        "display": "Tahan Asam Pus III",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW025",
+        "display": "Tahan Asam Sputum",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW026",
+        "display": "Tahan Asam Sputum II",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW027",
+        "display": "Tahan Asam Sputum III",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW028",
+        "display": "Tahan Asam Swab",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW029",
+        "display": "Tahan Asam Swab II",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW030",
+        "display": "Tahan Asam Swab III",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW031",
+        "display": "Tahan Asam Tinja",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW032",
+        "display": "Tahan Asam Tinja II",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW033",
+        "display": "Tahan Asam Tinja III",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW034",
+        "display": "Tahan Asam Urine",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW035",
+        "display": "Tahan Asam Urine II",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW036",
+        "display": "Tahan Asam Urine III",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW037",
+        "display": "Dye",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "PW038",
+        "display": "Hematoxylin dan Eosin (HE)",
+        "Kategori": "Jenis Pewarnaan"
+    },
+    {
+        "code": "SR001",
+        "display": "Bermain (Play psychotherapy)",
+        "Kategori": "Jenis Psikoterapi"
+    },
+    {
+        "code": "SR002",
+        "display": "Individual Lainnya (Other Individual Psychotherapy)",
+        "Kategori": "Jenis Psikoterapi"
+    },
+    {
+        "code": "SR003",
+        "display": "Verbal Eksploratif (Exploratory Verbal Psychotherapy)",
+        "Kategori": "Jenis Psikoterapi"
+    },
+    {
+        "code": "SR004",
+        "display": "Verbal Supportif (Supportive Verbal Psychotherapy)",
+        "Kategori": "Jenis Psikoterapi"
+    },
+    {
+        "code": "RH001",
+        "display": "Kognisi Sosial",
+        "Kategori": "Jenis Rehabilitasi"
+    },
+    {
+        "code": "RH002",
+        "display": "Napza",
+        "Kategori": "Jenis Rehabilitasi"
+    },
+    {
+        "code": "JR001",
+        "display": "stage 2 for Bone/Soft tissue tumor",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR002",
+        "display": "3D (per lembar film besar)",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR003",
+        "display": "Reconstruction with arthrodhesis for Periarticular Bone/Soft tissue tumor",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR004",
+        "display": "Reconstruction with endoprosthesis",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR005",
+        "display": "Reconstruction with non vascularized bone/soft tissue graft for Bone/Soft tissue tumor of upper",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR006",
+        "display": "Reconstruction with non vascularized bone graft for Bone/Soft tissue tumor of lower extremity",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR007",
+        "display": "Reconstruction with vascularized bone/soft tissue graft for Bone/Soft tissue tumor",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR008",
+        "display": "Reconstruction with non vascularized bone graft",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR009",
+        "display": "Reconstruction with plate reconstruction",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR010",
+        "display": "Reconstruction with vascularized bone graft",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR011",
+        "display": "stage 1 for Bone/Soft tissue tumor",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR012",
+        "display": "Virtual Imaging (Bronchoscopy/Colonoscopy)",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR013",
+        "display": "Volumetri (per lembar film besar)",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR014",
+        "display": "Reconstruction with TMJ plate reconstruction",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR015",
+        "display": "Reconstruction with Vascularized bone graft (micro)-defek BOYD T",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR016",
+        "display": "Reconstruction with Ribs bone graft",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "JR017",
+        "display": "Reconstruction with Silicone Plate",
+        "Kategori": "Jenis Rekonstruksi"
+    },
+    {
+        "code": "SE001",
+        "display": "Large Joints",
+        "Kategori": "Jenis Sendi"
+    },
+    {
+        "code": "SE002",
+        "display": "Small Joints",
+        "Kategori": "Jenis Sendi"
+    },
+    {
+        "code": "JS001",
+        "display": "Awal",
+        "Kategori": "Jenis Skrining"
+    },
+    {
+        "code": "JS002",
+        "display": "DPL",
+        "Kategori": "Jenis Skrining"
+    },
+    {
+        "code": "JS003",
+        "display": "Hb",
+        "Kategori": "Jenis Skrining"
+    },
+    {
+        "code": "JS004",
+        "display": "Konfirmasi",
+        "Kategori": "Jenis Skrining"
+    },
+    {
+        "code": "SU001",
+        "display": "FER Kompleks Subspesialistik (RS Tipe A)",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU002",
+        "display": "FER Subspesialistik (RS Tipe BCD)",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU003",
+        "display": "Fetomaternal Kompleks Subspesialistik",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU004",
+        "display": "Fetomaternal Subspesialistik",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU005",
+        "display": "Ginekologi Spesialistik",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU006",
+        "display": "Obstetri Dasar Terbatas (dokter umum layanan primer)",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU007",
+        "display": "Obstetri Spesialistik",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU008",
+        "display": "Onkologi Ginekologi Kompleks Subspesialistik (RS Tipe A)",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU009",
+        "display": "Onkologi Ginekologi Subspesialistik (RS Tipe BCD)",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU010",
+        "display": "Uroginekologi Kompleks Subspesialistik (RS Tipe A)",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SU011",
+        "display": "Uroginekologi Subspesialistik (RS Tipe BCD)",
+        "Kategori": "Jenis Spesialistik USG"
+    },
+    {
+        "code": "SP001",
+        "display": "Cairan Kontaminasi urin, bilirubin",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP002",
+        "display": "Cairan Pleura",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP003",
+        "display": "Cairan Sendi",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP004",
+        "display": "Cairan tubuh lainnya",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP005",
+        "display": "Cairan Peritoneal",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP006",
+        "display": "Cairan Dialisis Peritoneal (CAPD)",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP007",
+        "display": "Cairan CHYLOUS & PSEUDOCHYLOUS",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP008",
+        "display": "Cairan Empedu",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP009",
+        "display": "Kulit",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP010",
+        "display": "Plasma",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP011",
+        "display": "Saliva",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP012",
+        "display": "Serum",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP013",
+        "display": "Sputum",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP014",
+        "display": "Aspirat",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP015",
+        "display": "ASPIRAT PARU",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP016",
+        "display": "ASPIRAT TRAKEAL",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP017",
+        "display": "Bilasan Bronkus",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP018",
+        "display": "Blok Sel",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP019",
+        "display": "BRONCHOALVEOLAR LAVAGE",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP020",
+        "display": "Cairan",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP021",
+        "display": "Cairan Otak",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP022",
+        "display": "Cairan Asites",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP023",
+        "display": "Cairan Kista",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP024",
+        "display": "Cairan LCS",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP025",
+        "display": "Cairan Perikardium",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP026",
+        "display": "Cairan Sumsum Tulang",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP027",
+        "display": "Darah",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP028",
+        "display": "Darah Direk Maldi Tof",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP029",
+        "display": "FESES",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP030",
+        "display": "Genital",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP031",
+        "display": "GENITAL PRIA",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP032",
+        "display": "GENITAL WANITA",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP033",
+        "display": "Ginekologi Konvensional",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP034",
+        "display": "ISOLAT",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP035",
+        "display": "JARINGAN",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP036",
+        "display": "KORNEA/KONJUNGTIVA/VITREOUS",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP037",
+        "display": "KUKU",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP038",
+        "display": "LBC Ginekologi",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP039",
+        "display": "LBC Non Ginekologi",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP040",
+        "display": "LUKA",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP041",
+        "display": "LUKA BAKAR",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP042",
+        "display": "Luka Dalam",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP043",
+        "display": "MULUT",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP044",
+        "display": "Non Ginekologi",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP045",
+        "display": "Pap Smear LBC",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP046",
+        "display": "Pap Smear Konvensional",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP047",
+        "display": "Pap smear LBC dengan automated abnormal cell detection",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP048",
+        "display": "RAMBUT",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP049",
+        "display": "Cairan Sinovial",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP050",
+        "display": "Urin",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP051",
+        "display": "Kateter Intravaskular",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP052",
+        "display": "Pus",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP053",
+        "display": "Plasenta",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP054",
+        "display": "Produk Darah",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP055",
+        "display": "Swab",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP056",
+        "display": "Aspirat Suprapubik",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP057",
+        "display": "Saluran Nafas Bawah",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP058",
+        "display": "Swab Dasar Luka",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP059",
+        "display": "Spesimen Klinis",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP060",
+        "display": "Spesimen Lain-lain",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP061",
+        "display": "Darah Tali pusat postnatal",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP062",
+        "display": "Darah Tali pusat prenatal",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP063",
+        "display": "Darah tepi",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP064",
+        "display": "Darah Perifer",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP065",
+        "display": "Jaringan produk konsepsi (POC)",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP066",
+        "display": "Pre-Natal",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP067",
+        "display": "Cairan Amnion",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP068",
+        "display": "FFPE",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP069",
+        "display": "LBC",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP070",
+        "display": "Kornea",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP071",
+        "display": "Konjungtiva",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP072",
+        "display": "Cairan Vitreous",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP073",
+        "display": "Produk Darah Direk Maldi Tof",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SP074",
+        "display": "Lain-lain",
+        "Kategori": "Jenis Spesimen"
+    },
+    {
+        "code": "SJ001",
+        "display": "Stress Test",
+        "Kategori": "Jenis Stres"
+    },
+    {
+        "code": "SJ002",
+        "display": "Pharmacological Stress-Only",
+        "Kategori": "Jenis Stres"
+    },
+    {
+        "code": "SJ003",
+        "display": "Pharmacological Stress-Rest",
+        "Kategori": "Jenis Stres"
+    },
+    {
+        "code": "SJ004",
+        "display": "Physical Stress-Only",
+        "Kategori": "Jenis Stres"
+    },
+    {
+        "code": "SJ005",
+        "display": "Physical Stress-Rest",
+        "Kategori": "Jenis Stres"
+    },
+    {
+        "code": "SJ006",
+        "display": "Rest-Only",
+        "Kategori": "Jenis Stres"
+    },
+    {
+        "code": "JN001",
+        "display": "Imunonutrisi",
+        "Kategori": "Jenis Tatalaksana Nutrisi"
+    },
+    {
+        "code": "JN002",
+        "display": "Bariatrik",
+        "Kategori": "Jenis Tatalaksana Nutrisi"
+    },
+    {
+        "code": "JN003",
+        "display": "Homecare",
+        "Kategori": "Jenis Tatalaksana Nutrisi"
+    },
+    {
+        "code": "JN004",
+        "display": "Paliatif",
+        "Kategori": "Jenis Tatalaksana Nutrisi"
+    },
+    {
+        "code": "JN005",
+        "display": "Perioperatif",
+        "Kategori": "Jenis Tatalaksana Nutrisi"
+    },
+    {
+        "code": "JN006",
+        "display": "Transplantasi organ",
+        "Kategori": "Jenis Tatalaksana Nutrisi"
+    },
+    {
+        "code": "FI001",
+        "display": "Sendi lainnya",
+        "Kategori": "Jenis Terapi Fisik"
+    },
+    {
+        "code": "FI002",
+        "display": "Spine",
+        "Kategori": "Jenis Terapi Fisik"
+    },
+    {
+        "code": "MV001",
+        "display": "Motivational Enhancement",
+        "Kategori": "Jenis Terapi Motivasi"
+    },
+    {
+        "code": "MV002",
+        "display": "Interviewing",
+        "Kategori": "Jenis Terapi Motivasi"
+    },
+    {
+        "code": "RB001",
+        "display": "(BiPAP, NIPPV)",
+        "Kategori": "Jenis Terapi Rehabilitasi"
+    },
+    {
+        "code": "RB002",
+        "display": "Inhalasi (nebulizer)",
+        "Kategori": "Jenis Terapi Rehabilitasi"
+    },
+    {
+        "code": "RB003",
+        "display": "Musik (individu & grup)",
+        "Kategori": "Jenis Terapi Rehabilitasi"
+    },
+    {
+        "code": "RB004",
+        "display": "Okupasi Audiovisual Sensori Terintegrasi (Snoezelen)",
+        "Kategori": "Jenis Terapi Rehabilitasi"
+    },
+    {
+        "code": "RB005",
+        "display": "Okupasi Penanganan Gangguan Persepsi Kognisi, Sensori Integrasi",
+        "Kategori": "Jenis Terapi Rehabilitasi"
+    },
+    {
+        "code": "TV001",
+        "display": "Evaluasi Psikologis Lainnnya (Penulusuran Minat dan Bakat)",
+        "Kategori": "Jenis Tes"
+    },
+    {
+        "code": "TV002",
+        "display": "Kematangan",
+        "Kategori": "Jenis tes"
+    },
+    {
+        "code": "TV003",
+        "display": "Kepribadian",
+        "Kategori": "Jenis tes"
+    },
+    {
+        "code": "TV004",
+        "display": "Neuropsikologis",
+        "Kategori": "Jenis tes"
+    },
+    {
+        "code": "TA001",
+        "display": "Acromioplasty",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA002",
+        "display": "ARIF for carpal fractures",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA003",
+        "display": "Biceps tenotomy",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA004",
+        "display": "Calcaneoplasty",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA005",
+        "display": "Capsular release for shoulder stiffness/frozen shoulder",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA006",
+        "display": "carpal ligament repair/reconstruction",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA007",
+        "display": "Cartilage Repair and Cartilage Engineering Procedures (Hip/Knee/Ankle/Shoulder/Wrist)",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA008",
+        "display": "Deep gluteal syndrome release",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA009",
+        "display": "DRUJ reconstruction",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA010",
+        "display": "Excision os Trigonum",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA011",
+        "display": "Extra Articular Impingement release",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA012",
+        "display": "Ganglion Excision",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA013",
+        "display": "Gluteus Medius Repair",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA014",
+        "display": "Labral debridement",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA015",
+        "display": "Labral Reconstruction",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA016",
+        "display": "Labral Repair",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA017",
+        "display": "Ligament reconstruction for Patellar ligament injury",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA018",
+        "display": "Ligament repair/reconstruction for ankle ligament injury",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA019",
+        "display": "Meniscus repair for Knee meniscus injury",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA020",
+        "display": "Menisectomy for Knee meniscus injury",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA021",
+        "display": "Osteoplasty for Impingement",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA022",
+        "display": "Osteoplasty for intraarticular impingement",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA023",
+        "display": "Plica release for Knee plica syndrome",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA024",
+        "display": "Proximal hamstring tendon repair",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA025",
+        "display": "Reconstruction for Knee ligament injury",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA026",
+        "display": "Rekonstruction of carpal bone with bone",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA027",
+        "display": "Release/reconstruction for Joint impingement",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA028",
+        "display": "Release for Peripheral nerve entrapment",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA029",
+        "display": "Repair for Rotator cuff injury",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TA030",
+        "display": "TFCC repair",
+        "Kategori": "Jenis Tindakan Arthroscopic"
+    },
+    {
+        "code": "TF001",
+        "display": "Obesitas",
+        "Kategori": "Jenis Tindakan Farmakopunktur"
+    },
+    {
+        "code": "TF002",
+        "display": "Analgesia",
+        "Kategori": "Jenis Tindakan Farmakopunktur"
+    },
+    {
+        "code": "JU001",
+        "display": "Fleksibel",
+        "Kategori": "Jenis Uretroskop"
+    },
+    {
+        "code": "JU002",
+        "display": "Non fleksibel",
+        "Kategori": "Jenis Uretroskop"
+    },
+    {
+        "code": "JZ001",
+        "display": "Non Perak",
+        "Kategori": "Jenis Zat"
+    },
+    {
+        "code": "JZ002",
+        "display": "Perak",
+        "Kategori": "Jenis Zat"
+    },
+    {
+        "code": "AC001",
+        "display": "1 akses",
+        "Kategori": "Jumlah akses"
+    },
+    {
+        "code": "AC002",
+        "display": "2 akses",
+        "Kategori": "Jumlah akses"
+    },
+    {
+        "code": "MA001",
+        "display": "1 alat",
+        "Kategori": "Jumlah Alat"
+    },
+    {
+        "code": "MA002",
+        "display": "2 alat",
+        "Kategori": "Jumlah Alat"
+    },
+    {
+        "code": "MA003",
+        "display": "3 alat",
+        "Kategori": "Jumlah Alat"
+    },
+    {
+        "code": "MA004",
+        "display": "4 alat",
+        "Kategori": "Jumlah Alat"
+    },
+    {
+        "code": "AG001",
+        "display": "10 Alergen",
+        "Kategori": "Jumlah Alergen"
+    },
+    {
+        "code": "AG002",
+        "display": "20 Alergen",
+        "Kategori": "Jumlah Alergen"
+    },
+    {
+        "code": "AG003",
+        "display": "30 Alergen",
+        "Kategori": "Jumlah Alergen"
+    },
+    {
+        "code": "AD001",
+        "display": ">5 antibodi",
+        "Kategori": "Jumlah Antibodi"
+    },
+    {
+        "code": "AD002",
+        "display": "≤5 antibodi",
+        "Kategori": "Jumlah Antibodi"
+    },
+    {
+        "code": "GG001",
+        "display": "1-5 gigi",
+        "Kategori": "Jumlah Gigi"
+    },
+    {
+        "code": "GG002",
+        "display": "1-10 gigi",
+        "Kategori": "Jumlah Gigi"
+    },
+    {
+        "code": "GG003",
+        "display": ">10 gigi",
+        "Kategori": "Jumlah Gigi"
+    },
+    {
+        "code": "IP001",
+        "display": "1 Approach",
+        "Kategori": "Jumlah Insisi Pendekatan"
+    },
+    {
+        "code": "IP002",
+        "display": "2 Approach",
+        "Kategori": "Jumlah Insisi Pendekatan"
+    },
+    {
+        "code": "IP003",
+        "display": "3 Approach",
+        "Kategori": "Jumlah Insisi Pendekatan"
+    },
+    {
+        "code": "JJ001",
+        "display": ">10 jahitan",
+        "Kategori": "Jumlah Jahitan"
+    },
+    {
+        "code": "JJ002",
+        "display": "Besar (>15 jahitan)",
+        "Kategori": "Jumlah Jahitan"
+    },
+    {
+        "code": "JJ003",
+        "display": "Kecil (1-7 jahitan)",
+        "Kategori": "Jumlah Jahitan"
+    },
+    {
+        "code": "JJ004",
+        "display": "Sedang (8-15 jahitan)",
+        "Kategori": "Jumlah Jahitan"
+    },
+    {
+        "code": "JJ005",
+        "display": "<10 jahitan",
+        "Kategori": "Jumlah Jahitan"
+    },
+    {
+        "code": "JJ006",
+        "display": "<8 jahitan atau jahitan kontinyu kulit",
+        "Kategori": "Jumlah Jahitan"
+    },
+    {
+        "code": "KT001",
+        "display": "4 Kantong",
+        "Kategori": "Jumlah Kantong Darah"
+    },
+    {
+        "code": "KT002",
+        "display": "5 Kantong",
+        "Kategori": "Jumlah Kantong Darah"
+    },
+    {
+        "code": "KT003",
+        "display": "6 Kantong",
+        "Kategori": "Jumlah Kantong Darah"
+    },
+    {
+        "code": "KJ001",
+        "display": "1 katup",
+        "Kategori": "Jumlah Katup Jantung"
+    },
+    {
+        "code": "KJ002",
+        "display": "2 katup",
+        "Kategori": "Jumlah Katup Jantung"
+    },
+    {
+        "code": "KJ003",
+        "display": "3 katup",
+        "Kategori": "Jumlah Katup Jantung"
+    },
+    {
+        "code": "KJ004",
+        "display": "4 katup",
+        "Kategori": "Jumlah Katup Jantung"
+    },
+    {
+        "code": "KK001",
+        "display": ">3 kuku",
+        "Kategori": "Jumlah Kuku"
+    },
+    {
+        "code": "KK002",
+        "display": "<= 3 kuku",
+        "Kategori": "Jumlah Kuku"
+    },
+    {
+        "code": "LS001",
+        "display": ">10 lesi atau multiple regio tubuh",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS002",
+        "display": ">5 lesi",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS003",
+        "display": "Multiple",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS004",
+        "display": "1-2 lesi",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS005",
+        "display": "1-5 lesi atau 1 regio tubuh",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS006",
+        "display": "3-5 lesi",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS007",
+        "display": "6-10 lesi atau >1 regio tubuh",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS008",
+        "display": "1-5 lesi",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS009",
+        "display": "6-10 lesi",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "LS010",
+        "display": ">10 lesi",
+        "Kategori": "Jumlah Lesi"
+    },
+    {
+        "code": "OO001",
+        "display": ">4 oosit/embrio",
+        "Kategori": "Jumlah Oosit"
+    },
+    {
+        "code": "OO002",
+        "display": "≤4 oosit/embrio",
+        "Kategori": "Jumlah Oosit"
+    },
+    {
+        "code": "NO001",
+        "display": "<5 organ",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO002",
+        "display": ">1 body parts",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO003",
+        "display": "Multiple",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO004",
+        "display": "≥5 organ",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO005",
+        "display": "1 Body parts-kecuali kepala",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO006",
+        "display": "1 body parts-kepala",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO007",
+        "display": "1 Ekstremitas",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO008",
+        "display": "1 organ",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO009",
+        "display": "2 Ekstremitas",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO010",
+        "display": "2 organ",
+        "Kategori": "Jumlah organ"
+    },
+    {
+        "code": "NO011",
+        "display": "3 Ekstremitas",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "NO012",
+        "display": "3 organ",
+        "Kategori": "Jumlah organ"
+    },
+    {
+        "code": "NO013",
+        "display": "Single",
+        "Kategori": "Jumlah Organ"
+    },
+    {
+        "code": "PA001",
+        "display": "3 Parameter",
+        "Kategori": "Jumlah Parameter"
+    },
+    {
+        "code": "PA002",
+        "display": "5 Parameter",
+        "Kategori": "Jumlah Parameter"
+    },
+    {
+        "code": "PA003",
+        "display": "6 Parameter",
+        "Kategori": "Jumlah Parameter"
+    },
+    {
+        "code": "PA004",
+        "display": "7 Parameter",
+        "Kategori": "Jumlah Parameter"
+    },
+    {
+        "code": "NP001",
+        "display": "1 Proyeksi",
+        "Kategori": "Jumlah Proyeksi"
+    },
+    {
+        "code": "NP002",
+        "display": "2 Proyeksi",
+        "Kategori": "Jumlah Proyeksi"
+    },
+    {
+        "code": "NP003",
+        "display": "3 Proyeksi",
+        "Kategori": "Jumlah Proyeksi"
+    },
+    {
+        "code": "NP004",
+        "display": "3 sites",
+        "Kategori": "Jumlah Proyeksi"
+    },
+    {
+        "code": "NP005",
+        "display": "4 Proyeksi",
+        "Kategori": "Jumlah Proyeksi"
+    },
+    {
+        "code": "NP006",
+        "display": "5 Proyeksi",
+        "Kategori": "Jumlah Proyeksi"
+    },
+    {
+        "code": "NP007",
+        "display": "6 Proyeksi",
+        "Kategori": "Jumlah Proyeksi"
+    },
+    {
+        "code": "PL001",
+        "display": "1 jenis pulasan",
+        "Kategori": "Jumlah Pulasan"
+    },
+    {
+        "code": "PL002",
+        "display": "2-3 jenis pulasan",
+        "Kategori": "Jumlah Pulasan"
+    },
+    {
+        "code": "RC001",
+        "display": "1 saluran",
+        "Kategori": "Jumlah Saluran Akar"
+    },
+    {
+        "code": "RC002",
+        "display": "2 saluran",
+        "Kategori": "Jumlah Saluran Akar"
+    },
+    {
+        "code": "RC003",
+        "display": "3 saluran atau lebih",
+        "Kategori": "Jumlah Saluran Akar"
+    },
+    {
+        "code": "SL001",
+        "display": "<5 slides",
+        "Kategori": "Jumlah Slide/Blok"
+    },
+    {
+        "code": "SL002",
+        "display": ">15 blok/slide",
+        "Kategori": "Jumlah Slide/Blok"
+    },
+    {
+        "code": "SL003",
+        "display": ">15 slides",
+        "Kategori": "Jumlah Slide/Blok"
+    },
+    {
+        "code": "SL004",
+        "display": "1-2 blok/slide",
+        "Kategori": "Jumlah Slide/Blok"
+    },
+    {
+        "code": "SL005",
+        "display": "3-15 blok/slide",
+        "Kategori": "Jumlah Slide/Blok"
+    },
+    {
+        "code": "SL006",
+        "display": "5-15 slides",
+        "Kategori": "Jumlah Slide/Blok"
+    },
+    {
+        "code": "SM001",
+        "display": "ICSI (<5)",
+        "Kategori": "Jumlah Sperma"
+    },
+    {
+        "code": "SM002",
+        "display": "ICSI (>15)",
+        "Kategori": "Jumlah Sperma"
+    },
+    {
+        "code": "SM003",
+        "display": "ICSI (10-15)",
+        "Kategori": "Jumlah Sperma"
+    },
+    {
+        "code": "SM004",
+        "display": "ICSI (5-10)",
+        "Kategori": "Jumlah Sperma"
+    },
+    {
+        "code": "TN001",
+        "display": "<= 8",
+        "Kategori": "Jumlah Tendon"
+    },
+    {
+        "code": "TN002",
+        "display": ">= 8",
+        "Kategori": "Jumlah Tendon"
+    },
+    {
+        "code": "TM001",
+        "display": ">10 lokasi",
+        "Kategori": "Jumlah Tumor"
+    },
+    {
+        "code": "TM002",
+        "display": "<4 lokasi",
+        "Kategori": "Jumlah Tumor"
+    },
+    {
+        "code": "UT001",
+        "display": "<10 iu",
+        "Kategori": "Jumlah unit toksin"
+    },
+    {
+        "code": "UT002",
+        "display": "10-25 iu",
+        "Kategori": "Jumlah unit toksin"
+    },
+    {
+        "code": "UT003",
+        "display": "26-50 iu",
+        "Kategori": "Jumlah unit toksin"
+    },
+    {
+        "code": "UT004",
+        "display": "51-100 iu",
+        "Kategori": "Jumlah unit toksin"
+    },
+    {
+        "code": "VS001",
+        "display": "4 vessel",
+        "Kategori": "Jumlah Vessel"
+    },
+    {
+        "code": "VS002",
+        "display": "6 vessel",
+        "Kategori": "Jumlah Vessel"
+    },
+    {
+        "code": "FG001",
+        "display": "Return to activities",
+        "Kategori": "Kapasitas Fungsional"
+    },
+    {
+        "code": "FG002",
+        "display": "Return to work",
+        "Kategori": "Kapasitas Fungsional"
+    },
+    {
+        "code": "LF001",
+        "display": "Ketahanan Kardiorespirasi",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF002",
+        "display": "Kontrol Postur",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF003",
+        "display": "Back and Neck Exercise",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF004",
+        "display": "Daya Ledak (Power)",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF005",
+        "display": "Daya Tahan",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF006",
+        "display": "Developmental Activities Training)",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF007",
+        "display": "Kembali Fungsi Motorik",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF008",
+        "display": "Keseimbangan",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF009",
+        "display": "ketangkasan",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF010",
+        "display": "Koordinasi",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF011",
+        "display": "Lokomosi",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF012",
+        "display": "Mekanika Tubuh",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF013",
+        "display": "Motor Training",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF014",
+        "display": "Movement Pattern Training",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF015",
+        "display": "Neuromusculer re-learning",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF016",
+        "display": "Stabilisasi Postur",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF017",
+        "display": "Stabilitas",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF018",
+        "display": "Teknik-teknik rileksasi",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF019",
+        "display": "Ulang Sensori",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF020",
+        "display": "Vestibular",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF021",
+        "display": "Feldenkrais Method",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF022",
+        "display": "GMI",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF023",
+        "display": "Biofeedback Exercise",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF024",
+        "display": "Bobath",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF025",
+        "display": "DNS",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF026",
+        "display": "Movement",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF027",
+        "display": "MRP",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF028",
+        "display": "MRT",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF029",
+        "display": "Mulligan Concept",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF030",
+        "display": "NDT",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF031",
+        "display": "Osteoporosis",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF032",
+        "display": "PNF",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF033",
+        "display": "Scoliosis",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF034",
+        "display": "Sling Exercise Therapy",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF035",
+        "display": "System Impairment Exercise",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF036",
+        "display": "Assisted Exercise in Pool",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF037",
+        "display": "Ambulasi dan Gait Training",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF038",
+        "display": "Ambulasi Risiko Tinggi pada pasien rawat jalan",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF039",
+        "display": "Bicara Esofageal",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF040",
+        "display": "Return to Work dan Return to Activities",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF041",
+        "display": "Jalan Menggunakan Orthosis, Prosthesis, dan Alat Bantu Jalan",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF042",
+        "display": "Kombinasi",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF043",
+        "display": "Pasif lainnya (CPM, dll)",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF044",
+        "display": "Peregangan Otot atau Tendon (Aktif)",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF045",
+        "display": "Pernafasan",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF046",
+        "display": "Prenatal",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF047",
+        "display": "Alat Lainnya",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF048",
+        "display": "Assistive",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF049",
+        "display": "Dengan Ortosis",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF050",
+        "display": "Prostesis",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF051",
+        "display": "Adaptive",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF052",
+        "display": "Tanpa Ortosis",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF053",
+        "display": "Ketahanan Kardiorespirasi Risiko Tinggi",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "LF054",
+        "display": "Latihan lain-lain",
+        "Kategori": "Kategori Latihan Fisioterapi"
+    },
+    {
+        "code": "PC001",
+        "display": "Pediatrik",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC002",
+        "display": "Dewasa",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC003",
+        "display": "Ibu Hamil (SC)",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC004",
+        "display": "Neonatus",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC005",
+        "display": "Pria",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC006",
+        "display": "Wanita",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC007",
+        "display": "Anak",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC008",
+        "display": "Anak dan Remaja",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC009",
+        "display": "Lansia",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC010",
+        "display": "Orang Tua/Keluarga",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC011",
+        "display": "Kelompok (>5 orang)",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC012",
+        "display": "Keluarga (2-3 orang)",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC013",
+        "display": "Individu",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC014",
+        "display": "Caregiver",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC015",
+        "display": "Anak berkebutuhan Khusus",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC016",
+        "display": "<3 bulan",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC017",
+        "display": ">4 tahun/relaps",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC018",
+        "display": "1 - 4 tahun",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "PC019",
+        "display": "3 bulan - 1 tahun",
+        "Kategori": "Kategori Pasien"
+    },
+    {
+        "code": "KP001",
+        "display": "Kelas 1",
+        "Kategori": "Kelas Perawatan Pasien"
+    },
+    {
+        "code": "KP002",
+        "display": "Kelas 2",
+        "Kategori": "Kelas Perawatan Pasien"
+    },
+    {
+        "code": "KP003",
+        "display": "Kelas 3",
+        "Kategori": "Kelas Perawatan Pasien"
+    },
+    {
+        "code": "KW001",
+        "display": "WNA",
+        "Kategori": "Kewarganegaraan"
+    },
+    {
+        "code": "KW002",
+        "display": "WNI",
+        "Kategori": "Kewarganegaraan"
+    },
+    {
+        "code": "KM001",
+        "display": "Besar",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM002",
+        "display": "Lanjutan",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM003",
+        "display": "Dasar",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM004",
+        "display": "Ringan",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM005",
+        "display": "Sedang",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM006",
+        "display": "Berat",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM007",
+        "display": "Simpel",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM008",
+        "display": "Kompleks",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM009",
+        "display": "Rendah",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM010",
+        "display": "Tinggi",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM011",
+        "display": "Khusus",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM012",
+        "display": "Superselektif",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM013",
+        "display": "1 channel",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM014",
+        "display": "2 channel",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM015",
+        "display": "3 channel",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM016",
+        "display": "1-2 layer",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM017",
+        "display": "2-4 layer",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM018",
+        "display": ">4 layer",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM019",
+        "display": "Common Case",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM020",
+        "display": "Dalam",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM021",
+        "display": "Hybrid",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM022",
+        "display": "1",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM023",
+        "display": "2",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM024",
+        "display": "3",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM025",
+        "display": "4",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM026",
+        "display": "Kasus Berat",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM027",
+        "display": "Kasus Berat dengan Penyulit",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM028",
+        "display": "Advance",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM029",
+        "display": "Sederhana 1 (advancement)",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM030",
+        "display": "Sederhana 2 (pedicled skin flap, keystone flap)",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM031",
+        "display": "Kompleks 1 (lebih dari 1 flap, keystone flap 2 sisi)",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM032",
+        "display": "Kompleks 2 (myocutan flap, keystone flap di atas 2 sisi)",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM033",
+        "display": "Primary",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM034",
+        "display": "Complicated",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM035",
+        "display": "Selektif",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM036",
+        "display": "Komplikasi",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM037",
+        "display": "Premium",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM038",
+        "display": "Sedang I",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM039",
+        "display": "Sedang II",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM040",
+        "display": "golongan reserve",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM041",
+        "display": "golongan watch",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM042",
+        "display": "Multiple",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM043",
+        "display": "Lengkap",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "KM044",
+        "display": "Prosedural",
+        "Kategori": "Kompleksitas"
+    },
+    {
+        "code": "VA001",
+        "display": "Minor kaki diabetik",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA002",
+        "display": "Mayor kaki diabetik",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA003",
+        "display": "Panggul",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA004",
+        "display": "Di atas lutut (knee)",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA005",
+        "display": "Di bawah lutut (knee)",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA006",
+        "display": "Di atas siku (elbow)",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA007",
+        "display": "Di bawah siku (elbow)",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA008",
+        "display": "Di atas/di bawah lutut",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA009",
+        "display": "Di atas/di bawah siku",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA010",
+        "display": "Forequarter",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA011",
+        "display": "Jari",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA012",
+        "display": "Jari kaki",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA013",
+        "display": "Jari tangan",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA014",
+        "display": "Polydactily",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA015",
+        "display": "Polydactily (with reconstruction)",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA016",
+        "display": "Bahu",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA017",
+        "display": "Tangan",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "VA018",
+        "display": "Pelvis",
+        "Kategori": "Level Amputasi"
+    },
+    {
+        "code": "LV001",
+        "display": "Ringan (<25%)",
+        "Kategori": "Level reparasi"
+    },
+    {
+        "code": "LV002",
+        "display": "Sedang (25-60%)",
+        "Kategori": "Level reparasi"
+    },
+    {
+        "code": "EV001",
+        "display": "Perifer",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV002",
+        "display": "Ekstremitas",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV003",
+        "display": "Intraabdomen",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV004",
+        "display": "Leher",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV005",
+        "display": "Craniocervical",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV006",
+        "display": "Spinal",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV007",
+        "display": "Intrakranial",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV008",
+        "display": "Transarterial",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV009",
+        "display": "Transarterial-transvena",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV010",
+        "display": "Intraarterial-transvena",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV011",
+        "display": "Aorta Abdominal",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV012",
+        "display": "Arkus Aorta – Carotis - Vertebralis",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV013",
+        "display": "Arteri Renalis",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV014",
+        "display": "Ekstremitas Atas",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV015",
+        "display": "Ekstremitas Bawah",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "EV016",
+        "display": "Penile",
+        "Kategori": "Lokasi Eksplorasi Vaskular"
+    },
+    {
+        "code": "LH001",
+        "display": "Intercondyler",
+        "Kategori": "Lokasi Humerus"
+    },
+    {
+        "code": "LH002",
+        "display": "Proximal/supracondyler",
+        "Kategori": "Lokasi Humerus"
+    },
+    {
+        "code": "LH003",
+        "display": "Shaft-plate",
+        "Kategori": "Lokasi Humerus"
+    },
+    {
+        "code": "OL001",
+        "display": "Plate and screw/shortening",
+        "Kategori": "Lokasi Olecranon"
+    },
+    {
+        "code": "OL002",
+        "display": "Tension band wiring",
+        "Kategori": "Lokasi Olecranon"
+    },
+    {
+        "code": "LP001",
+        "display": "Medialis",
+        "Kategori": "Lokasi Pemotongan Tulang"
+    },
+    {
+        "code": "LP002",
+        "display": "Paramedial",
+        "Kategori": "Lokasi Pemotongan Tulang"
+    },
+    {
+        "code": "LP003",
+        "display": "Percutaneus",
+        "Kategori": "Lokasi Pemotongan Tulang"
+    },
+    {
+        "code": "LO001",
+        "display": "Brachiocephalica",
+        "Kategori": "Lokasi Shunt"
+    },
+    {
+        "code": "LO002",
+        "display": "Basilica",
+        "Kategori": "Lokasi Shunt"
+    },
+    {
+        "code": "LO003",
+        "display": "Radial (Brescia Cimino)",
+        "Kategori": "Lokasi Shunt"
+    },
+    {
+        "code": "LO004",
+        "display": "thoracoamnion",
+        "Kategori": "Lokasi Shunt"
+    },
+    {
+        "code": "LO005",
+        "display": "vesiko-amnion",
+        "Kategori": "Lokasi Shunt"
+    },
+    {
+        "code": "LT001",
+        "display": "Dalam RS",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT002",
+        "display": "Luar RS (dalam kota)",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT003",
+        "display": "luar RS (lainnya, sesuai jarak dan rute)",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT004",
+        "display": "luar RS (luar kota)",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT005",
+        "display": "Interhospital",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT006",
+        "display": "Intrahospital",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT007",
+        "display": "Di dalam kamar operasi",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT008",
+        "display": "di dalam pengadilan",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT009",
+        "display": "Di luar kamar operasi",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT010",
+        "display": "di luar pengadilan",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT011",
+        "display": "di rawat jalan",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT012",
+        "display": "di ruang bersalin",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT013",
+        "display": "di ruang operasi",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT014",
+        "display": "office",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT015",
+        "display": "Bedside",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT016",
+        "display": "di ruang intensif",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT017",
+        "display": "di ruang perawatan",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LT018",
+        "display": "di luar ruang intensif",
+        "Kategori": "Lokasi Tindakan"
+    },
+    {
+        "code": "LA001",
+        "display": "<1/4 luas area kepala",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA002",
+        "display": ">1 regio tubuh",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA003",
+        "display": ">1/2 luas area kepala",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA004",
+        "display": "Sedang",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA005",
+        "display": "Simpel",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA006",
+        "display": "Marginal",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA007",
+        "display": "Segmental",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA008",
+        "display": "Total",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA009",
+        "display": "<1/2 wajah",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA010",
+        "display": "1 rahang",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA011",
+        "display": "1 regio tubuh",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA012",
+        "display": "1/2 wajah",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA013",
+        "display": "1/4-1/2 luas area kepala",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA014",
+        "display": "2 rahang",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA015",
+        "display": "Completion",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA016",
+        "display": "Deep",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA017",
+        "display": "Luas",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA018",
+        "display": "Parsial",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA019",
+        "display": "Posteralateral",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA020",
+        "display": "Radikal",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA021",
+        "display": "Radikal klasik",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA022",
+        "display": "Radikal Modifikasi",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA023",
+        "display": "Seluruh wajah",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA024",
+        "display": "Superfisial",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA025",
+        "display": "Supra Omohyoid",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA026",
+        "display": "Upper Neck",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA027",
+        "display": ">1 Segmen",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA028",
+        "display": "1 Segmen",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA029",
+        "display": "Selektif",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA030",
+        "display": "Hemi Arch",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA031",
+        "display": "Partial Arch",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA032",
+        "display": "Total Arch",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA033",
+        "display": "Whole body",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LA034",
+        "display": "Subtotal",
+        "Kategori": "Luas Area Tindakan"
+    },
+    {
+        "code": "LB001",
+        "display": ">30%",
+        "Kategori": "Luas Luka Bakar"
+    },
+    {
+        "code": "LB002",
+        "display": "<15%",
+        "Kategori": "Luas Luka Bakar"
+    },
+    {
+        "code": "LB003",
+        "display": "15-30%",
+        "Kategori": "Luas Luka Bakar"
+    },
+    {
+        "code": "MB001",
+        "display": "Laser intra janin",
+        "Kategori": "Metode Ablasi"
+    },
+    {
+        "code": "MB002",
+        "display": "Laser per fetoskopi",
+        "Kategori": "Metode Ablasi"
+    },
+    {
+        "code": "MB003",
+        "display": "Non Thermal",
+        "Kategori": "Metode Ablasi"
+    },
+    {
+        "code": "MB004",
+        "display": "Radiofrekuensi intra janin",
+        "Kategori": "Metode Ablasi"
+    },
+    {
+        "code": "MB005",
+        "display": "Thermal",
+        "Kategori": "Metode Ablasi"
+    },
+    {
+        "code": "MB006",
+        "display": "Laser",
+        "Kategori": "Metode Ablasi"
+    },
+    {
+        "code": "DA001",
+        "display": "Interpretasi",
+        "Kategori": "Metode Analisis"
+    },
+    {
+        "code": "DA002",
+        "display": "Pemeriksaan",
+        "Kategori": "Metode Analisis"
+    },
+    {
+        "code": "MI001",
+        "display": "Double lumen",
+        "Kategori": "Metode Intubasi"
+    },
+    {
+        "code": "MI002",
+        "display": "Metode lainnya",
+        "Kategori": "Metode Intubasi"
+    },
+    {
+        "code": "MI003",
+        "display": "Retrograde Intubation",
+        "Kategori": "Metode Intubasi"
+    },
+    {
+        "code": "MI004",
+        "display": "Videolaryngoscopy",
+        "Kategori": "Metode Intubasi"
+    },
+    {
+        "code": "OM001",
+        "display": "Terapi magnet",
+        "Kategori": "Metode Modalitas"
+    },
+    {
+        "code": "OM002",
+        "display": "Diathermy (terapi panas dalam)",
+        "Kategori": "Metode Modalitas"
+    },
+    {
+        "code": "OM003",
+        "display": "Terapi electrical",
+        "Kategori": "Metode Modalitas"
+    },
+    {
+        "code": "OM004",
+        "display": "Terapi Air",
+        "Kategori": "Metode Modalitas"
+    },
+    {
+        "code": "OM005",
+        "display": "Terapi panas superfisial",
+        "Kategori": "Metode Modalitas"
+    },
+    {
+        "code": "OM006",
+        "display": "Terapi Dingin",
+        "Kategori": "Metode Modalitas"
+    },
+    {
+        "code": "MM001",
+        "display": "Adang",
+        "Kategori": "Metode Modifikasi"
+    },
+    {
+        "code": "MM002",
+        "display": "Martin",
+        "Kategori": "Metode Modifikasi"
+    },
+    {
+        "code": "MM003",
+        "display": "Non modifikasi",
+        "Kategori": "Metode Modifikasi"
+    },
+    {
+        "code": "MW001",
+        "display": "Sudan Black B/SBB",
+        "Kategori": "Metode Pewarnaan"
+    },
+    {
+        "code": "MW002",
+        "display": "FE (Sumsum Tulang)",
+        "Kategori": "Metode Pewarnaan"
+    },
+    {
+        "code": "MW003",
+        "display": "MPO/Lepehne",
+        "Kategori": "Metode Pewarnaan"
+    },
+    {
+        "code": "MW004",
+        "display": "Napthyl Asetat",
+        "Kategori": "Metode Pewarnaan"
+    },
+    {
+        "code": "MW005",
+        "display": "Neutrophil Alkaline Phospatase (NAP)",
+        "Kategori": "Metode Pewarnaan"
+    },
+    {
+        "code": "MW006",
+        "display": "Periodic Acid Schiff",
+        "Kategori": "Metode Pewarnaan"
+    },
+    {
+        "code": "SV001",
+        "display": "Full field",
+        "Kategori": "Metode Stimulus Visual"
+    },
+    {
+        "code": "SV002",
+        "display": "Multifokal",
+        "Kategori": "Metode Stimulus Visual"
+    },
+    {
+        "code": "MD001",
+        "display": "Konvensional",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD002",
+        "display": "Semiotomatis",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD003",
+        "display": "STSG",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD004",
+        "display": "Tunnel",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD005",
+        "display": "Eksisional",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD006",
+        "display": "FTSG",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD007",
+        "display": "GCMS",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD008",
+        "display": "Insisional",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD009",
+        "display": "LC-MSMS",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD010",
+        "display": "Manual",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD011",
+        "display": "Non tunnel",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD012",
+        "display": "Otomatis",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD013",
+        "display": "Surface",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD014",
+        "display": "With Needle",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD015",
+        "display": "TVT (trans vaginal tape)",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD016",
+        "display": "TOT (trans obturator tape)",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD017",
+        "display": "Direk",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD018",
+        "display": "Indirek",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD019",
+        "display": "Implantation",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD020",
+        "display": "Explantation",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD021",
+        "display": "Dengan filter",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "MD022",
+        "display": "tanpa filter",
+        "Kategori": "Metode Tindakan/Layanan"
+    },
+    {
+        "code": "OU001",
+        "display": "Gait Analysis (Instrumental)",
+        "Kategori": "Metode Uji Fungsi"
+    },
+    {
+        "code": "OU002",
+        "display": "Gait Analysis (Observasional)",
+        "Kategori": "Metode Uji Fungsi"
+    },
+    {
+        "code": "OU003",
+        "display": "Analisis Gas",
+        "Kategori": "Metode Uji Fungsi"
+    },
+    {
+        "code": "OU004",
+        "display": "Lapangan",
+        "Kategori": "Metode Uji Fungsi"
+    },
+    {
+        "code": "ML001",
+        "display": "PADA PERMUKAAN BENDA DAN IDENTIFIKASI MIKROBA",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML002",
+        "display": "ENDOTOKSIN KUALITATIF",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML003",
+        "display": "MIKROBIOLOGI AIR",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML004",
+        "display": "MIKROBIOLOGI ALAT MASAK/ ALAT MAKAN",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML005",
+        "display": "MIKROBIOLOGI MAKANAN",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML006",
+        "display": "PADA PERMUKAAN BENDA",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML007",
+        "display": "STERILITAS CAIRAN PRODUK FARMASI",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML008",
+        "display": "STERILITAS PRODUK CSSD",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML009",
+        "display": "UDARA (CFU/M3)",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "ML010",
+        "display": "UDARA (CFU/M3) DAN IDENTIFIKASI MIKROBA",
+        "Kategori": "Mikrobiologi Lingkungan"
+    },
+    {
+        "code": "MT001",
+        "display": "Laut dan udara",
+        "Kategori": "Moda Transportasi"
+    },
+    {
+        "code": "MT002",
+        "display": "Luar negeri",
+        "Kategori": "Moda Transportasi"
+    },
+    {
+        "code": "PT001",
+        "display": ">2.5 m",
+        "Kategori": "Panjang Tapping"
+    },
+    {
+        "code": "PT002",
+        "display": "<2.5",
+        "Kategori": "Panjang Tapping"
+    },
+    {
+        "code": "PD001",
+        "display": "Endoskopi",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD002",
+        "display": "Terbuka",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD003",
+        "display": "Bedah robotik",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD004",
+        "display": "Laparoskopi",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD005",
+        "display": "Laparotomi",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD006",
+        "display": "Laparoskopi tingkat 1",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD007",
+        "display": "Laparoskopi tingkat 2 (dengan penyulit, perlekatan hebat)",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD008",
+        "display": "Periarterial",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD009",
+        "display": "Robotic assisted laparoscopy",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD010",
+        "display": "Torakoskopi",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD011",
+        "display": "Tertutup",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD012",
+        "display": "Perc Facet Denervation",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD013",
+        "display": "Percutaneus Rhizotomy/PRGR",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD014",
+        "display": "Histeroskopi",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD015",
+        "display": "Aspiration thrombectomy",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD016",
+        "display": "Pharmacomecanical thrombectomy",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD017",
+        "display": "Torakotomi",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD018",
+        "display": "Minimal invasif",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD019",
+        "display": "Flebektomi",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD020",
+        "display": "Angiojet",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD021",
+        "display": "Dynamic",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD022",
+        "display": "Static",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "PD023",
+        "display": "Robotik",
+        "Kategori": "Pendekatan"
+    },
+    {
+        "code": "RM001",
+        "display": "dengan tekanan negatif",
+        "Kategori": "Pengaturan Kamar"
+    },
+    {
+        "code": "RM002",
+        "display": "tanpa tekanan negatif",
+        "Kategori": "Pengaturan Kamar"
+    },
+    {
+        "code": "PJ001",
+        "display": "Baru",
+        "Kategori": "Penggunaan Jarum"
+    },
+    {
+        "code": "PJ002",
+        "display": "Reuse",
+        "Kategori": "Penggunaan Jarum"
+    },
+    {
+        "code": "PN001",
+        "display": "Non Trauma",
+        "Kategori": "Penyebab"
+    },
+    {
+        "code": "PN002",
+        "display": "Pada Trauma",
+        "Kategori": "Penyebab"
+    },
+    {
+        "code": "RP001",
+        "display": "Dengan Kontras",
+        "Kategori": "Prosedur Pemindaian"
+    },
+    {
+        "code": "RP002",
+        "display": "Tanpa Kontras",
+        "Kategori": "Prosedur Pemindaian"
+    },
+    {
+        "code": "RS001",
+        "display": "Psikoterapi Bermain (Play psychotherapy)",
+        "Kategori": "Prosedur Psikolog"
+    },
+    {
+        "code": "RF001",
+        "display": "Ac-225 DOTATATE",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF002",
+        "display": "Ac-225 PSMA",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF003",
+        "display": "F-18 DOPA",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF004",
+        "display": "F-18 FDG",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF005",
+        "display": "F-18 NaF",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF006",
+        "display": "F-18 PSMA",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF007",
+        "display": "FMISO",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF008",
+        "display": "Ga-67 citrate",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF009",
+        "display": "Ga-68 DOTATATE",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF010",
+        "display": "Ga-68 FAPI",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF011",
+        "display": "Ga-68 PSMA",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF012",
+        "display": "I-123",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF013",
+        "display": "I-123 Ioflupane (DaTscan)",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF014",
+        "display": "I-131",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF015",
+        "display": "I-131 mIBG",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF016",
+        "display": "Lu-177 DOTATATE",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF017",
+        "display": "Lu-177 PSMA",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF018",
+        "display": "P-32",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF019",
+        "display": "Rh-188",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF020",
+        "display": "Sm-153",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF021",
+        "display": "Sm-153 EDTMP",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF022",
+        "display": "Tc-99m Ciprofloxacin",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF023",
+        "display": "Tc-99m ECD",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF024",
+        "display": "Tc-99m Ethambutol",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF025",
+        "display": "Tc-99m HMPAO",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF026",
+        "display": "Tc-99m Hynic-TOC",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF027",
+        "display": "Tc-99m pertechnetate",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF028",
+        "display": "Tc-99m PSMA",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF029",
+        "display": "Tc-99m Sestamibi",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF030",
+        "display": "Tc-99m Trodat",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF031",
+        "display": "Tc-99m Ubiquicidin",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF032",
+        "display": "Tc-99m WBC",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF033",
+        "display": "Y-90",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF034",
+        "display": "Na-131",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RF035",
+        "display": "FDOPA",
+        "Kategori": "Radiofarmaka"
+    },
+    {
+        "code": "RV001",
+        "display": "Aorto iliaka femora",
+        "Kategori": "Rute Rekonstruksi Vaskular"
+    },
+    {
+        "code": "RV002",
+        "display": "Aorto subklavia karotis",
+        "Kategori": "Rute Rekonstruksi Vaskular"
+    },
+    {
+        "code": "RV003",
+        "display": "Arteri intraabdominal",
+        "Kategori": "Rute Rekonstruksi Vaskular"
+    },
+    {
+        "code": "RV004",
+        "display": "Vaskular perifer ekstra anatomikal",
+        "Kategori": "Rute Rekonstruksi Vaskular"
+    },
+    {
+        "code": "SB001",
+        "display": "Per gigi",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB002",
+        "display": "Per regio",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB003",
+        "display": "Per unit",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB004",
+        "display": "Besar",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB005",
+        "display": "Kecil",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB006",
+        "display": "per kedatangan",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB007",
+        "display": "per 35x kedatangan",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB008",
+        "display": "per 5x kedatangan",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB009",
+        "display": "per 3x kedatangan",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "SB010",
+        "display": "per 9x kedatangan",
+        "Kategori": "Satuan Biaya"
+    },
+    {
+        "code": "ST001",
+        "display": "Unilateral",
+        "Kategori": "Sisi tubuh"
+    },
+    {
+        "code": "ST002",
+        "display": "Atas (Superior) Supra levator",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST003",
+        "display": "Atas dan Bawah",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST004",
+        "display": "Bawah (Inferior) Infra levator",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST005",
+        "display": "Belakang (Posterior)",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST006",
+        "display": "Bilateral",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST007",
+        "display": "C1-C2",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST008",
+        "display": "Depan (Anterior)",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST009",
+        "display": "Bawah",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST010",
+        "display": "Luar wajah",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST011",
+        "display": "Atas",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST012",
+        "display": "Wajah",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST013",
+        "display": "Wajah dan luar wajah",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST014",
+        "display": "Wajah terbatas",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST015",
+        "display": "Kanan",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST016",
+        "display": "Kiri",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "ST017",
+        "display": "Lateral",
+        "Kategori": "Sisi Tubuh"
+    },
+    {
+        "code": "RO001",
+        "display": "Jantung",
+        "Kategori": "Spesialisasi kamar"
+    },
+    {
+        "code": "RO002",
+        "display": "Respirasi",
+        "Kategori": "Spesialisasi kamar"
+    },
+    {
+        "code": "RO003",
+        "display": "Pediatrik",
+        "Kategori": "Spesialisasi kamar"
+    },
+    {
+        "code": "RO004",
+        "display": "Neonatus",
+        "Kategori": "Spesialisasi kamar"
+    },
+    {
+        "code": "SS001",
+        "display": "Anestesi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS002",
+        "display": "Kedokteran Fisik dan Rehabilitasi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS003",
+        "display": "Patologi Klinik",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS004",
+        "display": "Kedokteran Nuklir",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS005",
+        "display": "Gizi Klinik",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS006",
+        "display": "Intensive Care (Intensivist)",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS007",
+        "display": "Psikolog Klinis",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS008",
+        "display": "Ortodonsia",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS009",
+        "display": "Penyakit Mulut",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS010",
+        "display": "Periodonsia",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS011",
+        "display": "Prostodonsia",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS012",
+        "display": "Prevensi dan Rehabilitasi Kardiovaskular",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS013",
+        "display": "Radiologi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS014",
+        "display": "Jantung",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS015",
+        "display": "Fellow",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS016",
+        "display": "Pediatrik",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS017",
+        "display": "Neonatologi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS018",
+        "display": "Radiografer",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS019",
+        "display": "Nefrologi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS020",
+        "display": "Dokter Umum",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS021",
+        "display": "Dokter Gigi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS022",
+        "display": "Emergensi dan Rawat Intensif Anak (ERIA)",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS023",
+        "display": "Anak",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS024",
+        "display": "Penyakit Dalam",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS025",
+        "display": "Obstetri dan ginekologi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS026",
+        "display": "Mata",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS027",
+        "display": "Telinga hidung tenggorok dan bedah kepala leher (THT-KL)",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS028",
+        "display": "Saraf",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS029",
+        "display": "Ilmu Kesehatan Kulit Dan Kelamin",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS030",
+        "display": "Kedokteran Jiwa",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS031",
+        "display": "Paru",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS032",
+        "display": "Orthopedi dan Traumatologi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS033",
+        "display": "Urologi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS034",
+        "display": "Bedah saraf",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS035",
+        "display": "Bedah plastik",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS036",
+        "display": "Bedah anak",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS037",
+        "display": "Bedah Thoraks dan Kardiovaskuler",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS038",
+        "display": "Forensik",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS039",
+        "display": "Bedah Mulut",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS040",
+        "display": "Konservasi Gigi/Endodonsi",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "SS041",
+        "display": "Pedodonti",
+        "Kategori": "Spesialisasi Praktisi"
+    },
+    {
+        "code": "KR001",
+        "display": "Isolasi",
+        "Kategori": "Status kamar"
+    },
+    {
+        "code": "KR002",
+        "display": "non isolasi",
+        "Kategori": "Status kamar"
+    },
+    {
+        "code": "TL001",
+        "display": "Donor",
+        "Kategori": "Status Transplantasi"
+    },
+    {
+        "code": "TL002",
+        "display": "Resipien",
+        "Kategori": "Status Transplantasi"
+    },
+    {
+        "code": "IN001",
+        "display": "Botox",
+        "Kategori": "Substansi Injeksi"
+    },
+    {
+        "code": "IN002",
+        "display": "PRP",
+        "Kategori": "Substansi Injeksi"
+    },
+    {
+        "code": "IN003",
+        "display": "BMC",
+        "Kategori": "Substansi Injeksi"
+    },
+    {
+        "code": "IN004",
+        "display": "Stem Cell",
+        "Kategori": "Substansi Injeksi"
+    },
+    {
+        "code": "IN005",
+        "display": "Triamcinolone",
+        "Kategori": "Substansi Injeksi"
+    },
+    {
+        "code": "SC001",
+        "display": "Allogenic",
+        "Kategori": "Sumber Sel Punca"
+    },
+    {
+        "code": "SC002",
+        "display": "Autologous",
+        "Kategori": "Sumber Sel Punca"
+    },
+    {
+        "code": "SA001",
+        "display": "Ankle Joint Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA002",
+        "display": "Genu Joint Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA003",
+        "display": "Medial Nerve Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA004",
+        "display": "N.Cranialis/Spinalis Perifer",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA005",
+        "display": "Plexus Brachialis/LbSacralis",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA006",
+        "display": "Radial Nerve Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA007",
+        "display": "Sacro Iliac Joint Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA008",
+        "display": "Shoulder Joint Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA009",
+        "display": "Ulnar Nerve Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA010",
+        "display": "Wrist Joint Block",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA011",
+        "display": "Celiac plexus",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA012",
+        "display": "Ilumbosacral",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA013",
+        "display": "Lumbar Facet Joint",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA014",
+        "display": "Lumbar Interlaminal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA015",
+        "display": "Lumbar Intradiscal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA016",
+        "display": "Lumbar Medial Branch",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA017",
+        "display": "Lumbar Sympathetic",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA018",
+        "display": "Lumbar Transforaminal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA019",
+        "display": "Sacral",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA020",
+        "display": "Sacral Epidural",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA021",
+        "display": "Sacral Transforaminal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA022",
+        "display": "Cervical Dorsal Root Ganglion",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA023",
+        "display": "Cervical Epidural",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA024",
+        "display": "Cervical Facet Joint",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA025",
+        "display": "Cervical Interlaminar",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA026",
+        "display": "Cervical Medial Branch",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA027",
+        "display": "Cervical Sympathetic",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA028",
+        "display": "Cervical Sympathetic Ganglion",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA029",
+        "display": "Cervical",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA030",
+        "display": "Thorakal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA031",
+        "display": "Thorakal Facet Joint",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA032",
+        "display": "Thorakal Interlaminar",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA033",
+        "display": "Thorakal Medial Branch",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA034",
+        "display": "Thorakal Transforaminal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA035",
+        "display": "Intercostal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA036",
+        "display": "Lumbar Sacral",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA037",
+        "display": "Lumbar",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA038",
+        "display": "Pleksus Brachialis/N. Fasialis",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA039",
+        "display": "Spinal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA040",
+        "display": "Occipital",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA041",
+        "display": "Spinal Epidural",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA042",
+        "display": "Spinal Facet Join",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA043",
+        "display": "Spinal Medial Branch",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA044",
+        "display": "Spinal Transforaminal",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA045",
+        "display": "Stellate Ganglion",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA046",
+        "display": "Thorakal epidural",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA047",
+        "display": "Trigeminal Ganglion",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA048",
+        "display": "Lumbar Epidural",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA049",
+        "display": "Thorakal Sympathetic",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA050",
+        "display": "Thorakal Interaminar",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA051",
+        "display": "Canalis spinalis",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA052",
+        "display": "Saraf Simpatetik",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "SA053",
+        "display": "Saraf Perifer",
+        "Kategori": "Target Saraf"
+    },
+    {
+        "code": "TG001",
+        "display": "Artikulasi",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "TG002",
+        "display": "Bahasa Tidak Spesifik (Termasuk Disleksia, Dispraksia)",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "TG003",
+        "display": "Gangguan Berbahasa",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "TG004",
+        "display": "Fonasi/Produksi Suara",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "TG005",
+        "display": "Kelancaran Bicara",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "TG006",
+        "display": "Makan dan Menelan",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "TG007",
+        "display": "Proses Bicara pada Kelainan Kraniofacial",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "TG008",
+        "display": "Keterlambatan Bahasa Bicara",
+        "Kategori": "Tatalaksana Gangguan"
+    },
+    {
+        "code": "HD001",
+        "display": "Konvensional",
+        "Kategori": "Teknik Hemodialisis"
+    },
+    {
+        "code": "HD002",
+        "display": "Slow Efficiency Dialysis (SLED)",
+        "Kategori": "Teknik Hemodialisis"
+    },
+    {
+        "code": "HD003",
+        "display": "Hemodialisis Hemoperfusi (HDHP)",
+        "Kategori": "Teknik Hemodialisis"
+    },
+    {
+        "code": "TC001",
+        "display": "Dual Phase",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC002",
+        "display": "Dual Tracer",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC003",
+        "display": "PET",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC004",
+        "display": "SPECT",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC005",
+        "display": "Perfusion Scan",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC006",
+        "display": "Ventilation Scan",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC007",
+        "display": "Ventilation-Perfusion (VQ) Scan",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC008",
+        "display": "Captopril",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC009",
+        "display": "Conventional",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC010",
+        "display": "Diuretic",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC011",
+        "display": "CT Scan",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC012",
+        "display": "CT Scan Stimulator",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC013",
+        "display": "Hybrid Imaging",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC014",
+        "display": "Kedokteran Nuklir",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC015",
+        "display": "MRI",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC016",
+        "display": "Multi Modalitas",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC017",
+        "display": "Radiografi Konvensional",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TC018",
+        "display": "Radiografi Konvensional Kontras",
+        "Kategori": "Teknik Pencitraan"
+    },
+    {
+        "code": "TD001",
+        "display": "imaging intravaskular (OCT/IVUS)",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD002",
+        "display": "Injeksi Trombolitik Intraperitoneal",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD003",
+        "display": "Physiologic study (IFR/FFR)",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD004",
+        "display": "Therapeutic Plasma Exchange",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD005",
+        "display": "Dengan CPB",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD006",
+        "display": "Tanpa CPB",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD007",
+        "display": "Dengan BT Shunt",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD008",
+        "display": "Tanpa BT Shunt",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD009",
+        "display": "LASIK",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD010",
+        "display": "Lenticular Refractive Surgery",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD011",
+        "display": "dengan tub silikon",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD012",
+        "display": "dengan Keterlibatan Margo",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD013",
+        "display": "tanpa Keterlibatan Margo",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD014",
+        "display": "Packing",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD015",
+        "display": "Suture",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD016",
+        "display": "On-line",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD017",
+        "display": "EBER-ISH",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD018",
+        "display": "HER2-ISH",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD019",
+        "display": "Lainnya",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD020",
+        "display": "poly-L-lysine",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "TD021",
+        "display": "anastomosis roux en y",
+        "Kategori": "Teknik Tindakan"
+    },
+    {
+        "code": "EL001",
+        "display": "with Ball Orbital Implant",
+        "Kategori": "Teknik Tindakan Enukleasi"
+    },
+    {
+        "code": "EL002",
+        "display": "with DFG",
+        "Kategori": "Teknik Tindakan Enukleasi"
+    },
+    {
+        "code": "EL003",
+        "display": "with Orbital Implant",
+        "Kategori": "Teknik Tindakan Enukleasi"
+    },
+    {
+        "code": "RT001",
+        "display": "Stereotactic Radiosurgery",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "RT002",
+        "display": "IMRT",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "RT003",
+        "display": "SRS/TBI/TSEBT",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "RT004",
+        "display": "SRT/SBRT",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "RT005",
+        "display": "IGRT",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "RT006",
+        "display": "IMRT/VMAT",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "RT007",
+        "display": "Teknik Khusus",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "RT008",
+        "display": "Stereotactic Radiotherapy",
+        "Kategori": "Teknik Tindakan Radioterapi"
+    },
+    {
+        "code": "NS001",
+        "display": "Puncture-BMP/BMA",
+        "Kategori": "Tindakan Pengambilan Spesimen"
+    },
+    {
+        "code": "NS002",
+        "display": "Biopsy-BMB",
+        "Kategori": "Tindakan Pengambilan Spesimen"
+    },
+    {
+        "code": "TB001",
+        "display": "Brow Lift",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB002",
+        "display": "Dengan Bronkodiilator",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB003",
+        "display": "Tanpa Bronkodilator",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB004",
+        "display": "Temporal Lift",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB005",
+        "display": "Dengan Tatalaksana PH",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB006",
+        "display": "Konno Procedure",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB007",
+        "display": "Imaging intrakoroner",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB008",
+        "display": "Uji fungsional",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB009",
+        "display": "Dengan PA",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB010",
+        "display": "Tanpa PA",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB011",
+        "display": "Dengan repair katup atau repair PA",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB012",
+        "display": "Tanpa repair katup atau repair PA",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB013",
+        "display": "Dengan angiography",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB014",
+        "display": "Tanpa angiography",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB015",
+        "display": "Tanpa Tatalaksana PH",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB016",
+        "display": "dengan suntik",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB017",
+        "display": "tanpa suntik",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB018",
+        "display": "Injeksi Intracameral (tanpa obat)",
+        "Kategori": "Tindakan tambahan"
+    },
+    {
+        "code": "TB019",
+        "display": "Injeksi Intravitreal",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB020",
+        "display": "Cryotherapy",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB021",
+        "display": "Cryotherapy + Injeksi Intravitreal",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB022",
+        "display": "Injeksi Intravena Kemoterapi",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB023",
+        "display": "Laser Indirect Ophthalmoscopy (LIO)",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB024",
+        "display": "Laser Indirect Ophthalmoscopy (LIO) + Cryotherapy",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB025",
+        "display": "Lid sparring",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB026",
+        "display": "Rhinoplasty",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB027",
+        "display": "DCR",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB028",
+        "display": "dengan skin graft/skin flap",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB029",
+        "display": "dengan fiksasi",
+        "Kategori": "Tindakan tambahan"
+    },
+    {
+        "code": "TB030",
+        "display": "tanpa fiksasi",
+        "Kategori": "Tindakan tambahan"
+    },
+    {
+        "code": "TB031",
+        "display": "Encircling band",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB032",
+        "display": "Macular surgery",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB033",
+        "display": "Heavy fluid",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "TB034",
+        "display": "Macular surgery+Heavy fluid",
+        "Kategori": "Tindakan Tambahan"
+    },
+    {
+        "code": "KH001",
+        "display": "Spesialis",
+        "Kategori": "Tingkat Keahlian"
+    },
+    {
+        "code": "KH002",
+        "display": "Subspesialis",
+        "Kategori": "Tingkat Keahlian"
+    },
+    {
+        "code": "RE001",
+        "display": "Tingkat 1",
+        "Kategori": "Tingkat Reseksi"
+    },
+    {
+        "code": "RE002",
+        "display": "Tingkat 2",
+        "Kategori": "Tingkat Reseksi"
+    },
+    {
+        "code": "RE003",
+        "display": "Tingkat 3",
+        "Kategori": "Tingkat Reseksi"
+    },
+    {
+        "code": "TT001",
+        "display": "Serial",
+        "Kategori": "TT"
+    },
+    {
+        "code": "TT002",
+        "display": "Non serial",
+        "Kategori": "TT"
+    },
+    {
+        "code": "EO001",
+        "display": "Terapeutik",
+        "Kategori": "Tujuan Pemeriksaan"
+    },
+    {
+        "code": "EO002",
+        "display": "Diagnostik",
+        "Kategori": "Tujuan Pemeriksaan"
+    },
+    {
+        "code": "EO003",
+        "display": "FNA",
+        "Kategori": "Tujuan Pemeriksaan"
+    },
+    {
+        "code": "EO004",
+        "display": "Skrining",
+        "Kategori": "Tujuan Pemeriksaan"
+    },
+    {
+        "code": "EO005",
+        "display": "Terapeutik biliary drainage",
+        "Kategori": "Tujuan Pemeriksaan"
+    },
+    {
+        "code": "EO006",
+        "display": "Operatif",
+        "Kategori": "Tujuan Pemeriksaan"
+    },
+    {
+        "code": "UB001",
+        "display": "Besar",
+        "Kategori": "Ukuran Bahan"
+    },
+    {
+        "code": "UB002",
+        "display": "Kecil",
+        "Kategori": "Ukuran Bahan"
+    },
+    {
+        "code": "UB003",
+        "display": "Sedang",
+        "Kategori": "Ukuran Bahan"
+    },
+    {
+        "code": "CT001",
+        "display": "1.1 mm",
+        "Kategori": "Ukuran Cryo Trobe"
+    },
+    {
+        "code": "CT002",
+        "display": "1.7 mm",
+        "Kategori": "Ukuran Cryo Trobe"
+    },
+    {
+        "code": "DF001",
+        "display": ">2 cm",
+        "Kategori": "Ukuran Defek Tulang"
+    },
+    {
+        "code": "DF002",
+        "display": "<2 cm",
+        "Kategori": "Ukuran Defek Tulang"
+    },
+    {
+        "code": "UF001",
+        "display": "Besar",
+        "Kategori": "Ukuran Film"
+    },
+    {
+        "code": "UF002",
+        "display": "Sedang",
+        "Kategori": "Ukuran Film"
+    },
+    {
+        "code": "UF003",
+        "display": "Kecil",
+        "Kategori": "Ukuran Film"
+    },
+    {
+        "code": "UJ001",
+        "display": "besar (diameter terbesar 6-10 cm/volume maksimal 50 cc)",
+        "Kategori": "Ukuran Jaringan"
+    },
+    {
+        "code": "UJ002",
+        "display": "kecil (diameter terbesar ≤2cm/volume maksimal 5 cc)",
+        "Kategori": "Ukuran Jaringan"
+    },
+    {
+        "code": "UJ003",
+        "display": "khusus (diameter terbesar >10 cm/volume maksimal >50 cc)",
+        "Kategori": "Ukuran Jaringan"
+    },
+    {
+        "code": "UJ004",
+        "display": "sedang (diameter terbesar 3-5cm/volume maksimal 25 cc)",
+        "Kategori": "Ukuran Jaringan"
+    },
+    {
+        "code": "UK001",
+        "display": "Kecil",
+        "Kategori": "Ukuran Kelopak Mata"
+    },
+    {
+        "code": "UK002",
+        "display": "Besar",
+        "Kategori": "Ukuran Kelopak Mata"
+    },
+    {
+        "code": "UL001",
+        "display": ">10 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL002",
+        "display": ">3 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL003",
+        "display": "<3 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL004",
+        "display": "Besar (>10 cm)",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL005",
+        "display": "Kecil (1-5 cm)",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL006",
+        "display": "Sedang (6-10 cm)",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL007",
+        "display": "<10 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL008",
+        "display": "3-6 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL009",
+        "display": "Luas 1 regio tubuh atau lebih",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL010",
+        "display": "Panjang hingga 12 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL011",
+        "display": "Panjang hingga 3 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL012",
+        "display": "Panjang hingga 6 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL013",
+        "display": "<6 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL014",
+        "display": ">6 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "UL015",
+        "display": ">11 cm",
+        "Kategori": "Ukuran Lesi/Luka"
+    },
+    {
+        "code": "VO001",
+        "display": "0.1 mL-0.5 mL",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO002",
+        "display": ">= 4 vial",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO003",
+        "display": ">1 mL",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO004",
+        "display": "<= 25 unit",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO005",
+        "display": "0.6 mL-1 mL",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO006",
+        "display": "1 vial",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO007",
+        "display": "100-200 unit",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO008",
+        "display": "2-3 vial",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO009",
+        "display": "26-50 unit",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO010",
+        "display": "51-100 unit",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "VO011",
+        "display": "1.1 mL-2 mL",
+        "Kategori": "Volume Obat"
+    },
+    {
+        "code": "WA001",
+        "display": "Lanjutan",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA002",
+        "display": "Awal (inisiasi)",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA003",
+        "display": "Di luar operasi (ext)",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA004",
+        "display": "Harian",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA005",
+        "display": "Intraoperatif",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA006",
+        "display": "Pasca bedah",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA007",
+        "display": "Pra bedah",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA008",
+        "display": "Dalam Jam Kerja",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA009",
+        "display": "Luar Jam Kerja",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA010",
+        "display": "Cito",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA011",
+        "display": "Elektif",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    },
+    {
+        "code": "WA012",
+        "display": "Ulang",
+        "Kategori": "Waktu Tindakan/Pelayanan"
+    }
+]

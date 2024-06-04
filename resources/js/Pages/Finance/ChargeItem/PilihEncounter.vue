@@ -103,19 +103,19 @@ const formatDate = (isoString) => {
 
 // List ChargeItem = procedure + medication
 const chargeItemList = computed(() => {
-    if (!medicationList.value || !procedureList.value || !observationList.value) {
+    // if (!medicationList.value || !procedureList.value || !observationList.value) { MedicationDispense not yet implemented
+    if (!procedureList.value || !observationList.value) {
         return [];
     }
-    return [...medicationList.value, ...procedureList.value, ...observationList.value]
+    return [...procedureList.value, ...observationList.value]
 });
 
 const getChargeItemList = async (id) => {
     await getResourceList('Procedure', procedureList);
-    await getResourceList('MedicationDispense', medicationList);
+    // await getResourceList('MedicationDispense', medicationList); MedicationDispense Not yet implemented
     await getResourceList('Observation', observationList);
     procedureList.value = procedureList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
     observationList.value = observationList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
-    console.log(medicationList)
     // medicationList.value = medicationList.value.filter(item => item?.encounter?.reference === `Encounter/${id}`)
 }
 

@@ -16,6 +16,9 @@
                         <option v-for="(label, id) in chStatus" :value=id>{{ label }}</option>
                     </select>
                 </div>
+                <div class="mt-4">
+                    <InputLabel value="Koding"/>
+                </div>
                 <!-- Procedure/MedicationRequest/Observation Reference -->
                 <div class="mt-4">
                     <InputLabel value="Service"/>
@@ -107,9 +110,9 @@ const getpractitionerList = async () => {
 };
 
 const fillForm = (resForm, data, props) => {
-    resForm.value.service = `${props.item_res_type}/${props.item_id}`
+    resForm.value.service = `${props.item_res_type}/${props.item_id} | ${data.code.coding[0].display}` 
     resForm.value.context = data?.encounter?.reference
-    resForm.value.subject = data?.subject?.reference
+    resForm.value.subject = `${data?.subject?.reference} | ${data?.subject?.display}`
     resForm.value.occurence = data?.performedPeriod
     resForm.value.performer = data?.performer
     resForm.value.bodySite = data?.bodySite
@@ -117,10 +120,8 @@ const fillForm = (resForm, data, props) => {
 
 const formatDate = (isoString) => {
     const date = new Date(isoString);
-
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const dayOfWeek = daysOfWeek[date.getDay()]; // Get the day of the week
-
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
