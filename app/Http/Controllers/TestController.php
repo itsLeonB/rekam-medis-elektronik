@@ -3,14 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\FhirResource;
-use App\Models\ExpertSystem;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
 
-class ExpertSystemController extends Controller
+class TestController extends Controller
 {
     //
     public function indexMedication(Request $request){
@@ -37,6 +31,7 @@ class ExpertSystemController extends Controller
         $result = $keluhan->map(function ($item) {
             return data_get($item, 'code.coding.0.code');
         })->toArray();
+        //return $result;
         return $result;
     }
     public function getDiagnosa($id)
@@ -58,19 +53,21 @@ class ExpertSystemController extends Controller
     }
     public function getMedicationReq($id)
     {
+        //get medication data sesuai Encounter
         $medReq =FhirResource::where('resourceType', 'MedicationRequest')
                 ->where('encounter.reference', 'Encounter/'.$id)  
-                ->get();
+                ->get(['id', 'code', 'medicationReference', 'encounter', 'category', 'dosageInstruction']);
         
-        $result = $medReq->map(function ($item) {
+        //return response()->json(['data' => $medReq]);
+        $medReq = $medReq->map(function ($item) {
+
             return [
                 'id' => data_get($item, 'id'),
-                'display' => data_get($item, 'medicationReference.display'),
+                'medicationReference' => data_get($item, 'medicationReference.reference'),
                 'dosageInstruction' => data_get($item, 'dosageInstruction.0.text')
             ];
-        })->toArray();
-
-        return $result;
+        });
+        return $medReq;
         
     }
     public function statusKehamilan($id){
@@ -112,84 +109,83 @@ class ExpertSystemController extends Controller
     public function dataFisik($id){
         return 'data fisik';
     }
-    public function getAlergi($id){
-        $alergi =FhirResource::where('resourceType', 'AllergyIntolerance')
-                ->where('encounter.reference', 'Encounter/'.$id)
-                ->where('category', 'medication')  
-                ->get();
-        
-        $result = $alergi->map(function ($item) {
-            return data_get($item, 'code.coding.0.display');
-        })->toArray();
-
-        return $result;
-    }
     public function rulePeresepanStore($id){
         try {
             DB::beginTransaction();
                 $keluhan = $this->getKeluhan($id);
+
+                $n_array_keluhan = count($keluhan);
                 $diagnosa = $this->getDiagnosa($id);
                 $status_kehamilan = $this->statusKehamilan($id);
                 $umur = $this->kategoriUmur($id);
-                $resepObat = $this->getMedicationReq($id);
-                $alergi = $this->getAlergi($id);
-                $data = [
-                        'keluhan' => $keluhan,
-                        'diagnosa' => $diagnosa,
-                        'statusKehamilan' => $status_kehamilan,
-                        'umur' => $umur,
-                        'alergi' => $alergi,
-                        'resepObat' => $resepObat
-                    ];
-                    ExpertSystem::insert($data);
+                
+                $rulePeresepanData = [
+                    'keluhan' => 'ok',
+                    // 'diagnosa' => $diagnosa,
+                    // 'status_kehamilan' => $status_kehamilan,
+                    // 'umur' => $umur
+                ];
 
+                return $rulePeresepanData;
+                $validator = Validator::make($rulePeresepanData, [
+                    'keluhan' => 'required|array',
+                    // 'diagnosa' => 'required|array',
+                    // 'diagnosa.code' => 'required|string',
+                    // 'diagnosa.name' => 'required|string',
+                ]);
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'error' => 'Validation failed',
+                        'message' => $validator->errors(),
+                    ], 422);
+                }
+                
+                // if ($n_array_keluhan >= 3) {
+                   
+                //     $existingData = ExpertSystem::where('diagnosa', $diagnosa)
+                //                     ->first();
+                //     return $existingData;
+                //     if ($existingData) {
+                //         return response()->json([
+                //             'message' => 'Rule for this diagnosis already exists.'
+                //         ], 200);
+                //     }
+                //     else{
+                //         ExpertSystem::insert($rulePeresepanData);
+                //             return response()->json([
+                //                 'message' => 'New rule created successfully.',
+                //                 'data' => $rulePeresepanData
+                //         ], 201);
+                //     }
+                // } else {
+                //     return 'Data keluhan Minimal 3 untuk masuk ke expert system';
+                // }
+
+                ExpertSystem::insert($rulePeresepanData);
+                //ExpertSystem::create($rulePeresepanData);
+                
             DB::commit();
-            
             return response()->json([
-                'message' => 'Data inserted successfully.',
-                'data' => $data
-            ], 201);
+                                'message' => 'New rule created successfully.',
+                                'data' => $rulePeresepanData
+                        ], 201);
+            // return response()->json($savedData, 201);
         } catch (\Exception $e) {
             DB::rollBack();
-                Log::error('Failed to save resource: ' . $e->getMessage());
-                return response()->json([
-                    'error' => 'Failed to save resource',
-                    'message' => $e->getMessage()
-                ], 500);
+            Log::error('Failed to save resource: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Failed to save resource',
+                'message' => $e->getMessage(),
+                'data' => $rulePeresepanData
+            ], 500);
         }
     }
-    public function rulePeresepanShow($rule, $id){
-        $req_keluhan =  $this->getKeluhan($id);
-
-        $req_kehamilan = $this->statusKehamilan($id);
-        $req_umur = $this->kategoriUmur($id);
-        $req_alergi = $this->getAlergi($id);
-        if ($rule=='diagnosa') {
-            $result = ExpertSystem::where('keluhan', 'all', $req_keluhan)
-                    ->where('umur', $req_umur)
-                    ->where('statusKehamilan', $req_kehamilan)
-                    ->pluck('diagnosa');
-                    if ($result->isEmpty()) {
-                         return response('Belum ada rekomendasi dari data keluhan sebelumnya');
-                    }
-                    else {
-                        return $req_alergi;
-                    }
-           
-        } else {
-            $result = ExpertSystem::where("keluhan", 'all', $req_keluhan)
-                    ->where('umur', $req_umur)
-                    ->where('statusKehamilan', $req_kehamilan)
-                    ->whereNot('alergi', $req_alergi)
-                    ->pluck('resepObat');
-                    
-                     if ($result->isEmpty()) {
-                         return response('Belum ada rekomendasi dari data keluhan sebelumnya');
-                    }
-                    else {
-                        return $req_alergi;
-                    }
-        }
+    public function rulePeresepanShow($resourceType, $id){
         
+        $req_keluhan =  $this->getKeluhan($id);
+        $result = ExpertSystem::where("keluhan", "all", $req_keluhan)
+                ->pluck('diagnosa');
+        return $result;
     }
 }

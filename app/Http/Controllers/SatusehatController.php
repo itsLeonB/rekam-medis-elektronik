@@ -229,6 +229,7 @@ class SatusehatController extends Controller
 
     public function update(PutRequest $fhirRequest, $res_type, $res_id)
     {
+        //return ($fhirRequest->all());
         $validator = Validator::make($fhirRequest->all(), [
             'resourceType' => ['required', Rule::in(array_keys(config('app.available_methods')))],
             'id' => 'required|string',
@@ -558,6 +559,7 @@ class SatusehatController extends Controller
 
     public function integrationPut(PutRequest $request, $resourceType, $id)
     {
+       
         DB::beginTransaction();
 
         $satusehatResponse = $this->update($request, $resourceType, $id);
@@ -572,6 +574,9 @@ class SatusehatController extends Controller
                     ['id', $id]
                 ])->first();
                 $data->update($satusehatResponseBody);
+                if ($resourceType === 'Encounter' && $satusehatResponseBody['status'] === 'finished') {
+                    return "oke";
+                }
                 DB::commit();
 
                 return response()->json($data, 200);

@@ -173,6 +173,14 @@
             <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
             <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
         </form>
+        <form @submit.prevent="ruleSubmit">
+            <div class="mt-2 mr-3">
+                <MainButtonSmall type="submit" class="teal-button text-original-white-0">Save Rule</MainButtonSmall>
+            </div>
+            <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
+                <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
+                <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+        </form>
     </div>
 </template>
 <script setup>
@@ -204,8 +212,10 @@ const props = defineProps({
         type: Object,
         required: true
     },
+    encounter_satusehat_id: {
+        type: String,
+    },
 });
-
 const resourceForm = ref([{
     medicationReference : [null],
     status: [null],
@@ -250,9 +260,9 @@ const getorganizationRef = async () => {
     const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
     organizationRef.value = data;
 };
-
 const successAlertVisible = ref(false);
 const failAlertVisible = ref(false);
+const errorMessage = ref('');
 const submit = () => {
     resourceForm.value.forEach(item => {
         item.status = item.status ? (({ display, ...rest }) => rest)(item.status) : item.status;
@@ -328,7 +338,7 @@ const submit = () => {
                 },
                 "numberOfRepeatsAllowed": parseInt(item.repeat),
                 // "quantity": {
-                //     "value": item.qtyvalue,
+                //     "value": item.qty.value,
                 //     "unit": item.qty.unit,
                 //     "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
                 //     "code": item.qty.code
@@ -360,6 +370,29 @@ const submit = () => {
                 }, 3000);
             });
     });
+};
+const ruleSubmit = () => {
+   try {
+        axios.get(route('ruleperesepan.store',{
+            id: props.encounter_satusehat_id
+        }));
+        
+        successAlertVisible.value = true;
+        failAlertVisible.value = false;
+        errorMessage.value = ''; 
+   } catch (error) {
+        console.error(error.response ? error.response.data : error.message);
+            successAlertVisible.value = true;
+            failAlertVisible.value = true;
+
+       if (error.response && error.response.data) {
+            console.error('Response:', error.response.data); 
+            errorMessage.value = error.response.data.error || 'Failed to save data';
+        } else {
+            errorMessage.value = 'An error occurred while saving data';
+        }
+        
+    }
 };
 const searchMedication = async (query) => {
     const { data } = await axios.get(route('get.medicationOrg', { 'search': query }));
@@ -483,6 +516,7 @@ const getMedicationReqDuration = async () => {
     });
     medicationReqDuration.value = data;
 };
+
 // const medicationReqQuantity = ref(null);
 // const getMedicationReqQuantity = async () => {
 //     const { data } = await axios.get(route('terminologi.get'), {
@@ -493,6 +527,16 @@ const getMedicationReqDuration = async () => {
 //     });
 //     medicationReqQuantity.value = data;
 // };
+
+const expertSystem = ref(null);
+const getExpertSystem = async () => {
+    const {data} = await axios.get(route('ruleperesepan.show', {
+            resourceType : 'Condition',
+            id: 'e9315d39-f4c2-414c-b222-a5053326a24a'
+    }));
+    expertSystem.value = data;
+    console.log(expertSystem.value);
+};
 
 onMounted(() => {
     getIntentTypeList();
@@ -507,6 +551,7 @@ onMounted(() => {
     getorganizationRef();
     getMedicationReqDuration();
     // getMedicationReqQuantity();
+    getExpertSystem()
 });
 
 const combo_classes = {

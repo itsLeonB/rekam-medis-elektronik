@@ -1,6 +1,17 @@
 <template>
-    <div>
-        ini resep obat
+     <div>
+        <ul v-if="expertSystem">
+        <li v-for="(group, index) in expertSystem" :key="index">
+            <ul>
+            <li v-for="(medicine, i) in group" :key="i">
+                <b>{{ medicine.display }}</b>-{{ medicine.dosageInstruction }}
+                <br>
+            </li>
+            
+            </ul>
+        </li>
+        </ul>
+        <p v-else>Tidak ada data yang ditemukan.</p>
     </div>
 </template>
 <script setup>
@@ -28,8 +39,22 @@ const props = defineProps({
         type: Object,
         required: true
     },
+     encounter_satusehat_id: {
+        type: String,
+    },
 });
-
+console.log(props.encounter_satusehat_id);
+const expertSystem = ref(null);
+const getExpertSystem = async () => {
+    const {data} = await axios.get(route('ruleperesepan.show', {
+            rule : 'resepObat',
+            id: props.encounter_satusehat_id
+    }));
+    expertSystem.value = data;
+};
+onMounted(() => {
+    getExpertSystem()
+});
 const combo_classes = {
     container: 'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border-2 border-neutral-grey-0 ring-0 shadow-sm rounded-xl bg-white text-sm leading-snug outline-none',
     search: 'w-full absolute inset-0 outline-none border-0 ring-0 focus:ring-original-teal-300 focus:ring-2 appearance-none box-border text-sm font-sans bg-white rounded-xl pl-3.5 rtl:pl-0 rtl:pr-3.5',

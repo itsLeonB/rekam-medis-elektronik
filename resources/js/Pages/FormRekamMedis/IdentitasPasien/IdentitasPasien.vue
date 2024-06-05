@@ -115,7 +115,6 @@ const fetchPatient = async () => {
             resType: 'Patient',
             id: id
         }));
-        console.log(id)
         patient.value = data;
     } catch (error) {
         console.error("Error fetching patient data:", error.message);
