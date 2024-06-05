@@ -33,7 +33,7 @@
                                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </div>
-                        <input v-model="searchNama" id="search-nama" placeholder="Cari Nama"
+                        <input v-model="searchQuery" id="searchQuery" placeholder="Cari"
                             class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
                         <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer" @click="cancelSearch"
                             v-show="hide">
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                 </form>
-                <MainButton @click="searchUsers" class="teal-button text-original-white-0">
+                <MainButton @click="searchQuery" class="teal-button text-original-white-0">
                     Cari
                 </MainButton>
             </div>
@@ -128,30 +128,65 @@ import { Link, usePage} from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
+const medications = ref([]);
+
 const hide = ref(false);
 
-const cancelSearch = async () => {
-    hide.value = false;
-    searchNama.value = '';
-    fetchUsers(1);
-};
-
-const medications = ref([]);
 const fetchMedications = async (page = 1) => {
     const { data } = await axios.get(route('obat.index', {'page': page}));
     medications.value = data.obat;
     generateNumbers(1, medications.value.current_page, medications.value.last_page);
 };
 
+const cancelSearch = async () => {
+    hide.value = false;
+    searchNama.value = '';
+    fetchMedications(1);
+};
+const searchQuery = ref('');
+
+const searchMedications = async () => {
+    hide.value = true;
+    const query = searchQuery.value;
+    const { data } = await axios.get(route('rekam-medis.index', { [searchWith_id.value]: query }));
+    medications.value = data.obat;
+    generateNumbers(1, medications.value.current_page, medications.value.last_page);
+};
+
 const fetchPagination = async (page = 1) => {
-    if (searchNama.value == '') {
+    if (searchQuery.value == '') {
         const { data } = await axios.get(route('obat.index', {'page': page}));
         medications.value = data.obat;
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } else {
-        const query = searchNama.value;
+        const query = searchQuery.value;
         const { data } = await axios.get(route('obat.index'), {params: {'name': query, 'page': page}});
         medications.value = data.obat;
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
     };
+};
+const searchWith_id = ref('name');
+
+const paging = ref([]);
+
+const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
+    const result = [];
+    if (lastNumber > 5 && (currentNumber < 3 || currentNumber > lastNumber - 2)) {
+        result.push(firstNumber, firstNumber + 1);
+        result.push('...');
+        result.push(lastNumber - 1, lastNumber);
+    } else if (lastNumber > 5) {
+        result.push(firstNumber, firstNumber + 1);
+        result.push('...');
+        result.push(currentNumber);
+        result.push('...');
+        result.push(lastNumber - 1, lastNumber);
+    } else {
+        for (let i = firstNumber; i <= lastNumber; i++) {
+            result.push(i);
+        }
+    }
+    paging.value = result;
 };
 
 onMounted(() => {

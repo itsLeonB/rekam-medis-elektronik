@@ -105,9 +105,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/medication', function () {
         return Inertia::render('Medication/Medication');
     })->name('medication');
-    // Route::get('/user-management/details/{user_id}', function ($user_id) {
-    //     return Inertia::render('Medication/MedicationDetails', ['user_id' => $user_id]);
-    // })->name('medication.details');
+    Route::get('/medication/details/{medication_id}', function ($medication_id) {
+        return Inertia::render('Medication/MedicationDetails', ['medication_id' => $medication_id]);
+    })->name('medication.details');
     Route::get('/medication/tambah', function () {
         return Inertia::render('Medication/TambahMedication');
     })->name('medication.tambah');
