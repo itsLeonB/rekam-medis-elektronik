@@ -13,6 +13,7 @@ class ObatController extends Controller
         
         if ($request->query('name')) {
             $medications = $medications->where('name.text', 'like', '%' . addcslashes($request->query('name'), '%_') . '%');
+            return $medications;
         }
         $medications = $medications->paginate(15)->withQueryString();
 

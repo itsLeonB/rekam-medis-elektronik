@@ -89,12 +89,13 @@
                     <tbody v-for="(patient, index) in patients.data" :key="index">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (patients.data.length - 1) }">
-                            <!-- <Link :href="route('usermanagement.details', { 'user_id': user.id })"> -->
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-3/12">
-                                <P>{{ patient.name }}</P>
-                                <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id === searchWith_id).label }}: {{ patient[searchWith_id] }}</p>
-                            </th>
-                            <!-- </Link> -->
+                            <Link :href="route('rekammedis.details', { 'patient_satusehat_id': patient.satusehatId })">
+                                <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-3/12">
+                                    <P>{{ patient.name }}</P>
+                                    <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
+                                        searchWith_id).label }}: {{ patient[searchWith_id] }}</p>
+                                </th>
+                            </Link>
                             <td class="px-6 py-4 w-3/12">
                                 {{ patient.identifier == null ? '-' : patient.identifier }}
                             </td>

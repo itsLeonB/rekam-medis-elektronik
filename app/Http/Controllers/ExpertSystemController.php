@@ -173,21 +173,21 @@ class ExpertSystemController extends Controller
                          return response('Belum ada rekomendasi dari data keluhan sebelumnya');
                     }
                     else {
-                        return $req_alergi;
+                        return $result;
                     }
            
-        } else {
+        } if($rule=='resepObat') {
             $result = ExpertSystem::where("keluhan", 'all', $req_keluhan)
                     ->where('umur', $req_umur)
                     ->where('statusKehamilan', $req_kehamilan)
-                    ->whereNot('alergi', $req_alergi)
+                    // ->whereNot('alergi', $req_alergi)
                     ->pluck('resepObat');
                     
                      if ($result->isEmpty()) {
                          return response('Belum ada rekomendasi dari data keluhan sebelumnya');
                     }
                     else {
-                        return $req_alergi;
+                        return $result;
                     }
         }
         

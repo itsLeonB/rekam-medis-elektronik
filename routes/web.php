@@ -78,7 +78,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rekam-medis-pasien', function () {
         return Inertia::render('RekamMedis/RekamMedis');
     })->name('rekammedis');
+    Route::get('/rekam-medis-pasien/details/{patient_satusehat_id}', function ($patient_satusehat_id) {
+        return Inertia::render('RekamMedis/RekamMedisDetails', ['patient_satusehat_id' => $patient_satusehat_id]);
+    })->name('rekammedis.details');
 });
+
 
 # Daftar (admin and perekam medis)
 Route::middleware(['auth', 'verified'])->group(function () {
