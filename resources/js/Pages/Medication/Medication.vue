@@ -31,7 +31,7 @@
         </div>
         <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
             <!-- Search bar -->
-            <div class="flex justify-end items-center mb-5 w-full">
+            <div class="flex flex-col md:flex-row md:justify-end md:items-center mb-5 w-full">
                 <form class="mr-3 w-full">
                     <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
                         <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
@@ -41,7 +41,7 @@
                                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </div>
-                        <input v-model="searchNama" id="search-nama" placeholder="Cari Nama"
+                        <input v-model="searchQuery" id="searchQuery" placeholder="Cari"
                             class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
                         <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer" @click="cancelSearch"
                             v-show="hide">
@@ -55,9 +55,15 @@
                         </div>
                     </div>
                 </form>
-                <MainButton @click="searchUsers" class="teal-button text-original-white-0">
-                    Cari
-                </MainButton>
+                <div class="flex mt-4 md:mt-0">
+                    <select id="searchWith_id" v-model="searchWith_id"
+                        class="bg-original-white-0 mr-3 border-1 border-neutral-grey-0 text-neutral-black-300 text-sm rounded-lg focus:ring-original-teal-300 focus:border-original-teal-300 block w-40 px-2.5 h-fit">
+                        <option v-for="item in searchWith" :value=item.id>{{ item.label }}</option>
+                    </select>
+                    <MainButton @click="searchMedications" class="teal-button text-original-white-0">
+                        Cari
+                    </MainButton>
+                </div>
             </div>
             <div class="relative overflow-x-auto mb-5">
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
@@ -103,6 +109,7 @@
                         </tr>
                     </tbody>
                 </table>
+                <p class="text-center mt-4" v-if="searchQuery !== '' && medications.data.length === 0">Data tidak ditemukan</p>
             </div>
 
             <nav class="flex justify-end">
@@ -142,15 +149,10 @@ import { Link, usePage} from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
+const medications = ref([]);
+
 const hide = ref(false);
 
-const cancelSearch = async () => {
-    hide.value = false;
-    searchNama.value = '';
-    fetchUsers(1);
-};
-
-const medications = ref([]);
 const fetchMedications = async (page = 1) => {
     const { data } = await axios.get(route('obat.index', {'page': page}));
     medications.value = data.obat;
@@ -163,15 +165,64 @@ const fetchObat = async () => {
 };
 
 
+const cancelSearch = async () => {
+    hide.value = false;
+    searchQuery.value = '';
+    fetchMedications(1);
+};
+const searchQuery = ref('');
+
+const searchMedications = async () => {
+    hide.value = true;
+    const query = searchQuery.value;
+    try {
+        const { data } = await axios.get(route('obat.index', { [searchWith_id.value]: query }));
+        medications.value = data.obat;
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
+    } catch (error) {
+        console.error("Error fetching medications:", error);
+    }
+};
+
 const fetchPagination = async (page = 1) => {
-    if (searchNama.value == '') {
+    if (searchQuery.value == '') {
         const { data } = await axios.get(route('obat.index', {'page': page}));
         medications.value = data.obat;
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } else {
-        const query = searchNama.value;
+        const query = searchQuery.value;
         const { data } = await axios.get(route('obat.index'), {params: {'name': query, 'page': page}});
         medications.value = data.obat;
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
     };
+};
+const searchWith_id = ref('name');
+
+const searchWith = [
+    {"id": 'name', "label": 'Nama'},
+    {"id": 'form', "label": 'Tipe'},
+];
+
+const paging = ref([]);
+
+const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
+    const result = [];
+    if (lastNumber > 5 && (currentNumber < 3 || currentNumber > lastNumber - 2)) {
+        result.push(firstNumber, firstNumber + 1);
+        result.push('...');
+        result.push(lastNumber - 1, lastNumber);
+    } else if (lastNumber > 5) {
+        result.push(firstNumber, firstNumber + 1);
+        result.push('...');
+        result.push(currentNumber);
+        result.push('...');
+        result.push(lastNumber - 1, lastNumber);
+    } else {
+        for (let i = firstNumber; i <= lastNumber; i++) {
+            result.push(i);
+        }
+    }
+    paging.value = result;
 };
 
 onMounted(() => {

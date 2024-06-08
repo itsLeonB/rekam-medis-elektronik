@@ -150,7 +150,7 @@
                         <div class="w-full lg:w-1/2 py-2 lg:pr-7 lg:pb-0">
                             <h2 class="text-xl font-semibold text-secondhand-orange-300">a. Diagnosis Masuk</h2>
                             <div class="space-y-4">
-                                <DiagnosisMasuk :encounter_reference="encounter_reference"
+                                <DiagnosisMasuk :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference"
                                     :subject_reference="subject_ref" />
                             </div>
                         </div>
@@ -192,14 +192,14 @@
                         <!-- Kiri -->
                         <div class="w-full lg:w-5/12 py-2 lg:pr-7 lg:pb-0">
                             <h2 class="text-xl font-semibold text-secondhand-orange-300">a. Rekomendasi Obat</h2>
-                            <RekomendasiObat :encounter_reference="encounter_reference" :subject_reference="subject_ref"
-                                    :practitioner_reference="practitioner_ref" />
+                            <RekomendasiObat :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
+                                    :practitioner_reference="practitioner_ref"/>
                         </div>
                         <!-- Kanan -->
                          <div class="w-full lg:w-7/12 py-2 lg:pl-7">
                             <h2 class="text-xl font-semibold text-secondhand-orange-300">b. Resep Obat</h2>
                             <div class="space-y-4">
-                                <ResepObat :encounter_reference="encounter_reference" :subject_reference="subject_ref"
+                                <ResepObat :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
                                     :practitioner_reference="practitioner_ref" />
                             </div>
                         </div>
