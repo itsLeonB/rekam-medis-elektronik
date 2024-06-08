@@ -22,7 +22,8 @@ class ObatController extends Controller
                 'code' => data_get($medications, 'code.coding.0.code'),
                 'name' => data_get($medications, 'code.coding.0.display'),
                 'status' => data_get($medications, 'status'),
-                'form' => data_get($medications, 'form.coding.0.display')
+                'form' => data_get($medications, 'form.coding.0.display'),
+                'extension'  => data_get($medications, 'extension.0.valueCodeableConcept.coding.0.display'),
             ];
         });
 

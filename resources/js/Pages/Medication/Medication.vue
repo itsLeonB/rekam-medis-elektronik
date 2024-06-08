@@ -75,6 +75,9 @@
                             <th scope="col" class="px-6 py-3 w-1/5">
                                 Status
                             </th>
+                            <th scope="col" class="px-6 py-3 w-1/5">
+                                Jenis
+                            </th>
                         </tr>
                     </thead>
                     <tbody v-for="(medication, index) in medications.data" :key="index">
@@ -93,6 +96,9 @@
                             </td>
                            <td class="px-6 py-4 w-2/5">
                                 {{ medication.status }}
+                            </td>
+                            <td class="px-6 py-4 w-2/5">
+                                {{ medication.extension }}
                             </td>
                         </tr>
                     </tbody>

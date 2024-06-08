@@ -141,7 +141,7 @@ import NavLink from '@/Components/NavLink.vue';
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink :href="route('medication')" :active="route().current('medication')">
+                        <NavLink :href="route('medication')" :active="route().current('medication') | route().current('medication.table')" >
                             <span class="mr-2">
                                 <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none">
                                     <path

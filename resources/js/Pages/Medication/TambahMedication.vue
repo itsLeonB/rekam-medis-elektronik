@@ -33,6 +33,10 @@
                             :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
                             class="mt-1" :classes="combo_classes" required />
                 </div>
+                <div class="mt-4">
+                        <InputLabel for="amount" value="Amount" />
+                        <TextInput v-model="form.amount" mode="single" placeholder="Jumlah" :min-chars="1"/>
+                </div>
                 <div class="flex flex-col items-center justify-end mt-10">
                     <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
                         Tambah
@@ -65,10 +69,11 @@ import { useForm } from '@inertiajs/vue3';
 const form = useForm({
     code_obat: '',
     extension: '',
+    amount: '',
 });
 
 const searchMedication = async (query) => {
-    const { data } = await axios.get(route('terminologi.medication'), {
+    const { data } = await axios.get(route('terminologi.ingridients'), {
         params: {
             'page': 1,
             'size': 10,

@@ -18,8 +18,8 @@
             </div>
         </div>
         <div class="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
-            <LineChart :options="jumlahPasienPerBulanOptions" :series="jumlahPasienPerBulan" class="basis-3/5" />
-            <DonutChart :options="persebaranPasienOptions" :series="persebaranPasien" class="basis-2/5" />
+            <LineChart :title="'Perbandingan Stok obat per bulan'" :options="bulan" :series="jumlahObatperBulan" class="basis-3/5" />
+            <DonutChart :title="'Persebaran stok obat'" :options="persebaranPasienOptions" :series="persebaranPasien" class="basis-2/5" />
         </div>
         <div class="flex justify-center mt-8">
             <div class="flex justify-center">
@@ -33,16 +33,17 @@
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
-import DonutChart from '@/components/DonutChart.vue';
-import LineChart from '@/components/LineChart.vue';
+import DonutChart from '@/Components//DonutChart.vue';
+import LineChart from '@/Components//LineChart.vue';
+import MedicineStockBar from '@/Components/MedicineStockBar.vue';
 
 const months = ref([]);
 const ambCounts = ref([]);
 const impCounts = ref([]);
 const emerCounts = ref([]);
-const jumlahPasienPerBulanOptions = ref({
+const bulan = ref({
   chart: {
     type: 'line',
     height: 350
@@ -56,7 +57,7 @@ const jumlahPasienPerBulanOptions = ref({
 });
 
 // Series data including actual and forecast data
-const jumlahPasienPerBulan = ref([
+const jumlahObatperBulan = ref([
   {
     name: '2021',
     data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 140, 155, 180]
@@ -70,6 +71,22 @@ const jumlahPasienPerBulan = ref([
     data: [25, 35, 45, 55, 65, 75, 85, 95, 105, 115, 125, 135]
   }
 ]);
+
+const medicines = ref([
+  { name: 'Medicine A', stock: 50, maxStock: 100 },
+  { name: 'Medicine B', stock: 30, maxStock: 100 },
+  { name: 'Medicine C', stock: 70, maxStock: 100 },
+  { name: 'Medicine D', stock: 90, maxStock: 100 },
+  { name: 'Medicine E', stock: 20, maxStock: 100 },
+  { name: 'Medicine F', stock: 45, maxStock: 100 },
+  { name: 'Medicine G', stock: 65, maxStock: 100 },
+  { name: 'Medicine H', stock: 85, maxStock: 100 }
+]);
+
+const groupSize = 2;
+
+const maxStock = ref(Math.max(...medicines.value.map(medicine => medicine.stock)));
+
 
 const fontFamily = 'Poppins, Arial, sans-serif';
 
@@ -185,7 +202,7 @@ const persebaranPasienOptions = ref({
   chart: {
     id: 'donut-chart',
   },
-  labels: ['Region 1', 'Region 2', 'Region 3', 'Region 4', 'Region 5'],
+  labels: ['Obat suntik', 'Obat sirup', 'Obat 3', 'Obat 4', 'Obat 5'],
 });
 
 const persebaranPasien = ref([44, 55, 41, 17, 15]);
@@ -274,28 +291,28 @@ const cardsData = ref([
     {
         title: 'Pasien Aktif Hari Ini',
         value: pasienAkitfHariIni,
-        unit: 'Pasien',
+        unit: 'Unit',
         svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
               <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />`
     },
     {
         title: 'Pasien Aktif Hari Ini',
         value: pasienAkitfHariIni,
-        unit: 'Pasien',
+        unit: 'Unit',
         svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
               <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />`
     },
     {
         title: 'Pasien Aktif Hari Ini',
         value: pasienAkitfHariIni,
-        unit: 'Pasien',
+        unit: 'Unit',
         svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
               <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />`
     },
     {
         title: 'Pasien Baru Bulan Ini',
         value: pasienBaruBulanIni,
-        unit: 'Pasien',
+        unit: 'Unit',
         svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
               <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />
               <path d="M40.3634 41.4847C39.8028 40.9241 43.0057 41.0642 45.4482 38.5415C46.6694 37.2801 43.0057 37.2801 43.0057 30.9733C43.0057 26.7692 44.6336 24.6665 47.8907 24.6665C51.1478 24.6665 52.7758 26.7692 52.7758 30.9733C52.7758 37.2801 49.112 37.2801 50.3332 38.5415C52.7758 41.0642 57.6608 41.0642 57.6608 44.8483" stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />`
@@ -303,7 +320,7 @@ const cardsData = ref([
     {
         title: 'Total Pasien Terdaftar',
         value: totalPasienTerdaftar,
-        unit: 'Pasien',
+        unit: 'Unit',
         svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
               <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />
               <path d="M40.3634 41.4847C39.8028 40.9241 43.0057 41.0642 45.4482 38.5415C46.6694 37.2801 43.0057 37.2801 43.0057 30.9733C43.0057 26.7692 44.6336 24.6665 47.8907 24.6665C51.1478 24.6665 52.7758 26.7692 52.7758 30.9733C52.7758 37.2801 49.112 37.2801 50.3332 38.5415C52.7758 41.0642 57.6608 41.0642 57.6608 44.8483" stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />
@@ -313,10 +330,10 @@ const cardsData = ref([
 
 onMounted(() => {
     fetchPasienAkitfHariIni();
-    fetchPasienBaruBulanIni();
+    // fetchPasienBaruBulanIni();
     fetchTotalPasienTerdaftar();
-    fetchPasienPerBulan();
-    fetchPersebaranPasien();
+    // fetchPasienPerBulan();
+    // fetchPersebaranPasien();
 });
 
 </script>

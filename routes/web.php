@@ -106,7 +106,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/medication/table', function () {
         return Inertia::render('Medication/Medication');
     })->name('medication.table');
-    Route::get('/user-management/details/{user_id}', function ($user_id) {
+    Route::get('/medication/details/', function ($user_id) {
         return Inertia::render('Medication/MedicationDetails', ['user_id' => $user_id]);
     })->name('medication.details');
     Route::get('/medication/tambah', function () {
@@ -282,6 +282,8 @@ Route::middleware('auth')->group(function () {
 
         // Untuk Medication.code atau MedicationIngredient.itemCodeableConcept
         Route::get('/medication', [SatusehatController::class, 'searchKfaProduct'])->name('medication');
+
+        Route::get('/ingridients', [SatusehatController::class, 'searchKfaProduct'])->name('ingridients');
 
         // Endpoint codesystems
         Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
