@@ -508,4 +508,13 @@ class Valuesets
         'display' => ["implant" => "Implant", "Inhal" => "Inhalation", "Instill" => "Instillation", "N" => "Nasal", "O" => "Oral", "P" => "Parenteral", "R" => "Rectal", "SL" => "Sublingual/Buccal/Oro mucosal", "TD" => "Transdermal", "V" => "Vaginal", "Inhal.powder" => "Inhalation Powder", "Inhal.aerosol" => "Inhalation Aerosol", "Inhal.solution" => "Inhalation Solution", "urethral" => "Urethral", "TD patch" => "Transdermal Patch", "intravesical" => "Intravesical", "Instill.solution" => "Instillation Solution", "lamella" => "Lamella", "oral aerosol" => "Oral Aerosol", "s.c. implant" => "S.C. Implant", "ocular" => "Ocular", "otic" => "Otic", "cutaneous" => "Cutaneous", "inj.subcutaneous" => "Injection Subcutaneous", "inj.intramuscular" => "Injection Intramuscular", "inj.intravenous" => "Injection Intravenous", "inj.intrathecal" => "Injection Intrathecal", "Chewing Gum" => "Chewing Gum", "ointment" => "Ointment", "stomatologic" => "stomatologic"],
         'definition' => ["implant" => "Implant", "Inhal" => "Inhalasi (dihirup)", "Instill" => "Instillation", "N" => "Nasal", "O" => "Oral", "P" => "Parenteral", "R" => "Rektum", "SL" => "Sublingual (di bawah lidah) / bukal (diantara gusi & pipi)", "TD" => "Transdermal", "V" => "Vagina", "Inhal.powder" => "Bubuk inhalasi", "Inhal.aerosol" => "Aerosol inhalasi", "Inhal.solution" => "Larutan inhalasi", "urethral" => "Uretra", "TD patch" => "Transdermal patch", "intravesical" => "Intravesical", "Instill.solution" => "Instillation solution", "lamella" => "Ophtalmic", "oral aerosol" => "Aerosol oral", "s.c. implant" => "S.C. implant", "ocular" => "Ocular (mata)", "otic" => "Otic (telinga)", "cutaneous" => "Kutanea (kulit)", "inj.subcutaneous" => "Subkutan Injeksi (di bawah kulit)", "inj.intramuscular" => "Intramuskular Injeksi (di dalam otot)", "inj.intravenous" => "Intravena Injeksi (ke pembuluh darah)", "inj.intrathecal" => "Intratekal Injeksi (sekitar sumsum tulang belakang)", "Chewing Gum" => "Dikunyah", "ointment" => "Topikal", "stomatologic" => "stomatologic"],
     ];
+
+    public const KPTL = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/kptl',
+        'table' => 'valueset_kptl'
+    ];
+
+    public const KPTLModifiers = [
+        'table' => 'valueset_chargeitem_modifier',
+    ];
 }

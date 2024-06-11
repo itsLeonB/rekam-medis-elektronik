@@ -378,6 +378,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
         Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
         Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
+        Route::group(['prefix'=>'kptl', 'as'=>'kptl.'], function() {
+            Route::get('/base', [TerminologyController::class , 'getKPTL'])->name('base');
+            Route::get('/modifier', [TerminologyController::class, 'getKPTLModifier'])->name('modifier');
+        });
     });
 
     // Endpoint untuk call API SATUSEHAT
