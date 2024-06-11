@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div v-if="expertSystem">{{ expertSystem[0]['code']}} - {{ expertSystem[0]['name']}}</div>
         <form @submit.prevent="submit">
             <div class="my-2 w-full">
                 <h3 class="font-semibold text-secondhand-orange-300 mt-2">Diagnosa Masuk</h3>
@@ -42,6 +43,7 @@
             </div>
             <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
             <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
+            
         </form>
     </div>
 </template>
@@ -64,6 +66,9 @@ const props = defineProps({
     encounter_reference: {
         type: Object,
         required: true
+    },
+    encounter_satusehat_id: {
+        type: String,
     },
 });
 
@@ -154,7 +159,14 @@ const getClinicalStatusList = async () => {
     });
     clinicalStatusList.value = data;
 };
-
+const expertSystem = ref(null);
+const getExpertSystem = async () => {
+    const {data} = await axios.get(route('ruleperesepan.show', {
+            rule : 'diagnosa',
+            id: props.encounter_satusehat_id
+    }));
+    expertSystem.value = data;
+};
 const combo_classes = {
     container: 'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border-2 border-neutral-grey-0 ring-0 shadow-sm rounded-xl bg-white text-sm leading-snug outline-none',
     search: 'w-full absolute inset-0 outline-none border-0 ring-0 focus:ring-original-teal-300 focus:ring-2 appearance-none box-border text-sm font-sans bg-white rounded-xl pl-3.5 rtl:pl-0 rtl:pr-3.5',
@@ -169,6 +181,7 @@ const combo_classes = {
 
 onMounted(() => {
     getClinicalStatusList();
+    getExpertSystem()
 }
 );
 

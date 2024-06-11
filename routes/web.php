@@ -85,7 +85,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rekam-medis-pasien', function () {
         return Inertia::render('RekamMedis/RekamMedis');
     })->name('rekammedis');
+    Route::get('/rekam-medis-pasien/details/{patient_satusehat_id}', function ($patient_satusehat_id) {
+        return Inertia::render('RekamMedis/RekamMedisDetails', ['patient_satusehat_id' => $patient_satusehat_id]);
+    })->name('rekammedis.details');
 });
+
 
 # Daftar (admin and perekam medis)
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -112,9 +116,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/medication', function () {
         return Inertia::render('Medication/Medication');
     })->name('medication');
-    // Route::get('/user-management/details/{user_id}', function ($user_id) {
-    //     return Inertia::render('Medication/MedicationDetails', ['user_id' => $user_id]);
-    // })->name('medication.details');
+    Route::get('/medication/details/{medication_id}', function ($medication_id) {
+        return Inertia::render('Medication/MedicationDetails', ['medication_id' => $medication_id]);
+    })->name('medication.details');
     Route::get('/medication/tambah', function () {
         return Inertia::render('Medication/TambahMedication');
     })->name('medication.tambah');
@@ -433,7 +437,16 @@ Route::middleware('auth')->group(function () {
             return Inertia::render('ExpertSystem/index');
         })->name('expertsystems.index');
 
-        Route::post('/rule-peresepan-obat', [ExpertSystemController::class, 'rulePeresepanStore'])->name('expertsystems.rule.peresepanobat');
+        // end-point expert system
+        Route::get('/rule-peresepan-obat/{id}', [ExpertSystemController::class, 'rulePeresepanStore'])->name('ruleperesepan.store');
+        Route::get('/get-keluhan/{id}', [ExpertSystemController::class, 'getKeluhan'])->name('get.keluhan');
+        Route::get('/get-alergi/{id}', [ExpertSystemController::class, 'getAlergi'])->name('get.alergi');
+        Route::get('/get-diagnosa/{id}', [ExpertSystemController::class, 'getDiagnosa'])->name('get.diagnosa');
+        Route::get('/status-kehamilan/{id}', [ExpertSystemController::class, 'statusKehamilan'])->name('status.kehamilan');
+        Route::get('/get-medication-req/{id}', [ExpertSystemController::class, 'getMedicationReq'])->name('get.medicationReq');
+        Route::get('/kategori-umur/{id}', [ExpertSystemController::class, 'kategoriUmur'])->name('get.umur');
+        Route::get('/data-fisik/{id}', [ExpertSystemController::class, 'dataFisik'])->name('get.dataFisik');
+        Route::get('/rule/{rule}/{id}', [ExpertSystemController::class, 'rulePeresepanShow'])->name('ruleperesepan.show');
 
     });
     
