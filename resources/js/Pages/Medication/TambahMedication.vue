@@ -9,7 +9,7 @@
                     Data Obat berhasil ditambahkan. <br> Kembali ke halaman Obat.
                 </h2>
                 <div class="mt-6 flex justify-end">
-                    <Link :href="route('medication')"
+                    <Link :href="route('medication.table')"
                         class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                     Kembali </Link>
                 </div>
@@ -17,25 +17,27 @@
         </Modal>
         <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
             <h1 class="text-2xl font-bold text-neutral-black-300">Tambah Obat</h1>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan user.</p>
-            <form @submit.prevent="test">
+            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan obat.</p>
+            <form @submit.prevent="submitForm">
                 <div>
-                    <InputLabel for="name" value="Kode Obat" />
+                    <InputLabel for="code_obat" value="Kode Obat" />
                     <Multiselect v-model="form.code_obat" mode="single" placeholder="Obat"
-                                :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
-                                :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
-                                track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
-                   
+                        :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
+                        :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
+                        track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
+                    <span v-if="errors.code_obat" class="text-red-500">{{ errors.code_obat }}</span>
                 </div>
                 <div class="mt-4">
-                        <InputLabel for="extension" value="Extension" />
-                        <Multiselect v-model="form.extension" mode="single" placeholder="Extension"
-                            :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
-                            class="mt-1" :classes="combo_classes" required />
+                    <InputLabel for="extension" value="Extension" />
+                    <Multiselect v-model="form.extension" mode="single" placeholder="Extension"
+                        :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
+                        class="mt-1" :classes="combo_classes" required />
+                    <span v-if="errors.extension" class="text-red-500">{{ errors.extension }}</span>
                 </div>
                 <div class="mt-4">
-                        <InputLabel for="amount" value="Amount" />
-                        <TextInput v-model="form.amount" mode="single" placeholder="Jumlah" :min-chars="1"/>
+                    <InputLabel for="amount" value="Amount" />
+                    <TextInput v-model="form.amount" placeholder="Jumlah" />
+                    <span v-if="errors.amount" class="text-red-500">{{ errors.amount }}</span>
                 </div>
                 <div class="flex flex-col items-center justify-end mt-10">
                     <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
@@ -46,7 +48,6 @@
                 <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
                 <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
             </form>
-            
         </div>
     </AuthenticatedLayout>
 </template>
@@ -54,11 +55,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import MainButton from '@/Components/MainButton.vue';
-import MainButtonSmall from '@/Components/MainButtonSmall.vue';
 import '@vueform/multiselect/themes/default.css';
 import Multiselect from '@vueform/multiselect';
 import TextInput from '@/Components/TextInput.vue';
-import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import { Link } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
@@ -67,13 +66,13 @@ import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    code_obat: '',
-    extension: '',
+    code_obat: null,
+    extension: null,
     amount: '',
 });
 
 const searchMedication = async (query) => {
-    const { data } = await axios.get(route('terminologi.ingridients'), {
+    const { data } = await axios.get(route('terminologi.medication'), {
         params: {
             'page': 1,
             'size': 10,
@@ -81,16 +80,10 @@ const searchMedication = async (query) => {
             'keyword': query
         }
     });
-    const originalData = data.items.data;
-    return originalData;
+    return data.items.data;
 }
 
-const organizationRef = ref(null);
-const getorganizationRef = async () => {
-    const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
-    organizationRef.value = data;
-};
-const medicationExtension = ref(null);
+const medicationExtension = ref([]);
 const getMedicationExtension = async () => {
     const { data } = await axios.get(route('terminologi.get'), {
         params: {
@@ -98,12 +91,11 @@ const getMedicationExtension = async () => {
             'attribute': 'medicationType'
         }
     });
-medicationExtension.value = data;
+    medicationExtension.value = data;
 };
 
 onMounted(() => {
     getMedicationExtension();
-    getorganizationRef();
 });
 
 const successAlertVisible = ref(false);
@@ -111,8 +103,9 @@ const failAlertVisible = ref(false);
 const errorMessage = ref('');
 const creationSuccessModal = ref(false);
 const isLoading = ref(false);
+const errors = ref({});
 
-const test = async () => {
+const submitForm = async () => {
   isLoading.value = true;
   let formDataJson = {
     resourceType: 'Medication',
@@ -171,27 +164,23 @@ const test = async () => {
             }))
   };
 
-  try { 
-    const resourceType = 'Medication';
-    const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
-    console.log(response.data);
-    
-    creationSuccessModal.value = true;
-    failAlertVisible.value = false;
-    errorMessage.value = ''; 
-
-  } catch (error) {
-       console.error(error.response ? error.response.data : error.message);
-            failAlertVisible.value = true;
-            creationSuccessModal.value = true;
-
-       if (error.response && error.response.data) {
-            console.error('Response:', error.response.data); 
-            errorMessage.value = error.response.data.error || 'Failed to save data';
+    try {
+        const response = await axios.post(route('obat.store'), formDataJson);
+        creationSuccessModal.value = true;
+        failAlertVisible.value = false;
+        errorMessage.value = '';
+    } catch (error) {
+        failAlertVisible.value = true;
+        if (error.response && error.response.data) {
+            if (error.response.data.errors) {
+                errors.value = error.response.data.errors;
+            }
+            errorMessage.value = error.response.data.message || 'Failed to save data';
         } else {
             errorMessage.value = 'An error occurred while saving data';
         }
-        
+    } finally {
+        isLoading.value = false;
     }
 };
 

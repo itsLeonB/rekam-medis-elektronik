@@ -23,7 +23,7 @@
         </div>
         <div class="flex justify-center mt-8">
             <div class="flex justify-center">
-            <a :href="route('medication.table')" :active="route().current('medication.table')" class="bg-secondhand-orange-300 text-white font-bold py-2 px-4 rounded hover:bg-secondhand-orange-400 transition">
+            <a  v-if="['admin', 'apoteker'].includes($page.props.auth.user.roles[0].name)" :href="route('medication.table')" :active="route().current('medication.table')" class="bg-secondhand-orange-300 text-white font-bold py-2 px-4 rounded hover:bg-secondhand-orange-400 transition">
                 View Detailed Table
             </a>
             </div>
@@ -289,33 +289,19 @@ const fetchTotalPasienTerdaftar = async () => {
 
 const cardsData = ref([
     {
-        title: 'Pasien Aktif Hari Ini',
+        title: 'Stok sedikit',
         value: pasienAkitfHariIni,
         unit: 'Unit',
-        svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
-              <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />`
     },
     {
-        title: 'Pasien Aktif Hari Ini',
+        title: 'Mendekati kadaluarsa',
+        value: pasienAkitfHariIni,
+        unit: 'Tanggal',
+    },
+    {
+        title: 'Permintaan meningkat',
         value: pasienAkitfHariIni,
         unit: 'Unit',
-        svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
-              <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />`
-    },
-    {
-        title: 'Pasien Aktif Hari Ini',
-        value: pasienAkitfHariIni,
-        unit: 'Unit',
-        svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
-              <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />`
-    },
-    {
-        title: 'Pasien Baru Bulan Ini',
-        value: pasienBaruBulanIni,
-        unit: 'Unit',
-        svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
-              <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />
-              <path d="M40.3634 41.4847C39.8028 40.9241 43.0057 41.0642 45.4482 38.5415C46.6694 37.2801 43.0057 37.2801 43.0057 30.9733C43.0057 26.7692 44.6336 24.6665 47.8907 24.6665C51.1478 24.6665 52.7758 26.7692 52.7758 30.9733C52.7758 37.2801 49.112 37.2801 50.3332 38.5415C52.7758 41.0642 57.6608 41.0642 57.6608 44.8483" stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />`
     },
     {
         title: 'Total Pasien Terdaftar',

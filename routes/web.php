@@ -181,6 +181,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{medication_id}', [ObatController::class, 'show'])->name('show');
         // Pull update dari obat dari SATUSEHAT
         Route::get('/{medication_id}/update', [ObatController::class, 'updateObat'])->name('update');
+        Route::post('/obat', [ObatController::class, 'store'])->name('store');
     });
 
     // Endpoint untuk View Medication
@@ -196,7 +197,6 @@ Route::middleware('auth')->group(function () {
         Route::middleware('permission:akses poli bedah')->get('/rawat-jalan/bedah', [DaftarPasienController::class, 'getDaftarPoliBedah'])->name('rawat-jalan.bedah');
         Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
         // Daftar pasien rawat inap, serviceType per ruangan
-        Route::get('/medication', [MedicationController::class, 'getDaftarObat'])->name('medication');
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
     });
