@@ -66,9 +66,8 @@ import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    code_obat: null,
-    extension: null,
-    amount: '',
+    code_obat: '',
+    extension: '',
 });
 
 const searchMedication = async (query) => {
@@ -80,10 +79,16 @@ const searchMedication = async (query) => {
             'keyword': query
         }
     });
-    return data.items.data;
+    const originalData = data.items.data;
+    return originalData;
 }
 
-const medicationExtension = ref([]);
+const organizationRef = ref(null);
+const getorganizationRef = async () => {
+    const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
+    organizationRef.value = data;
+};
+const medicationExtension = ref(null);
 const getMedicationExtension = async () => {
     const { data } = await axios.get(route('terminologi.get'), {
         params: {
@@ -91,11 +96,12 @@ const getMedicationExtension = async () => {
             'attribute': 'medicationType'
         }
     });
-    medicationExtension.value = data;
+medicationExtension.value = data;
 };
 
 onMounted(() => {
     getMedicationExtension();
+    getorganizationRef();
 });
 
 const successAlertVisible = ref(false);
@@ -103,7 +109,6 @@ const failAlertVisible = ref(false);
 const errorMessage = ref('');
 const creationSuccessModal = ref(false);
 const isLoading = ref(false);
-const errors = ref({});
 
 const submitForm = async () => {
   isLoading.value = true;
@@ -164,23 +169,27 @@ const submitForm = async () => {
             }))
   };
 
-    try {
-        const response = await axios.post(route('obat.store'), formDataJson);
-        creationSuccessModal.value = true;
-        failAlertVisible.value = false;
-        errorMessage.value = '';
-    } catch (error) {
-        failAlertVisible.value = true;
-        if (error.response && error.response.data) {
-            if (error.response.data.errors) {
-                errors.value = error.response.data.errors;
-            }
-            errorMessage.value = error.response.data.message || 'Failed to save data';
+  try { 
+    const resourceType = 'Medication';
+    const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
+    console.log(response.data);
+    
+    creationSuccessModal.value = true;
+    failAlertVisible.value = false;
+    errorMessage.value = ''; 
+
+  } catch (error) {
+       console.error(error.response ? error.response.data : error.message);
+            failAlertVisible.value = true;
+            creationSuccessModal.value = true;
+
+       if (error.response && error.response.data) {
+            console.error('Response:', error.response.data); 
+            errorMessage.value = error.response.data.error || 'Failed to save data';
         } else {
             errorMessage.value = 'An error occurred while saving data';
         }
-    } finally {
-        isLoading.value = false;
+        
     }
 };
 
