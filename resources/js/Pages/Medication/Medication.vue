@@ -158,12 +158,6 @@ const fetchMedications = async (page = 1) => {
     medications.value = data.obat;
     generateNumbers(1, medications.value.current_page, medications.value.last_page);
 };
-const fetchObat = async () => {
-    const { data } = await axios.get(route('medication'));
-    patients.value = data;
-    console.log(patients.value)
-};
-
 
 const cancelSearch = async () => {
     hide.value = false;
