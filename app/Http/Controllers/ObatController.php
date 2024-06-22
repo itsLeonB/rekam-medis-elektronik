@@ -10,10 +10,15 @@ class ObatController extends Controller
     public function index(Request $request)
     {
         $medications = FhirResource::where('resourceType', 'Medication');
-        
+        // return $medications;
+
         if ($request->query('name')) {
-            $medications = $medications->where('name.text', 'like', '%' . addcslashes($request->query('name'), '%_') . '%');
-            return $medications;
+            $name = $request->query('name');
+            $medications = $medications->where('code.coding.0.display', 'like', '%' . addcslashes($name, '%_') . '%');
+        }
+        if ($request->query('form')) {
+            $form = $request->query('form');
+            $medications = $medications->where('form.coding.0.display', 'like', '%' . addcslashes($form, '%_') . '%');
         }
         $medications = $medications->paginate(15)->withQueryString();
 

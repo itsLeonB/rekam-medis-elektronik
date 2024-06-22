@@ -85,6 +85,8 @@
                             <!-- </Link> -->
                             <td class="px-6 py-4 w-3/5">
                                 {{ medication.name }}
+                                <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
+                                        searchWith_id).label }}: {{ medication[searchWith_id] }}</p>
                             </td>
                             <td class="px-6 py-4 w-2/5">
                                 {{ medication.form }}
