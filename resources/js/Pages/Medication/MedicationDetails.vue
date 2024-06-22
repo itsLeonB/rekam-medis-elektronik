@@ -1,23 +1,21 @@
 <template>
     <AuthenticatedLayout>
         <template #apphead>
-            <title>User Details - </title>
+            <title>Medication Details - </title>
         </template>
 
         <div class="p-8 bg-original-white-0 overflow-hidden shadow sm:rounded-2xl mb-8">
             <div class="flex justify-between">
-                <h1 class="mb-8 px-5 pt-3 text-2xl font-bold text-neutral-black-300">Detail User</h1>
+                <h1 class="mb-8 px-5 pt-3 text-2xl font-bold text-neutral-black-300">Detail Medication</h1>
                 <div>
                     <Link :href="route('usermanagement.tambah')" as="button"
                         class="mr-3 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                    Edit User
+                    Edit Medication
                     </Link>
-                    <MainButton @click="confirmUserDeletion" class="orange-button text-original-white-0">
-                        Hapus User
-                    </MainButton>
+                
                 </div>
             </div>
-            <Modal :show="confirmingUserDeletion" @close="closeModal">
+            <!-- <Modal :show="confirmingUserDeletion" @close="closeModal">
                 <div class="p-6">
                     <h2 class="text-lg font-medium text-gray-900">
                         Apakah yakin akan menghapus user ini?
@@ -30,74 +28,64 @@
                         </MainButton>
                     </div>
                 </div>
-            </Modal>
+            </Modal> -->
             <div class="relative overflow-x-auto mb-5">
                 <table class="w-full text-base text-left text-neutral-grey-200 ">
                     <tbody>
                         <tr class="bg-original-white-0">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/3">
-                                Nama
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/4">
+                                Kode Obat
                             </th>
-                            <td class="px-6 py-4 w-2/3">
-                                {{ user.name }}
+                            <td class="px-6 py-4 w-3/4">
+                                {{ medication.code }}
                             </td>
                         </tr>
                         <tr class="bg-original-white-0">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/3">
-                                Email
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/4">
+                                Nama Obat
                             </th>
-                            <td class="px-6 py-4 w-2/3">
-                                {{ user.email }}
+                            <td class="px-6 py-4 w-3/4">
+                                {{ medication.name }}
                             </td>
                         </tr>
                         <tr class="bg-original-white-0">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/3">
-                                Verifikasi Email
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/4">
+                                Tipe Obat
                             </th>
-                            <td class="px-6 py-4 w-2/3">
-                                {{ formatTimestamp(user.email_verified_at) }}
+                            <td class="px-6 py-4 w-3/4">
+                                {{ medication.form }}
+                            </td>
+                        </tr>
+                        <tr class="bg-original-white-0">
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/4">
+                                Extension
+                            </th>
+                            <td class="px-6 py-4 w-3/4">
+                                {{ medication.extension }}
+                            </td>
+                        </tr>
+                        <tr class="bg-original-white-0">
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/4">
+                                Status
+                            </th>
+                            <td class="px-6 py-4 w-3/4">
+                                {{ medication.status }}
+                            </td>
+                        </tr>
+                        <tr class="bg-original-white-0">
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/4">
+                                Stok Obat
+                            </th>
+                            <td class="px-6 py-4 w-3/4">
+                                10
                             </td>
                         </tr>
                     </tbody>
-                    <tbody v-for="(item, key) in user.practitioner_user" :key="key">
-                        <tr class="bg-original-white-0">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/3">
-                                {{ key }}
-                            </th>
-                            <td class="px-6 py-4 w-2/3">
-                                {{ item }}
-                            </td>
-                        </tr>
-                    </tbody>
+                    
                 </table>
             </div>
         </div>
-        <div class="py-8 bg-original-white-0 overflow-hidden shadow sm:rounded-2xl mb-8 pl-10 pr-14">
-            <h1 class="mb-8 px-5 pt-3 text-2xl font-bold text-neutral-black-300">Detail Practitioner</h1>
-            <div class="relative overflow-x-auto mb-5">
-                <table class="w-full text-base text-left text-neutral-grey-200 ">
-                    <tbody>
-                        <tr class="bg-original-white-0">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/3">
-                                ID Satusehat
-                            </th>
-                            <td class="px-6 py-4 w-2/3">
-                                {{ practitioner.id }}
-                            </td>
-                        </tr>
-                        <tr class="bg-original-white-0">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap w-1/3">
-                                Gender
-                            </th>
-                            <td class="px-6 py-4 w-2/3">
-                                {{ practitioner.gender }}
-                            </td>
-                        </tr>
-                        
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        
     </AuthenticatedLayout>
 </template>
 
@@ -130,31 +118,23 @@ const closeModal = () => {
 };
 
 const props = defineProps({
-    user_id: {
+    medication_id: {
         type: String,
     },
 });
 
-const user_id = parseInt(props.user_id, 10);
+const medication_id = props.medication_id;
 
-const user = ref([]);
-const practitioner = ref([]);
+const medication = ref([]);
 
-const fetchUser = async () => {
-    const response = await axios.get(route('users.show', { 'user_id': user_id }));
-    user.value = response.data.user;
-    practitioner.value = response.data.practitioner;
+const fetchMedication = async () => {
+    const { data } = await axios.get(route('obat.show', { 'medication_id': medication_id }));
+    medication.value = data;
 };
 
-const formatTimestamp = (timestamp) => {
-    const date = new Date(timestamp);
-    date.setHours(date.getHours() + 7);
-    const options = { day: '2-digit', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', timeZone: 'UTC' };
-    return date.toLocaleDateString('id-ID', options);
-};
 
 onMounted(() => {
-    fetchUser();
+    fetchMedication();
 }
 );
 

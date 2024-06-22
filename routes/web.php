@@ -177,6 +177,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/{medication_id}', [ObatController::class, 'show'])->name('show');
         // Pull update dari obat dari SATUSEHAT
         Route::get('/{medication_id}/update', [ObatController::class, 'updateObat'])->name('update');
+        Route::get('/medication/details/{code_medication}', function ($code_medication) {
+            return Inertia::render('RekamMedis/RekamMedisDetails', ['medication_id' => $medication_id]);
+        })->name('rekammedis.details');
     });
 
     // Endpoint untuk Dashboard Analytics

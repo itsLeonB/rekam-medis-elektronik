@@ -78,16 +78,17 @@
                     <tbody v-for="(medication, index) in medications.data" :key="index">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (medications.data.length - 1) }">
-                            <!-- <Link :href="route('usermanagement.details', { 'user_id': user.id })"> -->
+                            <Link :href="route('medication.details', { 'medication_id': medication.id_medication })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">
                                 {{ medication.code }}
                             </th>
-                            <!-- </Link> -->
+                            </Link>
                             <td class="px-6 py-4 w-3/5">
                                 {{ medication.name }}
                                 <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
                                         searchWith_id).label }}: {{ medication[searchWith_id] }}</p>
                             </td>
+                            
                             <td class="px-6 py-4 w-2/5">
                                 {{ medication.form }}
                             </td>
