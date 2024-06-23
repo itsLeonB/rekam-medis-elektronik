@@ -25,20 +25,18 @@
                         :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
                         :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
                         track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
-                    <span v-if="errors.code_obat" class="text-red-500">{{ errors.code_obat }}</span>
                 </div>
                 <div class="mt-4">
                     <InputLabel for="extension" value="Extension" />
                     <Multiselect v-model="form.extension" mode="single" placeholder="Extension"
                         :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
                         class="mt-1" :classes="combo_classes" required />
-                    <span v-if="errors.extension" class="text-red-500">{{ errors.extension }}</span>
                 </div>
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <InputLabel for="amount" value="Amount" />
                     <TextInput v-model="form.amount" placeholder="Jumlah" />
                     <span v-if="errors.amount" class="text-red-500">{{ errors.amount }}</span>
-                </div>
+                </div> -->
                 <div class="flex flex-col items-center justify-end mt-10">
                     <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
                         Tambah
@@ -134,7 +132,6 @@ const submitForm = async () => {
         display: form.code_obat.name,
       }],
     },
-    
    status: form.code_obat.active ? 'active' : 'inactive',
     form: {
       coding: [{
@@ -171,7 +168,7 @@ const submitForm = async () => {
 
   try { 
     const resourceType = 'Medication';
-    const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
+    const response = await axios.post(route('integration.store', { resourceType: resourceType }), formDataJson) ;
     console.log(response.data);
     
     creationSuccessModal.value = true;
