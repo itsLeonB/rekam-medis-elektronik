@@ -14,8 +14,10 @@ use App\Http\Controllers\ExpertSystemController;
 use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\ObatController;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -172,8 +174,8 @@ Route::middleware('auth')->group(function () {
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
     });
-    
-     // Endpoint untuk View mediation
+
+    // Endpoint untuk View mediation
     Route::group(['prefix' => 'obat', 'as' => 'obat.'], function () {
         // Daftar obat
         Route::get('/', [ObatController::class, 'index'])->name('index');
@@ -359,9 +361,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/kategori-umur/{id}', [ExpertSystemController::class, 'kategoriUmur'])->name('get.umur');
         Route::get('/data-fisik/{id}', [ExpertSystemController::class, 'dataFisik'])->name('get.dataFisik');
         Route::get('/rule/{rule}/{id}', [ExpertSystemController::class, 'rulePeresepanShow'])->name('ruleperesepan.show');
-
     });
-    
+
+    Route::group(['prefix' => 'medicine', 'as' => 'medicine.'], function () {
+        Route::get('/', [MedicineController::class, 'index'])->name('index');
+        Route::post('/', [MedicineController::class, 'store'])->name('store');
+        Route::get('/{medicine_code}', [MedicineController::class, 'show'])->name('show');
+        Route::put('/{medicine_code}', [MedicineController::class, 'update'])->name('update');
+        Route::delete('/{medicine_code}', [MedicineController::class, 'destroy'])->name('destroy');
+    });
 });
 Route::get('medicationOrg', [ExpertSystemController::class, 'indexMedication'])->name('get.medicationOrg');
 

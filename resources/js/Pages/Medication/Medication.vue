@@ -10,26 +10,26 @@
                 <h1 class="text-2xl font-bold text-neutral-black-300">Medication Management</h1>
             </span>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Apoteker untuk mengelola obat.
-            </p> 
+            </p>
             <Link :href="route('medication')" as="button"
                 class="mr-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    class="w-5 h-5 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 19l-7-7 7-7"/>
-                </svg>
-                Kembali
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                class="w-5 h-5 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Kembali
             </Link>
             <Link :href="route('medication.tambah')" as="button"
                 class="mr-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5 mr-2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-                Tambah Obat
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-5 h-5 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Tambah Obat
             </Link>
         </div>
-        <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
+        <div
+            class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
             <!-- Search bar -->
             <div class="flex flex-col md:flex-row md:justify-end md:items-center mb-5 w-full">
                 <form class="mr-3 w-full">
@@ -43,8 +43,8 @@
                         </div>
                         <input v-model="searchQuery" id="searchQuery" placeholder="Cari"
                             class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
-                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer" @click="cancelSearch"
-                            v-show="hide">
+                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
+                            @click="cancelSearch" v-show="hide">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
                                 class="w-5 h-5 hover:fill-thirdouter-red-200">
                                 <path fill-rule="evenodd"
@@ -66,62 +66,39 @@
                 </div>
             </div>
             <div class="relative overflow-x-auto mb-5">
-                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
-                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 w-1/5">
-                                Kode
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-3/5">
-                                Nama 
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-2/5">
-                                Tipe 
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/5">
-                                Status
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/5">
-                                Jenis
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/5">
-                                Volume
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="(medication, index) in medications.data" :key="index">
-                        <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                            :class="{ 'border-b': index !== (medications.data.length - 1) }">
-                            <!-- <Link :href="route('usermanagement.details', { 'user_id': user.id })"> -->
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">
-                                {{ medication.code }}
-                            </th>
-                            <!-- </Link> -->
-                            <td class="px-6 py-4 w-3/5">
-                                {{ medication.name }}
-                            </td>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ medication.form }}
-                            </td>
-                           <td class="px-6 py-4 w-2/5">
-                                {{ medication.status }}
-                            </td>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ medication.extension }}
-                            </td>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ medication.totalVolume }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p class="text-center mt-4" v-if="searchQuery !== '' && medications.data.length === 0">Data tidak ditemukan</p>
+                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200">
+      <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+        <tr>
+          <th scope="col" class="px-6 py-3 w-1/5">Kode</th>
+          <th scope="col" class="px-6 py-3 w-3/5">Nama</th>
+          <th scope="col" class="px-6 py-3 w-2/5">Tipe</th>
+          <th scope="col" class="px-6 py-3 w-1/5">Jumlah</th>
+          <th scope="col" class="px-6 py-3 w-1/5">Jenis</th>
+          <th scope="col" class="px-6 py-3 w-1/5">Tanggal Kadaluarsa</th>
+          <th scope="col" class="px-6 py-3 w-1/5">Harga</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(medication, index) in medications" :key="index"
+            class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+            :class="{ 'border-b': index !== (medications.length - 1) }">
+          <td class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">{{ medication.medicine_code }}</td>
+          <td class="px-6 py-4 w-3/5">{{ medication.name }}</td>
+          <td class="px-6 py-4 w-2/5">{{ medication.dosage_form }}</td>
+          <td class="px-6 py-4 w-1/5">{{ medication.quantity }}</td>
+          <td class="px-6 py-4 w-1/5">{{ medication.package }}</td>
+          <td class="px-6 py-4 w-1/5">{{ medication.expiry_date }}</td>
+          <td class="px-6 py-4 w-1/5">{{ medication.price }}</td>
+        </tr>
+      </tbody>
+    </table>
             </div>
 
             <nav class="flex justify-end">
                 <ul class="inline-flex -space-x-px text-base h-10">
                     <li>
-                        <button @click="fetchPagination((medications.current_page - 1) < 1 ? 1 : (medications.current_page - 1))"
+                        <button
+                            @click="fetchPagination((medications.current_page - 1) < 1 ? 1 : (medications.current_page - 1))"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">&laquo;</button>
                     </li>
                     <template v-for="(item, index) in paging">
@@ -148,10 +125,38 @@
     </AuthenticatedLayout>
 </template>
 
-<script setup>
+<script>
+import axios from "axios";
+
+export default {
+  data() {
+    return {
+      medications: [],
+    };
+  },
+  mounted() {
+    this.fetchMedications();
+  },
+  methods: {
+    fetchMedications() {
+      axios
+        .get(route("medicine.index"))
+        .then((response) => {
+          this.medications = response.data;
+          console.log("Fetched Medications:", this.medications);
+        })
+        .catch((error) => {
+          console.error("Error fetching medications:", error);
+        });
+    },
+  },
+};
+</script>
+
+<!-- <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import MainButton from '@/Components/MainButton.vue';
-import { Link, usePage} from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
@@ -159,8 +164,9 @@ const medications = ref([]);
 
 const hide = ref(false);
 
+
 const fetchMedications = async (page = 1) => {
-    const { data } = await axios.get(route('obat.index', {'page': page}));
+    const { data } = await axios.get(route('medicine.index', { 'page': page }));
     medications.value = data.obat;
     generateNumbers(1, medications.value.current_page, medications.value.last_page);
 };
@@ -186,12 +192,12 @@ const searchMedications = async () => {
 
 const fetchPagination = async (page = 1) => {
     if (searchQuery.value == '') {
-        const { data } = await axios.get(route('obat.index', {'page': page}));
+        const { data } = await axios.get(route('obat.index', { 'page': page }));
         medications.value = data.obat;
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } else {
         const query = searchQuery.value;
-        const { data } = await axios.get(route('obat.index'), {params: {'name': query, 'page': page}});
+        const { data } = await axios.get(route('obat.index'), { params: { 'name': query, 'page': page } });
         medications.value = data.obat;
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     };
@@ -199,8 +205,8 @@ const fetchPagination = async (page = 1) => {
 const searchWith_id = ref('name');
 
 const searchWith = [
-    {"id": 'name', "label": 'Nama'},
-    {"id": 'form', "label": 'Tipe'},
+    { "id": 'name', "label": 'Nama' },
+    { "id": 'form', "label": 'Tipe' },
 ];
 
 const paging = ref([]);
@@ -230,4 +236,4 @@ onMounted(() => {
 }
 );
 
-</script>
+</script> -->

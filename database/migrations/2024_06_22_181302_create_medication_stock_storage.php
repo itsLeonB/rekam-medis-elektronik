@@ -9,10 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('medicine', function (Blueprint $table) {
-            $table->string('medicine_code')->primary()->unique();
+        Schema::create('medicines', function (Blueprint $table) {
+            $table->uuid()->primary();
+            $table->string('medicine_code')->unique();
             $table->string('name');
             $table->date('expiry_date');
             $table->integer('quantity');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->integer('amount_per_package');
             $table->string('manufacturer');
             $table->boolean('is_fast_moving')->nullable();
-            $table->json('ingridients');
+            $table->json('ingredients');
             $table->integer('minimum_quantity');
             $table->string('dosage_form');
             $table->foreignId('medicine_prices_id')->constrained('medicine_prices')->onDelete('cascade');
@@ -41,6 +42,7 @@ return new class extends Migration
             $table->integer('treatment_price_7')->nullable();
             $table->integer('treatment_price_8')->nullable();
             $table->integer('treatment_price_9')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -49,7 +51,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('medicine');
+        Schema::dropIfExists('medicines');
         Schema::dropIfExists('medicine_prices');
     }
 };
