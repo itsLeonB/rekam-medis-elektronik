@@ -67,31 +67,43 @@
             </div>
             <div class="relative overflow-x-auto mb-5">
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200">
-      <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-        <tr>
-          <th scope="col" class="px-6 py-3 w-1/5">Kode</th>
-          <th scope="col" class="px-6 py-3 w-3/5">Nama</th>
-          <th scope="col" class="px-6 py-3 w-2/5">Tipe</th>
-          <th scope="col" class="px-6 py-3 w-1/5">Jumlah</th>
-          <th scope="col" class="px-6 py-3 w-1/5">Jenis</th>
-          <th scope="col" class="px-6 py-3 w-1/5">Tanggal Kadaluarsa</th>
-          <th scope="col" class="px-6 py-3 w-1/5">Harga</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(medication, index) in medications" :key="index"
-            class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-            :class="{ 'border-b': index !== (medications.length - 1) }">
-          <td class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">{{ medication.medicine_code }}</td>
-          <td class="px-6 py-4 w-3/5">{{ medication.name }}</td>
-          <td class="px-6 py-4 w-2/5">{{ medication.dosage_form }}</td>
-          <td class="px-6 py-4 w-1/5">{{ medication.quantity }}</td>
-          <td class="px-6 py-4 w-1/5">{{ medication.package }}</td>
-          <td class="px-6 py-4 w-1/5">{{ medication.expiry_date }}</td>
-          <td class="px-6 py-4 w-1/5">{{ medication.price }}</td>
-        </tr>
-      </tbody>
-    </table>
+                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 w-1/5">Kode</th>
+                            <th scope="col" class="px-6 py-3 w-3/5">Nama</th>
+                            <th scope="col" class="px-6 py-3 w-2/5">Tipe</th>
+                            <th scope="col" class="px-6 py-3 w-1/5">Jumlah</th>
+                            <th scope="col" class="px-6 py-3 w-1/5">Jenis</th>
+                            <th scope="col" class="px-6 py-3 w-1/5">Tanggal Kadaluarsa</th>
+                            <template v-for="(priceKey, price) in Object.keys(medications[0].prices)" :key="priceKey">
+                                <th v-if="priceKey !== 'treatment_prices'" :scope="'col'" class="px-6 py-3 w-1/5">{{
+                                    priceKey }}</th>
+                            </template>
+                            <!-- Treatment Prices -->
+                            <template
+                                v-for="(treatmentPriceKey, treatmentPrice) in Object.keys(medications[0].prices.treatment_prices)"
+                                :key="treatmentPriceKey">
+                                <th scope="col" class="px-6 py-3 w-1/5">{{ treatmentPriceKey }}</th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(medication, index) in medications" :key="index"
+                            class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+                            :class="{ 'border-b': index !== (medications.length - 1) }">
+                            <td class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">{{
+                                medication.medicine_code }}</td>
+                            <td class="px-6 py-4 w-3/5">{{ medication.name }}</td>
+                            <td class="px-6 py-4 w-2/5">{{ medication.dosage_form }}</td>
+                            <td class="px-6 py-4 w-1/5">{{ medication.quantity }}</td>
+                            <td class="px-6 py-4 w-1/5">{{ medication.package }}</td>
+                            <td class="px-6 py-4 w-1/5">{{ formatDate(medication.expiry_date) }}</td>
+                            <template v-for="priceKey in Object.keys(medication.prices)">
+                                <td class="px-6 py-4 w-1/5">{{ medication.prices[priceKey] }}</td>
+                            </template>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             <nav class="flex justify-end">
@@ -125,35 +137,7 @@
     </AuthenticatedLayout>
 </template>
 
-<script>
-import axios from "axios";
-
-export default {
-  data() {
-    return {
-      medications: [],
-    };
-  },
-  mounted() {
-    this.fetchMedications();
-  },
-  methods: {
-    fetchMedications() {
-      axios
-        .get(route("medicine.index"))
-        .then((response) => {
-          this.medications = response.data;
-          console.log("Fetched Medications:", this.medications);
-        })
-        .catch((error) => {
-          console.error("Error fetching medications:", error);
-        });
-    },
-  },
-};
-</script>
-
-<!-- <script setup>
+<script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import MainButton from '@/Components/MainButton.vue';
 import { Link, usePage } from '@inertiajs/vue3';
@@ -166,9 +150,14 @@ const hide = ref(false);
 
 
 const fetchMedications = async (page = 1) => {
-    const { data } = await axios.get(route('medicine.index', { 'page': page }));
-    medications.value = data.obat;
-    generateNumbers(1, medications.value.current_page, medications.value.last_page);
+    try {
+        const { data } = await axios.get(route('medicine.index'));
+        medications.value = data;
+        generateNumbers(1, data.current_page, data.last_page);
+        console.log("Fetched Medications:", medications.value); // Optional logging
+    } catch (error) {
+        console.error('Error fetching medications:', error);
+    }
 };
 
 const cancelSearch = async () => {
@@ -211,6 +200,11 @@ const searchWith = [
 
 const paging = ref([]);
 
+const formatDate = (date) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(date).toLocaleDateString('id-ID', options);
+};
+
 const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
     const result = [];
     if (lastNumber > 5 && (currentNumber < 3 || currentNumber > lastNumber - 2)) {
@@ -236,4 +230,4 @@ onMounted(() => {
 }
 );
 
-</script> -->
+</script>

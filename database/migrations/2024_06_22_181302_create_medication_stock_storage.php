@@ -11,38 +11,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('medicines', function (Blueprint $table) {
-            $table->uuid()->primary();
-            $table->string('medicine_code')->unique();
-            $table->string('name');
-            $table->date('expiry_date');
-            $table->integer('quantity');
-            $table->string('package');
-            $table->string('uom');
-            $table->integer('amount_per_package');
-            $table->string('manufacturer');
-            $table->boolean('is_fast_moving')->nullable();
-            $table->json('ingredients');
-            $table->integer('minimum_quantity');
-            $table->string('dosage_form');
-            $table->foreignId('medicine_prices_id')->constrained('medicine_prices')->onDelete('cascade');
-            $table->timestamps();
-        });
-
-        Schema::create('medicine_prices', function (Blueprint $table) {
-            $table->uuid()->primary();
-            $table->integer('base_price');
-            $table->integer('purchase_price');
-            $table->integer('treatment_price_1')->nullable();
-            $table->integer('treatment_price_2')->nullable();
-            $table->integer('treatment_price_3')->nullable();
-            $table->integer('treatment_price_4')->nullable();
-            $table->integer('treatment_price_5')->nullable();
-            $table->integer('treatment_price_6')->nullable();
-            $table->integer('treatment_price_7')->nullable();
-            $table->integer('treatment_price_8')->nullable();
-            $table->integer('treatment_price_9')->nullable();
-            $table->timestamps();
+        Schema::create('medicines', function (Blueprint $collection) {
+            $collection->uuid();
+            $collection->string('medicine_code');
+            $collection->string('name');
+            $collection->date('expiry_date');
+            $collection->integer('quantity');
+            $collection->string('package');
+            $collection->string('uom');
+            $collection->integer('amount_per_package');
+            $collection->string('manufacturer');
+            $collection->boolean('is_fast_moving');
+            $collection->json('ingredients');
+            $collection->integer('minimum_quantity');
+            $collection->string('dosage_form');
+            $collection->json('prices');
+            $collection->timestamps();
         });
     }
 
@@ -52,6 +36,5 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('medicines');
-        Schema::dropIfExists('medicine_prices');
     }
 };

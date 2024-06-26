@@ -3,48 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
+use App\Models\Medicine;
+use Illuminate\Support\Str;
 
 class MedicineController extends Controller
 {
     public function index()
     {
-        try {
-            // Fetch all medicines from the 'medicines' table
-            $medicines = DB::table('medicines')
-                            ->get();
-
-            // Return the JSON response
-            return response()->json($medicines);
-        } catch (\Exception $e) {
-            // Log any errors
-            Log::error("Error fetching medicines: " . $e->getMessage());
-            
-            // Return an error response
-            return response()->json(['error' => 'Could not fetch medicines.'], 500);
-        }
-    }
-
-    public function show($medicine_code)
-    {
-        $medicine = DB::table('medicines')
-                        ->leftJoin('medicine_prices', 'medicines.medicine_prices_id', '=', 'medicine_prices.id')
-                        ->select('medicines.*', 'medicine_prices.price')
-                        ->where('medicine_code', $medicine_code)
-                        ->first();
-
-        if (!$medicine) {
-            return response()->json(['error' => 'Medicine not found'], 404);
-        }
-
-        return response()->json($medicine);
+        $medicines = Medicine::all();
+        return response()->json($medicines);
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'medicine_code' => 'required|string|unique:medicines',
+        $validatedData = $request->validate([
+            'medicine_code' => 'required|string',
             'name' => 'required|string',
             'expiry_date' => 'required|date',
             'quantity' => 'required|integer',
@@ -52,27 +25,31 @@ class MedicineController extends Controller
             'uom' => 'required|string',
             'amount_per_package' => 'required|integer',
             'manufacturer' => 'required|string',
-            'is_fast_moving' => 'nullable|boolean',
+            'is_fast_moving' => 'required|boolean',
             'ingredients' => 'required|array',
             'minimum_quantity' => 'required|integer',
-            'dosage_form' => 'required|array',
-            'medicine_prices_id' => 'required|exists:medicine_prices,id',
+            'dosage_form' => 'required|string',
+            'prices' => 'required|array',
         ]);
 
-        $medicine = DB::table('medicines')->insertGetId($request->all());
+        $validatedData['_id'] = Str::uuid();
+        $validatedData['created_at'] = now();
+        $validatedData['updated_at'] = now();
 
-        $insertedMedicine = DB::table('medicines')
-                                ->leftJoin('medicine_prices', 'medicines.medicine_prices_id', '=', 'medicine_prices.id')
-                                ->select('medicines.*', 'medicine_prices.price')
-                                ->where('medicine_code', $request->medicine_code)
-                                ->first();
+        $medicine = Medicine::create($validatedData);
 
-        return response()->json($insertedMedicine, 201);
+        return response()->json($medicine, 201);
     }
 
-    public function update(Request $request, $medicine_code)
+    public function show(Medicine $medicine)
     {
-        $request->validate([
+        return response()->json($medicine);
+    }
+
+    public function update(Request $request, Medicine $medicine)
+    {
+        $validatedData = $request->validate([
+            'medicine_code' => 'required|string',
             'name' => 'required|string',
             'expiry_date' => 'required|date',
             'quantity' => 'required|integer',
@@ -80,38 +57,23 @@ class MedicineController extends Controller
             'uom' => 'required|string',
             'amount_per_package' => 'required|integer',
             'manufacturer' => 'required|string',
-            'is_fast_moving' => 'nullable|boolean',
+            'is_fast_moving' => 'required|boolean',
             'ingredients' => 'required|array',
             'minimum_quantity' => 'required|integer',
-            'dosage_form' => 'required|array',
-            'medicine_prices_id' => 'required|exists:medicine_prices,id',
+            'dosage_form' => 'required|string',
+            'prices' => 'required|array',
         ]);
 
-        $affected = DB::table('medicines')
-                        ->where('medicine_code', $medicine_code)
-                        ->update($request->all());
+        $validatedData['updated_at'] = now();
 
-        if ($affected) {
-            $updatedMedicine = DB::table('medicines')
-                                    ->leftJoin('medicine_prices', 'medicines.medicine_prices_id', '=', 'medicine_prices.id')
-                                    ->select('medicines.*', 'medicine_prices.price')
-                                    ->where('medicine_code', $medicine_code)
-                                    ->first();
+        $medicine->update($validatedData);
 
-            return response()->json($updatedMedicine);
-        }
-
-        return response()->json(['error' => 'Medicine not found or update failed'], 404);
+        return response()->json($medicine);
     }
 
-    public function destroy($medicine_code)
+    public function destroy(Medicine $medicine)
     {
-        $deleted = DB::table('medicines')->where('medicine_code', $medicine_code)->delete();
-
-        if ($deleted) {
-            return response()->json(null, 204);
-        }
-
-        return response()->json(['error' => 'Medicine not found or delete failed'], 404);
+        $medicine->delete();
+        return response()->json(null, 204);
     }
 }
