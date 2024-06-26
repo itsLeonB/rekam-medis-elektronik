@@ -75,15 +75,11 @@
                             <th scope="col" class="px-6 py-3 w-1/5">Jumlah</th>
                             <th scope="col" class="px-6 py-3 w-1/5">Jenis</th>
                             <th scope="col" class="px-6 py-3 w-1/5">Tanggal Kadaluarsa</th>
-                            <template v-for="(priceKey, price) in Object.keys(medications[0].prices)" :key="priceKey">
-                                <th v-if="priceKey !== 'treatment_prices'" :scope="'col'" class="px-6 py-3 w-1/5">{{
-                                    priceKey }}</th>
-                            </template>
-                            <!-- Treatment Prices -->
-                            <template
-                                v-for="(treatmentPriceKey, treatmentPrice) in Object.keys(medications[0].prices.treatment_prices)"
-                                :key="treatmentPriceKey">
-                                <th scope="col" class="px-6 py-3 w-1/5">{{ treatmentPriceKey }}</th>
+                            <template v-if="medications[0] && medications[0].prices">
+                                <template v-for="(priceKey) in Object.keys(medications[0].prices)"
+                                    :key="priceKey">
+                                    <th :scope="'col'" class="px-6 py-3 w-1/5">{{ priceKey }}</th>
+                                </template>
                             </template>
                         </tr>
                     </thead>
@@ -151,7 +147,7 @@ const hide = ref(false);
 
 const fetchMedications = async (page = 1) => {
     try {
-        const { data } = await axios.get(route('medicine.index'));
+        const { data } = await axios.get(route('medicine.index', {'page': page}));
         medications.value = data;
         generateNumbers(1, data.current_page, data.last_page);
         console.log("Fetched Medications:", medications.value); // Optional logging
