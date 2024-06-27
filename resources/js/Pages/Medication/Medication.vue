@@ -56,10 +56,6 @@
                     </div>
                 </form>
                 <div class="flex mt-4 md:mt-0">
-                    <select id="searchWith_id" v-model="searchWith_id"
-                        class="bg-original-white-0 mr-3 border-1 border-neutral-grey-0 text-neutral-black-300 text-sm rounded-lg focus:ring-original-teal-300 focus:border-original-teal-300 block w-40 px-2.5 h-fit">
-                        <option v-for="item in searchWith" :value=item.id>{{ item.label }}</option>
-                    </select>
                     <MainButton @click="searchMedications" class="teal-button text-original-white-0">
                         Cari
                     </MainButton>
@@ -69,22 +65,22 @@
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200">
                     <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
                         <tr>
-                            <th scope="col" class="px-6 py-3 w-1/5">Kode</th>
-                            <th scope="col" class="px-6 py-3 w-3/5">Nama</th>
-                            <th scope="col" class="px-6 py-3 w-2/5">Tipe</th>
-                            <th scope="col" class="px-6 py-3 w-1/5">Jumlah</th>
-                            <th scope="col" class="px-6 py-3 w-1/5">Jenis</th>
-                            <th scope="col" class="px-6 py-3 w-1/5">Tanggal Kadaluarsa</th>
-                            <template v-if="medications[0] && medications[0].prices">
-                                <template v-for="(priceKey) in Object.keys(medications[0].prices)"
+                            <th @click="sortBy('medicine_code')">Kode</th>
+                            <th @click="sortBy('name')">Nama</th>
+                            <th @click="sortBy('dosage_form')">Tipe</th>
+                            <th @click="sortBy('quantity')">Jumlah</th>
+                            <th @click="sortBy('package')">Jenis</th>
+                            <th @click="sortBy('expiry_date')">Tanggal Kadaluarsa</th>
+                            <template v-if="medications.data">
+                                <template v-for="(priceKey) in Object.keys(medications.data[0].prices)"
                                     :key="priceKey">
-                                    <th :scope="'col'" class="px-6 py-3 w-1/5">{{ priceKey }}</th>
+                                    <th @click="sortBy('prices.'+ priceKey)" :scope="'col'" class="px-6 py-3 w-1/5">{{ priceKey }}</th>
                                 </template>
                             </template>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(medication, index) in medications" :key="index"
+                        <tr v-for="(medication, index) in medications.data" :key="index"
                             class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (medications.length - 1) }">
                             <td class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">{{
@@ -150,10 +146,25 @@ const fetchMedications = async (page = 1) => {
         const { data } = await axios.get(route('medicine.index', {'page': page}));
         medications.value = data;
         generateNumbers(1, data.current_page, data.last_page);
-        console.log("Fetched Medications:", medications.value); // Optional logging
+        console.log("Fetched Medications:", medications.value);
     } catch (error) {
         console.error('Error fetching medications:', error);
     }
+};
+
+const fetchPagination = async (page = 1) => {
+    if (searchQuery.value == '') {
+        const { data } = await axios.get(route('medicine.index'), { params: { 'page': page, 'sort': sortKey, 'direction': sortDirection } });
+        medications.value = data;
+        console.log("Paginated Medications:", medications.value, searchQuery.value);
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
+    } else {
+        const query = searchQuery.value;
+        const { data } = await axios.get(route('medicine.index'), { params: { 'search': query, 'page': page, 'sort': sortKey, 'direction': sortDirection } });
+        medications.value = data;
+        console.log("Paginated Medications:", medications.value, data, searchQuery.value);
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
+    };
 };
 
 const cancelSearch = async () => {
@@ -161,38 +172,38 @@ const cancelSearch = async () => {
     searchQuery.value = '';
     fetchMedications(1);
 };
+
+let sortKey = ref('');
+let sortDirection = '';
+
+const sortBy = async (key) => {
+      if (sortKey === key) {
+        sortDirection = (sortDirection === 'asc' ? 'desc' : 'asc');
+        const { data } = await axios.get(route('medicine.index'), { params: { 'page': 1, 'sort': key, 'direction': sortDirection} });
+        medications.value = data;
+        console.log("Sorted Medications:", medications.value, data, key);
+      } else {
+        sortKey = key;
+        sortDirection = 'asc';
+        const { data } = await axios.get(route('medicine.index'), { params: { 'page': 1, 'sort': key, 'direction': sortDirection} });
+        medications.value = data;
+        console.log("Sorted Medications:", medications.value, data, key);
+      }
+    };
+
 const searchQuery = ref('');
 
 const searchMedications = async () => {
     hide.value = true;
-    const query = searchQuery.value;
+    const search = searchQuery.value;
     try {
-        const { data } = await axios.get(route('obat.index', { [searchWith_id.value]: query }));
-        medications.value = data.obat;
+        const { data } = await axios.get(route('medicine.index', { search }));
+        medications.value = data;
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } catch (error) {
         console.error("Error fetching medications:", error);
     }
 };
-
-const fetchPagination = async (page = 1) => {
-    if (searchQuery.value == '') {
-        const { data } = await axios.get(route('obat.index', { 'page': page }));
-        medications.value = data.obat;
-        generateNumbers(1, medications.value.current_page, medications.value.last_page);
-    } else {
-        const query = searchQuery.value;
-        const { data } = await axios.get(route('obat.index'), { params: { 'name': query, 'page': page } });
-        medications.value = data.obat;
-        generateNumbers(1, medications.value.current_page, medications.value.last_page);
-    };
-};
-const searchWith_id = ref('name');
-
-const searchWith = [
-    { "id": 'name', "label": 'Nama' },
-    { "id": 'form', "label": 'Tipe' },
-];
 
 const paging = ref([]);
 
