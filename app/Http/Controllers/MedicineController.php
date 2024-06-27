@@ -13,8 +13,8 @@ class MedicineController extends Controller
     {
         $search = $request->query('search', '');
         $page = $request->query('page', 1);
-        $sort = $request->query('sort', 'updated_at'); // Default sort column
-        $direction = $request->query('direction', 'asc'); // Default sort direction
+        $sort = $request->query('sort', 'updated_at');
+        $direction = $request->query('direction', 'asc');
 
         // Log the search query, page number, sort column, and sort direction
         Log::info('Search query:', ['search' => $search]);
