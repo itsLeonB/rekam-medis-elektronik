@@ -65,16 +65,27 @@
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200">
                     <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
                         <tr>
-                            <th @click="sortBy('medicine_code')">Kode</th>
-                            <th @click="sortBy('name')">Nama</th>
-                            <th @click="sortBy('dosage_form')">Tipe</th>
-                            <th @click="sortBy('quantity')">Jumlah</th>
-                            <th @click="sortBy('package')">Jenis</th>
-                            <th @click="sortBy('expiry_date')">Tanggal Kadaluarsa</th>
+                            <th @click="sortBy('medicine_code')" class="sortable">Kode <span
+                                    v-if="sortKey === 'medicine_code'" class="arrow">{{ sortDirection === 'asc' ?
+                                        '▲' : '▼' }}</span></th>
+                            <th @click="sortBy('name')" class="sortable">Nama <span v-if="sortKey === 'name'"
+                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+                            <th @click="sortBy('dosage_form')" class="sortable">Tipe <span
+                                    v-if="sortKey === 'dosage_form'" class="arrow">{{ sortDirection === 'asc' ? '▲'
+                                        : '▼' }}</span></th>
+                            <th @click="sortBy('quantity')" class="sortable">Jumlah <span v-if="sortKey === 'quantity'"
+                                    class="arrow">{{ sortDirection === 'asc' ? '▲' :
+                                        '▼' }}</span></th>
+                            <th @click="sortBy('package')" class="sortable">Jenis <span v-if="sortKey === 'package'"
+                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
+                            <th @click="sortBy('expiry_date')" class="sortable">Tanggal Kadaluarsa <span
+                                    v-if="sortKey === 'expiry_date'" class="arrow">{{ sortDirection === 'asc' ? '▲'
+                                        : '▼' }}</span></th>
                             <template v-if="medications.data">
-                                <template v-for="(priceKey) in Object.keys(medications.data[0].prices)"
-                                    :key="priceKey">
-                                    <th @click="sortBy('prices.'+ priceKey)" :scope="'col'" class="px-6 py-3 w-1/5">{{ priceKey }}</th>
+                                <template v-for="(priceKey) in Object.keys(medications.data[0].prices)" :key="priceKey">
+                                    <th @click="sortBy('prices.' + priceKey)" class="sortable">{{ priceKey }} <span
+                                            v-if="sortKey === 'prices.' + priceKey" class="arrow">{{ sortDirection
+                                                === 'asc' ? '▲' : '▼' }}</span></th>
                                 </template>
                             </template>
                         </tr>
@@ -140,13 +151,11 @@ const medications = ref([]);
 
 const hide = ref(false);
 
-
 const fetchMedications = async (page = 1) => {
     try {
-        const { data } = await axios.get(route('medicine.index', {'page': page}));
+        const { data } = await axios.get(route('medicine.index', { 'page': page }));
         medications.value = data;
         generateNumbers(1, data.current_page, data.last_page);
-        console.log("Fetched Medications:", medications.value);
     } catch (error) {
         console.error('Error fetching medications:', error);
     }
@@ -156,13 +165,11 @@ const fetchPagination = async (page = 1) => {
     if (searchQuery.value == '') {
         const { data } = await axios.get(route('medicine.index'), { params: { 'page': page, 'sort': sortKey, 'direction': sortDirection } });
         medications.value = data;
-        console.log("Paginated Medications:", medications.value, searchQuery.value);
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } else {
         const query = searchQuery.value;
         const { data } = await axios.get(route('medicine.index'), { params: { 'search': query, 'page': page, 'sort': sortKey, 'direction': sortDirection } });
         medications.value = data;
-        console.log("Paginated Medications:", medications.value, data, searchQuery.value);
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     };
 };
@@ -177,19 +184,24 @@ let sortKey = ref('');
 let sortDirection = '';
 
 const sortBy = async (key) => {
-      if (sortKey === key) {
-        sortDirection = (sortDirection === 'asc' ? 'desc' : 'asc');
-        const { data } = await axios.get(route('medicine.index'), { params: { 'page': 1, 'sort': key, 'direction': sortDirection} });
-        medications.value = data;
-        console.log("Sorted Medications:", medications.value, data, key);
-      } else {
+
+    if (sortKey === key) {
+        if (sortDirection === 'asc') {
+            sortDirection = 'desc';
+        } else if (sortDirection === 'desc') {
+            sortKey = '';
+            sortDirection = 'asc';
+        } else {
+            sortDirection = 'asc';
+        }
+    } else {
         sortKey = key;
         sortDirection = 'asc';
-        const { data } = await axios.get(route('medicine.index'), { params: { 'page': 1, 'sort': key, 'direction': sortDirection} });
-        medications.value = data;
-        console.log("Sorted Medications:", medications.value, data, key);
-      }
-    };
+    }
+
+    const { data } = await axios.get(route('medicine.index'), { params: { 'page': 1, 'sort': sortKey, 'direction': sortDirection } });
+    medications.value = data;
+};
 
 const searchQuery = ref('');
 
@@ -238,3 +250,17 @@ onMounted(() => {
 );
 
 </script>
+
+<style>
+.sortable {
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+}
+
+.arrow {
+    margin-left: 5px;
+    position: absolute;
+    right: 0;
+}
+</style>
