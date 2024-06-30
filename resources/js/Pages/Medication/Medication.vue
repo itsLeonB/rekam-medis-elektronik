@@ -41,7 +41,8 @@
                                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </div>
-                        <input v-model="searchQuery" id="searchQuery" placeholder="Cari"
+                        <input v-model="searchQuery" id="searchQuery" @keydown.enter="searchMedications"
+                            placeholder="Cari"
                             class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
                         <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
                             @click="cancelSearch" v-show="hide">
@@ -65,29 +66,76 @@
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200">
                     <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
                         <tr>
-                            <th @click="sortBy('medicine_code')" class="sortable">Kode <span
-                                    v-if="sortKey === 'medicine_code'" class="arrow">{{ sortDirection === 'asc' ?
-                                        '▲' : '▼' }}</span></th>
-                            <th @click="sortBy('name')" class="sortable">Nama <span v-if="sortKey === 'name'"
-                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
-                            <th @click="sortBy('dosage_form')" class="sortable">Tipe <span
-                                    v-if="sortKey === 'dosage_form'" class="arrow">{{ sortDirection === 'asc' ? '▲'
-                                        : '▼' }}</span></th>
-                            <th @click="sortBy('quantity')" class="sortable">Jumlah <span v-if="sortKey === 'quantity'"
-                                    class="arrow">{{ sortDirection === 'asc' ? '▲' :
-                                        '▼' }}</span></th>
-                            <th @click="sortBy('package')" class="sortable">Jenis <span v-if="sortKey === 'package'"
-                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span></th>
-                            <th @click="sortBy('expiry_date')" class="sortable">Tanggal Kadaluarsa <span
-                                    v-if="sortKey === 'expiry_date'" class="arrow">{{ sortDirection === 'asc' ? '▲'
-                                        : '▼' }}</span></th>
-                            <template v-if="medications.data">
-                                <template v-for="(priceKey) in Object.keys(medications.data[0].prices)" :key="priceKey">
-                                    <th @click="sortBy('prices.' + priceKey)" class="sortable">{{ priceKey }} <span
-                                            v-if="sortKey === 'prices.' + priceKey" class="arrow">{{ sortDirection
-                                                === 'asc' ? '▲' : '▼' }}</span></th>
-                                </template>
-                            </template>
+                            <th @click="sortBy('medicine_code')" class="table-header">Kode <span
+                                    v-if="sortKey === 'medicine_code'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
+                                        '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('name')" class="table-header">Nama <span v-if="sortKey === 'name'"
+                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('dosage_form')" class="table-header">Tipe <span
+                                    v-if="sortKey === 'dosage_form'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
+                                        '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('quantity')" class="table-header">Jumlah <span
+                                    v-if="sortKey === 'quantity'" class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼'
+                                    }}</span>
+                            </th>
+                            <th @click="sortBy('package')" class="table-header">Jenis <span v-if="sortKey === 'package'"
+                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('expiry_date')" class="table-header">Tanggal Kadaluarsa <span
+                                    v-if="sortKey === 'expiry_date'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
+                                        '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.base_price')" class="table-header">Harga Dasar <span
+                                    v-if="sortKey === 'prices.base_price'" class="arrow">{{ sortDirection === 'asc' ?
+                                        '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.purchase_price')" class="table-header">Harga Beli <span
+                                    v-if="sortKey === 'prices.purchase_price'" class="arrow">{{ sortDirection === 'asc'
+                                        ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_1')" class="table-header">Harga Rawat Jalan <span
+                                    v-if="sortKey === 'prices.treatment_price_1'" class="arrow">{{ sortDirection ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_2')" class="table-header">Harga Rawat Inap K1
+                                <span v-if="sortKey === 'prices.treatment_price_2'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_3')" class="table-header">Harga Rawat Inap K2
+                                <span v-if="sortKey === 'prices.treatment_price_3'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_4')" class="table-header">Harga Rawat Inap K3
+                                <span v-if="sortKey === 'prices.treatment_price_4'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_5')" class="table-header">Harga Rawat Inap K4
+                                <span v-if="sortKey === 'prices.treatment_price_5'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_6')" class="table-header">Harga Rawat Inap K5
+                                <span v-if="sortKey === 'prices.treatment_price_6'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_7')" class="table-header">Harga Rawat Inap K6
+                                <span v-if="sortKey === 'prices.treatment_price_7'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_8')" class="table-header">Harga Rawat Inap K7
+                                <span v-if="sortKey === 'prices.treatment_price_8'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('prices.treatment_price_9')" class="table-header">Harga Rawat Inap K8
+                                <span v-if="sortKey === 'prices.treatment_price_9'" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
+                            <th @click="sortBy('ingridients')" class="table-header">Bahan
+                                <span v-if="sortKey === 'ingridients    '" class="arrow">{{ sortDirection ===
+                                    'asc' ? '▲' : '▼' }}</span>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,9 +149,18 @@
                             <td class="px-6 py-4 w-1/5">{{ medication.quantity }}</td>
                             <td class="px-6 py-4 w-1/5">{{ medication.package }}</td>
                             <td class="px-6 py-4 w-1/5">{{ formatDate(medication.expiry_date) }}</td>
-                            <template v-for="priceKey in Object.keys(medication.prices)">
-                                <td class="px-6 py-4 w-1/5">{{ medication.prices[priceKey] }}</td>
+                            <template v-for="price in JSON.parse(medication.prices)">
+                                <td class="px-6 py-4 w-1/5">{{ price }}</td>
                             </template>
+                            
+                            <td class="px-6 py-4 w-1/5">
+                                <template v-for="ingredient in JSON.parse(medication.ingredients)">
+                                    <ul>
+                                        <li v-for="ingredientName in ingredient"> {{ ingredientName }}</li>
+                                    </ul>
+                                </template>
+                            </td>
+                            
                         </tr>
                     </tbody>
                 </table>
@@ -155,6 +212,7 @@ const fetchMedications = async (page = 1) => {
     try {
         const { data } = await axios.get(route('medicine.index', { 'page': page }));
         medications.value = data;
+
         generateNumbers(1, data.current_page, data.last_page);
     } catch (error) {
         console.error('Error fetching medications:', error);
@@ -180,7 +238,7 @@ const cancelSearch = async () => {
     fetchMedications(1);
 };
 
-let sortKey = ref('');
+let sortKey = '';
 let sortDirection = '';
 
 const sortBy = async (key) => {
@@ -200,12 +258,15 @@ const sortBy = async (key) => {
     }
 
     const { data } = await axios.get(route('medicine.index'), { params: { 'page': 1, 'sort': sortKey, 'direction': sortDirection } });
+    console.log("Sorted Medications:", medications.value, sortKey);
     medications.value = data;
 };
 
 const searchQuery = ref('');
 
-const searchMedications = async () => {
+const searchMedications = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     hide.value = true;
     const search = searchQuery.value;
     try {
@@ -252,10 +313,11 @@ onMounted(() => {
 </script>
 
 <style>
-.sortable {
+.table-header {
     cursor: pointer;
     text-align: center;
     position: relative;
+    padding: 20px;
 }
 
 .arrow {

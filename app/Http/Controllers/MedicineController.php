@@ -38,25 +38,44 @@ class MedicineController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'medicine_code' => 'required|string',
-            'name' => 'required|string',
-            'expiry_date' => 'required|date',
-            'quantity' => 'required|integer',
+            'medicine_code' => 'string',
+            'name' => 'string',
+            'expiry_date' => 'date',
+            'quantity' => 'integer',
             'package' => 'string',
             'uom' => 'string',
             'amount_per_package' => 'integer',
             'manufacturer' => 'string',
             'is_fast_moving' => 'boolean',
-            'ingredients' => 'array',
-            'minimum_quantity' => 'required|integer',
+            'ingredients.*.ingredient_id' => 'string',
+            'ingredients.*.ingredient_name' => 'string',
+            'minimum_quantity' => 'integer',
             'dosage_form' => 'string',
-            'prices' => 'required|array',
+            'prices.base_price' => 'numeric',
+            'prices.purchase_price' => 'numeric',
+            'prices.treatment_price_1' => 'numeric',
+            'prices.treatment_price_2' => 'numeric',
+            'prices.treatment_price_3' => 'numeric',
+            'prices.treatment_price_4' => 'numeric',
+            'prices.treatment_price_5' => 'numeric',
+            'prices.treatment_price_6' => 'numeric',
+            'prices.treatment_price_7' => 'numeric',
+            'prices.treatment_price_8' => 'numeric',
+            'prices.treatment_price_9' => 'numeric',
         ]);
 
+        // Generate a unique ID for the document
         $validatedData['_id'] = Str::uuid();
+
+        // Set the created_at and updated_at fields
         $validatedData['created_at'] = now();
         $validatedData['updated_at'] = now();
 
+        // Encode the ingredients and prices arrays to JSON
+        $validatedData['ingredients'] = json_encode($validatedData['ingredients']);
+        $validatedData['prices'] = json_encode($validatedData['prices']);
+
+        // Create the Medicine document
         $medicine = Medicine::create($validatedData);
 
         return response()->json($medicine, 201);

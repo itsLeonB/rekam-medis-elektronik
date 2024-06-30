@@ -111,65 +111,102 @@ const isLoading = ref(false);
 const submitForm = async () => {
   isLoading.value = true;
   let formDataJson = {
-    resourceType: 'Medication',
-    identifier: [
-       {
-           system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
-           use: 'official',
-           value: '123456789'
-       }
-   ],
-    // identifier: [organizationRef.value],
-    meta: {
-        profile: [
-            'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
-        ]
-    },
-    code: {
-      coding: [{
-        system: 'http://sys-ids.kemkes.go.id/kfa',
-        code: form.code_obat.kfa_code,
-        display: form.code_obat.name,
-      }],
-    },
-   status: form.code_obat.active ? 'active' : 'inactive',
-    form: {
-      coding: [{
-        system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
-        code: form.code_obat.dosage_form.code,
-        display: form.code_obat.dosage_form.name,
-      }],
-    },
-    extension: [
-       {
-           url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
-           valueCodeableConcept: {
-                coding: [
-                   {
-                       system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
-                       code: form.extension.code,
-                       display: form.extension.display,
-                   }
-               ]
-           }
-       }
-   ],
-   ingredient: form.code_obat.active_ingredients.map(ingredient => ({
-                itemCodeableConcept: {
-                    coding: [{
-                        system: 'http://sys-ids.kemkes.go.id/kfa',
-                        code: ingredient.kfa_code,
-                        display: ingredient.zat_aktif
-                    }]
-                },
-                isActive: ingredient.active,
-            }))
+//     identifier: [
+//        {
+//            system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
+//            use: 'official',
+//            value: '123456789'
+//        }
+//    ],
+//     // identifier: [organizationRef.value],
+//     meta: {
+//         profile: [
+//             'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
+//         ]
+//     },
+//     code: {
+//       coding: [{
+//         system: 'http://sys-ids.kemkes.go.id/kfa',
+//         code: form.code_obat.kfa_code,
+//         display: form.code_obat.name,
+//       }],
+//     },
+//    status: form.code_obat.active ? 'active' : 'inactive',
+//     form: {
+//       coding: [{
+//         system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
+//         code: form.code_obat.dosage_form.code,
+//         display: form.code_obat.dosage_form.name,
+//       }],
+//     },
+//     extension: [
+//        {
+//            url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
+//            valueCodeableConcept: {
+//                 coding: [
+//                    {
+//                        system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
+//                        code: form.extension.code,
+//                        display: form.extension.display,
+//                    }
+//                ]
+//            }
+//        }
+//    ],
+//    ingredient: form.code_obat.active_ingredients.map(ingredient => ({
+//                 itemCodeableConcept: {
+//                     coding: [{
+//                         system: 'http://sys-ids.kemkes.go.id/kfa',
+//                         code: ingredient.kfa_code,
+//                         display: ingredient.zat_aktif
+//                     }]
+//                 },
+//                 isActive: ingredient.active,
+//             }))
+
+        medicine_code: form.code_obat.kfa_code,
+        name: form.code_obat.product_template.name,
+        expiry_date: '14-09-2001',
+        quantity: 14,
+        package: 'daffa',
+        uom: 'daffa',
+        amount_per_package: 14,
+        manufacturer: 'Daffaa',
+        is_fast_moving: false,
+        minimum_quantity: 14,
+        dosage_form: 'daffa',
+        prices: {
+          base_price: 0,
+          purchase_price: 0,
+          treatment_price_1: 0,
+          treatment_price_2: 0,
+          treatment_price_3: 0,
+          treatment_price_4: 0,
+          treatment_price_5: 0,
+          treatment_price_6: 0,
+          treatment_price_7: 0,
+          treatment_price_8: 0,
+          treatment_price_9: 0,
+        },
+        ingredients: form.code_obat.active_ingredients.map(ingredient =>(
+            { ingredient_name: ingredient.zat_aktif }
+        ))
   };
 
   try { 
     const resourceType = 'Medication';
-    const response = await axios.post(route('integration.store', { resourceType: resourceType }), formDataJson) ;
-    console.log(response.data);
+    const pricesString = Object.entries(formDataJson.prices)
+          .map(([key, value]) => `"${key}": ${value}`)
+          .join(',');
+
+    const stringPrice = formDataJson.prices.toString()
+
+    const formData = {
+          ...formDataJson,
+    
+        };
+    const response = await axios.post(route('medicine.store'), formData) ;
+    console.log('submitted', stringPrice);
     
     creationSuccessModal.value = true;
     failAlertVisible.value = false;

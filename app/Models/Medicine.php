@@ -19,7 +19,7 @@ class Medicine extends Model
     protected $casts = [
         'expiry_date' => 'date',
         'is_fast_moving' => 'boolean',
-        'ingredients' => 'object',
-        'prices' => 'object'
+        'ingredients' => 'array',
+        'prices' => 'array'
     ];
 }
