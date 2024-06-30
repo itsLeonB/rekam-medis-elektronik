@@ -183,12 +183,14 @@ class ExpertSystemController extends Controller
                     // ->whereNot('alergi', $req_alergi)
                     ->pluck('resepObat');
                     
-                     if ($result->isEmpty()) {
-                         return response('Belum ada rekomendasi dari data keluhan sebelumnya');
-                    }
-                    else {
-                        return $result;
-                    }
+            return $result;
+
+                    //  if ($result->isEmpty()) {
+                    //      return response('Belum ada rekomendasi dari data keluhan sebelumnya');
+                    // }
+                    // else {
+                    //     return $result;
+                    // }
         }
         
     }

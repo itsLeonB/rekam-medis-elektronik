@@ -1,15 +1,15 @@
 <template>
      <div>
         <ul v-if="expertSystem">
-        <li v-for="(group, index) in expertSystem" :key="index">
-            <ul>
-            <li v-for="(medicine, i) in group" :key="i">
-                <b>{{ medicine.display }}</b>-{{ medicine.dosageInstruction }}
-                <br>
+            <li v-for="(group, index) in expertSystem" :key="index">
+                <ul>
+                <li v-for="(medicine, i) in group" :key="i">
+                    <b>{{ medicine.display }}</b>-{{ medicine.dosageInstruction }}
+                    <br>
+                </li>
+                
+                </ul>
             </li>
-            
-            </ul>
-        </li>
         </ul>
         <p v-else>Tidak ada data yang ditemukan.</p>
     </div>
@@ -43,7 +43,6 @@ const props = defineProps({
         type: String,
     },
 });
-console.log(props.encounter_satusehat_id);
 const expertSystem = ref(null);
 const getExpertSystem = async () => {
     const {data} = await axios.get(route('ruleperesepan.show', {

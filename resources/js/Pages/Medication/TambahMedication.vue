@@ -15,29 +15,44 @@
                 </div>
             </div>
         </Modal>
-        <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
+        <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-12 sm:py-12 md:px-10">
             <h1 class="text-2xl font-bold text-neutral-black-300">Tambah Obat</h1>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan user.</p>
+            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan Obat.</p>
             <form @submit.prevent="test">
-                <div>
-                    <InputLabel for="name" value="Kode Obat" />
-                    <Multiselect v-model="form.code_obat" mode="single" placeholder="Obat"
-                                :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
-                                :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
-                                track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
-                   
+                <div class="my-2 w-full" v-for="(field, index) in form" :key="index">
+                    <h3 v-if="index !== 0" class="font-semibold text-secondhand-orange-300 mt-2">Obat {{ (index + 1) }}
+                    </h3>
+                    <h3 v-else class="font-semibold text-secondhand-orange-300 mt-2">Obat</h3>
+                        <div class="w-full mb-3">
+                            <InputLabel for="name" value="Nama Obat" />
+                           
+                                <Multiselect v-model="form[index].code_obat" mode="single" placeholder="Obat"
+                                    :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
+                                    :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
+                                    track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
+                            
+                        </div>
+                        <div class="w-full">
+                            <InputLabel for="extension" value="Extension" />
+                            <div class="flex">
+                                <Multiselect v-model="form[index].extension" mode="single" placeholder="Extension"
+                                :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
+                                class="mt-1" :classes="combo_classes" required />
+                                <DeleteButton v-if="index !== 0" @click="removeField(index)" />
+                            </div>
+                        </div>
                 </div>
-                <div class="mt-4">
-                        <InputLabel for="extension" value="Extension" />
-                        <Multiselect v-model="form.extension" mode="single" placeholder="Extension"
-                            :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
-                            class="mt-1" :classes="combo_classes" required />
-                </div>
-                
-                <div class="flex flex-col items-center justify-end mt-10">
+                <!-- <div class="flex flex-col items-center justify-end mt-10">
                     <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
                         Tambah
                     </MainButton>
+                </div> -->
+                 <div class="flex justify-between">
+                    <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Obat
+                    </SecondaryButtonSmall>
+                    <div class="mt-2 mr-3">
+                        <MainButtonSmall type="submit" class="teal-button text-original-white-0">Submit</MainButtonSmall>
+                    </div>
                 </div>
                 <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
                 <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
@@ -57,17 +72,29 @@ import Multiselect from '@vueform/multiselect';
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import SecondaryButtonSmall from '@/Components/SecondaryButtonSmall.vue';
+import DeleteButton from '@/Components/DeleteButton.vue';
 import { Link } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
-const form = useForm({
-    code_obat: '',
-    extension: '',
-});
+const form = ref([{
+    code_obat: [null],
+    extension: [null]
+}]);
 
+const addField = () => {
+    let medicationData = {
+        code_obat: [null],
+        extension: [null]
+    };
+    form.value.push(medicationData);
+}
+const removeField = (index) => {
+    form.value.splice(index, 1);
+};
 const searchMedication = async (query) => {
     const { data } = await axios.get(route('terminologi.medication'), {
         params: {
@@ -108,87 +135,165 @@ const errorMessage = ref('');
 const creationSuccessModal = ref(false);
 const isLoading = ref(false);
 
-const test = async () => {
-  isLoading.value = true;
-  let formDataJson = {
-    resourceType: 'Medication',
-    identifier: [
-       {
-           system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
-           use: 'official',
-           value: '123456789'
-       }
-   ],
-    // identifier: [organizationRef.value],
-    meta: {
-        profile: [
-            'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
-        ]
-    },
-    code: {
-      coding: [{
-        system: 'http://sys-ids.kemkes.go.id/kfa',
-        code: form.code_obat.kfa_code,
-        display: form.code_obat.name,
-      }],
-    },
-    
-   status: form.code_obat.active ? 'active' : 'inactive',
-    form: {
-      coding: [{
-        system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
-        code: form.code_obat.dosage_form.code,
-        display: form.code_obat.dosage_form.name,
-      }],
-    },
-    extension: [
-       {
-           url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
-           valueCodeableConcept: {
-                coding: [
-                   {
-                       system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
-                       code: form.extension.code,
-                       display: form.extension.display,
-                   }
-               ]
-           }
-       }
-   ],
-   ingredient: form.code_obat.active_ingredients.map(ingredient => ({
-                itemCodeableConcept: {
-                    coding: [{
-                        system: 'http://sys-ids.kemkes.go.id/kfa',
-                        code: ingredient.kfa_code,
-                        display: ingredient.zat_aktif
-                    }]
-                },
-                isActive: ingredient.active,
-            }))
-  };
-
-  try { 
-    const resourceType = 'Medication';
-    const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
-    console.log(response.data);
-    
-    creationSuccessModal.value = true;
-    failAlertVisible.value = false;
-    errorMessage.value = ''; 
-
-  } catch (error) {
-       console.error(error.response ? error.response.data : error.message);
-            failAlertVisible.value = true;
-            creationSuccessModal.value = true;
-
-       if (error.response && error.response.data) {
-            console.error('Response:', error.response.data); 
-            errorMessage.value = error.response.data.error || 'Failed to save data';
-        } else {
-            errorMessage.value = 'An error occurred while saving data';
-        }
+// const test = async () => {
+//   isLoading.value = true;
+//   medication.value.forEach(item => {
+//     let formDataJson = {
+//         resourceType: 'Medication',
+//         identifier: [
+//         {
+//             system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
+//             use: 'official',
+//             value: '123456789'
+//         }
+//         ],
+//         // identifier: [organizationRef.value],
+//         meta: {
+//             profile: [
+//                 'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
+//             ]
+//         },
+//         code: {
+//         coding: [{
+//             system: 'http://sys-ids.kemkes.go.id/kfa',
+//             code: form.code_obat.kfa_code,
+//             display: form.code_obat.name,
+//         }],
+//         },
         
-    }
+//         status: form.code_obat.active ? 'active' : 'inactive',
+//         form: {
+//         coding: [{
+//             system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
+//             code: form.code_obat.dosage_form.code,
+//             display: form.code_obat.dosage_form.name,
+//         }],
+//         },
+//         extension: [
+//         {
+//             url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
+//             valueCodeableConcept: {
+//                     coding: [
+//                     {
+//                         system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
+//                         code: form.extension.code,
+//                         display: form.extension.display,
+//                     }
+//                 ]
+//             }
+//         }
+//         ],
+//         ingredient: form.code_obat.active_ingredients.map(ingredient => ({
+//                         itemCodeableConcept: {
+//                             coding: [{
+//                                 system: 'http://sys-ids.kemkes.go.id/kfa',
+//                                 code: ingredient.kfa_code,
+//                                 display: ingredient.zat_aktif
+//                             }]
+//                         },
+//                         isActive: ingredient.active,
+//                     }))
+//         };
+// });
+//   try { 
+//     const resourceType = 'Medication';
+//     const response = await axios.post(route('integration.store', { resourceType: "Medication" }), formDataJson) ;
+//     console.log(response.data);
+    
+//     creationSuccessModal.value = true;
+//     failAlertVisible.value = false;
+//     errorMessage.value = ''; 
+
+//   } catch (error) {
+//        console.error(error.response ? error.response.data : error.message);
+//             failAlertVisible.value = true;
+//             creationSuccessModal.value = true;
+
+//        if (error.response && error.response.data) {
+//             console.error('Response:', error.response.data); 
+//             errorMessage.value = error.response.data.error || 'Failed to save data';
+//         } else {
+//             errorMessage.value = 'An error occurred while saving data';
+//         }
+        
+//     }
+// };
+
+
+const test = () => {
+    form.value.forEach(item => {
+
+        const formDataJson = {
+            resourceType: 'Medication',
+            identifier: [
+            {
+                system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
+                use: 'official',
+                value: '123456789'
+            }
+            ],
+            // identifier: [organizationRef.value],
+            meta: {
+                profile: [
+                    'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
+                ]
+            },
+            code: {
+            coding: [{
+                system: 'http://sys-ids.kemkes.go.id/kfa',
+                code: item.code_obat.kfa_code,
+                display: item.code_obat.name,
+            }],
+            },
+        
+            status: item.code_obat.active ? 'active' : 'inactive',
+            form: {
+            coding: [{
+                system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
+                code: item.code_obat.dosage_form.code,
+                display: item.code_obat.dosage_form.name,
+            }],
+            },
+            extension: [
+            {
+                url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
+                valueCodeableConcept: {
+                        coding: [
+                        {
+                            system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
+                            code: item.extension.code,
+                            display: item.extension.display,
+                        }
+                    ]
+                }
+            }
+            ],
+            ingredient: item.code_obat.active_ingredients.map(ingredient => ({
+                            itemCodeableConcept: {
+                                coding: [{
+                                    system: 'http://sys-ids.kemkes.go.id/kfa',
+                                    code: ingredient.kfa_code,
+                                    display: ingredient.zat_aktif
+                                }]
+                            },
+                            isActive: ingredient.active,
+                        }))
+            };
+        axios.post(route('integration.store', { resourceType: 'Medication'}), formDataJson)
+            .then(response => {
+                 creationSuccessModal.value = true;
+                setTimeout(() => {
+                    successAlertVisible.value = false;
+                }, 3000);
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+                failAlertVisible.value = true;
+                setTimeout(() => {
+                    failAlertVisible.value = false;
+                }, 3000);
+            });
+    });
 };
 
 const combo_classes = {
