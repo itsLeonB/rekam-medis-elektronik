@@ -117,7 +117,6 @@ const props = defineProps({
         required: false
     },
 });
-
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     date.setHours(date.getHours() + 7);

@@ -1,5 +1,6 @@
 <template>
     <div v-if="object">
+    <h1 class="text-lg font-semibold text-secondhand-orange-300">Compositions</h1>
     <table v-for="item in object" class="w-full mx-auto text-base text-left text-neutral-grey-200 ">
         <tbody class="w-full">
             <tr class="bg-original-white-0">
