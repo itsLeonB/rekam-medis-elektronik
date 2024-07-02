@@ -121,6 +121,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/medication', function () {
         return Inertia::render('Medication/DashboardMedication');
     })->name('medication');
+    Route::get('/medication/prescription', function () {
+        return Inertia::render('Medication/MedicationDispense');
+    })->name('medication.prescription');
 
     // Route::get('/expertsystems', function () {
     //     return Inertia::render('Medication/ExpertSystem');
@@ -201,6 +204,9 @@ Route::middleware('auth')->group(function () {
         // Daftar pasien rawat inap, serviceType per ruangan
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+        Route::get('/medication/details/{code_medication}', function ($code_medication) {
+            return Inertia::render('RekamMedis/RekamMedisDetails', ['medication_id' => $medication_id]);
+        })->name('rekammedis.details');
     });
 
     // Endpoint untuk Dashboard Analytics

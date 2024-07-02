@@ -1,13 +1,33 @@
 <template>
     <div>
         <form @submit.prevent="submit">
-            <div class="my-2 w-full" v-for="(field, index) in riwayatAlergi" :key="index">
-                <h3 v-if="index !== 0" class="font-semibold text-secondhand-orange-300 mt-2">Riwayat Alergi {{ (index + 1)
-                }}
-                </h3>
-                <h3 v-else class="font-semibold text-secondhand-orange-300 mt-2">Riwayat Alergi</h3>
-                <div class="flex">
-                    <div class="w-full md:w-6/12 mr-2">
+        <div class="my-2 w-full" v-for="(field, index) in riwayatAlergi" :key="index">
+            <h3 class="font-semibold text-secondhand-orange-300 mt-2" v-if="index === 0">Riwayat Alergi</h3>
+            <h3 class="font-semibold text-secondhand-orange-300 mt-2" v-else>Riwayat Alergi {{ index + 1 }}</h3>
+
+            <div class="flex">
+                <div class="w-full md:w-6/12 mr-2">
+                    <InputLabel for="category" value="Kategori Alergi" />
+                    <div class="flex">
+                        <Multiselect v-model="riwayatAlergi[index].category" mode="single" placeholder="Kategori Alergi"
+                            :object="true" :options="categoryList" label="code" valueProp="code" track-by="code"
+                            class="mt-1" :classes="combo_classes" required />
+                    </div>
+                    <InputError class="mt-1" />
+                </div>
+
+                <template v-if="riwayatAlergi[index].category && riwayatAlergi[index].category.code === 'medication'">
+                    <div class="w-full md:w-6/12">
+                        <InputLabel for="riwayatAlergiObat" value="Riwayat Alergi" />
+                        <Multiselect v-model="riwayatAlergi[index].code" mode="single" placeholder="Obat"
+                                    :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
+                                    :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
+                                    track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
+                    </div>
+                </template>
+
+                <template v-else>
+                    <div class="w-full md:w-6/12">
                         <InputLabel for="riwayatAlergi" value="Riwayat Alergi" />
                         <div class="flex">
                             <Multiselect v-model="riwayatAlergi[index].code" mode="single" placeholder="Alergi"
@@ -17,58 +37,54 @@
                         </div>
                         <InputError class="mt-1" />
                     </div>
-                    <div class="w-full md:w-6/12">
-                        <InputLabel for="category" value="Kategori Alergi" />
-                        <div class="flex">
-                            <Multiselect v-model="riwayatAlergi[index].category" mode="single" placeholder="Kategori Alergi"
-                                :object="true" :options="categoryList" label="code" valueProp="code" track-by="code"
-                                class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
+                </template>
+            </div>
+
+            <div class="flex mt-3">
+                <div class="w-full md:w-6/12 mr-2">
+                    <InputLabel for="verification_status" value="Verification Status" />
+                    <div class="flex">
+                        <Multiselect v-model="riwayatAlergi[index].verification" mode="single" placeholder="Status"
+                            :object="true" :options="verificationList" label="display" valueProp="code" track-by="code"
+                            class="mt-1" :classes="combo_classes" required />
                     </div>
+                    <InputError class="mt-1" />
                 </div>
-                <div class="flex mt-3">
-                    <div class="w-full md:w-6/12 mr-2">
-                        <InputLabel for="verification_status" value="Verification Status" />
-                        <div class="flex">
-                            <Multiselect v-model="riwayatAlergi[index].verification" mode="single" placeholder="Status"
-                                :object="true" :options="verificationList" label="display" valueProp="code" track-by="code"
-                                class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
+                <div class="w-full md:w-6/12">
+                    <InputLabel for="clinical_status" value="Clinical Status" />
+                    <div class="flex">
+                        <Multiselect v-model="riwayatAlergi[index].clinical" mode="single" placeholder="Status"
+                            :object="true" :options="clinicalStatusList" label="display" valueProp="code"
+                            track-by="code" class="mt-1" :classes="combo_classes" required />
                     </div>
-                    <div class="w-full md:w-6/12">
-                        <InputLabel for="clinical_status" value="Clinical Status" />
-                        <div class="flex">
-                            <Multiselect v-model="riwayatAlergi[index].clinical" mode="single" placeholder="Status"
-                                :object="true" :options="clinicalStatusList" label="display" valueProp="code"
-                                track-by="code" class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
-                    </div>
-                </div>
-                <div class="flex mt-3">
-                    <div class="w-full">
-                        <InputLabel for="codeText" value="Keterangan" />
-                        <div class="flex">
-                            <TextInput v-model="riwayatAlergi[index].codeText" id="codeText" type="text"
-                                class="text-sm mt-1 block w-full" required placeholder="Keterangan" />
-                            <DeleteButton v-if="index !== 0" @click="removeField(index)" />
-                        </div>
-                        <InputError class="mt-1" />
-                    </div>
+                    <InputError class="mt-1" />
                 </div>
             </div>
-            <div class="flex justify-between">
-                <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Riwayat Penyakit
-                </SecondaryButtonSmall>
-                <div class="mt-2 mr-3">
-                    <MainButtonSmall type="submit" class="teal-button text-original-white-0">Submit</MainButtonSmall>
+
+            <div class="flex mt-3">
+                <div class="w-full">
+                    <InputLabel for="codeText" value="Keterangan" />
+                    <div class="flex">
+                        <TextInput v-model="riwayatAlergi[index].codeText" id="codeText" type="text"
+                            class="text-sm mt-1 block w-full" required placeholder="Keterangan" />
+                        <DeleteButton v-if="index !== 0" @click="removeField(index)" />
+                    </div>
+                    <InputError class="mt-1" />
                 </div>
             </div>
-            <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
-            <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
-        </form>
+        </div>
+
+        <div class="flex justify-between mt-3">
+            <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Riwayat Alergi</SecondaryButtonSmall>
+            <div class="mt-2 mr-3">
+                <MainButtonSmall type="submit" class="teal-button text-original-white-0">Submit</MainButtonSmall>
+            </div>
+        </div>
+
+        <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
+        <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
+    </form>
+
     </div>
 </template>
 
@@ -129,8 +145,22 @@ const submit = () => {
         item.clinical = item.clinical ? (({ definition, ...rest }) => rest)(item.clinical) : item.clinical;
         item.verification = item.verification ? (({ definition, ...rest }) => rest)(item.verification) : item.verification;
 
+        let codeCoding;
+        if (item.category && item.category.code === 'medication') {
+            // Jika kategori adalah 'medication', gunakan kfa_code dan name
+            codeCoding = {
+                "system": "http://sys-ids.kemkes.go.id/kfa",
+                "code": item.code.kfa_code,
+                "display": item.code.name
+            };
+        } else {
+            // Jika kategori bukan 'medication', gunakan item.code dan item.codeText
+            codeCoding = item.code;
+        }
+
         const riwayatAlergiResource = {
             "resourceType": "AllergyIntolerance",
+            
             "clinicalStatus": {
                 "coding": [item.clinical]
             },
@@ -139,7 +169,7 @@ const submit = () => {
             },
             "category": [item.category.code],
             "code": {
-                "coding": [item.code],
+                "coding": [codeCoding],
                 "text": item.codeText
             },
             "patient": props.subject_reference,
@@ -177,6 +207,7 @@ const searchRiwayatAlergi = async (query) => {
             'search': query
         }
     });
+    console.log(data)
     const originalData = data;
     for (const key in originalData) {
         const currentObject = originalData[key];
@@ -184,7 +215,21 @@ const searchRiwayatAlergi = async (query) => {
         currentObject.label = label;
     };
     return originalData;
+
+
 };
+const searchMedication = async (query) => {
+    const { data } = await axios.get(route('terminologi.medication'), {
+        params: {
+            'page': 1,
+            'size': 10,
+            'product_type': 'farmasi',
+            'keyword': query
+        }
+    });
+    const originalData = data.items.data;
+    return originalData;
+}
 
 const categoryList = ref(null);
 const getCategoryList = async () => {

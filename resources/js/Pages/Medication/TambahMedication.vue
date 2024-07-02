@@ -130,6 +130,8 @@ import '@vueform/multiselect/themes/default.css';
 import Multiselect from '@vueform/multiselect';
 import TextInput from '@/Components/TextInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
+import SecondaryButtonSmall from '@/Components/SecondaryButtonSmall.vue';
+import DeleteButton from '@/Components/DeleteButton.vue';
 import { Link } from '@inertiajs/vue3';
 import Modal from '@/Components/Modal.vue';
 import axios from 'axios';

@@ -160,7 +160,6 @@ class TerminologyController extends Controller
         $resAttr = $request->query('attribute');
 
         $valueset = config('app.terminologi.' . $resType . '.' . $resAttr);
-
         if (array_is_list($valueset) && count($valueset) < 4) {
             $result = [];
 
