@@ -9,36 +9,109 @@
                     Data Obat berhasil ditambahkan. <br> Kembali ke halaman Obat.
                 </h2>
                 <div class="mt-6 flex justify-end">
-                    <Link :href="route('medication.table')"
+                    <Link :href="route('medication.tambah')"
                         class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                    Kembali </Link>
+                    Ok </Link>
                 </div>
             </div>
         </Modal>
         <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
-            <h1 class="text-2xl font-bold text-neutral-black-300">Tambah Obat</h1>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan obat.</p>
+            <div class="header">
+                <h1 class="text-2xl font-bold text-neutral-black-300">Tambah Obat</h1>
+                <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan obat.</p>
+                <MainButton @click.prevent="isMedicineInAPI"
+                    class="w-full mb-3 mx-auto  block teal-button text-original-white-0">
+                    {{ MedicineAPI ? 'Tidak menemukan obat yang dicari?' : 'Gunakan data obat?' }}
+                </MainButton>
+            </div>
             <form @submit.prevent="submitForm">
-                <div>
+                <div v-if="MedicineAPI">
                     <InputLabel for="code_obat" value="Kode Obat" />
-                    <Multiselect v-model="form.code_obat" mode="single" placeholder="Obat"
-                        :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
-                        :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
-                        track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
+                    <Multiselect v-model="form.code_obat" mode="single" placeholder="Obat" :filter-results="false"
+                        :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000" :searchable="true"
+                        :options="searchMedication" label="name" valueProp="kfa_code" track-by="kfa_code" class="mt-1"
+                        :classes="combo_classes" required />
+                </div>
+                <div v-if="!MedicineAPI">
+                    <div>
+                        <InputLabel for="code_obat" value="Kode Obat" />
+                        <FieldInput v-model="form.medicine_code" placeholder="Kode Obat" required />
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="nama obat" value="Nama Obat" />
+                        <FieldInput v-model="form.name" placeholder="Nama Obat" required />
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="uom" value="Unit of Measurement" />
+                        <FieldInput v-model="form.uom" placeholder="Satuan" required />
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="package" value="Kemasan Obat" />
+                        <FieldInput v-model="form.package" placeholder="Kemasan Obat" required />
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="dosage_form" value="Bentuk Dosis" />
+                        <FieldInput v-model="form.dosage_form" placeholder="Bentuk Dosis" required />
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="manufacturer" value="Produsen" />
+                        <FieldInput v-model="form.manufacturer" placeholder="Produsen" required />
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="is_active" value="Memiliki Bahan Aktif" />
+                        <input v-model="form.medicine_code" type="checkbox" />
+                    </div>
+
                 </div>
                 <div class="mt-4">
-                    <InputLabel for="extension" value="Extension" />
-                    <Multiselect v-model="form.extension" mode="single" placeholder="Extension"
-                        :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
-                        class="mt-1" :classes="combo_classes" required />
+                    <InputLabel for="is_fast_moving" value="Fast Moving" />
+                    <input v-model="form.is_fast_moving" type="checkbox" id="is_fast_moving" />
                 </div>
-                <!-- <div class="mt-4">
-                    <InputLabel for="amount" value="Amount" />
-                    <TextInput v-model="form.amount" placeholder="Jumlah" />
-                    <span v-if="errors.amount" class="text-red-500">{{ errors.amount }}</span>
-                </div> -->
+                <div class="mt-4">
+                    <InputLabel for="exp_date" value="Tanggal Kadaluarsa" />
+                    <TextInput v-model="form.expiry_date" type="date" placeholder="Expiry Date" required />
+                </div>
+                <div class="mt-4">
+                    <InputLabel for="quantity" value="Jumlah" />
+                    <FieldInput v-model="form.quantity" type="number" placeholder="Jumlah" />
+                </div>
+                <div class="mt-4">
+                    <InputLabel for="minimum_quantity" value="Jumlah stok minimum" />
+                    <FieldInput v-model="form.minimum_quantity" type="number" placeholder="Jumlah" />
+                </div>
+                <div class="mt-4">
+                    <InputLabel for="amount_per_package" value="Jumlah per Kemasan" />
+                    <FieldInput v-model="form.amount_per_package" type="number" placeholder="Jumlah" />
+                </div>
+                <div class="mt-4">
+                    <label for="base_price">Harga Dasar</label>
+                    <FieldInput v-model="form.prices.base_price" type="number" placeholder="Harga Dasar" />
+                </div>
+                <div class="mt-4">
+                    <label for="purchase_price">Harga Beli</label>
+                    <FieldInput v-model="form.prices.purchase_price" type="number" placeholder="Harga Beli" />
+                </div>
+
+                <div class="mt-4" v-for="(price, index) in additionalPrices" :key="index">
+                    <label :for="'treatment_price_' + (index + 1)">Harga Pengobatan {{ index + 1 }}</label>
+                    <FieldInput v-model="price.value" type="number" :placeholder="'Harga Pengobatan ' + (index + 1)" />
+                </div>
+                <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
+                    @click.prevent="addPrice" :disabled="additionalPrices.length >= 9">Tambahkan Harga</MainButton>
+
+                <div v-if="MedicineAPI" class="mt-4" v-for="(ingredient, index) in form.ingredients" :key="index">
+                    <label :for="'ingredient_' + (index + 1)">Bahan {{ index + 1 }}</label>
+                    <FieldInput v-model="ingredient.ingredient_name" type="text"
+                        :placeholder="'Bahan ' + (index + 1)" />
+                </div>
+
+                <MainButton v-if="MedicineAPI" :disabled="form.ingredients.length >= 9"
+                    class="mt-4 w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
+                    @click.prevent="addIngredient">Tambahkan Bahan Aktif</MainButton>
+
                 <div class="flex flex-col items-center justify-end mt-10">
-                    <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
+                    <MainButton type="submit"
+                        class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
                         Tambah
                     </MainButton>
                 </div>
@@ -62,11 +135,58 @@ import Modal from '@/Components/Modal.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
+import FieldInput from '@/Components/FieldInput.vue';
 
 const form = useForm({
     code_obat: '',
-    extension: '',
+    medicine_code: '',
+    name: '',
+    expiry_date: '',
+    quantity: '',
+    package: '',
+    uom: '',
+    amount_per_package: '',
+    manufacturer: '',
+    is_fast_moving: false,
+    is_active: false,
+    minimum_quantity: '',
+    dosage_form: '',
+    prices: {
+        base_price: '',
+        purchase_price: '',
+        treatment_price_1: '',
+        treatment_price_2: '',
+        treatment_price_3: '',
+        treatment_price_4: '',
+        treatment_price_5: '',
+        treatment_price_6: '',
+        treatment_price_7: '',
+        treatment_price_8: '',
+        treatment_price_9: '',
+    },
+    ingredients: [
+        { ingredient_name: '' }
+    ]
+
 });
+
+const MedicineAPI = ref(true);
+
+const isMedicineInAPI = () => {
+    MedicineAPI.value = !MedicineAPI.value;
+}
+
+const additionalPrices = ref([]);
+
+const addPrice = () => {
+    if (additionalPrices.value.length < 9) {
+        additionalPrices.value.push({ value: '' });
+    }
+};
+
+const addIngredient = () => {
+    form.ingredients.push({ ingredient_name: '' });
+};
 
 const searchMedication = async (query) => {
     const { data } = await axios.get(route('terminologi.medication'), {
@@ -83,7 +203,7 @@ const searchMedication = async (query) => {
 
 const organizationRef = ref(null);
 const getorganizationRef = async () => {
-    const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
+    const { data } = await axios.get(route('form.ref.organization', { layanan: 'induk' }));
     organizationRef.value = data;
 };
 const medicationExtension = ref(null);
@@ -94,7 +214,7 @@ const getMedicationExtension = async () => {
             'attribute': 'medicationType'
         }
     });
-medicationExtension.value = data;
+    medicationExtension.value = data;
 };
 
 onMounted(() => {
@@ -109,121 +229,61 @@ const creationSuccessModal = ref(false);
 const isLoading = ref(false);
 
 const submitForm = async () => {
-  isLoading.value = true;
-  let formDataJson = {
-//     identifier: [
-//        {
-//            system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
-//            use: 'official',
-//            value: '123456789'
-//        }
-//    ],
-//     // identifier: [organizationRef.value],
-//     meta: {
-//         profile: [
-//             'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
-//         ]
-//     },
-//     code: {
-//       coding: [{
-//         system: 'http://sys-ids.kemkes.go.id/kfa',
-//         code: form.code_obat.kfa_code,
-//         display: form.code_obat.name,
-//       }],
-//     },
-//    status: form.code_obat.active ? 'active' : 'inactive',
-//     form: {
-//       coding: [{
-//         system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
-//         code: form.code_obat.dosage_form.code,
-//         display: form.code_obat.dosage_form.name,
-//       }],
-//     },
-//     extension: [
-//        {
-//            url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
-//            valueCodeableConcept: {
-//                 coding: [
-//                    {
-//                        system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
-//                        code: form.extension.code,
-//                        display: form.extension.display,
-//                    }
-//                ]
-//            }
-//        }
-//    ],
-//    ingredient: form.code_obat.active_ingredients.map(ingredient => ({
-//                 itemCodeableConcept: {
-//                     coding: [{
-//                         system: 'http://sys-ids.kemkes.go.id/kfa',
-//                         code: ingredient.kfa_code,
-//                         display: ingredient.zat_aktif
-//                     }]
-//                 },
-//                 isActive: ingredient.active,
-//             }))
-
+    isLoading.value = true;
+    additionalPrices.value.forEach((price, index) => {
+        form.prices[`treatment_price_${index + 1}`] = price.value;
+    });
+    let formDataJson = {
         medicine_code: form.code_obat.kfa_code,
         name: form.code_obat.product_template.name,
-        expiry_date: '14-09-2001',
-        quantity: 14,
-        package: 'daffa',
-        uom: 'daffa',
-        amount_per_package: 14,
-        manufacturer: 'Daffaa',
-        is_fast_moving: false,
-        minimum_quantity: 14,
-        dosage_form: 'daffa',
+        expiry_date: form.expiry_date,
+        quantity: Number(form.quantity),
+        package: form.code_obat.uom.name,
+        uom: form.code_obat.uom.volume_uom_name,
+        amount_per_package: Number(form.amount_per_package),
+        manufacturer: form.code_obat.manufacturer,
+        is_fast_moving: form.is_fast_moving,
+        is_active: form.code_obat.active,
+        minimum_quantity: Number(form.minimum_quantity),
+        dosage_form: form.code_obat.dosage_form.name,
         prices: {
-          base_price: 0,
-          purchase_price: 0,
-          treatment_price_1: 0,
-          treatment_price_2: 0,
-          treatment_price_3: 0,
-          treatment_price_4: 0,
-          treatment_price_5: 0,
-          treatment_price_6: 0,
-          treatment_price_7: 0,
-          treatment_price_8: 0,
-          treatment_price_9: 0,
+            base_price: Number(form.prices.base_price),
+            purchase_price: Number(form.prices.purchase_price),
+            treatment_price_1: Number(form.prices.treatment_price_1),
+            treatment_price_2: Number(form.prices.treatment_price_2),
+            treatment_price_3: Number(form.prices.treatment_price_3),
+            treatment_price_4: Number(form.prices.treatment_price_4),
+            treatment_price_5: Number(form.prices.treatment_price_5),
+            treatment_price_6: Number(form.prices.treatment_price_6),
+            treatment_price_7: Number(form.prices.treatment_price_7),
+            treatment_price_8: Number(form.prices.treatment_price_8),
+            treatment_price_9: Number(form.prices.treatment_price_9),
         },
-        ingredients: form.code_obat.active_ingredients.map(ingredient =>(
+        ingredients: form.code_obat.active_ingredients.map(ingredient => (
             { ingredient_name: ingredient.zat_aktif }
         ))
-  };
+    };
 
-  try { 
-    const resourceType = 'Medication';
-    const pricesString = Object.entries(formDataJson.prices)
-          .map(([key, value]) => `"${key}": ${value}`)
-          .join(',');
+    try {
+        const resourceType = 'Medication';
+        const response = await axios.post(route('medicine.store'), formDataJson);
 
-    const stringPrice = formDataJson.prices.toString()
+        creationSuccessModal.value = true;
+        failAlertVisible.value = false;
+        errorMessage.value = '';
 
-    const formData = {
-          ...formDataJson,
-    
-        };
-    const response = await axios.post(route('medicine.store'), formData) ;
-    console.log('submitted', stringPrice);
-    
-    creationSuccessModal.value = true;
-    failAlertVisible.value = false;
-    errorMessage.value = ''; 
+    } catch (error) {
+        console.error(error.response ? error.response.data : error.message);
+        failAlertVisible.value = true;
+        creationSuccessModal.value = true;
 
-  } catch (error) {
-       console.error(error.response ? error.response.data : error.message);
-            failAlertVisible.value = true;
-            creationSuccessModal.value = true;
-
-       if (error.response && error.response.data) {
-            console.error('Response:', error.response.data); 
+        if (error.response && error.response.data) {
+            console.error('Response:', error.response.data);
             errorMessage.value = error.response.data.error || 'Failed to save data';
         } else {
             errorMessage.value = 'An error occurred while saving data';
         }
-        
+
     }
 };
 
