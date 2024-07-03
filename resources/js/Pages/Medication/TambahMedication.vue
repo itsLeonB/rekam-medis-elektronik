@@ -27,7 +27,7 @@
                             <InputLabel for="name" value="Nama Obat" />
                            
                                 <Multiselect v-model="form[index].code_obat" mode="single" placeholder="Obat"
-                                    :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
+                                    :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="100"
                                     :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
                                     track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
                             
@@ -154,11 +154,11 @@ const test = () => {
                 ]
             },
             code: {
-            coding: [{
-                system: 'http://sys-ids.kemkes.go.id/kfa',
-                code: item.code_obat.kfa_code,
-                display: item.code_obat.name,
-            }],
+                coding: [{
+                    system: 'http://sys-ids.kemkes.go.id/kfa',
+                    code: item.code_obat.kfa_code,
+                    display: item.code_obat.name,
+                }],
             },
         
             status: item.code_obat.active ? 'active' : 'inactive',

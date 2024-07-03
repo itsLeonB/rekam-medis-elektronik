@@ -12,6 +12,7 @@ use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\ExpertSystemController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\MedicationRequestController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -323,6 +324,8 @@ Route::middleware('auth')->group(function () {
         Route::put('/{resType}/{id}', [ResourceController::class, 'update'])->name('update');
         Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
     });
+
+    //Role untuk dokter 
     Route::middleware('auth')->group(function () {
         Route::get('/expertsystems', function () {
             return Inertia::render('ExpertSystem/index');
@@ -339,9 +342,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/data-fisik/{id}', [ExpertSystemController::class, 'dataFisik'])->name('get.dataFisik');
         Route::get('/rule/{rule}/{id}', [ExpertSystemController::class, 'rulePeresepanShow'])->name('ruleperesepan.show');
 
+        //end-point Resep Obat
+        Route::get('medicationOrg', [MedicationRequestController::class, 'searchMedication'])->name('search.medicationOrg');
     });
     
 });
-Route::get('medicationOrg', [ExpertSystemController::class, 'indexMedication'])->name('get.medicationOrg');
+
 
 require __DIR__ . '/auth.php';

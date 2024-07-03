@@ -1,22 +1,18 @@
 <template>
-    <div>
-        <table v-if="expertSystem && expertSystem.length && expertSystem[0].length" class="w-full text-left rtl:text-right text-neutral-grey-200 ">
-            <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-                <tr>
-                    <th scope="col" class="px-6 py-2 w-3/5">Nama</th>
-                    <th scope="col" class="px-6 py-2 w-2/5">Instruksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <template v-for="(group, index) in expertSystem" :key="index">
-                    <tr v-for="(medicine, i) in group" :key="i" class="bg-original-white-0 ">
-                        <td class="px-6 py-4 w-3/5">{{ medicine.display }}</td>
-                        <td class="px-6 py-4 w-2/5 ">{{ medicine.dosageInstruction }}</td>
-                    </tr>
-                </template>
-            </tbody>
-        </table>
-        <p v-else>{{ errorMessage || 'Tidak ada data yang ditemukan.' }}</p>
+    <div class="flex flex-col lg:flex-row">
+        <div class="w-full lg:w-1/3 py-2 lg:pr-7 lg:pb-0">
+            <h2 class="text-md font-semibold text-secondhand-orange-300">a. Keluhan</h2>
+            <ul>
+                <li>pusing</li>
+                <li>Muntah</li>
+            </ul>
+        </div>
+        <div class="w-full lg:w-1/3 py-2 lg:pr-7 lg:pb-0">
+            <h2 class="text-md font-semibold text-secondhand-orange-300">b. Riwayat Alergi</h2>
+        </div>
+        <div class="w-full lg:w-1/3 py-2 lg:pr-7 lg:pb-0">
+            <h2 class="text-md font-semibold text-secondhand-orange-300">c. Diagnosa</h2>
+        </div>
     </div>
 </template>
 <script setup>
@@ -114,7 +110,7 @@ const combo_classes = {
     --dp-input-padding: 10px 12px;
     --dp-font-size: 0.875rem;
 }
-table{
-    font-size : 14px;
+ul{
+    font-size : 12px;
 }
 </style>

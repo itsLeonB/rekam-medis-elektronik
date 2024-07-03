@@ -10,7 +10,7 @@ class ObatController extends Controller
     public function index(Request $request)
     {
         $medications = FhirResource::where('resourceType', 'Medication');
-        // return $medications;
+        return $medications;
 
         if ($request->query('name')) {
             $name = $request->query('name');
