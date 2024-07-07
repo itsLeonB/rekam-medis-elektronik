@@ -2,16 +2,30 @@
     <div class="flex flex-col lg:flex-row">
         <div class="w-full lg:w-1/3 py-2 lg:pr-7 lg:pb-0">
             <h2 class="text-md font-semibold text-secondhand-orange-300">a. Keluhan</h2>
-            <ul>
-                <li>pusing</li>
-                <li>Muntah</li>
+            <p v-if="error">{{ errorMessage }}</p>
+            <ul v-else>
+                <li v-for="(item, index) in keluhans" :key="index">
+                    {{ item.code.coding[0].display }}
+                </li>
             </ul>
         </div>
         <div class="w-full lg:w-1/3 py-2 lg:pr-7 lg:pb-0">
             <h2 class="text-md font-semibold text-secondhand-orange-300">b. Riwayat Alergi</h2>
+            <p v-if="error">{{ errorMessage }}</p>
+            <ul v-else>
+                <li v-for="(item, index) in alergi" :key="index">
+                    {{item.category[0]}} - {{ item.code.coding[0].display }}
+                </li>
+            </ul>
         </div>
         <div class="w-full lg:w-1/3 py-2 lg:pr-7 lg:pb-0">
             <h2 class="text-md font-semibold text-secondhand-orange-300">c. Diagnosa</h2>
+            <p v-if="error">{{ errorMessage }}</p>
+            <ul v-else>
+                <li v-for="(item, index) in diagnosis" :key="index">
+                    {{ item.code.coding[0].display }}
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -32,45 +46,54 @@ const props = defineProps({
         type: String,
     },
 });
-const expertSystem = ref(null);
-// const getExpertSystem = async () => {
-//     const {data} = await axios.get(route('ruleperesepan.show', {
-//             rule : 'resepObat',
-//             id: props.encounter_satusehat_id
-//     }));
-//     console.log(data)
-//     expertSystem.value = data;
-// };
+const keluhans = ref(null);
+const diagnosis = ref(null);
+const alergi = ref(null);
 
-const getExpertSystem = async () => {
+const errorMessage = ref('');
+const fetchKeluhan = async () => {
     try {
-        const {data} = await axios.get(route('ruleperesepan.show', {
-            rule: 'resepObat',
-            id: props.encounter_satusehat_id
+        const { data } = await axios.get(route('showForConditionPatient', 
+        { 
+            section: 'keluhan',
+            id: props.encounter_satusehat_id 
         }));
-        console.log(data);
-        
-        // Check if data is an empty array or contains an empty array
-        if (Array.isArray(data) && data.length > 0 && data[0].length === 0) {
-            expertSystem.value = null;
-            errorMessage.value = 'Tidak ada data yang ditemukan.';
-        } else {
-            expertSystem.value = data;
-            errorMessage.value = '';
-        }
-    } catch (error) {
-        if (error.response && error.response.status === 404) {
-            errorMessage.value = error.response.data.message;
-        } else {
-            errorMessage.value = 'Terjadi kesalahan dalam mengambil data.';
-        }
-        expertSystem.value = null;
-    }
+        keluhans.value = data;
+      } catch (error) {
+        errorMessage.value = 'Terjadi kesalahan dalam mengambil data.';
+        console.error(error);
+      }
 };
-
-
+const fetchDiagnosa = async () => {
+    try {
+        const { data } = await axios.get(route('showForConditionPatient', 
+        { 
+            section: 'diagnosa',
+            id: props.encounter_satusehat_id 
+        }));
+        diagnosis.value = data;
+      } catch (error) {
+        errorMessage.value = 'Terjadi kesalahan dalam mengambil data.';
+        console.error(error);
+      }
+};
+const fetchAlergi = async () => {
+    try {
+        const { data } = await axios.get(route('showForConditionPatient', 
+        { 
+            section: 'alergi',
+            id: props.encounter_satusehat_id 
+        }));
+        alergi.value = data;
+      } catch (error) {
+        errorMessage.value = 'Terjadi kesalahan dalam mengambil data.';
+        console.error(error);
+      }
+};
 onMounted(() => {
-    getExpertSystem()
+    fetchKeluhan();
+    fetchDiagnosa();
+    fetchAlergi();
 });
 const combo_classes = {
     container: 'relative mx-auto w-full flex items-center justify-end box-border cursor-pointer border-2 border-neutral-grey-0 ring-0 shadow-sm rounded-xl bg-white text-sm leading-snug outline-none',

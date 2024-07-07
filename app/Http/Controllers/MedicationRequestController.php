@@ -26,4 +26,23 @@ class MedicationRequestController extends Controller
 
         return $medications;
     }
+    public function showForConditionPatient($section, $id){
+
+        if ($section == 'keluhan') {
+            $data = FhirResource::where('resourceType', 'Condition')
+                    ->where('encounter.reference', 'Encounter/'. $id)
+                    ->where('code.coding.0.system', 'http://snomed.info/sct')
+                    ->get();
+        }elseif ($section == 'diagnosa') {
+            $data = FhirResource::where('resourceType', 'Condition')
+                    ->where('encounter.reference', 'Encounter/'. $id)
+                    ->where('code.coding.0.system', 'http://hl7.org/fhir/sid/icd-10')
+                    ->get();
+        }else{
+            $data = FhirResource::where('resourceType', 'AllergyIntolerance')
+                    ->where('encounter.reference', 'Encounter/'. $id)
+                    ->get();
+        }
+        return response()->json($data);
+    }
 }

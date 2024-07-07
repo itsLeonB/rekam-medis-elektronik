@@ -1,4 +1,28 @@
 <template>
+    <div class="flex flex-row justify-between">
+        <p v-if="successAlert" class="text-md text-original-teal-300">
+                Data created successfully
+            </p>
+        <div v-if="failAlert" class="text-sm text-thirdouter-red-300">
+            {{ errorMessage }}
+        </div>
+    </div>
+    
+    <div class="flex flex-row justify-between">
+        <h2 class="text-xl font-semibold text-secondhand-orange-300">Resep Obat</h2>
+         <div class="flex justify-end mr-2">
+            <Link :href="route('request-to-stock')" as="button"
+                    class="mr-2 inline-flex px-4 py-1.5 border border-transparent rounded-md font-normal text-sm text-white teal-button transition ease-in-out duration-150 hover:shadow-lg">
+                    Request Stok Obat
+            </Link>
+            <form @submit.prevent="ruleSubmit" class="flex items-center">
+                <MainButtonSmall type="submit" class="teal-button text-original-white-0 rounded-md">Save Rule</MainButtonSmall>
+                
+            </form>
+        </div>
+       
+    </div>
+    
     <div>
         <form @submit.prevent="submit">
             <div class="my-2 w-full" v-for="(field, index) in resourceForm" :key="index">
@@ -55,7 +79,7 @@
                     <div class="w-full md:w-12/12">
                         <InputLabel for="frequency" value="Frekuensi/Interval" />
                         <div class="flex items-center">
-                             <select id="frequency" v-model="resourceForm[index].frequency"
+                             <select placeholder="Obat"  id="frequency" v-model="resourceForm[index].frequency"
                                 class="text-sm mt-1 mr-2 block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-3 h-fit">
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
@@ -64,6 +88,7 @@
                             </select>
                             <select id="period" v-model="resourceForm[index].period" required
                                 class="text-sm mt-1 mr-2 block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-3 h-fit">
+                                <option disabled value="">Pilih Periode</option>
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
                                 <option value='3'>3</option>
@@ -183,15 +208,9 @@
             <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
             <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
         </form>
-        <form @submit.prevent="ruleSubmit">
-            <div class="mt-2 mr-3">
-                <MainButtonSmall type="submit" class="teal-button text-original-white-0">Save Rule</MainButtonSmall>
-            </div>
-            <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
-                <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
-                <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
-        </form>
     </div>
+
+    
 </template>
 <script setup>
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -208,6 +227,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
+import { Link, usePage} from '@inertiajs/vue3';
 
 const props = defineProps({
     subject_reference: {
@@ -380,27 +400,44 @@ const submit = () => {
             });
     });
 };
-const ruleSubmit = () => {
+const successAlert = ref(false);
+const failAlert = ref(false);
+const ruleSubmit = async  () => {
    try {
-        axios.get(route('ruleperesepan.store',{
+       const response = await axios.get(route('ruleperesepan.store',{
             id: props.encounter_satusehat_id
         }));
         
-        successAlertVisible.value = true;
-        failAlertVisible.value = false;
-        errorMessage.value = ''; 
-   } catch (error) {
-        console.error(error.response ? error.response.data : error.message);
-            successAlertVisible.value = true;
-            failAlertVisible.value = true;
+       if (response.status === 201) {
+            successAlert.value = true;
+            failAlert.value = false;
+            errorMessage.value = '';
 
-       if (error.response && error.response.data) {
-            console.error('Response:', error.response.data); 
-            errorMessage.value = error.response.data.error || 'Failed to save data';
+            setTimeout(() => {
+                successAlert.value = false;
+            }, 3000); 
+        } else if (response.status === 204) {
+            successAlert.value = false;
+            failAlert.value = true;
+            errorMessage.value = 'Rule Peresepan Obat Sudah Ada';
+
+            setTimeout(() => {
+                failAlert.value = false;
+            }, 3000);
+        }
+
+   } catch (error) {
+        successAlert.value = false;
+        failAlert.value = true;
+
+        if (error.response && error.response.status === 500) {
+            errorMessage.value = 'Failed to save resource: ' + (error.response.data.message || 'Server Error');
         } else {
             errorMessage.value = 'An error occurred while saving data';
         }
-        
+        setTimeout(() => {
+            failAlert.value = false;
+        }, 3000);
     }
 };
 const searchMedication = async (query) => {

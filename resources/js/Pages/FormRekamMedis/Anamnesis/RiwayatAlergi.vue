@@ -18,8 +18,8 @@
 
                 <template v-if="riwayatAlergi[index].category && riwayatAlergi[index].category.code === 'medication'">
                     <div class="w-full md:w-6/12">
-                        <InputLabel for="riwayatAlergiObat" value="Riwayat Alergi" />
-                        <Multiselect v-model="riwayatAlergi[index].code" mode="single" placeholder="Obat"
+                        <InputLabel for="riwayatAlergiObat" value="Riwayat Alergi (BZA)" />
+                        <Multiselect v-model="riwayatAlergi[index].code" mode="single" placeholder="Kode: 91XXXX"
                                     :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
                                     :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
                                     track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
@@ -218,7 +218,7 @@ const searchRiwayatAlergi = async (query) => {
 
 
 };
-const searchMedication = async (query) => {
+const searchMedicationCopy = async (query) => {
     const { data } = await axios.get(route('terminologi.medication'), {
         params: {
             'page': 1,
@@ -231,6 +231,18 @@ const searchMedication = async (query) => {
     return originalData;
 }
 
+const searchMedication = async (query) => {
+    const { data } = await axios.get(route('terminologi.medication'), {
+        params: {
+            'page': 1,
+            'size': 10,
+            'product_type': 'farmasi',
+            'keyword': query
+        }
+    });
+    const originalData = data.items.data;
+    return originalData;
+}
 const categoryList = ref(null);
 const getCategoryList = async () => {
     const { data } = await axios.get(route('terminologi.get'), {

@@ -204,15 +204,6 @@
                  </div>
                 <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-4 p-6 md:py-6 md:px-8">
                     <div class="w-full">
-                        <div class="flex justify-end">
-                            <button @click="printTable"
-                                    class="mr-2 inline-flex px-4 py-1.5 border border-transparent rounded-md font-normal text-sm text-white teal-button transition ease-in-out duration-150 hover:shadow-lg">
-                                Request Stok Obat
-                            </button>
-                        </div>
-                    </div>
-                    <div class="w-full">
-                        <h2 class="text-xl font-semibold text-secondhand-orange-300">Resep Obat</h2>
                         <div class="space-y-4">
                             <ResepObat :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
                                 :requester="requester" />

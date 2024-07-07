@@ -1,17 +1,19 @@
 <template>
-    <div>
+    <div class="mt-2">
         <table v-if="expertSystem && expertSystem.length && expertSystem[0].length" class="w-full text-left rtl:text-right text-neutral-grey-200 ">
-            <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+            <thead class="text-neutral-black-300 uppercase bg-gray-50 border-b">
                 <tr>
-                    <th scope="col" class="px-6 py-2 w-3/5">Nama</th>
-                    <th scope="col" class="px-6 py-2 w-2/5">Instruksi</th>
+                    
+                    <th scope="col" class="px-3 py-2 w-4/6 border">Nama</th>
+                    <th scope="col" class="px-3 py-2 w-2/6 border">Instruksi</th>
                 </tr>
             </thead>
             <tbody>
                 <template v-for="(group, index) in expertSystem" :key="index">
                     <tr v-for="(medicine, i) in group" :key="i" class="bg-original-white-0 ">
-                        <td class="px-6 py-4 w-3/5">{{ medicine.display }}</td>
-                        <td class="px-6 py-4 w-2/5 ">{{ medicine.dosageInstruction }}</td>
+                        
+                        <td class="px-3 py-1 w-4/6 border">{{ medicine.display }}</td>
+                        <td class="px-3 py-1 w-2/6 border">{{ medicine.dosageInstruction }}</td>
                     </tr>
                 </template>
             </tbody>
@@ -37,24 +39,15 @@ const props = defineProps({
     },
 });
 const expertSystem = ref(null);
-// const getExpertSystem = async () => {
-//     const {data} = await axios.get(route('ruleperesepan.show', {
-//             rule : 'resepObat',
-//             id: props.encounter_satusehat_id
-//     }));
-//     console.log(data)
-//     expertSystem.value = data;
-// };
 
+const errorMessage = ref('');
 const getExpertSystem = async () => {
     try {
         const {data} = await axios.get(route('ruleperesepan.show', {
             rule: 'resepObat',
             id: props.encounter_satusehat_id
         }));
-        console.log(data);
         
-        // Check if data is an empty array or contains an empty array
         if (Array.isArray(data) && data.length > 0 && data[0].length === 0) {
             expertSystem.value = null;
             errorMessage.value = 'Tidak ada data yang ditemukan.';
@@ -115,6 +108,9 @@ const combo_classes = {
     --dp-font-size: 0.875rem;
 }
 table{
-    font-size : 14px;
+    font-size : 13px;
+}
+thead{
+    font-size: 16px;
 }
 </style>
