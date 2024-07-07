@@ -79,21 +79,11 @@
                     <div class="w-full md:w-12/12">
                         <InputLabel for="frequency" value="Frekuensi/Interval" />
                         <div class="flex items-center">
-                             <select placeholder="Obat"  id="frequency" v-model="resourceForm[index].frequency"
-                                class="text-sm mt-1 mr-2 block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-3 h-fit">
-                                <option value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                            </select>
-                            <select id="period" v-model="resourceForm[index].period" required
-                                class="text-sm mt-1 mr-2 block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-3 h-fit">
-                                <option disabled value="">Pilih Periode</option>
-                                <option value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                            </select>
+                            <TextInput v-model="resourceForm[index].frequency" id="frequency" type="number"
+                                    class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" />
+                            <TextInput v-model="resourceForm[index].period" id="period" type="number"
+                                    class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Periode" />
+                    
                             <Multiselect v-model="resourceForm[index].periodUnit" mode="single" placeholder="Unit Periode"
                                 :object="true" :options="medicationRequestPeriodUnit" label="display" valueProp="code"
                                 track-by="code" class="mt-1" :classes="combo_classes" required />

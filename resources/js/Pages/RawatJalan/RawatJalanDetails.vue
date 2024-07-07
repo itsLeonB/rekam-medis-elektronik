@@ -106,17 +106,23 @@
                                     :subject_reference="subject_ref" />
                                 <RiwayatAlergi :encounter_reference="encounter_reference"
                                     :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
+                                <RiwayatPengobatan :encounter_reference="encounter_reference"
+                                    :subject_reference="subject_ref"/>
                             </div>
-                            <h2 class="text-xl font-semibold text-secondhand-orange-300 mt-5">b. Pemeriksaan Psikologis
-                            </h2>
-                            <div class="space-y-4">
-                                <PemeriksaanPsikologis :encounter_reference="encounter_reference"
-                                    :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
-                            </div>
+                            
                         </div>
                         <!-- Kanan -->
                         <div class="w-full lg:w-1/2 py-2 lg:pl-7">
-                            <h2 class="text-xl font-semibold text-secondhand-orange-300">c. Pemeriksaan Fisik</h2>
+                            <div class="row">
+                                <h2 class="text-xl font-semibold text-secondhand-orange-300 mt-5">b. Pemeriksaan Psikologis
+                                </h2>
+                                <div class="space-y-4">
+                                    <PemeriksaanPsikologis :encounter_reference="encounter_reference"
+                                        :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h2 class="text-xl font-semibold text-secondhand-orange-300">c. Pemeriksaan Fisik</h2>
                             <div class="space-y-4">
                                 <TingkatKesadaran :encounter_reference="encounter_reference"
                                     :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
@@ -137,6 +143,7 @@
                                         Submit
                                     </MainButtonSmall>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -330,6 +337,7 @@ import IdentitasPasien from '@/Pages/FormRekamMedis/IdentitasPasien/IdentitasPas
 import StatusKunjungan from '@/Pages/FormRekamMedis/IdentitasPasien/StatusKunjungan.vue';
 import KeluhanUtama from '@/Pages/FormRekamMedis/Anamnesis/KeluhanUtama.vue';
 import RiwayatAlergi from '@/Pages/FormRekamMedis/Anamnesis/RiwayatAlergi.vue';
+import RiwayatPengobatan from '@/Pages/FormRekamMedis/Anamnesis/RiwayatPengobatanStatement.vue';
 import PemeriksaanPsikologis from '@/Pages/FormRekamMedis/PemeriksaanPsikologis/PemeriksaanPsikologis.vue';
 import TingkatKesadaran from '@/Pages/FormRekamMedis/PemeriksaanFisik/TingkatKesadaran.vue';
 import Nadi from '@/Pages/FormRekamMedis/PemeriksaanFisik/Nadi.vue';

@@ -10,7 +10,7 @@
         <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 8">Service Requests</MainButtonSmallOutline>
         <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 9">Medication Statements</MainButtonSmallOutline>
         <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 10">Medication Request</MainButtonSmallOutline>
-        <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 11">Questionnaire Responses</MainButtonSmallOutline>
+        <!-- <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 11">Questionnaire Responses</MainButtonSmallOutline> -->
     </div>
 
     <div v-show="formSection === 1">
@@ -43,9 +43,9 @@
     <div v-show="formSection === 10">
         <MedicationRequest :object="encounter.medicationRequests" />
     </div>
-    <div v-show="formSection === 11">
+    <!-- <div v-show="formSection === 11">
         <QuestionnaireResponsesGD :object="encounter.questionnaireResponses"  />
-    </div>
+    </div> -->
 </template>
 
 <script setup>
