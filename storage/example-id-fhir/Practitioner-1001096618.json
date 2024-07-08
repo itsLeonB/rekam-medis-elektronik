@@ -1,0 +1,48 @@
+{
+  "address": [
+    {
+      "city": "Kab. Pekalongan",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "33"
+            },
+            {
+              "url": "city",
+              "valueCode": "3326"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "use": "home"
+    }
+  ],
+  "gender": "male",
+  "id": "1001096618",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nakes-id",
+      "value": "1001096618"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik",
+      "use": "official",
+      "value": "3376040302700002"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2022-04-22T00:26:19.950916+00:00",
+    "versionId": "MTY1MDU4NzE3OTk1MDkxNjAwMA"
+  },
+  "name": [
+    {
+      "text": "TEGUH BAMBANG WALUYO, AMK",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Practitioner"
+}

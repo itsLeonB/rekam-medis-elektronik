@@ -1,0 +1,191 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class TestController extends Controller
+{
+    //
+    public function indexMedication(Request $request){
+        $medications = FhirResource::where('resourceType', 'Medication')
+            ->get(['id', 'code', 'name']);
+        
+        $medications = $medications->map(function ($item) {
+            return [
+                'id' => data_get($item, 'id'),
+                'code' => data_get($item, 'code.coding.0.code'),
+                'name' => data_get($item, 'code.coding.0.display')
+            ];
+        });
+
+        return $medications;
+    }
+    public function getKeluhan($id)
+    {
+        //get Keluhan data sesuai Encounter
+        $keluhan =FhirResource::where('resourceType', 'Condition')
+                ->where('encounter.reference', 'Encounter/'.$id)
+                ->where('category.0.coding.0.code', 'problem-list-item')    
+                ->get();
+        $result = $keluhan->map(function ($item) {
+            return data_get($item, 'code.coding.0.code');
+        })->toArray();
+        //return $result;
+        return $result;
+    }
+    public function getDiagnosa($id)
+    {
+        //get diagnosa data sesuai Encounter
+        $diagnosa =FhirResource::where('resourceType', 'Condition')
+                ->where('encounter.reference', 'Encounter/'.$id)
+                ->where('category.0.coding.0.code', 'encounter-diagnosis')
+                ->where('verificationStatus.coding.0.code', 'confirmed')
+                ->select('code')    
+                ->first();
+
+        $result = [
+            'code' => data_get($diagnosa, 'code.coding.0.code'),
+            'name' => data_get($diagnosa, 'code.coding.0.display'),
+            ]
+        ;
+        return $result;
+    }
+    public function getMedicationReq($id)
+    {
+        //get medication data sesuai Encounter
+        $medReq =FhirResource::where('resourceType', 'MedicationRequest')
+                ->where('encounter.reference', 'Encounter/'.$id)  
+                ->get(['id', 'code', 'medicationReference', 'encounter', 'category', 'dosageInstruction']);
+        
+        //return response()->json(['data' => $medReq]);
+        $medReq = $medReq->map(function ($item) {
+
+            return [
+                'id' => data_get($item, 'id'),
+                'medicationReference' => data_get($item, 'medicationReference.reference'),
+                'dosageInstruction' => data_get($item, 'dosageInstruction.0.text')
+            ];
+        });
+        return $medReq;
+        
+    }
+    public function statusKehamilan($id){
+        $result =  $this->getKeluhan($id);
+        $code_pregnancy = "77386006";
+        $exists = in_array($code_pregnancy, $result);
+        return $exists;
+    }
+    public function kategoriUmur($id){
+        $encounter = FhirResource::where('resourceType', 'Encounter')
+            ->where('id', $id)
+            ->get(['identifier']);
+
+        $idPatient = null;
+        foreach ($encounter as $item) {
+            foreach ($item->identifier as $identifier) {
+                $idPatient = $identifier['value'];
+                break;
+            }
+        }
+        $patient = FhirResource::where('resourceType', 'Patient')
+            ->where('id', $idPatient)
+            ->get(['birthDate']);
+
+        $patient = $patient->map(function ($item) {
+            return data_get($item, 'birthDate');
+        });
+
+        $date = Carbon::createFromFormat('Y-m-d', $patient[0]);
+        $age = $date->diffInYears(Carbon::now());
+        if ($age >= 12) {
+            return 'dewasa';
+        } elseif ($age >= 5) {
+            return 'anak';
+        } else {
+           return 'balita';
+        }
+    }
+    public function dataFisik($id){
+        return 'data fisik';
+    }
+    public function rulePeresepanStore($id){
+        try {
+            DB::beginTransaction();
+                $keluhan = $this->getKeluhan($id);
+
+                $n_array_keluhan = count($keluhan);
+                $diagnosa = $this->getDiagnosa($id);
+                $status_kehamilan = $this->statusKehamilan($id);
+                $umur = $this->kategoriUmur($id);
+                
+                $rulePeresepanData = [
+                    'keluhan' => 'ok',
+                    // 'diagnosa' => $diagnosa,
+                    // 'status_kehamilan' => $status_kehamilan,
+                    // 'umur' => $umur
+                ];
+
+                return $rulePeresepanData;
+                $validator = Validator::make($rulePeresepanData, [
+                    'keluhan' => 'required|array',
+                    // 'diagnosa' => 'required|array',
+                    // 'diagnosa.code' => 'required|string',
+                    // 'diagnosa.name' => 'required|string',
+                ]);
+
+                if ($validator->fails()) {
+                    return response()->json([
+                        'error' => 'Validation failed',
+                        'message' => $validator->errors(),
+                    ], 422);
+                }
+                
+                // if ($n_array_keluhan >= 3) {
+                   
+                //     $existingData = ExpertSystem::where('diagnosa', $diagnosa)
+                //                     ->first();
+                //     return $existingData;
+                //     if ($existingData) {
+                //         return response()->json([
+                //             'message' => 'Rule for this diagnosis already exists.'
+                //         ], 200);
+                //     }
+                //     else{
+                //         ExpertSystem::insert($rulePeresepanData);
+                //             return response()->json([
+                //                 'message' => 'New rule created successfully.',
+                //                 'data' => $rulePeresepanData
+                //         ], 201);
+                //     }
+                // } else {
+                //     return 'Data keluhan Minimal 3 untuk masuk ke expert system';
+                // }
+
+                ExpertSystem::insert($rulePeresepanData);
+                //ExpertSystem::create($rulePeresepanData);
+                
+            DB::commit();
+            return response()->json([
+                                'message' => 'New rule created successfully.',
+                                'data' => $rulePeresepanData
+                        ], 201);
+            // return response()->json($savedData, 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Failed to save resource: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'Failed to save resource',
+                'message' => $e->getMessage(),
+                'data' => $rulePeresepanData
+            ], 500);
+        }
+    }
+    public function rulePeresepanShow($resourceType, $id){
+        
+        $req_keluhan =  $this->getKeluhan($id);
+        $result = ExpertSystem::where("keluhan", "all", $req_keluhan)
+                ->pluck('diagnosa');
+        return $result;
+    }
+}

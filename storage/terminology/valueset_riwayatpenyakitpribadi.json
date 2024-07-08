@@ -1,0 +1,4126 @@
+[
+    {
+        "code": "968287261000119000",
+        "display": "History of ductal carcinoma in situ of bilateral breasts (situation)"
+    },
+    {
+        "code": "934589301000119000",
+        "display": "History of otitis externa (situation)"
+    },
+    {
+        "code": "927778271000119000",
+        "display": "History of langerhans cell histiocytosis (situation)"
+    },
+    {
+        "code": "906406221000119000",
+        "display": "History of nicotine dependence (situation)"
+    },
+    {
+        "code": "893046241000119000",
+        "display": "History of cytomegalovirus infection (situation)"
+    },
+    {
+        "code": "843698041000119000",
+        "display": "History of ductal carcinoma in situ of right breast (situation)"
+    },
+    {
+        "code": "776219771000119000",
+        "display": "History of myocardial infarction due to demand ischemia (situation)"
+    },
+    {
+        "code": "703392241000119000",
+        "display": "History of benign neoplasm of heart (situation)"
+    },
+    {
+        "code": "676112841000119000",
+        "display": "History of acute lymphoid leukemia (situation)"
+    },
+    {
+        "code": "628259931000119000",
+        "display": "History of Terson syndrome (situation)"
+    },
+    {
+        "code": "619792361000119000",
+        "display": "History of primary small cell carcinoma of lung (situation)"
+    },
+    {
+        "code": "577858331000119000",
+        "display": "History of vitreous hemorrhage (situation)"
+    },
+    {
+        "code": "505671831000119000",
+        "display": "History of choriocarcinoma (situation)"
+    },
+    {
+        "code": "479405981000119000",
+        "display": "History of ductal carcinoma in situ of left breast (situation)"
+    },
+    {
+        "code": "445010151000119000",
+        "display": "History of leiomyoma of stomach (situation)"
+    },
+    {
+        "code": "434784581000119000",
+        "display": "History of acute monocytic leukemia (situation)"
+    },
+    {
+        "code": "400347211000119000",
+        "display": "History of acute leukemia (situation)"
+    },
+    {
+        "code": "387785661000119000",
+        "display": "History of myocardial infarction due to atherothrombotic coronary artery disease (situation)"
+    },
+    {
+        "code": "361928151000119000",
+        "display": "History of aspergilloma (situation)"
+    },
+    {
+        "code": "360679851000119000",
+        "display": "History of large bowel obstruction (situation)"
+    },
+    {
+        "code": "311030311000119000",
+        "display": "History of small bowel obstruction (situation)"
+    },
+    {
+        "code": "292508471000119000",
+        "display": "History of disease caused by severe acute respiratory syndrome coronavirus 2 (situation)"
+    },
+    {
+        "code": "281156881000119000",
+        "display": "History of intracranial hemorrhage due to birth trauma (situation)"
+    },
+    {
+        "code": "226823461000119000",
+        "display": "History of neonatal nontraumatic intraventricular hemorrhage (situation)"
+    },
+    {
+        "code": "226362151000119000",
+        "display": "History of carcinoma in situ of skin (situation)"
+    },
+    {
+        "code": "176798841000119000",
+        "display": "History of multisystem inflammatory syndrome in children (situation)"
+    },
+    {
+        "code": "157533041000119000",
+        "display": "History of acute angle-closure glaucoma (situation)"
+    },
+    {
+        "code": "102919151000119000",
+        "display": "History of myelodysplastic syndrome (situation)"
+    },
+    {
+        "code": "16916791000119100",
+        "display": "History of rupture of Achilles tendon (situation)"
+    },
+    {
+        "code": "16916751000119100",
+        "display": "History of injury of tendon (situation)"
+    },
+    {
+        "code": "16916101000119100",
+        "display": "History of dysphagia (situation)"
+    },
+    {
+        "code": "16916061000119100",
+        "display": "Past pregnancy history of postpartum gestational hypertension (situation)"
+    },
+    {
+        "code": "16915541000119100",
+        "display": "History of acalculous cholecystitis (situation)"
+    },
+    {
+        "code": "16915501000119100",
+        "display": "History of infection following procedure (situation)"
+    },
+    {
+        "code": "16915451000119100",
+        "display": "History of stricture of esophagus (situation)"
+    },
+    {
+        "code": "16912131000119100",
+        "display": "History of alcoholic hepatitis (situation)"
+    },
+    {
+        "code": "16900351000119100",
+        "display": "History of lipoma (situation)"
+    },
+    {
+        "code": "16896891000119100",
+        "display": "History of cerebrovascular accident due to ischemia (situation)"
+    },
+    {
+        "code": "16896851000119100",
+        "display": "History of embolic cerebrovascular accident (situation)"
+    },
+    {
+        "code": "16894981000119100",
+        "display": "History of primary malignant neoplasm of base of tongue (situation)"
+    },
+    {
+        "code": "16890921000119100",
+        "display": "History of nonproliferative diabetic retinopathy (situation)"
+    },
+    {
+        "code": "16890881000119100",
+        "display": "History of proliferative retinopathy due to diabetes mellitus (situation)"
+    },
+    {
+        "code": "16885661000119100",
+        "display": "History of rectal bleeding (situation)"
+    },
+    {
+        "code": "16881131000119100",
+        "display": "History of Horner syndrome (situation)"
+    },
+    {
+        "code": "16880931000119100",
+        "display": "History of eyelid ptosis (situation)"
+    },
+    {
+        "code": "16880891000119100",
+        "display": "History of exudative age-related macular degeneration (situation)"
+    },
+    {
+        "code": "16864911000119100",
+        "display": "History of intracranial hemorrhage (situation)"
+    },
+    {
+        "code": "16851191000119100",
+        "display": "History of hemorrhoid (situation)"
+    },
+    {
+        "code": "16849021000119100",
+        "display": "History of primary malignant neoplasm of trigone of urinary bladder (situation)"
+    },
+    {
+        "code": "16848941000119100",
+        "display": "History of primary malignant neoplasm of neck of urinary bladder (situation)"
+    },
+    {
+        "code": "16848901000119100",
+        "display": "History of primary malignant neoplasm of lateral wall of urinary bladder (situation)"
+    },
+    {
+        "code": "16848861000119100",
+        "display": "History of primary malignant neoplasm of posterior wall of urinary bladder (situation)"
+    },
+    {
+        "code": "16848821000119100",
+        "display": "History of primary malignant neoplasm of urachus (situation)"
+    },
+    {
+        "code": "16848781000119100",
+        "display": "History of primary malignant neoplasm of dome of urinary bladder (situation)"
+    },
+    {
+        "code": "16848741000119100",
+        "display": "History of primary malignant neoplasm of ureteric orifice (situation)"
+    },
+    {
+        "code": "16848701000119100",
+        "display": "History of primary malignant neoplasm of anterior wall of urinary bladder (situation)"
+    },
+    {
+        "code": "16848661000119100",
+        "display": "History of primary malignant neoplasm of bilateral main bronchi (situation)"
+    },
+    {
+        "code": "16848621000119100",
+        "display": "History of primary malignant neoplasm of left main bronchus (situation)"
+    },
+    {
+        "code": "16848581000119100",
+        "display": "History of primary malignant neoplasm of main bronchus (situation)"
+    },
+    {
+        "code": "16848541000119100",
+        "display": "History of primary malignant neoplasm of right main bronchus (situation)"
+    },
+    {
+        "code": "16848501000119100",
+        "display": "History of primary malignant neoplasm of bilateral testes (situation)"
+    },
+    {
+        "code": "16848461000119100",
+        "display": "History of primary malignant neoplasm of right testis (situation)"
+    },
+    {
+        "code": "16848421000119100",
+        "display": "History of primary malignant neoplasm of left testis (situation)"
+    },
+    {
+        "code": "16848381000119100",
+        "display": "History of primary malignant neoplasm of bilateral ureters (situation)"
+    },
+    {
+        "code": "16848341000119100",
+        "display": "History of primary malignant neoplasm of left ureter (situation)"
+    },
+    {
+        "code": "16848301000119100",
+        "display": "History of primary malignant neoplasm of right ureter (situation)"
+    },
+    {
+        "code": "16848261000119100",
+        "display": "History of primary malignant neoplasm of bilateral lungs (situation)"
+    },
+    {
+        "code": "16848221000119100",
+        "display": "History of primary non-small cell carcinoma of bilateral lungs (situation)"
+    },
+    {
+        "code": "16848181000119100",
+        "display": "History of primary non-small cell carcinoma of left lung (situation)"
+    },
+    {
+        "code": "16848141000119100",
+        "display": "History of primary non-small cell carcinoma of right lung (situation)"
+    },
+    {
+        "code": "16848101000119100",
+        "display": "History of primary malignant neoplasm of right lung (situation)"
+    },
+    {
+        "code": "16848061000119100",
+        "display": "History of primary malignant neoplasm of left lung (situation)"
+    },
+    {
+        "code": "16848021000119100",
+        "display": "History of primary malignant neoplasm of bilateral kidneys (situation)"
+    },
+    {
+        "code": "16847981000119100",
+        "display": "History of primary malignant neoplasm of left kidney (situation)"
+    },
+    {
+        "code": "16847941000119100",
+        "display": "History of primary transitional cell carcinoma of left kidney (situation)"
+    },
+    {
+        "code": "16847901000119100",
+        "display": "History of primary transitional cell carcinoma of right kidney (situation)"
+    },
+    {
+        "code": "16847861000119100",
+        "display": "History of primary transitional cell carcinoma of bilateral kidneys (situation)"
+    },
+    {
+        "code": "16847821000119100",
+        "display": "History of primary malignant neoplasm of right kidney (situation)"
+    },
+    {
+        "code": "16847781000119100",
+        "display": "History of primary malignant neoplasm of right ovary (situation)"
+    },
+    {
+        "code": "16847741000119100",
+        "display": "History of primary malignant neoplasm of bilateral ovaries (situation)"
+    },
+    {
+        "code": "16847701000119100",
+        "display": "History of primary malignant neoplasm of left ovary (situation)"
+    },
+    {
+        "code": "16845421000119100",
+        "display": "History of cerebral aneurysm (situation)"
+    },
+    {
+        "code": "16833281000119100",
+        "display": "History of arterial thrombosis (situation)"
+    },
+    {
+        "code": "16829501000119100",
+        "display": "History of gangrenous disorder (situation)"
+    },
+    {
+        "code": "16775641000119100",
+        "display": "History of glaucoma suspect (situation)"
+    },
+    {
+        "code": "16775181000119100",
+        "display": "History of coma (situation)"
+    },
+    {
+        "code": "16775141000119100",
+        "display": "History of acute respiratory failure (situation)"
+    },
+    {
+        "code": "16688121000119100",
+        "display": "History of anal intraepithelial neoplasia III (situation)"
+    },
+    {
+        "code": "16615741000119100",
+        "display": "History of posterior vitreous detachment (situation)"
+    },
+    {
+        "code": "16580571000119100",
+        "display": "History of benign neoplasm of eye (situation)"
+    },
+    {
+        "code": "16542721000119100",
+        "display": "History of anoxic brain injury (situation)"
+    },
+    {
+        "code": "16540531000119100",
+        "display": "History of ocular zoster (situation)"
+    },
+    {
+        "code": "16535771000119100",
+        "display": "History of delirium (situation)"
+    },
+    {
+        "code": "16535691000119100",
+        "display": "History of strabismus (situation)"
+    },
+    {
+        "code": "16535651000119100",
+        "display": "History of injury of eye region (situation)"
+    },
+    {
+        "code": "16535611000119100",
+        "display": "History of retinitis pigmentosa (situation)"
+    },
+    {
+        "code": "16535531000119100",
+        "display": "History of nystagmus (situation)"
+    },
+    {
+        "code": "16535441000119100",
+        "display": "History of retinal hemorrhage (situation)"
+    },
+    {
+        "code": "16535401000119100",
+        "display": "History of macular degeneration (situation)"
+    },
+    {
+        "code": "16535321000119100",
+        "display": "History of optic atrophy (situation)"
+    },
+    {
+        "code": "16524331000119100",
+        "display": "History of rhabdomyolysis due to statin (situation)"
+    },
+    {
+        "code": "16524291000119100",
+        "display": "History of myalgia caused by statin (situation)"
+    },
+    {
+        "code": "16519911000119100",
+        "display": "History of retinopathy of prematurity (situation)"
+    },
+    {
+        "code": "16475471000119100",
+        "display": "History of herpes simplex keratitis (situation)"
+    },
+    {
+        "code": "16475431000119100",
+        "display": "History of terminal esophageal web (situation)"
+    },
+    {
+        "code": "16468501000119100",
+        "display": "History of Zika virus infection (situation)"
+    },
+    {
+        "code": "16464661000119100",
+        "display": "History of intravenous drug abuse (situation)"
+    },
+    {
+        "code": "16410531000119100",
+        "display": "History of malignant neoplasm of nasal sinus (situation)"
+    },
+    {
+        "code": "16410191000119100",
+        "display": "History of laryngospasm (situation)"
+    },
+    {
+        "code": "16409881000119100",
+        "display": "History of posterior ischemic optic neuropathy (situation)"
+    },
+    {
+        "code": "16360861000119100",
+        "display": "History of acute febrile mucocutaneous lymph node syndrome (situation)"
+    },
+    {
+        "code": "16300891000119100",
+        "display": "History of fracture of orbit (situation)"
+    },
+    {
+        "code": "16279641000119100",
+        "display": "History of occlusion of branch retinal artery (situation)"
+    },
+    {
+        "code": "16279601000119100",
+        "display": "History of gastroschisis (situation)"
+    },
+    {
+        "code": "16235071000119100",
+        "display": "History of idiopathic intracranial hypertension (situation)"
+    },
+    {
+        "code": "16216821000119100",
+        "display": "Past pregnancy history of molar pregnancy (situation)"
+    },
+    {
+        "code": "16216781000119100",
+        "display": "Past pregnancy history of cholestasis in pregnancy (situation)"
+    },
+    {
+        "code": "16216731000119100",
+        "display": "Past pregnancy history of intrauterine fetal death (situation)"
+    },
+    {
+        "code": "16098861000119100",
+        "display": "History of uveitis (situation)"
+    },
+    {
+        "code": "16098821000119100",
+        "display": "History of choroiditis (situation)"
+    },
+    {
+        "code": "16094831000119100",
+        "display": "History of malignant phyllodes neoplasm of breast (situation)"
+    },
+    {
+        "code": "16094781000119100",
+        "display": "History of benign phyllodes neoplasm of breast (situation)"
+    },
+    {
+        "code": "16093761000119100",
+        "display": "History of facial palsy (situation)"
+    },
+    {
+        "code": "16093711000119100",
+        "display": "History of anterior ischemic optic neuropathy (situation)"
+    },
+    {
+        "code": "16093661000119100",
+        "display": "History of esophageal varices (situation)"
+    },
+    {
+        "code": "16093611000119100",
+        "display": "History of Barrett's esophagus (situation)"
+    },
+    {
+        "code": "16093531000119100",
+        "display": "History of adult obesity (situation)"
+    },
+    {
+        "code": "16089691000119100",
+        "display": "Multiple liveborn in hospital by vaginal delivery (situation)"
+    },
+    {
+        "code": "16089571000119100",
+        "display": "Triplet liveborn in hospital by cesarean section (situation)"
+    },
+    {
+        "code": "16089411000119100",
+        "display": "History of chest pain (situation)"
+    },
+    {
+        "code": "16089251000119100",
+        "display": "History of ulcer of anus (situation)"
+    },
+    {
+        "code": "16089211000119100",
+        "display": "History of gastrojejunal ulcer (situation)"
+    },
+    {
+        "code": "16089171000119100",
+        "display": "History of rectal ulcer (situation)"
+    },
+    {
+        "code": "16089131000119100",
+        "display": "History of pyloric channel ulcer (situation)"
+    },
+    {
+        "code": "16089091000119100",
+        "display": "History of esophageal ulcer (situation)"
+    },
+    {
+        "code": "15912951000119100",
+        "display": "History of episcleritis (situation)"
+    },
+    {
+        "code": "15758941000119100",
+        "display": "History of perineal laceration (situation)"
+    },
+    {
+        "code": "15663121000119100",
+        "display": "History of concussion injury of brain (situation)"
+    },
+    {
+        "code": "15647891000119100",
+        "display": "History of corneal erosion (situation)"
+    },
+    {
+        "code": "15647821000119100",
+        "display": "History of benign neoplasm of small intestine (situation)"
+    },
+    {
+        "code": "15647781000119100",
+        "display": "History of villous adenoma of duodenum (situation)"
+    },
+    {
+        "code": "15628411000119100",
+        "display": "History of emergence delirium (situation)"
+    },
+    {
+        "code": "15627801000119100",
+        "display": "History of hyphema (situation)"
+    },
+    {
+        "code": "15627741000119100",
+        "display": "History of Helicobacter pylori infection (situation)"
+    },
+    {
+        "code": "13016361000119100",
+        "display": "History of amaurosis fugax (situation)"
+    },
+    {
+        "code": "13016311000119100",
+        "display": "History of retinal edema (situation)"
+    },
+    {
+        "code": "13016271000119100",
+        "display": "History of optic neuritis (situation)"
+    },
+    {
+        "code": "12618061000119100",
+        "display": "History of hydronephrosis (situation)"
+    },
+    {
+        "code": "12147341000119100",
+        "display": "History of burn (situation)"
+    },
+    {
+        "code": "11012931000119100",
+        "display": "History of neoplasm of low malignant potential behavior of ovary (situation)"
+    },
+    {
+        "code": "11012891000119100",
+        "display": "History of urticaria (situation)"
+    },
+    {
+        "code": "11003571000119100",
+        "display": "History of acquired deformity of right hip following removal of prosthesis (situation)"
+    },
+    {
+        "code": "11003531000119100",
+        "display": "History of acquired deformity of left hip following removal of prosthesis (situation)"
+    },
+    {
+        "code": "11003051000119100",
+        "display": "History of benign carcinoid neoplasm (situation)"
+    },
+    {
+        "code": "11001921000119100",
+        "display": "History of carcinoma in situ of breast (situation)"
+    },
+    {
+        "code": "10998251000119100",
+        "display": "History of sensory organ disorder (situation)"
+    },
+    {
+        "code": "10995991000119100",
+        "display": "History of combat and operational stress reaction (situation)"
+    },
+    {
+        "code": "10995761000119100",
+        "display": "History of diabetic foot ulcer (situation)"
+    },
+    {
+        "code": "10995681000119100",
+        "display": "History of malignant neoplasm of external ear (situation)"
+    },
+    {
+        "code": "10995641000119100",
+        "display": "History of malignant neoplasm of digestive organ (situation)"
+    },
+    {
+        "code": "10995411000119100",
+        "display": "History of malignant carcinoid tumor of bronchus (situation)"
+    },
+    {
+        "code": "10988211000119100",
+        "display": "History of dysplasia of prostate (situation)"
+    },
+    {
+        "code": "10988171000119100",
+        "display": "History of parasitic disease (situation)"
+    },
+    {
+        "code": "10987961000119100",
+        "display": "History of malignant carcinoid tumor of stomach (situation)"
+    },
+    {
+        "code": "10987871000119100",
+        "display": "History of malignant neoplasm of rectosigmoid junction (situation)"
+    },
+    {
+        "code": "10987721000119100",
+        "display": "History of malignant carcinoid tumor of kidney (situation)"
+    },
+    {
+        "code": "10982181000119100",
+        "display": "History of neoplasm of uncertain behavior (situation)"
+    },
+    {
+        "code": "10981911000119100",
+        "display": "History of malignant neoplasm of nasal cavity (situation)"
+    },
+    {
+        "code": "10981871000119100",
+        "display": "History of malignant neoplasm of middle ear (situation)"
+    },
+    {
+        "code": "10981821000119100",
+        "display": "History of malignant carcinoid tumor of thymus (situation)"
+    },
+    {
+        "code": "10939931000119100",
+        "display": "History of malignant neoplasm of lip (situation)"
+    },
+    {
+        "code": "10839421000119100",
+        "display": "History of anaphylaxis (situation)"
+    },
+    {
+        "code": "10824251000119100",
+        "display": "History of artery embolism (situation)"
+    },
+    {
+        "code": "10761511000119100",
+        "display": "History of pulmonary embolism on long-term anticoagulation therapy (situation)"
+    },
+    {
+        "code": "10743471000119100",
+        "display": "History of pleomorphic adenoma of salivary gland (situation)"
+    },
+    {
+        "code": "10743431000119100",
+        "display": "History of benign neoplasm of salivary gland (situation)"
+    },
+    {
+        "code": "10743391000119100",
+        "display": "History of ulcer of skin of upper limb (situation)"
+    },
+    {
+        "code": "10738811000119100",
+        "display": "History of carcinoma in situ of uterine cervix (situation)"
+    },
+    {
+        "code": "10691841000119100",
+        "display": "History of central serous retinopathy (situation)"
+    },
+    {
+        "code": "10624491000119100",
+        "display": "History of infection due to vancomycin resistant enterococcus (situation)"
+    },
+    {
+        "code": "1290891000000100",
+        "display": "History of monkeypox (situation)"
+    },
+    {
+        "code": "1099621000119100",
+        "display": "History of ischemic colitis (situation)"
+    },
+    {
+        "code": "1099381000119100",
+        "display": "History of benign neoplasm of bone (situation)"
+    },
+    {
+        "code": "1099291000119100",
+        "display": "History of cancer metastatic to bone (situation)"
+    },
+    {
+        "code": "1099061000119100",
+        "display": "History of odontogenic keratocyst (situation)"
+    },
+    {
+        "code": "1099001000119100",
+        "display": "History of dysthymia (situation)"
+    },
+    {
+        "code": "1098971000119100",
+        "display": "History of cancer metastatic to brain (situation)"
+    },
+    {
+        "code": "1098961000119100",
+        "display": "History of cancer metastatic to lung (situation)"
+    },
+    {
+        "code": "1098951000119100",
+        "display": "History of cancer metastatic to liver (situation)"
+    },
+    {
+        "code": "1098941000119100",
+        "display": "History of cancer metastatic to skin (situation)"
+    },
+    {
+        "code": "1098931000119100",
+        "display": "History of cancer metastatic to lymph nodes (situation)"
+    },
+    {
+        "code": "1098861000119100",
+        "display": "History of torsades de pointes (situation)"
+    },
+    {
+        "code": "1087151000119100",
+        "display": "History of syphilis (situation)"
+    },
+    {
+        "code": "691501000119103",
+        "display": "History of gastritis (situation)"
+    },
+    {
+        "code": "691491000119105",
+        "display": "History of esophagitis (situation)"
+    },
+    {
+        "code": "691371000119102",
+        "display": "History of malignant neoplasm of parotid gland (situation)"
+    },
+    {
+        "code": "691201000119100",
+        "display": "History of adrenal adenoma (situation)"
+    },
+    {
+        "code": "691191000119103",
+        "display": "History of pituitary adenoma (situation)"
+    },
+    {
+        "code": "690731000119108",
+        "display": "History of torsades de pointe caused by drug (situation)"
+    },
+    {
+        "code": "690711000119103",
+        "display": "History of acquired spondylolisthesis (situation)"
+    },
+    {
+        "code": "690651000119106",
+        "display": "History of carcinoma in situ of vulva (situation)"
+    },
+    {
+        "code": "690491000119104",
+        "display": "History of cardiomyopathy (situation)"
+    },
+    {
+        "code": "690481000119102",
+        "display": "History of dissection of carotid artery (situation)"
+    },
+    {
+        "code": "690461000119106",
+        "display": "History of bradycardia (situation)"
+    },
+    {
+        "code": "690071000119109",
+        "display": "History of nontraumatic ruptured cerebral aneurysm (situation)"
+    },
+    {
+        "code": "690051000119100",
+        "display": "History of cerebellar stroke (situation)"
+    },
+    {
+        "code": "681341000119108",
+        "display": "History of cornea graft failure (situation)"
+    },
+    {
+        "code": "681291000119105",
+        "display": "History of mycosis fungoides (situation)"
+    },
+    {
+        "code": "681221000119108",
+        "display": "History of herpes zoster (situation)"
+    },
+    {
+        "code": "681211000119101",
+        "display": "History of myocarditis (situation)"
+    },
+    {
+        "code": "681201000119104",
+        "display": "History of prostatitis (situation)"
+    },
+    {
+        "code": "674191000119109",
+        "display": "History of syncope (situation)"
+    },
+    {
+        "code": "672291000119107",
+        "display": "History of carcinosarcoma of ovary (situation)"
+    },
+    {
+        "code": "672281000119109",
+        "display": "History of carcinosarcoma of uterus (situation)"
+    },
+    {
+        "code": "450891000124109",
+        "display": "Past pregnancy history of complication of pregnancy, childbirth and/or puerperium (situation)"
+    },
+    {
+        "code": "350391000119105",
+        "display": "History of perforated tympanic membrane (situation)"
+    },
+    {
+        "code": "350351000119100",
+        "display": "History of inverted papilloma (situation)"
+    },
+    {
+        "code": "347941000119102",
+        "display": "History of benign meningioma of brain (situation)"
+    },
+    {
+        "code": "347931000119106",
+        "display": "History of malignant meningioma of meninges of brain (situation)"
+    },
+    {
+        "code": "328201000119109",
+        "display": "History of giant cell arteritis (situation)"
+    },
+    {
+        "code": "328021000119108",
+        "display": "History of bowel obstruction (situation)"
+    },
+    {
+        "code": "328001000119104",
+        "display": "History of atrial myxoma (situation)"
+    },
+    {
+        "code": "293771000119100",
+        "display": "History of lower gastrointestinal bleed (situation)"
+    },
+    {
+        "code": "293581000119108",
+        "display": "History of penis injury (situation)"
+    },
+    {
+        "code": "293201000119102",
+        "display": "History of human papillomavirus infection (situation)"
+    },
+    {
+        "code": "286791000119107",
+        "display": "History of malignant carcinoid tumor of rectum (situation)"
+    },
+    {
+        "code": "286781000119109",
+        "display": "History of malignant carcinoid tumor of small intestine (situation)"
+    },
+    {
+        "code": "286771000119106",
+        "display": "History of malignant carcinoid tumor of colon (situation)"
+    },
+    {
+        "code": "285741000119105",
+        "display": "History of pericarditis (situation)"
+    },
+    {
+        "code": "285731000119101",
+        "display": "History of paroxysmal supraventricular tachycardia (situation)"
+    },
+    {
+        "code": "285721000119104",
+        "display": "History of acute ST segment elevation myocardial infarction (situation)"
+    },
+    {
+        "code": "180301000119102",
+        "display": "History of disorder of vision (situation)"
+    },
+    {
+        "code": "154081000119108",
+        "display": "History of aspiration pneumonia (situation)"
+    },
+    {
+        "code": "152891000119106",
+        "display": "History of malignant neoplasm of eye (situation)"
+    },
+    {
+        "code": "152861000119104",
+        "display": "History of myeloid leukemia (situation)"
+    },
+    {
+        "code": "152711000119105",
+        "display": "History of skin and/or subcutaneous tissue disease (situation)"
+    },
+    {
+        "code": "152451000119104",
+        "display": "History of lymphosarcoma (situation)"
+    },
+    {
+        "code": "144931000119108",
+        "display": "History of carotid body neoplasm (situation)"
+    },
+    {
+        "code": "144811000119109",
+        "display": "History of benign schwannoma (situation)"
+    },
+    {
+        "code": "144101000119103",
+        "display": "History of benign neoplasm of spinal cord (situation)"
+    },
+    {
+        "code": "143591000119101",
+        "display": "History of toxoplasmosis (situation)"
+    },
+    {
+        "code": "143491000119100",
+        "display": "History of atypical hyperplasia of breast (situation)"
+    },
+    {
+        "code": "143481000119103",
+        "display": "History of lobular carcinoma in situ (situation)"
+    },
+    {
+        "code": "143351000119104",
+        "display": "History of Paget's disease of breast (situation)"
+    },
+    {
+        "code": "143341000119101",
+        "display": "History of stromal sarcoma of endometrium (situation)"
+    },
+    {
+        "code": "142881000119105",
+        "display": "History of nocturnal hypoglycemia (situation)"
+    },
+    {
+        "code": "142471000119105",
+        "display": "History of dysplasia of vulva (situation)"
+    },
+    {
+        "code": "142461000119104",
+        "display": "History of vaginal intraepithelial neoplasia (situation)"
+    },
+    {
+        "code": "142021000119102",
+        "display": "History of Paget disease of vulva (situation)"
+    },
+    {
+        "code": "141961000119102",
+        "display": "History of sex cord stromal tumor of ovary (situation)"
+    },
+    {
+        "code": "141951000119104",
+        "display": "History of malignant germ cell neoplasm of ovary (situation)"
+    },
+    {
+        "code": "141911000119100",
+        "display": "History of recurrent deep vein thrombosis (situation)"
+    },
+    {
+        "code": "141831000119101",
+        "display": "History of embolic stroke with deficits (situation)"
+    },
+    {
+        "code": "141821000119104",
+        "display": "History of ischemic cerebrovascular accident with residual deficit (situation)"
+    },
+    {
+        "code": "141811000119106",
+        "display": "History of hemorrhagic cerebrovascular accident with residual deficit (situation)"
+    },
+    {
+        "code": "141281000119101",
+        "display": "History of ischemic stroke without residual deficits (situation)"
+    },
+    {
+        "code": "140731000119101",
+        "display": "History of gastrointestinal stromal neoplasm (situation)"
+    },
+    {
+        "code": "140711000119106",
+        "display": "History of hemorrhagic stroke with hemiplegia (situation)"
+    },
+    {
+        "code": "140701000119108",
+        "display": "History of hemorrhagic stroke with hemiparesis (situation)"
+    },
+    {
+        "code": "140491000119105",
+        "display": "History of transitional cell carcinoma of kidney (situation)"
+    },
+    {
+        "code": "140221000119109",
+        "display": "History of transient ischemic attack due to embolism (situation)"
+    },
+    {
+        "code": "139621000119101",
+        "display": "History of malignant ameloblastoma of mandible (situation)"
+    },
+    {
+        "code": "139611000119108",
+        "display": "History of malignant neoplasm of duodenum (situation)"
+    },
+    {
+        "code": "139461000119109",
+        "display": "History of osteoporotic fracture (situation)"
+    },
+    {
+        "code": "139281000119104",
+        "display": "History of malignant germ cell neoplasm of mediastinum (situation)"
+    },
+    {
+        "code": "139271000119102",
+        "display": "History of malignant germ cell neoplasm of testis (situation)"
+    },
+    {
+        "code": "138741000119107",
+        "display": "History of sebaceous adenoma (situation)"
+    },
+    {
+        "code": "138731000119103",
+        "display": "History of sebaceous carcinoma (situation)"
+    },
+    {
+        "code": "138381000119101",
+        "display": "History of acoustic neuroma (situation)"
+    },
+    {
+        "code": "138141000119108",
+        "display": "History of merkel cell carcinoma (situation)"
+    },
+    {
+        "code": "138091000119101",
+        "display": "History of prematurity (situation)"
+    },
+    {
+        "code": "137971000119104",
+        "display": "History of acute kidney injury (situation)"
+    },
+    {
+        "code": "137961000119105",
+        "display": "History of ureteral obstruction (situation)"
+    },
+    {
+        "code": "137871000119109",
+        "display": "History of Graves' disease (situation)"
+    },
+    {
+        "code": "137771000119101",
+        "display": "History of pathological hip fracture (situation)"
+    },
+    {
+        "code": "137761000119107",
+        "display": "History of fracture of hip due to traumatic event (situation)"
+    },
+    {
+        "code": "137751000119105",
+        "display": "History of pathological vertebral fracture (situation)"
+    },
+    {
+        "code": "137741000119108",
+        "display": "History of hip stress fracture (situation)"
+    },
+    {
+        "code": "137731000119104",
+        "display": "History of traumatic vertebral fracture (situation)"
+    },
+    {
+        "code": "137721000119102",
+        "display": "History of vertebral stress fracture (situation)"
+    },
+    {
+        "code": "137401000119102",
+        "display": "History of listeria meningitis (situation)"
+    },
+    {
+        "code": "136611000119100",
+        "display": "History of sepsis (situation)"
+    },
+    {
+        "code": "134481000119104",
+        "display": "History of being under immunized (situation)"
+    },
+    {
+        "code": "134461000119108",
+        "display": "History of neuroendocrine malignant neoplasm (situation)"
+    },
+    {
+        "code": "131471000119104",
+        "display": "History of cardiac arrhythmia (situation)"
+    },
+    {
+        "code": "131461000119105",
+        "display": "History of paroxysmal atrial tachycardia (situation)"
+    },
+    {
+        "code": "130591000119108",
+        "display": "History of endometrial hyperplasia (situation)"
+    },
+    {
+        "code": "128731000119101",
+        "display": "History of Guillain Barre syndrome (situation)"
+    },
+    {
+        "code": "128161000119105",
+        "display": "History of low birth weight status, less than 500 grams (situation)"
+    },
+    {
+        "code": "128131000119102",
+        "display": "History of low birth weight status, 2-2.5kg (situation)"
+    },
+    {
+        "code": "126731000119100",
+        "display": "History of cystic dilatation of duct of bulbourethral gland (situation)"
+    },
+    {
+        "code": "126151000119107",
+        "display": "History of bulimia nervosa (situation)"
+    },
+    {
+        "code": "126131000119101",
+        "display": "History of eating disorder (situation)"
+    },
+    {
+        "code": "125981000119105",
+        "display": "History of urethral parameatal cyst (situation)"
+    },
+    {
+        "code": "125961000119101",
+        "display": "History of urethrocutaneous fistula (situation)"
+    },
+    {
+        "code": "125791000119106",
+        "display": "History of prostatic cyst (situation)"
+    },
+    {
+        "code": "125781000119108",
+        "display": "History of febrile urinary tract infection (situation)"
+    },
+    {
+        "code": "125771000119105",
+        "display": "History of congenital adrenal hyperplasia (situation)"
+    },
+    {
+        "code": "125731000119107",
+        "display": "History of congenital absence of germinal epithelium of testes (situation)"
+    },
+    {
+        "code": "125711000119102",
+        "display": "History of hypospermatogenesis (situation)"
+    },
+    {
+        "code": "125701000119100",
+        "display": "History of urethral cyst (situation)"
+    },
+    {
+        "code": "124361000119101",
+        "display": "History of malignant neoplasm of fallopian tube (situation)"
+    },
+    {
+        "code": "123361000119104",
+        "display": "History of pathological fracture (situation)"
+    },
+    {
+        "code": "123351000119101",
+        "display": "History of stress fracture (situation)"
+    },
+    {
+        "code": "122571000119106",
+        "display": "History of malignant cutaneous T-cell lymphoma (situation)"
+    },
+    {
+        "code": "122421000119106",
+        "display": "History of benign neoplasm of larynx (situation)"
+    },
+    {
+        "code": "120481000119109",
+        "display": "History of multiple myeloma (situation)"
+    },
+    {
+        "code": "119981000119101",
+        "display": "History of bacterial infection (situation)"
+    },
+    {
+        "code": "118971000119107",
+        "display": "History of embolic stroke without deficits (situation)"
+    },
+    {
+        "code": "118961000119101",
+        "display": "History of hemorrhagic cerebrovascular accident without residual deficits (situation)"
+    },
+    {
+        "code": "118951000119103",
+        "display": "History of thrombotic stroke without residual deficits (situation)"
+    },
+    {
+        "code": "118501000119105",
+        "display": "History of drug-induced anaphylaxis (situation)"
+    },
+    {
+        "code": "118361000119100",
+        "display": "History of diverticulitis (situation)"
+    },
+    {
+        "code": "117881000119103",
+        "display": "History of sick sinus syndrome (situation)"
+    },
+    {
+        "code": "117871000119101",
+        "display": "History of heart block (situation)"
+    },
+    {
+        "code": "116351000119103",
+        "display": "History of lower extremity skin ulcer (situation)"
+    },
+    {
+        "code": "115561000119102",
+        "display": "History of malignant melanoma of eye (situation)"
+    },
+    {
+        "code": "115451000119100",
+        "display": "History of endophthalmitis (situation)"
+    },
+    {
+        "code": "112561000119108",
+        "display": "History of Crohns disease (situation)"
+    },
+    {
+        "code": "112101000119101",
+        "display": "History of meningioma (situation)"
+    },
+    {
+        "code": "112071000119105",
+        "display": "History of malignant neoplasm of anus (situation)"
+    },
+    {
+        "code": "112031000119107",
+        "display": "History of severe nausea and vomiting following administration of anesthetic agent (situation)"
+    },
+    {
+        "code": "108951000119100",
+        "display": "Past pregnancy history of preterm premature rupture of membranes (situation)"
+    },
+    {
+        "code": "108521000119103",
+        "display": "History of reticulosarcoma (situation)"
+    },
+    {
+        "code": "108281000119102",
+        "display": "History of congenital hypospadias (situation)"
+    },
+    {
+        "code": "107921000119107",
+        "display": "History of immune disorder (situation)"
+    },
+    {
+        "code": "106821000119101",
+        "display": "History of oligodendroglioma of brain (situation)"
+    },
+    {
+        "code": "105651000119100",
+        "display": "Past pregnancy history of pre-eclampsia (situation)"
+    },
+    {
+        "code": "103011000119106",
+        "display": "Coronary arteriosclerosis in patient with history of previous myocardial infarction (situation)"
+    },
+    {
+        "code": "102191000119109",
+        "display": "History of injury of globe of eye (situation)"
+    },
+    {
+        "code": "99051000119101",
+        "display": "History of lacunar cerebrovascular accident (situation)"
+    },
+    {
+        "code": "99021000119109",
+        "display": "History of undescended testes (situation)"
+    },
+    {
+        "code": "98241000119103",
+        "display": "History of partial adherence to treatment (situation)"
+    },
+    {
+        "code": "97681000119106",
+        "display": "History of hypercoagulable state (situation)"
+    },
+    {
+        "code": "97641000119101",
+        "display": "History of retinoblastoma (situation)"
+    },
+    {
+        "code": "97631000119105",
+        "display": "History of squamous cell carcinoma in situ (situation)"
+    },
+    {
+        "code": "97531000119106",
+        "display": "History of parietal cerebrovascular accident (situation)"
+    },
+    {
+        "code": "97131000119103",
+        "display": "History of open head injury (situation)"
+    },
+    {
+        "code": "97121000119101",
+        "display": "History of closed head injury (situation)"
+    },
+    {
+        "code": "94671000119102",
+        "display": "History of adult respiratory distress syndrome (situation)"
+    },
+    {
+        "code": "94001000119104",
+        "display": "History of typhoid (situation)"
+    },
+    {
+        "code": "93961000119100",
+        "display": "History of pneumococcal infection (situation)"
+    },
+    {
+        "code": "93931000119108",
+        "display": "History of Haemophilus influenzae type b infection (situation)"
+    },
+    {
+        "code": "93911000119103",
+        "display": "History of histoplasmosis (situation)"
+    },
+    {
+        "code": "93871000119101",
+        "display": "History of hepatitis C (situation)"
+    },
+    {
+        "code": "90171000119101",
+        "display": "History of nephrotic syndrome (situation)"
+    },
+    {
+        "code": "88851000119103",
+        "display": "History of malignant neoplasm of gum (situation)"
+    },
+    {
+        "code": "88831000119109",
+        "display": "History of cancer of floor of mouth (situation)"
+    },
+    {
+        "code": "88811000119104",
+        "display": "History of ductal carcinoma in situ of breast (situation)"
+    },
+    {
+        "code": "88801000119102",
+        "display": "History of malignant neoplasm of tonsil (situation)"
+    },
+    {
+        "code": "88701000119109",
+        "display": "History of disseminated malignant neoplasm (situation)"
+    },
+    {
+        "code": "88621000119107",
+        "display": "History of malignant neoplasm of retroperitoneum (situation)"
+    },
+    {
+        "code": "88611000119100",
+        "display": "History of traumatic brain injury (situation)"
+    },
+    {
+        "code": "88591000119105",
+        "display": "History of malignant neoplasm of peritoneum (situation)"
+    },
+    {
+        "code": "85931000119105",
+        "display": "History of tobacco use in remission less than 12 months (situation)"
+    },
+    {
+        "code": "85921000119107",
+        "display": "History of pancreatitis (situation)"
+    },
+    {
+        "code": "85881000119100",
+        "display": "History of non central nervous system primitive neuroectodermal tumor (situation)"
+    },
+    {
+        "code": "85851000119107",
+        "display": "History of malignant neoplasm of pharynx (situation)"
+    },
+    {
+        "code": "82991000119104",
+        "display": "History of negative cervical Papanicolaou smear performed within last 12 months (situation)"
+    },
+    {
+        "code": "80541000119104",
+        "display": "History of nutritional deficiency (situation)"
+    },
+    {
+        "code": "79081000119100",
+        "display": "History of acute myeloid leukemia (situation)"
+    },
+    {
+        "code": "73901000119107",
+        "display": "History of renal insufficiency (situation)"
+    },
+    {
+        "code": "73891000119108",
+        "display": "History of cancer of unknown primary site (situation)"
+    },
+    {
+        "code": "73881000119105",
+        "display": "History of rhabdomyosarcoma (situation)"
+    },
+    {
+        "code": "73861000119101",
+        "display": "History of medulloblastoma of brain (situation)"
+    },
+    {
+        "code": "73851000119103",
+        "display": "History of ependymoma of brain (situation)"
+    },
+    {
+        "code": "73841000119100",
+        "display": "History of glioma of brainstem (situation)"
+    },
+    {
+        "code": "73831000119109",
+        "display": "History of astrocytoma of brain (situation)"
+    },
+    {
+        "code": "73801000119102",
+        "display": "History of cancer of urethra (situation)"
+    },
+    {
+        "code": "73791000119103",
+        "display": "History of malignant neoplasm of common bile duct (situation)"
+    },
+    {
+        "code": "73781000119101",
+        "display": "History of malignant neoplasm of appendix (situation)"
+    },
+    {
+        "code": "73771000119104",
+        "display": "History of cancer of ampulla of duodenum (situation)"
+    },
+    {
+        "code": "73761000119105",
+        "display": "History of malignant neoplasm of pancreas (situation)"
+    },
+    {
+        "code": "73751000119108",
+        "display": "History of cancer of gall bladder (situation)"
+    },
+    {
+        "code": "73741000119106",
+        "display": "History of malignant neoplasm of salivary gland (situation)"
+    },
+    {
+        "code": "73731000119102",
+        "display": "History of malignant neoplasm of nasopharynx (situation)"
+    },
+    {
+        "code": "73721000119100",
+        "display": "History of malignant neoplasm of hypopharynx (situation)"
+    },
+    {
+        "code": "73711000119107",
+        "display": "History of cholangiocarcinoma (situation)"
+    },
+    {
+        "code": "70871000119100",
+        "display": "History of irritable bowel syndrome (situation)"
+    },
+    {
+        "code": "70861000119106",
+        "display": "History of gastroesophageal reflux disease (situation)"
+    },
+    {
+        "code": "70561000119109",
+        "display": "History of heartburn (situation)"
+    },
+    {
+        "code": "69551000119109",
+        "display": "History of squamous cell carcinoma (situation)"
+    },
+    {
+        "code": "69411000119107",
+        "display": "History of basal cell carcinoma of eyelid (situation)"
+    },
+    {
+        "code": "63581000119104",
+        "display": "History of chronic lymphocytic leukemia (situation)"
+    },
+    {
+        "code": "60681000119105",
+        "display": "History of spinal cord injury (situation)"
+    },
+    {
+        "code": "59851000119103",
+        "display": "History of hepatitis B conferring immunity (situation)"
+    },
+    {
+        "code": "59801000119102",
+        "display": "History of small vessel disease due to diabetes mellitus (situation)"
+    },
+    {
+        "code": "59741000119106",
+        "display": "History of visceral aneurysm (situation)"
+    },
+    {
+        "code": "59721000119100",
+        "display": "History of thoracoabdominal aortic aneurysm (situation)"
+    },
+    {
+        "code": "59711000119107",
+        "display": "History of pseudoaneurysm (situation)"
+    },
+    {
+        "code": "59701000119109",
+        "display": "History of portal hypertension (situation)"
+    },
+    {
+        "code": "59651000119104",
+        "display": "History of benign carcinoid neoplasm of gastrointestinal tract (situation)"
+    },
+    {
+        "code": "59641000119101",
+        "display": "History of tracheoesophageal fistula (situation)"
+    },
+    {
+        "code": "59601000119103",
+        "display": "History of germ cell tumor (situation)"
+    },
+    {
+        "code": "49341000119108",
+        "display": "History of thrombocytopenia (situation)"
+    },
+    {
+        "code": "49291000119105",
+        "display": "History of soft tissue sarcoma (situation)"
+    },
+    {
+        "code": "49241000119102",
+        "display": "History of prolactinoma (situation)"
+    },
+    {
+        "code": "49231000119106",
+        "display": "History of primary hyperparathyroidism (situation)"
+    },
+    {
+        "code": "49221000119108",
+        "display": "History of pheochromocytoma (situation)"
+    },
+    {
+        "code": "49201000119104",
+        "display": "History of neoplasm of pituitary gland (situation)"
+    },
+    {
+        "code": "49191000119102",
+        "display": "History of neutropenia (situation)"
+    },
+    {
+        "code": "49121000119104",
+        "display": "History of histiocytosis (situation)"
+    },
+    {
+        "code": "49111000119106",
+        "display": "History of hepatocellular carcinoma (situation)"
+    },
+    {
+        "code": "49101000119108",
+        "display": "History of hepatoblastoma (situation)"
+    },
+    {
+        "code": "49081000119101",
+        "display": "History of Cushing syndrome (situation)"
+    },
+    {
+        "code": "49071000119104",
+        "display": "History of pituitary dependent hypercortisolism (situation)"
+    },
+    {
+        "code": "48951000119104",
+        "display": "History of malignant neoplasm of meninges (situation)"
+    },
+    {
+        "code": "48901000119103",
+        "display": "History of invasive malignant neoplasm of breast (situation)"
+    },
+    {
+        "code": "48811000119106",
+        "display": "History of acromegaly (situation)"
+    },
+    {
+        "code": "43991000119102",
+        "display": "History of childhood obesity (situation)"
+    },
+    {
+        "code": "37251000119108",
+        "display": "History of low birth weight (situation)"
+    },
+    {
+        "code": "34441000087108",
+        "display": "History of sexual behavior with high risk of exposure to communicable disease (situation)"
+    },
+    {
+        "code": "32451000119107",
+        "display": "History of nervous system disorder (situation)"
+    },
+    {
+        "code": "32271000119102",
+        "display": "Past pregnancy history of delivery of macrosomal infant (situation)"
+    },
+    {
+        "code": "28271000087107",
+        "display": "History of attention deficit hyperactivity disorder (situation)"
+    },
+    {
+        "code": "17561000119102",
+        "display": "Single liveborn born in hospital by vaginal delivery (situation)"
+    },
+    {
+        "code": "15011000119104",
+        "display": "Past pregnancy history of pregnancy loss in non-pregnant woman (situation)"
+    },
+    {
+        "code": "12481000132103",
+        "display": "History of biological substance allergy (situation)"
+    },
+    {
+        "code": "7831000175106",
+        "display": "History of reaction to blood transfusion (situation)"
+    },
+    {
+        "code": "1881000119103",
+        "display": "History of plasmacytoma (situation)"
+    },
+    {
+        "code": "1361000119104",
+        "display": "History of actinic keratosis (situation)"
+    },
+    {
+        "code": "1351000119101",
+        "display": "History of atypical nevus (situation)"
+    },
+    {
+        "code": "1321000119109",
+        "display": "History of primary malignant neoplasm of larynx (situation)"
+    },
+    {
+        "code": "1311000119102",
+        "display": "History of primary malignant neoplasm of oropharynx (situation)"
+    },
+    {
+        "code": "1301000119100",
+        "display": "History of primary malignant neoplasm of testis (situation)"
+    },
+    {
+        "code": "1251000119106",
+        "display": "History of melanoma in situ of skin (situation)"
+    },
+    {
+        "code": "1201000119107",
+        "display": "History of urinary tract infection (situation)"
+    },
+    {
+        "code": "1141000161108",
+        "display": "History of alcohol withdrawal syndrome (situation)"
+    },
+    {
+        "code": "461000119108",
+        "display": "History of myocardial infarction in last eight weeks (situation)"
+    },
+    {
+        "code": "321000119108",
+        "display": "History of malignant melanoma of the skin (situation)"
+    },
+    {
+        "code": "1296524002",
+        "display": "History of nocturnal hypoglycemia due to diabetes mellitus (situation)"
+    },
+    {
+        "code": "1290882004",
+        "display": "History of seizure (situation)"
+    },
+    {
+        "code": "1290210007",
+        "display": "Past pregnancy history of multiple miscarriages (situation)"
+    },
+    {
+        "code": "1290209002",
+        "display": "Past pregnancy history of recurrent miscarriage (situation)"
+    },
+    {
+        "code": "1290171005",
+        "display": "Past pregnancy history of late neonatal death (situation)"
+    },
+    {
+        "code": "1290170006",
+        "display": "Past pregnancy history of early neonatal death (situation)"
+    },
+    {
+        "code": "1290167007",
+        "display": "Past pregnancy history of neonatal death (situation)"
+    },
+    {
+        "code": "1290143004",
+        "display": "Past pregnancy history of perinatal death (situation)"
+    },
+    {
+        "code": "1287652008",
+        "display": "History of metastatic malignant neoplasm (situation)"
+    },
+    {
+        "code": "1287041001",
+        "display": "History of acquired deformity of hip following removal of prosthesis (situation)"
+    },
+    {
+        "code": "1286880003",
+        "display": "History of malignant neoplasm of cecum and/or colon and/or rectum (situation)"
+    },
+    {
+        "code": "1260014004",
+        "display": "History of dental trauma (situation)"
+    },
+    {
+        "code": "1254976004",
+        "display": "History of substance dependency (situation)"
+    },
+    {
+        "code": "1237121007",
+        "display": "History of venous ulcer of lower limb (situation)"
+    },
+    {
+        "code": "1237120008",
+        "display": "History of venous ulcer of lower leg (situation)"
+    },
+    {
+        "code": "1208622001",
+        "display": "Past pregnancy history of short umbilical cord (situation)"
+    },
+    {
+        "code": "1204448006",
+        "display": "History of carcinoma of rectosigmoid junction (situation)"
+    },
+    {
+        "code": "1204447001",
+        "display": "History of carcinoma of stomach (situation)"
+    },
+    {
+        "code": "1204446005",
+        "display": "History of carcinoma of nasopharynx (situation)"
+    },
+    {
+        "code": "1204445009",
+        "display": "History of carcinoma of lip (situation)"
+    },
+    {
+        "code": "1204366000",
+        "display": "History of carcinoma of duodenum (situation)"
+    },
+    {
+        "code": "1204365001",
+        "display": "History of carcinoma of pancreas (situation)"
+    },
+    {
+        "code": "1187613000",
+        "display": "History of resigning commission in military service (situation)"
+    },
+    {
+        "code": "1187612005",
+        "display": "History of failing military service training (situation)"
+    },
+    {
+        "code": "1187610002",
+        "display": "History of leaving military service (situation)"
+    },
+    {
+        "code": "1187609007",
+        "display": "History of medical discharge from military service (situation)"
+    },
+    {
+        "code": "1187608004",
+        "display": "History of dishonorable discharge from military service (situation)"
+    },
+    {
+        "code": "1187607009",
+        "display": "History of desertion from military service (situation)"
+    },
+    {
+        "code": "1187606000",
+        "display": "History of military service during peacetime (situation)"
+    },
+    {
+        "code": "1187605001",
+        "display": "History of exposure to combat during military service (situation)"
+    },
+    {
+        "code": "1187601005",
+        "display": "History of military deployment (situation)"
+    },
+    {
+        "code": "1187600006",
+        "display": "History of serving in military service (situation)"
+    },
+    {
+        "code": "1186911009",
+        "display": "History of carcinoma of tongue (situation)"
+    },
+    {
+        "code": "1156101005",
+        "display": "Past pregnancy history of pregnancy with normal glucose tolerance test (situation)"
+    },
+    {
+        "code": "1156099003",
+        "display": "Past pregnancy history of pregnancy with abnormal glucose tolerance test (situation)"
+    },
+    {
+        "code": "1156098006",
+        "display": "Past pregnancy history of Rhesus isoimmunization affecting pregnancy (situation)"
+    },
+    {
+        "code": "1156097001",
+        "display": "Past pregnancy history of complication of puerperium (situation)"
+    },
+    {
+        "code": "1156096005",
+        "display": "Past pregnancy history of complication occurring during labor and delivery (situation)"
+    },
+    {
+        "code": "1003774007",
+        "display": "No known Hevea brasiliensis latex allergy (situation)"
+    },
+    {
+        "code": "895701003",
+        "display": "History of disorder of eye region (situation)"
+    },
+    {
+        "code": "895699003",
+        "display": "History of disorder of eye proper (situation)"
+    },
+    {
+        "code": "816150000",
+        "display": "Past pregnancy history of shoulder dystocia (situation)"
+    },
+    {
+        "code": "789776003",
+        "display": "Past pregnancy history of placental abruption (situation)"
+    },
+    {
+        "code": "789775004",
+        "display": "History of influenza (situation)"
+    },
+    {
+        "code": "789642001",
+        "display": "History of stenosis of carotid artery (situation)"
+    },
+    {
+        "code": "789544005",
+        "display": "History of peripheral ischemia (situation)"
+    },
+    {
+        "code": "789475003",
+        "display": "History of aneurysm of peripheral artery (situation)"
+    },
+    {
+        "code": "789474004",
+        "display": "History of aneurysm of artery of trunk (situation)"
+    },
+    {
+        "code": "789395008",
+        "display": "History of primary cutaneous lymphoma (situation)"
+    },
+    {
+        "code": "789064006",
+        "display": "History of pain at rest due to peripheral vascular disease (situation)"
+    },
+    {
+        "code": "783680006",
+        "display": "History of uterine laceration (situation)"
+    },
+    {
+        "code": "772995006",
+        "display": "History of sleeping out (situation)"
+    },
+    {
+        "code": "772993004",
+        "display": "History of being in foster care (situation)"
+    },
+    {
+        "code": "771412001",
+        "display": "History of pelvic inflammatory disease (situation)"
+    },
+    {
+        "code": "766035009",
+        "display": "History of difficult venous access (situation)"
+    },
+    {
+        "code": "765378003",
+        "display": "History of primary malignant neoplasm of skin (situation)"
+    },
+    {
+        "code": "763017007",
+        "display": "History of female infertility due to tubal factor (situation)"
+    },
+    {
+        "code": "763016003",
+        "display": "History of infertility due to endometriosis (situation)"
+    },
+    {
+        "code": "762616007",
+        "display": "History of food allergy (situation)"
+    },
+    {
+        "code": "762615006",
+        "display": "History of food hypersensitivity (situation)"
+    },
+    {
+        "code": "736726000",
+        "display": "History of disorder of digestive system (situation)"
+    },
+    {
+        "code": "736725001",
+        "display": "Past pregnancy history of gestational trophoblastic disease (situation)"
+    },
+    {
+        "code": "735934008",
+        "display": "History of poor personal hygiene (situation)"
+    },
+    {
+        "code": "733899004",
+        "display": "Past pregnancy history of fetal growth restriction (situation)"
+    },
+    {
+        "code": "726625000",
+        "display": "Past pregnancy history of first degree perineal laceration (situation)"
+    },
+    {
+        "code": "726624001",
+        "display": "Past pregnancy history of previous delivery by vacuum extraction (situation)"
+    },
+    {
+        "code": "726623007",
+        "display": "Past pregnancy history of postpartum psychosis (situation)"
+    },
+    {
+        "code": "726597008",
+        "display": "Past pregnancy history of spontaneous onset of labor (situation)"
+    },
+    {
+        "code": "726596004",
+        "display": "History of uterine inversion (situation)"
+    },
+    {
+        "code": "726565008",
+        "display": "Past pregnancy history of small for gestational age baby (situation)"
+    },
+    {
+        "code": "726513006",
+        "display": "Past pregnancy history of hemolysis-elevated liver enzymes-low platelet count syndrome (situation)"
+    },
+    {
+        "code": "726001007",
+        "display": "Past pregnancy history of live birth (situation)"
+    },
+    {
+        "code": "725954003",
+        "display": "Past pregnancy history of induced onset of labor (situation)"
+    },
+    {
+        "code": "725951006",
+        "display": "Past pregnancy history of emergency cesarean section (situation)"
+    },
+    {
+        "code": "725950007",
+        "display": "Past pregnancy history of placenta accreta (situation)"
+    },
+    {
+        "code": "725949007",
+        "display": "Past pregnancy history of elective cesarean section (situation)"
+    },
+    {
+        "code": "725948004",
+        "display": "Past pregnancy history of retained placenta (situation)"
+    },
+    {
+        "code": "725944002",
+        "display": "Past pregnancy history of episiotomy (situation)"
+    },
+    {
+        "code": "725943008",
+        "display": "Past pregnancy history of second degree perineal laceration (situation)"
+    },
+    {
+        "code": "725942003",
+        "display": "Past pregnancy history of fourth degree perineal laceration (situation)"
+    },
+    {
+        "code": "725941005",
+        "display": "Past pregnancy history of third degree perineal laceration (situation)"
+    },
+    {
+        "code": "725924008",
+        "display": "Past pregnancy history of placenta previa (situation)"
+    },
+    {
+        "code": "720810005",
+        "display": "History of dissection of external carotid artery (situation)"
+    },
+    {
+        "code": "720729008",
+        "display": "History of dissection of internal carotid artery (situation)"
+    },
+    {
+        "code": "719594003",
+        "display": "Past pregnancy history of defibulation of vulva to facilitate delivery (situation)"
+    },
+    {
+        "code": "717808006",
+        "display": "Multiple liveborn other than twins born outside hospital (situation)"
+    },
+    {
+        "code": "717807001",
+        "display": "Multiple liveborn other than twins born in hospital (situation)"
+    },
+    {
+        "code": "717806005",
+        "display": "Twin liveborn born outside hospital (situation)"
+    },
+    {
+        "code": "717805009",
+        "display": "Singleton liveborn unspecified as to place of birth (situation)"
+    },
+    {
+        "code": "717804008",
+        "display": "Singleton liveborn born outside hospital (situation)"
+    },
+    {
+        "code": "717803002",
+        "display": "Singleton liveborn born in hospital (situation)"
+    },
+    {
+        "code": "716220001",
+        "display": "No known animal allergy (situation)"
+    },
+    {
+        "code": "716186003",
+        "display": "No known allergy (situation)"
+    },
+    {
+        "code": "715477006",
+        "display": "History of female genital mutilation (situation)"
+    },
+    {
+        "code": "715200006",
+        "display": "History of novel psychoactive substance misuse (situation)"
+    },
+    {
+        "code": "713651007",
+        "display": "Past pregnancy history of pregnancy with abortive outcome (situation)"
+    },
+    {
+        "code": "713649008",
+        "display": "Past pregnancy history of induced termination of pregnancy (situation)"
+    },
+    {
+        "code": "713031009",
+        "display": "History of chronic dissection of thoracic aorta (situation)"
+    },
+    {
+        "code": "709881001",
+        "display": "Past pregnancy history of gestational hypertension (situation)"
+    },
+    {
+        "code": "709313000",
+        "display": "History of methicillin resistant Staphylococcus aureus infection (situation)"
+    },
+    {
+        "code": "709046002",
+        "display": "History of congenital vascular malformation (situation)"
+    },
+    {
+        "code": "705002000",
+        "display": "Repeated self-induced vomiting (situation)"
+    },
+    {
+        "code": "704007002",
+        "display": "No history of sexually transmitted infectious disease (situation)"
+    },
+    {
+        "code": "704006006",
+        "display": "No history of cutaneous cellulitis (situation)"
+    },
+    {
+        "code": "703154009",
+        "display": "Patient reports no current disability (situation)"
+    },
+    {
+        "code": "700363003",
+        "display": "No history of malignant neoplastic disease (situation)"
+    },
+    {
+        "code": "700239008",
+        "display": "History of malignant neoplasm of renal pelvis (situation)"
+    },
+    {
+        "code": "700236001",
+        "display": "History of pleural effusion (situation)"
+    },
+    {
+        "code": "700146008",
+        "display": "No history of malignant neoplasm of breast (situation)"
+    },
+    {
+        "code": "700145007",
+        "display": "No history of ectopic pregnancy (situation)"
+    },
+    {
+        "code": "700144006",
+        "display": "No history of ovarian cyst (situation)"
+    },
+    {
+        "code": "700143000",
+        "display": "No history of depression (situation)"
+    },
+    {
+        "code": "699429007",
+        "display": "History of cerebrovascular accident in last eight weeks (situation)"
+    },
+    {
+        "code": "699032000",
+        "display": "History of awareness under general anesthesia (situation)"
+    },
+    {
+        "code": "699029003",
+        "display": "History of primitive neuroectodermal tumor (situation)"
+    },
+    {
+        "code": "699015004",
+        "display": "History of recurrent pneumonia (situation)"
+    },
+    {
+        "code": "699010009",
+        "display": "History of inhalant intoxication (situation)"
+    },
+    {
+        "code": "699005005",
+        "display": "History of malignant hematologic neoplasm (situation)"
+    },
+    {
+        "code": "698811001",
+        "display": "Recent rupture of posterior cruciate ligament (situation)"
+    },
+    {
+        "code": "698593009",
+        "display": "History of non-ST segment elevation myocardial infarction (situation)"
+    },
+    {
+        "code": "698298001",
+        "display": "History of malignant neoplasm of adrenal gland (situation)"
+    },
+    {
+        "code": "697994009",
+        "display": "Past pregnancy history of induced termination of pregnancy under unsafe conditions (situation)"
+    },
+    {
+        "code": "609550002",
+        "display": "History of angiotensin converting enzyme inhibitor pseudoallergy (situation)"
+    },
+    {
+        "code": "608844008",
+        "display": "History of inflammatory bowel disease (situation)"
+    },
+    {
+        "code": "608837004",
+        "display": "History of migraine with aura (situation)"
+    },
+    {
+        "code": "473442002",
+        "display": "History of osteopenia (situation)"
+    },
+    {
+        "code": "473390005",
+        "display": "History of attempted weight loss (situation)"
+    },
+    {
+        "code": "473389001",
+        "display": "Born in ambulance (situation)"
+    },
+    {
+        "code": "473388009",
+        "display": "Born at home (situation)"
+    },
+    {
+        "code": "473387004",
+        "display": "Never used contraception (situation)"
+    },
+    {
+        "code": "473386008",
+        "display": "Never used condom (situation)"
+    },
+    {
+        "code": "473342003",
+        "display": "History of osteoporosis resolved (situation)"
+    },
+    {
+        "code": "473337006",
+        "display": "History of osteopenia resolved (situation)"
+    },
+    {
+        "code": "473137000",
+        "display": "Disability absent (situation)"
+    },
+    {
+        "code": "473123009",
+        "display": "History of bronchiolitis (situation)"
+    },
+    {
+        "code": "473122004",
+        "display": "History of palpitations (situation)"
+    },
+    {
+        "code": "473120007",
+        "display": "History of osteoporosis (situation)"
+    },
+    {
+        "code": "473118009",
+        "display": "History of ventricular septal defect (situation)"
+    },
+    {
+        "code": "473117004",
+        "display": "History of viral hepatitis (situation)"
+    },
+    {
+        "code": "473116008",
+        "display": "History of recurrent urinary tract infection (situation)"
+    },
+    {
+        "code": "473114006",
+        "display": "History of active tuberculosis (situation)"
+    },
+    {
+        "code": "473113000",
+        "display": "History of polymyalgia rheumatica (situation)"
+    },
+    {
+        "code": "473111003",
+        "display": "History of microalbuminuria (situation)"
+    },
+    {
+        "code": "473110002",
+        "display": "History of proteinuria (situation)"
+    },
+    {
+        "code": "473109007",
+        "display": "History of peripheral vascular disease (situation)"
+    },
+    {
+        "code": "473108004",
+        "display": "History of osteomyelitis (situation)"
+    },
+    {
+        "code": "473107009",
+        "display": "History of difficult fitting of intrauterine contraceptive device (situation)"
+    },
+    {
+        "code": "473103008",
+        "display": "History of use of postcoital contraception (situation)"
+    },
+    {
+        "code": "473102003",
+        "display": "History of use of progestogen only oral contraceptive (situation)"
+    },
+    {
+        "code": "473099003",
+        "display": "History of use of hormone releasing intrauterine device contraception (situation)"
+    },
+    {
+        "code": "473097001",
+        "display": "History of use of withdrawal method of contraception (situation)"
+    },
+    {
+        "code": "473096005",
+        "display": "History of use of symptothermal method of contraception (situation)"
+    },
+    {
+        "code": "473093002",
+        "display": "History of use of depot contraception (situation)"
+    },
+    {
+        "code": "473074004",
+        "display": "No history of dizziness (situation)"
+    },
+    {
+        "code": "473073005",
+        "display": "No history of hearing loss (situation)"
+    },
+    {
+        "code": "473068004",
+        "display": "History of Hodgkin lymphoma (situation)"
+    },
+    {
+        "code": "473067009",
+        "display": "History of malignant neoplasm of liver (situation)"
+    },
+    {
+        "code": "473066000",
+        "display": "History of malignant neoplasm of testis (situation)"
+    },
+    {
+        "code": "473064002",
+        "display": "History of malignant neoplasm of larynx (situation)"
+    },
+    {
+        "code": "473063008",
+        "display": "History of malignant neoplasm of oral cavity (situation)"
+    },
+    {
+        "code": "473062003",
+        "display": "History of recurrent malignant neoplasm of breast (situation)"
+    },
+    {
+        "code": "473061005",
+        "display": "History of malignant neoplasm of stomach (situation)"
+    },
+    {
+        "code": "473059001",
+        "display": "History of malignant neoplasm of brain (situation)"
+    },
+    {
+        "code": "473058009",
+        "display": "History of lymphoid leukemia (situation)"
+    },
+    {
+        "code": "473057004",
+        "display": "History of noncompliance with medication regimen (situation)"
+    },
+    {
+        "code": "472975008",
+        "display": "History of arteritis (situation)"
+    },
+    {
+        "code": "472974007",
+        "display": "History of vasculitis (situation)"
+    },
+    {
+        "code": "472973001",
+        "display": "History of immunodeficiency disorder (situation)"
+    },
+    {
+        "code": "472972006",
+        "display": "History of maturity onset diabetes mellitus in young (situation)"
+    },
+    {
+        "code": "472971004",
+        "display": "Past pregnancy history of gestational diabetes mellitus (situation)"
+    },
+    {
+        "code": "472970003",
+        "display": "History of diabetes mellitus type 1 (situation)"
+    },
+    {
+        "code": "472969004",
+        "display": "History of diabetes mellitus type 2 (situation)"
+    },
+    {
+        "code": "472968007",
+        "display": "History of autoimmune disorder of endocrine system (situation)"
+    },
+    {
+        "code": "472967002",
+        "display": "History of dysplasia of cervix (situation)"
+    },
+    {
+        "code": "472966006",
+        "display": "History of cellulitis of skin (situation)"
+    },
+    {
+        "code": "472962008",
+        "display": "History of cellulitis (situation)"
+    },
+    {
+        "code": "472961001",
+        "display": "History of disorder of connective tissue (situation)"
+    },
+    {
+        "code": "472960000",
+        "display": "History of hypotension (situation)"
+    },
+    {
+        "code": "472959005",
+        "display": "History of acute lower respiratory tract infection (situation)"
+    },
+    {
+        "code": "472958002",
+        "display": "History of tonsillitis (situation)"
+    },
+    {
+        "code": "472957007",
+        "display": "History of pain of multiple joints (situation)"
+    },
+    {
+        "code": "472956003",
+        "display": "History of disorder of soft tissue (situation)"
+    },
+    {
+        "code": "472955004",
+        "display": "History of hearing loss (situation)"
+    },
+    {
+        "code": "472954000",
+        "display": "History of chlamydial infection (situation)"
+    },
+    {
+        "code": "472953006",
+        "display": "History of chronic renal impairment (situation)"
+    },
+    {
+        "code": "445585003",
+        "display": "Livebirth born before admission to hospital (situation)"
+    },
+    {
+        "code": "445087001",
+        "display": "Born before arrival to hospital (situation)"
+    },
+    {
+        "code": "444966004",
+        "display": "Born before arrival of midwife (situation)"
+    },
+    {
+        "code": "443895001",
+        "display": "History of malignant neoplasm of skin excluding melanoma (situation)"
+    },
+    {
+        "code": "442423001",
+        "display": "Single liveborn born in hospital by cesarean section (situation)"
+    },
+    {
+        "code": "442414004",
+        "display": "History of neurodevelopmental disorder (situation)"
+    },
+    {
+        "code": "442365008",
+        "display": "Liveborn born in hospital by cesarean section (situation)"
+    },
+    {
+        "code": "442342003",
+        "display": "Twin liveborn born in hospital by cesarean section (situation)"
+    },
+    {
+        "code": "442327001",
+        "display": "Twin liveborn born in hospital (situation)"
+    },
+    {
+        "code": "442311008",
+        "display": "Liveborn born in hospital (situation)"
+    },
+    {
+        "code": "441882000",
+        "display": "History of thrombophilia (situation)"
+    },
+    {
+        "code": "441638006",
+        "display": "History of Diamond-Blackfan anemia (situation)"
+    },
+    {
+        "code": "441586006",
+        "display": "History of Fanconi anemia (situation)"
+    },
+    {
+        "code": "441576005",
+        "display": "History of infectious disease of central nervous system (situation)"
+    },
+    {
+        "code": "441547007",
+        "display": "History of chronic urinary tract infection (situation)"
+    },
+    {
+        "code": "441511006",
+        "display": "History of immune thrombocytopenia (situation)"
+    },
+    {
+        "code": "441494002",
+        "display": "History of splenomegaly (situation)"
+    },
+    {
+        "code": "441493008",
+        "display": "Past pregnancy history of premature labor (situation)"
+    },
+    {
+        "code": "441484007",
+        "display": "History of craniopharyngioma (situation)"
+    },
+    {
+        "code": "441482006",
+        "display": "History of sickle cell anemia (situation)"
+    },
+    {
+        "code": "440706004",
+        "display": "Full renal function recovered (situation)"
+    },
+    {
+        "code": "440700005",
+        "display": "History of aortoiliac atherosclerosis (situation)"
+    },
+    {
+        "code": "440234007",
+        "display": "History of violent behavior toward others (situation)"
+    },
+    {
+        "code": "440140008",
+        "display": "History of cerebrovascular accident with residual deficit (situation)"
+    },
+    {
+        "code": "439956007",
+        "display": "History of abnormal cervical Papanicolaou smear (situation)"
+    },
+    {
+        "code": "439720003",
+        "display": "Has never shared drug injection equipment (situation)"
+    },
+    {
+        "code": "439627005",
+        "display": "History of threatening violent behavior toward others (situation)"
+    },
+    {
+        "code": "439589003",
+        "display": "History of peritonsillar abscess (situation)"
+    },
+    {
+        "code": "439142009",
+        "display": "History of recurrent tonsillitis (situation)"
+    },
+    {
+        "code": "439124004",
+        "display": "History of deliberate self neglect (situation)"
+    },
+    {
+        "code": "438760008",
+        "display": "No history of eclampsia (situation)"
+    },
+    {
+        "code": "434193002",
+        "display": "History of malignant neoplasm of neck (situation)"
+    },
+    {
+        "code": "433874008",
+        "display": "History of diabetic peripheral angiopathy (situation)"
+    },
+    {
+        "code": "433845004",
+        "display": "History of aneurysm of iliac artery (situation)"
+    },
+    {
+        "code": "433807000",
+        "display": "History of occlusion of cerebral artery without cerebral infarction (situation)"
+    },
+    {
+        "code": "433161004",
+        "display": "Recent injury of posterior cruciate ligament (situation)"
+    },
+    {
+        "code": "432745001",
+        "display": "History of neuroblastoma (situation)"
+    },
+    {
+        "code": "432327003",
+        "display": "History of malignant neoplasm of spinal cord (situation)"
+    },
+    {
+        "code": "432250006",
+        "display": "History of aneurysm (situation)"
+    },
+    {
+        "code": "432220003",
+        "display": "History of infarction of spinal cord (situation)"
+    },
+    {
+        "code": "432218001",
+        "display": "History of asymptomatic human immunodeficiency virus infection (situation)"
+    },
+    {
+        "code": "432160005",
+        "display": "History of occlusion of central retinal artery (situation)"
+    },
+    {
+        "code": "432007009",
+        "display": "History of malignant mesothelioma of pleura (situation)"
+    },
+    {
+        "code": "432006000",
+        "display": "History of occlusion of central retinal vein (situation)"
+    },
+    {
+        "code": "431691000",
+        "display": "History of malignant neoplasm of nervous system (situation)"
+    },
+    {
+        "code": "431573004",
+        "display": "History of malignant neoplasm of head and/or neck (situation)"
+    },
+    {
+        "code": "431572009",
+        "display": "History of malignant neoplasm of endocrine gland (situation)"
+    },
+    {
+        "code": "431545001",
+        "display": "History of peripheral arterial occlusive disease (situation)"
+    },
+    {
+        "code": "431310008",
+        "display": "History of occlusion of cerebral artery (situation)"
+    },
+    {
+        "code": "430545008",
+        "display": "History of claudication (situation)"
+    },
+    {
+        "code": "430305000",
+        "display": "History of occlusive disease of artery of upper extremity (situation)"
+    },
+    {
+        "code": "430301009",
+        "display": "History of occlusive disease of artery of lower extremity (situation)"
+    },
+    {
+        "code": "430168009",
+        "display": "History of stable aneurysm of abdominal aorta (situation)"
+    },
+    {
+        "code": "430080003",
+        "display": "History of thrombophlebitis (situation)"
+    },
+    {
+        "code": "429993008",
+        "display": "History of cerebrovascular accident without residual deficits (situation)"
+    },
+    {
+        "code": "429721005",
+        "display": "History of hepatitis B (situation)"
+    },
+    {
+        "code": "429716007",
+        "display": "History of recurrent dislocation of hip joint prosthesis (situation)"
+    },
+    {
+        "code": "429699009",
+        "display": "History of malignant neoplasm of colon (situation)"
+    },
+    {
+        "code": "429635001",
+        "display": "History of malignant neoplasm of vulva (situation)"
+    },
+    {
+        "code": "429625007",
+        "display": "No known food allergy (situation)"
+    },
+    {
+        "code": "429484003",
+        "display": "History of malignant neoplasm of cervix (situation)"
+    },
+    {
+        "code": "429444007",
+        "display": "History of malignant neoplasm of ureter (situation)"
+    },
+    {
+        "code": "429423007",
+        "display": "History of Lyme disease (situation)"
+    },
+    {
+        "code": "429410000",
+        "display": "History of malignant neoplasm of esophagus (situation)"
+    },
+    {
+        "code": "429409005",
+        "display": "History of malignant neoplasm of tongue (situation)"
+    },
+    {
+        "code": "429406003",
+        "display": "History of aldosteronism (situation)"
+    },
+    {
+        "code": "429357003",
+        "display": "History of malignant neoplasm of epididymis (situation)"
+    },
+    {
+        "code": "429355006",
+        "display": "History of malignant neoplasm of pleura (situation)"
+    },
+    {
+        "code": "429286003",
+        "display": "History of combination internal cardiac defibrillator and pacemaker (situation)"
+    },
+    {
+        "code": "429258006",
+        "display": "History of aspirin exacerbated respiratory disease (situation)"
+    },
+    {
+        "code": "429255009",
+        "display": "History of papillary adenocarcinoma of thyroid (situation)"
+    },
+    {
+        "code": "429254008",
+        "display": "History of malignant neoplasm of thyroid (situation)"
+    },
+    {
+        "code": "429247002",
+        "display": "History of malignant neoplasm of bone (situation)"
+    },
+    {
+        "code": "429235008",
+        "display": "History of cardioembolic stroke (situation)"
+    },
+    {
+        "code": "429226001",
+        "display": "History of non-small cell malignant neoplasm of lung (situation)"
+    },
+    {
+        "code": "429217004",
+        "display": "History of autoimmune hemolytic anemia (situation)"
+    },
+    {
+        "code": "429208004",
+        "display": "History of aplastic anemia (situation)"
+    },
+    {
+        "code": "429144004",
+        "display": "History of malignant mesothelioma (situation)"
+    },
+    {
+        "code": "429125006",
+        "display": "History of lymphadenopathy (situation)"
+    },
+    {
+        "code": "429124005",
+        "display": "History of mood disorder (situation)"
+    },
+    {
+        "code": "429105007",
+        "display": "History of nephroblastoma (situation)"
+    },
+    {
+        "code": "429090009",
+        "display": "History of malignant neoplasm of ovary (situation)"
+    },
+    {
+        "code": "429089000",
+        "display": "History of malignant neoplasm of endometrium (situation)"
+    },
+    {
+        "code": "429087003",
+        "display": "History of malignant neoplasm of breast (situation)"
+    },
+    {
+        "code": "429084005",
+        "display": "History of malignant neoplasm of rectum (situation)"
+    },
+    {
+        "code": "429050006",
+        "display": "History of malignant neoplasm of skin (situation)"
+    },
+    {
+        "code": "429047008",
+        "display": "History of adenomatous polyp of colon (situation)"
+    },
+    {
+        "code": "429046004",
+        "display": "History of sustained ventricular tachycardia (situation)"
+    },
+    {
+        "code": "429032004",
+        "display": "History of vesicoureteric reflux (situation)"
+    },
+    {
+        "code": "429031006",
+        "display": "History of male erectile disorder (situation)"
+    },
+    {
+        "code": "429025008",
+        "display": "History of calculus of kidney (situation)"
+    },
+    {
+        "code": "429024007",
+        "display": "History of squamous cell carcinoma of skin (situation)"
+    },
+    {
+        "code": "429023001",
+        "display": "History of Ewings sarcoma (situation)"
+    },
+    {
+        "code": "429016002",
+        "display": "History of medullary carcinoma of thyroid (situation)"
+    },
+    {
+        "code": "429014004",
+        "display": "History of malignant lymphoma (situation)"
+    },
+    {
+        "code": "429010008",
+        "display": "History of epidural hematoma (situation)"
+    },
+    {
+        "code": "429007001",
+        "display": "History of cardiac arrest (situation)"
+    },
+    {
+        "code": "428984001",
+        "display": "History of tear of retina (situation)"
+    },
+    {
+        "code": "428978004",
+        "display": "Past pregnancy history of choriocarcinoma of placenta (situation)"
+    },
+    {
+        "code": "428951001",
+        "display": "History of hemorrhage into ventricle of brain (situation)"
+    },
+    {
+        "code": "428944005",
+        "display": "History of malignant neoplasm of uterine adnexa (situation)"
+    },
+    {
+        "code": "428941002",
+        "display": "History of malignant neoplasm of uterine body (situation)"
+    },
+    {
+        "code": "428934008",
+        "display": "History of inactive tuberculosis (situation)"
+    },
+    {
+        "code": "428904003",
+        "display": "History of thromboembolism of vein (situation)"
+    },
+    {
+        "code": "428900007",
+        "display": "History of headache after dural puncture (situation)"
+    },
+    {
+        "code": "428880006",
+        "display": "History of malignant neoplasm of penis (situation)"
+    },
+    {
+        "code": "428878000",
+        "display": "History of malignant neoplasm of thoracic cavity structure (situation)"
+    },
+    {
+        "code": "428863007",
+        "display": "History of vitreous floater (situation)"
+    },
+    {
+        "code": "428833003",
+        "display": "History of malignant neoplasm of small intestine (situation)"
+    },
+    {
+        "code": "428752002",
+        "display": "Recent myocardial infarction (situation)"
+    },
+    {
+        "code": "428608003",
+        "display": "History of positive Toxoplasma gondii antibody (situation)"
+    },
+    {
+        "code": "428607008",
+        "display": "No known environmental allergy (situation)"
+    },
+    {
+        "code": "428448003",
+        "display": "History of atopy (situation)"
+    },
+    {
+        "code": "428340006",
+        "display": "History of sustained ventricular fibrillation (situation)"
+    },
+    {
+        "code": "428323002",
+        "display": "History of benign neoplasm of brain (situation)"
+    },
+    {
+        "code": "428309004",
+        "display": "History of RhD negative (situation)"
+    },
+    {
+        "code": "428292004",
+        "display": "History of Kaposi's sarcoma (situation)"
+    },
+    {
+        "code": "428287001",
+        "display": "History of endocarditis (situation)"
+    },
+    {
+        "code": "428283002",
+        "display": "History of polyp of colon (situation)"
+    },
+    {
+        "code": "428275008",
+        "display": "History of subdural hematoma (situation)"
+    },
+    {
+        "code": "428267002",
+        "display": "History of cerebral hemorrhage (situation)"
+    },
+    {
+        "code": "428262008",
+        "display": "History of malignant neoplasm of prostate (situation)"
+    },
+    {
+        "code": "428197003",
+        "display": "No known insect allergy (situation)"
+    },
+    {
+        "code": "428117004",
+        "display": "History of malignant neoplasm of mediastinum (situation)"
+    },
+    {
+        "code": "428076002",
+        "display": "History of atrial flutter (situation)"
+    },
+    {
+        "code": "428064002",
+        "display": "History of follicular adenocarcinoma of thyroid (situation)"
+    },
+    {
+        "code": "428053000",
+        "display": "History of malignant basal cell neoplasm of skin (situation)"
+    },
+    {
+        "code": "428052005",
+        "display": "History of osteosarcoma (situation)"
+    },
+    {
+        "code": "428046009",
+        "display": "History of non-Hodgkins lymphoma (situation)"
+    },
+    {
+        "code": "428030001",
+        "display": "History of hepatitis A (situation)"
+    },
+    {
+        "code": "427958009",
+        "display": "History of difficult intubation (situation)"
+    },
+    {
+        "code": "427956008",
+        "display": "History of normal menopause (situation)"
+    },
+    {
+        "code": "427920005",
+        "display": "History of monocytic leukemia (situation)"
+    },
+    {
+        "code": "427918007",
+        "display": "History of malignant neoplasm of thymus (situation)"
+    },
+    {
+        "code": "427902001",
+        "display": "History of branch retinal vein occlusion (situation)"
+    },
+    {
+        "code": "427846005",
+        "display": "History of B-cell lymphoma (situation)"
+    },
+    {
+        "code": "427844008",
+        "display": "History of malignant neoplasm of vagina (situation)"
+    },
+    {
+        "code": "427836008",
+        "display": "History of otitis media (situation)"
+    },
+    {
+        "code": "427762006",
+        "display": "History of iron deficiency (situation)"
+    },
+    {
+        "code": "427040000",
+        "display": "History of testicular disorder (situation)"
+    },
+    {
+        "code": "425978000",
+        "display": "History of headache (situation)"
+    },
+    {
+        "code": "421711004",
+        "display": "History of pressure injury (situation)"
+    },
+    {
+        "code": "420697001",
+        "display": "History of skin ulcer (situation)"
+    },
+    {
+        "code": "420209000",
+        "display": "History of contraceptive usage (situation)"
+    },
+    {
+        "code": "415087005",
+        "display": "Personal history of primary malignant neoplasm of urinary system (situation)"
+    },
+    {
+        "code": "415086001",
+        "display": "Personal history of primary malignant neoplasm of urinary bladder (situation)"
+    },
+    {
+        "code": "415085002",
+        "display": "Personal history of primary malignant neoplasm of trachea (situation)"
+    },
+    {
+        "code": "415083009",
+        "display": "Personal history of primary malignant neoplasm of male genital organ (situation)"
+    },
+    {
+        "code": "415082004",
+        "display": "Personal history of primary malignant neoplasm of lung (situation)"
+    },
+    {
+        "code": "415081006",
+        "display": "Personal history of primary malignant neoplasm of kidney (situation)"
+    },
+    {
+        "code": "415080007",
+        "display": "Personal history of primary malignant neoplasm of gastrointestinal tract (situation)"
+    },
+    {
+        "code": "415079009",
+        "display": "Personal history of primary malignant neoplasm of female genital organ (situation)"
+    },
+    {
+        "code": "415078001",
+        "display": "Personal history of primary malignant neoplasm of ear, nose AND/OR throat (situation)"
+    },
+    {
+        "code": "415077006",
+        "display": "Personal history of primary malignant neoplasm of bronchus (situation)"
+    },
+    {
+        "code": "415076002",
+        "display": "Personal history of primary malignant neoplasm of breast (situation)"
+    },
+    {
+        "code": "414417004",
+        "display": "History of renal failure (situation)"
+    },
+    {
+        "code": "414416008",
+        "display": "History of hypercholesterolemia (situation)"
+    },
+    {
+        "code": "414415007",
+        "display": "History of chronic lung disease (situation)"
+    },
+    {
+        "code": "414372001",
+        "display": "History of neonatal abstinence syndrome (situation)"
+    },
+    {
+        "code": "414371008",
+        "display": "History of agoraphobia (situation)"
+    },
+    {
+        "code": "413178000",
+        "display": "History of diphtheria (situation)"
+    },
+    {
+        "code": "413154005",
+        "display": "History of phlebitis (situation)"
+    },
+    {
+        "code": "413141003",
+        "display": "History of needle stick injury (situation)"
+    },
+    {
+        "code": "413076004",
+        "display": "No past history of venous thrombosis (situation)"
+    },
+    {
+        "code": "412758008",
+        "display": "Past pregnancy history of medical termination of pregnancy (situation)"
+    },
+    {
+        "code": "409137002",
+        "display": "No known drug allergy (situation)"
+    },
+    {
+        "code": "407637009",
+        "display": "History of gallstones (situation)"
+    },
+    {
+        "code": "407615002",
+        "display": "Born by emergency cesarean section (situation)"
+    },
+    {
+        "code": "407614003",
+        "display": "Born by ventouse delivery (situation)"
+    },
+    {
+        "code": "407613009",
+        "display": "Born by breech delivery (situation)"
+    },
+    {
+        "code": "407586004",
+        "display": "History of recreational drug use (situation)"
+    },
+    {
+        "code": "407553003",
+        "display": "History of glandular fever (situation)"
+    },
+    {
+        "code": "400998002",
+        "display": "History of manic depressive disorder (situation)"
+    },
+    {
+        "code": "399211009",
+        "display": "History of myocardial infarction (situation)"
+    },
+    {
+        "code": "397942001",
+        "display": "History of anesthesia problem (situation)"
+    },
+    {
+        "code": "395683001",
+        "display": "Born by normal vaginal delivery (situation)"
+    },
+    {
+        "code": "395682006",
+        "display": "Born by elective cesarean section (situation)"
+    },
+    {
+        "code": "395681004",
+        "display": "Born by forceps delivery (situation)"
+    },
+    {
+        "code": "394707001",
+        "display": "No history of migraine (situation)"
+    },
+    {
+        "code": "394705009",
+        "display": "History of febrile convulsions (situation)"
+    },
+    {
+        "code": "394699000",
+        "display": "Born by cesarean section (situation)"
+    },
+    {
+        "code": "394698008",
+        "display": "Birth history (situation)"
+    },
+    {
+        "code": "391095006",
+        "display": "History of fracture (situation)"
+    },
+    {
+        "code": "391094005",
+        "display": "History of vertebral fracture (situation)"
+    },
+    {
+        "code": "391093004",
+        "display": "History of hip fracture (situation)"
+    },
+    {
+        "code": "391092009",
+        "display": "History of fragility fracture (situation)"
+    },
+    {
+        "code": "390933006",
+        "display": "History of amblyopia (situation)"
+    },
+    {
+        "code": "390867000",
+        "display": "History of repeated overdose (situation)"
+    },
+    {
+        "code": "390839009",
+        "display": "History of facial injury (situation)"
+    },
+    {
+        "code": "371435006",
+        "display": "History of drug abuse (situation)"
+    },
+    {
+        "code": "371434005",
+        "display": "History of alcohol abuse (situation)"
+    },
+    {
+        "code": "371422002",
+        "display": "History of substance abuse (situation)"
+    },
+    {
+        "code": "314550003",
+        "display": "History of deliberate self harm (situation)"
+    },
+    {
+        "code": "312850006",
+        "display": "History of disorder (situation)"
+    },
+    {
+        "code": "312489007",
+        "display": "History of upper gastrointestinal tract hemorrhage (situation)"
+    },
+    {
+        "code": "312442005",
+        "display": "History of atrial fibrillation (situation)"
+    },
+    {
+        "code": "310596004",
+        "display": "No H/O: Glaucoma (situation)"
+    },
+    {
+        "code": "310595000",
+        "display": "No H/O: Iritis (situation)"
+    },
+    {
+        "code": "310479003",
+        "display": "History of iritis (situation)"
+    },
+    {
+        "code": "309636006",
+        "display": "History of hospital admission in last year for hyperglycemic disorder (situation)"
+    },
+    {
+        "code": "309635005",
+        "display": "History of admission in last year for diabetes foot problem (situation)"
+    },
+    {
+        "code": "309634009",
+        "display": "History of heart failure in last year (situation)"
+    },
+    {
+        "code": "308068007",
+        "display": "History of treatment for ischemic heart disease (situation)"
+    },
+    {
+        "code": "308067002",
+        "display": "History of stroke in last year (situation)"
+    },
+    {
+        "code": "308066006",
+        "display": "History of angina in last year (situation)"
+    },
+    {
+        "code": "308065005",
+        "display": "History of myocardial infarction in last year (situation)"
+    },
+    {
+        "code": "308064009",
+        "display": "History of cerebrovascular disease (situation)"
+    },
+    {
+        "code": "289917002",
+        "display": "History of neoplasm of urinary bladder (situation)"
+    },
+    {
+        "code": "275907005",
+        "display": "History of procidentia (situation)"
+    },
+    {
+        "code": "275905002",
+        "display": "History of myocardial problem (situation)"
+    },
+    {
+        "code": "275904003",
+        "display": "History of neoplasm (situation)"
+    },
+    {
+        "code": "275903009",
+        "display": "History of carcinoma (situation)"
+    },
+    {
+        "code": "275881005",
+        "display": "History of sexually transmitted disease (situation)"
+    },
+    {
+        "code": "275571003",
+        "display": "History of female sexual problem (situation)"
+    },
+    {
+        "code": "275569003",
+        "display": "Past pregnancy history of delivery with no details (situation)"
+    },
+    {
+        "code": "275568006",
+        "display": "Past pregnancy history of normal delivery (situation)"
+    },
+    {
+        "code": "275555003",
+        "display": "History of knee problem (situation)"
+    },
+    {
+        "code": "275554004",
+        "display": "History of arthritis (situation)"
+    },
+    {
+        "code": "275553005",
+        "display": "History of male sex function problem (situation)"
+    },
+    {
+        "code": "275552000",
+        "display": "History of kidney disease (situation)"
+    },
+    {
+        "code": "275551007",
+        "display": "History of gastrointestinal bleed (situation)"
+    },
+    {
+        "code": "275550008",
+        "display": "History of gallbladder disease (situation)"
+    },
+    {
+        "code": "275549008",
+        "display": "History of ulcerative colitis (situation)"
+    },
+    {
+        "code": "275548000",
+        "display": "History of gastric ulcer (situation)"
+    },
+    {
+        "code": "275547005",
+        "display": "History of duodenal ulcer (situation)"
+    },
+    {
+        "code": "275546001",
+        "display": "History of thrombosis (situation)"
+    },
+    {
+        "code": "275545002",
+        "display": "History of embolism (situation)"
+    },
+    {
+        "code": "275544003",
+        "display": "History of heart disorder (situation)"
+    },
+    {
+        "code": "275543009",
+        "display": "History of vertigo (situation)"
+    },
+    {
+        "code": "275542004",
+        "display": "History of M\u00e9ni\u00e8re's disease (situation)"
+    },
+    {
+        "code": "275540007",
+        "display": "History of brain disorder (situation)"
+    },
+    {
+        "code": "275538002",
+        "display": "History of anemia (situation)"
+    },
+    {
+        "code": "275536003",
+        "display": "History of thyroid disorder (situation)"
+    },
+    {
+        "code": "275531008",
+        "display": "History of pacemaker in situ (situation)"
+    },
+    {
+        "code": "275529004",
+        "display": "History of congenital disease of hip (situation)"
+    },
+    {
+        "code": "275528007",
+        "display": "History of bronchitis (situation)"
+    },
+    {
+        "code": "275526006",
+        "display": "History of cerebrovascular accident (situation)"
+    },
+    {
+        "code": "272058002",
+        "display": "Past pregnancy history of delivery procedure (situation)"
+    },
+    {
+        "code": "271903000",
+        "display": "History of pregnancy (situation)"
+    },
+    {
+        "code": "271902005",
+        "display": "History of gynecological disorder (situation)"
+    },
+    {
+        "code": "270891002",
+        "display": "Had a collapse (situation)"
+    },
+    {
+        "code": "270473001",
+        "display": "History of chronic obstructive airway disease (situation)"
+    },
+    {
+        "code": "267018007",
+        "display": "History of genital prolapse (situation)"
+    },
+    {
+        "code": "267017002",
+        "display": "History of pelvic infection (situation)"
+    },
+    {
+        "code": "267016006",
+        "display": "History of abnormal uterine bleeding (situation)"
+    },
+    {
+        "code": "267015005",
+        "display": "Past pregnancy history of full term delivery (situation)"
+    },
+    {
+        "code": "267005004",
+        "display": "History of significant knee disorder (situation)"
+    },
+    {
+        "code": "267004000",
+        "display": "History of musculoskeletal disease (situation)"
+    },
+    {
+        "code": "267003006",
+        "display": "History of sexual function problem (situation)"
+    },
+    {
+        "code": "267002001",
+        "display": "History of urinary disease (situation)"
+    },
+    {
+        "code": "267000009",
+        "display": "History of biliary disease (situation)"
+    },
+    {
+        "code": "266999006",
+        "display": "History of colitis (situation)"
+    },
+    {
+        "code": "266998003",
+        "display": "History of peptic ulcer (situation)"
+    },
+    {
+        "code": "266997008",
+        "display": "History of gastrointestinal disease (situation)"
+    },
+    {
+        "code": "266996004",
+        "display": "History of thromboembolism (situation)"
+    },
+    {
+        "code": "266995000",
+        "display": "History of cardiovascular disease (situation)"
+    },
+    {
+        "code": "266993007",
+        "display": "History of central nervous system disorder (situation)"
+    },
+    {
+        "code": "266992002",
+        "display": "History of blood disorder (situation)"
+    },
+    {
+        "code": "266991009",
+        "display": "History of metabolic disorder (situation)"
+    },
+    {
+        "code": "266990005",
+        "display": "History of endocrine disorder (situation)"
+    },
+    {
+        "code": "266987004",
+        "display": "History of malignant neoplasm (situation)"
+    },
+    {
+        "code": "228393009",
+        "display": "Has never injected drugs (situation)"
+    },
+    {
+        "code": "228368007",
+        "display": "Has never misused drugs (situation)"
+    },
+    {
+        "code": "169818001",
+        "display": "Born before arrival (situation)"
+    },
+    {
+        "code": "162271007",
+        "display": "Felt faint (situation)"
+    },
+    {
+        "code": "161813007",
+        "display": "Past pregnancy history of previous forceps delivery (situation)"
+    },
+    {
+        "code": "161810005",
+        "display": "Past pregnancy history of prolonged labor (situation)"
+    },
+    {
+        "code": "161809000",
+        "display": "Past pregnancy history of postpartum hemorrhage (situation)"
+    },
+    {
+        "code": "161807003",
+        "display": "Past pregnancy history of severe pre-eclampsia (situation)"
+    },
+    {
+        "code": "161806007",
+        "display": "Past pregnancy history of eclampsia (situation)"
+    },
+    {
+        "code": "161805006",
+        "display": "Past pregnancy history of cesarean section (situation)"
+    },
+    {
+        "code": "161804005",
+        "display": "Past pregnancy history of antepartum hemorrhage (situation)"
+    },
+    {
+        "code": "161798008",
+        "display": "History of female infertility (situation)"
+    },
+    {
+        "code": "161797003",
+        "display": "History of breast problem (situation)"
+    },
+    {
+        "code": "161796007",
+        "display": "History of dyspareunia (situation)"
+    },
+    {
+        "code": "161794005",
+        "display": "History of stress incontinence (situation)"
+    },
+    {
+        "code": "161792009",
+        "display": "History of recurrent vaginal discharge (situation)"
+    },
+    {
+        "code": "161788002",
+        "display": "History of postmenopausal bleeding (situation)"
+    },
+    {
+        "code": "161787007",
+        "display": "History of inter-menstrual bleeding (situation)"
+    },
+    {
+        "code": "161786003",
+        "display": "History of postcoital bleeding (situation)"
+    },
+    {
+        "code": "161783006",
+        "display": "History of dysmenorrhea (situation)"
+    },
+    {
+        "code": "161782001",
+        "display": "History of menorrhagia (situation)"
+    },
+    {
+        "code": "161781008",
+        "display": "History of polymenorrhea (situation)"
+    },
+    {
+        "code": "161780009",
+        "display": "History of amenorrhea (situation)"
+    },
+    {
+        "code": "161779006",
+        "display": "History of menstrual disorder (situation)"
+    },
+    {
+        "code": "161775000",
+        "display": "History of sheath usage (situation)"
+    },
+    {
+        "code": "161774001",
+        "display": "History of contraceptive cap usage (situation)"
+    },
+    {
+        "code": "161773007",
+        "display": "History of intrauterine contraceptive device usage (situation)"
+    },
+    {
+        "code": "161772002",
+        "display": "History of oral contraceptive usage (situation)"
+    },
+    {
+        "code": "161769009",
+        "display": "History of being infant bottle fed (situation)"
+    },
+    {
+        "code": "161765003",
+        "display": "Past pregnancy history of premature delivery (situation)"
+    },
+    {
+        "code": "161763005",
+        "display": "Past pregnancy history of ectopic pregnancy (situation)"
+    },
+    {
+        "code": "161755009",
+        "display": "No history of abortion (situation)"
+    },
+    {
+        "code": "161745005",
+        "display": "No history of miscarriage (situation)"
+    },
+    {
+        "code": "161744009",
+        "display": "Past pregnancy history of miscarriage (situation)"
+    },
+    {
+        "code": "161743003",
+        "display": "Past pregnancy history of stillbirth (situation)"
+    },
+    {
+        "code": "161701005",
+        "display": "History of respirator dependence (situation)"
+    },
+    {
+        "code": "161700006",
+        "display": "History of machine dependence (situation)"
+    },
+    {
+        "code": "161692001",
+        "display": "History of cardiac pacemaker in situ (situation)"
+    },
+    {
+        "code": "161656000",
+        "display": "History of regular medication (situation)"
+    },
+    {
+        "code": "161633009",
+        "display": "History of radiation exposure (situation)"
+    },
+    {
+        "code": "161614004",
+        "display": "History of multiple allergies (situation)"
+    },
+    {
+        "code": "161611007",
+        "display": "History of non-drug allergy (situation)"
+    },
+    {
+        "code": "161589007",
+        "display": "History of poisoning (situation)"
+    },
+    {
+        "code": "161587009",
+        "display": "History of head injury (situation)"
+    },
+    {
+        "code": "161586000",
+        "display": "History of injury (situation)"
+    },
+    {
+        "code": "161584002",
+        "display": "History of perinatal cerebral irritability (situation)"
+    },
+    {
+        "code": "161583008",
+        "display": "History of perinatal convulsion (situation)"
+    },
+    {
+        "code": "161582003",
+        "display": "History of hemolytic disease (situation)"
+    },
+    {
+        "code": "161581005",
+        "display": "History of birth asphyxia (situation)"
+    },
+    {
+        "code": "161580006",
+        "display": "History of birth trauma (situation)"
+    },
+    {
+        "code": "161579008",
+        "display": "History of perinatal problem (situation)"
+    },
+    {
+        "code": "161577005",
+        "display": "History of congenital dislocation of hip (situation)"
+    },
+    {
+        "code": "161576001",
+        "display": "History of urinary anomaly (situation)"
+    },
+    {
+        "code": "161575002",
+        "display": "History of cleft lip (situation)"
+    },
+    {
+        "code": "161574003",
+        "display": "History of cleft palate (situation)"
+    },
+    {
+        "code": "161573009",
+        "display": "History of cardiac anomaly (situation)"
+    },
+    {
+        "code": "161572004",
+        "display": "History of congenital anomaly (situation)"
+    },
+    {
+        "code": "161570007",
+        "display": "History of back problem (situation)"
+    },
+    {
+        "code": "161568003",
+        "display": "History of osteoarthritis (situation)"
+    },
+    {
+        "code": "161567008",
+        "display": "History of rheumatoid arthritis (situation)"
+    },
+    {
+        "code": "161563007",
+        "display": "History of chronic skin ulcer (situation)"
+    },
+    {
+        "code": "161562002",
+        "display": "History of psoriasis (situation)"
+    },
+    {
+        "code": "161561009",
+        "display": "History of eczema (situation)"
+    },
+    {
+        "code": "161560005",
+        "display": "History of skin disorder (situation)"
+    },
+    {
+        "code": "161556007",
+        "display": "History of male infertility (situation)"
+    },
+    {
+        "code": "161555006",
+        "display": "History of prostatism (situation)"
+    },
+    {
+        "code": "161554005",
+        "display": "History of male genital disorder (situation)"
+    },
+    {
+        "code": "161551002",
+        "display": "History of urethral stricture (situation)"
+    },
+    {
+        "code": "161550001",
+        "display": "History of hematuria (situation)"
+    },
+    {
+        "code": "161549001",
+        "display": "History of recurrent cystitis (situation)"
+    },
+    {
+        "code": "161548009",
+        "display": "History of urinary stone (situation)"
+    },
+    {
+        "code": "161547004",
+        "display": "History of kidney infection (situation)"
+    },
+    {
+        "code": "161546008",
+        "display": "History of nephritis (situation)"
+    },
+    {
+        "code": "161542005",
+        "display": "History of lower gastrointestinal tract neoplasm (situation)"
+    },
+    {
+        "code": "161541003",
+        "display": "History of upper gastrointestinal tract neoplasm (situation)"
+    },
+    {
+        "code": "161539004",
+        "display": "History of melena (situation)"
+    },
+    {
+        "code": "161538007",
+        "display": "History of hematemesis (situation)"
+    },
+    {
+        "code": "161536006",
+        "display": "History of jaundice (situation)"
+    },
+    {
+        "code": "161535005",
+        "display": "History of liver disease (situation)"
+    },
+    {
+        "code": "161533003",
+        "display": "History of abdominal hernia (situation)"
+    },
+    {
+        "code": "161532008",
+        "display": "History of appendicitis (situation)"
+    },
+    {
+        "code": "161528002",
+        "display": "History of pneumothorax (situation)"
+    },
+    {
+        "code": "161527007",
+        "display": "History of asthma (situation)"
+    },
+    {
+        "code": "161525004",
+        "display": "History of pneumonia (situation)"
+    },
+    {
+        "code": "161524000",
+        "display": "History of hay fever (situation)"
+    },
+    {
+        "code": "161523006",
+        "display": "History of respiratory disease (situation)"
+    },
+    {
+        "code": "161515009",
+        "display": "History of subarachnoid hemorrhage (situation)"
+    },
+    {
+        "code": "161514008",
+        "display": "History of aortic aneurysm (situation)"
+    },
+    {
+        "code": "161513002",
+        "display": "History of ventricular fibrillation (situation)"
+    },
+    {
+        "code": "161512007",
+        "display": "History of pulmonary embolus (situation)"
+    },
+    {
+        "code": "161511000",
+        "display": "History of transient ischemic attack (situation)"
+    },
+    {
+        "code": "161509009",
+        "display": "History of varicose veins (situation)"
+    },
+    {
+        "code": "161508001",
+        "display": "History of deep vein thrombosis (situation)"
+    },
+    {
+        "code": "161505003",
+        "display": "History of heart failure (situation)"
+    },
+    {
+        "code": "161504004",
+        "display": "History of angina pectoris (situation)"
+    },
+    {
+        "code": "161503005",
+        "display": "History of myocardial infarct at age greater than sixty (situation)"
+    },
+    {
+        "code": "161502000",
+        "display": "History of myocardial infarct at age less than sixty (situation)"
+    },
+    {
+        "code": "161501007",
+        "display": "History of hypertension (situation)"
+    },
+    {
+        "code": "161500008",
+        "display": "History of rheumatic fever (situation)"
+    },
+    {
+        "code": "161497002",
+        "display": "History of hearing problem (situation)"
+    },
+    {
+        "code": "161496006",
+        "display": "History of chronic ear infection (situation)"
+    },
+    {
+        "code": "161494009",
+        "display": "History of ear disorder (situation)"
+    },
+    {
+        "code": "161491001",
+        "display": "History of corneal ulcer (situation)"
+    },
+    {
+        "code": "161490000",
+        "display": "History of visual disturbance (situation)"
+    },
+    {
+        "code": "161489009",
+        "display": "History of cataract (situation)"
+    },
+    {
+        "code": "161488001",
+        "display": "History of glaucoma (situation)"
+    },
+    {
+        "code": "161487006",
+        "display": "History of retinal detachment (situation)"
+    },
+    {
+        "code": "161483005",
+        "display": "History of Bell's palsy (situation)"
+    },
+    {
+        "code": "161482000",
+        "display": "History of trigeminal neuralgia (situation)"
+    },
+    {
+        "code": "161481007",
+        "display": "History of migraine (situation)"
+    },
+    {
+        "code": "161480008",
+        "display": "History of epilepsy (situation)"
+    },
+    {
+        "code": "161479005",
+        "display": "History of encephalitis (situation)"
+    },
+    {
+        "code": "161478002",
+        "display": "History of meningitis (situation)"
+    },
+    {
+        "code": "161473006",
+        "display": "History of behavior problem (situation)"
+    },
+    {
+        "code": "161472001",
+        "display": "History of psychological trauma (situation)"
+    },
+    {
+        "code": "161471008",
+        "display": "History of anorexia nervosa (situation)"
+    },
+    {
+        "code": "161470009",
+        "display": "History of anxiety state (situation)"
+    },
+    {
+        "code": "161469008",
+        "display": "History of depression (situation)"
+    },
+    {
+        "code": "161468000",
+        "display": "History of schizophrenia (situation)"
+    },
+    {
+        "code": "161466001",
+        "display": "History of alcoholism (situation)"
+    },
+    {
+        "code": "161465002",
+        "display": "History of dementia (situation)"
+    },
+    {
+        "code": "161464003",
+        "display": "History of psychiatric disorder (situation)"
+    },
+    {
+        "code": "161461006",
+        "display": "History of purpura (situation)"
+    },
+    {
+        "code": "161460007",
+        "display": "History of coagulation defect (situation)"
+    },
+    {
+        "code": "161458005",
+        "display": "History of hemolytic anemia (situation)"
+    },
+    {
+        "code": "161457000",
+        "display": "History of anemia vitamin B12 deficient (situation)"
+    },
+    {
+        "code": "161456009",
+        "display": "History of iron deficiency anemia (situation)"
+    },
+    {
+        "code": "161453001",
+        "display": "History of obesity (situation)"
+    },
+    {
+        "code": "161451004",
+        "display": "History of gout (situation)"
+    },
+    {
+        "code": "161450003",
+        "display": "History of raised blood lipids (situation)"
+    },
+    {
+        "code": "161449003",
+        "display": "History of nutritional disorder (situation)"
+    },
+    {
+        "code": "161445009",
+        "display": "History of diabetes mellitus (situation)"
+    },
+    {
+        "code": "161443002",
+        "display": "History of hypothyroidism (situation)"
+    },
+    {
+        "code": "161442007",
+        "display": "History of hyperthyroidism (situation)"
+    },
+    {
+        "code": "161436008",
+        "display": "History of leukemia (situation)"
+    },
+    {
+        "code": "161432005",
+        "display": "History of malignant melanoma (situation)"
+    },
+    {
+        "code": "161424002",
+        "display": "History of viral illness (situation)"
+    },
+    {
+        "code": "161423008",
+        "display": "History of chickenpox (situation)"
+    },
+    {
+        "code": "161422003",
+        "display": "History of pertussis (situation)"
+    },
+    {
+        "code": "161421005",
+        "display": "History of rubella (situation)"
+    },
+    {
+        "code": "161420006",
+        "display": "History of mumps (situation)"
+    },
+    {
+        "code": "161419000",
+        "display": "History of measles (situation)"
+    },
+    {
+        "code": "161417003",
+        "display": "History of scarlatina (situation)"
+    },
+    {
+        "code": "161416007",
+        "display": "History of malaria (situation)"
+    },
+    {
+        "code": "161415006",
+        "display": "History of poliomyelitis (situation)"
+    },
+    {
+        "code": "161414005",
+        "display": "History of tuberculosis (situation)"
+    },
+    {
+        "code": "161413004",
+        "display": "History of infectious disease (situation)"
+    },
+    {
+        "code": "160259008",
+        "display": "No history of psychiatric disorder (situation)"
+    },
+    {
+        "code": "160258000",
+        "display": "No history of respiratory system disease (situation)"
+    },
+    {
+        "code": "160257005",
+        "display": "No history of central nervous system disease (situation)"
+    },
+    {
+        "code": "160256001",
+        "display": "No history of genitourinary tract disease (situation)"
+    },
+    {
+        "code": "160255002",
+        "display": "No history of gastrointestinal tract disease (situation)"
+    },
+    {
+        "code": "160254003",
+        "display": "No history of cardiovascular system disease (situation)"
+    },
+    {
+        "code": "160253009",
+        "display": "No significant social history (situation)"
+    },
+    {
+        "code": "135879003",
+        "display": "History of dislocated shoulder (situation)"
+    }
+]

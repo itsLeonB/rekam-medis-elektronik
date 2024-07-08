@@ -1,0 +1,48 @@
+{
+  "address": [
+    {
+      "city": "Kota Adm. Jakarta Selatan",
+      "country": "ID",
+      "extension": [
+        {
+          "extension": [
+            {
+              "url": "province",
+              "valueCode": "31"
+            },
+            {
+              "url": "city",
+              "valueCode": "3174"
+            }
+          ],
+          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+        }
+      ],
+      "use": "home"
+    }
+  ],
+  "gender": "male",
+  "id": "1000635881",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nakes-id",
+      "value": "1000635881"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik",
+      "use": "official",
+      "value": "3671131012720001"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2022-04-22T09:04:18.045494+00:00",
+    "versionId": "MTY1MDYxODI1ODA0NTQ5NDAwMA"
+  },
+  "name": [
+    {
+      "text": "BAMBANG WALUYO",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Practitioner"
+}

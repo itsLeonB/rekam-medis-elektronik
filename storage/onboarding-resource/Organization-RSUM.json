@@ -1,0 +1,103 @@
+{
+    "resourceType": "Organization",
+    "id": "d7c204fd-7c20-4c59-bd61-4dc55b78438c",
+    "identifier": [
+        {
+            "use": "official",
+            "system": "http://sys-ids.kemkes.go.id/organization/5fe612fe-eb92-4034-9337-7ad60ab15b94",
+            "value": "RS Unipdu Medika"
+        }
+    ],
+    "active": true,
+    "type": [
+        {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                    "code": "prov",
+                    "display": "Healthcare Provider"
+                }
+            ]
+        }
+    ],
+    "name": "Rumah Sakit Unipdu Medika",
+    "alias": ["RS Unipdu Medika", "RS Unipdu", "RSUM"],
+    "telecom": [
+        {
+            "system": "phone",
+            "value": "031-8700000",
+            "use": "work"
+        },
+        {
+            "system": "email",
+            "value": "rsum@mail.com",
+            "use": "work"
+        }
+    ],
+    "address": [
+        {
+            "use": "work",
+            "type": "both",
+            "text": "Jl. Raya Jogoroto-Peterongan, Jombang",
+            "city": "Surabaya",
+            "postalCode": "60241",
+            "country": "ID",
+            "extension": [
+                {
+                    "extension": [
+                        {
+                            "url": "province",
+                            "valueCode": "35"
+                        },
+                        {
+                            "url": "city",
+                            "valueCode": "3517"
+                        },
+                        {
+                            "url": "district",
+                            "valueCode": "351710"
+                        },
+                        {
+                            "url": "village",
+                            "valueCode": "3517102001"
+                        },
+                        {
+                            "url": "rw",
+                            "valueCode": "5"
+                        }
+                    ],
+                    "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/AdministrativeCode"
+                }
+            ]
+        }
+    ],
+    "contact": [
+        {
+            "purpose": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/contactentity-type",
+                        "code": "ADMIN",
+                        "display": "Administrative"
+                    }
+                ]
+            },
+            "name": {
+                "use": "official",
+                "text": "Dini"
+            },
+            "telecom": [
+                {
+                    "system": "phone",
+                    "value": "031-8700000",
+                    "use": "work"
+                },
+                {
+                    "system": "email",
+                    "value": "dini@mail.com",
+                    "use": "work"
+                }
+            ]
+        }
+    ]
+}

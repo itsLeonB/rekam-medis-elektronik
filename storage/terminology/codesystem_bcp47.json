@@ -1,0 +1,267 @@
+[
+    {
+        "code": "ar-SA",
+        "display": "Arabic",
+        "definition": "Arabic (Saudi Arabia)"
+    },
+    {
+        "code": "bn-BD",
+        "display": "Bangla",
+        "definition": "Bangla (Bangladesh)"
+    },
+    {
+        "code": "bn-IN",
+        "display": "Bangla",
+        "definition": "Bangla (India)"
+    },
+    {
+        "code": "cs-CZ",
+        "display": "Czech",
+        "definition": "Czech (Czech Republic)"
+    },
+    {
+        "code": "da-DK",
+        "display": "Danish",
+        "definition": "Danish (Denmark)"
+    },
+    {
+        "code": "de-AT",
+        "display": "German",
+        "definition": "Austrian German"
+    },
+    {
+        "code": "de-CH",
+        "display": "German",
+        "definition": "\"Swiss\" German"
+    },
+    {
+        "code": "de-DE",
+        "display": "German",
+        "definition": "Standard German (as spoken in Germany)"
+    },
+    {
+        "code": "el-GR",
+        "display": "Greek",
+        "definition": "Modern Greek"
+    },
+    {
+        "code": "en-AU",
+        "display": "English",
+        "definition": "Australian English"
+    },
+    {
+        "code": "en-CA",
+        "display": "English",
+        "definition": "Canadian English"
+    },
+    {
+        "code": "en-GB",
+        "display": "English",
+        "definition": "British English"
+    },
+    {
+        "code": "en-IE",
+        "display": "English",
+        "definition": "Irish English"
+    },
+    {
+        "code": "en-IN",
+        "display": "English",
+        "definition": "Indian English"
+    },
+    {
+        "code": "en-NZ",
+        "display": "English",
+        "definition": "New Zealand English"
+    },
+    {
+        "code": "en-US",
+        "display": "English",
+        "definition": "US English"
+    },
+    {
+        "code": "en-ZA",
+        "display": "English",
+        "definition": "English (South Africa)"
+    },
+    {
+        "code": "es-AR",
+        "display": "Spanish",
+        "definition": "Argentine Spanish"
+    },
+    {
+        "code": "es-CL",
+        "display": "Spanish",
+        "definition": "Chilean Spanish"
+    },
+    {
+        "code": "es-CO",
+        "display": "Spanish",
+        "definition": "Colombian Spanish"
+    },
+    {
+        "code": "es-ES",
+        "display": "Spanish",
+        "definition": "Castilian Spanish (as spoken in Central-Northern Spain)"
+    },
+    {
+        "code": "es-MX",
+        "display": "Spanish",
+        "definition": "Mexican Spanish"
+    },
+    {
+        "code": "es-US",
+        "display": "Spanish",
+        "definition": "American Spanish"
+    },
+    {
+        "code": "fi-FI",
+        "display": "Finnish",
+        "definition": "Finnish (Finland)"
+    },
+    {
+        "code": "fr-BE",
+        "display": "French",
+        "definition": "Belgian French"
+    },
+    {
+        "code": "fr-CA",
+        "display": "French",
+        "definition": "Canadian French"
+    },
+    {
+        "code": "fr-CH",
+        "display": "French",
+        "definition": "\"Swiss\" French"
+    },
+    {
+        "code": "fr-FR",
+        "display": "French",
+        "definition": "Standard French (especially in France)"
+    },
+    {
+        "code": "he-IL",
+        "display": "Hebrew",
+        "definition": "Hebrew (Israel)"
+    },
+    {
+        "code": "hi-IN",
+        "display": "Hindi",
+        "definition": "Hindi (India)"
+    },
+    {
+        "code": "hu-HU",
+        "display": "Hungarian",
+        "definition": "Hungarian (Hungary)"
+    },
+    {
+        "code": "id-ID",
+        "display": "Indonesian",
+        "definition": "Indonesian (Indonesia)"
+    },
+    {
+        "code": "it-CH",
+        "display": "Italian",
+        "definition": "\"Swiss\" Italian"
+    },
+    {
+        "code": "it-IT",
+        "display": "Italian",
+        "definition": "Standard Italian (as spoken in Italy)"
+    },
+    {
+        "code": "ja-JP",
+        "display": "Japanese",
+        "definition": "Japanese (Japan)"
+    },
+    {
+        "code": "ko-KR",
+        "display": "Korean",
+        "definition": "Korean (Republic of Korea)"
+    },
+    {
+        "code": "nl-BE",
+        "display": "Dutch",
+        "definition": "Belgian Dutch"
+    },
+    {
+        "code": "nl-NL",
+        "display": "Dutch",
+        "definition": "Standard Dutch (as spoken in The Netherlands)"
+    },
+    {
+        "code": "no-NO",
+        "display": "Norwegian",
+        "definition": "Norwegian (Norway)"
+    },
+    {
+        "code": "pl-PL",
+        "display": "Polish",
+        "definition": "Polish (Poland)"
+    },
+    {
+        "code": "pt-BR",
+        "display": "Portugese",
+        "definition": "Brazilian Portuguese"
+    },
+    {
+        "code": "pt-PT",
+        "display": "Portugese",
+        "definition": "European Portuguese (as written and spoken in Portugal)"
+    },
+    {
+        "code": "ro-RO",
+        "display": "Romanian",
+        "definition": "Romanian (Romania)"
+    },
+    {
+        "code": "ru-RU",
+        "display": "Russian",
+        "definition": "Russian (Russian Federation)"
+    },
+    {
+        "code": "sk-SK",
+        "display": "Slovak",
+        "definition": "Slovak (Slovakia)"
+    },
+    {
+        "code": "sv-SE",
+        "display": "Swedish",
+        "definition": "Swedish (Sweden)"
+    },
+    {
+        "code": "ta-IN",
+        "display": "Tamil",
+        "definition": "Indian Tamil"
+    },
+    {
+        "code": "ta-LK",
+        "display": "Tamil",
+        "definition": "Sri Lankan Tamil"
+    },
+    {
+        "code": "th-TH",
+        "display": "Thai",
+        "definition": "Thai (Thailand)"
+    },
+    {
+        "code": "tr-TR",
+        "display": "Turkish",
+        "definition": "Turkish (Turkey)"
+    },
+    {
+        "code": "zh-CN",
+        "display": "Chinese",
+        "definition": "Mainland China, simplified characters"
+    },
+    {
+        "code": "zh-HK",
+        "display": "Chinese",
+        "definition": "Hong Kong, traditional characters"
+    },
+    {
+        "code": "zh-TW",
+        "display": "Chinese",
+        "definition": "Taiwan, traditional characters"
+    }
+]

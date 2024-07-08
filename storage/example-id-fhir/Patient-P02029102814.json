@@ -1,0 +1,31 @@
+{
+  "active": true,
+  "birthDate": "1920-02-28",
+  "id": "P02029102814",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik-ibu",
+      "use": "official",
+      "value": "367400001111222"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/ihs-number",
+      "use": "official",
+      "value": "P02029102814"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2023-03-08T13:18:43.477704+00:00",
+    "profile": [
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
+    ],
+    "versionId": "MTY3ODI4MTUyMzQ3NzcwNDAwMA"
+  },
+  "name": [
+    {
+      "text": "Roni",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Patient"
+}

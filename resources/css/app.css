@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    
+    .teal-button {
+        @apply bg-gradient-to-t
+        from-original-teal-300 to-original-teal-300
+        hover:from-original-teal-300 hover:to-original-teal-200 
+        active:from-original-teal-400 active:to-original-teal-400        
+        disabled:from-neutral-grey-100 disabled:to-neutral-grey-100 disabled:pointer-events-none;
+    }
+
+    .teal-button-loading {
+        @apply from-original-teal-400 to-original-teal-400;
+    }
+
+    .teal-button-text {
+        @apply text-original-teal-300 hover:text-original-teal-200 active:text-original-teal-400;
+    }
+
+    .purple-button{
+        @apply bg-gradient-to-t
+        from-secondhand-indigo-300 to-secondhand-indigo-300
+        hover:from-secondhand-indigo-300 hover:to-secondhand-indigo-200
+        active:from-secondhand-indigo-200 active:to-secondhand-indigo-200        
+        disabled:from-neutral-grey-100 disabled:to-neutral-grey-100 disabled:pointer-events-none;
+    }
+
+    .purple-button-loading {
+        @apply from-secondhand-indigo-200 to-secondhand-indigo-200;
+    }
+
+    .purple-button-text {
+        @apply text-secondhand-indigo-300 hover:text-secondhand-indigo-200;
+    }
+
+    .orange-button{
+        @apply bg-gradient-to-t
+        from-secondhand-orange-300 to-secondhand-orange-300
+        hover:from-secondhand-orange-300 hover:to-secondhand-orange-200
+        active:from-secondhand-orange-200 active:to-secondhand-orange-200        
+        disabled:from-neutral-grey-100 disabled:to-neutral-grey-100 disabled:pointer-events-none;
+    }
+
+    .orange-button-loading {
+        @apply from-secondhand-orange-200 to-secondhand-orange-200;
+    }
+
+    .orange-button-text {
+        @apply text-secondhand-orange-300 hover:text-secondhand-orange-200;
+    }
+}

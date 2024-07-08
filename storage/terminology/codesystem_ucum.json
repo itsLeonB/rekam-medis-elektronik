@@ -1,0 +1,3394 @@
+[
+    {
+        "code": "10.L/min",
+        "unit": "10 liter per minute"
+    },
+    {
+        "code": "10.L/(min.m2)",
+        "unit": "10 liter per minute per square meter"
+    },
+    {
+        "code": "10.uN.s/(cm5.m2)",
+        "unit": "10 micronewton second per centimeter to the fifth power per square meter"
+    },
+    {
+        "code": "10*4/uL",
+        "unit": "10 thousand per microliter"
+    },
+    {
+        "code": "10*8",
+        "unit": "100 million"
+    },
+    {
+        "code": "24.h",
+        "unit": "24 hour"
+    },
+    {
+        "code": "{absorbance}",
+        "unit": "absorbance"
+    },
+    {
+        "code": "{activity}",
+        "unit": "activity"
+    },
+    {
+        "code": "[AU]",
+        "unit": "allergy unit"
+    },
+    {
+        "code": "{AHF'U}",
+        "unit": "American Hospital Formulary unit"
+    },
+    {
+        "code": "A",
+        "unit": "ampere"
+    },
+    {
+        "code": "A/m",
+        "unit": "ampere per meter"
+    },
+    {
+        "code": "[arb'U]",
+        "unit": "arbitrary unit"
+    },
+    {
+        "code": "[arb'U]/mL",
+        "unit": "arbitrary unit per milliliter"
+    },
+    {
+        "code": "{ARU}",
+        "unit": "aspirin response unit"
+    },
+    {
+        "code": "atm",
+        "unit": "atmosphere"
+    },
+    {
+        "code": "ag/{cell}",
+        "unit": "attogram per cell"
+    },
+    {
+        "code": "bar",
+        "unit": "bar"
+    },
+    {
+        "code": "Bq",
+        "unit": "Becquerel"
+    },
+    {
+        "code": "[beth'U]",
+        "unit": "Bethesda unit"
+    },
+    {
+        "code": "10*9/L",
+        "unit": "billion per liter"
+    },
+    {
+        "code": "10*9/uL",
+        "unit": "billion per microliter"
+    },
+    {
+        "code": "10*9/mL",
+        "unit": "billion per milliliter"
+    },
+    {
+        "code": "{binding_index}",
+        "unit": "binding index"
+    },
+    {
+        "code": "[bdsk'U]",
+        "unit": "Bodansky unit"
+    },
+    {
+        "code": "{breaths}/min",
+        "unit": "breaths per minute"
+    },
+    {
+        "code": "{CAG_repeats}",
+        "unit": "CAG trinucleotide repeats"
+    },
+    {
+        "code": "cal",
+        "unit": "calorie"
+    },
+    {
+        "code": "{cells}",
+        "unit": "cells"
+    },
+    {
+        "code": "{cells}/[HPF]",
+        "unit": "cells per high power field"
+    },
+    {
+        "code": "{cells}/uL",
+        "unit": "cells per microliter"
+    },
+    {
+        "code": "cg",
+        "unit": "centigram"
+    },
+    {
+        "code": "cL",
+        "unit": "centiliter"
+    },
+    {
+        "code": "cm",
+        "unit": "centimeter"
+    },
+    {
+        "code": "cm[Hg]",
+        "unit": "centimeter of mercury"
+    },
+    {
+        "code": "cm[H2O]",
+        "unit": "centimeter of water"
+    },
+    {
+        "code": "cm[H2O]/L/s",
+        "unit": "centimeter of water per liter per second"
+    },
+    {
+        "code": "cm[H2O]/s/m",
+        "unit": "centimeter of water per second per meter"
+    },
+    {
+        "code": "cm/s",
+        "unit": "centimeter per second"
+    },
+    {
+        "code": "cP",
+        "unit": "centipoise"
+    },
+    {
+        "code": "cSt",
+        "unit": "centistoke"
+    },
+    {
+        "code": "{delta_OD}",
+        "unit": "change in (delta) optical density"
+    },
+    {
+        "code": "{clock_time}",
+        "unit": "clock time e.g 12:30PM"
+    },
+    {
+        "code": "[CFU]",
+        "unit": "colony forming unit"
+    },
+    {
+        "code": "[CFU]/L",
+        "unit": "colony forming unit per liter"
+    },
+    {
+        "code": "[CFU]/mL",
+        "unit": "colony forming unit per milliliter"
+    },
+    {
+        "code": "{CAE'U}",
+        "unit": "complement activity enzyme unit"
+    },
+    {
+        "code": "{CH100'U}",
+        "unit": "complement CH100 unit"
+    },
+    {
+        "code": "{copies}",
+        "unit": "copies"
+    },
+    {
+        "code": "{copies}/ug",
+        "unit": "copies per microgram"
+    },
+    {
+        "code": "{copies}/mL",
+        "unit": "copies per milliliter"
+    },
+    {
+        "code": "{count}",
+        "unit": "count"
+    },
+    {
+        "code": "{CPM}",
+        "unit": "counts per minute"
+    },
+    {
+        "code": "{CPM}/10*3{cell}",
+        "unit": "counts per minute per thousand cells"
+    },
+    {
+        "code": "cm3",
+        "unit": "cubic centimeter"
+    },
+    {
+        "code": "[cin_i]",
+        "unit": "cubic inch (international)"
+    },
+    {
+        "code": "m3/s",
+        "unit": "cubic meter per second"
+    },
+    {
+        "code": "{Ct_value}",
+        "unit": "Cycle threshold value"
+    },
+    {
+        "code": "d",
+        "unit": "day"
+    },
+    {
+        "code": "d/(7.d)",
+        "unit": "day per 7 day"
+    },
+    {
+        "code": "d/wk",
+        "unit": "days per week"
+    },
+    {
+        "code": "dB",
+        "unit": "decibel"
+    },
+    {
+        "code": "dg",
+        "unit": "decigram"
+    },
+    {
+        "code": "dL",
+        "unit": "deciliter"
+    },
+    {
+        "code": "dm",
+        "unit": "decimeter"
+    },
+    {
+        "code": "deg",
+        "unit": "degree (plane angle)"
+    },
+    {
+        "code": "Cel",
+        "unit": "degree Celsius"
+    },
+    {
+        "code": "[degF]",
+        "unit": "degree Fahrenheit"
+    },
+    {
+        "code": "K",
+        "unit": "degree Kelvin"
+    },
+    {
+        "code": "K/W",
+        "unit": "degree Kelvin per Watt"
+    },
+    {
+        "code": "deg/s",
+        "unit": "degree per second"
+    },
+    {
+        "code": "daL/min",
+        "unit": "dekaliter per minute"
+    },
+    {
+        "code": "daL/min/m2",
+        "unit": "dekaliter per minute per square meter"
+    },
+    {
+        "code": "{dilution}",
+        "unit": "dilution"
+    },
+    {
+        "code": "[diop]",
+        "unit": "diopter"
+    },
+    {
+        "code": "[dr_av]",
+        "unit": "dram  (US and British)"
+    },
+    {
+        "code": "[drp]",
+        "unit": "drop (1/12 milliliter)"
+    },
+    {
+        "code": "dyn.s/cm",
+        "unit": "dyne second per centimeter"
+    },
+    {
+        "code": "dyn.s/(cm.m2)",
+        "unit": "dyne second per centimeter per square meter"
+    },
+    {
+        "code": "{Ehrlich'U}",
+        "unit": "Ehrlich unit"
+    },
+    {
+        "code": "{Ehrlich'U}/100.g",
+        "unit": "Ehrlich unit per 100 gram"
+    },
+    {
+        "code": "{Ehrlich'U}/(2.h)",
+        "unit": "Ehrlich unit per 2 hour"
+    },
+    {
+        "code": "{Ehrlich'U}/d",
+        "unit": "Ehrlich unit per day"
+    },
+    {
+        "code": "{Ehrlich'U}/dL",
+        "unit": "Ehrlich unit per deciliter"
+    },
+    {
+        "code": "{EIA_index}",
+        "unit": "EIA index"
+    },
+    {
+        "code": "{EIA_titer}",
+        "unit": "EIA titer"
+    },
+    {
+        "code": "{EIA'U}",
+        "unit": "EIA unit"
+    },
+    {
+        "code": "{EIA'U}/U",
+        "unit": "EIA unit per enzyme unit"
+    },
+    {
+        "code": "{EV}",
+        "unit": "EIA value"
+    },
+    {
+        "code": "eV",
+        "unit": "electron Volt"
+    },
+    {
+        "code": "{ELISA'U}",
+        "unit": "ELISA unit"
+    },
+    {
+        "code": "U",
+        "unit": "enzyme unit"
+    },
+    {
+        "code": "U/10",
+        "unit": "enzyme unit per 10"
+    },
+    {
+        "code": "U/10*10",
+        "unit": "enzyme unit per 10 billion"
+    },
+    {
+        "code": "U/10*10{cells}",
+        "unit": "enzyme unit per 10 billion cells"
+    },
+    {
+        "code": "U/(10.g){feces}",
+        "unit": "enzyme unit per 10 gram of feces"
+    },
+    {
+        "code": "U/(12.h)",
+        "unit": "enzyme unit per 12 hour"
+    },
+    {
+        "code": "U/(2.h)",
+        "unit": "enzyme unit per 2 hour"
+    },
+    {
+        "code": "U/(24.h)",
+        "unit": "enzyme unit per 24 hour"
+    },
+    {
+        "code": "U/10*9",
+        "unit": "enzyme unit per billion"
+    },
+    {
+        "code": "U/d",
+        "unit": "enzyme unit per day"
+    },
+    {
+        "code": "U/dL",
+        "unit": "enzyme unit per deciliter"
+    },
+    {
+        "code": "U/g",
+        "unit": "enzyme unit per gram"
+    },
+    {
+        "code": "U/g{creat}",
+        "unit": "enzyme unit per gram of creatinine"
+    },
+    {
+        "code": "U/g{Hb}",
+        "unit": "enzyme unit per gram of hemoglobin"
+    },
+    {
+        "code": "U/g{protein}",
+        "unit": "enzyme unit per gram of protein"
+    },
+    {
+        "code": "U/h",
+        "unit": "enzyme unit per hour"
+    },
+    {
+        "code": "U/kg{Hb}",
+        "unit": "enzyme unit per kilogram of hemoglobin"
+    },
+    {
+        "code": "U/L",
+        "unit": "enzyme unit per liter"
+    },
+    {
+        "code": "U{25Cel}/L",
+        "unit": "enzyme unit per liter at 25 deg Celsius"
+    },
+    {
+        "code": "U{37Cel}/L",
+        "unit": "enzyme unit per liter at 37 deg Celsius"
+    },
+    {
+        "code": "U/mL",
+        "unit": "enzyme unit per milliliter"
+    },
+    {
+        "code": "U/mL{RBCs}",
+        "unit": "enzyme unit per milliliter of red blood cells"
+    },
+    {
+        "code": "U/mmol{creat}",
+        "unit": "enzyme unit per millimole of creatinine"
+    },
+    {
+        "code": "U/10*6",
+        "unit": "enzyme unit per million"
+    },
+    {
+        "code": "U/min",
+        "unit": "enzyme unit per minute"
+    },
+    {
+        "code": "U/s",
+        "unit": "enzyme unit per second"
+    },
+    {
+        "code": "U/10*12",
+        "unit": "enzyme unit per trillion"
+    },
+    {
+        "code": "U/10*12{RBCs}",
+        "unit": "enzyme unit per trillion red blood cells"
+    },
+    {
+        "code": "eq",
+        "unit": "equivalent"
+    },
+    {
+        "code": "eq/L",
+        "unit": "equivalent per liter"
+    },
+    {
+        "code": "eq/umol",
+        "unit": "equivalent per micromole"
+    },
+    {
+        "code": "eq/mL",
+        "unit": "equivalent per milliliter"
+    },
+    {
+        "code": "eq/mmol",
+        "unit": "equivalent per millimole"
+    },
+    {
+        "code": "erg",
+        "unit": "erg"
+    },
+    {
+        "code": "F",
+        "unit": "Farad"
+    },
+    {
+        "code": "[ft_us]/[ft_us]",
+        "unit": "feet (US) per feet (US)"
+    },
+    {
+        "code": "fg",
+        "unit": "femtogram"
+    },
+    {
+        "code": "fL",
+        "unit": "femtoliter"
+    },
+    {
+        "code": "fm",
+        "unit": "femtometer"
+    },
+    {
+        "code": "fmol",
+        "unit": "femtomole"
+    },
+    {
+        "code": "fmol/g",
+        "unit": "femtomole per gram"
+    },
+    {
+        "code": "fmol/L",
+        "unit": "femtomole per liter"
+    },
+    {
+        "code": "fmol/mg",
+        "unit": "femtomole per milligram"
+    },
+    {
+        "code": "fmol/mg{cyt_prot}",
+        "unit": "femtomole per milligram of cytosol protein"
+    },
+    {
+        "code": "fmol/mg{prot}",
+        "unit": "femtomole per milligram of protein"
+    },
+    {
+        "code": "fmol/mL",
+        "unit": "femtomole per milliliter"
+    },
+    {
+        "code": "[foz_us]",
+        "unit": "fluid ounce (US)"
+    },
+    {
+        "code": "{FIU}",
+        "unit": "fluorescent intensity unit"
+    },
+    {
+        "code": "[ft_i]",
+        "unit": "foot (international)"
+    },
+    {
+        "code": "{fraction}",
+        "unit": "fraction"
+    },
+    {
+        "code": "[Ch]",
+        "unit": "French (catheter gauge)"
+    },
+    {
+        "code": "{GAA_repeats}",
+        "unit": "GAA trinucleotide repeats"
+    },
+    {
+        "code": "[gal_us]",
+        "unit": "gallon (US)"
+    },
+    {
+        "code": "{genomes}/mL",
+        "unit": "genomes per milliliter"
+    },
+    {
+        "code": "{Globules}/[HPF]",
+        "unit": "globules (drops)  per high power field"
+    },
+    {
+        "code": "g",
+        "unit": "gram"
+    },
+    {
+        "code": "g.m",
+        "unit": "gram meter"
+    },
+    {
+        "code": "g.m/{beat}",
+        "unit": "gram meter per heart beat"
+    },
+    {
+        "code": "g{creat}",
+        "unit": "gram of creatinine"
+    },
+    {
+        "code": "g{Hb}",
+        "unit": "gram of hemoglobin"
+    },
+    {
+        "code": "g{total_nit}",
+        "unit": "gram of total nitrogen"
+    },
+    {
+        "code": "g{total_prot}",
+        "unit": "gram of total protein"
+    },
+    {
+        "code": "g{wet_tissue}",
+        "unit": "gram of wet tissue"
+    },
+    {
+        "code": "g/kg/(8.h)",
+        "unit": "gram per  kilogram per 8 hour"
+    },
+    {
+        "code": "g/(100.g)",
+        "unit": "gram per 100 gram"
+    },
+    {
+        "code": "g/(12.h)",
+        "unit": "gram per 12 hour"
+    },
+    {
+        "code": "g/(24.h)",
+        "unit": "gram per 24 hour"
+    },
+    {
+        "code": "g/(3.d)",
+        "unit": "gram per 3 days"
+    },
+    {
+        "code": "g/(4.h)",
+        "unit": "gram per 4 hour"
+    },
+    {
+        "code": "g/(48.h)",
+        "unit": "gram per 48 hour"
+    },
+    {
+        "code": "g/(5.h)",
+        "unit": "gram per 5 hour"
+    },
+    {
+        "code": "g/(6.h)",
+        "unit": "gram per 6 hour"
+    },
+    {
+        "code": "g/(72.h)",
+        "unit": "gram per 72 hour"
+    },
+    {
+        "code": "g/(8.h){shift}",
+        "unit": "gram per 8 hour shift"
+    },
+    {
+        "code": "g/cm3",
+        "unit": "gram per cubic centimeter"
+    },
+    {
+        "code": "g/d",
+        "unit": "gram per day"
+    },
+    {
+        "code": "g/dL",
+        "unit": "gram per deciliter"
+    },
+    {
+        "code": "g/g",
+        "unit": "gram per gram"
+    },
+    {
+        "code": "g/g{creat}",
+        "unit": "gram per gram of creatinine"
+    },
+    {
+        "code": "g/g{globulin}",
+        "unit": "gram per gram of globulin"
+    },
+    {
+        "code": "g/g{tissue}",
+        "unit": "gram per gram of tissue"
+    },
+    {
+        "code": "g/h",
+        "unit": "gram per hour"
+    },
+    {
+        "code": "g/h/m2",
+        "unit": "gram per hour per square meter"
+    },
+    {
+        "code": "g/kg",
+        "unit": "gram per kilogram"
+    },
+    {
+        "code": "g/kg/(8.h){shift}",
+        "unit": "gram per kilogram per 8 hour shift"
+    },
+    {
+        "code": "g/kg/d",
+        "unit": "gram per kilogram per day"
+    },
+    {
+        "code": "g/kg/h",
+        "unit": "gram per kilogram per hour"
+    },
+    {
+        "code": "g/kg/min",
+        "unit": "gram per kilogram per minute"
+    },
+    {
+        "code": "g/L",
+        "unit": "gram per liter"
+    },
+    {
+        "code": "g/mg",
+        "unit": "gram per milligram"
+    },
+    {
+        "code": "g/mL",
+        "unit": "gram per milliliter"
+    },
+    {
+        "code": "g/mmol",
+        "unit": "gram per millimole"
+    },
+    {
+        "code": "g/min",
+        "unit": "gram per minute"
+    },
+    {
+        "code": "g/mol{creat}",
+        "unit": "gram per mole of creatinine"
+    },
+    {
+        "code": "g/{specimen}",
+        "unit": "gram per specimen"
+    },
+    {
+        "code": "g/cm2",
+        "unit": "gram per square centimeter"
+    },
+    {
+        "code": "g/m2",
+        "unit": "gram per square meter"
+    },
+    {
+        "code": "g/{total_output}",
+        "unit": "gram per total output"
+    },
+    {
+        "code": "g/{total_weight}",
+        "unit": "gram per total weight"
+    },
+    {
+        "code": "Gy",
+        "unit": "Gray"
+    },
+    {
+        "code": "{beats}/min",
+        "unit": "heart beats per minute"
+    },
+    {
+        "code": "H",
+        "unit": "Henry"
+    },
+    {
+        "code": "Hz",
+        "unit": "Hertz"
+    },
+    {
+        "code": "[HPF]",
+        "unit": "high power field"
+    },
+    {
+        "code": "h",
+        "unit": "hour"
+    },
+    {
+        "code": "h/d",
+        "unit": "hour per day"
+    },
+    {
+        "code": "h/wk",
+        "unit": "hour per week"
+    },
+    {
+        "code": "[APL'U]/mL",
+        "unit": "IgA anticardiolipin unit per milliliter**"
+    },
+    {
+        "code": "[APL'U]",
+        "unit": "IgA anticardiolipin unit**"
+    },
+    {
+        "code": "{APS'U}",
+        "unit": "IgA antiphosphatidylserine unit"
+    },
+    {
+        "code": "[GPL'U]/mL",
+        "unit": "IgG anticardiolipin unit per milliliter**"
+    },
+    {
+        "code": "[GPL'U]",
+        "unit": "IgG anticardiolipin unit**"
+    },
+    {
+        "code": "{GPS'U}",
+        "unit": "IgG antiphosphatidylserine unit"
+    },
+    {
+        "code": "[MPL'U]/mL",
+        "unit": "IgM anticardiolipin unit per milliliter**"
+    },
+    {
+        "code": "[MPL'U]",
+        "unit": "IgM anticardiolipin unit**"
+    },
+    {
+        "code": "{MPS'U}",
+        "unit": "IgM antiphosphatidylserine unit"
+    },
+    {
+        "code": "{MPS'U}/mL",
+        "unit": "IgM antiphosphatidylserine unit per milliliter"
+    },
+    {
+        "code": "{ImmuneComplex'U}",
+        "unit": "immune complex unit"
+    },
+    {
+        "code": "{ISR}",
+        "unit": "immune status ratio"
+    },
+    {
+        "code": "{IFA_index}",
+        "unit": "immunofluorescence assay index"
+    },
+    {
+        "code": "{IFA_titer}",
+        "unit": "Immunofluorescence assay titer"
+    },
+    {
+        "code": "[in_i]",
+        "unit": "inch (international)"
+    },
+    {
+        "code": "[in_i'H2O]",
+        "unit": "inch (international) of water"
+    },
+    {
+        "code": "[in_us]",
+        "unit": "inches (US)"
+    },
+    {
+        "code": "{index_val}",
+        "unit": "index value"
+    },
+    {
+        "code": "{index}",
+        "unit": "index value"
+    },
+    {
+        "code": "{HA_titer}",
+        "unit": "influenza hemagglutination titer"
+    },
+    {
+        "code": "{INR}",
+        "unit": "international normalized ratio"
+    },
+    {
+        "code": "[IU]",
+        "unit": "international unit"
+    },
+    {
+        "code": "[IU]/(2.h)",
+        "unit": "international unit per 2 hour"
+    },
+    {
+        "code": "[IU]/(24.h)",
+        "unit": "international unit per 24 hour"
+    },
+    {
+        "code": "[IU]/10*9{RBCs}",
+        "unit": "international unit per billion red blood cells"
+    },
+    {
+        "code": "[IU]/d",
+        "unit": "international unit per day"
+    },
+    {
+        "code": "[IU]/dL",
+        "unit": "international unit per deciliter"
+    },
+    {
+        "code": "[IU]/g",
+        "unit": "international unit per gram"
+    },
+    {
+        "code": "[IU]/g{Hb}",
+        "unit": "international unit per gram of hemoglobin"
+    },
+    {
+        "code": "[IU]/h",
+        "unit": "international unit per hour"
+    },
+    {
+        "code": "[IU]/kg",
+        "unit": "international unit per kilogram"
+    },
+    {
+        "code": "[IU]/kg/d",
+        "unit": "international unit per kilogram per day"
+    },
+    {
+        "code": "[IU]/L",
+        "unit": "international unit per liter"
+    },
+    {
+        "code": "[IU]/L{37Cel}",
+        "unit": "international unit per liter at 37 degrees Celsius"
+    },
+    {
+        "code": "[IU]/mg{creat}",
+        "unit": "international unit per milligram of creatinine"
+    },
+    {
+        "code": "[IU]/mL",
+        "unit": "international unit per milliliter"
+    },
+    {
+        "code": "[IU]/min",
+        "unit": "international unit per minute"
+    },
+    {
+        "code": "J",
+        "unit": "joule"
+    },
+    {
+        "code": "J/L",
+        "unit": "joule per liter"
+    },
+    {
+        "code": "{JDF'U}",
+        "unit": "Juvenile Diabetes Foundation unit"
+    },
+    {
+        "code": "{JDF'U}/L",
+        "unit": "Juvenile Diabetes Foundation unit per liter"
+    },
+    {
+        "code": "{KCT'U}",
+        "unit": "kaolin clotting time"
+    },
+    {
+        "code": "kat",
+        "unit": "katal"
+    },
+    {
+        "code": "kat/kg",
+        "unit": "katal per kilogram"
+    },
+    {
+        "code": "kat/L",
+        "unit": "katal per liter"
+    },
+    {
+        "code": "kU",
+        "unit": "kilo enzyme unit"
+    },
+    {
+        "code": "kU/g",
+        "unit": "kilo enzyme unit per gram"
+    },
+    {
+        "code": "kU/L",
+        "unit": "kilo enzyme unit per liter"
+    },
+    {
+        "code": "kU/L{class}",
+        "unit": "kilo enzyme unit per liter class"
+    },
+    {
+        "code": "kU/mL",
+        "unit": "kilo enzyme unit per milliliter"
+    },
+    {
+        "code": "k[IU]/L",
+        "unit": "kilo international unit per liter"
+    },
+    {
+        "code": "k[IU]/mL",
+        "unit": "kilo international unit per milliliter"
+    },
+    {
+        "code": "kcal",
+        "unit": "kilocalorie"
+    },
+    {
+        "code": "kcal/(24.h)",
+        "unit": "kilocalorie per 24 hour"
+    },
+    {
+        "code": "kcal/d",
+        "unit": "kilocalorie per day"
+    },
+    {
+        "code": "kcal/h",
+        "unit": "kilocalorie per hour"
+    },
+    {
+        "code": "kcal/kg/(24.h)",
+        "unit": "kilocalorie per kilogram per 24 hour"
+    },
+    {
+        "code": "kcal/[oz_av]",
+        "unit": "kilocalorie per ounce (US & British)"
+    },
+    {
+        "code": "kg",
+        "unit": "kilogram"
+    },
+    {
+        "code": "kg.m/s",
+        "unit": "kilogram meter per second"
+    },
+    {
+        "code": "kg/m3",
+        "unit": "kilogram per cubic meter"
+    },
+    {
+        "code": "kg/h",
+        "unit": "kilogram per hour"
+    },
+    {
+        "code": "kg/L",
+        "unit": "kilogram per liter"
+    },
+    {
+        "code": "kg/min",
+        "unit": "kilogram per minute"
+    },
+    {
+        "code": "kg/mol",
+        "unit": "kilogram per mole"
+    },
+    {
+        "code": "kg/s",
+        "unit": "kilogram per second"
+    },
+    {
+        "code": "kg/(s.m2)",
+        "unit": "kilogram per second per square meter"
+    },
+    {
+        "code": "kg/m2",
+        "unit": "kilogram per square meter"
+    },
+    {
+        "code": "kL",
+        "unit": "kiloliter"
+    },
+    {
+        "code": "km",
+        "unit": "kilometer"
+    },
+    {
+        "code": "kPa",
+        "unit": "kilopascal"
+    },
+    {
+        "code": "ks",
+        "unit": "kilosecond"
+    },
+    {
+        "code": "[ka'U]",
+        "unit": "King Armstrong unit"
+    },
+    {
+        "code": "{KRONU'U}/mL",
+        "unit": "Kronus unit per milliliter"
+    },
+    {
+        "code": "[knk'U]",
+        "unit": "Kunkel unit"
+    },
+    {
+        "code": "L",
+        "unit": "liter"
+    },
+    {
+        "code": "L/(24.h)",
+        "unit": "liter per 24 hour"
+    },
+    {
+        "code": "L/(8.h)",
+        "unit": "liter per 8 hour"
+    },
+    {
+        "code": "L/d",
+        "unit": "liter per day"
+    },
+    {
+        "code": "L/h",
+        "unit": "liter per hour"
+    },
+    {
+        "code": "L/kg",
+        "unit": "liter per kilogram"
+    },
+    {
+        "code": "L/L",
+        "unit": "liter per liter"
+    },
+    {
+        "code": "L/min",
+        "unit": "liter per minute"
+    },
+    {
+        "code": "L/min/m2",
+        "unit": "liter per minute per sqaure meter"
+    },
+    {
+        "code": "L/(min.m2)",
+        "unit": "liter per minute per square meter"
+    },
+    {
+        "code": "L/s",
+        "unit": "liter per second"
+    },
+    {
+        "code": "L/s/s2",
+        "unit": "liter per second per square second"
+    },
+    {
+        "code": "{Log_copies}/mL",
+        "unit": "log (base 10) copies per milliliter"
+    },
+    {
+        "code": "{Log_IU}",
+        "unit": "log (base 10) international unit"
+    },
+    {
+        "code": "{Log_IU}/mL",
+        "unit": "log (base 10) international unit per milliliter"
+    },
+    {
+        "code": "{Log}",
+        "unit": "log base 10"
+    },
+    {
+        "code": "[LPF]",
+        "unit": "low power field"
+    },
+    {
+        "code": "lm",
+        "unit": "lumen"
+    },
+    {
+        "code": "lm.m2",
+        "unit": "lumen square meter"
+    },
+    {
+        "code": "{Lyme_index_value}",
+        "unit": "Lyme index value"
+    },
+    {
+        "code": "[mclg'U]",
+        "unit": "Maclagan unit"
+    },
+    {
+        "code": "Ms",
+        "unit": "megasecond"
+    },
+    {
+        "code": "[MET].min/wk",
+        "unit": "metabolic equivalent minute per week"
+    },
+    {
+        "code": "m",
+        "unit": "meter"
+    },
+    {
+        "code": "m/s",
+        "unit": "meter per second"
+    },
+    {
+        "code": "m/s2",
+        "unit": "meter per square second"
+    },
+    {
+        "code": "t",
+        "unit": "metric ton"
+    },
+    {
+        "code": "uU/g",
+        "unit": "micro enzyme unit per gram"
+    },
+    {
+        "code": "uU/L",
+        "unit": "micro enzyme unit per liter"
+    },
+    {
+        "code": "uU/mL",
+        "unit": "micro enzyme unit per milliliter"
+    },
+    {
+        "code": "u[IU]",
+        "unit": "micro international unit"
+    },
+    {
+        "code": "u[IU]/mL",
+        "unit": "micro international unit per milliliter"
+    },
+    {
+        "code": "ueq",
+        "unit": "microequivalent"
+    },
+    {
+        "code": "ueq/L",
+        "unit": "microequivalent per liter"
+    },
+    {
+        "code": "ueq/mL",
+        "unit": "microequivalent per milliliter"
+    },
+    {
+        "code": "ug",
+        "unit": "microgram"
+    },
+    {
+        "code": "ug/g{feces}",
+        "unit": "microgram  per gram of feces"
+    },
+    {
+        "code": "ug{FEU}/mL",
+        "unit": "microgram fibrinogen equivalent unit per milliliter"
+    },
+    {
+        "code": "ug/(100.g)",
+        "unit": "microgram per 100 gram"
+    },
+    {
+        "code": "ug/(24.h)",
+        "unit": "microgram per 24 hour"
+    },
+    {
+        "code": "ug/(8.h)",
+        "unit": "microgram per 8 hour"
+    },
+    {
+        "code": "ug/m3",
+        "unit": "microgram per cubic meter"
+    },
+    {
+        "code": "ug/d",
+        "unit": "microgram per day"
+    },
+    {
+        "code": "ug/dL",
+        "unit": "microgram per deciliter"
+    },
+    {
+        "code": "ug/dL{RBCs}",
+        "unit": "microgram per deciliter of red blood cells"
+    },
+    {
+        "code": "ug/g",
+        "unit": "microgram per gram"
+    },
+    {
+        "code": "ug/g{creat}",
+        "unit": "microgram per gram of creatinine"
+    },
+    {
+        "code": "ug/g{dry_tissue}",
+        "unit": "microgram per gram of dry tissue"
+    },
+    {
+        "code": "ug/g{dry_wt}",
+        "unit": "microgram per gram of dry weight"
+    },
+    {
+        "code": "ug/g{hair}",
+        "unit": "microgram per gram of hair"
+    },
+    {
+        "code": "ug/g{Hb}",
+        "unit": "microgram per gram of hemoglobin"
+    },
+    {
+        "code": "ug/g{tissue}",
+        "unit": "microgram per gram of tissue"
+    },
+    {
+        "code": "ug/h",
+        "unit": "microgram per hour"
+    },
+    {
+        "code": "ug/kg",
+        "unit": "microgram per kilogram"
+    },
+    {
+        "code": "ug/kg/(8.h)",
+        "unit": "microgram per kilogram per 8 hour"
+    },
+    {
+        "code": "ug/kg/d",
+        "unit": "microgram per kilogram per day"
+    },
+    {
+        "code": "ug/kg/h",
+        "unit": "microgram per kilogram per hour"
+    },
+    {
+        "code": "ug/kg/min",
+        "unit": "microgram per kilogram per minute"
+    },
+    {
+        "code": "ug/L",
+        "unit": "microgram per liter"
+    },
+    {
+        "code": "ug/L{RBCs}",
+        "unit": "microgram per liter of red blood cells"
+    },
+    {
+        "code": "ug/L/(24.h)",
+        "unit": "microgram per liter per 24 hour"
+    },
+    {
+        "code": "ug/mg",
+        "unit": "microgram per milligram"
+    },
+    {
+        "code": "ug/mg{creat}",
+        "unit": "microgram per milligram of creatinine"
+    },
+    {
+        "code": "ug/mL",
+        "unit": "microgram per milliliter"
+    },
+    {
+        "code": "ug/mL{class}",
+        "unit": "microgram per milliliter class"
+    },
+    {
+        "code": "ug/mL{eqv}",
+        "unit": "microgram per milliliter equivalent"
+    },
+    {
+        "code": "ug/mmol",
+        "unit": "microgram per millimole"
+    },
+    {
+        "code": "ug/mmol{creat}",
+        "unit": "microgram per millimole of creatinine"
+    },
+    {
+        "code": "ug/min",
+        "unit": "microgram per minute"
+    },
+    {
+        "code": "ug/ng",
+        "unit": "microgram per nanogram"
+    },
+    {
+        "code": "ug/{specimen}",
+        "unit": "microgram per specimen"
+    },
+    {
+        "code": "ug/[sft_i]",
+        "unit": "microgram per square foot (international)"
+    },
+    {
+        "code": "ug/m2",
+        "unit": "microgram per square meter"
+    },
+    {
+        "code": "u[IU]/L",
+        "unit": "microinternational unit per liter"
+    },
+    {
+        "code": "ukat",
+        "unit": "microkatal"
+    },
+    {
+        "code": "uL",
+        "unit": "microliter"
+    },
+    {
+        "code": "uL/(2.h)",
+        "unit": "microliter per 2 hour"
+    },
+    {
+        "code": "uL/h",
+        "unit": "microliter per hour"
+    },
+    {
+        "code": "um",
+        "unit": "micrometer"
+    },
+    {
+        "code": "umol",
+        "unit": "micromole"
+    },
+    {
+        "code": "umol{BCE}/mol",
+        "unit": "micromole bone collagen equivalent per mole"
+    },
+    {
+        "code": "umol/(2.h)",
+        "unit": "micromole per 2 hour"
+    },
+    {
+        "code": "umol/(24.h)",
+        "unit": "micromole per 24 hour"
+    },
+    {
+        "code": "umol/(8.h)",
+        "unit": "micromole per 8 hour"
+    },
+    {
+        "code": "umol/d",
+        "unit": "micromole per day"
+    },
+    {
+        "code": "umol/dL",
+        "unit": "micromole per deciliter"
+    },
+    {
+        "code": "umol/dL{GF}",
+        "unit": "micromole per deciliter of glomerular filtrate"
+    },
+    {
+        "code": "umol/g",
+        "unit": "micromole per gram"
+    },
+    {
+        "code": "umol/g{creat}",
+        "unit": "micromole per gram of creatinine"
+    },
+    {
+        "code": "umol/g{Hb}",
+        "unit": "micromole per gram of hemoglobin"
+    },
+    {
+        "code": "umol/h",
+        "unit": "micromole per hour"
+    },
+    {
+        "code": "umol/kg",
+        "unit": "micromole per kilogram"
+    },
+    {
+        "code": "umol/kg{feces}",
+        "unit": "micromole per kilogram of feces"
+    },
+    {
+        "code": "umol/L",
+        "unit": "micromole per liter"
+    },
+    {
+        "code": "umol/L{RBCs}",
+        "unit": "micromole per liter of red blood cells"
+    },
+    {
+        "code": "umol/L/h",
+        "unit": "micromole per liter per hour"
+    },
+    {
+        "code": "umol/umol",
+        "unit": "micromole per micromole"
+    },
+    {
+        "code": "umol/umol{creat}",
+        "unit": "micromole per micromole of creatinine"
+    },
+    {
+        "code": "umol/mg",
+        "unit": "micromole per milligram"
+    },
+    {
+        "code": "umol/mg{creat}",
+        "unit": "micromole per milligram of creatinine"
+    },
+    {
+        "code": "umol/mL",
+        "unit": "micromole per milliliter"
+    },
+    {
+        "code": "umol/mL/min",
+        "unit": "micromole per milliliter per minute"
+    },
+    {
+        "code": "umol/mmol",
+        "unit": "micromole per millimole"
+    },
+    {
+        "code": "umol/mmol{creat}",
+        "unit": "micromole per millimole of creatinine"
+    },
+    {
+        "code": "umol/10*6{RBC}",
+        "unit": "micromole per million red blood cell"
+    },
+    {
+        "code": "umol/min",
+        "unit": "micromole per minute"
+    },
+    {
+        "code": "umol/min/g",
+        "unit": "micromole per minute per gram"
+    },
+    {
+        "code": "umol/min/g{mucosa}",
+        "unit": "micromole per minute per gram of mucosa"
+    },
+    {
+        "code": "umol/min/g{prot}",
+        "unit": "micromole per minute per gram of protein"
+    },
+    {
+        "code": "umol/min/L",
+        "unit": "micromole per minute per liter"
+    },
+    {
+        "code": "umol/mol",
+        "unit": "micromole per mole"
+    },
+    {
+        "code": "umol/mol{creat}",
+        "unit": "micromole per mole of creatinine"
+    },
+    {
+        "code": "umol/mol{Hb}",
+        "unit": "micromole per mole of hemoglobin"
+    },
+    {
+        "code": "um/s",
+        "unit": "microns per second"
+    },
+    {
+        "code": "uOhm",
+        "unit": "microOhm"
+    },
+    {
+        "code": "us",
+        "unit": "microsecond"
+    },
+    {
+        "code": "uV",
+        "unit": "microvolt"
+    },
+    {
+        "code": "[mi_i]",
+        "unit": "mile (international)"
+    },
+    {
+        "code": "mU/g",
+        "unit": "milli  enzyme unit per gram"
+    },
+    {
+        "code": "mU/mL",
+        "unit": "milli  enzyme unit per milliliter"
+    },
+    {
+        "code": "mU/mL/min",
+        "unit": "milli  enzyme unit per milliliter per minute"
+    },
+    {
+        "code": "mU/mmol{creat}",
+        "unit": "milli  enzyme unit per millimole of creatinine"
+    },
+    {
+        "code": "mU/mmol{RBCs}",
+        "unit": "milli  enzyme unit per millimole of red blood cells"
+    },
+    {
+        "code": "m[IU]/mL",
+        "unit": "milli  international unit per milliliter"
+    },
+    {
+        "code": "mU/g{Hb}",
+        "unit": "milli enzyme unit per gram of hemoglobin"
+    },
+    {
+        "code": "mU/g{prot}",
+        "unit": "milli enzyme unit per gram of protein"
+    },
+    {
+        "code": "mU/L",
+        "unit": "milli enzyme unit per liter"
+    },
+    {
+        "code": "mU/mg",
+        "unit": "milli enzyme unit per milligram"
+    },
+    {
+        "code": "mU/mg{creat}",
+        "unit": "milli enzyme unit per milligram of creatinine"
+    },
+    {
+        "code": "m[IU]/L",
+        "unit": "milli international unit per liter"
+    },
+    {
+        "code": "mA",
+        "unit": "milliampere"
+    },
+    {
+        "code": "mbar",
+        "unit": "millibar"
+    },
+    {
+        "code": "mbar/L/s",
+        "unit": "millibar per liter per second"
+    },
+    {
+        "code": "mbar.s/L",
+        "unit": "millibar second per liter"
+    },
+    {
+        "code": "meq",
+        "unit": "milliequivalent"
+    },
+    {
+        "code": "meq/(2.h)",
+        "unit": "milliequivalent per 2 hour"
+    },
+    {
+        "code": "meq/(24.h)",
+        "unit": "milliequivalent per 24 hour"
+    },
+    {
+        "code": "meq/(8.h)",
+        "unit": "milliequivalent per 8 hour"
+    },
+    {
+        "code": "meq/d",
+        "unit": "milliequivalent per day"
+    },
+    {
+        "code": "meq/dL",
+        "unit": "milliequivalent per deciliter"
+    },
+    {
+        "code": "meq/g",
+        "unit": "milliequivalent per gram"
+    },
+    {
+        "code": "meq/g{creat}",
+        "unit": "milliequivalent per gram of creatinine"
+    },
+    {
+        "code": "meq/h",
+        "unit": "milliequivalent per hour"
+    },
+    {
+        "code": "meq/kg",
+        "unit": "milliequivalent per kilogram"
+    },
+    {
+        "code": "meq/kg/h",
+        "unit": "milliequivalent per kilogram per hour"
+    },
+    {
+        "code": "meq/L",
+        "unit": "milliequivalent per liter"
+    },
+    {
+        "code": "meq/mL",
+        "unit": "milliequivalent per milliliter"
+    },
+    {
+        "code": "meq/min",
+        "unit": "milliequivalent per minute"
+    },
+    {
+        "code": "meq/{specimen}",
+        "unit": "milliequivalent per specimen"
+    },
+    {
+        "code": "meq/m2",
+        "unit": "milliequivalent per square meter"
+    },
+    {
+        "code": "meq/{total_volume}",
+        "unit": "milliequivalent per total volume"
+    },
+    {
+        "code": "mg",
+        "unit": "milligram"
+    },
+    {
+        "code": "mg{FEU}/L",
+        "unit": "milligram fibrinogen equivalent unit per liter"
+    },
+    {
+        "code": "mg/(10.h)",
+        "unit": "milligram per 10 hour"
+    },
+    {
+        "code": "mg/(12.h)",
+        "unit": "milligram per 12 hour"
+    },
+    {
+        "code": "mg/(2.h)",
+        "unit": "milligram per 2 hour"
+    },
+    {
+        "code": "mg/(24.h)",
+        "unit": "milligram per 24 hour"
+    },
+    {
+        "code": "mg/(6.h)",
+        "unit": "milligram per 6 hour"
+    },
+    {
+        "code": "mg/(72.h)",
+        "unit": "milligram per 72 hour"
+    },
+    {
+        "code": "mg/(8.h)",
+        "unit": "milligram per 8 hour"
+    },
+    {
+        "code": "mg/{collection}",
+        "unit": "milligram per collection"
+    },
+    {
+        "code": "mg/m3",
+        "unit": "milligram per cubic meter"
+    },
+    {
+        "code": "mg/d",
+        "unit": "milligram per day"
+    },
+    {
+        "code": "mg/d/{1.73_m2}",
+        "unit": "milligram per day per 1.73 square meter"
+    },
+    {
+        "code": "mg/dL",
+        "unit": "milligram per deciliter"
+    },
+    {
+        "code": "mg/dL{RBCs}",
+        "unit": "milligram per deciliter of red blood cells"
+    },
+    {
+        "code": "mg/g",
+        "unit": "milligram per gram"
+    },
+    {
+        "code": "mg/g{creat}",
+        "unit": "milligram per gram of creatinine"
+    },
+    {
+        "code": "mg/g{dry_tissue}",
+        "unit": "milligram per gram of dry tissue"
+    },
+    {
+        "code": "mg/g{feces}",
+        "unit": "milligram per gram of feces"
+    },
+    {
+        "code": "mg/g{tissue}",
+        "unit": "milligram per gram of tissue"
+    },
+    {
+        "code": "mg/g{wet_tissue}",
+        "unit": "milligram per gram of wet tissue"
+    },
+    {
+        "code": "mg/h",
+        "unit": "milligram per hour"
+    },
+    {
+        "code": "mg/kg",
+        "unit": "milligram per kilogram"
+    },
+    {
+        "code": "mg/kg/(8.h)",
+        "unit": "milligram per kilogram per 8 hour"
+    },
+    {
+        "code": "mg/kg/d",
+        "unit": "milligram per kilogram per day"
+    },
+    {
+        "code": "mg/kg/h",
+        "unit": "milligram per kilogram per hour"
+    },
+    {
+        "code": "mg/kg/min",
+        "unit": "milligram per kilogram per minute"
+    },
+    {
+        "code": "mg/L",
+        "unit": "milligram per liter"
+    },
+    {
+        "code": "mg/L{RBCs}",
+        "unit": "milligram per liter of red blood cells"
+    },
+    {
+        "code": "mg/mg",
+        "unit": "milligram per milligram"
+    },
+    {
+        "code": "mg/mg{creat}",
+        "unit": "milligram per milligram of creatinine"
+    },
+    {
+        "code": "mg/mL",
+        "unit": "milligram per milliliter"
+    },
+    {
+        "code": "mg/mmol",
+        "unit": "milligram per millimole"
+    },
+    {
+        "code": "mg/mmol{creat}",
+        "unit": "milligram per millimole of creatinine"
+    },
+    {
+        "code": "mg/min",
+        "unit": "milligram per minute"
+    },
+    {
+        "code": "mg/{specimen}",
+        "unit": "milligram per specimen"
+    },
+    {
+        "code": "mg/m2",
+        "unit": "milligram per square meter"
+    },
+    {
+        "code": "mg/{total_output}",
+        "unit": "milligram per total output"
+    },
+    {
+        "code": "mg/{total_volume}",
+        "unit": "milligram per total volume"
+    },
+    {
+        "code": "mg/wk",
+        "unit": "milligram per week"
+    },
+    {
+        "code": "mL",
+        "unit": "milliliter"
+    },
+    {
+        "code": "mL{fetal_RBCs}",
+        "unit": "milliliter of fetal red blood cells"
+    },
+    {
+        "code": "mL/(10.h)",
+        "unit": "milliliter per 10 hour"
+    },
+    {
+        "code": "mL/(12.h)",
+        "unit": "milliliter per 12 hour"
+    },
+    {
+        "code": "mL/(2.h)",
+        "unit": "milliliter per 2 hour"
+    },
+    {
+        "code": "mL/(24.h)",
+        "unit": "milliliter per 24 hour"
+    },
+    {
+        "code": "mL/(4.h)",
+        "unit": "milliliter per 4 hour"
+    },
+    {
+        "code": "mL/(5.h)",
+        "unit": "milliliter per 5 hour"
+    },
+    {
+        "code": "mL/(6.h)",
+        "unit": "milliliter per 6 hour"
+    },
+    {
+        "code": "mL/(72.h)",
+        "unit": "milliliter per 72 hour"
+    },
+    {
+        "code": "mL/(8.h)",
+        "unit": "milliliter per 8 hour"
+    },
+    {
+        "code": "mL/(8.h)/kg",
+        "unit": "milliliter per 8 hour per kilogram"
+    },
+    {
+        "code": "mL/cm[H2O]",
+        "unit": "milliliter per centimeter of water"
+    },
+    {
+        "code": "mL/d",
+        "unit": "milliliter per day"
+    },
+    {
+        "code": "mL/dL",
+        "unit": "milliliter per deciliter"
+    },
+    {
+        "code": "mL/{beat}",
+        "unit": "milliliter per heart beat"
+    },
+    {
+        "code": "mL/{beat}/m2",
+        "unit": "milliliter per heart beat per  square meter"
+    },
+    {
+        "code": "mL/h",
+        "unit": "milliliter per hour"
+    },
+    {
+        "code": "mL/kg",
+        "unit": "milliliter per kilogram"
+    },
+    {
+        "code": "mL/kg/(8.h)",
+        "unit": "milliliter per kilogram per 8 hour"
+    },
+    {
+        "code": "mL/kg/d",
+        "unit": "milliliter per kilogram per day"
+    },
+    {
+        "code": "mL/kg/h",
+        "unit": "milliliter per kilogram per hour"
+    },
+    {
+        "code": "mL/kg/min",
+        "unit": "milliliter per kilogram per minute"
+    },
+    {
+        "code": "mL/mbar",
+        "unit": "milliliter per millibar"
+    },
+    {
+        "code": "mL/mm",
+        "unit": "milliliter per millimeter"
+    },
+    {
+        "code": "mL/min",
+        "unit": "milliliter per minute"
+    },
+    {
+        "code": "mL/min/{1.73_m2}",
+        "unit": "milliliter per minute per 1.73 square meter"
+    },
+    {
+        "code": "mL/min/m2",
+        "unit": "milliliter per minute per square meter"
+    },
+    {
+        "code": "mL/s",
+        "unit": "milliliter per second"
+    },
+    {
+        "code": "mL/[sin_i]",
+        "unit": "milliliter per square inch (international)"
+    },
+    {
+        "code": "mL/m2",
+        "unit": "milliliter per square meter"
+    },
+    {
+        "code": "mm",
+        "unit": "millimeter"
+    },
+    {
+        "code": "mm[Hg]",
+        "unit": "millimeter of mercury"
+    },
+    {
+        "code": "mm[H2O]",
+        "unit": "millimeter of water"
+    },
+    {
+        "code": "mm/h",
+        "unit": "millimeter per hour"
+    },
+    {
+        "code": "mm/min",
+        "unit": "millimeter per minute"
+    },
+    {
+        "code": "mmol",
+        "unit": "millimole"
+    },
+    {
+        "code": "mmol/(12.h)",
+        "unit": "millimole per 12 hour"
+    },
+    {
+        "code": "mmol/(2.h)",
+        "unit": "millimole per 2 hour"
+    },
+    {
+        "code": "mmol/(24.h)",
+        "unit": "millimole per 24 hour"
+    },
+    {
+        "code": "mmol/(5.h)",
+        "unit": "millimole per 5 hour"
+    },
+    {
+        "code": "mmol/(6.h)",
+        "unit": "millimole per 6 hour"
+    },
+    {
+        "code": "mmol/(8.h)",
+        "unit": "millimole per 8 hour"
+    },
+    {
+        "code": "mmol/d",
+        "unit": "millimole per day"
+    },
+    {
+        "code": "mmol/dL",
+        "unit": "millimole per deciliter"
+    },
+    {
+        "code": "mmol/{ejaculate}",
+        "unit": "millimole per ejaculate"
+    },
+    {
+        "code": "mmol/g",
+        "unit": "millimole per gram"
+    },
+    {
+        "code": "mmol/g{creat}",
+        "unit": "millimole per gram of creatinine"
+    },
+    {
+        "code": "mmol/h",
+        "unit": "millimole per hour"
+    },
+    {
+        "code": "mmol/h/mg{Hb}",
+        "unit": "millimole per hour per milligram of hemoglobin"
+    },
+    {
+        "code": "mmol/h/mg{prot}",
+        "unit": "millimole per hour per milligram of protein"
+    },
+    {
+        "code": "mmol/kg",
+        "unit": "millimole per kilogram"
+    },
+    {
+        "code": "mmol/kg/(8.h)",
+        "unit": "millimole per kilogram per 8 hour"
+    },
+    {
+        "code": "mmol/kg/d",
+        "unit": "millimole per kilogram per day"
+    },
+    {
+        "code": "mmol/kg/h",
+        "unit": "millimole per kilogram per hour"
+    },
+    {
+        "code": "mmol/kg/min",
+        "unit": "millimole per kilogram per minute"
+    },
+    {
+        "code": "mmol/L",
+        "unit": "millimole per liter"
+    },
+    {
+        "code": "mmol/L{RBCs}",
+        "unit": "millimole per liter of red blood cells"
+    },
+    {
+        "code": "mmol/mmol",
+        "unit": "millimole per millimole"
+    },
+    {
+        "code": "mmol/mmol{urea}",
+        "unit": "millimole per millimole of urea"
+    },
+    {
+        "code": "mmol/mmol{creat}",
+        "unit": "millimole per millmole of creatinine"
+    },
+    {
+        "code": "mmol/min",
+        "unit": "millimole per minute"
+    },
+    {
+        "code": "mmol/mol",
+        "unit": "millimole per mole"
+    },
+    {
+        "code": "mmol/mol{creat}",
+        "unit": "millimole per mole of creatinine"
+    },
+    {
+        "code": "mmol/s/L",
+        "unit": "millimole per second per liter"
+    },
+    {
+        "code": "mmol/{specimen}",
+        "unit": "millimole per specimen"
+    },
+    {
+        "code": "mmol/m2",
+        "unit": "millimole per square meter"
+    },
+    {
+        "code": "mmol/{total_vol}",
+        "unit": "millimole per total volume"
+    },
+    {
+        "code": "10*6",
+        "unit": "million"
+    },
+    {
+        "code": "10*6.[CFU]/L",
+        "unit": "million colony forming unit per liter"
+    },
+    {
+        "code": "10*6.[IU]",
+        "unit": "million international unit"
+    },
+    {
+        "code": "10*6/(24.h)",
+        "unit": "million per 24 hour"
+    },
+    {
+        "code": "10*6/kg",
+        "unit": "million per kilogram"
+    },
+    {
+        "code": "10*6/L",
+        "unit": "million per liter"
+    },
+    {
+        "code": "10*6/uL",
+        "unit": "million per microliter"
+    },
+    {
+        "code": "10*6/mL",
+        "unit": "million per milliliter"
+    },
+    {
+        "code": "mosm",
+        "unit": "milliosmole"
+    },
+    {
+        "code": "mosm/kg",
+        "unit": "milliosmole per kilogram"
+    },
+    {
+        "code": "mosm/L",
+        "unit": "milliosmole per liter"
+    },
+    {
+        "code": "mPa",
+        "unit": "millipascal"
+    },
+    {
+        "code": "mPa.s",
+        "unit": "millipascal second"
+    },
+    {
+        "code": "ms",
+        "unit": "millisecond"
+    },
+    {
+        "code": "mV",
+        "unit": "millivolt"
+    },
+    {
+        "code": "mV/s",
+        "unit": "millivolt per second"
+    },
+    {
+        "code": "{minidrop}/min",
+        "unit": "minidrop per minute"
+    },
+    {
+        "code": "{minidrop}/s",
+        "unit": "minidrop per second"
+    },
+    {
+        "code": "min",
+        "unit": "minute"
+    },
+    {
+        "code": "min/d",
+        "unit": "minute per day"
+    },
+    {
+        "code": "min/wk",
+        "unit": "minute per week"
+    },
+    {
+        "code": "mol",
+        "unit": "mole"
+    },
+    {
+        "code": "mol/m3",
+        "unit": "mole per cubic meter"
+    },
+    {
+        "code": "mol/kg",
+        "unit": "mole per kilogram"
+    },
+    {
+        "code": "mol/kg/s",
+        "unit": "mole per kilogram per second"
+    },
+    {
+        "code": "mol/L",
+        "unit": "mole per liter"
+    },
+    {
+        "code": "mol/mL",
+        "unit": "mole per milliliter"
+    },
+    {
+        "code": "mol/mol",
+        "unit": "mole per mole"
+    },
+    {
+        "code": "mol/s",
+        "unit": "mole per second"
+    },
+    {
+        "code": "{#}/{platelet}",
+        "unit": "molecule per platelet"
+    },
+    {
+        "code": "mo",
+        "unit": "month"
+    },
+    {
+        "code": "{mm/dd/yyyy}",
+        "unit": "month-day-year"
+    },
+    {
+        "code": "{M.o.M}",
+        "unit": "multiple of the median"
+    },
+    {
+        "code": "{mutation}",
+        "unit": "mutation"
+    },
+    {
+        "code": "nU/mL",
+        "unit": "nanoenzyme unit per milliliter"
+    },
+    {
+        "code": "nU/{RBC}",
+        "unit": "nanoenzyme unit per red blood cell"
+    },
+    {
+        "code": "ng",
+        "unit": "nanogram"
+    },
+    {
+        "code": "ng{FEU}/mL",
+        "unit": "nanogram fibrinogen equivalent unit per milliliter"
+    },
+    {
+        "code": "ng/(24.h)",
+        "unit": "nanogram per 24 hour"
+    },
+    {
+        "code": "ng/(8.h)",
+        "unit": "nanogram per 8 hour"
+    },
+    {
+        "code": "ng/d",
+        "unit": "nanogram per day"
+    },
+    {
+        "code": "ng/dL",
+        "unit": "nanogram per deciliter"
+    },
+    {
+        "code": "ng/U",
+        "unit": "nanogram per enzyme unit"
+    },
+    {
+        "code": "ng/g",
+        "unit": "nanogram per gram"
+    },
+    {
+        "code": "ng/g{creat}",
+        "unit": "nanogram per gram of creatinine"
+    },
+    {
+        "code": "ng/h",
+        "unit": "nanogram per hour"
+    },
+    {
+        "code": "ng/kg",
+        "unit": "nanogram per kilogram"
+    },
+    {
+        "code": "ng/kg/(8.h)",
+        "unit": "nanogram per kilogram per 8 hour"
+    },
+    {
+        "code": "ng/kg/h",
+        "unit": "nanogram per kilogram per hour"
+    },
+    {
+        "code": "ng/kg/min",
+        "unit": "nanogram per kilogram per minute"
+    },
+    {
+        "code": "ng/L",
+        "unit": "nanogram per liter"
+    },
+    {
+        "code": "ng/mg",
+        "unit": "nanogram per milligram"
+    },
+    {
+        "code": "ng/mg{creat}",
+        "unit": "nanogram per milligram of creatinine"
+    },
+    {
+        "code": "ng/mg{prot}",
+        "unit": "nanogram per milligram of protein"
+    },
+    {
+        "code": "ng/mg/h",
+        "unit": "nanogram per milligram per hour"
+    },
+    {
+        "code": "ng/mL{RBCs}",
+        "unit": "nanogram per milliliter of red blood cells"
+    },
+    {
+        "code": "ng/mL/h",
+        "unit": "nanogram per milliliter per hour"
+    },
+    {
+        "code": "ng/10*6",
+        "unit": "nanogram per million"
+    },
+    {
+        "code": "ng/10*6{RBCs}",
+        "unit": "nanogram per million red blood cells"
+    },
+    {
+        "code": "ng/mL",
+        "unit": "nanogram per millliiter"
+    },
+    {
+        "code": "ng/min",
+        "unit": "nanogram per minute"
+    },
+    {
+        "code": "ng/s",
+        "unit": "nanogram per second"
+    },
+    {
+        "code": "ng/m2",
+        "unit": "nanogram per square meter"
+    },
+    {
+        "code": "nkat",
+        "unit": "nanokatal"
+    },
+    {
+        "code": "nL",
+        "unit": "nanoliter"
+    },
+    {
+        "code": "nm",
+        "unit": "nanometer"
+    },
+    {
+        "code": "nm/s/L",
+        "unit": "nanometer per second per liter"
+    },
+    {
+        "code": "nmol",
+        "unit": "nanomole"
+    },
+    {
+        "code": "nmol{BCE}",
+        "unit": "nanomole bone collagen equivalent"
+    },
+    {
+        "code": "nmol{BCE}/L",
+        "unit": "nanomole bone collagen equivalent per liter"
+    },
+    {
+        "code": "nmol/mmol{creat}",
+        "unit": "nanomole bone collagen equivalent per millimole of creatinine"
+    },
+    {
+        "code": "nmol/mg{prot}",
+        "unit": "nanomole of 1/2 cystine per milligram of protein"
+    },
+    {
+        "code": "nmol{ATP}",
+        "unit": "nanomole of ATP"
+    },
+    {
+        "code": "nmol/(24.h)",
+        "unit": "nanomole per 24 hour"
+    },
+    {
+        "code": "nmol/d",
+        "unit": "nanomole per day"
+    },
+    {
+        "code": "nmol/dL",
+        "unit": "nanomole per deciliter"
+    },
+    {
+        "code": "nmol/dL{GF}",
+        "unit": "nanomole per deciliter of glomerular filtrate"
+    },
+    {
+        "code": "nmol/g",
+        "unit": "nanomole per gram"
+    },
+    {
+        "code": "nmol/g{creat}",
+        "unit": "nanomole per gram of creatinine"
+    },
+    {
+        "code": "nmol/g{dry_wt}",
+        "unit": "nanomole per gram of dry weight"
+    },
+    {
+        "code": "nmol/h/L",
+        "unit": "nanomole per hour per liter"
+    },
+    {
+        "code": "nmol/h/mg{prot}",
+        "unit": "nanomole per hour per milligram of protein"
+    },
+    {
+        "code": "nmol/h/mL",
+        "unit": "nanomole per hour per milliliter"
+    },
+    {
+        "code": "nmol/L",
+        "unit": "nanomole per liter"
+    },
+    {
+        "code": "nmol/L{RBCs}",
+        "unit": "nanomole per liter of red blood cells"
+    },
+    {
+        "code": "nmol/L/mmol{creat}",
+        "unit": "nanomole per liter per millimole of creatinine"
+    },
+    {
+        "code": "nmol/m/mg{prot}",
+        "unit": "nanomole per meter per milligram of protein"
+    },
+    {
+        "code": "nmol/umol{creat}",
+        "unit": "nanomole per micromole  of creatinine"
+    },
+    {
+        "code": "nmol/mg",
+        "unit": "nanomole per milligram"
+    },
+    {
+        "code": "nmol/mg{creat}",
+        "unit": "nanomole per milligram of creatinine"
+    },
+    {
+        "code": "nmol/mg{prot}",
+        "unit": "nanomole per milligram of protein"
+    },
+    {
+        "code": "nmol/mg{prot}/h",
+        "unit": "nanomole per milligram of protein per hour"
+    },
+    {
+        "code": "nmol/mg/h",
+        "unit": "nanomole per milligram per hour"
+    },
+    {
+        "code": "nmol/mL",
+        "unit": "nanomole per milliliter"
+    },
+    {
+        "code": "nmol/mL/h",
+        "unit": "nanomole per milliliter per hour"
+    },
+    {
+        "code": "nmol/mL/min",
+        "unit": "nanomole per milliliter per minute"
+    },
+    {
+        "code": "nmol/mmol",
+        "unit": "nanomole per millimole"
+    },
+    {
+        "code": "nmol/mmol{creat}",
+        "unit": "nanomole per millimole of creatinine"
+    },
+    {
+        "code": "nmol/min",
+        "unit": "nanomole per minute"
+    },
+    {
+        "code": "nmol/min/mg{Hb}",
+        "unit": "nanomole per minute per milligram of hemoglobin"
+    },
+    {
+        "code": "nmol/min/mg{prot}",
+        "unit": "nanomole per minute per milligram of protein"
+    },
+    {
+        "code": "nmol/min/mg{protein}",
+        "unit": "nanomole per minute per milligram protein"
+    },
+    {
+        "code": "nmol/min/mL",
+        "unit": "nanomole per minute per milliliter"
+    },
+    {
+        "code": "nmol/min/10*6{cells}",
+        "unit": "nanomole per minute per million cells"
+    },
+    {
+        "code": "nmol/mol",
+        "unit": "nanomole per mole"
+    },
+    {
+        "code": "nmol/mol{creat}",
+        "unit": "nanomole per mole creatinine"
+    },
+    {
+        "code": "nmol/nmol",
+        "unit": "nanomole per nanomole"
+    },
+    {
+        "code": "nmol/s",
+        "unit": "nanomole per second"
+    },
+    {
+        "code": "nmol/s/L",
+        "unit": "nanomole per second per liter"
+    },
+    {
+        "code": "ns",
+        "unit": "nanosecond"
+    },
+    {
+        "code": "N",
+        "unit": "Newton"
+    },
+    {
+        "code": "N.cm",
+        "unit": "Newton centimeter"
+    },
+    {
+        "code": "N.s",
+        "unit": "Newton second"
+    },
+    {
+        "code": "{#}",
+        "unit": "number"
+    },
+    {
+        "code": "{#}/a",
+        "unit": "number per annum (year)"
+    },
+    {
+        "code": "{#}/d",
+        "unit": "number per day"
+    },
+    {
+        "code": "{#}/g",
+        "unit": "number per gram"
+    },
+    {
+        "code": "{#}/[HPF]",
+        "unit": "number per high power field"
+    },
+    {
+        "code": "{#}/L",
+        "unit": "number per liter"
+    },
+    {
+        "code": "{#}/[LPF]",
+        "unit": "number per low power field"
+    },
+    {
+        "code": "{#}/uL",
+        "unit": "number per microliter"
+    },
+    {
+        "code": "{#}/mL",
+        "unit": "number per milliliter"
+    },
+    {
+        "code": "{#}/min",
+        "unit": "number per minute"
+    },
+    {
+        "code": "{#}/wk",
+        "unit": "number per week"
+    },
+    {
+        "code": "Ohm",
+        "unit": "Ohm"
+    },
+    {
+        "code": "Ohm.m",
+        "unit": "Ohm meter"
+    },
+    {
+        "code": "10*5",
+        "unit": "one hundred thousand"
+    },
+    {
+        "code": "{OD_unit}",
+        "unit": "optical density unit"
+    },
+    {
+        "code": "osm",
+        "unit": "osmole"
+    },
+    {
+        "code": "osm/kg",
+        "unit": "osmole per kilogram"
+    },
+    {
+        "code": "osm/L",
+        "unit": "osmole per liter"
+    },
+    {
+        "code": "[oz_av]",
+        "unit": "ounce (US and British)"
+    },
+    {
+        "code": "{Pan_Bio'U}",
+        "unit": "panbio unit"
+    },
+    {
+        "code": "[ppb]",
+        "unit": "part per billion"
+    },
+    {
+        "code": "[ppm]",
+        "unit": "part per million"
+    },
+    {
+        "code": "[ppm]{v/v}",
+        "unit": "part per million in volume per volume"
+    },
+    {
+        "code": "[ppth]",
+        "unit": "part per thousand"
+    },
+    {
+        "code": "[pptr]",
+        "unit": "part per trillion"
+    },
+    {
+        "code": "Pa",
+        "unit": "Pascal"
+    },
+    {
+        "code": "/10*10",
+        "unit": "per 10 billion"
+    },
+    {
+        "code": "/10*4{RBCs}",
+        "unit": "per 10 thousand red blood cells"
+    },
+    {
+        "code": "/100",
+        "unit": "per 100"
+    },
+    {
+        "code": "/100{cells}",
+        "unit": "per 100 cells"
+    },
+    {
+        "code": "/100{neutrophils}",
+        "unit": "per 100 neutrophils"
+    },
+    {
+        "code": "/100{spermatozoa}",
+        "unit": "per 100 spermatozoa"
+    },
+    {
+        "code": "/100{WBCs}",
+        "unit": "per 100 white blood cells"
+    },
+    {
+        "code": "/[arb'U]",
+        "unit": "per arbitrary unit"
+    },
+    {
+        "code": "/10*9",
+        "unit": "per billion"
+    },
+    {
+        "code": "/cm[H2O]",
+        "unit": "per centimeter of water"
+    },
+    {
+        "code": "/m3",
+        "unit": "per cubic meter"
+    },
+    {
+        "code": "/d",
+        "unit": "per day"
+    },
+    {
+        "code": "/dL",
+        "unit": "per deciliter"
+    },
+    {
+        "code": "/{entity}",
+        "unit": "per entity"
+    },
+    {
+        "code": "/U",
+        "unit": "per enzyme unit"
+    },
+    {
+        "code": "/g",
+        "unit": "per gram"
+    },
+    {
+        "code": "/g{creat}",
+        "unit": "per gram of creatinine"
+    },
+    {
+        "code": "/g{Hb}",
+        "unit": "per gram of hemoglobin"
+    },
+    {
+        "code": "/g{tot_nit}",
+        "unit": "per gram of total nitrogen"
+    },
+    {
+        "code": "/g{tot_prot}",
+        "unit": "per gram of total protein"
+    },
+    {
+        "code": "/g{wet_tis}",
+        "unit": "per gram of wet tissue"
+    },
+    {
+        "code": "/[HPF]",
+        "unit": "per high power field"
+    },
+    {
+        "code": "/h",
+        "unit": "per hour"
+    },
+    {
+        "code": "/[IU]",
+        "unit": "per international unit"
+    },
+    {
+        "code": "/kg",
+        "unit": "per kilogram"
+    },
+    {
+        "code": "/kg{body_wt}",
+        "unit": "per kilogram of body weight"
+    },
+    {
+        "code": "/L",
+        "unit": "per liter"
+    },
+    {
+        "code": "/[LPF]",
+        "unit": "per low power field"
+    },
+    {
+        "code": "/uL",
+        "unit": "per microliter"
+    },
+    {
+        "code": "/mg",
+        "unit": "per milligram"
+    },
+    {
+        "code": "/mL",
+        "unit": "per milliliter"
+    },
+    {
+        "code": "/mm",
+        "unit": "per millimeter"
+    },
+    {
+        "code": "/mmol{creat}",
+        "unit": "per millimole of creatinine"
+    },
+    {
+        "code": "/10*6",
+        "unit": "per million"
+    },
+    {
+        "code": "/min",
+        "unit": "per minute"
+    },
+    {
+        "code": "/mo",
+        "unit": "per month"
+    },
+    {
+        "code": "/{OIF}",
+        "unit": "per oil immersion field"
+    },
+    {
+        "code": "/s",
+        "unit": "per second"
+    },
+    {
+        "code": "/m2",
+        "unit": "per square meter"
+    },
+    {
+        "code": "/10*3",
+        "unit": "per thousand"
+    },
+    {
+        "code": "/10*3{RBCs}",
+        "unit": "per thousand red blood cells"
+    },
+    {
+        "code": "/10*12",
+        "unit": "per trillion"
+    },
+    {
+        "code": "/10*12{RBCs}",
+        "unit": "per trillion red blood cells"
+    },
+    {
+        "code": "/(12.h)",
+        "unit": "per twelve hour"
+    },
+    {
+        "code": "/wk",
+        "unit": "per week"
+    },
+    {
+        "code": "/a",
+        "unit": "per year"
+    },
+    {
+        "code": "%",
+        "unit": "percent"
+    },
+    {
+        "code": "%{loss_AChR}",
+        "unit": "percent  loss of acetylcholine receptor"
+    },
+    {
+        "code": "%{penetration}",
+        "unit": "percent  penetration"
+    },
+    {
+        "code": "%{abnormal}",
+        "unit": "percent abnormal"
+    },
+    {
+        "code": "%{activity}",
+        "unit": "percent activity"
+    },
+    {
+        "code": "%{aggregation}",
+        "unit": "percent aggregation"
+    },
+    {
+        "code": "%{at_60_min}",
+        "unit": "percent at 60 minute"
+    },
+    {
+        "code": "%{basal_activity}",
+        "unit": "percent basal activity"
+    },
+    {
+        "code": "%{binding}",
+        "unit": "percent binding"
+    },
+    {
+        "code": "%{blockade}",
+        "unit": "percent blockade"
+    },
+    {
+        "code": "%{blocked}",
+        "unit": "percent blocked"
+    },
+    {
+        "code": "%{bound}",
+        "unit": "percent bound"
+    },
+    {
+        "code": "%{breakdown}",
+        "unit": "percent breakdown"
+    },
+    {
+        "code": "%{vol}",
+        "unit": "percent by volume"
+    },
+    {
+        "code": "%{deficient}",
+        "unit": "percent deficient"
+    },
+    {
+        "code": "%{dose}",
+        "unit": "percent dose"
+    },
+    {
+        "code": "%{excretion}",
+        "unit": "percent excretion"
+    },
+    {
+        "code": "%{Hb}",
+        "unit": "percent hemoglobin"
+    },
+    {
+        "code": "%{hemolysis}",
+        "unit": "percent hemolysis"
+    },
+    {
+        "code": "%{index}",
+        "unit": "percent index"
+    },
+    {
+        "code": "%{inhibition}",
+        "unit": "percent inhibition"
+    },
+    {
+        "code": "%{loss}",
+        "unit": "percent loss"
+    },
+    {
+        "code": "%{lysis}",
+        "unit": "percent lysis"
+    },
+    {
+        "code": "%{normal}",
+        "unit": "percent normal"
+    },
+    {
+        "code": "%{pooled_plasma}",
+        "unit": "percent normal pooled plasma"
+    },
+    {
+        "code": "%{bacteria}",
+        "unit": "percent of bacteria"
+    },
+    {
+        "code": "%{baseline}",
+        "unit": "percent of baseline"
+    },
+    {
+        "code": "%{cells}",
+        "unit": "percent of cells"
+    },
+    {
+        "code": "%{RBCs}",
+        "unit": "percent of red blood cells"
+    },
+    {
+        "code": "%{WBCs}",
+        "unit": "percent of white blood cells"
+    },
+    {
+        "code": "%{positive}",
+        "unit": "percent positive"
+    },
+    {
+        "code": "%{reactive}",
+        "unit": "percent reactive"
+    },
+    {
+        "code": "%{recovery}",
+        "unit": "percent recovery"
+    },
+    {
+        "code": "%{reference}",
+        "unit": "percent reference"
+    },
+    {
+        "code": "%{residual}",
+        "unit": "percent residual"
+    },
+    {
+        "code": "%{response}",
+        "unit": "percent response"
+    },
+    {
+        "code": "%{saturation}",
+        "unit": "percent saturation"
+    },
+    {
+        "code": "%{total}",
+        "unit": "percent total"
+    },
+    {
+        "code": "%{uptake}",
+        "unit": "percent uptake"
+    },
+    {
+        "code": "%{viable}",
+        "unit": "percent viable"
+    },
+    {
+        "code": "{percentile}",
+        "unit": "percentile"
+    },
+    {
+        "code": "[pH]",
+        "unit": "pH"
+    },
+    {
+        "code": "{phenotype}",
+        "unit": "phenotype"
+    },
+    {
+        "code": "pA",
+        "unit": "picoampere"
+    },
+    {
+        "code": "pg",
+        "unit": "picogram"
+    },
+    {
+        "code": "pg/{cell}",
+        "unit": "picogram per cell"
+    },
+    {
+        "code": "pg/dL",
+        "unit": "picogram per deciliter"
+    },
+    {
+        "code": "pg/L",
+        "unit": "picogram per liter"
+    },
+    {
+        "code": "pg/mg",
+        "unit": "picogram per milligram"
+    },
+    {
+        "code": "pg/mg{creat}",
+        "unit": "picogram per milligram of creatinine"
+    },
+    {
+        "code": "pg/mL",
+        "unit": "picogram per milliliter"
+    },
+    {
+        "code": "pg/mL{sLT}",
+        "unit": "picogram per milliliter sulfidoleukotrienes"
+    },
+    {
+        "code": "pg/mm",
+        "unit": "picogram per millimeter"
+    },
+    {
+        "code": "pg/{RBC}",
+        "unit": "picogram per red blood cell"
+    },
+    {
+        "code": "pkat",
+        "unit": "picokatal"
+    },
+    {
+        "code": "pL",
+        "unit": "picoliter"
+    },
+    {
+        "code": "pm",
+        "unit": "picometer"
+    },
+    {
+        "code": "pmol",
+        "unit": "picomole"
+    },
+    {
+        "code": "pmol/(24.h)",
+        "unit": "picomole per 24 hour"
+    },
+    {
+        "code": "pmol/d",
+        "unit": "picomole per day"
+    },
+    {
+        "code": "pmol/dL",
+        "unit": "picomole per deciliter"
+    },
+    {
+        "code": "pmol/g",
+        "unit": "picomole per gram"
+    },
+    {
+        "code": "pmol/h/mg{prot}",
+        "unit": "picomole per hour per milligram of protein"
+    },
+    {
+        "code": "pmol/H/mg{protein}",
+        "unit": "picomole per hour per milligram protein"
+    },
+    {
+        "code": "pmol/h/mL",
+        "unit": "picomole per hour per milliliter"
+    },
+    {
+        "code": "pmol/L",
+        "unit": "picomole per liter"
+    },
+    {
+        "code": "pmol/umol",
+        "unit": "picomole per micromole"
+    },
+    {
+        "code": "pmol/umol{creat}",
+        "unit": "picomole per micromole of creatinine"
+    },
+    {
+        "code": "pmol/mg{prot}",
+        "unit": "picomole per milligram of protein"
+    },
+    {
+        "code": "pmol/mL",
+        "unit": "picomole per milliliter"
+    },
+    {
+        "code": "pmol/mmol{creat}",
+        "unit": "picomole per millimole of creatinine"
+    },
+    {
+        "code": "pmol/min",
+        "unit": "picomole per minute"
+    },
+    {
+        "code": "pmol/min/mg{prot}",
+        "unit": "picomole per minute per milligram of protein"
+    },
+    {
+        "code": "pmol/{RBC}",
+        "unit": "picomole per red blood cell"
+    },
+    {
+        "code": "ps",
+        "unit": "picosecond"
+    },
+    {
+        "code": "pT",
+        "unit": "picotesla"
+    },
+    {
+        "code": "[pt_us]",
+        "unit": "pint (US)"
+    },
+    {
+        "code": "[lb_av]",
+        "unit": "pound (US and British)"
+    },
+    {
+        "code": "[psi]",
+        "unit": "pound per square inch"
+    },
+    {
+        "code": "[qt_us]",
+        "unit": "quart (US)"
+    },
+    {
+        "code": "{ratio}",
+        "unit": "ratio"
+    },
+    {
+        "code": "{RBC}/uL",
+        "unit": "red blood cell per microliter"
+    },
+    {
+        "code": "%{relative}",
+        "unit": "relative percent"
+    },
+    {
+        "code": "{rel_saturation}",
+        "unit": "relative saturation"
+    },
+    {
+        "code": "{risk}",
+        "unit": "risk"
+    },
+    {
+        "code": "{Rubella_virus}",
+        "unit": "rubella virus"
+    },
+    {
+        "code": "{saturation}",
+        "unit": "saturation"
+    },
+    {
+        "code": "{score}",
+        "unit": "score"
+    },
+    {
+        "code": "s",
+        "unit": "second"
+    },
+    {
+        "code": "s/{control}",
+        "unit": "second per control"
+    },
+    {
+        "code": "{shift}",
+        "unit": "shift"
+    },
+    {
+        "code": "S",
+        "unit": "Siemens"
+    },
+    {
+        "code": "Sv",
+        "unit": "Sievert"
+    },
+    {
+        "code": "{s_co_ratio}",
+        "unit": "signal to cutoff ratio"
+    },
+    {
+        "code": "{spermatozoa}/mL",
+        "unit": "spermatozoa per milliliter"
+    },
+    {
+        "code": "cm2",
+        "unit": "square centimeter"
+    },
+    {
+        "code": "cm2/s",
+        "unit": "square centimeter per second"
+    },
+    {
+        "code": "dm2/s2",
+        "unit": "square decimeter per square second"
+    },
+    {
+        "code": "[sft_i]",
+        "unit": "square foot (international)"
+    },
+    {
+        "code": "[sin_i]",
+        "unit": "square inch (international)"
+    },
+    {
+        "code": "m2",
+        "unit": "square meter"
+    },
+    {
+        "code": "m2/s",
+        "unit": "square meter per second"
+    },
+    {
+        "code": "mm2",
+        "unit": "square millimeter"
+    },
+    {
+        "code": "[syd_i]",
+        "unit": "square yard (international)"
+    },
+    {
+        "code": "{STDV}",
+        "unit": "standard deviation"
+    },
+    {
+        "code": "{Tscore}",
+        "unit": "t score"
+    },
+    {
+        "code": "[tbs_us]",
+        "unit": "tablespoon (US)"
+    },
+    {
+        "code": "[tsp_us]",
+        "unit": "teaspoon (US)"
+    },
+    {
+        "code": "T",
+        "unit": "Tesla"
+    },
+    {
+        "code": "10*3",
+        "unit": "thousand"
+    },
+    {
+        "code": "10*3{copies}/mL",
+        "unit": "thousand copies per milliliter"
+    },
+    {
+        "code": "10*3/L",
+        "unit": "thousand per liter"
+    },
+    {
+        "code": "10*3/uL",
+        "unit": "thousand per microliter"
+    },
+    {
+        "code": "10*3/mL",
+        "unit": "thousand per milliliter"
+    },
+    {
+        "code": "10*3{RBCs}",
+        "unit": "thousand red blood cells"
+    },
+    {
+        "code": "{TSI_index}",
+        "unit": "thyroid-stimulating immunoglobulin index"
+    },
+    {
+        "code": "{TmStp}",
+        "unit": "time stamp"
+    },
+    {
+        "code": "{titer}",
+        "unit": "titer"
+    },
+    {
+        "code": "[todd'U]",
+        "unit": "Todd unit"
+    },
+    {
+        "code": "Torr",
+        "unit": "Torr"
+    },
+    {
+        "code": "10*12/L",
+        "unit": "trillion per liter"
+    },
+    {
+        "code": "[oz_tr]",
+        "unit": "Troy ounce"
+    },
+    {
+        "code": "[tb'U]",
+        "unit": "tuberculin unit"
+    },
+    {
+        "code": "V",
+        "unit": "volt"
+    },
+    {
+        "code": "Wb",
+        "unit": "Weber"
+    },
+    {
+        "code": "wk",
+        "unit": "week"
+    },
+    {
+        "code": "{WBCs}",
+        "unit": "white blood cells"
+    },
+    {
+        "code": "[yd_i]",
+        "unit": "yard (international)"
+    },
+    {
+        "code": "a",
+        "unit": "year"
+    },
+    {
+        "code": "{yyyy}",
+        "unit": "year"
+    },
+    {
+        "code": "{Zscore}",
+        "unit": "z score"
+    }
+]

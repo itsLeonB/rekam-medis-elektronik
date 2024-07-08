@@ -1,0 +1,41 @@
+{
+  "active": true,
+  "birthDate": "2023-05-24",
+  "id": "ee3bff43-6b72-4a72-a41a-af4164e0eacf",
+  "identifier": [
+    {
+      "system": "https://fhir.kemkes.go.id/id/nik-ibu",
+      "use": "official",
+      "value": "367400001111222"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/paspor",
+      "use": "official",
+      "value": "A01111222"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/kk",
+      "use": "official",
+      "value": "367400001111111"
+    },
+    {
+      "system": "https://fhir.kemkes.go.id/id/ihs-number",
+      "use": "official",
+      "value": "P02029103384"
+    }
+  ],
+  "meta": {
+    "lastUpdated": "2023-05-25T07:06:42.937195+00:00",
+    "profile": [
+      "https://fhir.kemkes.go.id/r4/StructureDefinition/Patient"
+    ],
+    "versionId": "MTY4NDk5ODQwMjkzNzE5NTAwMA"
+  },
+  "name": [
+    {
+      "text": "John Smith",
+      "use": "official"
+    }
+  ],
+  "resourceType": "Patient"
+}

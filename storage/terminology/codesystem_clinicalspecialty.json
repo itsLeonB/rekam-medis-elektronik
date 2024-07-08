@@ -1,0 +1,954 @@
+[
+    {
+        "code": "1001",
+        "display": "Saraf"
+    },
+    {
+        "code": "1002",
+        "display": "Stroke dan neurovaskular"
+    },
+    {
+        "code": "1003",
+        "display": "Fungsi luhur (neurobehaviour)"
+    },
+    {
+        "code": "1004",
+        "display": "Neuroinfeksi dan imunologi"
+    },
+    {
+        "code": "1005",
+        "display": "Neuro onkologi"
+    },
+    {
+        "code": "1006",
+        "display": "Neurofisiologi dan neuromuskular"
+    },
+    {
+        "code": "1007",
+        "display": "Epilepsi"
+    },
+    {
+        "code": "1008",
+        "display": "Neuropediatri"
+    },
+    {
+        "code": "1009",
+        "display": "Nyeri"
+    },
+    {
+        "code": "1010",
+        "display": "Nyeri kepala"
+    },
+    {
+        "code": "1011",
+        "display": "Movement disorder/gangguan gerak"
+    },
+    {
+        "code": "1012",
+        "display": "Sleep disorder"
+    },
+    {
+        "code": "1013",
+        "display": "Neuro-otologi dan vertigo"
+    },
+    {
+        "code": "1014",
+        "display": "Neurorestorasi"
+    },
+    {
+        "code": "1015",
+        "display": "Neurotrauma"
+    },
+    {
+        "code": "1016",
+        "display": "Neurointensif"
+    },
+    {
+        "code": "1017",
+        "display": "Neuroimaging"
+    },
+    {
+        "code": "1018",
+        "display": "Neurogeriatri"
+    },
+    {
+        "code": "1019",
+        "display": "Neurointervensi"
+    },
+    {
+        "code": "1020",
+        "display": "Neurofisiologi Klinis"
+    },
+    {
+        "code": "1021",
+        "display": "Neuromuskular, Saraf Perifer"
+    },
+    {
+        "code": "1022",
+        "display": "Neuropsikiatri dan Psikometri"
+    },
+    {
+        "code": "1023",
+        "display": "Mata"
+    },
+    {
+        "code": "1024",
+        "display": "Mata infeksi imunologi"
+    },
+    {
+        "code": "1025",
+        "display": "Glaukoma"
+    },
+    {
+        "code": "1026",
+        "display": "Kornea, lensa, dan bedah refraktif"
+    },
+    {
+        "code": "1027",
+        "display": "Neuro oftalmologi"
+    },
+    {
+        "code": "1028",
+        "display": "Pediatri onkologi strabismus"
+    },
+    {
+        "code": "1029",
+        "display": "Refraksi lensa kontak"
+    },
+    {
+        "code": "1030",
+        "display": "Rekonstruksi okuloplasti dan onkologi"
+    },
+    {
+        "code": "1031",
+        "display": "Vitreo retina"
+    },
+    {
+        "code": "1032",
+        "display": "Onkologi Mata"
+    },
+    {
+        "code": "1033",
+        "display": "Strabismus"
+    },
+    {
+        "code": "1034",
+        "display": "Telinga hidung tenggorok dan bedah kepala leher (THT-KL)"
+    },
+    {
+        "code": "1035",
+        "display": "Otologi "
+    },
+    {
+        "code": "1036",
+        "display": "Rinologi "
+    },
+    {
+        "code": "1037",
+        "display": "Onkologi bedah kepala leher "
+    },
+    {
+        "code": "1038",
+        "display": "Laring faring "
+    },
+    {
+        "code": "1039",
+        "display": "Neurotologi"
+    },
+    {
+        "code": "1040",
+        "display": "Endoskopi bronkoesofagologi"
+    },
+    {
+        "code": "1041",
+        "display": "THT-KL alergi imunologi "
+    },
+    {
+        "code": "1042",
+        "display": "THT-KL plastik rekonstruksi"
+    },
+    {
+        "code": "1043",
+        "display": "THT komunitas"
+    },
+    {
+        "code": "1044",
+        "display": "Gigi "
+    },
+    {
+        "code": "1045",
+        "display": "Gigi radiologi "
+    },
+    {
+        "code": "1046",
+        "display": "Bedah mulut"
+    },
+    {
+        "code": "1047",
+        "display": "Konservasi/endodonsi"
+    },
+    {
+        "code": "1048",
+        "display": "Ortodontik"
+    },
+    {
+        "code": "1049",
+        "display": "Periodonti"
+    },
+    {
+        "code": "1050",
+        "display": "Prosthodonti"
+    },
+    {
+        "code": "1051",
+        "display": "Pedodonti"
+    },
+    {
+        "code": "1052",
+        "display": "Penyakit mulut "
+    },
+    {
+        "code": "1053",
+        "display": "Paru"
+    },
+    {
+        "code": "1054",
+        "display": "Infeksi paru "
+    },
+    {
+        "code": "1055",
+        "display": "Onkologi toraks "
+    },
+    {
+        "code": "1056",
+        "display": "Paru intervensi dan gawat nafas "
+    },
+    {
+        "code": "1057",
+        "display": "Asma penyakit paru obstruktif kronis "
+    },
+    {
+        "code": "1058",
+        "display": "Paru kerja dan lingkungan "
+    },
+    {
+        "code": "1059",
+        "display": "Imunologi paru "
+    },
+    {
+        "code": "1060",
+        "display": "Faal Paru Klinik"
+    },
+    {
+        "code": "1061",
+        "display": "Jantung dan pembuluh darah"
+    },
+    {
+        "code": "1062",
+        "display": "Aritmia"
+    },
+    {
+        "code": "1063",
+        "display": "Ekokardiografi"
+    },
+    {
+        "code": "1064",
+        "display": "Kardiologi intervensi"
+    },
+    {
+        "code": "1065",
+        "display": "Kardiologi pediatrik dan penyakit jantung bawaan"
+    },
+    {
+        "code": "1066",
+        "display": "Kedokteran vaskular "
+    },
+    {
+        "code": "1067",
+        "display": "Pencitraan kardiovaskular "
+    },
+    {
+        "code": "1068",
+        "display": "Perawatan intensif dan kegawatan kardiovaskular"
+    },
+    {
+        "code": "1069",
+        "display": "Prevensi dan rehabilitasi kardiovaskular"
+    },
+    {
+        "code": "1070",
+        "display": "Umum "
+    },
+    {
+        "code": "1071",
+        "display": "Penyakit dalam"
+    },
+    {
+        "code": "1072",
+        "display": "Penyakit dalam gastroenterologi hepatologi "
+    },
+    {
+        "code": "1073",
+        "display": "Penyakit dalam tropik infeksi "
+    },
+    {
+        "code": "1074",
+        "display": "Penyakit dalam ginjal hipertensi "
+    },
+    {
+        "code": "1075",
+        "display": "Penyakit dalam rematologi "
+    },
+    {
+        "code": "1076",
+        "display": "Penyakit dalam endokrin metabolik "
+    },
+    {
+        "code": "1077",
+        "display": "Penyakit dalam alergi imunologi "
+    },
+    {
+        "code": "1078",
+        "display": "Penyakit dalam psikosomatis "
+    },
+    {
+        "code": "1079",
+        "display": "Penyakit dalam geriatri "
+    },
+    {
+        "code": "1080",
+        "display": "Penyakit dalam kardiovaskular "
+    },
+    {
+        "code": "1081",
+        "display": "Penyakit dalam pulmonologi "
+    },
+    {
+        "code": "1082",
+        "display": "Penyakit dalam hematoonkologi "
+    },
+    {
+        "code": "1083",
+        "display": "Hepatologi"
+    },
+    {
+        "code": "1084",
+        "display": "Reumatologi"
+    },
+    {
+        "code": "1085",
+        "display": "Hemodialisa"
+    },
+    {
+        "code": "1086",
+        "display": "Kulit dan kelamin"
+    },
+    {
+        "code": "1087",
+        "display": "Dermatologi tropis"
+    },
+    {
+        "code": "1088",
+        "display": "Venereologi"
+    },
+    {
+        "code": "1089",
+        "display": "Dermato alergi imunologi"
+    },
+    {
+        "code": "1090",
+        "display": "Dermatologi anak"
+    },
+    {
+        "code": "1091",
+        "display": "Dermatologi kosmetik dan estetik"
+    },
+    {
+        "code": "1092",
+        "display": "Onkologi dan bedah kulit"
+    },
+    {
+        "code": "1093",
+        "display": "Dermatologi Geriatrik"
+    },
+    {
+        "code": "1094",
+        "display": "Dermatopatologi"
+    },
+    {
+        "code": "1095",
+        "display": "Anak"
+    },
+    {
+        "code": "1096",
+        "display": "Anak respirologi "
+    },
+    {
+        "code": "1097",
+        "display": "Anak neurologi "
+    },
+    {
+        "code": "1098",
+        "display": "Anak hematoonkologi "
+    },
+    {
+        "code": "1099",
+        "display": "Anak nefrologi "
+    },
+    {
+        "code": "1100",
+        "display": "Emergensi dan rawat intensif anak "
+    },
+    {
+        "code": "1101",
+        "display": "Neonatologi "
+    },
+    {
+        "code": "1102",
+        "display": "Perinatologi"
+    },
+    {
+        "code": "1103",
+        "display": "Anak endokrinologi "
+    },
+    {
+        "code": "1104",
+        "display": "Anak kardiologi "
+    },
+    {
+        "code": "1105",
+        "display": "Anak alergi imunologi "
+    },
+    {
+        "code": "1106",
+        "display": "Pediatri sosial tumbuh kembang "
+    },
+    {
+        "code": "1107",
+        "display": "Pencitraan pediatri "
+    },
+    {
+        "code": "1108",
+        "display": "Pediatrik Oftalmologi"
+    },
+    {
+        "code": "1109",
+        "display": "Anak nutrisi dan penyakit metabolik "
+    },
+    {
+        "code": "1110",
+        "display": "Anak infeksi dan penyakit tropik "
+    },
+    {
+        "code": "1111",
+        "display": "Anak Gastro-Hepatologi"
+    },
+    {
+        "code": "1112",
+        "display": "Kesehatan Remaja"
+    },
+    {
+        "code": "1113",
+        "display": "Bedah"
+    },
+    {
+        "code": "1114",
+        "display": "Bedah digestif "
+    },
+    {
+        "code": "1115",
+        "display": "Bedah onkologi "
+    },
+    {
+        "code": "1116",
+        "display": "Bedah vaskular"
+    },
+    {
+        "code": "1117",
+        "display": "Bedah kepala leher"
+    },
+    {
+        "code": "1118",
+        "display": "Bedah toraks kardiak dan vaskular"
+    },
+    {
+        "code": "1119",
+        "display": "Obstetri dan ginekologi"
+    },
+    {
+        "code": "1120",
+        "display": "Fetomaternal"
+    },
+    {
+        "code": "1121",
+        "display": "Fertilitas dan endokrinologi reproduksi"
+    },
+    {
+        "code": "1122",
+        "display": "Onkologi ginekologi"
+    },
+    {
+        "code": "1123",
+        "display": "Uroginekologi dan rekonstruksi"
+    },
+    {
+        "code": "1124",
+        "display": "Ginekologi sosial"
+    },
+    {
+        "code": "1125",
+        "display": "Urologi"
+    },
+    {
+        "code": "1126",
+        "display": "Urologi onkologi"
+    },
+    {
+        "code": "1127",
+        "display": "Urologi pediatri"
+    },
+    {
+        "code": "1128",
+        "display": "Urologi wanita dan neuro-urologi"
+    },
+    {
+        "code": "1129",
+        "display": "Urologi rekonstruksi"
+    },
+    {
+        "code": "1130",
+        "display": "Urologi andrologi"
+    },
+    {
+        "code": "1131",
+        "display": "Kedokteran jiwa"
+    },
+    {
+        "code": "1132",
+        "display": "Kesehatan jiwa anak dan remaja"
+    },
+    {
+        "code": "1133",
+        "display": "Psikiatri adiksi"
+    },
+    {
+        "code": "1134",
+        "display": "Psikoterapi "
+    },
+    {
+        "code": "1135",
+        "display": "Psikiatri forensik "
+    },
+    {
+        "code": "1136",
+        "display": "Psikogeriatri"
+    },
+    {
+        "code": "1137",
+        "display": "Psikiatri komunitas "
+    },
+    {
+        "code": "1138",
+        "display": "Orthopedi dan traumatologi"
+    },
+    {
+        "code": "1139",
+        "display": "Orthopedic spine"
+    },
+    {
+        "code": "1140",
+        "display": "Hip and knee"
+    },
+    {
+        "code": "1141",
+        "display": "Hand, upper limb and microsurgery "
+    },
+    {
+        "code": "1142",
+        "display": "Orthopedic oncology "
+    },
+    {
+        "code": "1143",
+        "display": "Pediatric orthopedic"
+    },
+    {
+        "code": "1144",
+        "display": "Foot and ankle "
+    },
+    {
+        "code": "1145",
+        "display": "Shoulder and elbow "
+    },
+    {
+        "code": "1146",
+        "display": "Advance orthopedic trauma"
+    },
+    {
+        "code": "1147",
+        "display": "Orthopedic sports injury"
+    },
+    {
+        "code": "1148",
+        "display": "Bio Orthopedic"
+    },
+    {
+        "code": "1149",
+        "display": "Bedah saraf"
+    },
+    {
+        "code": "1150",
+        "display": "Bedah saraf neurotrauma"
+    },
+    {
+        "code": "1151",
+        "display": "Bedah saraf neuro onkologi"
+    },
+    {
+        "code": "1152",
+        "display": "Bedah saraf neurospine"
+    },
+    {
+        "code": "1153",
+        "display": "Bedah saraf neurofungsional"
+    },
+    {
+        "code": "1154",
+        "display": "Bedah saraf neuropediatri"
+    },
+    {
+        "code": "1155",
+        "display": "Bedah saraf neurovaskular"
+    },
+    {
+        "code": "1156",
+        "display": "Bedah plastik rekonstruksi dan estetika"
+    },
+    {
+        "code": "1157",
+        "display": "Bedah plastik rekonstruksi dan estetika kraniomaksilofasial"
+    },
+    {
+        "code": "1158",
+        "display": "Bedah plastik rekonstruksi dan estetika luka bakar dan luka"
+    },
+    {
+        "code": "1159",
+        "display": "Bedah plastik rekonstruksi dan estetika rekonstruksi bedah mikro dan onkoplasti"
+    },
+    {
+        "code": "1160",
+        "display": "Bedah plastik rekonstruksi dan estetika bedah tangan"
+    },
+    {
+        "code": "1161",
+        "display": "Bedah plastik rekonstruksi dan estetika genitalia eksterna"
+    },
+    {
+        "code": "1162",
+        "display": "Bedah plastik rekonstruksi dan estetika bedah estetik lanjut"
+    },
+    {
+        "code": "1163",
+        "display": "Rekonstruksi"
+    },
+    {
+        "code": "1164",
+        "display": "Trauma dan Rekonstruksi"
+    },
+    {
+        "code": "1165",
+        "display": "Bedah anak"
+    },
+    {
+        "code": "1166",
+        "display": "Bedah digestif anak "
+    },
+    {
+        "code": "1167",
+        "display": "Urogenital anak "
+    },
+    {
+        "code": "1168",
+        "display": "Kedokteran forensik dan medikolegal"
+    },
+    {
+        "code": "1169",
+        "display": "Anestesi dan terapi intensif"
+    },
+    {
+        "code": "1170",
+        "display": "Intensive care"
+    },
+    {
+        "code": "1171",
+        "display": "Regional anestesi"
+    },
+    {
+        "code": "1172",
+        "display": "Kardiovaskular anestesi"
+    },
+    {
+        "code": "1173",
+        "display": "Terapi nyeri"
+    },
+    {
+        "code": "1174",
+        "display": "Pediatrik anestesi"
+    },
+    {
+        "code": "1175",
+        "display": "Neuroanestesi"
+    },
+    {
+        "code": "1176",
+        "display": "Obstetrik anestesi"
+    },
+    {
+        "code": "1177",
+        "display": "Kedokteran fisik dan rehabilitasi"
+    },
+    {
+        "code": "1178",
+        "display": "Kedokteran fisik dan rehabilitasi pediatri"
+    },
+    {
+        "code": "1179",
+        "display": "Kedokteran fisik dan rehabilitasi geriatri"
+    },
+    {
+        "code": "1180",
+        "display": "Kedokteran fisik dan rehabilitasi muskuloskeletal"
+    },
+    {
+        "code": "1181",
+        "display": "Kedokteran fisik dan rehabilitasi neomuskuler"
+    },
+    {
+        "code": "1182",
+        "display": "Kedokteran fisik dan rehabilitasi kardiorespirasi"
+    },
+    {
+        "code": "1183",
+        "display": "Radiologi "
+    },
+    {
+        "code": "1184",
+        "display": "Neuroradiologi kepala leher"
+    },
+    {
+        "code": "1185",
+        "display": "Radiologi abdomen"
+    },
+    {
+        "code": "1186",
+        "display": "Radiologi intervensi"
+    },
+    {
+        "code": "1187",
+        "display": "Radiologi anak"
+    },
+    {
+        "code": "1188",
+        "display": "Radiologi toraks"
+    },
+    {
+        "code": "1189",
+        "display": "Pencitraan payudara dan reproduksi perempuan"
+    },
+    {
+        "code": "1190",
+        "display": "Radiologi muskuloskeletal"
+    },
+    {
+        "code": "1191",
+        "display": "Kedokteran nuklir dan pencitraan molekuler"
+    },
+    {
+        "code": "1192",
+        "display": "Radiologi Tr Urinariusgenitalia"
+    },
+    {
+        "code": "1193",
+        "display": "Radiologi Tr Digestivus"
+    },
+    {
+        "code": "1194",
+        "display": "Pencitraan Kepala Leher"
+    },
+    {
+        "code": "1195",
+        "display": "Patologi klinik"
+    },
+    {
+        "code": "1196",
+        "display": "Patologi klinik mikrobiologi klinik dan penyakit infeksi"
+    },
+    {
+        "code": "1197",
+        "display": "Patologi klinik hematologi"
+    },
+    {
+        "code": "1198",
+        "display": "Patologi klinik metabolik endokrinologi"
+    },
+    {
+        "code": "1199",
+        "display": "Patologi klinik gastroenterohepatologi"
+    },
+    {
+        "code": "1200",
+        "display": "Patologi klinik imunologi"
+    },
+    {
+        "code": "1201",
+        "display": "Patologi klinik penyakit infeksi"
+    },
+    {
+        "code": "1202",
+        "display": "Patologi klinik nefrologi gastroenterohepatologi"
+    },
+    {
+        "code": "1203",
+        "display": "Patologi klinik hematologi onkologi"
+    },
+    {
+        "code": "1204",
+        "display": "Patologi klinik penyakit tropik dan Infeksi"
+    },
+    {
+        "code": "1205",
+        "display": "Patologi klinik endokrinologi"
+    },
+    {
+        "code": "1206",
+        "display": "Patologi anatomi "
+    },
+    {
+        "code": "1207",
+        "display": "Mikrobiologi klinik "
+    },
+    {
+        "code": "1208",
+        "display": "Parasitologi klinik "
+    },
+    {
+        "code": "1209",
+        "display": "Akupuntur "
+    },
+    {
+        "code": "1210",
+        "display": "Radioterapi "
+    },
+    {
+        "code": "1211",
+        "display": "Kedokteran nuklir "
+    },
+    {
+        "code": "1212",
+        "display": "Kedokteran nuklir onkologi"
+    },
+    {
+        "code": "1213",
+        "display": "Kedokteran nuklir kardiologi nuklir"
+    },
+    {
+        "code": "1214",
+        "display": "Kedokteran nuklir pediatrik"
+    },
+    {
+        "code": "1215",
+        "display": "Gizi klinik "
+    },
+    {
+        "code": "1216",
+        "display": "Nutrisi pada kelainan metabolisme gizi"
+    },
+    {
+        "code": "1217",
+        "display": "Nutrisi pada Critical Care"
+    },
+    {
+        "code": "1218",
+        "display": "Andrologi "
+    },
+    {
+        "code": "1219",
+        "display": "Emergensi"
+    },
+    {
+        "code": "1220",
+        "display": "Farmakologi klinik"
+    },
+    {
+        "code": "1221",
+        "display": "Kedokteran kelautan "
+    },
+    {
+        "code": "1222",
+        "display": "Kedokteran okupasi "
+    },
+    {
+        "code": "1223",
+        "display": "Kedokteran olahraga "
+    },
+    {
+        "code": "1224",
+        "display": "Onkologi radiasi"
+    },
+    {
+        "code": "1225",
+        "display": "Kedokteran Keluarga"
+    },
+    {
+        "code": "1226",
+        "display": "Kedokteran Penerbangan"
+    },
+    {
+        "code": "1227",
+        "display": "Lainnya"
+    },
+    {
+        "code": "1228",
+        "display": "Radiologi Onkologi "
+    },
+    {
+        "code": "1229",
+        "display": "HIV-ODHA"
+    },
+    {
+        "code": "1230",
+        "display": "Infeksi"
+    },
+    {
+        "code": "1231",
+        "display": "Neuroinfeksi"
+    },
+    {
+        "code": "1232",
+        "display": "Infeksi dan Immunologi"
+    },
+    {
+        "code": "1233",
+        "display": "Infeksi Menular Seksual"
+    },
+    {
+        "code": "1234",
+        "display": "Imunologi Klinik"
+    },
+    {
+        "code": "1235",
+        "display": "Sarana Kemoterapi"
+    },
+    {
+        "code": "1236",
+        "display": "Sarana Radioterapi"
+    },
+    {
+        "code": "1237",
+        "display": "Consultation-Liaison Psychiatri"
+    },
+    {
+        "code": "1238",
+        "display": "Instalasi Gawat Darurat"
+    }
+]

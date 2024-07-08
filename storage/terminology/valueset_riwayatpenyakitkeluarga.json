@@ -1,0 +1,2390 @@
+[
+    {
+        "code": "218432961000119106",
+        "display": "Family history of hereditary diffuse carcinoma of stomach (situation)"
+    },
+    {
+        "code": "50050161000188101",
+        "display": "Family history of congenital immunodeficiency disease (situation)"
+    },
+    {
+        "code": "50040131000188105",
+        "display": "Mother under medication treatment (situation)"
+    },
+    {
+        "code": "15627891000119105",
+        "display": "Family history of systemic lupus erythematosus (situation)"
+    },
+    {
+        "code": "14580001000004104",
+        "display": "Family history of allergic granulomatosis angiitis (situation)"
+    },
+    {
+        "code": "11718821000119109",
+        "display": "Family history of retinal detachment (situation)"
+    },
+    {
+        "code": "10624451000119103",
+        "display": "Family history of aneurysm of blood vessel of brain (situation)"
+    },
+    {
+        "code": "10624401000119102",
+        "display": "Family history of stroke due to aneurysm (situation)"
+    },
+    {
+        "code": "1099601000119106",
+        "display": "Family history of genetic mutation for hereditary nonpolyposis colon cancer (situation)"
+    },
+    {
+        "code": "1098871000119109",
+        "display": "Family history of hereditary nonpolyposis colon cancer (situation)"
+    },
+    {
+        "code": "568071000005101",
+        "display": "One parent or sibling has allergy (situation)"
+    },
+    {
+        "code": "568061000005106",
+        "display": "Both parents have allergy (situation)"
+    },
+    {
+        "code": "329351000119105",
+        "display": "Family history of non-glaucomatous eye disorder (situation)"
+    },
+    {
+        "code": "288001000119103",
+        "display": "Family member absent due to military deployment (situation)"
+    },
+    {
+        "code": "154141000119104",
+        "display": "Family history of malignant neoplasm of breast diagnosed before 45 years of age (situation)"
+    },
+    {
+        "code": "154051000119101",
+        "display": "Family history of malignant neoplasm of colon over age 50 (situation)"
+    },
+    {
+        "code": "154031000119107",
+        "display": "Family history of malignant neoplasm of endometrium (situation)"
+    },
+    {
+        "code": "151181000119106",
+        "display": "Family history of chronic respiratory disease (situation)"
+    },
+    {
+        "code": "144171000119108",
+        "display": "Family history of autosomal translocation (situation)"
+    },
+    {
+        "code": "143691000119102",
+        "display": "Family history of breast cancer gene mutation in first degree relative (situation)"
+    },
+    {
+        "code": "143461000119107",
+        "display": "Family history of malignant neoplasm of breast in first degree relative less than 50 years of age (situation)"
+    },
+    {
+        "code": "143451000119105",
+        "display": "Family history of malignant neoplasm of breast at under age 50 in second degree relative (situation)"
+    },
+    {
+        "code": "138751000119109",
+        "display": "Family history of Muir-Torr\u00e9 syndrome (situation)"
+    },
+    {
+        "code": "138721000119101",
+        "display": "Family history of sebaceous adenoma (situation)"
+    },
+    {
+        "code": "138711000119108",
+        "display": "Family history of sebaceous carcinoma (situation)"
+    },
+    {
+        "code": "138701000119105",
+        "display": "Family history of gene mutation (situation)"
+    },
+    {
+        "code": "138081000119104",
+        "display": "Family history of hematuria (situation)"
+    },
+    {
+        "code": "134591000119102",
+        "display": "Family history of substance abuse (situation)"
+    },
+    {
+        "code": "130771000119102",
+        "display": "Family history of hypercoagulable state (situation)"
+    },
+    {
+        "code": "118651000119105",
+        "display": "Family history of Hashimoto thyroiditis (situation)"
+    },
+    {
+        "code": "117361000119104",
+        "display": "Family history of sudden cardiac death (situation)"
+    },
+    {
+        "code": "117351000119101",
+        "display": "Family history of multiple endocrine neoplasia (situation)"
+    },
+    {
+        "code": "109271000119105",
+        "display": "Family history of double heterozygous familial hypercholesterolemia (situation)"
+    },
+    {
+        "code": "109241000119103",
+        "display": "Family history of eruptive xanthoma (situation)"
+    },
+    {
+        "code": "109011000119108",
+        "display": "Family history of protein C resistance (situation)"
+    },
+    {
+        "code": "109001000119105",
+        "display": "Family history of protein C deficiency (situation)"
+    },
+    {
+        "code": "108981000119107",
+        "display": "Family history of protein S deficiency (situation)"
+    },
+    {
+        "code": "108891000119103",
+        "display": "Family history of antithrombin III deficiency (situation)"
+    },
+    {
+        "code": "108801000119109",
+        "display": "Family history of blood coagulation disorder (situation)"
+    },
+    {
+        "code": "98251000119101",
+        "display": "Family history of spongy degeneration of central nervous system (situation)"
+    },
+    {
+        "code": "98041000119107",
+        "display": "Family history of osteogenesis imperfecta (situation)"
+    },
+    {
+        "code": "98011000119108",
+        "display": "Family history of butyrylcholinesterase deficiency (situation)"
+    },
+    {
+        "code": "94761000119100",
+        "display": "Family history of microcephaly (situation)"
+    },
+    {
+        "code": "94741000119104",
+        "display": "Family history of macrocephaly (situation)"
+    },
+    {
+        "code": "94721000119105",
+        "display": "Family history of craniosynostosis (situation)"
+    },
+    {
+        "code": "94691000119101",
+        "display": "Family history of familial dysautonomia (situation)"
+    },
+    {
+        "code": "85951000119104",
+        "display": "Family history of single congenital anomaly (situation)"
+    },
+    {
+        "code": "81651000119109",
+        "display": "Family history of heritable malignancy (situation)"
+    },
+    {
+        "code": "74171000119103",
+        "display": "Family history of hypoalphalipoproteinemia (situation)"
+    },
+    {
+        "code": "74131000119101",
+        "display": "Family history of hyperbetalipoproteinemia (situation)"
+    },
+    {
+        "code": "71691000112100",
+        "display": "Family history of adenomatous polyp of colon (situation)"
+    },
+    {
+        "code": "71271000119107",
+        "display": "Family history of retinitis pigmentosa (situation)"
+    },
+    {
+        "code": "71261000119101",
+        "display": "Family history of hydronephrosis (situation)"
+    },
+    {
+        "code": "71251000119103",
+        "display": "Family history of nonleukemic lymphatic malignancy (situation)"
+    },
+    {
+        "code": "71241000119100",
+        "display": "Family history of malignant hematopoietic neoplasm (situation)"
+    },
+    {
+        "code": "71231000119109",
+        "display": "Family history of malignant neoplasm of urethra (situation)"
+    },
+    {
+        "code": "71221000119106",
+        "display": "Family history of malignant neoplasm of ureter (situation)"
+    },
+    {
+        "code": "71201000119102",
+        "display": "Family history of hypospadias (situation)"
+    },
+    {
+        "code": "69731000119107",
+        "display": "Family history of short stature (situation)"
+    },
+    {
+        "code": "65071000119106",
+        "display": "Family history of fragile X syndrome (situation)"
+    },
+    {
+        "code": "65031000119108",
+        "display": "Family history of Cowden syndrome (situation)"
+    },
+    {
+        "code": "65021000119105",
+        "display": "Family history of neurofibromatosis (situation)"
+    },
+    {
+        "code": "65011000119103",
+        "display": "Family history of autosomal aneuploidy (situation)"
+    },
+    {
+        "code": "65001000119101",
+        "display": "Family history of connective tissue disorder (situation)"
+    },
+    {
+        "code": "64971000119106",
+        "display": "Family history of Von Hippel-Lindau syndrome (situation)"
+    },
+    {
+        "code": "64921000119105",
+        "display": "Family history of sex chromosome aneuploidy (situation)"
+    },
+    {
+        "code": "64911000119103",
+        "display": "Family history of cystic hygroma (situation)"
+    },
+    {
+        "code": "64861000119107",
+        "display": "Family history of Turner syndrome (situation)"
+    },
+    {
+        "code": "64851000119105",
+        "display": "Family history of Prader-Willi syndrome (situation)"
+    },
+    {
+        "code": "64841000119108",
+        "display": "Family history of trisomy 18 (situation)"
+    },
+    {
+        "code": "64831000119104",
+        "display": "Family history of trisomy 13 (situation)"
+    },
+    {
+        "code": "64731000119106",
+        "display": "Family history of multiple congenital anomalies (situation)"
+    },
+    {
+        "code": "64651000119109",
+        "display": "Family history of ambiguous genitalia (situation)"
+    },
+    {
+        "code": "64571000119104",
+        "display": "Family history of abdominal wall defect (situation)"
+    },
+    {
+        "code": "64521000119100",
+        "display": "Family history of Von Willebrand disease (situation)"
+    },
+    {
+        "code": "64501000119109",
+        "display": "Family history of hemoglobinopathy (situation)"
+    },
+    {
+        "code": "64431000119101",
+        "display": "Family history of alpha thalassemia (situation)"
+    },
+    {
+        "code": "64391000119106",
+        "display": "Family history of hemoglobinopathy E (situation)"
+    },
+    {
+        "code": "64371000119105",
+        "display": "Family history of beta thalassemia (situation)"
+    },
+    {
+        "code": "64251000119106",
+        "display": "Family history of glycogen storage disease (situation)"
+    },
+    {
+        "code": "64181000119106",
+        "display": "Family history of Marfan syndrome (situation)"
+    },
+    {
+        "code": "64171000119108",
+        "display": "Family history of lysosomal storage disease (situation)"
+    },
+    {
+        "code": "64161000119102",
+        "display": "Family history of phenylketonuria (situation)"
+    },
+    {
+        "code": "64131000119105",
+        "display": "Family history of methylmalonic aciduria (situation)"
+    },
+    {
+        "code": "64121000119107",
+        "display": "Family history of achondroplasia (situation)"
+    },
+    {
+        "code": "64111000119100",
+        "display": "Family history of combined hyperlipidemia (situation)"
+    },
+    {
+        "code": "64081000119105",
+        "display": "Family history of galactosemia (situation)"
+    },
+    {
+        "code": "64041000119100",
+        "display": "Family history of complex congenital heart disease (situation)"
+    },
+    {
+        "code": "64021000119106",
+        "display": "Family history of neurological developmental delay (situation)"
+    },
+    {
+        "code": "63941000119102",
+        "display": "Family history of congenital hydrocephalus (situation)"
+    },
+    {
+        "code": "63931000119106",
+        "display": "Family history of Steinert myotonic dystrophy (situation)"
+    },
+    {
+        "code": "63921000119108",
+        "display": "Family history of Rett syndrome (situation)"
+    },
+    {
+        "code": "63901000119104",
+        "display": "Family history of Tay-Sachs disease (situation)"
+    },
+    {
+        "code": "63881000119101",
+        "display": "Family history of spinocerebellar ataxia (situation)"
+    },
+    {
+        "code": "63761000119101",
+        "display": "Family history of autism in sibling (situation)"
+    },
+    {
+        "code": "44241000119103",
+        "display": "Adult child of alcoholic (situation)"
+    },
+    {
+        "code": "31881000119108",
+        "display": "Family history of breast cancer gene BRCA mutation (situation)"
+    },
+    {
+        "code": "13961000119104",
+        "display": "Family history of clubfoot (situation)"
+    },
+    {
+        "code": "2301000119106",
+        "display": "Family history of malignant neoplasm of ovary in first degree relative (situation)"
+    },
+    {
+        "code": "2291000119105",
+        "display": "Family history of malignant neoplasm of ovary in second degree relative (situation)"
+    },
+    {
+        "code": "1421000119104",
+        "display": "Family history of colorectal cancer (situation)"
+    },
+    {
+        "code": "1290168002",
+        "display": "Family history of neonatal death (situation)"
+    },
+    {
+        "code": "1290142009",
+        "display": "Family history of perinatal death (situation)"
+    },
+    {
+        "code": "1269318001",
+        "display": "Family history of congenital long QT syndrome (situation)"
+    },
+    {
+        "code": "1264398004",
+        "display": "Family history of localized scleroderma (situation)"
+    },
+    {
+        "code": "1264397009",
+        "display": "Family history of scleroderma (situation)"
+    },
+    {
+        "code": "1264214003",
+        "display": "Family history of lipoprotein (a) hyperlipoproteinemia (situation)"
+    },
+    {
+        "code": "1264211006",
+        "display": "Family history of Fredrickson type IIa hyperlipoproteinemia (situation)"
+    },
+    {
+        "code": "1254977008",
+        "display": "Family history of substance dependency (situation)"
+    },
+    {
+        "code": "1254722009",
+        "display": "Family history of disability (situation)"
+    },
+    {
+        "code": "1254721002",
+        "display": "Child of subject has disability (situation)"
+    },
+    {
+        "code": "1254720001",
+        "display": "Spouse has disability (situation)"
+    },
+    {
+        "code": "1254719007",
+        "display": "Sibling has disability (situation)"
+    },
+    {
+        "code": "1254718004",
+        "display": "Parent has disability (situation)"
+    },
+    {
+        "code": "1237570003",
+        "display": "Maternal history of viral hepatitis B (situation)"
+    },
+    {
+        "code": "1149524004",
+        "display": "Family history of neoplasm of urinary system (situation)"
+    },
+    {
+        "code": "1149519002",
+        "display": "Family history of neoplasm of bronchus (situation)"
+    },
+    {
+        "code": "1149518005",
+        "display": "Family history of neoplasm of trachea (situation)"
+    },
+    {
+        "code": "1149514007",
+        "display": "Family history of malignant epithelial neoplasm (situation)"
+    },
+    {
+        "code": "1148759006",
+        "display": "Family history of congenital microcephaly (situation)"
+    },
+    {
+        "code": "878804008",
+        "display": "Alcoholic parent (situation)"
+    },
+    {
+        "code": "878803002",
+        "display": "Alcoholic spouse (situation)"
+    },
+    {
+        "code": "878802007",
+        "display": "Alcoholic husband (situation)"
+    },
+    {
+        "code": "866041003",
+        "display": "Mother currently breastfeeding (situation)"
+    },
+    {
+        "code": "789612004",
+        "display": "Alcohol abuse by mother (situation)"
+    },
+    {
+        "code": "789240000",
+        "display": "Family history of acetylcholinesterase deficiency (situation)"
+    },
+    {
+        "code": "788921007",
+        "display": "Family history of malignant neoplasm of urinary tract (situation)"
+    },
+    {
+        "code": "785846009",
+        "display": "Maternal history of pyrexia in labor (situation)"
+    },
+    {
+        "code": "781073000",
+        "display": "Family history of polycystic ovary syndrome (situation)"
+    },
+    {
+        "code": "767310001",
+        "display": "Family history of malignant neoplasm of breast at under age 50 in second degree female relative (situation)"
+    },
+    {
+        "code": "763598005",
+        "display": "Family history of intellectual disability (situation)"
+    },
+    {
+        "code": "763381006",
+        "display": "Wife unable to cope (situation)"
+    },
+    {
+        "code": "741021002",
+        "display": "Family history of relative killed (situation)"
+    },
+    {
+        "code": "740604001",
+        "display": "Family member deceased (situation)"
+    },
+    {
+        "code": "739684008",
+        "display": "Child of patient deceased (situation)"
+    },
+    {
+        "code": "739682007",
+        "display": "Infant of patient deceased (situation)"
+    },
+    {
+        "code": "739679002",
+        "display": "Sibling deceased (situation)"
+    },
+    {
+        "code": "739678005",
+        "display": "Parents deceased (situation)"
+    },
+    {
+        "code": "739677000",
+        "display": "Spouse deceased (situation)"
+    },
+    {
+        "code": "737367001",
+        "display": "Family history of disorder of immune function (situation)"
+    },
+    {
+        "code": "737366005",
+        "display": "Family history of nutritional disorder (situation)"
+    },
+    {
+        "code": "737015006",
+        "display": "History of previous baby bottle and breast fed (situation)"
+    },
+    {
+        "code": "737014005",
+        "display": "History of previous baby breast fed (situation)"
+    },
+    {
+        "code": "726630001",
+        "display": "History of postneonatal death (situation)"
+    },
+    {
+        "code": "726627008",
+        "display": "History of previous baby bottle fed (situation)"
+    },
+    {
+        "code": "725118003",
+        "display": "Family history of aneurysm of abdominal aorta (situation)"
+    },
+    {
+        "code": "725117008",
+        "display": "Family history of hyperlipidemia (situation)"
+    },
+    {
+        "code": "722417007",
+        "display": "Alcohol abuse by father (situation)"
+    },
+    {
+        "code": "722227004",
+        "display": "Wife deceased (situation)"
+    },
+    {
+        "code": "722193000",
+        "display": "Husband deceased (situation)"
+    },
+    {
+        "code": "721151003",
+        "display": "Maternal history of gestational diabetes (situation)"
+    },
+    {
+        "code": "720436008",
+        "display": "Father with learning disability (situation)"
+    },
+    {
+        "code": "720407008",
+        "display": "Mother victim of domestic violence (situation)"
+    },
+    {
+        "code": "720400005",
+        "display": "Family distress (situation)"
+    },
+    {
+        "code": "719763000",
+        "display": "Maternal history of diabetes mellitus type 2 (situation)"
+    },
+    {
+        "code": "719761003",
+        "display": "Maternal history of diabetes mellitus type 1 (situation)"
+    },
+    {
+        "code": "719648007",
+        "display": "Husband alive (situation)"
+    },
+    {
+        "code": "719174002",
+        "display": "Wife unwell (situation)"
+    },
+    {
+        "code": "719173008",
+        "display": "Husband unwell (situation)"
+    },
+    {
+        "code": "719168002",
+        "display": "Husband well (situation)"
+    },
+    {
+        "code": "716053000",
+        "display": "Parent has health disorder (situation)"
+    },
+    {
+        "code": "709090007",
+        "display": "Family history of familial multiple polyposis syndrome (situation)"
+    },
+    {
+        "code": "704144000",
+        "display": "Maternal history of diabetes mellitus (situation)"
+    },
+    {
+        "code": "704143006",
+        "display": "Maternal history of systemic lupus erythematosus (situation)"
+    },
+    {
+        "code": "704141008",
+        "display": "Maternal history of connective tissue disease (situation)"
+    },
+    {
+        "code": "704071002",
+        "display": "Maternal exposure to radiation (situation)"
+    },
+    {
+        "code": "704009004",
+        "display": "Family history of disorder of vein (situation)"
+    },
+    {
+        "code": "704008007",
+        "display": "No family history of asthma (situation)"
+    },
+    {
+        "code": "703520001",
+        "display": "Patient's child aware of diagnosis (situation)"
+    },
+    {
+        "code": "700193001",
+        "display": "Family history of squamous cell carcinoma of skin (situation)"
+    },
+    {
+        "code": "700192006",
+        "display": "Family history of long QT syndrome (situation)"
+    },
+    {
+        "code": "700191004",
+        "display": "Family history of congenital hip dysplasia (situation)"
+    },
+    {
+        "code": "700190003",
+        "display": "Family history of pre-eclampsia (situation)"
+    },
+    {
+        "code": "699109002",
+        "display": "Family history of tendinous xanthoma in second degree relative (situation)"
+    },
+    {
+        "code": "699108005",
+        "display": "Family history of tendinous xanthoma in first degree relative (situation)"
+    },
+    {
+        "code": "699057005",
+        "display": "Family history of Addison disease (situation)"
+    },
+    {
+        "code": "698650004",
+        "display": "Family history of diabetes mellitus with complication (situation)"
+    },
+    {
+        "code": "698248002",
+        "display": "Family history of cardiac arrhythmia (situation)"
+    },
+    {
+        "code": "473316003",
+        "display": "Relative aware of prognosis (situation)"
+    },
+    {
+        "code": "473071007",
+        "display": "Family history of edema of lower extremity (situation)"
+    },
+    {
+        "code": "473070008",
+        "display": "Family history of mitochondrial disease (situation)"
+    },
+    {
+        "code": "444221003",
+        "display": "Spouse of subject is victim of crime (situation)"
+    },
+    {
+        "code": "444180005",
+        "display": "History of schizophrenia in child of subject (situation)"
+    },
+    {
+        "code": "444161008",
+        "display": "Maternal history of insulin dependence (situation)"
+    },
+    {
+        "code": "444094009",
+        "display": "History of diabetes mellitus in child of subject (situation)"
+    },
+    {
+        "code": "443877004",
+        "display": "Family history of smoking (situation)"
+    },
+    {
+        "code": "443868006",
+        "display": "Family history of morphea (situation)"
+    },
+    {
+        "code": "443720007",
+        "display": "Family history of systemic sclerosis (situation)"
+    },
+    {
+        "code": "443454007",
+        "display": "Family history of familial hypercholesterolemia (situation)"
+    },
+    {
+        "code": "442080007",
+        "display": "Drug misuse by mother (situation)"
+    },
+    {
+        "code": "441120009",
+        "display": "Family history of acquired immune deficiency syndrome (situation)"
+    },
+    {
+        "code": "440697006",
+        "display": "Family history of cerebral infarction (situation)"
+    },
+    {
+        "code": "439750006",
+        "display": "Family history of hearing loss (situation)"
+    },
+    {
+        "code": "439724007",
+        "display": "Family history of cardiovascular disease in first degree male relative less than 55 years of age (situation)"
+    },
+    {
+        "code": "439220002",
+        "display": "Family history of neoplasm of upper aerodigestive tract (situation)"
+    },
+    {
+        "code": "439213009",
+        "display": "Drug misuse by father (situation)"
+    },
+    {
+        "code": "439154009",
+        "display": "Family history of myocarditis (situation)"
+    },
+    {
+        "code": "439138006",
+        "display": "Both parents misuse drugs (situation)"
+    },
+    {
+        "code": "438998000",
+        "display": "Family history of human immunodeficiency virus infection (situation)"
+    },
+    {
+        "code": "438825005",
+        "display": "Family history of cardiovascular disease in first degree female relative less than 65 years of age (situation)"
+    },
+    {
+        "code": "434462008",
+        "display": "Family history of multiple myeloma (situation)"
+    },
+    {
+        "code": "433496008",
+        "display": "Family history of trigeminal neuralgia (situation)"
+    },
+    {
+        "code": "433495007",
+        "display": "Family history of Hodgkin's disease (situation)"
+    },
+    {
+        "code": "433450000",
+        "display": "Family history of non-Hodgkin's lymphoma (situation)"
+    },
+    {
+        "code": "433449000",
+        "display": "Family history of ventricular premature beats (situation)"
+    },
+    {
+        "code": "433381008",
+        "display": "Family history of renal cell carcinoma (situation)"
+    },
+    {
+        "code": "433380009",
+        "display": "Family history of attention deficit hyperactivity disorder, predominantly inattentive type (situation)"
+    },
+    {
+        "code": "433306000",
+        "display": "Family history of anorexia nervosa (situation)"
+    },
+    {
+        "code": "433305001",
+        "display": "Family history of congestive heart failure (situation)"
+    },
+    {
+        "code": "433279009",
+        "display": "Family history of cleft palate with cleft lip (situation)"
+    },
+    {
+        "code": "433278001",
+        "display": "Family history of presenile dementia (situation)"
+    },
+    {
+        "code": "433277006",
+        "display": "Family history of bulimia nervosa (situation)"
+    },
+    {
+        "code": "433276002",
+        "display": "Family history of atrial fibrillation (situation)"
+    },
+    {
+        "code": "433164007",
+        "display": "Family history of lupus erythematosus (situation)"
+    },
+    {
+        "code": "433163001",
+        "display": "Family history of diverticulitis of colon (situation)"
+    },
+    {
+        "code": "431912005",
+        "display": "Family history of alpha-1-antitrypsin deficiency (situation)"
+    },
+    {
+        "code": "431882002",
+        "display": "Family history of disorder of peripheral nervous system (situation)"
+    },
+    {
+        "code": "431812006",
+        "display": "Family history of degenerative disorder of macula (situation)"
+    },
+    {
+        "code": "431479003",
+        "display": "Family history of synovial cyst of popliteal space (situation)"
+    },
+    {
+        "code": "431331006",
+        "display": "Family history of breast cancer 2 gene mutation (situation)"
+    },
+    {
+        "code": "431330007",
+        "display": "Family history of breast cancer 1 gene mutation (situation)"
+    },
+    {
+        "code": "431170009",
+        "display": "Family history of perinatal disorder (situation)"
+    },
+    {
+        "code": "430954001",
+        "display": "Family history of malignant neoplasm of genital structure (situation)"
+    },
+    {
+        "code": "430815001",
+        "display": "Family history of syncope (situation)"
+    },
+    {
+        "code": "430814002",
+        "display": "Family history of neuropathy (situation)"
+    },
+    {
+        "code": "430813008",
+        "display": "Family history of malignant neoplasm of digestive organ (situation)"
+    },
+    {
+        "code": "430809001",
+        "display": "Family history of movement disorder (situation)"
+    },
+    {
+        "code": "430808009",
+        "display": "Family history of nephrotic syndrome (situation)"
+    },
+    {
+        "code": "430807004",
+        "display": "Family history of periodic limb movement disorder (situation)"
+    },
+    {
+        "code": "430805007",
+        "display": "Family history of uveitis (situation)"
+    },
+    {
+        "code": "430801003",
+        "display": "Family history of pulmonary embolism (situation)"
+    },
+    {
+        "code": "430778004",
+        "display": "Family history of sarcoidosis (situation)"
+    },
+    {
+        "code": "430777009",
+        "display": "Family history of rheumatic fever (situation)"
+    },
+    {
+        "code": "430754009",
+        "display": "Family history of mastoiditis (situation)"
+    },
+    {
+        "code": "430753003",
+        "display": "Family history of aneurysm of thoracic aorta (situation)"
+    },
+    {
+        "code": "430730004",
+        "display": "Family history of mitral valve regurgitation (situation)"
+    },
+    {
+        "code": "430729009",
+        "display": "Family history of chronic ulcerative proctitis (situation)"
+    },
+    {
+        "code": "430728001",
+        "display": "Family history of amnesia (situation)"
+    },
+    {
+        "code": "430727006",
+        "display": "Family history of amyotrophic lateral sclerosis (situation)"
+    },
+    {
+        "code": "430726002",
+        "display": "Family history of tremor (situation)"
+    },
+    {
+        "code": "430723005",
+        "display": "Family history of visual disturbance (situation)"
+    },
+    {
+        "code": "430719002",
+        "display": "Family history of tinnitus (situation)"
+    },
+    {
+        "code": "430716009",
+        "display": "Family history of osteopenia (situation)"
+    },
+    {
+        "code": "430711004",
+        "display": "Family history of seizure disorder (situation)"
+    },
+    {
+        "code": "430710003",
+        "display": "Family history of thromboembolic disorder (situation)"
+    },
+    {
+        "code": "430709008",
+        "display": "Family history of spinal stenosis (situation)"
+    },
+    {
+        "code": "430705002",
+        "display": "Family history of malignant neoplasm of ovary (situation)"
+    },
+    {
+        "code": "430703009",
+        "display": "Family history of malignant neoplasm of kidney (situation)"
+    },
+    {
+        "code": "430696004",
+        "display": "Family history of juvenile idiopathic arthritis (situation)"
+    },
+    {
+        "code": "430695000",
+        "display": "Family history of genetic disorder carrier (situation)"
+    },
+    {
+        "code": "430693007",
+        "display": "Family history of fracture of proximal end of femur (situation)"
+    },
+    {
+        "code": "430685007",
+        "display": "Family history of disorder of pancreas (situation)"
+    },
+    {
+        "code": "430682005",
+        "display": "Family history of renal failure syndrome (situation)"
+    },
+    {
+        "code": "430681003",
+        "display": "Family history of Raynaud phenomenon (situation)"
+    },
+    {
+        "code": "430679000",
+        "display": "Family history of diabetes mellitus type 2 (situation)"
+    },
+    {
+        "code": "430678008",
+        "display": "Family history of diabetes mellitus type 1 (situation)"
+    },
+    {
+        "code": "430677003",
+        "display": "Family history of malignant neoplasm of thoracic cavity structure (situation)"
+    },
+    {
+        "code": "430674005",
+        "display": "Family history of cerebral artery occlusion (situation)"
+    },
+    {
+        "code": "430568004",
+        "display": "Family history of dissection of aorta (situation)"
+    },
+    {
+        "code": "430565001",
+        "display": "Family history of restless legs syndrome (situation)"
+    },
+    {
+        "code": "430564002",
+        "display": "Family history of disorder of lung (situation)"
+    },
+    {
+        "code": "430560006",
+        "display": "Family history of chronic renal impairment (situation)"
+    },
+    {
+        "code": "430552005",
+        "display": "Family history of benign prostatic hyperplasia (situation)"
+    },
+    {
+        "code": "430544007",
+        "display": "Family history of scoliosis deformity of spine (situation)"
+    },
+    {
+        "code": "430543001",
+        "display": "Family history of psoriasis with psoriatic arthritis (situation)"
+    },
+    {
+        "code": "430542006",
+        "display": "Family history of malignant neoplasm of urinary bladder (situation)"
+    },
+    {
+        "code": "430534005",
+        "display": "Family history of malignant neoplasm of thyroid (situation)"
+    },
+    {
+        "code": "430527008",
+        "display": "Family history of malignant neoplasm of testis (situation)"
+    },
+    {
+        "code": "430337004",
+        "display": "Family history of sleep apnea (situation)"
+    },
+    {
+        "code": "430336008",
+        "display": "Family history of color blindness (situation)"
+    },
+    {
+        "code": "430334006",
+        "display": "Family history of problem behavior (situation)"
+    },
+    {
+        "code": "430331003",
+        "display": "Family history of cancer of the esophagus (situation)"
+    },
+    {
+        "code": "430330002",
+        "display": "Family history of chronic myeloid leukemia (situation)"
+    },
+    {
+        "code": "430329007",
+        "display": "Family history of celiac disease (situation)"
+    },
+    {
+        "code": "430298005",
+        "display": "Family history of malignant neoplasm of pharynx (situation)"
+    },
+    {
+        "code": "430292006",
+        "display": "Family history of malignant neoplasm of breast in first degree relative (situation)"
+    },
+    {
+        "code": "430289007",
+        "display": "Family history of death of unknown cause (situation)"
+    },
+    {
+        "code": "430288004",
+        "display": "Family history of death due to natural cause (situation)"
+    },
+    {
+        "code": "430283008",
+        "display": "Family history of sudden death (situation)"
+    },
+    {
+        "code": "430102007",
+        "display": "Family history of aneurysm of artery (situation)"
+    },
+    {
+        "code": "430091005",
+        "display": "Family history of coronary arteriosclerosis (situation)"
+    },
+    {
+        "code": "430090006",
+        "display": "Family history of neoplasm of brain (situation)"
+    },
+    {
+        "code": "430089002",
+        "display": "Family history of hyperthyroidism (situation)"
+    },
+    {
+        "code": "430088005",
+        "display": "Family history of intestinal obstruction (situation)"
+    },
+    {
+        "code": "430086009",
+        "display": "Family history of cleft palate (situation)"
+    },
+    {
+        "code": "430041006",
+        "display": "Family history of M\u00e9ni\u00e8re disease (situation)"
+    },
+    {
+        "code": "429978009",
+        "display": "Family history of endocarditis (situation)"
+    },
+    {
+        "code": "429977004",
+        "display": "Family history of congenital cataract (situation)"
+    },
+    {
+        "code": "429976008",
+        "display": "Family history of backache (situation)"
+    },
+    {
+        "code": "429971003",
+        "display": "Family history of impaired glucose tolerance (situation)"
+    },
+    {
+        "code": "429970002",
+        "display": "Family history of Charcot-Marie-Tooth disease (situation)"
+    },
+    {
+        "code": "429969003",
+        "display": "Family history of polyp of colon (situation)"
+    },
+    {
+        "code": "429965009",
+        "display": "Family history of malignant lymphoma (situation)"
+    },
+    {
+        "code": "429964008",
+        "display": "Family history of irritable colon (situation)"
+    },
+    {
+        "code": "429963002",
+        "display": "Family history of headache disorder (situation)"
+    },
+    {
+        "code": "429962007",
+        "display": "Family history of hereditary disease (situation)"
+    },
+    {
+        "code": "429961000",
+        "display": "Family history of dementia (situation)"
+    },
+    {
+        "code": "429959009",
+        "display": "Family history of heart failure (situation)"
+    },
+    {
+        "code": "429958001",
+        "display": "Family history of conduction disorder of the heart (situation)"
+    },
+    {
+        "code": "429954004",
+        "display": "Family history of cleft lip (situation)"
+    },
+    {
+        "code": "429953005",
+        "display": "Family history of pulmonary emphysema (situation)"
+    },
+    {
+        "code": "429952000",
+        "display": "Family history of stenosis of aortic valve (situation)"
+    },
+    {
+        "code": "429951007",
+        "display": "Family history of eating disorder (situation)"
+    },
+    {
+        "code": "429950008",
+        "display": "Family history of attention deficit hyperactivity disorder (situation)"
+    },
+    {
+        "code": "429740004",
+        "display": "Family history of malignant neoplasm of breast (situation)"
+    },
+    {
+        "code": "429637009",
+        "display": "Family history of malignant neoplasm of uterus (situation)"
+    },
+    {
+        "code": "429405004",
+        "display": "Family history of malignant neoplasm of skin (situation)"
+    },
+    {
+        "code": "429252007",
+        "display": "Family history of malignant neoplasm of bone (situation)"
+    },
+    {
+        "code": "429251000",
+        "display": "Family history of malignant neoplasm of brain (situation)"
+    },
+    {
+        "code": "429236009",
+        "display": "Family history of malignant neoplasm of liver (situation)"
+    },
+    {
+        "code": "429011007",
+        "display": "Family history of malignant neoplasm of lung (situation)"
+    },
+    {
+        "code": "429006005",
+        "display": "Family history of malignant neoplasm of gastrointestinal tract (situation)"
+    },
+    {
+        "code": "429000004",
+        "display": "Family history of malignant neoplasm of pancreas (situation)"
+    },
+    {
+        "code": "428994006",
+        "display": "Family history of malignant neoplasm of biliary tract (situation)"
+    },
+    {
+        "code": "428935009",
+        "display": "Family history of malignant neoplasm of eye proper (situation)"
+    },
+    {
+        "code": "428932007",
+        "display": "Family history of speech and language disorder (situation)"
+    },
+    {
+        "code": "428748002",
+        "display": "Family history of malignant neoplasm of male breast (situation)"
+    },
+    {
+        "code": "428276009",
+        "display": "Family history of malignant neoplasm of vagina (situation)"
+    },
+    {
+        "code": "428269004",
+        "display": "Family history of malignant neoplasm of trachea (situation)"
+    },
+    {
+        "code": "428047000",
+        "display": "Family history of malignant neoplasm of cervix uteri (situation)"
+    },
+    {
+        "code": "428037003",
+        "display": "Family history of malignant neoplasm of ileum (situation)"
+    },
+    {
+        "code": "427858005",
+        "display": "Family history of malignant melanoma (situation)"
+    },
+    {
+        "code": "417648007",
+        "display": "Family history of pulmonary infundibular stenosis (situation)"
+    },
+    {
+        "code": "417072001",
+        "display": "Family history of hypercholesterolemia in first degree relative (situation)"
+    },
+    {
+        "code": "417001009",
+        "display": "Family history of tuberous sclerosis (situation)"
+    },
+    {
+        "code": "416855002",
+        "display": "Family history of diabetes mellitus in first degree relative (situation)"
+    },
+    {
+        "code": "416519002",
+        "display": "Family history of renal stone (situation)"
+    },
+    {
+        "code": "416072008",
+        "display": "Family history: maternal hip fracture before age 75 (situation)"
+    },
+    {
+        "code": "415289003",
+        "display": "Relative dying (situation)"
+    },
+    {
+        "code": "415036007",
+        "display": "Parent has physical disability (situation)"
+    },
+    {
+        "code": "414205003",
+        "display": "Family history of malignant neoplasm of prostate (situation)"
+    },
+    {
+        "code": "413316000",
+        "display": "Parent on probation (situation)"
+    },
+    {
+        "code": "413308009",
+        "display": "Maternal history of congenital dislocated hip (situation)"
+    },
+    {
+        "code": "413302005",
+        "display": "Family history: angina grandparent (situation)"
+    },
+    {
+        "code": "412784002",
+        "display": "Family history: Enuresis (situation)"
+    },
+    {
+        "code": "412783008",
+        "display": "Family history of polycystic ovary (situation)"
+    },
+    {
+        "code": "412750001",
+        "display": "Family history of autism (situation)"
+    },
+    {
+        "code": "412749001",
+        "display": "Family history of development disorder (situation)"
+    },
+    {
+        "code": "408553000",
+        "display": "No family history of respiratory disease (situation)"
+    },
+    {
+        "code": "408552005",
+        "display": "No family history of chronic obstructive pulmonary disease (situation)"
+    },
+    {
+        "code": "401122004",
+        "display": "Family history: Angina in first degree male relative less than 55 years (situation)"
+    },
+    {
+        "code": "401119001",
+        "display": "Family history of hemochromatosis (situation)"
+    },
+    {
+        "code": "401067009",
+        "display": "Family history: Myocardial infarct in first degree male relative less than 55 years (situation)"
+    },
+    {
+        "code": "401066000",
+        "display": "Family history of myocardial infarct in first degree female relative less than 65 years of age (situation)"
+    },
+    {
+        "code": "401065001",
+        "display": "Family history: Angina in first degree female relative less than 65 years (situation)"
+    },
+    {
+        "code": "401052005",
+        "display": "Family history of malignant hyperthermia (situation)"
+    },
+    {
+        "code": "395125009",
+        "display": "Family history: Aortic aneurysm (situation)"
+    },
+    {
+        "code": "395089003",
+        "display": "Family history of neoplasm of central nervous system (situation)"
+    },
+    {
+        "code": "394990003",
+        "display": "Family history: Ankylosing spondylitis (situation)"
+    },
+    {
+        "code": "394877006",
+        "display": "Family history: Alzheimer's disease (situation)"
+    },
+    {
+        "code": "391098008",
+        "display": "Family history: Fragility fracture (situation)"
+    },
+    {
+        "code": "391097003",
+        "display": "Family history: Hip fracture in first degree relative (situation)"
+    },
+    {
+        "code": "391096007",
+        "display": "Family history: Maternal hip fracture (situation)"
+    },
+    {
+        "code": "390915000",
+        "display": "Family history: Cardiomyopathy (situation)"
+    },
+    {
+        "code": "390794009",
+        "display": "Family history: Dyslexia (situation)"
+    },
+    {
+        "code": "315627005",
+        "display": "Family history of angina in female relative of first degree, age unknown (situation)"
+    },
+    {
+        "code": "315626001",
+        "display": "Family history of angina in female relative of first degree, age known (situation)"
+    },
+    {
+        "code": "315625002",
+        "display": "Family history of angina in male relative of first degree, age unknown (situation)"
+    },
+    {
+        "code": "315623009",
+        "display": "Family history of angina in male relative of first degree, age known (situation)"
+    },
+    {
+        "code": "315622004",
+        "display": "Family history of myocardial infarction in female relative of first degree, age unknown (situation)"
+    },
+    {
+        "code": "315621006",
+        "display": "Family history of myocardial infarction in female relative of first degree, age known (situation)"
+    },
+    {
+        "code": "315620007",
+        "display": "Family history of myocardial infarction in male relative of first degree, age unknown (situation)"
+    },
+    {
+        "code": "315619001",
+        "display": "Family history of myocardial infarction in male relative of first degree, age known (situation)"
+    },
+    {
+        "code": "313376005",
+        "display": "No family history: breast carcinoma (situation)"
+    },
+    {
+        "code": "313342001",
+        "display": "No family history: Venous thrombosis (situation)"
+    },
+    {
+        "code": "313102001",
+        "display": "Family history of neoplasm of breast (situation)"
+    },
+    {
+        "code": "312824007",
+        "display": "Family history of cancer of colon (situation)"
+    },
+    {
+        "code": "310251007",
+        "display": "No family history: Osteoporosis (situation)"
+    },
+    {
+        "code": "310247005",
+        "display": "Family history: Thrombosis (situation)"
+    },
+    {
+        "code": "309631001",
+        "display": "Family history of helminth infection (situation)"
+    },
+    {
+        "code": "308746008",
+        "display": "Family history: Spherocytosis (situation)"
+    },
+    {
+        "code": "300934004",
+        "display": "Family history: Hypothyroidism (situation)"
+    },
+    {
+        "code": "300933005",
+        "display": "Family history: Autoimmune disease (situation)"
+    },
+    {
+        "code": "297250002",
+        "display": "No family history of stroke (situation)"
+    },
+    {
+        "code": "297247000",
+        "display": "Family history of neoplasm of lung (situation)"
+    },
+    {
+        "code": "297246009",
+        "display": "Family history of female genital tract disorder (situation)"
+    },
+    {
+        "code": "297245008",
+        "display": "Family history of male genital tract disorder (situation)"
+    },
+    {
+        "code": "297244007",
+        "display": "Family history of urological disorder (situation)"
+    },
+    {
+        "code": "297243001",
+        "display": "Family history of pernicious anemia (situation)"
+    },
+    {
+        "code": "297242006",
+        "display": "Family history of ischemic heart disease (situation)"
+    },
+    {
+        "code": "297241004",
+        "display": "Family history of chronic obstructive lung disease (situation)"
+    },
+    {
+        "code": "297240003",
+        "display": "Family history of Parkinson's disease (situation)"
+    },
+    {
+        "code": "297239000",
+        "display": "Family history of neurological disorder (situation)"
+    },
+    {
+        "code": "297224001",
+        "display": "Maternal pyrexia (situation)"
+    },
+    {
+        "code": "289916006",
+        "display": "Family history of kidney disease (situation)"
+    },
+    {
+        "code": "288256007",
+        "display": "History of maternal psychiatric problem (situation)"
+    },
+    {
+        "code": "288254005",
+        "display": "Maternal nutritional disorder (situation)"
+    },
+    {
+        "code": "288252009",
+        "display": "Maternal infection (situation)"
+    },
+    {
+        "code": "288251002",
+        "display": "Maternal renal/urinary disorder (situation)"
+    },
+    {
+        "code": "281667005",
+        "display": "Maternal history of disorder (situation)"
+    },
+    {
+        "code": "281666001",
+        "display": "Family history of disorder (situation)"
+    },
+    {
+        "code": "281663009",
+        "display": "Unemployed mother (situation)"
+    },
+    {
+        "code": "281662004",
+        "display": "Unemployed father (situation)"
+    },
+    {
+        "code": "281577004",
+        "display": "Parent unemployed (situation)"
+    },
+    {
+        "code": "281022002",
+        "display": "Family history of complete trisomy 21 syndrome (situation)"
+    },
+    {
+        "code": "275940001",
+        "display": "Family history: Brain disorder (situation)"
+    },
+    {
+        "code": "275939003",
+        "display": "Family history: Triglyceride high (situation)"
+    },
+    {
+        "code": "275937001",
+        "display": "Family history of malignant neoplasm (situation)"
+    },
+    {
+        "code": "275932007",
+        "display": "Family history: Angina at less than 60 years (situation)"
+    },
+    {
+        "code": "275911004",
+        "display": "Family history: Angina at greater than 60 years (situation)"
+    },
+    {
+        "code": "275142008",
+        "display": "Sick child (situation)"
+    },
+    {
+        "code": "275141001",
+        "display": "Mother left home (situation)"
+    },
+    {
+        "code": "275140000",
+        "display": "Father left home (situation)"
+    },
+    {
+        "code": "275136009",
+        "display": "Family history: Serious disease (situation)"
+    },
+    {
+        "code": "275134007",
+        "display": "Family history: Arthritis (situation)"
+    },
+    {
+        "code": "275133001",
+        "display": "Family history: Twin pregnancy (situation)"
+    },
+    {
+        "code": "275132006",
+        "display": "Family history: Gynecological problem (situation)"
+    },
+    {
+        "code": "275131004",
+        "display": "Family history: Gallbladder disease (situation)"
+    },
+    {
+        "code": "275130003",
+        "display": "Family history: Hepatitis (situation)"
+    },
+    {
+        "code": "275129008",
+        "display": "Family history: Ulcerative colitis (situation)"
+    },
+    {
+        "code": "275128000",
+        "display": "Family history: Gastric ulcer (situation)"
+    },
+    {
+        "code": "275127005",
+        "display": "Family history: Duodenal ulcer (situation)"
+    },
+    {
+        "code": "275125002",
+        "display": "Family history: Bronchitis (situation)"
+    },
+    {
+        "code": "275124003",
+        "display": "Family history: Coronary thrombosis (situation)"
+    },
+    {
+        "code": "275123009",
+        "display": "Family history: Myocardial infarction at greater than 60 (situation)"
+    },
+    {
+        "code": "275122004",
+        "display": "Family history: Myocardial infarction at less than 60 (situation)"
+    },
+    {
+        "code": "275121006",
+        "display": "Family history: Angina (situation)"
+    },
+    {
+        "code": "275120007",
+        "display": "Family history of cardiac disorder (situation)"
+    },
+    {
+        "code": "275119001",
+        "display": "Family history: Low vision (situation)"
+    },
+    {
+        "code": "275118009",
+        "display": "Family history: Blindness (situation)"
+    },
+    {
+        "code": "275117004",
+        "display": "Family history: Parkinsonism (situation)"
+    },
+    {
+        "code": "275114006",
+        "display": "Alcoholic offspring (situation)"
+    },
+    {
+        "code": "275113000",
+        "display": "Spouse hemophiliac (situation)"
+    },
+    {
+        "code": "275110002",
+        "display": "Family history: Bronchus cancer (situation)"
+    },
+    {
+        "code": "275109007",
+        "display": "Family history: Bowel cancer (situation)"
+    },
+    {
+        "code": "275108004",
+        "display": "Family history: Stomach cancer (situation)"
+    },
+    {
+        "code": "275106000",
+        "display": "No family history: Angina (situation)"
+    },
+    {
+        "code": "275105001",
+        "display": "Smoker in the family (situation)"
+    },
+    {
+        "code": "275104002",
+        "display": "Family history of stroke (situation)"
+    },
+    {
+        "code": "275102003",
+        "display": "Family history of learning disability (situation)"
+    },
+    {
+        "code": "268862000",
+        "display": "Maternal prolapsed cord (situation)"
+    },
+    {
+        "code": "268861007",
+        "display": "Maternal placental insufficiency (situation)"
+    },
+    {
+        "code": "268858006",
+        "display": "Maternal injury (situation)"
+    },
+    {
+        "code": "266971002",
+        "display": "Spouse unwell (situation)"
+    },
+    {
+        "code": "266970001",
+        "display": "Family history of chronic medical disorder (situation)"
+    },
+    {
+        "code": "266969002",
+        "display": "Family history of psychotic illness (situation)"
+    },
+    {
+        "code": "266966009",
+        "display": "Family illness (situation)"
+    },
+    {
+        "code": "266947009",
+        "display": "Parents separated (situation)"
+    },
+    {
+        "code": "266908007",
+        "display": "Family history of congenital anomaly of cardiovascular system (situation)"
+    },
+    {
+        "code": "266907002",
+        "display": "Family history: Musculoskeletal disease (situation)"
+    },
+    {
+        "code": "266906006",
+        "display": "Family history: Multiple pregnancy (situation)"
+    },
+    {
+        "code": "266904009",
+        "display": "Family history: Genitourinary disease (situation)"
+    },
+    {
+        "code": "266903003",
+        "display": "Family history: Biliary disease (situation)"
+    },
+    {
+        "code": "266902008",
+        "display": "Family history: Liver disease (situation)"
+    },
+    {
+        "code": "266901001",
+        "display": "Family history: Colitis (situation)"
+    },
+    {
+        "code": "266900000",
+        "display": "Family history: Peptic ulceration (situation)"
+    },
+    {
+        "code": "266899005",
+        "display": "Family history of bronchitis or chronic obstructive airway disease (situation)"
+    },
+    {
+        "code": "266898002",
+        "display": "Family history: Respiratory disease (situation)"
+    },
+    {
+        "code": "266897007",
+        "display": "Family history: Myocardial infarction (situation)"
+    },
+    {
+        "code": "266896003",
+        "display": "Family history: Ischemic heart disease at greater than 60 years (situation)"
+    },
+    {
+        "code": "266895004",
+        "display": "Family history: Ischemic heart disease at less than 60 years (situation)"
+    },
+    {
+        "code": "266894000",
+        "display": "Family history: Cardiovascular disease (situation)"
+    },
+    {
+        "code": "266893006",
+        "display": "Family history: Blindness/low vision (situation)"
+    },
+    {
+        "code": "266891008",
+        "display": "Family history of central nervous system disorder (situation)"
+    },
+    {
+        "code": "266890009",
+        "display": "Family history of alcoholism (situation)"
+    },
+    {
+        "code": "266889000",
+        "display": "Family history: Hemophilia (situation)"
+    },
+    {
+        "code": "266888008",
+        "display": "Family history: Anemia (situation)"
+    },
+    {
+        "code": "266887003",
+        "display": "Family history: Raised blood lipids (situation)"
+    },
+    {
+        "code": "266886007",
+        "display": "Family history of neoplasm of female genital organ (situation)"
+    },
+    {
+        "code": "266883004",
+        "display": "Family history of neoplasm (situation)"
+    },
+    {
+        "code": "266882009",
+        "display": "No family history: Ischemic heart disease (situation)"
+    },
+    {
+        "code": "248541003",
+        "display": "Relative with terminal illness (situation)"
+    },
+    {
+        "code": "161079000",
+        "display": "Both parents smoke (situation)"
+    },
+    {
+        "code": "161078008",
+        "display": "Mother smokes (situation)"
+    },
+    {
+        "code": "161077003",
+        "display": "Father smokes (situation)"
+    },
+    {
+        "code": "161075006",
+        "display": "Spouse works away from home (situation)"
+    },
+    {
+        "code": "161067000",
+        "display": "Legal problem in family (situation)"
+    },
+    {
+        "code": "161062006",
+        "display": "Child abuse in family (situation)"
+    },
+    {
+        "code": "160953001",
+        "display": "Family history of acute medical disorder (situation)"
+    },
+    {
+        "code": "160891002",
+        "display": "Vulnerable child in family (situation)"
+    },
+    {
+        "code": "160886003",
+        "display": "Wife alive (situation)"
+    },
+    {
+        "code": "160885004",
+        "display": "Wife well (situation)"
+    },
+    {
+        "code": "160884000",
+        "display": "Wife pregnant (situation)"
+    },
+    {
+        "code": "160860008",
+        "display": "Husband in prison (situation)"
+    },
+    {
+        "code": "160859003",
+        "display": "Imprisonment of family member (situation)"
+    },
+    {
+        "code": "160807009",
+        "display": "Mother remarried (situation)"
+    },
+    {
+        "code": "160806000",
+        "display": "Father remarried (situation)"
+    },
+    {
+        "code": "160475008",
+        "display": "Family history: Consanguinity (situation)"
+    },
+    {
+        "code": "160474007",
+        "display": "Family history: Atopy (situation)"
+    },
+    {
+        "code": "160473001",
+        "display": "Family history: Death under 60 years (situation)"
+    },
+    {
+        "code": "160472006",
+        "display": "Family history: Non-accidental injury to child (situation)"
+    },
+    {
+        "code": "160471004",
+        "display": "Family history of sudden infant death syndrome (situation)"
+    },
+    {
+        "code": "160469004",
+        "display": "Family history: Allergy (situation)"
+    },
+    {
+        "code": "160457007",
+        "display": "Daughter deceased (situation)"
+    },
+    {
+        "code": "160456003",
+        "display": "Family history: Daughter alive with problem (situation)"
+    },
+    {
+        "code": "160455004",
+        "display": "Family history: Daughter alive and well (situation)"
+    },
+    {
+        "code": "160452001",
+        "display": "Son deceased (situation)"
+    },
+    {
+        "code": "160451008",
+        "display": "Family history: Son alive with problem (situation)"
+    },
+    {
+        "code": "160450009",
+        "display": "Family history: Son alive and well (situation)"
+    },
+    {
+        "code": "160447006",
+        "display": "Brother deceased (situation)"
+    },
+    {
+        "code": "160446002",
+        "display": "Family history: Brother alive with problem (situation)"
+    },
+    {
+        "code": "160445003",
+        "display": "Family history: Brother alive and well (situation)"
+    },
+    {
+        "code": "160442000",
+        "display": "Sister deceased (situation)"
+    },
+    {
+        "code": "160441007",
+        "display": "Family history: Sister alive with problem (situation)"
+    },
+    {
+        "code": "160440008",
+        "display": "Family history: Sister alive and well (situation)"
+    },
+    {
+        "code": "160437008",
+        "display": "Family history: Father deaf (situation)"
+    },
+    {
+        "code": "160436004",
+        "display": "Father deceased (situation)"
+    },
+    {
+        "code": "160435000",
+        "display": "Family history: Father alive with problem (situation)"
+    },
+    {
+        "code": "160434001",
+        "display": "Family history: Father alive and well (situation)"
+    },
+    {
+        "code": "160430005",
+        "display": "Mother deceased (situation)"
+    },
+    {
+        "code": "160429000",
+        "display": "Family history: Mother alive with problem (situation)"
+    },
+    {
+        "code": "160428008",
+        "display": "Family history: Mother alive and well (situation)"
+    },
+    {
+        "code": "160425006",
+        "display": "Family history of chromosomal anomaly (situation)"
+    },
+    {
+        "code": "160424005",
+        "display": "Family history: Congenital orthopedic anomaly (situation)"
+    },
+    {
+        "code": "160423004",
+        "display": "Family history: Congenital genitourinary anomaly (situation)"
+    },
+    {
+        "code": "160422009",
+        "display": "Family history: Congenital gastrointestinal tract anomaly (situation)"
+    },
+    {
+        "code": "160421002",
+        "display": "Family history of congenital respiratory system anomaly (situation)"
+    },
+    {
+        "code": "160419007",
+        "display": "Family history: Spina bifida (situation)"
+    },
+    {
+        "code": "160418004",
+        "display": "Family history: Anencephaly (situation)"
+    },
+    {
+        "code": "160417009",
+        "display": "Family history of congenital disease (situation)"
+    },
+    {
+        "code": "160414002",
+        "display": "Family history: Osteoarthritis (situation)"
+    },
+    {
+        "code": "160413008",
+        "display": "Family history: Rheumatoid arthritis (situation)"
+    },
+    {
+        "code": "160410006",
+        "display": "Family history: Hirsutism (situation)"
+    },
+    {
+        "code": "160409001",
+        "display": "Family history: Alopecia (situation)"
+    },
+    {
+        "code": "160408009",
+        "display": "Family history: Psoriasis (situation)"
+    },
+    {
+        "code": "160407004",
+        "display": "Family history: Eczema (situation)"
+    },
+    {
+        "code": "160406008",
+        "display": "Family history: Skin disease (situation)"
+    },
+    {
+        "code": "160403000",
+        "display": "Family history: Puerperal depression (situation)"
+    },
+    {
+        "code": "160402005",
+        "display": "Family history: Diabetes in pregnancy (situation)"
+    },
+    {
+        "code": "160401003",
+        "display": "Family history: Raised blood pressure in pregnancy (situation)"
+    },
+    {
+        "code": "160398001",
+        "display": "Family history: Late menopause (situation)"
+    },
+    {
+        "code": "160397006",
+        "display": "Family history: Early menopause (situation)"
+    },
+    {
+        "code": "160396002",
+        "display": "Family history: Late menarche (situation)"
+    },
+    {
+        "code": "160394004",
+        "display": "Family history: Early menarche (situation)"
+    },
+    {
+        "code": "160393005",
+        "display": "Family history: Menstrual disorder (situation)"
+    },
+    {
+        "code": "160392000",
+        "display": "Family history: Breast disease (situation)"
+    },
+    {
+        "code": "160391007",
+        "display": "Family history: Female infertility (situation)"
+    },
+    {
+        "code": "160390008",
+        "display": "Family history: Male infertility (situation)"
+    },
+    {
+        "code": "160389004",
+        "display": "Family history: Polycystic kidney (situation)"
+    },
+    {
+        "code": "160386006",
+        "display": "Family history: Crohn's disease (situation)"
+    },
+    {
+        "code": "160381001",
+        "display": "Family history: Gastrointestinal disease (situation)"
+    },
+    {
+        "code": "160379003",
+        "display": "Family history: Hay fever (situation)"
+    },
+    {
+        "code": "160378006",
+        "display": "Family history: Occupational lung disease (situation)"
+    },
+    {
+        "code": "160377001",
+        "display": "Family history: Asthma (situation)"
+    },
+    {
+        "code": "160364005",
+        "display": "Family history: Congenital heart disease (situation)"
+    },
+    {
+        "code": "160363004",
+        "display": "Family history of transient ischemic attack (situation)"
+    },
+    {
+        "code": "160362009",
+        "display": "Family history: Atherosclerosis (situation)"
+    },
+    {
+        "code": "160357008",
+        "display": "Family history: Hypertension (situation)"
+    },
+    {
+        "code": "160354001",
+        "display": "Family history: Otosclerosis (situation)"
+    },
+    {
+        "code": "160353007",
+        "display": "Family history: Deafness (situation)"
+    },
+    {
+        "code": "160352002",
+        "display": "Family history: Ear disorder (situation)"
+    },
+    {
+        "code": "160350005",
+        "display": "Family history: Squint (situation)"
+    },
+    {
+        "code": "160348002",
+        "display": "Family history: Cataract (situation)"
+    },
+    {
+        "code": "160347007",
+        "display": "Family history: Glaucoma (situation)"
+    },
+    {
+        "code": "160346003",
+        "display": "Family history: Eye disorder (situation)"
+    },
+    {
+        "code": "160344000",
+        "display": "Family history: Motor neurone disease (situation)"
+    },
+    {
+        "code": "160343006",
+        "display": "Family history: Muscular dystrophy (situation)"
+    },
+    {
+        "code": "160342001",
+        "display": "Family history: Migraine (situation)"
+    },
+    {
+        "code": "160341008",
+        "display": "Family history: Epilepsy (situation)"
+    },
+    {
+        "code": "160340009",
+        "display": "Family history: Cerebral palsy (situation)"
+    },
+    {
+        "code": "160339007",
+        "display": "Family history: Paraplegia (situation)"
+    },
+    {
+        "code": "160338004",
+        "display": "Family history: Hemiplegia (situation)"
+    },
+    {
+        "code": "160337009",
+        "display": "Family history: Multiple sclerosis (situation)"
+    },
+    {
+        "code": "160336000",
+        "display": "Family history: Huntington's chorea (situation)"
+    },
+    {
+        "code": "160333008",
+        "display": "Family history: Suicide (situation)"
+    },
+    {
+        "code": "160332003",
+        "display": "Family history: Anxiety state (situation)"
+    },
+    {
+        "code": "160331005",
+        "display": "Family history: Manic-depressive state (situation)"
+    },
+    {
+        "code": "160329001",
+        "display": "Family history: Depression (situation)"
+    },
+    {
+        "code": "160328009",
+        "display": "Family history: Schizophrenia (situation)"
+    },
+    {
+        "code": "160325007",
+        "display": "Family history: Senile dementia (situation)"
+    },
+    {
+        "code": "160324006",
+        "display": "Family history of mental disorder (situation)"
+    },
+    {
+        "code": "160321003",
+        "display": "Family history: Sickle cell trait (situation)"
+    },
+    {
+        "code": "160320002",
+        "display": "Family history of sickle cell anemia (situation)"
+    },
+    {
+        "code": "160319008",
+        "display": "Family history: Thalassemia (situation)"
+    },
+    {
+        "code": "160318000",
+        "display": "Family history: Hereditary spherocytosis (situation)"
+    },
+    {
+        "code": "160316001",
+        "display": "Family history: Blood disorder (situation)"
+    },
+    {
+        "code": "160314003",
+        "display": "Family history: Hypercholesterolemia (situation)"
+    },
+    {
+        "code": "160313009",
+        "display": "Family history of osteoporosis (situation)"
+    },
+    {
+        "code": "160311006",
+        "display": "Family history: Obesity (situation)"
+    },
+    {
+        "code": "160310007",
+        "display": "Family history: Porphyria (situation)"
+    },
+    {
+        "code": "160309002",
+        "display": "Family history of cystic fibrosis (situation)"
+    },
+    {
+        "code": "160308005",
+        "display": "Family history: Gout (situation)"
+    },
+    {
+        "code": "160306009",
+        "display": "Family history: Nutritional deficiency (situation)"
+    },
+    {
+        "code": "160305008",
+        "display": "Family history of metabolic disorder (situation)"
+    },
+    {
+        "code": "160303001",
+        "display": "Family history of diabetes mellitus (situation)"
+    },
+    {
+        "code": "160302006",
+        "display": "Family history: Thyroid disorder (situation)"
+    },
+    {
+        "code": "160301004",
+        "display": "Family history of endocrine disorders (situation)"
+    },
+    {
+        "code": "160299006",
+        "display": "Family history: neoplasm of uterus (situation)"
+    },
+    {
+        "code": "160298003",
+        "display": "Family history: neoplasm of cervix (situation)"
+    },
+    {
+        "code": "160297008",
+        "display": "Family history: neoplasm of ovary (situation)"
+    },
+    {
+        "code": "160292002",
+        "display": "Family history of leukemia (situation)"
+    },
+    {
+        "code": "160290005",
+        "display": "Family history of neoplasm of male genital organ (situation)"
+    },
+    {
+        "code": "160288009",
+        "display": "Family history of neoplasm of skin (situation)"
+    },
+    {
+        "code": "160282005",
+        "display": "Family history: Gonorrhea (situation)"
+    },
+    {
+        "code": "160281003",
+        "display": "Family history: Syphilis (situation)"
+    },
+    {
+        "code": "160280002",
+        "display": "Family history: Tuberculosis (situation)"
+    },
+    {
+        "code": "160279000",
+        "display": "Family history of infectious disease (situation)"
+    },
+    {
+        "code": "160274005",
+        "display": "No family history diabetes (situation)"
+    },
+    {
+        "code": "160273004",
+        "display": "No family history: Hypertension (situation)"
+    },
+    {
+        "code": "160271002",
+        "display": "No family history of stroke and/or transient ischemic attack (situation)"
+    },
+    {
+        "code": "160270001",
+        "display": "No family history: Cardiovascular disease (situation)"
+    },
+    {
+        "code": "160269002",
+        "display": "Family history: Longevity (situation)"
+    },
+    {
+        "code": "160268005",
+        "display": "No family history: Allergy (situation)"
+    },
+    {
+        "code": "160267000",
+        "display": "No family history: Glaucoma (situation)"
+    },
+    {
+        "code": "160252004",
+        "display": "No family history of cardiovascular accident or stroke (situation)"
+    },
+    {
+        "code": "160250007",
+        "display": "No family history of malignancy (situation)"
+    },
+    {
+        "code": "134439009",
+        "display": "Family history: premature coronary heart disease (situation)"
+    }
+]
