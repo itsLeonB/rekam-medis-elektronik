@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fhir\Resources\Patient;
 use App\Models\FhirResource;
 use App\Models\Medicine;
 use App\Models\MedicineTransaction;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use MongoDB\BSON\UTCDateTime;
 
 class AnalyticsObatController extends Controller
@@ -42,12 +40,14 @@ class AnalyticsObatController extends Controller
 
         return $count;
     }
+
     public function getObatFastMoving(){
         //jika list untuk tampilan diperlukan menggunakan get() jika tidak langsung count()
         $result = Medicine::where('is_fast_moving', '=', true)->get();
         $count = count($result->toArray()); 
         return $count;
     }
+    
     public function getObatPenggunaanPalingBanyak(){
         $oneMonthAgo = Carbon::now()->subMonth();
         //jika list untuk tampilan diperlukan menggunakan get() jika tidak langsung count()
@@ -57,6 +57,7 @@ class AnalyticsObatController extends Controller
         $count = count($result->toArray()); 
         return $count;
     }
+    
     public function getObatTransaksiPerbandinganPerBulan(){
         $now = Carbon::now();
 
@@ -145,7 +146,7 @@ class AnalyticsObatController extends Controller
                 
                 '$group' => [
                     '_id' => '$name',
-                    // 'unit' => ['$sum' => 1],
+                    'unit' => ['$sum' => 1],
                     'count' => ['$sum' => '$quantity']
                 ]                
             ],

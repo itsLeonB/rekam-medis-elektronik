@@ -33,7 +33,7 @@
 
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, onActivated  } from 'vue';
 import axios from 'axios';
 import DonutChart from '@/Components//DonutChart.vue';
 import LineChart from '@/Components//LineChart.vue';
@@ -101,7 +101,6 @@ const fetchPersebaranObat = async () => {
         };
         persebaranObat.value = response.data.value;
         console.log(persebaranObatOptions.value);
-        // penggunaanPalingBanyak.value = response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -113,7 +112,6 @@ const fetchPerbandinganTransaksiPerBulan = async () => {
         const response = await axios.get(route('analytics.obat-transaksi-perbandingan-per-bulan'));
         jumlahTransaksiperBulan.value = response.data;
         console.log(jumlahTransaksiperBulan.value, 'daffa')
-        // penggunaanPalingBanyak.value = response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -151,7 +149,15 @@ onMounted(() => {
     fetchPenggunaanPalingBanyak();
     fetchPersebaranObat();
     fetchPerbandinganTransaksiPerBulan();
+});
 
+onActivated(() => {
+    fetchMendekatiKadaluarsa();
+    fetchStokSedikit();
+    fetchFastMoving();
+    fetchPenggunaanPalingBanyak();
+    fetchPersebaranObat();
+    fetchPerbandinganTransaksiPerBulan();
 });
 
 </script>
