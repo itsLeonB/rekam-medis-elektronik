@@ -160,7 +160,6 @@
                             <template v-for="price in JSON.parse(medication.prices)">
                                 <td class="px-6 py-4 w-1/5">{{ price }}</td>
                             </template>
-
                             <td class="px-6 py-4 w-1/5">
                                 <template v-for="ingredient in JSON.parse(medication.ingredients)">
                                     <ul>
@@ -168,7 +167,6 @@
                                     </ul>
                                 </template>
                             </td>
-
                         </tr>
                     </tbody>
                 </table>

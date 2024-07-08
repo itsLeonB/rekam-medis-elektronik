@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\AnalyticsObatController;
 use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\EncounterFormController;
 use App\Http\Controllers\IdentifierController;
@@ -10,8 +11,10 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\MedicineTransactionController;
 use App\Http\Controllers\ExpertSystemController;
 use App\Http\Controllers\MedicationController;
+use App\Http\Controllers\ExpertSystemController;
 use App\Http\Controllers\MedicationDispense;
 use App\Http\Controllers\ObatController;
 use App\Http\Middleware\RedirectIfAuthenticated;
@@ -107,6 +110,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('UserManagement/TambahUser');
     })->name('usermanagement.tambah');
 });
+
+# Transaksi
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/medicine-transaction', function () {
+        return Inertia::render('MedicineTransaction/MedicineTransaction');
+    })->name('medicinetransaction');
+    Route::get('/medicine-transaction/form-transaction', function () {
+        return Inertia::render('MedicineTransaction/FormTransaction');
+    })->name('medicinetransaction.tambah');
+});
+
 
 # Medication
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -224,6 +238,26 @@ Route::middleware('auth')->group(function () {
         Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
         // Jumlah pasien yang pernah dirawat berdasarkan usia
         Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
+
+        // card :
+        // - jumlah mendekati kadaluarsa exp kurang dari 1 bulan
+        Route::get('/obat-mendekati-kadaluarsa', [AnalyticsObatController::class, 'getObatMendekatiKadaluarsa'])->name('obat-mendekati-kadaluarsa');
+
+        // - jumlah stok sedikit - kosong
+        Route::get('/obat-stok-sedikit', [AnalyticsObatController::class, 'getObatStokSedikit'])->name('obat-stok-sedikit');
+        // - jumlah obat fast 
+        Route::get('/obat-fast-moving', [AnalyticsObatController::class, 'getObatFastMoving'])->name('obat-fast-moving');
+        
+        // - jumlah obat penggunaan paling banyak
+        Route::get('/obat-penggunaan-paling-banyak', [AnalyticsObatController::class, 'getObatPenggunaanPalingBanyak'])->name('obat-penggunaan-paling-banyak');
+
+        // chart :
+        // - line chart stok obat secara keseluruhan perbulan
+        Route::get('/obat-transaksi-perbandingan-per-bulan', [AnalyticsObatController::class, 'getObatTransaksiPerbandinganPerBulan'])->name('obat-transaksi-perbandingan-per-bulan');
+
+        // - pie chart distribusi stok obat berdasarkan jenis
+        Route::get('/obat-persebaran-stok', [AnalyticsObatController::class, 'getObatPersebaranStok'])->name('obat-persebaran-stok');
+
     });
 
     // Endpoint untuk Formulir Perawatan
@@ -255,6 +289,24 @@ Route::middleware('auth')->group(function () {
         // Daftar roles
         Route::get('/get/roles', [UserManagementController::class, 'getRoles'])->name('roles');
     });
+
+    // Endpoint untuk MedicineTransaction Management
+    Route::group(['prefix' => 'medicinetransactions', 'as' => 'medicinetransactions.'], function () {
+        // Daftar medicinetransaction
+        Route::get('/', [MedicineTransactionController::class, 'index'])->name('index');
+        // Detail medicinetransaction
+        Route::get('/{id}', [MedicineTransactionController::class, 'show'])->name('show');
+        // Tambah medicinetransaction
+        Route::post('/', [MedicineTransactionController::class, 'store'])->name('store');
+        // Update medicinetransaction
+        Route::put('/{id}', [MedicineTransactionController::class, 'update'])->name('update');
+        // Hapus medicinetransaction
+        Route::delete('/{id}', [MedicineTransactionController::class, 'destroy'])->name('destroy');
+        // Daftar roles
+        Route::get('/get/roles', [MedicineTransactionController::class, 'getRoles'])->name('roles');
+    });
+    // Daftar medicine
+    Route::get('/getmedicine', [MedicineTransactionController::class, 'getmedicine'])->name('getmedicine');
 
     // Endpoint kode terminologi
     Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {

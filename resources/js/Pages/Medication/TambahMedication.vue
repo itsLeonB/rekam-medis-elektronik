@@ -285,7 +285,6 @@ const submitForm = async () => {
         } else {
             errorMessage.value = 'An error occurred while saving data';
         }
-
     }
 };
 

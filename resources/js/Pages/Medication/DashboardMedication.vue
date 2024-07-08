@@ -18,8 +18,8 @@
             </div>
         </div>
         <div class="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
-            <LineChart :title="'Perbandingan Stok obat per bulan'" :options="bulan" :series="jumlahObatperBulan" class="basis-3/5" />
-            <DonutChart :title="'Persebaran stok obat'" :options="persebaranPasienOptions" :series="persebaranPasien" class="basis-2/5" />
+            <LineChart :title="'Perbandingan Transaksi Per Bulan (Total Kuantitas)'" :options="bulan" :series="jumlahTransaksiperBulan" class="basis-3/5" />
+            <DonutChart :title="'Persebaran Jumlah Stok Obat Sedikit (Total Kuantitas)'" :options="persebaranObatOptions" :series="persebaranObat" class="basis-2/5" />
         </div>
         <div class="flex justify-center mt-8">
             <div class="flex justify-center">
@@ -37,12 +37,6 @@ import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import DonutChart from '@/Components//DonutChart.vue';
 import LineChart from '@/Components//LineChart.vue';
-import MedicineStockBar from '@/Components/MedicineStockBar.vue';
-
-const months = ref([]);
-const ambCounts = ref([]);
-const impCounts = ref([]);
-const emerCounts = ref([]);
 const bulan = ref({
   chart: {
     type: 'line',
@@ -56,232 +50,70 @@ const bulan = ref({
   }
 });
 
+const mendekatiKadaluarsa = ref(0);
+const fetchMendekatiKadaluarsa = async () => {
+    try {
+        const response = await axios.get(route('analytics.obat-mendekati-kadaluarsa'));
+        mendekatiKadaluarsa.value = response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+const stokSedikit = ref(0);
+const fetchStokSedikit = async () => {
+    try {
+        const response = await axios.get(route('analytics.obat-stok-sedikit'));
+        stokSedikit.value = response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+const fastMoving = ref(0);
+const fetchFastMoving = async () => {
+    try {
+        const response = await axios.get(route('analytics.obat-fast-moving'));
+        fastMoving.value = response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+const penggunaanPalingBanyak = ref(0);
+const fetchPenggunaanPalingBanyak = async () => {
+    try {
+        const response = await axios.get(route('analytics.obat-penggunaan-paling-banyak'));
+        penggunaanPalingBanyak.value = response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+const persebaranObatOptions = ref({});
+
+const persebaranObat = ref([44]);
+const fetchPersebaranObat = async () => {
+    try {
+        const response = await axios.get(route('analytics.obat-persebaran-stok'));
+        persebaranObatOptions.value = {
+            chart: {
+                id: 'donut-chart',
+            },
+            labels: response.data.label,
+        };
+        persebaranObat.value = response.data.value;
+        console.log(persebaranObatOptions.value);
+        // penggunaanPalingBanyak.value = response.data;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
 // Series data including actual and forecast data
-const jumlahObatperBulan = ref([
-  {
-    name: '2021',
-    data: [30, 40, 35, 50, 49, 60, 70, 91, 125, 140, 155, 180]
-  },
-  {
-    name: '2022',
-    data: [20, 30, 40, 45, 55, 65, 75, 85, 95, 110, 125, 130]
-  },
-  {
-    name: '2023',
-    data: [25, 35, 45, 55, 65, 75, 85, 95, 105, 115, 125, 135]
-  }
-]);
-
-const medicines = ref([
-  { name: 'Medicine A', stock: 50, maxStock: 100 },
-  { name: 'Medicine B', stock: 30, maxStock: 100 },
-  { name: 'Medicine C', stock: 70, maxStock: 100 },
-  { name: 'Medicine D', stock: 90, maxStock: 100 },
-  { name: 'Medicine E', stock: 20, maxStock: 100 },
-  { name: 'Medicine F', stock: 45, maxStock: 100 },
-  { name: 'Medicine G', stock: 65, maxStock: 100 },
-  { name: 'Medicine H', stock: 85, maxStock: 100 }
-]);
-
-const groupSize = 2;
-
-const maxStock = ref(Math.max(...medicines.value.map(medicine => medicine.stock)));
-
-
-const fontFamily = 'Poppins, Arial, sans-serif';
-
-// const fetchPasienPerBulan = async () => {
-//     try {
-//         const response = await axios.get(route('analytics.pasien-per-bulan'));
-//         const data = response.data;
-
-//         const uniqueMonths = [...new Set(data.map(item => item.month))];
-//         const uniqueMonthsParsed = [...new Set(data.map(item => {
-//             const date = new Date(item.month + '-01');
-//             const formattedMonth = new Intl.DateTimeFormat('id-ID', { month: 'short', year: '2-digit' }).format(date);
-//             return formattedMonth;
-//         }))];
-//         const ambCountArray = Array(uniqueMonths.length).fill(0);
-//         const impCountArray = Array(uniqueMonths.length).fill(0);
-//         const emerCountArray = Array(uniqueMonths.length).fill(0);
-
-//         data.forEach(item => {
-//             const monthIndex = uniqueMonths.indexOf(item.month);
-//             if (item.class === 'AMB') ambCountArray[monthIndex] = item.count;
-//             else if (item.class === 'IMP') impCountArray[monthIndex] = item.count;
-//             else if (item.class === 'EMER') emerCountArray[monthIndex] = item.count;
-//         });
-
-//         months.value = uniqueMonthsParsed;
-//         ambCounts.value = ambCountArray;
-//         impCounts.value = impCountArray;
-//         emerCounts.value = emerCountArray;
-
-//         jumlahPasienPerBulanOptions.value = {
-//             chart: {
-//                 type: 'bar',
-//                 stacked: true,
-//             },
-//             colors: ['#6f52ed', '#f6896d', '#58c5a5'],
-//             plotOptions: {
-//                 bar: {
-//                     horizontal: false,
-//                     columnWidth: '55%',
-//                 },
-//             },
-//             xaxis: {
-//                 categories: months.value,
-//                 labels: {
-//                     rotate: -90,
-//                     rotateAlways: true,
-//                     minHeight: 8,
-//                     style: {
-//                         fontSize: '12px',
-//                         fontFamily: fontFamily,
-//                         fontWeight: 400,
-//                     },
-//                 },
-//                 title: {
-//                     text: 'Periode',
-//                     style: {
-//                         fontSize: '12px',
-//                         fontFamily: fontFamily,
-//                         fontWeight: 600,
-//                         cssClass: 'apexcharts-xaxis-title',
-//                     }
-//                 },
-//             },
-//             yaxis: {
-//                 title: {
-//                     text: 'Jumlah Pasien',
-//                     style: {
-//                         fontSize: '12px',
-//                         fontFamily: fontFamily,
-//                         fontWeight: 600,
-//                         cssClass: 'apexcharts-xaxis-title',
-//                     }
-//                 },
-//             },
-//             legend: {
-//                 position: 'top',
-//                 horizontalAlign: 'left',
-//                 fontFamily: fontFamily,
-//                 markers: {
-//                     width: 12,
-//                     height: 12,
-//                     radius: 12,
-//                 },
-//             },
-//             tooltip: {
-//                 style: {
-//                     fontFamily: fontFamily,
-//                 }
-//             },
-//         };
-
-//         jumlahPasienPerBulan.value = [
-//             {
-//                 name: 'Rawat Jalan',
-//                 data: ambCounts.value
-//             },
-//             {
-//                 name: 'Rawat Inap',
-//                 data: impCounts.value
-//             },
-//             {
-//                 name: 'IGD',
-//                 data: emerCounts.value
-//             }
-//         ];
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//     }
-// };
-
-const persebaranPasienOptions = ref({
-  chart: {
-    id: 'donut-chart',
-  },
-  labels: ['Obat suntik', 'Obat sirup', 'Obat 3', 'Obat 4', 'Obat 5'],
-});
-
-const persebaranPasien = ref([44, 55, 41, 17, 15]);
-
-// const fetchPersebaranPasien = async () => {
-//     try {
-//         const response = await axios.get(route('analytics.sebaran-usia-pasien'));
-//         const data = response.data;
-
-//         const urutan = ["balita", "kanak", "remaja", "dewasa", "lansia", "manula"];
-
-//         persebaranPasien.value = Array.from(urutan.map(ageGroup => {
-//             const matchingItem = data.find(item => item.age_group === ageGroup);
-//             return matchingItem ? matchingItem.count : 0;
-//         }));
-
-//         persebaranPasienOptions.value = {
-//             chart: {
-//                 type: "donut"
-//             },
-//             colors: ["#6f52ed", "#f6896d", "#589ec5", "#f2e35b", "#58c5a5", "#f43f5e"],
-//             plotOptions: {
-//                 pie: {
-//                     donut: {
-//                         size: "60%",
-//                     },
-//                 },
-//             },
-//             labels: ["Balita (0 - 5 Tahun)", "Kanak - Kanak (6 - 12 Tahun)", "Remaja (12 - 25 Tahun)", "Dewasa (26 - 45 Tahun)",
-//                 "Lansia (46 - 65 Tahun)", "Manula (> 65 Tahun)"],
-//             legend: {
-//                 position: "bottom",
-//                 horizontalAlign: "center",
-//                 fontFamily: fontFamily,
-//                 markers: {
-//                     width: 12,
-//                     height: 12,
-//                     radius: 12,
-//                 },
-//             },
-//             tooltip: {
-//                 style: {
-//                     fontFamily: fontFamily,
-//                 },
-//             },
-//         };
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//     }
-// };
-
-//Pasien Aktif Hari Ini
-const pasienAkitfHariIni = ref(0);
-const fetchPasienAkitfHariIni = async () => {
+const jumlahTransaksiperBulan = ref([]);
+const fetchPerbandinganTransaksiPerBulan = async () => {
     try {
-        const response = await axios.get(route('analytics.pasien-dirawat'));
-        pasienAkitfHariIni.value = response.data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-};
-
-//Pasien Baru Bulan Ini
-const pasienBaruBulanIni = ref(0);
-const fetchPasienBaruBulanIni = async () => {
-    try {
-        const response = await axios.get(route('analytics.pasien-baru-bulan-ini'));
-        pasienBaruBulanIni.value = response.data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-};
-
-//Total Pasien Terdaftar
-const totalPasienTerdaftar = ref(0);
-const fetchTotalPasienTerdaftar = async () => {
-    try {
-        const response = await axios.get(route('analytics.jumlah-pasien'));
-        totalPasienTerdaftar.value = response.data;
+        const response = await axios.get(route('analytics.obat-transaksi-perbandingan-per-bulan'));
+        jumlahTransaksiperBulan.value = response.data;
+        console.log(jumlahTransaksiperBulan.value, 'daffa')
+        // penggunaanPalingBanyak.value = response.data;
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -289,37 +121,37 @@ const fetchTotalPasienTerdaftar = async () => {
 
 const cardsData = ref([
     {
-        title: 'Stok sedikit',
-        value: pasienAkitfHariIni,
+        // < 1 bulan
+        title: 'Obat Mendekati Kadaluarsa',
+        value: mendekatiKadaluarsa,
         unit: 'Unit',
     },
     {
-        title: 'Mendekati kadaluarsa',
-        value: pasienAkitfHariIni,
-        unit: 'Tanggal',
-    },
-    {
-        title: 'Permintaan meningkat',
-        value: pasienAkitfHariIni,
+        title: 'Obat Stok Sedikit',
+        value: stokSedikit,
         unit: 'Unit',
     },
     {
-        title: 'Total Pasien Terdaftar',
-        value: totalPasienTerdaftar,
+        title: 'Obat Fast Moving',
+        value: fastMoving,
         unit: 'Unit',
-        svg: `<circle cx="37" cy="37" r="37" fill="#ECFBF4" />
-              <path d="M26.9092 47.091C26.9092 43.3069 31.7942 43.3069 34.2368 40.7842C35.458 39.5228 31.7942 39.5228 31.7942 33.216C31.7942 29.0119 33.4222 26.9092 36.6793 26.9092C39.9364 26.9092 41.5643 29.0119 41.5643 33.216C41.5643 39.5228 37.9005 39.5228 39.1218 40.7842C41.5643 43.3069 46.4494 43.3069 46.4494 47.091" stroke="#7BDAB8" stroke-width="2.24242" stroke-linecap="square" />
-              <path d="M40.3634 41.4847C39.8028 40.9241 43.0057 41.0642 45.4482 38.5415C46.6694 37.2801 43.0057 37.2801 43.0057 30.9733C43.0057 26.7692 44.6336 24.6665 47.8907 24.6665C51.1478 24.6665 52.7758 26.7692 52.7758 30.9733C52.7758 37.2801 49.112 37.2801 50.3332 38.5415C52.7758 41.0642 57.6608 41.0642 57.6608 44.8483" stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />
-              <path d="M15.6973 44.8483C15.6973 41.0642 20.5823 41.0642 23.0248 38.5415C24.2461 37.2801 20.5823 37.2801 20.5823 30.9733C20.5823 26.7692 22.2103 24.6665 25.4674 24.6665C28.7245 24.6665 30.3524 26.7692 30.3524 30.9733C30.3524 37.2801 26.6886 37.2801 27.9099 38.5415C30.3524 41.0642 32.5154 39.8029 32.5154 41.4847" stroke="#7BDAB8" stroke-opacity="0.5" stroke-width="2.24242" stroke-linecap="square" />`
+    },
+    {
+        //< 1 Bulan, Transaksi > 50 Pcs
+        title: 'Obat Penggunaan Paling Banyak',
+        value: penggunaanPalingBanyak,
+        unit: 'Unit',
     },
 ]);
 
 onMounted(() => {
-    fetchPasienAkitfHariIni();
-    // fetchPasienBaruBulanIni();
-    fetchTotalPasienTerdaftar();
-    // fetchPasienPerBulan();
-    // fetchPersebaranPasien();
+    fetchMendekatiKadaluarsa();
+    fetchStokSedikit();
+    fetchFastMoving();
+    fetchPenggunaanPalingBanyak();
+    fetchPersebaranObat();
+    fetchPerbandinganTransaksiPerBulan();
+
 });
 
 </script>

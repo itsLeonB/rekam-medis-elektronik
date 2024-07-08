@@ -65,6 +65,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TerminologySeeder::class,
             OnboardingSeeder::class,
+            IdFhirResourceSeeder::class,
+            MedicationSeeder::class,
+            MedicineTransactionSeeder::class,
         ]);
     }
 }
