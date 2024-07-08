@@ -14,7 +14,6 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\MedicineTransactionController;
 use App\Http\Controllers\ExpertSystemController;
 use App\Http\Controllers\MedicationController;
-use App\Http\Controllers\ExpertSystemController;
 use App\Http\Controllers\MedicationDispense;
 use App\Http\Controllers\ObatController;
 use App\Http\Middleware\RedirectIfAuthenticated;
