@@ -10,15 +10,21 @@ class ObatController extends Controller
     public function index(Request $request)
     {
         $medications = FhirResource::where('resourceType', 'Medication');
-        
+        // return $medications;
+
         if ($request->query('name')) {
-            $medications = $medications->where('name.text', 'like', '%' . addcslashes($request->query('name'), '%_') . '%');
-            return $medications;
+            $name = $request->query('name');
+            $medications = $medications->where('code.coding.0.display', 'like', '%' . addcslashes($name, '%_') . '%');
+        }
+        if ($request->query('form')) {
+            $form = $request->query('form');
+            $medications = $medications->where('form.coding.0.display', 'like', '%' . addcslashes($form, '%_') . '%');
         }
         $medications = $medications->paginate(15)->withQueryString();
 
         $formattedMedications = $medications->map(function ($medications) {
             return [
+                'id_medication' => data_get($medications, 'id'),
                 'code' => data_get($medications, 'code.coding.0.code'),
                 'name' => data_get($medications, 'code.coding.0.display'),
                 'status' => data_get($medications, 'status'),
@@ -44,5 +50,32 @@ class ObatController extends Controller
                 'total' => $medications->total(),
             ],
         ];
+    }
+    
+    public function show($medication_id)
+    {
+        
+        try {
+            $medication = FhirResource::where([
+                ['resourceType', 'Medication'],
+                ['id', $medication_id]
+            ])->first();
+            
+            $data = [
+                'code' => data_get($medication, 'code.coding.0.code'),
+                'name' => data_get($medication, 'code.coding.0.display'),
+                'status' => data_get($medication, 'status'),
+                'extension' => data_get($medication, 'extension.0.valueCodeableConcept.coding.0.display'),
+                'form' => data_get($medication, 'form.coding.0.display')
+            ];
+            return $data;
+            
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return response()->json([
+                'error' => 'Data tidak ditemukan',
+                'message' => $th->getMessage()
+            ], 404);
+        }
     }
 }

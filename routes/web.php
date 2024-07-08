@@ -14,6 +14,8 @@ use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\MedicineTransactionController;
 use App\Http\Controllers\ExpertSystemController;
 use App\Http\Controllers\MedicationController;
+use App\Http\Controllers\ExpertSystemController;
+use App\Http\Controllers\MedicationDispense;
 use App\Http\Controllers\ObatController;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Controllers\MedicineController;
@@ -134,7 +136,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/medication', function () {
         return Inertia::render('Medication/DashboardMedication');
     })->name('medication');
-
+    Route::get('/medication/prescription', function () {
+        return Inertia::render('Medication/MedicationDispense');
+    })->name('medication.prescription');
+    Route::get('/medication-dispense/details/{medication_dispense_id}', function ($medication_dispense_id) {
+        return Inertia::render('Medication/MedicationDispenseDetails', ['medication_dispense_id' => $medication_dispense_id]);
+    })->name('medicationDispense.details');
     // Route::get('/expertsystems', function () {
     //     return Inertia::render('Medication/ExpertSystem');
     // })->name('expertsystems.index');
@@ -214,6 +221,9 @@ Route::middleware('auth')->group(function () {
         // Daftar pasien rawat inap, serviceType per ruangan
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+        Route::get('/medication/details/{code_medication}', function ($code_medication) {
+            return Inertia::render('RekamMedis/RekamMedisDetails', ['medication_id' => $medication_id]);
+        })->name('rekammedis.details');
     });
 
     // Endpoint untuk Dashboard Analytics
@@ -420,6 +430,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/{medicine_code}', [MedicineController::class, 'show'])->name('show');
         Route::put('/{medicine_code}', [MedicineController::class, 'update'])->name('update');
         Route::delete('/{medicine_code}', [MedicineController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'medicationDispense', 'as' => 'medicationDispense.'], function () {
+        Route::get('/', [MedicationDispense::class, 'index'])->name('index');
+        Route::get('/{medicationReq_id}', [MedicationDispense::class, 'show'])->name('show');
     });
 });
 Route::get('medicationOrg', [ExpertSystemController::class, 'indexMedication'])->name('get.medicationOrg');

@@ -1,17 +1,36 @@
 <template>
-     <div>
+     <!-- <div>
         <ul v-if="expertSystem">
-        <li v-for="(group, index) in expertSystem" :key="index">
-            <ul>
-            <li v-for="(medicine, i) in group" :key="i">
-                <b>{{ medicine.display }}</b>-{{ medicine.dosageInstruction }}
-                <br>
+            <li v-for="(group, index) in expertSystem" :key="index">
+                <ul>
+                <li v-for="(medicine, i) in group" :key="i">
+                    <b>{{ medicine.display }}</b>-{{ medicine.dosageInstruction }}
+                    <br>
+                </li>
+                
+                </ul>
             </li>
-            
-            </ul>
-        </li>
         </ul>
         <p v-else>Tidak ada data yang ditemukan.</p>
+    </div> -->
+    <div>
+        <table v-if="expertSystem && expertSystem.length && expertSystem[0].length" class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
+            <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                <tr>
+                    <th scope="col" class="px-6 py-3 w-3/5">Nama</th>
+                    <th scope="col" class="px-6 py-3 w-2/5">Instruksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-for="(group, index) in expertSystem" :key="index">
+                    <tr v-for="(medicine, i) in group" :key="i" class="bg-original-white-0 ">
+                        <td class="px-6 py-4 w-3/5">{{ medicine.display }}</td>
+                        <td class="px-6 py-4 w-2/5 ">{{ medicine.dosageInstruction }}</td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <p v-else>{{ errorMessage || 'Tidak ada data yang ditemukan.' }}</p>
     </div>
 </template>
 <script setup>
@@ -43,15 +62,43 @@ const props = defineProps({
         type: String,
     },
 });
-console.log(props.encounter_satusehat_id);
 const expertSystem = ref(null);
+// const getExpertSystem = async () => {
+//     const {data} = await axios.get(route('ruleperesepan.show', {
+//             rule : 'resepObat',
+//             id: props.encounter_satusehat_id
+//     }));
+//     console.log(data)
+//     expertSystem.value = data;
+// };
+
 const getExpertSystem = async () => {
-    const {data} = await axios.get(route('ruleperesepan.show', {
-            rule : 'resepObat',
+    try {
+        const {data} = await axios.get(route('ruleperesepan.show', {
+            rule: 'resepObat',
             id: props.encounter_satusehat_id
-    }));
-    expertSystem.value = data;
+        }));
+        console.log(data);
+        
+        // Check if data is an empty array or contains an empty array
+        if (Array.isArray(data) && data.length > 0 && data[0].length === 0) {
+            expertSystem.value = null;
+            errorMessage.value = 'Tidak ada data yang ditemukan.';
+        } else {
+            expertSystem.value = data;
+            errorMessage.value = '';
+        }
+    } catch (error) {
+        if (error.response && error.response.status === 404) {
+            errorMessage.value = error.response.data.message;
+        } else {
+            errorMessage.value = 'Terjadi kesalahan dalam mengambil data.';
+        }
+        expertSystem.value = null;
+    }
 };
+
+
 onMounted(() => {
     getExpertSystem()
 });

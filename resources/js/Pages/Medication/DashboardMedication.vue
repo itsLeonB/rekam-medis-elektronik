@@ -21,6 +21,13 @@
             <LineChart :title="'Perbandingan Transaksi Per Bulan (Total Kuantitas)'" :options="bulan" :series="jumlahTransaksiperBulan" class="basis-3/5" />
             <DonutChart :title="'Persebaran Jumlah Stok Obat Sedikit (Total Kuantitas)'" :options="persebaranObatOptions" :series="persebaranObat" class="basis-2/5" />
         </div>
+        <div class="flex justify-center mt-8">
+            <div class="flex justify-center">
+            <a  v-if="['admin', 'apoteker'].includes($page.props.auth.user.roles[0].name)" :href="route('medication.table')" :active="route().current('medication.table')" class="bg-secondhand-orange-300 text-white font-bold py-2 px-4 rounded hover:bg-secondhand-orange-400 transition">
+                View Detailed Table
+            </a>
+            </div>
+        </div>
     </AuthenticatedLayout>
 </template>
 
@@ -30,7 +37,6 @@ import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import DonutChart from '@/Components//DonutChart.vue';
 import LineChart from '@/Components//LineChart.vue';
-
 const bulan = ref({
   chart: {
     type: 'line',

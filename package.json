@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build"
-    },
+    }, 
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
@@ -20,12 +20,12 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
+        "moment": "^2.30.1",
+        "vue-router": "^4.4.0",
         "@vueform/multiselect": "^2.6.7",
         "@vuepic/vue-datepicker": "^8.5.1",
         "apexcharts": "^3.45.1",
-        "moment": "^2.30.1",
         "vue-multiselect": "^3.0.0-beta.3",
-        "vue-router": "^4.4.0",
         "vue3-apexcharts": "^1.4.4"
     }
 }
