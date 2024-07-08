@@ -6,7 +6,7 @@
 
         <div class="p-8 bg-original-white-0 overflow-hidden shadow sm:rounded-2xl mb-8">
             <div class="flex justify-between">
-                <h1 class="mb-8 px-5 pt-3 text-2xl font-bold text-neutral-black-300">Detail Peresepan Obat</h1> 
+                <h1 class="mb-8 px-5 pt-3 text-2xl font-bold text-neutral-black-300">Detail Peresepan Obat</h1>
             </div>
             <!-- <Modal :show="confirmingUserDeletion" @close="closeModal">
                 <div class="p-6">
@@ -70,14 +70,10 @@
                 </table>
             </div>
             <div class="buttons-submit">
-                <Link :href="route('usermanagement.tambah')" as="button"
-                    class="mr-3 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                Setujui
-                </Link>
-                <Link :href="route('usermanagement.tambah')" as="button"
-                    class="mr-3 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                Tolak
-                </Link>
+                <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
+                @click.prevent="submit">Setujui</MainButton>
+                <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block orange-button text-original-white-0"
+                @click.prevent="submit">Tolak</MainButton>
             </div>
 
         </div>
@@ -92,26 +88,6 @@ import Modal from '@/Components/Modal.vue';
 import { Link } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-
-const confirmingUserDeletion = ref(false);
-
-const confirmUserDeletion = () => {
-    confirmingUserDeletion.value = true;
-};
-
-const deleteUser = (user_id) => {
-    axios.delete(route('users.destroy' + `/${user_id}`), {
-        preserveScroll: true,
-        onSuccess: () => {
-            closeModal(),
-                route('users.index');
-        }
-    });
-};
-
-const closeModal = () => {
-    confirmingUserDeletion.value = false;
-};
 
 const props = defineProps({
     medication_dispense_id: {
@@ -129,250 +105,61 @@ const fetchMedication = async () => {
     medication.value = data;
 };
 
-const submit = async () => {
-   const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
-   const submitResource = ref({
-      "resourceType": "MedicationDispense",
-      "identifier": [],
-      "active": true,
-      "name": [
-         {
-            "use": "official",
-            "text": resourceForm.value.nama
-         }
-      ],
-      "telecom": [],
-      "gender": resourceForm.value.gender,
-      "birthDate": resourceForm.value.tanggallahir.toISOString().split('T')[0],
-      "deceasedBoolean": false,
-      "address": [
-         {
-            "use": "home",
-            "line": [resourceForm.value.alamat],
-            "city": resourceForm.value.kota.nama_kabko,
-            "postalCode": resourceForm.value.kodepos,
-            "country": "ID",
-            "extension": [
-               {
-                  "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode",
-                  "extension": [
-                     {
-                        "url": "province",
-                        "valueCode": resourceForm.value.provinsi.kode_provinsi
-                     },
-                     {
-                        "url": "city",
-                        "valueCode": resourceForm.value.kota.kode_kabko
-                     },
-                     {
-                        "url": "district",
-                        "valueCode": resourceForm.value.kecamatan.kode_kecamatan
-                     },
-                     {
-                        "url": "village",
-                        "valueCode": resourceForm.value.keluarahan.kode_kelurahan
-                     },
-                     {
-                        "url": "rt",
-                        "valueCode": resourceForm.value.rt
-                     },
-                     {
-                        "url": "rw",
-                        "valueCode": resourceForm.value.rw
-                     }
-                  ]
-               }
-            ]
-         }
-      ],
-      "maritalStatus": {
-         "coding": [
+const submit = () => {
+    const med = medication.value
+    console.log(med.medicationReferenceName);
+    const formDataJson = {
+        resourceType: 'MedicationDispense',
+        identifier: [
             {
-               "system": resourceForm.value.statusnikah.system,
-               "code": resourceForm.value.statusnikah.code,
-               "display": resourceForm.value.statusnikah.display
+                system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
+                use: 'official',
+                value: '123456789'
             }
-         ],
-         "text": resourceForm.value.statusnikahtext
-      },
-      "multipleBirthInteger": resourceForm.value.kelahirankembar,
-      "communication": [
-         {
-            "language": {
-               "coding": [
-                  {
-                     "system": resourceForm.value.bahasasatu.system,
-                     "code": resourceForm.value.bahasasatu.code,
-                     "display": resourceForm.value.bahasasatu.display
-                  }
-               ],
-               "text": resourceForm.value.bahasasatu.definition
-            },
-            "preferred": resourceForm.value.bahasasatupreferred
-         }
-      ],
-      "contact": [],
-      "extension": [
-         {
-            "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/birthPlace",
-            "valueAddress": {
-               "city": "",
-               "country": resourceForm.value.negaralahir.code
-            }
-         },
-         {
-            "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/citizenshipStatus",
-            "valueCode": resourceForm.value.kewarganegaraan
-         }
-      ]
-   });
-
-   if (resourceForm.value.nik !== '' && barulahir.value === false) {
-      submitResource.value.identifier.push({
-         "use": "official",
-         "system": "https://fhir.kemkes.go.id/id/nik",
-         "value": resourceForm.value.nik
-      });
-   } else if (resourceForm.value.nik !== '' && barulahir.value === true) {
-      submitResource.value.identifier.push({
-         "use": "official",
-         "system": "https://fhir.kemkes.go.id/id/nik-ibu",
-         "value": resourceForm.value.nik
-      });
-   };
-
-   if (resourceForm.value.paspor !== '') {
-      submitResource.value.identifier.push({
-         "use": "official",
-         "system": "https://fhir.kemkes.go.id/id/paspor",
-         "value": resourceForm.value.paspor
-      });
-   };
-
-   if (resourceForm.value.kk !== '') {
-      submitResource.value.identifier.push({
-         "use": "official",
-         "system": "https://fhir.kemkes.go.id/id/kk",
-         "value": resourceForm.value.kk
-      });
-   };
-
-   if (resourceForm.value.nohp !== '') {
-      submitResource.value.telecom.push({
-         "system": "phone",
-         "value": resourceForm.value.nohp,
-         "use": "mobile"
-      });
-   };
-
-   if (resourceForm.value.notelprumah !== '') {
-      submitResource.value.telecom.push({
-         "system": "phone",
-         "value": resourceForm.value.notelprumah,
-         "use": "home"
-      });
-   };
-
-   if (resourceForm.value.email !== '') {
-      submitResource.value.telecom.push({
-         "system": "email",
-         "value": resourceForm.value.email,
-         "use": "home"
-      });
-   };
-
-   if (resourceForm.value.emerhubungansatu !== null && resourceForm.value.emernamasatu !== '' && resourceForm.value.emertelphpsatu !== '') {
-      submitResource.value.contact.push({
-         "relationship": [
+        ],
+        authorizingPrescription: [
             {
-               "coding": [
-                  {
-                     "system": resourceForm.value.emerhubungansatu.system,
-                     "code": resourceForm.value.emerhubungansatu.code,
-                     "display": resourceForm.value.emerhubungansatu.display
-                  }
-               ]
+                reference: "MedicationRequest/" + med.id
             }
-         ],
-         "name": {
-            "use": "official",
-            "text": resourceForm.value.emernamasatu
-         },
-         "telecom": [
-            {
-               "system": "phone",
-               "value": resourceForm.value.emertelphpsatu,
-               "use": "mobile"
-            }
-         ]
-      })
-   };
-
-   if (resourceForm.value.emerhubungandua !== null && resourceForm.value.emernamadua !== '' && resourceForm.value.emertelphpdua !== '') {
-      submitResource.value.contact.push({
-         "relationship": [
-            {
-               "coding": [
-                  {
-                     "system": resourceForm.value.emerhubungandua.system,
-                     "code": resourceForm.value.emerhubungandua.code,
-                     "display": resourceForm.value.emerhubungandua.display
-                  }
-               ]
-            }
-         ],
-         "name": {
-            "use": "official",
-            "text": resourceForm.value.emernamadua
-         },
-         "telecom": [
-            {
-               "system": "phone",
-               "value": resourceForm.value.emertelphpdua,
-               "use": "mobile"
-            }
-         ]
-      })
-   };
-
-   if (resourceForm.value.bahasadua !== null) {
-      submitResource.value.language.push(
-         {
-            "language": {
-               "coding": [
-                  {
-                     "system": resourceForm.value.bahasadua.system,
-                     "code": resourceForm.value.bahasadua.code,
-                     "display": resourceForm.value.bahasadua.display
-                  }
-               ],
-               "text": resourceForm.value.bahasadua.definition
-            },
-            "preferred": resourceForm.value.bahasaduapreferred
-         }
-      )
-   };
-
-   if (resourceForm.value.negaralahir.code === "ID") {
-      submitResource.value.extension[0].valueAddress.city = resourceForm.value.kotalahir.nama_kabko
-   } else {
-      submitResource.value.extension[0].valueAddress.city = resourceForm.value.kotalahir
-   };
-
-   if (submitResource.value.contact == [] || resourceForm.value.emerhubungandua === null ||
-      resourceForm.value.emernamadua === '' || resourceForm.value.emertelphpdua === '' ||
-      resourceForm.value.emerhubungansatu === null ||
-      resourceForm.value.emernamasatu === '' || resourceForm.value.emertelphpsatu === '') {
-      delete submitResource.value.contact;
-   };
-
-   hasil.value = submitResource;
-
-   // try {
-   //    const response = axios.post(route('integration.store', { res_type: "Encounter" }), submitResource);
-   // } catch (error) {
-   //    console.error(error.response.data);
-   // }
+        ],
+        status: 'active',
+        medicationReference: {
+            reference: med.medicationReferenceId,
+            display: med.medicationReferenceName
+        },
+        subject: {
+            reference: "Medication/" + med.subject,
+            display: med.requester
+        },
+        context: {
+            reference: med.encounter
+        },
+        quantity: {
+            system: "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+            unit: med.uom,
+            code: med.uom_code,
+            value: med.quantity
+        },
+        whenPrepared: new Date().toISOString(),
+        whenHandover: new Date().toISOString(),
+        performer: {
+            reference: "Organization/d7c204fd-7c20-4c59-bd61-4dc55b78438c"
+        }
+    };
+    axios.post(route('integration.store', { resourceType: formDataJson.resourceType }), formDataJson)
+        // .then(response => {
+        //     creationSuccessModal.value = true;
+        //     setTimeout(() => {
+        //         successAlertVisible.value = false;
+        //     }, 3000);
+        // })
+        .catch(error => {
+            console.error('Error creating medication dispense:', error);
+            // failAlertVisible.value = true;
+            // setTimeout(() => {
+            //     failAlertVisible.value = false;
+            // }, 3000);
+        });
 };
 
 onMounted(() => {

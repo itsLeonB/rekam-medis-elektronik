@@ -35,14 +35,20 @@ class MedicationDispense extends Controller
             ])->first();
             
             $data = [
+                'id' => data_get($medicationReq, 'id'),
                 'requester' => data_get($medicationReq, 'requester.display'),
+                'subject' => data_get($medicationReq, 'requester.reference'),
                 'medication' => data_get($medicationReq, 'medicationReference.display'),
                 'quantity' => data_get($medicationReq, 'dispenseRequest.quantity.value'),
                 'uom' => data_get($medicationReq, 'dispenseRequest.quantity.unit'),
+                'uom_code' => data_get($medicationReq, 'dispenseRequest.quantity.code'),
                 'category' => data_get($medicationReq, 'category.0.coding.0.display'),
                 'patient' => data_get($medicationReq, 'subject.display'),
                 'validStart' => data_get($medicationReq, 'dispenseRequest.validityPeriod.start'),
                 'validEnd' => data_get($medicationReq, 'dispenseRequest.validityPeriod.end'),
+                'medicationReferenceName' => data_get($medicationReq, 'medicationReference.display'),
+                'medicationReferenceId' => data_get($medicationReq, 'medicationReference.reference'),
+                'encounter' => data_get($medicationReq, 'encounter.reference'),
             ];
             return $data;
             

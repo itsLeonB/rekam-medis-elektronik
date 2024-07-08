@@ -351,16 +351,16 @@ const submit = () => {
                 }
             ],
             "dispenseRequest": {
-                // "dispenseInterval": {
-                //     "value": parseInt(item.dispensevalue),
-                //     "unit": item.duration.unit,
-                //     "system": "http://unitsofmeasure.org",
-                //     "code": item.duration.code
-                // },
-                // "validityPeriod": {
-                //     "start": new Date(item.validityPeriodStart).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''),
-                //     "end": new Date(item.validityPeriodEnd).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''), 
-                // },
+                "dispenseInterval": {
+                    "value": parseInt(item.dispensevalue),
+                    "unit": item.duration.unit,
+                    "system": "http://unitsofmeasure.org",
+                    "code": item.duration.code
+                },
+                "validityPeriod": {
+                    "start": new Date(item.validityPeriodStart).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''),
+                    "end": new Date(item.validityPeriodEnd).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''), 
+                },
                 "numberOfRepeatsAllowed": parseInt(item.repeat),
                 "quantity": {
                     "value":  parseInt(item.dispenseQtyValue),

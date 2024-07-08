@@ -316,7 +316,6 @@ const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
 
 onMounted(() => {
     fetchMedications();
-    checkRequest();
 }
 );
 
