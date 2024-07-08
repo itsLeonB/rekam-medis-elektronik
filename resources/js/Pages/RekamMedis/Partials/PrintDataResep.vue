@@ -18,7 +18,6 @@
                         </td>
                         <td class="w-3/4">: {{ encounters[0].encounter.participant[0].individual.display}}</td>
                     </tr>
-                    
                 </tbody>
              </table>
         </div>

@@ -28,59 +28,7 @@
                         <InputError class="mt-1" />
                     </div>
                 </div>
-                <div class="flex mt-3">
-                    <div class="w-full md:w-4/12 mr-2">
-                        <InputLabel for="status" value="Alasan" />
-                        <select id="status" v-model="riwayatPengobatan[index].alasanObat"
-                            class="mt-1 text-sm p-2.5 block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                            <option value="keluhan">Keluhan</option>
-                            <option value="alergi">Alergi</option>
-                            <option value="penyakitPribadi">Penyakit Pribadi</option>
-                            <option value="penyakitKeluarga">Penyakit Keluarga</option>
-                        </select>
-                        <InputError class="mt-1" />
-                    </div>
-                    <div v-if="riwayatPengobatan[index].alasanObat === 'keluhan'" class="w-full md:w-8/12">
-                        <InputLabel for="reasonCode" value="Keluhan" />
-                        <div class="flex">
-                            <Multiselect v-model="riwayatPengobatan[index].reasonCode" mode="single" placeholder="Keluhan"
-                                :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
-                                :searchable="true" :options="searchKeluhan" label="display" valueProp="code" track-by="code"
-                                class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
-                    </div>
-                    <div v-else-if="riwayatPengobatan[index].alasanObat === 'alergi'" class="w-full md:w-8/12">
-                        <InputLabel for="reasonCode" value="Alergi" />
-                        <div class="flex">
-                            <Multiselect v-model="riwayatPengobatan[index].reasonCode" mode="single" placeholder="Alergi"
-                                :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="1000"
-                                :searchable="true" :options="searchRiwayatAlergi" label="display" valueProp="code"
-                                track-by="code" class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
-                    </div>
-                    <div v-else-if="riwayatPengobatan[index].alasanObat === 'penyakitPribadi'" class="w-full md:w-8/12">
-                        <InputLabel for="reasonCode" value="Riwayat Penyakit Pribadi" />
-                        <div class="flex">
-                            <Multiselect v-model="riwayatPengobatan[index].reasonCode" mode="single" placeholder="Penyakit"
-                                :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="400"
-                                :searchable="true" :options="searchRiwayatPenyakitPribadi" label="label" valueProp="code"
-                                track-by="code" class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
-                    </div>
-                    <div v-else-if="riwayatPengobatan[index].alasanObat === 'penyakitKeluarga'" class="w-full md:w-8/12">
-                        <InputLabel for="reasonCode" value="Riwayat Penyakit Keluarga" />
-                        <div class="flex">
-                            <Multiselect v-model="riwayatPengobatan[index].reasonCode" mode="single" placeholder="Penyakit"
-                                :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="400"
-                                :searchable="true" :options="searchRiwayatPenyakitKeluarga" label="label" valueProp="code"
-                                track-by="code" class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
-                    </div>
-                </div>
+                
                 <div class="flex mt-3">
                     <div class="w-full md:w-5/12  mr-2">
                         <InputLabel for="category" value="Kategori" />
@@ -111,11 +59,17 @@
                     </div>
                 </div>
                 <div class="flex mt-3">
-                    <div class="w-full">
-                        <InputLabel for="note" value="Keterangan" />
-                        <div class="flex">
-                            <TextInput v-model="riwayatPengobatan[index].note" id="note" type="text"
-                                class="text-sm mt-1 block w-full" placeholder="Keterangan" required />
+                    <div class="w-full md:w-12/12">
+                        <InputLabel for="frequency" value="Frekuensi/Interval" />
+                        <div class="flex items-center">
+                            <TextInput v-model="riwayatPengobatan[index].frequency" id="frequency" type="number"
+                                    class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" />
+                            <TextInput v-model="riwayatPengobatan[index].period" id="period" type="number"
+                                    class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Periode" />
+                    
+                            <Multiselect v-model="riwayatPengobatan[index].periodUnit" mode="single" placeholder="Unit Periode"
+                                :object="true" :options="medicationRequestPeriodUnit" label="display" valueProp="code"
+                                track-by="code" class="mt-1 w-4/6" :classes="combo_classes" required />
                             <DeleteButton v-if="index !== 0" @click="removeField(index)" />
                         </div>
                         <InputError class="mt-1" />
@@ -123,7 +77,7 @@
                 </div>
             </div>
             <div class="flex justify-between">
-                <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Riwayat Penyakit
+                <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Riwayat Pengobatan
                 </SecondaryButtonSmall>
                 <div class="mt-2 mr-3">
                     <MainButtonSmall type="submit" class="teal-button text-original-white-0">Submit</MainButtonSmall>
@@ -165,26 +119,28 @@ const props = defineProps({
 });
 
 const riwayatPengobatan = ref([{
-    alasanObat: 'keluhan',
     status: '',
     category: '',
     medicationCodeableConcept: '',
-    reasonCode: '',
     effectiveDateTime: '',
     dosageText: '',
-    note: ''
+    note: '',
+    frequency: '',
+    period: '',
+    periodUnit: '',
 }]);
 
 const addField = () => {
     let riwayatPengobatanData = {
-        alasanObat: 'keluhan',
         status: '',
         category: '',
         medicationCodeableConcept: '',
-        reasonCode: '',
         effectiveDateTime: '',
         dosageText: '',
-        note: ''
+        note: '',
+        frequency: '',
+        period: '',
+        periodUnit: '',
     };
     riwayatPengobatan.value.push(riwayatPengobatanData);
 };
@@ -220,26 +176,24 @@ const submit = () => {
             "subject": props.subject_reference,
             "dosage": [
                 {
-                    "text": item.dosageText
-                }
-            ],
-            "reasonCode": [
-                {
-                    "coding": [item.reasonCode]
+                    "text": item.dosageText,
+                    "timing": {
+                        "repeat": {
+                            "frequency": parseInt(item.frequency),
+                            "period": parseInt(item.period),
+                            "periodUnit": item.periodUnit.code,
+                        }
+                    }
+
                 }
             ],
             "effectiveDateTime": new Date(item.effectiveDateTime).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''),
             "dateAsserted": currentTime,
             "informationSource": props.subject_reference,
             "context": props.encounter_reference,
-            "note": [
-                {
-                    "text": item.note
-                }
-            ]
         };
 
-        axios.post(route('integration.store', { res_type: riwayatPengobatanResource.resourceType }), riwayatPengobatanResource)
+        axios.post(route('integration.store', { resourceType: riwayatPengobatanResource.resourceType }), riwayatPengobatanResource)
             .then(response => {
                 successAlertVisible.value = true;
                 setTimeout(() => {
@@ -269,7 +223,17 @@ const searchObat = async (query) => {
     const originalData = data.items.data;
     return originalData;
 };
+const medicationRequestPeriodUnit = ref(null);
 
+const getMedicationRequestPeriodUnit = async () =>{
+    const { data } = await axios.get(route('terminologi.get'), {
+        params: {
+            'resourceType': 'TimingRepeat',
+            'attribute': 'periodUnit'
+        }
+    });
+    medicationRequestPeriodUnit.value = data;
+};
 const statusList = ref(null);
 const getstatusList = async () => {
     const { data } = await axios.get(route('terminologi.get'), {
@@ -358,7 +322,8 @@ const combo_classes = {
 onMounted(() => {
     getstatusList();
     getCategoryList();
-}
+    getMedicationRequestPeriodUnit();
+}   
 );
 
 

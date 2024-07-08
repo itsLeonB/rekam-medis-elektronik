@@ -106,17 +106,23 @@
                                     :subject_reference="subject_ref" />
                                 <RiwayatAlergi :encounter_reference="encounter_reference"
                                     :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
+                                <RiwayatPengobatan :encounter_reference="encounter_reference"
+                                    :subject_reference="subject_ref"/>
                             </div>
-                            <h2 class="text-xl font-semibold text-secondhand-orange-300 mt-5">b. Pemeriksaan Psikologis
-                            </h2>
-                            <div class="space-y-4">
-                                <PemeriksaanPsikologis :encounter_reference="encounter_reference"
-                                    :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
-                            </div>
+                            
                         </div>
                         <!-- Kanan -->
                         <div class="w-full lg:w-1/2 py-2 lg:pl-7">
-                            <h2 class="text-xl font-semibold text-secondhand-orange-300">c. Pemeriksaan Fisik</h2>
+                            <div class="row">
+                                <h2 class="text-xl font-semibold text-secondhand-orange-300 mt-5">b. Pemeriksaan Psikologis
+                                </h2>
+                                <div class="space-y-4">
+                                    <PemeriksaanPsikologis :encounter_reference="encounter_reference"
+                                        :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <h2 class="text-xl font-semibold text-secondhand-orange-300">c. Pemeriksaan Fisik</h2>
                             <div class="space-y-4">
                                 <TingkatKesadaran :encounter_reference="encounter_reference"
                                     :subject_reference="subject_ref" :practitioner_reference="practitioner_ref" />
@@ -137,6 +143,7 @@
                                         Submit
                                     </MainButtonSmall>
                                 </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -186,26 +193,31 @@
                 </div>
             </div>
             <div v-show="formSection === 5" class="min-h-full px-5 md:px-10 xl:pl-80 xl:pr-14 pb-10 w-full">
-                <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
-                    <h1 class="text-2xl font-bold text-secondhand-orange-300">Resep Obat</h1>
-                    <div class="flex flex-col lg:flex-row">
-                        <!-- Kiri -->
-                        <div class="w-full lg:w-5/12 py-2 lg:pr-7 lg:pb-0">
-                            <h2 class="text-xl font-semibold text-secondhand-orange-300">a. Rekomendasi Obat</h2>
-                            <RekomendasiObat :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
+                 <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-4 p-6 md:py-6 md:px-8">
+                    <h2 class="text-xl font-bold text-secondhand-orange-300">Kondisi Pasien</h2>
+                    <div class="space-y-4">
+                        <DataKondisi :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
                                     :practitioner_reference="practitioner_ref"/>
-                        </div>
-                        <!-- Kanan -->
-                         <div class="w-full lg:w-7/12 py-2 lg:pl-7">
-                            <h2 class="text-xl font-semibold text-secondhand-orange-300">b. Resep Obat</h2>
-                            <div class="space-y-4">
-                                <ResepObat :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
-                                    :practitioner_reference="practitioner_ref" />
-                            </div>
-                        </div>
+                    </div>
+                    
+                 </div>
+                 <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-4 p-6 md:py-6 md:px-8">
+                    <h2 class="text-xl font-bold text-secondhand-orange-300">Rekomendasi Obat</h2>
+                    <div class="space-y-4">
+                        <RekomendasiObat :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
+                                :practitioner_reference="practitioner_ref"/>
                         
                     </div>
+                 </div>
+                <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-4 p-6 md:py-6 md:px-8">
+                    <div class="w-full">
+                        <div class="space-y-4">
+                            <ResepObat :encounter_satusehat_id="encounter_satusehat_id" :encounter_reference="encounter_reference" :subject_reference="subject_ref"
+                                :requester="requester" />
+                        </div>
+                    </div>
                 </div>
+                
             </div>
             <div v-show="formSection === 6" class="min-h-full px-5 md:px-10 xl:pl-80 xl:pr-14 pb-10 w-full">
                 <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
@@ -325,6 +337,7 @@ import IdentitasPasien from '@/Pages/FormRekamMedis/IdentitasPasien/IdentitasPas
 import StatusKunjungan from '@/Pages/FormRekamMedis/IdentitasPasien/StatusKunjungan.vue';
 import KeluhanUtama from '@/Pages/FormRekamMedis/Anamnesis/KeluhanUtama.vue';
 import RiwayatAlergi from '@/Pages/FormRekamMedis/Anamnesis/RiwayatAlergi.vue';
+import RiwayatPengobatan from '@/Pages/FormRekamMedis/Anamnesis/RiwayatPengobatanStatement.vue';
 import PemeriksaanPsikologis from '@/Pages/FormRekamMedis/PemeriksaanPsikologis/PemeriksaanPsikologis.vue';
 import TingkatKesadaran from '@/Pages/FormRekamMedis/PemeriksaanFisik/TingkatKesadaran.vue';
 import Nadi from '@/Pages/FormRekamMedis/PemeriksaanFisik/Nadi.vue';
@@ -346,6 +359,7 @@ import Prognosis from '@/Pages/FormRekamMedis/Prognosis/Prognosis.vue';
 import KondisiSaatMeninggalkanRS from '@/Pages/FormRekamMedis/KondisiSaatMeninggalkanRS/KondisiSaatMeninggalkanRS.vue';
 import CaraKeluar from '@/Pages/FormRekamMedis/CaraKeluarDariRS/CaraKeluar.vue';
 import RencanaTindakLanjut from '@/Pages/FormRekamMedis/RencanaTindakLanjut/RencanaTindakLanjut.vue';
+import DataKondisi from '@/Pages/FormRekamMedis/PeresepanObat/DataKondisi.vue'
 
 import BackButton from '@/Components/BackButton.vue';
 import NavButton from '@/Components/NavButton.vue';
@@ -383,12 +397,19 @@ const encounter_reference = {
 const encounter = ref({});
 const practitioner_ref = ref({});
 const subject_ref = ref({});
+const requester = ref({});
 
 const fetchEncounter = async () => {
     const { data } = await axios.get(route('integration.show', { 'resourceType':'Encounter','id': props.encounter_satusehat_id }));
+    
     encounter.value = data;
     practitioner_ref.value = {
-        "reference": encounter.value.participant[encounter.value.participant.length - 1].individual.reference
+        "reference": encounter.value.participant[encounter.value.participant.length - 1].individual.reference,
+
+    };
+    requester.value = {
+        "reference": encounter.value.participant[encounter.value.participant.length - 1].individual.reference,
+        "display": encounter.value.participant[encounter.value.participant.length - 1].individual.display
     };
     subject_ref.value = encounter.value.subject
 };

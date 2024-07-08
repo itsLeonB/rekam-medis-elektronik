@@ -537,6 +537,7 @@ return [
         'MedicationRequestDispenseRequst' => [
             'dispenseInterval' => Valuesets::MedicationRequestDispenseInterval,
             'quantity' => [Valuesets::MedicationIngredientStrengthDenominator, Valuesets::MedicationRequestQuantity],
+            'quantityUnit'=> Valuesets::MedicationDispenseQuantity,
             'expectedSupplyDuration' => Valuesets::MedicationRequestSupplyDuration
         ],
         'MedicationRequestSubstitution' => [

@@ -1,4 +1,28 @@
 <template>
+    <div class="flex flex-row justify-between">
+        <p v-if="successAlert" class="text-md text-original-teal-300">
+                Data created successfully
+            </p>
+        <div v-if="failAlert" class="text-sm text-thirdouter-red-300">
+            {{ errorMessage }}
+        </div>
+    </div>
+    
+    <div class="flex flex-row justify-between">
+        <h2 class="text-xl font-semibold text-secondhand-orange-300">Resep Obat</h2>
+         <div class="flex justify-end mr-2">
+            <Link :href="route('request-to-stock')" as="button"
+                    class="mr-2 inline-flex px-4 py-1.5 border border-transparent rounded-md font-normal text-sm text-white teal-button transition ease-in-out duration-150 hover:shadow-lg">
+                    Request Stok Obat
+            </Link>
+            <form @submit.prevent="ruleSubmit" class="flex items-center">
+                <MainButtonSmall type="submit" class="teal-button text-original-white-0 rounded-md">Save Rule</MainButtonSmall>
+                
+            </form>
+        </div>
+       
+    </div>
+    
     <div>
         <form @submit.prevent="submit">
             <div class="my-2 w-full" v-for="(field, index) in resourceForm" :key="index">
@@ -23,34 +47,49 @@
                             class="mt-1" :classes="combo_classes" required />
                     </div>
                 </div>
+            
                 <div class="flex mt-3">
-                   
                     <div class="w-full mr-2">
                         <InputLabel for="intent" value="Intent/Tujuan Peresepan" />
                         <Multiselect v-model="resourceForm[index].intent" mode="single" placeholder="Intent/Tujuan"
                             :object="true" :options="intentTypeList" label="display" valueProp="code" track-by="code"
                             class="mt-1" :classes="combo_classes" required />
                     </div>
-                </div>
-                <div class="flex mt-3">
-                    <div class="w-full md:w-6/12 mr-2">
+
+                    <!-- <div class="w-full md:w-4/12 mr-2">
                         <InputLabel for="category" value="Kategori" />
                         <Multiselect v-model="resourceForm[index].category" mode="single" placeholder="Kateogori"
                                 :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="50"
                                 :searchable="true" :options="medicationReqCategory" label="definition" valueProp="code"
                                 track-by="code" class="mt-1" :classes="combo_classes" required />
                     
-                    </div>
-                     <div class="w-full md:w-6/12 mr-2">
+                    </div> -->
+                     <!-- <div class="w-full md:w-4/12 mr-2">
                         <InputLabel for="priority" value="Prioritas" />
                         <Multiselect v-model="resourceForm[index].priority" mode="single" placeholder="Prioritas"
                             :object="true" :options="medicationReqPriority" label="display" valueProp="code" track-by="code"
                             class="mt-1" :classes="combo_classes" required />
-                    </div>
+                    </div> -->
                 </div>
                 <div class="flex mt-3">
                     <h6 class="font-semibold text-secondhand-orange-200 mt-2">Instruksi Dosis
                     </h6>
+                </div>
+                <div class="flex mt-3">
+                    <div class="w-full md:w-12/12">
+                        <InputLabel for="frequency" value="Frekuensi/Interval" />
+                        <div class="flex items-center">
+                            <TextInput v-model="resourceForm[index].frequency" id="frequency" type="number"
+                                    class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" />
+                            <TextInput v-model="resourceForm[index].period" id="period" type="number"
+                                    class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Periode" />
+                    
+                            <Multiselect v-model="resourceForm[index].periodUnit" mode="single" placeholder="Unit Periode"
+                                :object="true" :options="medicationRequestPeriodUnit" label="display" valueProp="code"
+                                track-by="code" class="mt-1" :classes="combo_classes" required />
+                        </div>
+                        <InputError class="mt-1" />
+                    </div>
                 </div>
                 <div class="flex mt-1">
                     <div class="w-full">
@@ -58,38 +97,9 @@
                         <div class="flex">
                             <TextArea v-model="resourceForm[index].text" id="text" type="text"
                                 class="text-sm mt-1 block w-full" placeholder="Instruksi Obat yang diberikan" required></TextArea>
-                            
                         </div>
                         <InputError class="mt-1" />
                     </div>
-                </div>
-                <div class="flex mt-3">
-                    <div class="w-full md:w-12/12">
-                        <InputLabel for="frequency" value="Waktu" />
-
-                        <div class="flex items-center">
-                             <select id="frequency" v-model="resourceForm[index].frequency"
-                                class="text-sm mt-1 mr-2 block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-3 h-fit">
-                                <option value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                            </select>
-                            <select id="period" v-model="resourceForm[index].period" required
-                                class="text-sm mt-1 mr-2 block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-3 h-fit">
-                                <option value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                            </select>
-                            <Multiselect v-model="resourceForm[index].periodUnit" mode="single" placeholder="Unit Periode"
-                                :object="true" :options="medicationRequestPeriodUnit" label="display" valueProp="code"
-                                track-by="code" class="mt-1" :classes="combo_classes" required />
-                        </div>
-                        <InputError class="mt-1" />
-                    </div>
-                   
-
                 </div>
                 <div class="flex mt-3">
                     <div class="w-full mr-2">
@@ -107,25 +117,40 @@
                     <h6 class="font-semibold text-secondhand-orange-200 mt-2">Dispense Request
                     </h6>
                 </div>
-                <div class="flex mt-1">
-                    <div class="w-full md:w-7/12 mr-2">
-                        <InputLabel for="dispensevalue" value="Dispense Value" />
-                        <div class="flex items-center">
-                            <TextInput v-model="resourceForm[index].dispensevalue" id="dispensevalue" type="number"
-                            class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" />
-                             <Multiselect v-model="resourceForm[index].duration" mode="single" placeholder="Durasi"
-                            :object="true" :options="medicationReqDuration" label="display" valueProp="code" track-by="code"
-                            class="mt-1" :classes="combo_classes" />
+                <div class="my-1 w-full">
+                    <div class="flex mt-1">
+                        <!-- <div class="w-full md:w-7/12 mr-2">
+                                <InputLabel for="dispensevalue" value="Dispense Value" />
+                                <div class="flex items-center">
+                                    <TextInput v-model="resourceForm[index].dispensevalue" id="dispensevalue" type="number"
+                                    class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" />
+                                    <Multiselect v-model="resourceForm[index].duration" mode="single" placeholder="Durasi"
+                                    :object="true" :options="medicationReqDuration" label="display" valueProp="code" track-by="code"
+                                    class="mt-1" :classes="combo_classes" />
+                                </div>
+                                
+                            </div> -->
+                        <div class="w-full md:w-4/12 mr-2">
+                            <InputLabel for="repeat" value="Perulangan" />
+                            <TextInput v-model="resourceForm[index].repeat" id="repeat" type="number"
+                                class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" required />
                         </div>
-                        
-                    </div>
-                    <div class="w-full md:w-5/12 mr-2">
-                        <InputLabel for="repeat" value="Perulangan" />
-                        <TextInput v-model="resourceForm[index].repeat" id="repeat" type="number"
-                            class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" required />
+                  
+                        <div class="w-full md:w-8/12 mr-2">
+                            <InputLabel for="dispensevalue" value="Dispense QTY" />
+                            <div class="flex items-center">
+                                <TextInput v-model="resourceForm[index].dispenseQtyValue" id="dispenseQtyUnit" type="number"
+                                class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="Value" />
+                                <Multiselect v-model="resourceForm[index].dispenseQtyUnit" mode="single" placeholder="Unit"
+                                :object="true" :options="medicationReqQuantity" label="display" valueProp="code" track-by="code"
+                                class="mt-1" :classes="combo_classes" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="flex mt-3">
+                
+                 
+                <!-- <div class="flex mt-3">
                     <div class="w-full md:w-6/12 mr-2">
                         <InputLabel for="performedPeriodStart" value="Validitas Dimulai" />
                         <div class="flex pt-1">
@@ -142,7 +167,7 @@
                         </div>
                         <InputError class="mt-1" />
                     </div>
-                </div>
+                </div> -->
                 <!-- <div class="flex mt-3">
                     <div class="w-full md:w-6/12 mr-2">
                         <InputLabel for="qtyvalue" value="Kuantitas Value" />
@@ -173,15 +198,9 @@
             <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
             <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
         </form>
-        <form @submit.prevent="ruleSubmit">
-            <div class="mt-2 mr-3">
-                <MainButtonSmall type="submit" class="teal-button text-original-white-0">Save Rule</MainButtonSmall>
-            </div>
-            <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
-                <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
-                <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
-        </form>
     </div>
+
+    
 </template>
 <script setup>
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -198,6 +217,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
+import { Link, usePage} from '@inertiajs/vue3';
 
 const props = defineProps({
     subject_reference: {
@@ -208,7 +228,7 @@ const props = defineProps({
         type: Object,
         required: true
     },
-    practitioner_reference: {
+    requester: {
         type: Object,
         required: true
     },
@@ -216,20 +236,23 @@ const props = defineProps({
         type: String,
     },
 });
+console.log(props.requester)
 const resourceForm = ref([{
     medicationReference : [null],
     status: [null],
     intent: [null],
-    category: [null],
-    priority: [null],
+    // category: [null],
+    // priority: [null],
     frequency: [null],
     period: [null],
     periodUnit: [null],
     route: [null],
     text: [null],
-    dispensevalue: [null],
+    // dispensevalue: [null],
     duration: [null],
-    repeat: [null]
+    repeat: [null],
+    dispenseQtyValue: [null],
+    dispenseQtyUnit: [null],
 }]);
 
 const addField = () => {
@@ -237,16 +260,18 @@ const addField = () => {
         medicationReference : [null],
         status: [null],
         intent: [null],
-        category: [null],
-        priority: [null],
+        // category: [null],
+        // priority: [null],
         frequency: [null],
         period: [null],
         periodUnit: [null],
         route: [null],
         text: [null],
-        dispensevalue: [null],
+        // dispensevalue: [null],
         duration: [null],
         repeat: [null],
+        dispenseQtyValue: [null],
+        dispenseQtyUnit: [null],
     };
     resourceForm.value.push(resourceFormData);
 };
@@ -284,18 +309,18 @@ const submit = () => {
             ], 
             "status": item.status.code,
             "intent": item.intent.code,
-            "category": [
-                {
-                    "coding": [
-                        {
-                            "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
-                            "code": item.category.code,
-                            "display": item.category.display
-                        }
-                    ]
-                }
-            ],
-            "priority": item.priority.code,
+            // "category": [
+            //     {
+            //         "coding": [
+            //             {
+            //                 "system": "http://terminology.hl7.org/CodeSystem/medicationrequest-category",
+            //                 "code": item.category.code,
+            //                 "display": item.category.display
+            //             }
+            //         ]
+            //     }
+            // ],
+            // "priority": item.priority.code,
 
             "medicationReference": {
                 "reference": "Medication/" + item.medicationReference.id,
@@ -303,7 +328,7 @@ const submit = () => {
             },
             "subject": props.subject_reference,
             "encounter": props.encounter_reference,
-            "requester": props.practitioner_reference,
+            "requester": props.requester,
             "dosageInstruction": [
                 {   
                     "text": item.text,
@@ -326,29 +351,23 @@ const submit = () => {
                 }
             ],
             "dispenseRequest": {
-                "dispenseInterval": {
-                    "value": parseInt(item.dispensevalue),
-                    "unit": item.duration.unit,
-                    "system": "http://unitsofmeasure.org",
-                    "code": item.duration.code
-                },
-                "validityPeriod": {
-                    "start": new Date(item.validityPeriodStart).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''),
-                    "end": new Date(item.validityPeriodEnd).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''), 
-                },
-                "numberOfRepeatsAllowed": parseInt(item.repeat),
-                // "quantity": {
-                //     "value": item.qty.value,
-                //     "unit": item.qty.unit,
-                //     "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
-                //     "code": item.qty.code
-                // },
-                // "expectedSupplyDuration": {
-                //     "value": 30,
-                //     "unit": "days",
+                // "dispenseInterval": {
+                //     "value": parseInt(item.dispensevalue),
+                //     "unit": item.duration.unit,
                 //     "system": "http://unitsofmeasure.org",
-                //     "code": "d"
+                //     "code": item.duration.code
                 // },
+                // "validityPeriod": {
+                //     "start": new Date(item.validityPeriodStart).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''),
+                //     "end": new Date(item.validityPeriodEnd).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''), 
+                // },
+                "numberOfRepeatsAllowed": parseInt(item.repeat),
+                "quantity": {
+                    "value":  parseInt(item.dispenseQtyValue),
+                    "unit": item.dispenseQtyUnit.display,
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
+                    "code": item.dispenseQtyUnit.code
+                },
                 "performer": {
                     "reference": "Organization/d7c204fd-7c20-4c59-bd61-4dc55b78438c"
                 }
@@ -371,39 +390,57 @@ const submit = () => {
             });
     });
 };
-const ruleSubmit = () => {
+const successAlert = ref(false);
+const failAlert = ref(false);
+const ruleSubmit = async  () => {
    try {
-        axios.get(route('ruleperesepan.store',{
+       const response = await axios.get(route('ruleperesepan.store',{
             id: props.encounter_satusehat_id
         }));
         
-        successAlertVisible.value = true;
-        failAlertVisible.value = false;
-        errorMessage.value = ''; 
-   } catch (error) {
-        console.error(error.response ? error.response.data : error.message);
-            successAlertVisible.value = true;
-            failAlertVisible.value = true;
+       if (response.status === 201) {
+            successAlert.value = true;
+            failAlert.value = false;
+            errorMessage.value = '';
 
-       if (error.response && error.response.data) {
-            console.error('Response:', error.response.data); 
-            errorMessage.value = error.response.data.error || 'Failed to save data';
+            setTimeout(() => {
+                successAlert.value = false;
+            }, 3000); 
+        } else if (response.status === 204) {
+            successAlert.value = false;
+            failAlert.value = true;
+            errorMessage.value = 'Rule Peresepan Obat Sudah Ada';
+
+            setTimeout(() => {
+                failAlert.value = false;
+            }, 3000);
+        }
+
+   } catch (error) {
+        successAlert.value = false;
+        failAlert.value = true;
+
+        if (error.response && error.response.status === 500) {
+            errorMessage.value = 'Failed to save resource: ' + (error.response.data.message || 'Server Error');
         } else {
             errorMessage.value = 'An error occurred while saving data';
         }
-        
+        setTimeout(() => {
+            failAlert.value = false;
+        }, 3000);
     }
 };
 const searchMedication = async (query) => {
-    const { data } = await axios.get(route('get.medicationOrg', { 'search': query }));
-    const originalData = data;
-    for (const key in originalData) {
-        const currentObject = originalData[key];
-        const label = `${currentObject.name} | Code: ${currentObject.code}`;
-        currentObject.label = label;
-    }
-    return originalData;
+    const { data } = await axios.get(route('search.medicationOrg', { 'search': query }));
+   
+    return data.map(item => {
+        return {
+          ...item,
+          label: `${item.name} | Code: ${item.code}`
+        };
+      });
 };
+
 
 const medicationReqCategory = ref(null);
 const getMedicationReqCategory = async () => {
@@ -517,16 +554,16 @@ const getMedicationReqDuration = async () => {
     medicationReqDuration.value = data;
 };
 
-// const medicationReqQuantity = ref(null);
-// const getMedicationReqQuantity = async () => {
-//     const { data } = await axios.get(route('terminologi.get'), {
-//         params: {
-//             'resourceType': 'MedicationRequestDispenseRequst',
-//             'attribute': 'quantity'
-//         }
-//     });
-//     medicationReqQuantity.value = data;
-// };
+const medicationReqQuantity = ref(null);
+const getMedicationReqQuantity = async () => {
+    const { data } = await axios.get(route('terminologi.get'), {
+        params: {
+            'resourceType': 'MedicationRequestDispenseRequst',
+            'attribute': 'quantityUnit'
+        }
+    });
+    medicationReqQuantity.value = data;
+};
 
 const expertSystem = ref(null);
 const getExpertSystem = async () => {
@@ -550,7 +587,7 @@ onMounted(() => {
     getMedicationReqCategory();
     getorganizationRef();
     getMedicationReqDuration();
-    // getMedicationReqQuantity();
+    getMedicationReqQuantity();
     getExpertSystem()
 });
 

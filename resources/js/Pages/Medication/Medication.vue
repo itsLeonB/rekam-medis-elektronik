@@ -35,6 +35,9 @@
             </svg>
             Permintaan resep
             </Link>
+            <div class="row">
+                <span class="font-semibold">Note : </span> <p id="check" class="text-sm">{{ message }}</p>
+            </div>
         </div>
         <div
             class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
@@ -313,6 +316,7 @@ const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
 
 onMounted(() => {
     fetchMedications();
+    checkRequest();
 }
 );
 

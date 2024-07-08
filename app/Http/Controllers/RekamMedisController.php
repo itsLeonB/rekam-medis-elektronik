@@ -239,4 +239,5 @@ class RekamMedisController extends Controller
             ->get();
     }
     }
+    
 }

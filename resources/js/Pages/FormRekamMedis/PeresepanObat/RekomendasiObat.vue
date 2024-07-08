@@ -1,31 +1,19 @@
 <template>
-     <!-- <div>
-        <ul v-if="expertSystem">
-            <li v-for="(group, index) in expertSystem" :key="index">
-                <ul>
-                <li v-for="(medicine, i) in group" :key="i">
-                    <b>{{ medicine.display }}</b>-{{ medicine.dosageInstruction }}
-                    <br>
-                </li>
-                
-                </ul>
-            </li>
-        </ul>
-        <p v-else>Tidak ada data yang ditemukan.</p>
-    </div> -->
-    <div>
-        <table v-if="expertSystem && expertSystem.length && expertSystem[0].length" class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
-            <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+    <div class="mt-2">
+        <table v-if="expertSystem && expertSystem.length && expertSystem[0].length" class="w-full text-left rtl:text-right text-neutral-grey-200 ">
+            <thead class="text-neutral-black-300 uppercase bg-gray-50 border-b">
                 <tr>
-                    <th scope="col" class="px-6 py-3 w-3/5">Nama</th>
-                    <th scope="col" class="px-6 py-3 w-2/5">Instruksi</th>
+                    
+                    <th scope="col" class="px-3 py-2 w-4/6 border">Nama</th>
+                    <th scope="col" class="px-3 py-2 w-2/6 border">Instruksi</th>
                 </tr>
             </thead>
             <tbody>
                 <template v-for="(group, index) in expertSystem" :key="index">
                     <tr v-for="(medicine, i) in group" :key="i" class="bg-original-white-0 ">
-                        <td class="px-6 py-4 w-3/5">{{ medicine.display }}</td>
-                        <td class="px-6 py-4 w-2/5 ">{{ medicine.dosageInstruction }}</td>
+                        
+                        <td class="px-3 py-1 w-4/6 border">{{ medicine.display }}</td>
+                        <td class="px-3 py-1 w-2/6 border">{{ medicine.dosageInstruction }}</td>
                     </tr>
                 </template>
             </tbody>
@@ -34,18 +22,6 @@
     </div>
 </template>
 <script setup>
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import Multiselect from '@vueform/multiselect';
-import Dropdown from '@/Components/Dropdown.vue';
-import '@vueform/multiselect/themes/default.css';
-import DeleteButton from '@/Components/DeleteButton.vue';
-import MainButtonSmall from '@/Components/MainButtonSmall.vue';
-import SecondaryButtonSmall from '@/Components/SecondaryButtonSmall.vue';
-import TextInput from '@/Components/TextInput.vue';
-import TextArea from '@/Components/TextArea.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 
@@ -63,24 +39,15 @@ const props = defineProps({
     },
 });
 const expertSystem = ref(null);
-// const getExpertSystem = async () => {
-//     const {data} = await axios.get(route('ruleperesepan.show', {
-//             rule : 'resepObat',
-//             id: props.encounter_satusehat_id
-//     }));
-//     console.log(data)
-//     expertSystem.value = data;
-// };
 
+const errorMessage = ref('');
 const getExpertSystem = async () => {
     try {
         const {data} = await axios.get(route('ruleperesepan.show', {
             rule: 'resepObat',
             id: props.encounter_satusehat_id
         }));
-        console.log(data);
         
-        // Check if data is an empty array or contains an empty array
         if (Array.isArray(data) && data.length > 0 && data[0].length === 0) {
             expertSystem.value = null;
             errorMessage.value = 'Tidak ada data yang ditemukan.';
@@ -139,5 +106,11 @@ const combo_classes = {
     --dp-cell-border-radius: 12px;
     --dp-input-padding: 10px 12px;
     --dp-font-size: 0.875rem;
+}
+table{
+    font-size : 13px;
+}
+thead{
+    font-size: 16px;
 }
 </style>
