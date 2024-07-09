@@ -6,18 +6,18 @@
         <Modal :show="creationSuccessModal">
             <div class="p-6">
                 <h2 class="text-lg text-center font-medium text-gray-900">
-                    Data kunjungan telah berhasil dibuat. <br> Kembali ke halaman Rawat Inap.
+                    Data kunjungan telah berhasil dibuat. <br> Kembali ke halaman Gawat Darurat.
                 </h2>
                 <div class="mt-6 flex justify-end">
-                    <Link :href="route('rawatinap')"
+                    <Link :href="route('gawatdarurat')"
                         class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                     Kembali </Link>
                 </div>
             </div>
         </Modal>
         <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
-            <h1 class="text-2xl font-bold text-neutral-black-300">Daftar Rawat Inap</h1>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman pendaftaran rawat inap.</p>
+            <h1 class="text-2xl font-bold text-neutral-black-300">Daftar IGD</h1>
+            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman pendaftaran IGD.</p>
             <form @submit.prevent="submit">
                 <!-- Status -->
                 <div class="mt-4">
@@ -45,15 +45,6 @@
                     <Multiselect v-model="resourceForm.dokter" mode="single" placeholder="Status" :object="true"
                         :options="practitionerList" label="name" valueProp="satusehat_id" track-by="satusehat_id"
                         class="mt-1" :classes="combo_classes" required />
-                    <InputError class="mt-1" />
-                </div>
-
-                <!-- Ruangan -->
-                <div class="mt-4">
-                    <InputLabel for="ruangan" value="Ruangan" />
-                    <Multiselect v-model="resourceForm.ruangan" mode="single" placeholder="Status" :object="true"
-                        :options="ruangan" label="label" valueProp="id" track-by="id" class="mt-1" :classes="combo_classes"
-                        required />
                     <InputError class="mt-1" />
                 </div>
 
@@ -88,10 +79,9 @@ import axios from 'axios';
 import { ref, onMounted } from 'vue';
 
 const resourceForm = ref({
-    status_kunjungan: 'in-progress',
+    status_kunjungan: 'arrived',
     patient: null,
     dokter: null,
-    ruangan: null,
     lokasi_ruangan: null
 });
 
@@ -130,14 +120,6 @@ const getorganizationRef = async () => {
     organizationRef.value = data;
 };
 
-const ruangan = [
-    { "id": 263, "label": 'Ruang Bersalin', "display": 'Birth' },
-    { "id": 189, "label": 'Ruang Neonatus', "display": 'Neonatology & Perinatology' },
-    { "id": 221, "label": 'Ruang Interna & Bedah', "display": 'Surgery - General' },
-    { "id": 124, "label": 'Ruang Paviliun', "display": 'General practice' },
-    { "id": 286, "label": 'Ruang Anak', "display": 'Children' }
-];
-
 const submit = async () => {
     isLoading.value = true;
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
@@ -146,17 +128,8 @@ const submit = async () => {
         "status": resourceForm.value.status_kunjungan,
         "class": {
             "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-            "code": "IMP",
-            "display": "inpatientencounter"
-        },
-        "serviceType": {
-            "coding": [
-                {
-                    "system": "http://terminology.hl7.org/CodeSystem/service-type",
-                    "code": resourceForm.value.ruangan.id.toString(),
-                    "display": resourceForm.value.ruangan.display
-                }
-            ]
+            "code": "EMER",
+            "display": "emergency"
         },
         "subject": {
             "reference": "Patient/" + resourceForm.value.patient['ihs-number'],
@@ -202,7 +175,7 @@ const submit = async () => {
                                 "valueCodeableConcept": {
                                     "coding": [
                                         {
-                                            "system": "http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Inpatient",
+                                            "system": "http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient",
                                             "code": resourceForm.value.lokasi_ruangan.serviceClass.split(' ')[1].toLowerCase(),
                                             "display": resourceForm.value.lokasi_ruangan.serviceClass
                                         }

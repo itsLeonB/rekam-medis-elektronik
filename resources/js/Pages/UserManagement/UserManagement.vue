@@ -68,11 +68,11 @@
                     <tbody v-for="(user, index) in users.data" :key="user.id">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (users.data.length - 1) }">
-                            <Link :href="route('usermanagement.details', { 'user_id': user.id })">
+                            <!-- <Link :href="route('usermanagement.details', { 'user_id': user.id })"> -->
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
                                 {{ user.name }}
                             </th>
-                            </Link>
+                            <!-- </Link> -->
                             <td class="px-6 py-4 w-2/5">
                                 {{ user.email }}
                             </td>

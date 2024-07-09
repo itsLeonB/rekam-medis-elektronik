@@ -91,6 +91,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/rekam-medis-pasien/daftar', function () {
         return Inertia::render('RekamMedis/TambahRekamMedis');
     })->name('rekammedis.tambah');
+    Route::get('/gawat-darurat/daftar', function () {
+        return Inertia::render('GawatDarurat/DaftarGawatDarurat');
+    })->name('gawatdarurat.daftar');
+    Route::get('/rawat-inap/daftar', function () {
+        return Inertia::render('RawatInap/DaftarRawatInap');
+    })->name('rawatinap.daftar');
+    Route::get('/rawat-jalan/daftar', function () {
+        return Inertia::render('RawatJalan/DaftarRawatJalan');
+    })->name('rawatjalan.daftar');
 });
 
 # User Management

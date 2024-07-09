@@ -13,14 +13,16 @@
             </span>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Pasien Gawat Darurat.
             </p>
-            <Link :href="route('usermanagement.tambah')" as="button"
-                class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                class="w-5 h-5 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-            Pendaftaran Gawat Darurat
-            </Link>
+            <div class="flex flex-col sm:flex-row">
+                    <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)" :href="route('gawatdarurat.daftar')" as="button"
+                        class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                    </svg>
+                    Pendaftaran Gawat Darurat
+                    </Link>
+                </div>
         </div>
         <div class="bg-original-white-0 overflow-hidden shadow sm:rounded-2xl mb-8 py-8 pl-10 pr-14">
             <h1 class="mb-4 text-2xl font-bold text-secondhand-orange-300">Daftar Pasien</h1>
