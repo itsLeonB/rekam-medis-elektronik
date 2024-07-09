@@ -280,6 +280,7 @@ return [
         'encounter' => 'http://sys-ids.kemkes.go.id/encounter/' . env('organization_id'),
         'location' => 'http://sys-ids.kemkes.go.id/location/' . env('organization_id'),
         'medication' => 'http://sys-ids.kemkes.go.id/medication/' . env('organization_id'),
+        'medicationDispense' => 'http://sys-ids.kemkes.go.id/medicationDispense/' . env('organization_id'),
         'medicationrequest' => 'http://sys-ids.kemkes.go.id/prescription/' . env('organization_id'),
         'medicationstatement' => 'http://sys-ids.kemkes.go.id/medicationstatement/' . env('organization_id'),
         'observation' => 'http://sys-ids.kemkes.go.id/observation/' . env('organization_id'),
@@ -301,7 +302,7 @@ return [
         'Medication' => ['get', 'post', 'put', 'patch'],
         'MedicationRequest' => ['get', 'post', 'put', 'patch'],
         'MedicationStatement' => ['get', 'post', 'put', 'patch'],  // Dokumentasi Postman tidak ada
-        // 'MedicationDispense' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
+        'MedicationDispense' => ['get', 'post', 'put', 'patch'],
         // 'DiagnosticReport' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
         'AllergyIntolerance' => ['get', 'post', 'put', 'patch'],
         'ClinicalImpression' => ['get', 'post', 'put', 'patch'],
@@ -335,7 +336,7 @@ return [
         'medication' => 'Medication',
         'medicationrequest' => 'MedicationRequest',
         'medicationstatement' => 'MedicationStatement',
-        // 'medicationdispense' => 'MedicationDispense',  // Not yet implemented
+        'medicationdispense' => 'MedicationDispense',
         // 'diagnosticreport' => 'DiagnosticReport',  // Not yet implemented
         'allergyintolerance' => 'AllergyIntolerance',
         'clinicalimpression' => 'ClinicalImpression',
@@ -368,6 +369,7 @@ return [
         'Procedure',
         'ServiceRequest',
         'MedicationRequest',
+        'MedicationDispense',
         'Medication',
         'Composition',
         'AllergyIntolerance',

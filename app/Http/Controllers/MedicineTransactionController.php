@@ -66,7 +66,7 @@ class MedicineTransactionController extends Controller
             ]);
     
             // Kurangi quantity pada Medicine
-            $medicine->quantity -= intval($request->input('quantity'));
+            $medicine->quantity += intval($request->input('quantity'));
             $medicine->save();
     
             return Inertia::location(route('medicinetransaction'));

@@ -12,7 +12,8 @@ class MedicationDispense extends Controller
      */
     public function index(Request $request)
     {
-        return FhirResource::where('resourceType', 'MedicationRequest')->get();
+        return FhirResource::where('resourceType', 'MedicationRequest')
+        ->get();
     }
 
     /**
@@ -37,7 +38,9 @@ class MedicationDispense extends Controller
             $data = [
                 'id' => data_get($medicationReq, 'id'),
                 'requester' => data_get($medicationReq, 'requester.display'),
-                'subject' => data_get($medicationReq, 'requester.reference'),
+                'requesterId' => data_get($medicationReq, 'requester.reference'),
+                'subject' => data_get($medicationReq, 'subject.display'),
+                'subjectId' => data_get($medicationReq, 'subject.reference'),
                 'medication' => data_get($medicationReq, 'medicationReference.display'),
                 'quantity' => data_get($medicationReq, 'dispenseRequest.quantity.value'),
                 'uom' => data_get($medicationReq, 'dispenseRequest.quantity.unit'),

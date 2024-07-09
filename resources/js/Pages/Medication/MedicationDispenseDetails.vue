@@ -71,9 +71,9 @@
             </div>
             <div class="buttons-submit">
                 <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
-                @click.prevent="submit">Setujui</MainButton>
+                    @click.prevent="submit">Setujui</MainButton>
                 <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block orange-button text-original-white-0"
-                @click.prevent="submit">Tolak</MainButton>
+                    @click.prevent="submit">Tolak</MainButton>
             </div>
 
         </div>
@@ -122,18 +122,18 @@ const submit = () => {
                 reference: "MedicationRequest/" + med.id
             }
         ],
-        status: 'active',
+        status: 'completed',
         medicationReference: {
             reference: med.medicationReferenceId,
             display: med.medicationReferenceName
         },
         subject: {
-            reference: med.subject,
-            display: med.requester
+            reference: med.subjectId,
+            display: med.subject
         },
-        context: {
-            reference: med.encounter
-        },
+       "context": {
+       "reference": med.encounter
+   },
         quantity: {
             system: "http://terminology.hl7.org/CodeSystem/v3-orderableDrugForm",
             unit: med.uom,
@@ -141,10 +141,15 @@ const submit = () => {
             value: med.quantity
         },
         whenPrepared: new Date().toISOString(),
-        whenHandover: new Date().toISOString(),
-        performer: {
-            reference: "Organization/d7c204fd-7c20-4c59-bd61-4dc55b78438c"
-        }
+        whenHandedOver: new Date().toISOString(),
+        performer: [
+            {
+                "actor": {
+                    "reference": med.requesterId,
+                    "display": med.requester
+                }
+            }
+        ],
     };
     axios.post(route('integration.store', { resourceType: 'MedicationDispense' }), formDataJson)
         // .then(response => {
