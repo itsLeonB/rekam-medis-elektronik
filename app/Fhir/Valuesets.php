@@ -517,4 +517,12 @@ class Valuesets
     public const KPTLModifiers = [
         'table' => 'valueset_chargeitem_modifier',
     ];
+
+    public const CoverageType = [
+        'table' => 'valueset_coverage_type'
+    ];
+
+    public const CoverageClass = [
+        'table' => 'valueset_coverage_class'
+    ];
 }

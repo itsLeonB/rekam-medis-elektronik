@@ -539,7 +539,7 @@ class TerminologyController extends Controller
         $kptl = DB::table(Valuesets::KPTL['table'])
             ->where('display', 'like', '%' . $request->query('search') . '%')
             ->orWhere('code', 'like', '%' . $request->query('search') . '%')
-            ->paginate(30);
+            ->paginate(50);
 
         $kptl->getCollection()->transform(function ($item) {
             $item['system'] = Valuesets::KPTL['system'];
@@ -565,7 +565,7 @@ class TerminologyController extends Controller
             ->where('display', 'like', '%' . $request->query('search') . '%')
             ->orWhere('code', 'like', '%' . $request->query('search') . '%')
             ->whereIn('Kategori', $search)
-            ->paginate(30);
+            ->paginate(50);
 
         // Transform the collection
         $mod->getCollection()->transform(function ($item) {
@@ -575,5 +575,33 @@ class TerminologyController extends Controller
         });
 
         return $mod;
+    }
+
+    public function getCoverageType(Request $request) {
+        $covType = DB::table(Valuesets::CoverageType['table'])
+            ->where('display', 'like', '%' . $request->query('search') . '%')
+            ->orWhere('code', 'like', '%' . $request->query('search') . '%')
+            ->paginate(100);
+            
+        $covType->getCollection()->transform(function ($item) {
+            unset($item['_id']);
+            return $item;
+        });
+
+        return $covType;
+    }
+
+    public function getCoverageClass(Request $request) {
+        $covClass = DB::table(Valuesets::CoverageClass['table'])
+            ->where('value', 'like', '%' . $request->query('search') . '%')
+            ->orWhere('name', 'like', '%' . $request->query('search') . '%')
+            ->paginate(100);
+            
+        $covClass->getCollection()->transform(function ($item) {
+            unset($item['_id']);
+            return $item;
+        });
+
+        return $covClass;
     }
 }

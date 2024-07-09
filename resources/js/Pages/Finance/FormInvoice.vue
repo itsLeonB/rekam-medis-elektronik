@@ -9,6 +9,14 @@
             <form @submit.prevent="submit">
                 <!-- Status Invoice -->
                 <div class="mt-4">
+                    <InputLabel value="Issuer" />
+                    <Multiselect mode="single" placeholder="Issuer" :filter-results="false" :object="true"
+                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchOrg"
+                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
+                        v-model="resourceForm.issuer" />
+                    <InputError class="mt-1" />
+                </div>
+                <div class="mt-4">
                     <InputLabel value="Status" />
                     <select id="status"
                         class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit"
@@ -34,6 +42,14 @@
                         v-model="resourceForm.recipient" />
                     <InputError class="mt-1" />
                 </div>
+                <!-- Account Pasien -->
+                <div class="mt-4">
+                    <InputLabel value="Account" />
+                    <Multiselect mode="single" placeholder="Account" :filter-results="false" :resolve-on-load="true"
+                        :object="true" :options="getAccount" label="name" valueProp="id" track-by="id" class="mt-1"
+                        :searchable="true" :classes="combo_classes" required v-model="resourceForm.account" />
+                    <InputError class="mt-1" />
+                </div>
                 <!-- Tanggal Invoice -->
                 <div class="mt-4">
                     <InputLabel value="Tanggal Invoice" />
@@ -55,7 +71,7 @@
                     <InputLabel value="Payment Method" />
                     <select id="status"
                         class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit"
-                        v-model="resourceForm.bank">
+                        v-model="resourceForm.paymentMethods">
                         <option v-for="(label, id) in paymentMethods" :value=id>{{ label }}</option>
                     </select>
                 </div>
@@ -67,20 +83,18 @@
                 <!-- Rincian Biaya -->
                 <div class="mt-4">
                     <InputLabel value="Kunjungan" />
-                    <Multiselect mode="single" placeholder="Rincian Biaya" :object="true" :options="encounterList"
-                        label="label" valueProp="id" track-by="id" class="mt-1" :classes="combo_classes" required
-                        v-on:change="getChargeItemList" />
+                    <TextInput v-model="resourceForm.encounter" />
                     <InputError class="mt-1" />
-                    <table class="w-full h-auto mt-2 border">
+                    <table v-if="chargeItemList" class="w-full h-auto mt-2 border">
                         <tr>
                             <th>No</th>
-                            <th>Procedure/Observation</th>
+                            <th>Item Tagihan</th>
                             <th>Harga</th>
                         </tr>
                         <tr class="text-center" v-for="(item, index) in chargeItemList" :key="index">
                             <td>{{ index + 1 }}</td>
-                            <td>{{ item.code.coding[0].display }}</td>
-                            <td v-if="item.price">{{ item.resourceType == "Procedure" ? item.price.price.value : 0 }}
+                            <td>{{ item.context.display }}</td>
+                            <td>{{ item.priceOverride.value }}
                             </td>
                         </tr>
                     </table>
@@ -88,7 +102,7 @@
 
                 <div class="mt-4">
                     <InputLabel value="Total Biaya" />
-                    <TextInput v-model="resourceForm.totalPriceComponent" />
+                    <TextInput type="number" v-model="resourceForm.totalPriceComponent" />
                 </div>
                 <div class="mt-4">
                     <InputLabel value="Total Biaya Kotor" />
@@ -102,19 +116,17 @@
                     <InputLabel value="Catatan" />
                     <TextInput v-model="resourceForm.note" />
                 </div>
+                <div class="flex flex-col items-center justify-end mt-10">
+                    <!-- TODO 4: API untuk submit -->
+                    <MainButton :isLoading="isLoading"
+                        class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
+                        Daftar
+                    </MainButton>
+                </div>
             </form>
-        </div>
-        <div class="flex flex-col items-center justify-end mt-10">
-            <!-- TODO 4: API untuk submit -->
-            <MainButton :isLoading="isLoading"
-                class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
-                Daftar
-            </MainButton>
         </div>
     </AuthenticatedLayout>
 </template>
-
-
 
 <script setup>
 import InputError from '@/Components/InputError.vue';
@@ -129,26 +141,43 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import axios from 'axios';
 import { ref, onMounted, computed, provide, watch } from 'vue';
 
+const props = defineProps({
+    id: {
+        type: String,
+    },
+});
+
 // List Practitioner, Encounter, Procedure, Medication
 const practitionerList = ref(null);
 const encounterList = ref(null);
-const procedureList = ref(null);
-const medicationList = ref(null);
+const chargeItemList = ref([]);
 const isLoading = ref(false); // Status loading
+const selectedEncounter = ref(null);
 
-// List ChargeItem = procedure + medication
-const chargeItemList = computed(() => {
-    if (!medicationList.value || !procedureList.value) {
-        return [];
-    }
-    return [...medicationList.value, ...procedureList.value]
-});
-
-// Total price
 const chargeItemTotal = computed(() => {
     return chargeItemList.value
-        .filter(item => item.price)
-        .reduce((total, item) => total + Number(item.price.price.value), 0);
+        .filter(item => item.priceOverride.value)
+        .reduce((total, item) => total + Number(item.priceOverride.value), 0);
+});
+
+// Resource Form
+const resourceForm = ref({
+    status: 'draft',
+    cancelledReason: null,
+    subject: null,
+    recipient: null,
+    date: null,
+    participant: null,
+    paymentMethods: null,
+    rekening: "",
+    note: '',
+    encounter: '',
+    totalPriceComponent: `${chargeItemTotal.value}`,
+    totalNett: 0,
+    totalGross: 0,
+    lineItem: [],
+    issuer: null,
+    account: null
 });
 
 const grossPrice = computed(() => {
@@ -160,22 +189,12 @@ const nettPrice = computed(() => {
 })
 
 
-// Resource Form
-const resourceForm = ref({
-    status: '1',
-    cancelledReason: null,
-    subject: null,
-    recipient: null,
-    date: null,
-    participant: null,
-    bank: null,
-    rekening: "",
-    note: '',
-    totalPriceComponent: `${chargeItemTotal.value}`,
-    totalNett: 0,
-    totalGross: 0,
-    lineItem: []
-});
+// IF: Ada ID Encounter
+const populateForm = async (itemId) => {
+    // selectedEncounter.value =  showResource('Encounter', itemId)
+    resourceForm.value.encounter = "Encounter/" + itemId
+}
+
 
 // Watch for changes in chargeItemList to update total price
 watch(chargeItemTotal, (newValue) => {
@@ -187,51 +206,14 @@ watch(grossPrice, (newValue) => {
     resourceForm.value.totalGross = newValue;
 });
 
-// Watch for changes in chargeItemList to update total price
+// // Watch for changes in chargeItemList to update total price
 watch(nettPrice, (newValue) => {
     resourceForm.value.totalNett = newValue;
 });
 
-// Submit Form
-const submit = async () => {
-    isLoading.value = true;
-    const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
-    const submitResource = {
-        "resourceType": "Invoice",
-        "status": resourceForm.status,
-        "subject": resourceForm.subject,
-        "type": resourceForm.type,
-        "recipient": resourceForm.recipient,
-        "date": resourceForm.date,
-        "participant": resourceForm.participant,
-        "issuer": "Organization/id",
-        "lineItem": [],
-        "totalPriceComponent": {
-            "currency": "IDR",
-            "value": resourceForm.totalPriceComponent
-        },
-        "totalNet": {
-            "currency": "IDR",
-            "value": resourceForm.totalNet
-        },
-        "totalGross": {
-            "currency": "IDR",
-            "value": resourceForm.totalGross
-        },
-        "paymentTerms": resourceForm.paymentMethods,
-        "note": resourceForm.note,
-    }
-
-    axios.post(route('integration.store', { res_type: "Invoice" }), submitResource)
-        .then(response => {
-            isLoading.value = false;
-            creationSuccessModal.value = true;
-        })
-        .catch(error => {
-            isLoading.value = false;
-            console.error('Error creating user:', error);
-        });
-}
+watch(chargeItemList, (newValue) => {
+    resourceForm.value.lineItem = newValue;
+});
 
 const invoiceStatus = { 'draft': 'draft', 'issued': 'issued', 'balanced': 'balanced', 'cancelled': 'cancelled', 'entered-in-error': 'entered in error' } // Status Invoice
 const paymentMethods = { 'bank': 'Bank Transfer', 'cash': 'Cash', 'qris': 'QRIS', 'debit': 'Debit Card', 'credit': 'Credit Card' } // Payment Methods
@@ -247,6 +229,33 @@ const searchPatient = async (query) => {
     }
     return originalData;
 };
+
+const searchOrg = async (query) => {
+    try {
+        const { data } = await axios.get(route('satusehat.search.organization', { 'name': query }));
+        const originalData = data.entry || [];
+        // Map the data to the required structure
+        return originalData.map(item => ({
+            label: item.resource.name,
+            id: item.resource.id,
+            ...item.resource
+        }));
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+const getAccount = async (name) => {
+    try {
+        const { data } = await axios.get('/resources/Account')
+        const originalData = data
+        originalData.filter(account => account.name === name)
+        return originalData
+    } catch (error) {
+        console.error('Error fetching resources:', error)
+    }
+}
 
 // Format Date
 const formatDate = (isoString) => {
@@ -286,27 +295,57 @@ const getResourceList = async (resourceName, list) => {
     }
 }
 
-// Get data based on encounter dan beri harga untuk yang memiliki hargas
-const getChargeItemList = async () => {
-    await getResourceList('Procedure', procedureList);
-    await getResourceList('Medication', medicationList);
-    const updatedProcedures = await Promise.all(procedureList.value.map(async (item) => {
-        const { data } = await axios.get(`/catalogue/${item.code.coding[0].code}`);
-        return {
-            ...item,
-            price: data
-        };
+const showResource = async (resourceName, id) => {
+    try {
+        const { data } = await axios.get(`/resources/${resourceName}/${id}`)
+        console.log(data)
+        return data.data;
+    } catch (error) {
+        console.error('Error fetching resources:', error);
     }
-    ));
-
-    procedureList.value = updatedProcedures
 }
 
-const chargeItem = ref([])
+// Get data based on encounter dan beri harga untuk yang memiliki hargas
+const getChargeItemList = async (id) => {
+    try {
+        const { data } = await axios.get('/resources/ChargeItem')
+        const originalData = data.filter(item => item.context.reference === "Encounter/" + id)
+        chargeItemList.value = originalData
+        console.log(originalData)
+    } catch (error) {
+        console.error('Error fetching resources:', error);
+    }
+}
+
+function formatDateString(dateString) {
+    // Parse the date string into a Date object
+    const date = new Date(dateString);
+
+    // Get the components of the date
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    // Get the timezone offset in hours and minutes
+    const timezoneOffset = -date.getTimezoneOffset();
+    const offsetHours = String(Math.floor(Math.abs(timezoneOffset) / 60)).padStart(2, '0');
+    const offsetMinutes = String(Math.abs(timezoneOffset) % 60).padStart(2, '0');
+    const offsetSign = timezoneOffset >= 0 ? '+' : '-';
+
+    // Construct the formatted date string
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${offsetSign}${offsetHours}:${offsetMinutes}`;
+
+    return formattedDate;
+}
 
 onMounted(() => {
     getpractitionerList();
     getResourceList('Encounter', encounterList)
+    getChargeItemList(props.id)
+    populateForm(props.id)
 })
 
 const combo_classes = {
@@ -319,5 +358,83 @@ const combo_classes = {
     optionSelectedPointed: 'text-white bg-original-teal-300 opacity-90',
     optionSelectedDisabled: 'text-green-100 bg-original-teal-300 bg-opacity-50 cursor-not-allowed',
 };
+
+// Submit Form
+const submit = async () => {
+    isLoading.value = true;
+    console.log(chargeItemList.value, resourceForm.value.lineItem)
+    resourceForm.value.lineItem = chargeItemList.value.map((item, index) => ({
+        sequence: index + 1,
+        chargeItem: {
+            chargeItemReference: {
+                reference: "ChargeItem/" + item.id,
+                display: "Charge Item " + item.id
+            }
+        },
+        priceComponent: [{
+            type: "base",
+            factor: 1.0,
+            amount: {
+                currency: item.priceOverride.currency,
+                value: item.priceOverride.value
+            }
+        }]
+    }))
+    console.log(resourceForm.value.subject, resourceForm.value.participant, resourceForm.value.lineItem)
+
+    const submitResource = {
+        "resourceType": "Invoice",
+        "status": resourceForm.value.status,
+        "subject": {
+            "reference": "Patient/" + resourceForm.value.subject.satusehatId,
+            "display" : resourceForm.value.subject.name
+        },
+        "recipient": {
+            "reference": "Patient/" + resourceForm.value.recipient.satusehatId,
+            "display": resourceForm.value.recipient.name
+        },
+        "date": formatDateString(resourceForm.value.date),
+        "participant": {
+            "reference": "Practitioner/" + resourceForm.value.participant.satusehat_id,
+            "display": resourceForm.value.participant.name
+        },
+        "issuer": {
+            "reference": "Organization/" + resourceForm.value.issuer.id,
+            "display": resourceForm.value.issuer.name
+        },
+        "lineItem": resourceForm.value.lineItem,
+        "totalPriceComponent": {
+            "currency": "IDR",
+            "value": resourceForm.value.totalPriceComponent
+        },
+        "totalNet": {
+            "currency": "IDR",
+            "value": resourceForm.value.totalNett
+        },
+        "totalGross": {
+            "currency": "IDR",
+            "value": resourceForm.value.totalGross
+        },
+        "paymentTerms": resourceForm.value.paymentMethods,
+        "note": resourceForm.value.note,
+        "account": {
+            "reference": "Account/" + resourceForm.value.account.id,
+            "display": resourceForm.value.account.name
+        }
+    }
+
+    console.log(submitResource)
+
+    await axios.post(route('integration.store', { resourceType: "Invoice" }), submitResource)
+        .then(response => {
+            console.log(response.data)
+            isLoading.value = false;
+            creationSuccessModal.value = true;
+        })
+        .catch(error => {
+            isLoading.value = false;
+            console.error('Error creating user:', error);
+        });
+}
 
 </script>

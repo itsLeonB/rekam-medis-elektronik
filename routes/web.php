@@ -199,11 +199,11 @@ Route::middleware('auth')->group(function () {
         })->name('usermanagement.edit');
     });
 
-
     // Halaman Finance
     Route::get('/finance', function () {
         return Inertia::render('Finance/Finance');
     })->name('finance');
+
     // Invoice
     Route::get('/finance/invoice', function () {
         return Inertia::render('Finance/InvoiceIndex');
@@ -211,13 +211,26 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/invoice/create', function () {
         return Inertia::render('Finance/FormInvoice');
     })->name('finance.newinvoice');
+    Route::get('/finance/invoice/create/{id}', function ($id) {
+        return Inertia::render('Finance/FormInvoice', ['id'=>$id]);
+    })->name('finance.newinvoice');
+
+    // Claim
+    Route::get('/finance/claim/create/{id}', function ($id) {
+        return Inertia::render('Finance/Claim/New');
+    })->name('finance.claim.new');
+
     // ChargeItem
     Route::get('/finance/charge-item', function() {
         return Inertia::render('Finance/ChargeItem/PilihEncounter');
     })->name('finance.chargeitem.index');
+    Route::get('finance/charge-item/{id}', function($id) {
+        return Inertia::render('Finance/ChargeItem/Buat', ['item_id'=>$id]);
+    })->name('finance.chargeitem.createblank');
     Route::get('finance/charge-item/{resType}/{id}', function($resType, $id) {
         return Inertia::render('Finance/ChargeItem/Buat', ['item_id'=>$id, 'item_res_type'=>$resType]);
     })->name('finance.chargeitem.create');
+
     // Catalogue
     Route::get('/finance/catalogue', function () {
         return Inertia::render('Finance/DaftarHarga/Index');
@@ -228,6 +241,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/catalogue/edit/{id}', function($id) {
         return Inertia::render('Finance/DaftarHarga/Edit', ['item_id'=>$id]);
     })->name('finance.catalogue.edit');
+
+    // Account
+    Route::get('/finance/account/create', function () {
+        return Inertia::render('Finance/AccountManagement/New');
+    })->name('finance.account.new');
 });
 
 // APIs 
@@ -242,6 +260,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/{resourceType}/{id}', [SatusehatController::class, 'integrationPut'])->name('update');
     });
 
+    
     // Endpoint untuk View Rekam Medis
     Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
         // Daftar rekam medis pasien
@@ -386,6 +405,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/base', [TerminologyController::class , 'getKPTL'])->name('base');
             Route::get('/modifier', [TerminologyController::class, 'getKPTLModifier'])->name('modifier');
         });
+        Route::get('/coverageType', [TerminologyController::class, 'getCoverageType'])->name('cov-type');
+        Route::get('/coverageClass', [TerminologyController::class, 'getCoverageClass'])->name('cov-class');
     });
 
     // Endpoint untuk call API SATUSEHAT

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Fhir\Processor;
 use App\Models\Fhir\Resource;
+use App\Models\FhirResource;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,7 @@ class OnboardingSeeder extends Seeder
 
             switch ($resType) {
                 case 'Organization':
-                    $org = Resource::create([
+                    $org = FhirResource::create([
                         'satusehat_id' => config('app.organization_id'),
                         'res_type' => $resType
                     ]);

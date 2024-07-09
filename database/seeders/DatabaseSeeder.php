@@ -62,6 +62,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TerminologySeeder::class,
             IdFhirResourceSeeder::class,
+            // OnboardingSeeder::class
         ]);
     }
 }

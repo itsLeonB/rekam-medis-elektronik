@@ -1,0 +1,134 @@
+[
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "pbi-apbn",
+        "name": "PBI-APBN",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "pbi-apbd",
+        "name": "PBI-APBD",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-pejabat-negara",
+        "name": "Pejabat Negara",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-dprd",
+        "name": "Pimpinan dan Anggota Dewan Perwakilan Rakyat Daerah",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-pns",
+        "name": "PNS",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-prajurit",
+        "name": "Prajurit",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-polri",
+        "name": "Anggota Polri",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-kades-dan-perangkat",
+        "name": "Kepala Desa dan Perangkat Desa",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-pegawai-swasta",
+        "name": "Pegawai Swasta",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "ppu-pekerja-lainnya",
+        "name": "Pekerja lainnya yang menerima Gaji atau Upah",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "pbpu-pekerja-mandiri",
+        "name": "Pekerja di luar hubungan kerja atau Pekerja mandiri",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "pbpu-pekerja-lainnya",
+        "name": "Pekerja lainnya yang bukan penerima Gaji atau Upah",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "bp-investor",
+        "name": "Investor",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "bp-pemberi-kerja",
+        "name": "Pemberi Kerja",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "bp-penerima-pensiun",
+        "name": "Penerima Pensiun",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "bp-veteran",
+        "name": "Veteran",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "bp-perintis-kemerdekaan",
+        "name": "Perintis Kemerdekaan",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "bp-janda-duda-yatim-piatu",
+        "name": "Janda, Duda, atau Anak Yatim dan/atau Piatu dari Veteran atau Perintis Kemerdekaan",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverage-class",
+        "value": "bp-lainnya",
+        "name": "Bukan pekerja lainnya yang mampu membayar iuran",
+        "type": "type"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverageServiceClass",
+        "value": "1",
+        "name": "Kelas 1",
+        "type": "hak-kelas"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverageServiceClass",
+        "value": "2",
+        "name": "Kelas 2",
+        "type": "hak-kelas"
+    },
+    {
+        "system": "http://terminology.kemkes.go.id/CodeSystem/coverageServiceClass",
+        "value": "3",
+        "name": "Kelas 3",
+        "type": "hak-kelas"
+    }
+]

@@ -23,93 +23,83 @@
                         stroke="currentColor" class="w-5 h-5 mr-2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                     </svg>
-                    Tambah Invoice
-                    </Link>
-                    <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
-                        :href="route('finance.newinvoice')" as="button"
-                        class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Tambah Klaim
+                    Tambah Invoice/Klaim
                     </Link>
                     <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
                         :href="route('finance.catalogue')" as="button"
                         class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                    
                     Daftar Harga
                     </Link>
                 </div>
             </div>
         </div>
 
-        <div
-            class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
-            <!-- Search bar -->
-            <div class="flex justify-end items-center mb-5 w-full">
-                <form class="mr-3 w-full">
-                    <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
-                        <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="#8f8f8f" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </div>
-                        <input v-model="searchNama" id="search-nama" placeholder="Cari Nama"
-                            class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
-                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
-                            @click="cancelSearch" v-show="hide">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
-                                class="w-5 h-5 hover:fill-thirdouter-red-200">
-                                <path fill-rule="evenodd"
-                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                                    clip-rule="evenodd" />
-                            </svg>
+        <div class="grid grid-cols-2 gap-2">
+            <div
+                class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-2 md:py-8 md:pl-10 md:pr-14">
+                <h2 class="text-lg font-bold">Riwayat Invoice</h2>
+                <p class="mb-3 text-base font-normal text-neutral-grey-100">Invoice terbaru</p>
+                <!-- Search bar -->
+                <div class="flex justify-end items-center mb-5 w-full">
+                    <form class="mr-3 w-full">
+                        <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
+                            <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="#8f8f8f" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                            <input v-model="searchNama" id="search-invoice" placeholder="Cari Invoice"
+                                class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
+                            <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
+                                @click="cancelSearch" v-show="hide">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
+                                    class="w-5 h-5 hover:fill-thirdouter-red-200">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                                        clip-rule="evenodd" />
+                                </svg>
 
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <MainButton @click="searchUsers" class="teal-button text-original-white-0">
-                    Cari
-                </MainButton>
-            </div>
-            <div class="relative overflow-x-auto mb-5">
-                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
-                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 w-2/5">
-                                Tanggal
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-2/5">
-                                Nama
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/5">
-                                Status
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="(user, index) in users.data" :key="user.id">
-                        <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                            :class="{ 'border-b': index !== (users.data.length - 1) }">
-                            <Link :href="route('usermanagement.details', { 'user_id': user.id })">
+                    </form>
+                    <MainButton @click="searchUsers" class="teal-button text-original-white-0">
+                        Cari
+                    </MainButton>
+                </div>
+                <div class="relative overflow-x-auto mb-5">
+                    <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
+                        <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 w-2/5">
+                                    Pasien
+                                </th>
+                                <th scope="col" class="px-6 py-3 w-1/5">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="(item, index) in invoice.data" :key="item.id">
+                            <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+                                :class="{ 'border-b': index !== (users.data.length - 1) }">
+                                <!-- <Link :href="route('resources.show', { 'resType': "Account", 'id': user.id })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
                                 {{ user.name }}
                             </th>
-                            </Link>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ user.email }}
-                            </td>
-                            <td v-html="user.email_verified_at ? 'Sudah' : '<strong>Belum</strong>'"
-                                class="px-6 py-4 w-1/5">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                            </Link> -->
+                                <td class="px-6 py-4 w-2/5">
+                                    {{ item.id }}
+                                </td>
+                                <td class="px-6 py-4 w-2/5">
+                                    {{ item.subject.name }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-            <nav class="flex justify-end">
+                <!-- <nav class="flex justify-end">
                 <ul v-for="(link, index) in users.links" class="inline-flex -space-x-px text-base h-10">
                     <li v-if="index === 0">
                         <button @click="fetchPagination((users.current_page - 1) < 1 ? 1 : (users.current_page - 1))"
@@ -131,8 +121,70 @@
                             class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">&raquo;</button>
                     </li>
                 </ul>
-            </nav>
+            </nav> -->
+            </div>
+            <div
+                class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
+                <h2 class="font-bold text-lg">Account Management</h2>
+                <p class="mb-3 text-base font-normal text-neutral-grey-100">Kelola Akun Keuangan Pasien</p>
+                <Link as="button" :href="route('finance.account.new')"
+                    class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                Buka Akun Baru
+                </Link>
+                <div class="flex justify-end items-center mb-5 w-full">
+                    <form class="mr-3 w-full">
+                        <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
+                            <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="#8f8f8f" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                            <input v-model="searchAccount" id="search-account" placeholder="Cari Account"
+                                class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
+                            <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
+                                @click="cancelAccountSearch" v-show="hide">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
+                                    class="w-5 h-5 hover:fill-thirdouter-red-200">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+
+                            </div>
+                        </div>
+                    </form>
+                    <MainButton @click="getAccount" class="teal-button text-original-white-0">
+                        Cari
+                    </MainButton>
+                </div>
+                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 border shadow rounded-lg">
+                        <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 w-2/5">
+                                    Pasien
+                                </th>
+                                <th scope="col" class="px-6 py-3 w-1/5">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody v-for="(item, index) in account" :key="item.id">
+                            <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+                                :class="{ 'border-b': index !== (account.length - 1) }">
+                                <td class="px-6 py-4 w-2/5">
+                                    {{ item.name }}
+                                </td>
+                                <td class="px-6 py-4 w-2/5">
+                                    {{ item.status }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
         </div>
+
     </AuthenticatedLayout>
 </template>
 
@@ -144,6 +196,8 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const users = ref([]);
+const invoice = ref([]);
+const account = ref([]);
 
 const hide = ref(false);
 
@@ -152,11 +206,30 @@ const fetchUsers = async (page = 1) => {
     users.value = data.users;
 };
 
+const fetchInvoice = async () => {
+    const { data } = await axios.get('/resources/Invoice');
+    invoice.value = data
+}
+
+const fetchAccount = async () => {
+    const { data } = await axios.get('/resources/Account');
+    account.value = data.slice(0,5)
+    console.log(account)
+}
+
+const searchAccount = ref('');
+
 const cancelSearch = async () => {
     hide.value = false;
     searchNama.value = '';
     fetchUsers(1);
 };
+
+const cancelAccountSearch = async () => {
+    hide.value = false;
+    searchAccount.value = '';
+    fetchAccount();
+}
 
 const searchNama = ref('');
 
@@ -180,6 +253,7 @@ const fetchPagination = async (page = 1) => {
 
 onMounted(() => {
     fetchUsers();
+    fetchAccount();
 }
 );
 

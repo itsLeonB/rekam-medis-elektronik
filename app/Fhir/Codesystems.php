@@ -647,4 +647,46 @@ class Codesystems
         'code' => ['planned', 'billable', 'not-billable', 'aborted', 'billed', 'entered-in-error', 'unknown'],
         'display' => ['planned' => 'Planned', 'billable' => 'Billable', 'not-billable' => 'Not billable', 'aborted' => 'Aborted', 'billed' => 'Billed', 'entered-in-error' => 'Entered in Error', 'unknown' => 'Unknown']
     ];
+
+    public const CoverageStatus = [
+        'system' => 'http://hl7.org/fhir/fm-status',
+        'code' => ['active', 'cancelled', 'draft', 'entered-in-error'],
+        'display' => ['active' => 'Active', 'cancelled' => 'Cancelled', 'draft' => 'Draft', 'entered-in-error' => 'Entered in Error']
+    ];
+
+    public const CoverageRelationship = [
+        'system' => 'http://terminology.hl7.org/Codesystem/subscriber-relationship',
+        'code' => ['child', 'parent', 'spouse', 'common', 'other', 'self', 'injured'],
+        'display' => ['child' => 'Child', 'parent' => 'Parent', 'spouse' => 'Spouse', 'common' => 'Common Law Spouse', 'other' => 'Other', 'self' => 'Self', 'injured' => 'Injured Party']
+    ];
+
+    public const CoverageCostToBeneficiary = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/coverage-copay-type',
+        'code' => ['gpvisit', 'spvisit', 'emergency', 'inpthosp', 'televisit', 'urgentcare', 'copaypct', 'copay', 'deductible', 'maxoutofpocket'],
+        'display' => ['gpvisit' => 'GP Office Visit', 'spvisit' => 'Specialist Office Visit', 'emergency' => 'Emergency', 'inpthosp' => 'Inpatient Hospital', 'televisit' => 'Tele-visit', 'urgentcare' => 'Urgent Care', 'copaypct' => 'Copay Percentage', 'copay' => 'Copay Amount', 'deductible' => 'Deductible', 'maxoutofpocket' => 'Maximum out of pocket']
+    ];
+
+    public const  CoverageCostToBeneficiaryException = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-coverage-financial-exception',
+        'code' => ['retired', 'foster'],
+        'foster' => ['retired' => 'Retired', 'foster' => 'Foster Child']
+    ];
+
+    public const CoverageClassType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/coverage-class',
+        'code' => ['group', 'subgroup', 'plan', 'subplan', 'class', 'subclass', 'sequence', 'rxbin', 'rxpcn', 'rxid', 'rxgroup'],
+        'display' => ['group' => 'Group', 'subgroup' => 'SubGroup', 'plan' => 'Plan', 'subplan' => 'SubPlan', 'class' => 'Class', 'subclass' => 'SubClass', 'sequence' => 'Sequence', 'rxbin' => 'RX BIN', 'rxpcn' => 'RX PCN', 'rxid' => 'RX Id', 'rxgroup' => 'RX Group']
+    ];
+
+    public const AccountStatus = [
+        'system' => 'http://hl7.org/fhir/account-status',
+        'code' => ['active', 'inactive', 'entered-in-error', 'on-hold', 'unknown'],
+        'display' => ['active' => 'Active', 'inactive' => 'Inactive', 'entered-in-error' => 'Entered in error', 'on-hold' => 'On Hold', 'unknown' => 'Unknown']
+    ];
+
+    public const AccountType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+        'code' => ['_ActAccountCode', 'ACCTRECEIVABLE', 'CASH', 'CC', 'AE', 'DN', 'DV', 'MC', 'V', 'PBILLACT'],
+        'display' => ['_ActAccountCode' => 'ActAccountCode', 'ACCTRECEIVABLE' => 'account receivable', 'CASH' => 'Cash', 'CC' => 'credit card', 'AE' => 'American Express', 'DN' => 'Diner\'s Club', 'DV' => 'Discover Card', 'MC' => 'Master Card', 'V' => 'Visa', 'PBILLACT' => 'patient billing account']
+    ];
 }
