@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Spatie\Permission\Models\Role;
+// use Spatie\Permission\Models\Role;
+use App\Models\Role;
 
 class UserManagementController extends Controller
 {
@@ -48,6 +49,7 @@ class UserManagementController extends Controller
     {
         DB::beginTransaction();
         try {
+            // Log::info('Request received:', $request->all());
             $user = User::create([
                 'name' => strip_tags($request->input('name')),
                 'email' => $request->input('email'),
@@ -144,6 +146,14 @@ class UserManagementController extends Controller
 
     public function getRoles()
     {
-        return Role::all()->pluck('name');
+       try {
+            $roles = Role::all()->pluck('name');
+            return response()->json($roles, 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Gagal mengambil roles',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }
