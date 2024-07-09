@@ -37,6 +37,7 @@ class MedicationRequestController extends Controller
             $data = FhirResource::where('resourceType', 'Condition')
                     ->where('encounter.reference', 'Encounter/'. $id)
                     ->where('code.coding.0.system', 'http://hl7.org/fhir/sid/icd-10')
+                    ->where('verificationStatus.coding.0.code', 'confirmed')
                     ->get();
         }else{
             $data = FhirResource::where('resourceType', 'AllergyIntolerance')
@@ -44,5 +45,26 @@ class MedicationRequestController extends Controller
                     ->get();
         }
         return response()->json($data);
+    }
+    public function printResep($section, $encounter_id){
+        if($section=="resep"){
+            $data = FhirResource::where('resourceType', 'MedicationRequest')
+                ->where('encounter.reference', 'Encounter/'.$encounter_id)
+                ->get();
+            $result = $data->map(function ($item) {
+                return [
+                    'id' => data_get($item, 'id'),
+                    'display' => data_get($item, 'medicationReference.display'),
+                    'dosageInstruction' => data_get($item, 'dosageInstruction.0.text')
+                ];
+            })->toArray();
+            return $result;
+        }
+        else{
+            $data = FhirResource::where('resourceType', 'Encounter')
+                ->where('id',$encounter_id)
+                ->get();
+            return $data;
+        }
     }
 }
