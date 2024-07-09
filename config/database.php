@@ -38,7 +38,6 @@ return [
         'mongodb' => [
             'driver' => 'mongodb',
             'dsn' => env('DB_URI', '<connection string>'),
-            'database' => env('DB_DATABASE', 'rme'),
         ],
 
         // 'sqlite' => [
