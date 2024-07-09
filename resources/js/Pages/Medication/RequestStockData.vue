@@ -12,7 +12,7 @@
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Apoteker untuk mengelola obat.
             </p> 
             
-            <Link :href="route('medication')" as="button"
+            <Link :href="route('medication')" as="button" v-if="$page.props.auth.user.roles[0].name === 'apoteker'"
                 class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 mr-2 bi bi-file-earmark-text" viewBox="0 0 16 16" troke-width="1.5">
                     <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -20,7 +20,7 @@
                 </svg>
                 Data Obat
             </Link>
-            <Link :href="route('medication.requestStock')" as="button"
+            <Link :href="route('medication.requestStock')" as="button" v-if="$page.props.auth.user.roles[0].name === 'apoteker'"
             class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 mr-2 bi bi-file-earmark-text" viewBox="0 0 16 16" troke-width="1.5">
                     <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -28,7 +28,7 @@
                 </svg>
                 Data Request Obat
             </Link>
-            <Link :href="route('medication.tambah')" as="button"
+            <Link :href="route('medication.tambah')" as="button" v-if="$page.props.auth.user.roles[0].name === 'apoteker'"
                 class="mr-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-5 h-5 mr-2">
@@ -36,7 +36,7 @@
                 </svg>
                 Tambah Obat
             </Link>
-            <div class="row">
+            <div class="row" v-if="$page.props.auth.user.roles[0].name === 'apoteker'">>
                 <span class="font-semibold">Note : </span> <p id="check" class="text-sm">{{ message }}</p>
             </div>
         </div>

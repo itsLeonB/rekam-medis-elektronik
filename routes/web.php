@@ -103,7 +103,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 # User Management
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/user-management', function () {
         return Inertia::render('UserManagement/UserManagement');
     })->name('usermanagement');
@@ -345,7 +345,7 @@ Route::middleware('auth')->group(function () {
         })->name('expertsystems.index');
 
         // end-point expert system
-        Route::get('/rule-peresepan-obat/{id}', [ExpertSystemController::class, 'rulePeresepanStore'])->name('ruleperesepan.store');
+        Route::get('/rule-peresepan-obat/{id}', [ExpertSystemController::class, 'rulePeresepanStore'])->middleware('role:poli-umum')->name('ruleperesepan.store');
         Route::get('/get-keluhan/{id}', [ExpertSystemController::class, 'getKeluhan'])->name('get.keluhan');
         Route::get('/get-alergi/{id}', [ExpertSystemController::class, 'getAlergi'])->name('get.alergi');
         Route::get('/get-diagnosa/{id}', [ExpertSystemController::class, 'getDiagnosa'])->name('get.diagnosa');

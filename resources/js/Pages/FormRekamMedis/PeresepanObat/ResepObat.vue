@@ -11,13 +11,12 @@
     <div class="flex flex-row justify-between">
         <h2 class="text-xl font-semibold text-secondhand-orange-300">Resep Obat</h2>
          <div class="flex justify-end mr-2">
-            <Link :href="route('request-to-stock')" as="button"
+            <Link :href="route('request-to-stock')" v-if="$page.props.auth.user.roles[0].name === 'poli-umum'" as="button"
                     class="mr-2 inline-flex px-4 py-1.5 border border-transparent rounded-md font-normal text-sm text-white teal-button transition ease-in-out duration-150 hover:shadow-lg">
                     Request Stok Obat
             </Link>
             <form @submit.prevent="ruleSubmit" class="flex items-center">
-                <MainButtonSmall type="submit" class="teal-button text-original-white-0 rounded-md">Save Rule</MainButtonSmall>
-                
+                <MainButtonSmall v-if="$page.props.auth.user.roles[0].name === 'poli-umum'" type="submit" class="teal-button text-original-white-0 rounded-md">Save Rule</MainButtonSmall>
             </form>
         </div>
        
