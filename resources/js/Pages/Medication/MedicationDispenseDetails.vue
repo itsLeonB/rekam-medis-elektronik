@@ -128,7 +128,7 @@ const submit = () => {
             display: med.medicationReferenceName
         },
         subject: {
-            reference: "Medication/" + med.subject,
+            reference: med.subject,
             display: med.requester
         },
         context: {
@@ -146,7 +146,7 @@ const submit = () => {
             reference: "Organization/d7c204fd-7c20-4c59-bd61-4dc55b78438c"
         }
     };
-    axios.post(route('integration.store', { resourceType: formDataJson.resourceType }), formDataJson)
+    axios.post(route('integration.store', { resourceType: 'MedicationDispense' }), formDataJson)
         // .then(response => {
         //     creationSuccessModal.value = true;
         //     setTimeout(() => {
