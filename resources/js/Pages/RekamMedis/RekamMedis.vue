@@ -95,10 +95,11 @@
                                     <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
                                         searchWith_id).label }}: {{ patient[searchWith_id] }}</p>
                                 </th>
-                            </Link>
+                            
                             <td class="px-6 py-4 w-3/12">
                                 {{ patient.identifier == null ? '-' : patient.identifier }}
                             </td>
+                            </Link>
                             <td class="px-6 py-4 w-3/12">
                                 {{ patient.class == 'AMB' ? 'Rawat Jalan' : patient.class == 'IMP' ? 'Rawat Inap' :
                                     patient.class == 'EMER' ? 'IGD' : '-' }}
