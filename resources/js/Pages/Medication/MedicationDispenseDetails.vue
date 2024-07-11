@@ -72,10 +72,21 @@
             <div class="buttons-submit">
                 <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
                     @click.prevent="submit">Setujui</MainButton>
-                <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block orange-button text-original-white-0"
-                    @click.prevent="submit">Tolak</MainButton>
+                <!-- <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block orange-button text-original-white-0"
+                    @click.prevent="submit">Tolak</MainButton> -->
             </div>
-
+            <Modal :show="creationSuccessModal">
+            <div class="p-6">
+                <h2 class="text-lg text-center font-medium text-gray-900">
+                    Data Obat berhasil ditambahkan. <br> Kembali ke halaman Obat.
+                </h2>
+                <div class="mt-6 flex justify-end">
+                    <Link :href="route('medication.table')"
+                        class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    Kembali </Link>
+                </div>
+            </div>
+        </Modal>
         </div>
 
     </AuthenticatedLayout>
@@ -87,6 +98,7 @@ import MainButton from '@/Components/MainButton.vue';
 import Modal from '@/Components/Modal.vue';
 import { Link } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
+import { useForm } from '@inertiajs/vue3';
 import axios from 'axios';
 
 const props = defineProps({
@@ -97,12 +109,87 @@ const props = defineProps({
 
 const medication_id = props.medication_dispense_id;
 
+const creationSuccessModal = ref(false);
 const medication = ref([]);
+
+const form = useForm({
+    _id: '',
+    id_transaction:  '',
+    id_medicine:  '',
+    quantity: '',
+    note: '',
+});
+
+const medicines = ref([]);
+let quantityMax = ref(null); 
+
+const searchMedicines = async () => {
+    try {
+        const response = await axios.get(route('getmedicine', { search: medication.value.medication }));
+        medicines.value = response.data;
+        
+        console.log(medication.value.medication, medicines.value, medicines.value.find(medicine => medicine.name === medication.value.medication))
+        updateQuantity();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const updateQuantity = () => {
+    const selectedMedicine = medicines.value.find(medicine => medicine.name === medication.value.medication);
+   
+
+    if (selectedMedicine) {
+        quantityMax.value = selectedMedicine.quantity;
+        form.id_medicine = selectedMedicine._id;
+        form.quantity = -(medication.value.quantity);
+        form.id_transaction = `${new Date().getUTCSeconds()}` + `${new Date().getUTCMilliseconds()}` + `${new Date().getUTCDate()}` +`${new Date().getUTCMonth()}` + `${new Date().getUTCFullYear()}`;
+        form.note = 'Medication Dispense'
+        console.log(selectedMedicine, form)
+        if (form.quantity > quantityMax.value) {
+            console.error(`Quantity tidak boleh lebih dari ${quantityMax.value}`);
+            form.quantity = quantityMax.value;
+        }
+    }
+};
+
+const dispense = async () => {
+    if (!form.id_medicine) {
+        console.error('Obat tidak ada di stok');
+        return;
+    }
+
+    if (form.quantity > quantityMax.value) {
+        console.error(`Jumlah stok Obat tidak mencukupi ${quantityMax.value}`);
+        return;
+    }
+
+    const routeName = 'medicinetransactions.store';
+    const method = 'post';
+    
+    try {
+        await form[method](route(routeName), {
+            preserveScroll: true,
+            onFinish: () => form.reset(),
+        });
+    } catch (error) {
+        console.error('Gagal menyimpan transaksi:', error);
+    }
+};
 
 const fetchMedication = async () => {
     const { data } = await axios.get(route('medicationDispense.show', { 'medicationReq_id': medication_id }));
 
-    medication.value = data;
+    medication.value = data[0];
+};
+
+const medicationRequest = ref([]);
+
+const fetchMedicationReq = async () => {
+    const { data } = await axios.get(route('medicationDispense.show', { 'medicationReq_id': medication_id }));
+
+    medicationRequest.value = data[1];
+    console.log(medicationRequest.value)
 };
 
 const submit = () => {
@@ -152,12 +239,14 @@ const submit = () => {
         ],
     };
     axios.post(route('integration.store', { resourceType: 'MedicationDispense' }), formDataJson)
-        // .then(response => {
-        //     creationSuccessModal.value = true;
-        //     setTimeout(() => {
-        //         successAlertVisible.value = false;
-        //     }, 3000);
-        // })
+        .then(response => {
+            dispense();
+            updateStatus();
+            creationSuccessModal.value = true;
+            setTimeout(() => {
+
+            }, 3000);
+        })
         .catch(error => {
             console.error('Error creating medication dispense:', error);
             // failAlertVisible.value = true;
@@ -167,9 +256,25 @@ const submit = () => {
         });
 };
 
+const updateStatus = () => {
+    const med = medicationRequest.value
+    console.log(med.id);
+    const { _id, status, ...remainingMed } = med;
+    const formDataJson = {
+      ...remainingMed,
+      status: "completed"
+    };
+    axios.put(route('integration.update', { resourceType: 'MedicationRequest', id: med.id }), formDataJson)
+        .catch(error => {
+            console.error('Error updating medication request status:', error);
+          
+        });
+};
+
 onMounted(() => {
     fetchMedication();
-    console.log(props);
+    searchMedicines();
+    fetchMedicationReq();
 }
 );
 

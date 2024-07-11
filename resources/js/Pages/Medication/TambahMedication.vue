@@ -237,13 +237,13 @@ const submitForm = async () => {
     });
     let formDataJson = {
         medicine_code: form.code_obat.kfa_code,
-        name: form.code_obat.product_template.name,
+        name: form.code_obat.name,
         expiry_date: form.expiry_date,
         quantity: Number(form.quantity),
         package: form.code_obat.uom.name,
         uom: form.code_obat.uom.volume_uom_name,
         amount_per_package: Number(form.amount_per_package),
-        manufacturer: form.code_obat.manufacturer,
+        manufacturer: form.code_obat.manufacturer || '-',
         is_fast_moving: form.is_fast_moving,
         is_active: form.code_obat.active,
         minimum_quantity: Number(form.minimum_quantity),
@@ -268,11 +268,15 @@ const submitForm = async () => {
 
     try {
         const resourceType = 'Medication';
-        const response = await axios.post(route('medicine.store'), formDataJson);
-
+        const response = await axios.post(route('medicine.store'), formDataJson).then(() => {
+            searchMedicines().then(() => {
+                dispense();
+            })
+           
         creationSuccessModal.value = true;
         failAlertVisible.value = false;
         errorMessage.value = '';
+        });
 
     } catch (error) {
         console.error(error.response ? error.response.data : error.message);
@@ -285,6 +289,71 @@ const submitForm = async () => {
         } else {
             errorMessage.value = 'An error occurred while saving data';
         }
+    }
+};
+
+const formStock = useForm({
+    _id: '',
+    id_transaction:  '',
+    id_medicine:  '',
+    quantity: '',
+    note: '',
+});
+
+const medicines = ref([]);
+let quantityMax = ref(null); 
+
+const searchMedicines = async () => {
+    try {
+        const response = await axios.get(route('getmedicine', { search: form.code_obat.name || form.name }));
+        medicines.value = response.data;
+        
+        console.log(form.code_obat.name || form.name, medicines.value, medicines.value.find(medicine => medicine.name === (form.code_obat.name || form.name)), 'daffa')
+        updateQuantity();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const updateQuantity = () => {
+    const selectedMedicine = medicines.value.find(medicine => medicine.name === (form.code_obat.name || form.name));
+   
+
+    if (selectedMedicine) {
+        quantityMax.value = selectedMedicine.quantity;
+        formStock.id_medicine = selectedMedicine._id;
+        formStock.quantity = form.quantity;
+        formStock.id_transaction = `${new Date().getUTCSeconds()}` + `${new Date().getUTCMilliseconds()}` + `${new Date().getUTCDate()}` +`${new Date().getUTCMonth()}` + `${new Date().getUTCFullYear()}`;
+        formStock.note = 'Medication Dispense'
+        console.log(selectedMedicine, formStock)
+        if (formStock.quantity > quantityMax.value) {
+            console.error(`Quantity tidak boleh lebih dari ${quantityMax.value}`);
+            formStock.quantity = quantityMax.value;
+        }
+    }
+};
+
+const dispense = async () => {
+    if (!formStock.id_medicine) {
+        console.error('Obat tidak ada di stok');
+        return;
+    }
+
+    if (formStock.quantity > quantityMax.value) {
+        console.error(`Jumlah stok Obat tidak mencukupi ${quantityMax.value}`);
+        return;
+    }
+
+    const routeName = 'medicinetransactions.store';
+    const method = 'post';
+    
+    try {
+        await formStock[method](route(routeName), {
+            preserveScroll: true,
+            onFinish: () => formStock.reset(),
+        });
+    } catch (error) {
+        console.error('Gagal menyimpan transaksi:', error);
     }
 };
 

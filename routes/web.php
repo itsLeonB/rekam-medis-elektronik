@@ -13,7 +13,6 @@ use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\MedicineTransactionController;
 use App\Http\Controllers\ExpertSystemController;
-use App\Http\Controllers\MedicationController;
 use App\Http\Controllers\MedicationDispense;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\MedicationRequestController;
@@ -463,6 +462,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'medicationDispense', 'as' => 'medicationDispense.'], function () {
         Route::get('/', [MedicationDispense::class, 'index'])->name('index');
         Route::get('/{medicationReq_id}', [MedicationDispense::class, 'show'])->name('show');
+        Route::get('/{medicationReq_id}', [MedicationDispense::class, 'update'])->name('update');
     });
 });
 

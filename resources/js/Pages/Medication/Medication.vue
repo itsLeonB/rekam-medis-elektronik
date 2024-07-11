@@ -36,6 +36,14 @@
             </svg>
             Permintaan resep
             </Link>
+            <Link :href="route('medication.requestStock')" as="button"
+            class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 mr-2 bi bi-file-earmark-text" viewBox="0 0 16 16" troke-width="1.5">
+                    <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
+                    <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z"/>
+                </svg>
+                Data Request Obat
+            </Link>
             </div>
            
         </div>
@@ -294,6 +302,17 @@ const formatDate = (date) => {
     return new Date(date).toLocaleDateString('id-ID', options);
 };
 
+const checkRequest = async () => {
+    try {
+        const response = await axios.get(route('obat.checkRequest'));
+        console.log(response.data);
+        document.getElementById('check').textContent = response.data.message;
+    } catch (error) {
+        onsole.error('An error occurred:', error);
+        document.getElementById('check').textContent = 'An error occurred while checking the request.';
+    }
+};
+
 const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
     const result = [];
     if (lastNumber > 5 && (currentNumber < 3 || currentNumber > lastNumber - 2)) {
@@ -316,6 +335,7 @@ const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
 
 onMounted(() => {
     fetchMedications();
+    checkRequest();
 }
 );
 

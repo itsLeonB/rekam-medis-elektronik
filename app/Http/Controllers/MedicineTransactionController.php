@@ -69,7 +69,7 @@ class MedicineTransactionController extends Controller
             $medicine->quantity += intval($request->input('quantity'));
             $medicine->save();
     
-            return Inertia::location(route('medicinetransaction'));
+            return;
             // return response()->json($medicinetransaction, 201);
         } catch (ModelNotFoundException $e) {
             return response()->json([

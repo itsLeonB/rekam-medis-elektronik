@@ -13,6 +13,7 @@ class MedicationDispense extends Controller
     public function index(Request $request)
     {
         return FhirResource::where('resourceType', 'MedicationRequest')
+        ->whereNotIn('status', ['cancelled', 'completed'])
         ->get();
     }
 
@@ -53,7 +54,7 @@ class MedicationDispense extends Controller
                 'medicationReferenceId' => data_get($medicationReq, 'medicationReference.reference'),
                 'encounter' => data_get($medicationReq, 'encounter.reference'),
             ];
-            return $data;
+            return [$data, $medicationReq];
             
         } catch (\Throwable $th) {
             Log::error($th->getMessage());
@@ -67,9 +68,13 @@ class MedicationDispense extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FhirResource $fhirResource)
+    public function update($medicationReq_id)
     {
-        //
+        return FhirResource::where(
+            ['resourceType', 'MedicationRequest'],
+            ['id', $medicationReq_id])
+        ->whereNotIn('status', ['cancelled', 'completed'])
+        ->first();
     }
 
     /**

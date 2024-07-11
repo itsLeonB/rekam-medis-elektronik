@@ -19,7 +19,7 @@
         </div>
         <div class="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
             <LineChart :title="'Perbandingan Transaksi Per Bulan (Total Kuantitas)'" :options="bulan" :series="jumlahTransaksiperBulan" class="basis-3/5" />
-            <DonutChart :title="'Persebaran Jumlah Stok Obat Sedikit (Total Kuantitas)'" :options="persebaranObatOptions" :series="persebaranObat" class="basis-2/5" />
+            <!-- <DonutChart :title="'Persebaran Jumlah Stok Obat Sedikit (Total Kuantitas)'" :options="persebaranObatOptions" :series="persebaranObat" class="basis-2/5" /> -->
         </div>
         <div class="flex justify-center mt-8">
             <div class="flex justify-center">

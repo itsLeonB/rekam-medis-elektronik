@@ -28,8 +28,8 @@
                 <div class="mt-4">
                     <InputLabel for="quantity" :value="'Quantity (maksimum '+ quantityMax +')'" />
                     <TextInput id="quantity" type="number" class="mt-1 block w-full" required v-model="form.quantity"
-                        :placeholder="'Masukkan Quantity (maksimum ' + quantityMax + ')'"
-                        :max="quantityMax" />
+                        :min="quantityMax" :placeholder="'Masukkan Quantity (maksimum ' + quantityMax + ')'"
+                         />
                     <InputError class="mt-1" :message="form.errors.quantity" />
                 </div>
 
@@ -47,6 +47,18 @@
                 </div>
             </form>
         </div>
+        <Modal :show="creationSuccessModal">
+            <div class="p-6">
+                <h2 class="text-lg text-center font-medium text-gray-900">
+                    Data transaksi berhasil ditambahkan. <br> Kembali ke halaman transakasi.
+                </h2>
+                <div class="mt-6 flex justify-end">
+                    <Link :href="route('medicinetransaction')"
+                        class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    Kembali </Link>
+                </div>
+            </div>
+        </Modal>
     </AuthenticatedLayout>
 </template>
 
@@ -136,14 +148,14 @@ const updateQuantity = () => {
 
     if (selectedMedicine) {
         // Set quantityMax to selectedMedicine.quantity
-        quantityMax.value = selectedMedicine.quantity;
+        quantityMax.value = -(selectedMedicine.quantity);
 
         // Validate quantity
-        if (form.quantity > quantityMax.value) {
-            console.error(`Quantity tidak boleh lebih dari ${quantityMax.value}`);
-            // Set form.quantity to quantityMax if it exceeds
-            form.quantity = quantityMax.value;
-        }
+        // if (form.quantity > quantityMax.value) {
+        //     console.error(`Quantity tidak boleh lebih dari ${quantityMax.value}`);
+        //     // Set form.quantity to quantityMax if it exceeds
+        //     form.quantity = quantityMax.value;
+        // }
     }
 };
 
@@ -155,10 +167,10 @@ const submit = async () => {
     }
 
     // Validate quantity against quantityMax
-    if (form.quantity > quantityMax.value) {
-        console.error(`Quantity tidak boleh lebih dari ${quantityMax.value}`);
-        return;
-    }
+    // if (form.quantity > quantityMax.value) {
+    //     console.error(`Quantity tidak boleh lebih dari ${quantityMax.value}`);
+    //     return;
+    // }
 
     const routeName = isEditMode === true ? 'medicinetransactions.update' : 'medicinetransactions.store';
     const method = isEditMode === true ? 'put' : 'post';
