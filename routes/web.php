@@ -274,6 +274,12 @@ Route::middleware('auth')->group(function () {
         // - pie chart distribusi stok obat berdasarkan jenis
         Route::get('/obat-persebaran-stok', [AnalyticsObatController::class, 'getObatPersebaranStok'])->name('obat-persebaran-stok');
 
+        Route::get('/forecast', [AnalyticsObatController::class, 'getForecast'])->name('forecast');
+
+        Route::post('/save-monthly-data', [AnalyticsObatController::class, 'saveMonthlyData'])->name('save-monthly-data');
+
+        Route::get('/transform-data', [AnalyticsObatController::class, 'transformForecastData'])->name('transform-data');
+
     });
 
     // Endpoint untuk Formulir Perawatan

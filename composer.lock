@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "38bc970c425d9a59e7e5ac49d7f54d67",
+    "content-hash": "c3efdb084f4792093848c215fa83775d",
     "packages": [
         {
             "name": "brick/math",
@@ -3436,6 +3436,48 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "robertogallea/laravel-python",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robertogallea/LaravelPython.git",
+                "reference": "292487bb4a35da0e635f83f66441c6c5fddf573e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robertogallea/LaravelPython/zipball/292487bb4a35da0e635f83f66441c6c5fddf573e",
+                "reference": "292487bb4a35da0e635f83f66441c6c5fddf573e",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.7",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "robertogallea\\LaravelPython\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Python": "robertogallea\\LaravelPython\\Facades\\PythonFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "robertogallea\\LaravelPython\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Run python scripts inside Laravel app",
+            "support": {
+                "issues": "https://github.com/robertogallea/LaravelPython/issues",
+                "source": "https://github.com/robertogallea/LaravelPython/tree/0.1.1"
+            },
+            "time": "2020-12-15T15:30:22+00:00"
         },
         {
             "name": "spatie/laravel-permission",

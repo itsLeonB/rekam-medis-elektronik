@@ -50,6 +50,13 @@ const bulan = ref({
   }
 });
 
+const forecastSeries = ref([
+        {
+            name: 'Forecast',
+            data: [/* Add your forecast data here */]
+        }
+    ]);
+
 const mendekatiKadaluarsa = ref(0);
 const fetchMendekatiKadaluarsa = async () => {
     try {
@@ -105,13 +112,44 @@ const fetchPersebaranObat = async () => {
         console.error('Error fetching data:', error);
     }
 };
+
 // Series data including actual and forecast data
 const jumlahTransaksiperBulan = ref([]);
 const fetchPerbandinganTransaksiPerBulan = async () => {
     try {
         const response = await axios.get(route('analytics.obat-transaksi-perbandingan-per-bulan'));
         jumlahTransaksiperBulan.value = response.data;
+        saveMonthlyData();
         console.log(jumlahTransaksiperBulan.value, 'daffa')
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+const saveMonthlyData = async () => {
+    try {
+        const response = await axios.post(route('analytics.save-monthly-data', {data: jumlahTransaksiperBulan.value}));
+        runScripts();
+        console.log(jumlahTransaksiperBulan.value, response.data, 'daffaforecast')
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+const transform = async () => {
+    try {
+        const response = await axios.get(route('analytics.transform-data'));
+        console.log(jumlahTransaksiperBulan.value, response.data, 'daffaforecast')
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+const runScripts = async () => {
+    try {
+        const response = await axios.get(route('analytics.forecast'));
+        transform();
+        console.log(jumlahTransaksiperBulan.value, response.data, 'daffaforecast')
     } catch (error) {
         console.error('Error fetching data:', error);
     }

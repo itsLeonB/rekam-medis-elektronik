@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\FhirResource;
+use App\Models\Forecast;
 use App\Models\Medicine;
 use App\Models\MedicineTransaction;
+use App\Models\MonthlyStock;
 use Carbon\Carbon;
 use MongoDB\BSON\UTCDateTime;
+use Illuminate\Http\Request;
+use GuzzleHttp\Client;
 
 class AnalyticsObatController extends Controller
 {
@@ -175,142 +179,102 @@ class AnalyticsObatController extends Controller
     }
 
 
-    public function getActiveEncounters()
+    public function getForecast(Request $request)
     {
-        $count = FhirResource::where('resourceType', 'Encounter')
-            ->whereNotIn('status', self::ENDED_STATUS)
-            ->count();
-        return $count;
+            // URL of the Flask API endpoint
+            $flaskApiUrl = 'http://127.0.0.1:5000/process_forecast';
+
+            // Create a new Guzzle HTTP client
+            $client = new Client();
+    
+            try {
+                // Send a GET request to the Flask API
+                $response = $client->request('GET', $flaskApiUrl);
+    
+                // Get the response body
+                $body = $response->getBody();
+                $data = json_decode($body, true);
+    
+                // Return the response from Flask API
+                return response()->json($data);
+            } catch (\Exception $e) {
+                // Log the error and return a response
+                \Log::error("Error processing forecast: " . $e->getMessage());
+                return response()->json(['error' => 'Error processing forecast'], 500);
+            }
     }
 
-    public function getThisMonthNewPatients()
+    public function saveMonthlyData(Request $request)
     {
-        $currentMonth = Carbon::now()->month;
-        $currentYear = Carbon::now()->year;
-
-        $count = FhirResource::where('resourceType', 'Patient')
-            ->whereMonth('created_at', $currentMonth)
-            ->whereYear('created_at', $currentYear)
-            ->count();
-
-        return $count;
+        try {
+            $data = $request->input('data'); // Assuming the input JSON is sent as a request payload
+    
+            $transformedData = [];
+            foreach ($data as $item) {
+                $year = $item['name'];
+                foreach ($item['data'] as $month => $quantity) {
+                    $month = $month + 1; // Adjust month to be 1-based
+                    // Delete existing records for the same month and year
+                    $dt = MonthlyStock::where('year', (int)$year)->where('month', (int)$month)->delete();
+                    \Log::info("Transformed Forecast Data: $dt");
+    
+                    $transformedData[] = [
+                        'month' => (int) $month,
+                        'year' => (int) $year,
+                        'quantity' => (int) $quantity
+                    ];
+                }
+            }
+    
+            // Save transformed data to MongoDB
+            foreach ($transformedData as $data) {
+                MonthlyStock::create($data);
+            }
+    
+            return response()->json(['message' => 'Data saved successfully', 'data' => $transformedData]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to save data: ' . $e->getMessage()], 500);
+        }
     }
 
-    public function countPatients()
+    public function transformForecastData()
     {
-        $count = FhirResource::where('resourceType', 'Patient')
-            ->count();
+        // Retrieve all forecast data from MongoDB
+        $forecasts = Forecast::all();
 
-        return $count;
-    }
+        // Determine the range of years based on the available data
+        $years = Forecast::select('year')->orderBy('year', 'asc')->distinct('year')->get();
+        \Log::info("Transformed Forecast Data: $years");
 
-    public function getEncountersPerMonth()
-    {
-        $endDate = new \MongoDB\BSON\UTCDateTime(now()->getTimestamp() * 1000);
-        $startDate = new \MongoDB\BSON\UTCDateTime(now()->subMonth(13)->getTimestamp() * 1000);
+        $startYear = min($years);
+        $endYear = max($years);
 
-        $encounters = FhirResource::raw(function ($collection) use ($startDate, $endDate) {
-            return $collection->aggregate([
-                [
-                    '$addFields' => [
-                        'date' => [
-                            '$dateFromString' => [
-                                'dateString' => '$period.start'
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    '$match' => [
-                        'resourceType' => 'Encounter',
-                        'date' => [
-                            '$gte' => $startDate,
-                            '$lte' => $endDate
-                        ]
-                    ]
-                ],
-                [
-                    '$group' => [
-                        "_id" => [
-                            'date' => [
-                                '$dateToString' => [
-                                    'format' => '%Y-%m',
-                                    'date' => [
-                                        '$dateFromParts' => [
-                                            'year' => [
-                                                '$year' => '$date'
-                                            ],
-                                            'month' => [
-                                                '$month' => '$date'
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            'class' => '$class.code'
-                        ],
-                        'count' => ['$sum' => 1]
-                    ]
-                ],
-            ]);
-        });
+        // Initialize array to hold transformed data
+        $transformedData = [];
 
-        return $encounters;
-    }
+        // Loop through the range of years to generate data
+        foreach ($years as $y) {
+            $data = [];
+            foreach (range(1, 12) as $month) {
+                $found = false;
+                foreach ($forecasts as $forecast) {
+                    if ($forecast->year == $y && $forecast->month == $month) {
+                        $data[] = $forecast->forecast;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $data[] = 0;
+                }
+            }
+            // Push the year and data into transformedData array
+            $transformedData[] = [
+                'name' => (string) $y,
+                'data' => $data,
+            ];
+        }
 
-    public function getPatientAgeGroups()
-    {
-        $patientCounts = FhirResource::raw(function ($collection) {
-            return $collection->aggregate([
-                [
-                    '$match' => ['resourceType' => 'Patient']
-                ],
-                [
-                    '$set' => [
-                        'birthday' => [
-                            '$dateFromString' => [
-                                'dateString' => '$birthDate',
-                                'format' => '%Y-%m-%d'
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    '$set' => [
-                        'age' => [
-                            '$subtract' => [
-                                ['$subtract' => [['$year' => '$$NOW'], ['$year' => '$birthday']]],
-                                ['$cond' => [['$lt' => [['$dayOfYear' => '$birthday'], ['$dayOfYear' => '$$NOW']]], 0, 1]]
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    '$addFields' => [
-                        'age_group' => [
-                            '$switch' => [
-                                'branches' => [
-                                    ['case' => ['$and' => [['$gte' => ['$age', 0]], ['$lt' => ['$age', 5]]]], 'then' => 'balita'],
-                                    ['case' => ['$and' => [['$gte' => ['$age', 5]], ['$lt' => ['$age', 11]]]], 'then' => 'kanak'],
-                                    ['case' => ['$and' => [['$gte' => ['$age', 11]], ['$lt' => ['$age', 25]]]], 'then' => 'remaja'],
-                                    ['case' => ['$and' => [['$gte' => ['$age', 25]], ['$lt' => ['$age', 45]]]], 'then' => 'dewasa'],
-                                    ['case' => ['$and' => [['$gte' => ['$age', 45]], ['$lt' => ['$age', 65]]]], 'then' => 'lansia'],
-                                    ['case' => ['$gte' => ['$age', 65]], 'then' => 'manula'],
-                                ],
-                                'default' => 'unknown'
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    '$group' => [
-                        '_id' => '$age_group',
-                        'count' => ['$sum' => 1]
-                    ]
-                ]
-            ]);
-        });
-
-        return $patientCounts;
+        return response()->json($transformedData);
     }
 }
