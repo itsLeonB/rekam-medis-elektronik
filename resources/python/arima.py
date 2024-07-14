@@ -53,7 +53,7 @@ def process_forecast():
 
         month = last_month
         year = last_year
-        for _ in range(24):
+        for _ in range(12):
             month += 1
 
             if month > 12:
