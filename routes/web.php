@@ -212,7 +212,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Finance/FormInvoice');
     })->name('finance.newinvoice');
     Route::get('/finance/invoice/create/{id}', function ($id) {
-        return Inertia::render('Finance/FormInvoice', ['id'=>$id]);
+        return Inertia::render('Finance/FormInvoice', ['id' => $id]);
     })->name('finance.newinvoice');
 
     // Claim
@@ -221,26 +221,26 @@ Route::middleware('auth')->group(function () {
     })->name('finance.claim.new');
 
     // ChargeItem
-    Route::get('/finance/charge-item', function() {
+    Route::get('/finance/charge-item', function () {
         return Inertia::render('Finance/ChargeItem/PilihEncounter');
     })->name('finance.chargeitem.index');
-    Route::get('finance/charge-item/{id}', function($id) {
-        return Inertia::render('Finance/ChargeItem/Buat', ['item_id'=>$id]);
+    Route::get('finance/charge-item/{id}', function ($id) {
+        return Inertia::render('Finance/ChargeItem/Buat', ['item_id' => $id]);
     })->name('finance.chargeitem.createblank');
-    Route::get('finance/charge-item/{resType}/{id}', function($resType, $id) {
-        return Inertia::render('Finance/ChargeItem/Buat', ['item_id'=>$id, 'item_res_type'=>$resType]);
+    Route::get('finance/charge-item/{resType}/{id}', function ($resType, $id) {
+        return Inertia::render('Finance/ChargeItem/Buat', ['item_id' => $id, 'item_res_type' => $resType]);
     })->name('finance.chargeitem.create');
 
     // Catalogue
     Route::get('/finance/catalogue', function () {
-        return Inertia::render('Finance/DaftarHarga/Index');
+        return Inertia::render('Finance/DaftarHarga/Index'); // Halaman Daftar Harga
     })->name('finance.catalogue');
     Route::get('/finance/catalogue/{id}', function ($id) {
         return Inertia::render('Finance/DaftarHarga/Detail', ['item_id' => $id]);
-    })->name('finance.catalogue.detail');
-    Route::get('/finance/catalogue/edit/{id}', function($id) {
-        return Inertia::render('Finance/DaftarHarga/Edit', ['item_id'=>$id]);
-    })->name('finance.catalogue.edit');
+    })->name('finance.catalogue.detail'); // Halaman Detail Harga
+    Route::get('/finance/catalogue/edit/{id}', function ($id) {
+        return Inertia::render('Finance/DaftarHarga/Edit', ['item_id' => $id]);
+    })->name('finance.catalogue.edit'); // Halaman Edit Harga
 
     // Account
     Route::get('/finance/account/create', function () {
@@ -260,7 +260,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/{resourceType}/{id}', [SatusehatController::class, 'integrationPut'])->name('update');
     });
 
-    
+
     // Endpoint untuk View Rekam Medis
     Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
         // Daftar rekam medis pasien
@@ -288,8 +288,8 @@ Route::middleware('auth')->group(function () {
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
     });
-    
-     // Endpoint untuk View mediation
+
+    // Endpoint untuk View mediation
     Route::group(['prefix' => 'obat', 'as' => 'obat.'], function () {
         // Daftar obat
         Route::get('/', [ObatController::class, 'index'])->name('index');
@@ -401,8 +401,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
         Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
         Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
-        Route::group(['prefix'=>'kptl', 'as'=>'kptl.'], function() {
-            Route::get('/base', [TerminologyController::class , 'getKPTL'])->name('base');
+        Route::group(['prefix' => 'kptl', 'as' => 'kptl.'], function () {
+            Route::get('/base', [TerminologyController::class, 'getKPTL'])->name('base');
             Route::get('/modifier', [TerminologyController::class, 'getKPTLModifier'])->name('modifier');
         });
         Route::get('/coverageType', [TerminologyController::class, 'getCoverageType'])->name('cov-type');
@@ -451,7 +451,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'catalogue', 'as' => 'catalogue'], function () {
         Route::get('/', [ServicePriceController::class, 'index'])->name('index');
         Route::get('/{id}', [ServicePriceController::class, 'show'])->name('show');
-        Route::put('/{id}', [ServicePriceController::class,'update'])->name('update');
+        Route::put('/{id}', [ServicePriceController::class, 'update'])->name('update');
     });
     Route::middleware('auth')->group(function () {
         Route::get('/expertsystems', function () {
@@ -468,9 +468,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/kategori-umur/{id}', [ExpertSystemController::class, 'kategoriUmur'])->name('get.umur');
         Route::get('/data-fisik/{id}', [ExpertSystemController::class, 'dataFisik'])->name('get.dataFisik');
         Route::get('/rule/{rule}/{id}', [ExpertSystemController::class, 'rulePeresepanShow'])->name('ruleperesepan.show');
-
     });
-    
 });
 Route::get('medicationOrg', [ExpertSystemController::class, 'indexMedication'])->name('get.medicationOrg');
 
