@@ -1,64 +1,61 @@
 <template>
     <div v-if="object">
-        <h1 class="text-lg font-semibold text-secondhand-orange-300">Riwayat Pengobatan</h1>
-        <div v-for="(item, index) in object" class="mb-3">
-            <h2 class="text-base font-medium text-secondhand-orange-300">Obat: {{ index + 1 }}</h2>
+        <h1 class="text-lg font-semibold text-secondhand-orange-300">Resep Obat</h1>
+        <div class="mb-3" v-for="(item, index) in object" >
+            <h4 class="text-base font-medium text-secondhand-orange-300">Obat {{ index + 1 }}</h4>
             <table class="w-full mx-auto text-base text-left text-neutral-grey-200 ">
                 <tbody class="w-full">
-                    <tr class="bg-original-white-0">
+                     <tr class="bg-original-white-0">
                         <th scope="row" class="px-6 py-2 font-semibold whitespace-nowrap w-1/4">
-                           Jenis Obat
+                            Nama Obat
                         </th>
-                        <td v-if="item.medicationCodeableConcept" class="px-6 py-2 w-3/4">
-                            {{ item.medicationCodeableConcept.coding[0].display }} | Kode KFA: {{ item.medicationCodeableConcept.coding[0].code }}
-                        </td>
-                    </tr>
-                    <tr v-if="item.bodySite"  class="bg-original-white-0">
-                        <th scope="row" class="px-6 py-2 font-semibold whitespace-nowrap w-1/4">
-                            Clinical Status
-                        </th>
-                        <td v-if="item.status" class="px-6 py-2 w-3/4">
-                            {{ item.status }}
-                        </td>
-                    </tr>
-                    
-                    <tr class="bg-original-white-0">
-                        <th scope="row" class="px-6 py-2 font-semibold whitespace-nowrap w-1/4">
-                           Kategori
-                        </th>
-                        <td v-if="item.category" class="px-6 py-2 w-3/4">
-                            {{ item.category.coding[0].display }}
+                        <td v-if="item.medicationReference" class="px-6 py-2 w-3/4">
+                            {{ item.medicationReference.display }}
                         </td>
                     </tr>
                     <tr class="bg-original-white-0">
                         <th scope="row" class="px-6 py-2 font-semibold whitespace-nowrap w-1/4">
-                           Waktu Konsumsi Obat
+                            Jenis Obat
                         </th>
-                        <td v-if="item.effectiveDateTime" class="px-6 py-2 w-3/4">
-                            {{ formatTimestamp(item.effectiveDateTime) }}
+                        <td v-if="item.dosageInstruction" class="px-6 py-2 w-3/4">
+                             {{ item.dosageInstruction[0].route.coding[0].display }}
                         </td>
                     </tr>
                     <tr class="bg-original-white-0">
                         <th scope="row" class="px-6 py-2 font-semibold whitespace-nowrap w-1/4">
-                           Dosis Obat
+                            Dosis
                         </th>
-                        <td v-if="item.dosage" class="px-6 py-2 w-3/4">
-                            {{ item.dosage[0].text }}
+                        <td v-if="item.dosageInstruction" class="px-6 py-2 w-3/4">
+                             {{ item.dosageInstruction[0].timing.repeat.frequency }} x {{ item.dosageInstruction[0].timing.repeat.period }}/{{ item.dosageInstruction[0].timing.repeat.periodUnit }}
                         </td>
                     </tr>
-                    
+                    <tr class="bg-original-white-0">
+                        <th scope="row" class="px-6 py-2 font-semibold whitespace-nowrap w-1/4">
+                            Keterangan
+                        </th>
+                        <td v-if="item.dosageInstruction" class="px-6 py-2 w-3/4">
+                             {{ item.dosageInstruction[0].text }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
+        
     </div>
 </template>
 <script setup>
+import { Link, usePage} from '@inertiajs/vue3';
+import { ref } from 'vue';
 const props = defineProps({
     object: {
         type: Object,
         required: false
     },
 });
+
+function getEncounterCode(reference) {
+    return reference.split('/')[1];
+}
 
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
@@ -76,4 +73,5 @@ const formatTimestamp = (timestamp) => {
 
     return `${dayOfWeek}, ${day} ${month} ${year} ${hour}:${minute}`;
 };
+
 </script>

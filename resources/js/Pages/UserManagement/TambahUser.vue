@@ -36,8 +36,8 @@
                 <div class="mt-4">
                     <InputLabel for="password" value="Password" />
                     <div class="relative p-0 rounded-xl border-none text-neutral-black-300">
-                        <TextInput id="password" :type="togglePassword" class="mt-1 block w-full" v-model="form.password"
-                            required placeholder="Masukkan Password">
+                        <TextInput id="password" :type="togglePassword" class="mt-1 block w-full"
+                            v-model="form.password" required placeholder="Masukkan Password">
                         </TextInput>
                         <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto">
                             <div class="text-neutral-grey-100 hover:text-original-teal-300 active:text-original-teal-400 cursor-pointer"
@@ -90,7 +90,7 @@
                     <InputLabel for="role" value="Peran" />
                     <select id="role" v-model="form.role"
                         class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                        <option v-for="peran in peranList" :value="peran">{{peran}}</option>
+                        <option v-for="peran in peranList" :value="peran">{{ peran }}</option>
                     </select>
                     <InputError class="mt-1" />
                 </div>
@@ -107,8 +107,8 @@
                 <div class="mt-4" v-show="isPractitioner">
                     <InputLabel for="nik" value="Cari Practitioner ID" />
                     <div class="w-full flex">
-                        <TextInput id="nik" type="text" class="mt-1 block w-full mr-3" v-model="nikPractitioner" autofocus
-                            placeholder="Masukkan NIK" />
+                        <TextInput id="nik" type="text" class="mt-1 block w-full mr-3" v-model="nikPractitioner"
+                            autofocus placeholder="Masukkan NIK" />
                         <MainButtonSmall @click="cariPractitionerID" class="teal-button text-original-white-0"
                             type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -155,7 +155,8 @@
                                     Identifier
                                 </th>
                                 <td class="px-6 py-4 w-2/3">
-                                    <p v-for="item in practitioner.resource.identifier">{{ item.system }}: {{ item.value }}
+                                    <p v-for="item in practitioner.resource.identifier">{{ item.system }}: {{ item.value
+                                        }}
                                     </p>
                                 </td>
                             </tr>
@@ -254,8 +255,8 @@ const submit = async () => {
     } else if (isPractitioner.value === true && practitioner.value !== null) {
         form.practitioner_id = practitioner.value.resource.id;
         await axios.get(route('integration.show', {
-            res_type: 'Practitioner',
-            satusehat_id: form.practitioner_id
+            resourceType: 'Practitioner',
+            id: form.practitioner_id
         }));
     };
 

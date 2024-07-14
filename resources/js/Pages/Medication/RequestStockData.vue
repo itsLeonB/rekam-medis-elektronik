@@ -12,8 +12,7 @@
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Apoteker untuk mengelola obat.
             </p> 
             
-            
-           <Link :href="route('medication')" v-if="$page.props.auth.user.roles[0].name === 'apoteker'" as="button"
+            <Link :href="route('medication')" as="button" v-if="$page.props.auth.user.roles[0].name === 'apoteker'"
                 class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 mr-2 bi bi-file-earmark-text" viewBox="0 0 16 16" troke-width="1.5">
                     <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -21,7 +20,7 @@
                 </svg>
                 Data Obat
             </Link>
-            <Link :href="route('medication.requestStock')" v-if="$page.props.auth.user.roles[0].name === 'apoteker'" as="button"
+            <Link :href="route('medication.requestStock')" as="button" v-if="$page.props.auth.user.roles[0].name === 'apoteker'"
             class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 mr-2 bi bi-file-earmark-text" viewBox="0 0 16 16" troke-width="1.5">
                     <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -87,33 +86,27 @@
                             <th scope="col" class="px-6 py-3 w-3/5">
                                 Nama 
                             </th>
-                            <th scope="col" class="px-6 py-3 w-2/5">
-                                Tipe 
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/5">
-                                Status
-                            </th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody v-for="(medication, index) in medications.data" :key="index">
+                    <tbody v-for="(medication, index) in medications.data" :key="medication.code">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (medications.data.length - 1) }">
-                            <Link :href="route('medication.details', { 'medication_id': medication.id_medication })">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">
+                            <td class="px-6 py-4 w-1/5">
                                 {{ medication.code }}
-                            </th>
-                            </Link>
+                            </td>
                             <td class="px-6 py-4 w-3/5">
                                 {{ medication.name }}
                                 <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
                                         searchWith_id).label }}: {{ medication[searchWith_id] }}</p>
                             </td>
                             
-                            <td class="px-6 py-4 w-2/5">
-                                {{ medication.form }}
-                            </td>
-                           <td class="px-6 py-4 w-2/5">
-                                {{ medication.status }}
+                            <td>
+                                <!-- If the opsi is "Tambahkan" -->
+                                <p v-if="medication.opsi === 'Tambahkan Obat'" class="text-sm\\\\ text-neutral-grey-200">{{ medication.opsi }}</p>
+                                
+                                <!-- If the opsi is "Hapus" -->
+                                <button v-else @click="deleteMedication(medication)" class="red-button px-2 py-1 border border-transparent rounded-md text-sm text-original-white-0">{{ medication.opsi }}</button>
                             </td>
                         </tr>
                     </tbody>
@@ -159,14 +152,25 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const medications = ref([]);
-
 const hide = ref(false);
+const items = ref([]);
 
 const fetchMedications = async (page = 1) => {
-    const { data } = await axios.get(route('obat.index', {'page': page}));
-    console.log(data)
+    const { data } = await axios.get(route('obat.requestStock', {'page': page}));
     medications.value = data.obat;
     generateNumbers(1, medications.value.current_page, medications.value.last_page);
+};
+
+const deleteMedication = async (medication) => {
+    try {
+        const url = route('obat.requestStock.delete', { code: medication.code });
+        await axios.delete(url);
+        medications.value.data = medications.value.data.filter(med => med.code !== medication.code);
+        alert('Data berhasil dihapus');
+    } catch (error) {
+        console.error('Error deleting data:', error);
+        alert('Gagal menghapus data');
+    }
 };
 
 const cancelSearch = async () => {
@@ -180,7 +184,7 @@ const searchMedications = async () => {
     hide.value = true;
     const query = searchQuery.value;
     try {
-        const { data } = await axios.get(route('obat.index', { [searchWith_id.value]: query }));
+        const { data } = await axios.get(route('obat.requestStock', { [searchWith_id.value]: query }));
         medications.value = data.obat;
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } catch (error) {
@@ -190,16 +194,17 @@ const searchMedications = async () => {
 
 const fetchPagination = async (page = 1) => {
     if (searchQuery.value == '') {
-        const { data } = await axios.get(route('obat.index', {'page': page}));
+        const { data } = await axios.get(route('obat.requestStock', {'page': page}));
         medications.value = data.obat;
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } else {
         const query = searchQuery.value;
-        const { data } = await axios.get(route('obat.index'), {params: {'name': query, 'page': page}});
+        const { data } = await axios.get(route('obat.requestStock'), {params: {'code': query, 'page': page}});
         medications.value = data.obat;
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     };
 };
+
 const checkRequest = async () => {
     try {
         const response = await axios.get(route('obat.checkRequest'));
@@ -210,11 +215,11 @@ const checkRequest = async () => {
         document.getElementById('check').textContent = 'An error occurred while checking the request.';
     }
 };
-const searchWith_id = ref('name');
+const searchWith_id = ref('code');
 
 const searchWith = [
+    {"id": 'code', "label": 'Kode'},
     {"id": 'name', "label": 'Nama'},
-    {"id": 'form', "label": 'Tipe'},
 ];
 
 const paging = ref([]);
@@ -246,12 +251,3 @@ onMounted(() => {
 );
 
 </script>
-<style>
-    .requestCheck span{
-        font-size:14px;
-        font-weight: semibold;
-    };
-    .requestCheck p{
-        font-size:12px;
-    }
-</style>

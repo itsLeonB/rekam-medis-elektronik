@@ -9,7 +9,8 @@
         <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 7">Clinical Impression</MainButtonSmallOutline>
         <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 8">Service Requests</MainButtonSmallOutline>
         <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 9">Medication Statements</MainButtonSmallOutline>
-        <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 10">Questionnaire Responses</MainButtonSmallOutline>
+        <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 10">Medication Request</MainButtonSmallOutline>
+        <!-- <MainButtonSmallOutline class="purple-button purple-button-text mr-2 mt-2" @click="formSection = 11">Questionnaire Responses</MainButtonSmallOutline> -->
     </div>
 
     <div v-show="formSection === 1">
@@ -40,8 +41,11 @@
         <MedicationStatements :object="encounter.medicationStatements" />
     </div>
     <div v-show="formSection === 10">
-        <QuestionnaireResponsesGD :object="encounter.questionnaireResponses"  />
+        <MedicationRequest :object="encounter.medicationRequests" />
     </div>
+    <!-- <div v-show="formSection === 11">
+        <QuestionnaireResponsesGD :object="encounter.questionnaireResponses"  />
+    </div> -->
 </template>
 
 <script setup>
@@ -54,6 +58,7 @@ import Compositions from '@/Pages/RekamMedis/Partials/Resources/Compositions.vue
 import ClinicalImpressions from '@/Pages/RekamMedis/Partials/Resources/ClinicalImpressions.vue';
 import ServiceRequests from '@/Pages/RekamMedis/Partials/Resources/ServiceRequests.vue';
 import MedicationStatements from '@/Pages/RekamMedis/Partials/Resources/MedicationStatements.vue';
+import MedicationRequest from '@/Pages/RekamMedis/Partials/Resources/MedicationRequest.vue';
 import AllergyIntolerances from '@/Pages/RekamMedis/Partials/Resources/AllergyIntolerances.vue';
 import QuestionnaireResponsesGD from '@/Pages/RekamMedis/Partials/Resources/QuestionnaireResponsesGD.vue';
 import { ref } from 'vue';

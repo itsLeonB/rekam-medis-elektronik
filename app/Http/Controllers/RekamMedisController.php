@@ -11,7 +11,6 @@ class RekamMedisController extends Controller
     public function index(Request $request)
     {
         $patients = FhirResource::where('resourceType', 'Patient');
-
         if ($request->query('name')) {
             $patients = $patients->where('name.text', 'like', '%' . addcslashes($request->query('name'), '%_') . '%');
         }
@@ -25,7 +24,7 @@ class RekamMedisController extends Controller
         }
 
         $patients = $patients->paginate(15)->withQueryString();
-
+        
         $formattedPatients = $patients->map(function ($patient) {
             $latestEncounter = FhirResource::where('resourceType', 'Encounter')
                 ->where('subject.reference', 'Patient/' . $patient['id'])
@@ -105,7 +104,7 @@ class RekamMedisController extends Controller
             ['encounter.reference', 'Encounter/' . $encounterId]
         ])->get();
         
-        $conditions->groupBy(function ($condition) {
+        $datas = $conditions->groupBy(function ($condition) {
             $category = data_get($condition, 'category.0.coding.0.code');
             $code = data_get($condition, 'code.coding.0.system');
             if ($category == 'encounter-diagnosis' && $code == 'http://hl7.org/fhir/sid/icd-10') {
@@ -120,20 +119,18 @@ class RekamMedisController extends Controller
                 return $condition;
             });
         });
-       $data = FhirResource::where([
-        ['encounter.reference', '=', 'Encounter/' . $encounterId],
-        ['resourceType', '=', 'Condition']
-    ])->get();
+        return $datas;
+       
     
-    // return response()->json($groupedConditions);
-        return response()->json([
-        'diagnosis' => $conditions->map(function ($condition) {
-            return [
-                'id' => $condition->id,
-                'code' => $condition->code
-            ];
-        })
-    ]);
+        // return response()->json($groupedConditions);
+        // return response()->json([
+        //     'diagnosis' => $conditions->map(function ($condition) {
+        //         return [
+        //             'id' => $condition->id,
+        //             'code' => $condition->code
+        //         ];
+        //     })
+        // ]);
     }
 
     public function show($patientId)
@@ -155,6 +152,7 @@ class RekamMedisController extends Controller
             $encSatusehatId = $encounter['id'];
 
             return [
+                'id' => $encSatusehatId,
                 'encounter' => $encounter,
                 'conditions' => $this->getConditionData($encSatusehatId),
                 'observations' => $this->getEncounterRelatedData('Observation', $encSatusehatId, 'encounter'),
@@ -241,4 +239,5 @@ class RekamMedisController extends Controller
             ->get();
     }
     }
+    
 }

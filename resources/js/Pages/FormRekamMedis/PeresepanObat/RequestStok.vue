@@ -1,52 +1,27 @@
 <template>
     <AuthenticatedLayout>
         <template #apphead>
-            <title>Tambah Obat - </title>
+            <title>Request Stok Obat - </title>
         </template>
-        <Modal :show="creationSuccessModal">
-            <div class="p-6">
-                <h2 class="text-lg text-center font-medium text-gray-900">
-                    Data Obat berhasil ditambahkan. <br> Kembali ke halaman Obat.
-                </h2>
-                <div class="mt-6 flex justify-end">
-                    <Link :href="route('medication')"
-                        class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                    Kembali </Link>
-                </div>
-            </div>
-        </Modal>
-        <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-12 sm:py-12 md:px-10">
-            <h1 class="text-2xl font-bold text-neutral-black-300">Tambah Obat</h1>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan Obat.</p>
+        <div class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-12 sm:py-16 md:px-10 ">
+            <h1 class="text-2xl font-bold text-neutral-black-300">Request Stok Obat</h1>
+            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk meminta stok obat.</p>
             <form @submit.prevent="test">
                 <div class="my-2 w-full" v-for="(field, index) in form" :key="index">
-                    <h3 v-if="index !== 0" class="font-semibold text-secondhand-orange-300 mt-2">Obat {{ (index + 1) }}
+                    <h3 v-if="index !== 0" class="font-semibold text-secondhand-orange-300 mt-2">Request {{ (index + 1) }}
                     </h3>
-                    <h3 v-else class="font-semibold text-secondhand-orange-300 mt-2">Obat</h3>
+                    <h3 v-else class="font-semibold text-secondhand-orange-300 mt-2 mb-1">Request</h3>
                         <div class="w-full mb-3">
                             <InputLabel for="name" value="Nama Obat" />
-                           
+                            <div class="flex">
                                 <Multiselect v-model="form[index].code_obat" mode="single" placeholder="Obat"
                                     :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="100"
                                     :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
                                     track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
-                            
-                        </div>
-                        <div class="w-full">
-                            <InputLabel for="extension" value="Extension" />
-                            <div class="flex">
-                                <Multiselect v-model="form[index].extension" mode="single" placeholder="Extension"
-                                :object="true" :options="medicationExtension" label="display" valueProp="code" track-by="code"
-                                class="mt-1" :classes="combo_classes" required />
-                                <DeleteButton v-if="index !== 0" @click="removeField(index)" />
+                                    <DeleteButton v-if="index !== 0" @click="removeField(index)" />
                             </div>
-                        </div>
+                        </div>           
                 </div>
-                <!-- <div class="flex flex-col items-center justify-end mt-10">
-                    <MainButton class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0">
-                        Tambah
-                    </MainButton>
-                </div> -->
                  <div class="flex justify-between">
                     <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Obat
                     </SecondaryButtonSmall>
@@ -81,14 +56,12 @@ import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = ref([{
-    code_obat: [null],
-    extension: [null]
+    code_obat: [null]
 }]);
 
 const addField = () => {
     let medicationData = {
-        code_obat: [null],
-        extension: [null]
+        code_obat: [null]
     };
     form.value.push(medicationData);
 }
@@ -111,92 +84,32 @@ const searchMedication = async (query) => {
 const organizationRef = ref(null);
 const getorganizationRef = async () => {
     const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
+    console.log(data)
     organizationRef.value = data;
-};
-const medicationExtension = ref(null);
-const getMedicationExtension = async () => {
-    const { data } = await axios.get(route('terminologi.get'), {
-        params: {
-            'resourceType': 'Medication',
-            'attribute': 'medicationType'
-        }
-    });
-medicationExtension.value = data;
 };
 
 onMounted(() => {
-    getMedicationExtension();
     getorganizationRef();
 });
 
 const successAlertVisible = ref(false);
 const failAlertVisible = ref(false);
 const errorMessage = ref('');
-const creationSuccessModal = ref(false);
 const isLoading = ref(false);
 
 const test = () => {
     form.value.forEach(item => {
-
         const formDataJson = {
-            resourceType: 'Medication',
-            identifier: [
-            {
-                system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
-                use: 'official',
-                value: '123456789'
-            }
-            ],
-            // identifier: [organizationRef.value],
-            meta: {
-                profile: [
-                    'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
-                ]
-            },
             code: {
-                coding: [{
-                    system: 'http://sys-ids.kemkes.go.id/kfa',
-                    code: item.code_obat.kfa_code,
-                    display: item.code_obat.name,
-                }],
-            },
-        
-            status: item.code_obat.active ? 'active' : 'inactive',
-            form: {
-            coding: [{
-                system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
-                code: item.code_obat.dosage_form.code,
-                display: item.code_obat.dosage_form.name,
-            }],
-            },
-            extension: [
-            {
-                url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
-                valueCodeableConcept: {
-                        coding: [
-                        {
-                            system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
-                            code: item.extension.code,
-                            display: item.extension.display,
-                        }
-                    ]
-                }
+                code_kfa: item.code_obat.kfa_code,
+                display: item.code_obat.name,
             }
-            ],
-            ingredient: item.code_obat.active_ingredients.map(ingredient => ({
-                            itemCodeableConcept: {
-                                coding: [{
-                                    system: 'http://sys-ids.kemkes.go.id/kfa',
-                                    code: ingredient.kfa_code,
-                                    display: ingredient.zat_aktif
-                                }]
-                            },
-                            isActive: ingredient.active,
-                        }))
-            };
-        axios.post(route('integration.store', { resourceType: 'Medication'}), formDataJson)
+        };
+        console.log('Sending data:', formDataJson);
+        axios.post(route('request-to-stock.store'), formDataJson)
             .then(response => {
-                 creationSuccessModal.value = true;
+                console.log('Response:', response.data); 
+                successAlertVisible.value = true;
                 setTimeout(() => {
                     successAlertVisible.value = false;
                 }, 3000);

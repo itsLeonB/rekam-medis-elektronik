@@ -19,11 +19,12 @@ API Documentation can be accessed through [Postman](https://documenter.getpostma
 
 This project is built using:
 
--   PHP 8.2
--   Laravel 10
--   MySQL
--   Vue.js 3 with Inertia.js
--   Tailwind CSS 3
+- PHP 8.2
+- Laravel 10
+- MongoDB
+- Vue.js 3 with Inertia.js
+- Tailwind CSS 3
+- railway
 
 ## Installation
 

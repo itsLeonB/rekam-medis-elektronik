@@ -12,8 +12,11 @@
                     <th scope="col" class="px-6 py-3 w-3/12">
                         Diagnosis
                     </th>
-                    <th scope="col" class="px-6 py-3 w-3/12">
+                    <th scope="col" class="px-6 py-3 w-2/12">
                         DPJP
+                    </th>
+                    <th scope="col" class="px-6 py-3 w-1/12">
+                        Print Resep
                     </th>
                 </tr>
             </thead>
@@ -39,8 +42,15 @@
                             <p v-for="(diag, index) in item.encounter.diagnosis">- {{ item.encounter.status }}</p>
                         </div>
                     </td>
-                    <td class="px-6 py-4 w-3/12">
+                    <td class="px-6 py-4 w-2/12">
                         {{ item.encounter.participant[0].individual.display }}
+                    </td>
+                    <td class="px-6 py-4 w-1/12">
+                         <Link :href="route('print.resep', { 'encounter_id': item.encounter.id  })"
+                            class="mr-2 inline-flex mb-3 px-2 py-1 button-sm border border-transparent rounded-md font-normal text-sm text-white bg-secondhand-orange-300 transition ease-in-out duration-150 hover:shadow-lg">
+                        Print
+                        </Link>
+                    
                     </td>
                 </tr>
             </tbody>
@@ -63,6 +73,7 @@
 import MainButtonSmall from '@/Components/MainButtonSmall.vue';
 import EncounterDetails from '@/Pages/RekamMedis/Partials/EncounterDetails.vue';
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     encounters: {
@@ -70,7 +81,6 @@ const props = defineProps({
         required: true
     },
 });
-
 const section = ref(null);
 
 const encounterSelected = ref({});

@@ -39,6 +39,9 @@
             <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
         </form>
     </div>
+    <div class="note">
+        <p>Note : Jika pasien hamil input Pregnancy (77386006)</p>
+    </div>
 </template>
 
 <script setup>
@@ -169,5 +172,9 @@ onMounted(() => {
 }
 );
 
-
 </script>
+<style>
+    .note p{
+        font-size: 12px;
+    }
+</style>

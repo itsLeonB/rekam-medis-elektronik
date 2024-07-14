@@ -44,6 +44,7 @@
                 </table>
             </div>
         </div>
+        <hr>
         <div v-if="object.lainnya">
             <h1 class="text-lg font-semibold text-secondhand-orange-300">Keluhan, Riwayat Penyakit, dan Kondisi lainnya</h1>
             <div v-for="(diag, index) in object.lainnya" class="mb-3">
@@ -70,6 +71,7 @@
                 </table>
             </div>
         </div>
+        <hr>
         <div v-if="object['asesmen-harian']">
             <h1 class="text-lg font-semibold text-secondhand-orange-300">Asesmen Harian</h1>
             <div v-for="(diag, index) in object['asesmen-harian']" class="mb-3">
@@ -115,7 +117,6 @@ const props = defineProps({
         required: false
     },
 });
-
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     date.setHours(date.getHours() + 7);

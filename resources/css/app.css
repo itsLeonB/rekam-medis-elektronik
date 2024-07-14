@@ -51,4 +51,14 @@
     .orange-button-text {
         @apply text-secondhand-orange-300 hover:text-secondhand-orange-200;
     }
+    .red-button{
+        @apply bg-red-500
+    }
+    .secondary-button {
+        @apply bg-gradient-to-t
+        from-original-white-100 to-original-white-100
+        hover:from-original-teal-300 hover:to-original-teal-200 
+        active:from-original-teal-400 active:to-original-teal-400        
+        disabled:from-neutral-grey-100 disabled:to-neutral-grey-100 disabled:pointer-events-none;
+    }
 }
