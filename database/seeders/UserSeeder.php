@@ -38,5 +38,13 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10)
         ]);
         $putri->assignRole('poli-umum');
+
+        $daffa = User::create([
+            'name' => "daffa daris",
+            'email' => 'daffa@gmail.com',
+            'password' => '12345678',
+            'remember_token' => Str::random(10)
+        ]);
+        $daffa->assignRole('apoteker');
     }
 }

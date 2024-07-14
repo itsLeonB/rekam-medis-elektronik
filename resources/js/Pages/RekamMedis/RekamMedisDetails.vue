@@ -170,6 +170,7 @@ const updateRekamMedis = async () => {
 
 const fetchRekamMedis = async () => {
     const { data } = await axios.get(route('rekam-medis.show', { 'patient_id': props.patient_satusehat_id }));
+    console.log(props, props.patient_satusehat_id)
     patient.value = data.patient;
     encounters.value = data.encounters;
 };
