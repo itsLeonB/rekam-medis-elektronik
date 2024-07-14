@@ -218,7 +218,7 @@
                     </SecondaryButtonSmall>
                 </div>
 
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <InputLabel value="Supporting Information" />
                     <div class="care-team" v-for="(info, index) in resourceForm.supportingInfo" :key="index">
                         <p class="text-sm font-bold">Supporting Information #{{ index + 1 }}</p>
@@ -261,6 +261,33 @@
                         class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
                         + Tambah Care Team
                     </SecondaryButtonSmall>
+                    <div class="mt-4">
+                        <InputLabel value="Procedures" />
+                        <div class="claim-field grid grid-cols-4 gap-2" v-for="(claim, index) in resourceForm.related"
+                            :key="index">
+                            <Multiselect mode="single" placeholder="Procedure" :filter-results="false" :object="true"
+                                :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
+                                :options="getProcedure" label="label" valueProp="id" track-by="id"
+                                :classes="combo_classes" required v-model="resourceForm.procedure[index]"
+                                class=" col-span-2" />
+                            <SecondaryButtonSmall type="button" @click="removeProcedure(index)"
+                                class="inline-block text-center mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                                Remove
+                            </SecondaryButtonSmall>
+                        </div>
+                        <SecondaryButtonSmall type="button" @click="addProcedure"
+                            class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                            + Tambah Procedure
+                        </SecondaryButtonSmall>
+                    </div>
+
+                </div> -->
+
+                <div class="mt-4 text-center">
+                    <MainButton :isLoading="isLoading"
+                        class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
+                        Tambah Claim
+                    </MainButton>
                 </div>
             </form>
         </div>
@@ -279,6 +306,12 @@ import MainButton from '@/Components/MainButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import axios from 'axios';
 import { ref, onMounted, computed, provide, watch } from 'vue';
+
+const props = defineProps({
+    id: {
+        type: String,
+    },
+});
 
 // Variables
 const practitionerList = ref([])
@@ -588,7 +621,8 @@ const resourceForm = ref({
     careTeam: [
 
     ],
-    supportingInfo: []
+    supportingInfo: [],
+    procedure: []
 });
 
 // Functions
@@ -618,6 +652,18 @@ const getpractitionerList = async () => {
         practitionerList.value = [];
     }
 };
+
+const getProcedure = async () => {
+    try {
+        const {data}= await axios.get('/resources/Procedure');
+        const originalData = data
+        originalData.filter(proc => proc.encounter.reference == "Encounter/" + props.id)
+        return originalData
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
 
 const searchOrg = async (query) => {
     try {
@@ -743,6 +789,11 @@ const addSupportingInfo = () => {
     })
 }
 
+const addProcedure = () => {
+    resourceForm.value.procedure.push({})
+    getProcedure()
+}
+
 
 const removeField = (index) => {
     resourceForm.value.related.splice(index, 1);
@@ -754,6 +805,10 @@ const removeCareTeam = (index) => {
 
 const removeSupportingInfo = (index) => {
     resourceForm.value.supportingInfo.splice(index, 1)
+}
+
+const removeProcedure = (index) => {
+    resourceForm.value.procedure.splice(index, 1)
 }
 
 onMounted(() => {
@@ -772,6 +827,6 @@ const combo_classes = {
 };
 
 const submit = async () => {
-
+    
 }
 </script>

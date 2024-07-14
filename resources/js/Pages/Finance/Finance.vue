@@ -37,6 +37,7 @@
         <div class="grid grid-cols-2 gap-2">
             <div
                 class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-2 md:py-8 md:pl-10 md:pr-14">
+
                 <h2 class="text-lg font-bold">Riwayat Invoice</h2>
                 <p class="mb-3 text-base font-normal text-neutral-grey-100">Invoice terbaru</p>
                 <!-- Search bar -->
@@ -80,19 +81,14 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody v-for="(item, index) in invoice.data" :key="item.id">
+                        <tbody v-for="(item, index) in invoice" :key="item.id">
                             <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                                 :class="{ 'border-b': index !== (users.data.length - 1) }">
-                                <!-- <Link :href="route('resources.show', { 'resType': "Account", 'id': user.id })">
-                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-2/5">
-                                {{ user.name }}
-                            </th>
-                            </Link> -->
                                 <td class="px-6 py-4 w-2/5">
-                                    {{ item.id }}
+                                    {{ item.subject.display }}
                                 </td>
                                 <td class="px-6 py-4 w-2/5">
-                                    {{ item.subject.name }}
+                                    {{ item.status }}
                                 </td>
                             </tr>
                         </tbody>
@@ -160,28 +156,28 @@
                     </MainButton>
                 </div>
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 border shadow rounded-lg">
-                        <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 w-2/5">
-                                    Pasien
-                                </th>
-                                <th scope="col" class="px-6 py-3 w-1/5">
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody v-for="(item, index) in account" :key="item.id">
-                            <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                                :class="{ 'border-b': index !== (account.length - 1) }">
-                                <td class="px-6 py-4 w-2/5">
-                                    {{ item.name }}
-                                </td>
-                                <td class="px-6 py-4 w-2/5">
-                                    {{ item.status }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 w-2/5">
+                                Pasien
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-1/5">
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(item, index) in account" :key="item.id">
+                        <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+                            :class="{ 'border-b': index !== (account.length - 1) }">
+                            <td class="px-6 py-4 w-2/5">
+                                {{ item.name }}
+                            </td>
+                            <td class="px-6 py-4 w-2/5">
+                                {{ item.status }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -213,7 +209,7 @@ const fetchInvoice = async () => {
 
 const fetchAccount = async () => {
     const { data } = await axios.get('/resources/Account');
-    account.value = data.slice(0,5)
+    account.value = data.slice(0, 5)
     console.log(account)
 }
 
@@ -254,6 +250,7 @@ const fetchPagination = async (page = 1) => {
 onMounted(() => {
     fetchUsers();
     fetchAccount();
+    fetchInvoice();
 }
 );
 

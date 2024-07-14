@@ -3,6 +3,18 @@
         <template #apphead>
             <title>Buat Invoice - </title>
         </template>
+        <Modal :show="uploadSuccessModal">
+            <div class="p-6">
+                <h2 class="text-lg text-center font-medium text-gray-900">
+                    Data Invoice telah berhasil dibuat. <br> Kembali ke halaman dashboard.
+                </h2>
+                <div class="mt-6 flex justify-end">
+                    <Link :href="route('finance')" as="button"
+                        class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    Kembali </Link>
+                </div>
+            </div>
+        </Modal>
         <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
             <h1 class="text-2xl font-bold text-neutral-black-300">Buat Invoice Baru</h1>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk membuat invoice baru.</p>
@@ -139,6 +151,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import MainButton from '@/Components/MainButton.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import axios from 'axios';
+import Modal from '@/Components/Modal.vue';
 import { ref, onMounted, computed, provide, watch } from 'vue';
 
 const props = defineProps({
@@ -153,6 +166,7 @@ const encounterList = ref(null);
 const chargeItemList = ref([]);
 const isLoading = ref(false); // Status loading
 const selectedEncounter = ref(null);
+const uploadSuccessModal = ref(false)
 
 const chargeItemTotal = computed(() => {
     return chargeItemList.value
@@ -359,6 +373,14 @@ const combo_classes = {
     optionSelectedDisabled: 'text-green-100 bg-original-teal-300 bg-opacity-50 cursor-not-allowed',
 };
 
+function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (crypto.getRandomValues(new Uint8Array(1))[0] & 0x0f);
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 // Submit Form
 const submit = async () => {
     isLoading.value = true;
@@ -384,10 +406,11 @@ const submit = async () => {
 
     const submitResource = {
         "resourceType": "Invoice",
+        "id": generateUUID(),
         "status": resourceForm.value.status,
         "subject": {
             "reference": "Patient/" + resourceForm.value.subject.satusehatId,
-            "display" : resourceForm.value.subject.name
+            "display": resourceForm.value.subject.name
         },
         "recipient": {
             "reference": "Patient/" + resourceForm.value.recipient.satusehatId,
@@ -425,16 +448,28 @@ const submit = async () => {
 
     console.log(submitResource)
 
-    await axios.post(route('integration.store', { resourceType: "Invoice" }), submitResource)
-        .then(response => {
-            console.log(response.data)
-            isLoading.value = false;
-            creationSuccessModal.value = true;
-        })
-        .catch(error => {
-            isLoading.value = false;
-            console.error('Error creating user:', error);
-        });
+    try {
+        const resourceType = "Invoice";
+        // const response = await axios.post(route('integration.store', { resourceType: resourceType }), submitResource)
+        const response = await axios.post(route('resources.store', {resType: resourceType}), submitResource)
+        console.log(response.data)
+        isLoading.value = false;
+        uploadSuccessModal.value = true;
+    } catch (error) {
+        console.error(error.response ? error.response.data : error.message);
+        isLoading.value = false;
+    }
+
+    // await axios.post(route('integration.store', { resourceType: "Invoice" }), submitResource)
+        // .then(response => {
+        //     console.log(response.data)
+        //     isLoading.value = false;
+        //     uploadSuccessModal.value = true;
+        // })
+        // .catch(error => {
+        //     isLoading.value = false;
+        //     console.error('Error creating user:', error);
+        // });
 }
 
 </script>

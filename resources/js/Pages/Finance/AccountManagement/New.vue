@@ -7,7 +7,7 @@
                 </h2>
                 <div class="mt-6 flex justify-end">
                     <Link :href="route('finance.catalogue.index')"
-                        class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                        class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                     Kembali </Link>
                 </div>
             </div>
