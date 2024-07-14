@@ -18,8 +18,7 @@
             </div>
         </div>
         <div class="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0">
-            <LineChart :title="'Perbandingan Transaksi Per Bulan (Total Kuantitas)'" :options="bulan" :series="jumlahTransaksiperBulan" class="basis-3/5" />
-            <!-- <DonutChart :title="'Persebaran Jumlah Stok Obat Sedikit (Total Kuantitas)'" :options="persebaranObatOptions" :series="persebaranObat" class="basis-2/5" /> -->
+            <LineChart :title="'Perbandingan Transaksi Per Bulan (Total Kuantitas)'" :options="bulan" :series="jumlahTransaksiperBulan" :forecastSeries="foreCastTransaksiPerBulan" class="basis-full" />
         </div>
         <div class="flex justify-center mt-8">
             <div class="flex justify-center">
@@ -35,7 +34,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import { ref, onMounted, computed, onActivated  } from 'vue';
 import axios from 'axios';
-import DonutChart from '@/Components//DonutChart.vue';
 import LineChart from '@/Components//LineChart.vue';
 const bulan = ref({
   chart: {
@@ -49,13 +47,6 @@ const bulan = ref({
     text: 'Monthly Data Comparison by Year'
   }
 });
-
-const forecastSeries = ref([
-        {
-            name: 'Forecast',
-            data: [/* Add your forecast data here */]
-        }
-    ]);
 
 const mendekatiKadaluarsa = ref(0);
 const fetchMendekatiKadaluarsa = async () => {
@@ -94,24 +85,6 @@ const fetchPenggunaanPalingBanyak = async () => {
         console.error('Error fetching data:', error);
     }
 };
-const persebaranObatOptions = ref({});
-
-const persebaranObat = ref([44]);
-const fetchPersebaranObat = async () => {
-    try {
-        const response = await axios.get(route('analytics.obat-persebaran-stok'));
-        persebaranObatOptions.value = {
-            chart: {
-                id: 'donut-chart',
-            },
-            labels: response.data.label,
-        };
-        persebaranObat.value = response.data.value;
-        console.log(persebaranObatOptions.value);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-};
 
 // Series data including actual and forecast data
 const jumlahTransaksiperBulan = ref([]);
@@ -120,7 +93,6 @@ const fetchPerbandinganTransaksiPerBulan = async () => {
         const response = await axios.get(route('analytics.obat-transaksi-perbandingan-per-bulan'));
         jumlahTransaksiperBulan.value = response.data;
         saveMonthlyData();
-        console.log(jumlahTransaksiperBulan.value, 'daffa')
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -130,16 +102,6 @@ const saveMonthlyData = async () => {
     try {
         const response = await axios.post(route('analytics.save-monthly-data', {data: jumlahTransaksiperBulan.value}));
         runScripts();
-        console.log(jumlahTransaksiperBulan.value, response.data, 'daffaforecast')
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-};
-
-const transform = async () => {
-    try {
-        const response = await axios.get(route('analytics.transform-data'));
-        console.log(jumlahTransaksiperBulan.value, response.data, 'daffaforecast')
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -148,8 +110,18 @@ const transform = async () => {
 const runScripts = async () => {
     try {
         const response = await axios.get(route('analytics.forecast'));
-        transform();
-        console.log(jumlahTransaksiperBulan.value, response.data, 'daffaforecast')
+        fetchForecast();
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+
+const foreCastTransaksiPerBulan = ref([]);
+const fetchForecast = async () => {
+    try {
+        const response = await axios.get(route('analytics.fetch-forecast'));
+        foreCastTransaksiPerBulan.value = response.data
+        console.log(foreCastTransaksiPerBulan.value, response.data, 'daffaforecast')
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -185,8 +157,8 @@ onMounted(() => {
     fetchStokSedikit();
     fetchFastMoving();
     fetchPenggunaanPalingBanyak();
-    fetchPersebaranObat();
     fetchPerbandinganTransaksiPerBulan();
+    fetchForecast();
 });
 
 onActivated(() => {
@@ -194,7 +166,6 @@ onActivated(() => {
     fetchStokSedikit();
     fetchFastMoving();
     fetchPenggunaanPalingBanyak();
-    fetchPersebaranObat();
     fetchPerbandinganTransaksiPerBulan();
 });
 

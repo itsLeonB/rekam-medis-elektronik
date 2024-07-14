@@ -26,7 +26,7 @@ class MedicineController extends Controller
         $medicines = Medicine::where('name', 'like', "%{$search}%")
             ->orWhere('medicine_code', 'like', "%{$search}%")
             ->orderBy($sort, $direction)
-            ->paginate(4);
+            ->paginate(10);
 
         // Log the paginated and sorted results
         Log::info('Paginated and sorted results:', ['medicines' => $medicines]);

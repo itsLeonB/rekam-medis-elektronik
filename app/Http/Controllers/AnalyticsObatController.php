@@ -179,7 +179,7 @@ class AnalyticsObatController extends Controller
     }
 
 
-    public function getForecast(Request $request)
+    public function forecast(Request $request)
     {
             // URL of the Flask API endpoint
             $flaskApiUrl = 'http://127.0.0.1:5000/process_forecast';
@@ -242,12 +242,15 @@ class AnalyticsObatController extends Controller
         // Retrieve all forecast data from MongoDB
         $forecasts = Forecast::all();
 
-        // Determine the range of years based on the available data
-        $years = Forecast::select('year')->orderBy('year', 'asc')->distinct('year')->get();
-        \Log::info("Transformed Forecast Data: $years");
+         // Determine the range of years based on the available data
+         $years = Forecast::orderBy('year', 'asc')->pluck('year')->unique()->toArray();
 
-        $startYear = min($years);
-        $endYear = max($years);
+         // Properly log the transformed data
+         \Log::info("Transformed Forecast Data: " . json_encode($years));
+
+         // Determine the start and end year
+         $startYear = min($years);
+         $endYear = max($years);
 
         // Initialize array to hold transformed data
         $transformedData = [];
@@ -259,7 +262,7 @@ class AnalyticsObatController extends Controller
                 $found = false;
                 foreach ($forecasts as $forecast) {
                     if ($forecast->year == $y && $forecast->month == $month) {
-                        $data[] = $forecast->forecast;
+                        $data[] =  round($forecast->forecast);
                         $found = true;
                         break;
                     }
