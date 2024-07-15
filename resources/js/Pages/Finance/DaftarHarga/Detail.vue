@@ -28,18 +28,19 @@
                                 Harga
                             </th>
                             <td class="px-6 py-4 w-2/3">
-                                {{ item.price.currency}} {{ item.price.value }}
+                                {{ item.price.currency }} {{ item.price.value }}
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="flex flex-col items-center justify-end mt-10">
-                    <Link v-if="['admin'].includes($page.props.auth.user.roles[0].name)" :href="route('finance.catalogue.edit', { 'id': item.code })"
+                <Link v-if="['admin'].includes($page.props.auth.user.roles[0].name)"
+                    :href="route('finance.catalogue.edit', { 'id': item.code })"
                     class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                        Sunting
-                    </Link>
-                </div>
+                Sunting
+                </Link>
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>

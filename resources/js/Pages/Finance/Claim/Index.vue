@@ -89,7 +89,7 @@
                         </td>
 
                         <td class="px-6 py-4 w-3/12">
-                            {{ item.totalNet.currency }} {{ item.totalNet.value }}
+                            {{ item.totalItem.currency }} {{ item.totalItem.value }}
                         </td>
                         <td class="px-6 py-4 w-3/12">
                             <p>{{ formatTimestamp(item.date).split('/')[0] }}</p>
@@ -147,6 +147,7 @@ const searchClaim = async () => {
 
 const fetchClaim = async () => {
     const { data } = await axios.get('/resources/Claim');
+    console.log(data)
     claim.value = data
 }
 

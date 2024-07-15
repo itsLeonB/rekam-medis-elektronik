@@ -286,12 +286,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/catalogue', function () {
         return Inertia::render('Finance/DaftarHarga/Index'); // Halaman Daftar Harga
     })->name('finance.catalogue');
-    Route::get('/finance/catalogue/{id}', function ($id) {
+    Route::get('/finance/catalogue/detail/{id}', function ($id) {
         return Inertia::render('Finance/DaftarHarga/Detail', ['item_id' => $id]);
     })->name('finance.catalogue.detail'); // Halaman Detail Harga
     Route::get('/finance/catalogue/edit/{id}', function ($id) {
         return Inertia::render('Finance/DaftarHarga/Edit', ['item_id' => $id]);
     })->name('finance.catalogue.edit'); // Halaman Edit Harga
+    Route::get('/finance/catalogue/create', function () {
+        return Inertia::render('Finance/DaftarHarga/New');
+    })->name('finance.catalogue.new');
 
     // Account
     Route::get('/finance/account/create', function () {
@@ -583,10 +586,11 @@ Route::middleware('auth')->group(function () {
     });
 
     // Harga Jasa Kesehatan (Catalogue) API 
-    Route::group(['prefix' => 'catalogue', 'as' => 'catalogue'], function () {
+    Route::group(['prefix' => 'catalogue', 'as' => 'catalogue.'], function () {
         Route::get('/', [ServicePriceController::class, 'index'])->name('index');
         Route::get('/{id}', [ServicePriceController::class, 'show'])->name('show');
         Route::put('/{id}', [ServicePriceController::class, 'update'])->name('update');
+        Route::post('/', [ServicePriceController::class, 'store'])->name('store');
     });
 
     Route::middleware('auth')->group(function () {

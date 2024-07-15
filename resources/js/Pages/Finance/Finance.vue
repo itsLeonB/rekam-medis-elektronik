@@ -255,7 +255,7 @@ const fetchPersebaranCoverage = async () => {
         const data = response.data;
 
         console.log(data);
-        const urutan = covClass.value;
+        const urutan = ['pay', 'PUBLICPOL', 'WCBPOL', 'COL'];
 
         persebaranCoverage.value = Array.from(urutan.map(group => {
             const matchingItem = data.find(item => item.id === group);
