@@ -11,173 +11,67 @@
                         <path d="M12 12V14M12 14L9.5 16.5M12 14L14.5 16.5" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                    <h1 class="text-2xl font-bold text-neutral-black-300">Modul Finance</h1>
+                    <h1 class="text-2xl font-bold text-neutral-black-300">Dashboard Keuangan</h1>
                 </span>
-                <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk mengelola invoice dan claim
+                <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk melihat kondisi keuangan,
+                    seperti jumlah invoice, klaim, dan akun pasien
                 </p>
                 <div class="flex flex-col gap-4 sm:flex-row">
-                    <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
-                        :href="route('finance.chargeitem.index')" as="button"
+                    <Link v-if="['admin', 'keuangan'].includes($page.props.auth.user.roles[0].name)"
+                        :href="route('finance.claim.index')" as="button"
                         class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Tambah Invoice/Klaim
+                    Daftar Klaim
                     </Link>
-                    <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
+                    <Link v-if="['admin', 'keuangan'].includes($page.props.auth.user.roles[0].name)"
+                        :href="route('finance.invoice.index')" as="button"
+                        class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    Daftar Invoice
+                    </Link>
+                    <Link v-if="['admin', 'keuangan'].includes($page.props.auth.user.roles[0].name)"
                         :href="route('finance.catalogue')" as="button"
                         class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                     Daftar Harga
+                    </Link>
+                    <Link v-if="['admin', 'keuangan'].includes($page.props.auth.user.roles[0].name)"
+                        :href="route('finance.account.index')" as="button"
+                        class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    Daftar Account Pasien
                     </Link>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-3 gap-2">
             <div
                 class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-2 md:py-8 md:pl-10 md:pr-14">
-
-                <h2 class="text-lg font-bold">Riwayat Invoice</h2>
-                <p class="mb-3 text-base font-normal text-neutral-grey-100">Invoice terbaru</p>
-                <!-- Search bar -->
-                <div class="flex justify-end items-center mb-5 w-full">
-                    <form class="mr-3 w-full">
-                        <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
-                            <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="#8f8f8f" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                </svg>
-                            </div>
-                            <input v-model="searchNama" id="search-invoice" placeholder="Cari Invoice"
-                                class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
-                            <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
-                                @click="cancelSearch" v-show="hide">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
-                                    class="w-5 h-5 hover:fill-thirdouter-red-200">
-                                    <path fill-rule="evenodd"
-                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-
-                            </div>
-                        </div>
-                    </form>
-                    <MainButton @click="searchUsers" class="teal-button text-original-white-0">
-                        Cari
-                    </MainButton>
-                </div>
-                <div class="relative overflow-x-auto mb-5">
-                    <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
-                        <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 w-2/5">
-                                    Pasien
-                                </th>
-                                <th scope="col" class="px-6 py-3 w-1/5">
-                                    Status
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody v-for="(item, index) in invoice" :key="item.id">
-                            <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                                :class="{ 'border-b': index !== (users.data.length - 1) }">
-                                <td class="px-6 py-4 w-2/5">
-                                    {{ item.subject.display }}
-                                </td>
-                                <td class="px-6 py-4 w-2/5">
-                                    {{ item.status }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- <nav class="flex justify-end">
-                <ul v-for="(link, index) in users.links" class="inline-flex -space-x-px text-base h-10">
-                    <li v-if="index === 0">
-                        <button @click="fetchPagination((users.current_page - 1) < 1 ? 1 : (users.current_page - 1))"
-                            class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">&laquo;</button>
-                    </li>
-                    <li v-else-if="index !== 0 && index !== (users.links.length - 1) && link.active == false">
-                        <button @click="fetchPagination(link.url === null ? users.current_page : link.label)"
-                            class="flex items-center justify-center px-4 h-10 text-neutral-grey-200 bg-original-white-0 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{
-                                link.label }}</button>
-                    </li>
-                    <li v-else-if="index !== 0 && index !== (users.links.length - 1) && link.active == true">
-                        <button @click="fetchPagination(link.label)"
-                            class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 ">{{
-                                link.label }}</button>
-                    </li>
-                    <li v-else-if="index === (users.links.length - 1)">
-                        <button
-                            @click="fetchPagination((users.current_page + 1) > users.last_page ? users.last_page : (users.current_page + 1))"
-                            class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">&raquo;</button>
-                    </li>
-                </ul>
-            </nav> -->
+                <h2 class="font-bold text-xl">Akun Pasien Aktif</h2>
+                <span class="text-lg font-semibold text-neutral-black-500">{{ activeAccounts }} Akun Pasien</span>
             </div>
             <div
-                class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
-                <h2 class="font-bold text-lg">Account Management</h2>
-                <p class="mb-3 text-base font-normal text-neutral-grey-100">Kelola Akun Keuangan Pasien</p>
-                <Link as="button" :href="route('finance.account.new')"
-                    class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                Buka Akun Baru
-                </Link>
-                <div class="flex justify-end items-center mb-5 w-full">
-                    <form class="mr-3 w-full">
-                        <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
-                            <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke-width="1.5" stroke="#8f8f8f" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                </svg>
-                            </div>
-                            <input v-model="searchAccount" id="search-account" placeholder="Cari Account"
-                                class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
-                            <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
-                                @click="cancelAccountSearch" v-show="hide">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
-                                    class="w-5 h-5 hover:fill-thirdouter-red-200">
-                                    <path fill-rule="evenodd"
-                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-2 md:py-8 md:pl-10 md:pr-14">
+                <h2 class="font-bold text-xl">Jumlah Invoice Terbit</h2>
+                <p>{{ issuedInvoice }} Invoice</p>
+            </div>
+            <div
+                class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-2 md:py-8 md:pl-10 md:pr-14">
+                <h2 class="font-bold text-xl">Jumlah Klaim Aktif</h2>
+                <p>{{ activeClaims }} Klaim</p>
+            </div>
 
-                            </div>
-                        </div>
-                    </form>
-                    <MainButton @click="getAccount" class="teal-button text-original-white-0">
-                        Cari
-                    </MainButton>
+            <div class="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0 col-span-3">
+                <div class="p-5 flex flex-col basis-3/5 h-fit bg-white overflow-hidden shadow sm:rounded-xl">
+                    <h2 class="pl-4 pt-3 mb-2 text-base font-semibold text-neutral-black-500">Jumlah Invoice Per Bulan
+                    </h2>
+                    <VueApexCharts width="100%" height="320px" type="bar" :options="jumlahInvoicePerBulanOptions"
+                        :series="jumlahInvoicePerBulan">
+                    </VueApexCharts>
                 </div>
-                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 border shadow rounded-lg">
-                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 w-2/5">
-                                Pasien
-                            </th>
-                            <th scope="col" class="px-6 py-3 w-1/5">
-                                Status
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody v-for="(item, index) in account" :key="item.id">
-                        <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                            :class="{ 'border-b': index !== (account.length - 1) }">
-                            <td class="px-6 py-4 w-2/5">
-                                {{ item.name }}
-                            </td>
-                            <td class="px-6 py-4 w-2/5">
-                                {{ item.status }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="p-5 flex flex-col basis-2/5 h-fit bg-white overflow-hidden shadow sm:rounded-xl">
+                    <h2 class="pl-4 pt-3 mb-2 text-base font-semibold text-neutral-black-500">Persebaran Invoice</h2>
+                    <VueApexCharts width="100%" height="367px" type="donut" :options="persebaranCoverageOptions"
+                        :series="persebaranCoverage">
+                    </VueApexCharts>
+                </div>
             </div>
         </div>
 
@@ -189,68 +83,237 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import MainButton from '@/Components/MainButton.vue';
 import { Link } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
+import VueApexCharts from 'vue3-apexcharts';
 import axios from 'axios';
 
 const users = ref([]);
 const invoice = ref([]);
 const account = ref([]);
 
+const months = ref([]);
+const ambCounts = ref([]);
+const impCounts = ref([]);
+const emerCounts = ref([]);
+const issuedInvoice = ref(0);
+const activeAccounts = ref(0);
+const activeClaims = ref(0);
+const jumlahInvoicePerBulanOptions = ref([]);
+const jumlahInvoicePerBulan = ref([]);
+
+const fontFamily = 'Poppins, Arial, sans-serif';
+
 const hide = ref(false);
 
-const fetchUsers = async (page = 1) => {
-    const { data } = await axios.get(route('users.index', { 'page': page }));
-    users.value = data.users;
-};
-
-const fetchInvoice = async () => {
-    const { data } = await axios.get('/resources/Invoice');
-    invoice.value = data
+// Analytics
+const getIssuedInvoice = async () => {
+    try {
+        const { data } = await axios.get(route('analytics.issued-invoice'));
+        const originalData = data
+        issuedInvoice.value = originalData;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        issuedInvoice.value = 0;
+    }
 }
 
-const fetchAccount = async () => {
-    const { data } = await axios.get('/resources/Account');
-    account.value = data.slice(0, 5)
-    console.log(account)
+const getActiveAccounts = async () => {
+    try {
+        const { data } = await axios.get(route('analytics.active-accounts'));
+        const originalData = data
+        activeAccounts.value = originalData;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        activeAccounts.value = 0;
+    }
 }
 
-const searchAccount = ref('');
-
-const cancelSearch = async () => {
-    hide.value = false;
-    searchNama.value = '';
-    fetchUsers(1);
-};
-
-const cancelAccountSearch = async () => {
-    hide.value = false;
-    searchAccount.value = '';
-    fetchAccount();
+const getActiveClaims = async () => {
+    try {
+        const { data } = await axios.get(route('analytics.active-claims'));
+        const originalData = data
+        activeClaims.value = originalData;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        activeClaims.value = 0;
+    }
 }
 
-const searchNama = ref('');
 
-const searchUsers = async () => {
-    hide.value = true;
-    const query = searchNama.value;
-    const { data } = await axios.get(route('users.index', { 'name': query }));
-    users.value = data.users;
+const fetchInvoicePerBulan = async () => {
+    try {
+        const response = await axios.get(route('analytics.invoice-per-month'));
+        const data = response.data;
+
+        const uniqueMonths = [...new Set(data.map(item => item.month))];
+        const uniqueMonthsParsed = uniqueMonths.map(month => {
+            const date = new Date(month + '-01');
+            return new Intl.DateTimeFormat('id-ID', { month: 'short', year: '2-digit' }).format(date);
+        });
+
+        const ambCountArray = Array(uniqueMonths.length).fill(0);
+        const impCountArray = Array(uniqueMonths.length).fill(0);
+        const emerCountArray = Array(uniqueMonths.length).fill(0);
+
+        data.forEach(item => {
+            const monthIndex = uniqueMonths.indexOf(item.month);
+            if (item.class === 'qris') ambCountArray[monthIndex] = item.count;
+            else if (item.class === 'cash') impCountArray[monthIndex] = item.count;
+            else if (item.class === 'bank') emerCountArray[monthIndex] = item.count;
+        });
+
+        months.value = uniqueMonthsParsed;
+        ambCounts.value = ambCountArray;
+        impCounts.value = impCountArray;
+        emerCounts.value = emerCountArray;
+
+        jumlahInvoicePerBulanOptions.value = {
+            chart: {
+                type: 'bar',
+                stacked: true,
+            },
+            colors: ['#6f52ed', '#f6896d', '#58c5a5'],
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                },
+            },
+            xaxis: {
+                categories: months.value,
+                labels: {
+                    rotate: -90,
+                    rotateAlways: true,
+                    minHeight: 8,
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: 'Arial, sans-serif',
+                        fontWeight: 400,
+                    },
+                },
+                title: {
+                    text: 'Periode',
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: 'Arial, sans-serif',
+                        fontWeight: 600,
+                        cssClass: 'apexcharts-xaxis-title',
+                    }
+                },
+            },
+            yaxis: {
+                title: {
+                    text: 'Jumlah Invoice',
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: 'Arial, sans-serif',
+                        fontWeight: 600,
+                        cssClass: 'apexcharts-xaxis-title',
+                    }
+                },
+            },
+            legend: {
+                position: 'top',
+                horizontalAlign: 'left',
+                fontFamily: 'Arial, sans-serif',
+                markers: {
+                    width: 12,
+                    height: 12,
+                    radius: 12,
+                },
+            },
+            tooltip: {
+                style: {
+                    fontFamily: 'Arial, sans-serif',
+                }
+            },
+        };
+
+        jumlahInvoicePerBulan.value = [
+            {
+                name: 'QRIS',
+                data: ambCounts.value
+            },
+            {
+                name: 'Cash',
+                data: impCounts.value
+            },
+            {
+                name: 'Bank Transfer',
+                data: emerCounts.value
+            }
+        ];
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
+const persebaranCoverage = ref([]);
+const persebaranCoverageOptions = ref([]);
+
+const fetchPersebaranCoverage = async () => {
+    try {
+        const response = await axios.get(route('analytics.sebaran-coverage'));
+        const data = response.data;
+
+        console.log(data);
+        const urutan = covClass.value;
+
+        persebaranCoverage.value = Array.from(urutan.map(group => {
+            const matchingItem = data.find(item => item.id === group);
+            return matchingItem ? matchingItem.count : 0;
+        }));
+
+        persebaranCoverageOptions.value = {
+            chart: {
+                type: "donut"
+            },
+            colors: ["#6f52ed", "#f6896d", "#589ec5", "#f2e35b", "#58c5a5", "#f43f5e"],
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: "60%",
+                    },
+                },
+            },
+            labels: urutan,
+            legend: {
+                position: "bottom",
+                horizontalAlign: "center",
+                fontFamily: fontFamily,
+                markers: {
+                    width: 12,
+                    height: 12,
+                    radius: 12,
+                },
+            },
+            tooltip: {
+                style: {
+                    fontFamily: fontFamily,
+                },
+            },
+        };
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
 };
 
-const fetchPagination = async (page = 1) => {
-    if (searchNama.value == '') {
-        const { data } = await axios.get(route('users.index', { 'page': page }));
-        users.value = data.users;
-    } else {
-        const query = searchNama.value;
-        const { data } = await axios.get(route('users.index'), { params: { 'name': query, 'page': page } });
-        users.value = data.users;
-    };
-};
+const covClass = ref([])
+
+const getCovClass = async () => {
+    const { data } = await axios.get(route('terminologi.cov-type'));
+    const originalData = data.data;
+    originalData.map(item => {
+        covClass.value.push(item.code)
+    });
+    console.log(covClass)
+}
 
 onMounted(() => {
-    fetchUsers();
-    fetchAccount();
-    fetchInvoice();
+    getIssuedInvoice();
+    getActiveAccounts();
+    getActiveClaims();
+    fetchInvoicePerBulan();
+    getCovClass();
+    fetchPersebaranCoverage();
 }
 );
 

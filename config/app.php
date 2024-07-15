@@ -327,8 +327,9 @@ return [
         'Patient' => ['get', 'post'],
         'Invoice' => ['get', 'post', 'put', 'patch'],
         'ChargeItem' => ['get', 'post', 'put', 'patch'],
-        'Account'=> ['get', 'post', 'put', 'patch'],
-        'Coverage'=> ['get', 'post', 'put', 'patch']
+        'Account' => ['get', 'post', 'put', 'patch'],
+        'Coverage' => ['get', 'post', 'put', 'patch'],
+        'Claim' => ['get', 'post', 'put', 'patch'],
     ],
 
     'resource_type_map' => [
@@ -363,11 +364,11 @@ return [
         // 'specimen' => 'Specimen',  // Not yet implemented
         // 'relatedperson' => 'RelatedPerson',  // Not yet implemented
         'patient' => 'Patient',
-        'chargeitem'=> 'ChargeItem',
-        'account'=>'Account',
-        'coverage'=>'Coverage',
-        'claim'=>'Claim',
-        'invoice'=>'Invoice',
+        'chargeitem' => 'ChargeItem',
+        'account' => 'Account',
+        'coverage' => 'Coverage',
+        'claim' => 'Claim',
+        'invoice' => 'Invoice',
     ],
 
     'resourceTypes' => [
@@ -556,7 +557,7 @@ return [
         'MedicationRequestDispenseRequst' => [
             'dispenseInterval' => Valuesets::MedicationRequestDispenseInterval,
             'quantity' => [Valuesets::MedicationIngredientStrengthDenominator, Valuesets::MedicationRequestQuantity],
-            'quantityUnit'=> Valuesets::MedicationDispenseQuantity,
+            'quantityUnit' => Valuesets::MedicationDispenseQuantity,
             'expectedSupplyDuration' => Valuesets::MedicationRequestSupplyDuration
         ],
         'MedicationRequestSubstitution' => [

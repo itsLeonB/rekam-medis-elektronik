@@ -1,7 +1,7 @@
 <template>
     <AuthenticatedLayout>
         <template #apphead>
-            <title>Buat Invoice - </title>
+            <title>Sunting Invoice - </title>
         </template>
         <Modal :show="uploadSuccessModal">
             <div class="p-6">
@@ -16,18 +16,9 @@
             </div>
         </Modal>
         <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
-            <h1 class="text-2xl font-bold text-neutral-black-300">Buat Invoice Baru</h1>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk membuat invoice baru.</p>
+            <h1 class="text-2xl font-bold text-neutral-black-300">Sunting Invoice - {{ currentInvoice.id }}</h1>
+            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman menyunting invoice yang telah dibuat</p>
             <form @submit.prevent="submit">
-                <!-- Status Invoice -->
-                <div class="mt-4">
-                    <InputLabel value="Issuer" />
-                    <Multiselect mode="single" placeholder="Issuer" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchOrg"
-                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
-                        v-model="resourceForm.issuer" />
-                    <InputError class="mt-1" />
-                </div>
                 <div class="mt-4">
                     <InputLabel value="Status" />
                     <select id="status"
@@ -35,49 +26,6 @@
                         v-model="resourceForm.status">
                         <option v-for="(label, id) in invoiceStatus" :value=id>{{ label }}</option>
                     </select>
-                </div>
-                <!-- Pilih Pasien -->
-                <div class="mt-4">
-                    <InputLabel for="pasien" value="Identitas Pasien" />
-                    <Multiselect mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
-                        label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required
-                        v-model="resourceForm.subject" />
-                    <InputError class="mt-1" />
-                </div>
-                <!-- Pilih Penanggungjawab pasien -->
-                <div class="mt-4">
-                    <InputLabel value="Penanggung Jawab" />
-                    <Multiselect mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
-                        label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required
-                        v-model="resourceForm.recipient" />
-                    <InputError class="mt-1" />
-                </div>
-                <!-- Account Pasien -->
-                <div class="mt-4">
-                    <InputLabel value="Account" />
-                    <Multiselect mode="single" placeholder="Account" :filter-results="false" :resolve-on-load="true"
-                        :object="true" :options="getAccount" label="name" valueProp="id" track-by="id" class="mt-1"
-                        :searchable="true" :classes="combo_classes" required v-model="resourceForm.account" />
-                    <InputError class="mt-1" />
-                </div>
-                <!-- Tanggal Invoice -->
-                <div class="mt-4">
-                    <InputLabel value="Tanggal Invoice" />
-                    <div class="flex pt-1">
-                        <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required
-                            v-model="resourceForm.date">
-                        </VueDatePicker>
-                    </div>
-                </div>
-                <!-- Kasir -->
-                <div class="mt-4">
-                    <InputLabel value="Kasir" />
-                    <Multiselect mode="single" placeholder="Kasir" :object="true" :options="practitionerList"
-                        label="name" valueProp="satusehat_id" track-by="satusehat_id" class="mt-1"
-                        :classes="combo_classes" required v-model="resourceForm.participant" />
-                    <InputError class="mt-1" />
                 </div>
                 <div class="mt-4">
                     <InputLabel value="Payment Method" />
@@ -87,43 +35,6 @@
                         <option v-for="(label, id) in paymentMethods" :value=id>{{ label }}</option>
                     </select>
                 </div>
-
-                <div class="mt-4">
-                    <InputLabel value="Payment Details" />
-                    <TextInput v-model="resourceForm.rekening" />
-                </div>
-                <!-- Rincian Biaya -->
-                <div class="mt-4">
-                    <InputLabel value="Kunjungan" />
-                    <TextInput v-model="resourceForm.encounter" />
-                    <InputError class="mt-1" />
-                    <table v-if="chargeItemList" class="w-full h-auto mt-2 border">
-                        <tr>
-                            <th>No</th>
-                            <th>Item Tagihan</th>
-                            <th>Harga</th>
-                        </tr>
-                        <tr class="text-center" v-for="(item, index) in chargeItemList" :key="index">
-                            <td>{{ index + 1 }}</td>
-                            <td>{{ item.context.display }}</td>
-                            <td>{{ item.priceOverride.value }}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="mt-4">
-                    <InputLabel value="Total Biaya" />
-                    <TextInput type="number" v-model="resourceForm.totalPriceComponent" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Total Biaya Kotor" />
-                    <TextInput v-model="resourceForm.totalGross" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Total Biaya Nett" />
-                    <TextInput v-model="resourceForm.totalNett" />
-                </div>
                 <div class="mt-4">
                     <InputLabel value="Catatan" />
                     <TextInput v-model="resourceForm.note" />
@@ -132,7 +43,7 @@
                     <!-- TODO 4: API untuk submit -->
                     <MainButton :isLoading="isLoading"
                         class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
-                        Daftar
+                        Sunting Invoice
                     </MainButton>
                 </div>
             </form>
@@ -168,6 +79,7 @@ const chargeItemList = ref([]);
 const isLoading = ref(false); // Status loading
 const selectedEncounter = ref(null);
 const uploadSuccessModal = ref(false)
+const currentInvoice = ref({})
 
 const chargeItemTotal = computed(() => {
     return chargeItemList.value
@@ -203,13 +115,11 @@ const nettPrice = computed(() => {
     return chargeItemTotal.value;
 })
 
-
 // IF: Ada ID Encounter
 const populateForm = async (itemId) => {
     // selectedEncounter.value =  showResource('Encounter', itemId)
     resourceForm.value.encounter = "Encounter/" + itemId
 }
-
 
 // Watch for changes in chargeItemList to update total price
 watch(chargeItemTotal, (newValue) => {
@@ -232,6 +142,24 @@ watch(chargeItemList, (newValue) => {
 
 const invoiceStatus = { 'draft': 'draft', 'issued': 'issued', 'balanced': 'balanced', 'cancelled': 'cancelled', 'entered-in-error': 'entered in error' } // Status Invoice
 const paymentMethods = { 'bank': 'Bank Transfer', 'cash': 'Cash', 'qris': 'QRIS', 'debit': 'Debit Card', 'credit': 'Credit Card' } // Payment Methods
+
+const fetchInvoice = async (id) => {
+    try {
+        const { data } = await axios.get('/resources/Invoice/' + id)
+        const originalData = data
+        currentInvoice.value = originalData
+        console.log(currentInvoice)
+        populate(resourceForm, currentInvoice.value)
+    } catch (error) {
+        console.error('Error fetching resources:', error)
+    }
+}
+
+const populate = (resForm, invoice) => {
+    resForm.value.status = invoice.status
+    resForm.value.paymentMethods = invoice.paymentTerms
+    resForm.value.note = invoice.note
+}
 
 // Searching Patient By NIK
 const searchPatient = async (query) => {
@@ -356,11 +284,39 @@ function formatDateString(dateString) {
     return formattedDate;
 }
 
+function parseFormattedDateString(formattedDateString) {
+    // Split the date string into date and time components
+    const [datePart, timePartWithOffset] = formattedDateString.split('T');
+    const [timePart, offsetPart] = timePartWithOffset.split(/([+-])/);
+    const offsetSign = timePartWithOffset.includes('+') ? '+' : '-';
+
+    // Split date part into year, month, and day
+    const [year, month, day] = datePart.split('-').map(Number);
+
+    // Split time part into hours, minutes, and seconds
+    const [hours, minutes, seconds] = timePart.split(':').map(Number);
+
+    // Split offset part into hours and minutes
+    const offsetHours = Number(offsetPart.slice(0, 2));
+    const offsetMinutes = Number(offsetPart.slice(3));
+
+    // Calculate the total offset in minutes
+    const totalOffset = (offsetHours * 60 + offsetMinutes) * (offsetSign === '+' ? 1 : -1);
+
+    // Create a new Date object
+    const date = new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds));
+
+    // Apply the timezone offset
+    date.setMinutes(date.getMinutes() - totalOffset);
+
+    // Format the date to a standard string
+    const standardDateString = date.toISOString();
+
+    return standardDateString;
+}
+
 onMounted(() => {
-    getpractitionerList();
-    getResourceList('Encounter', encounterList)
-    getChargeItemList(props.id)
-    populateForm(props.id)
+    fetchInvoice(props.id)
 })
 
 const combo_classes = {
@@ -385,74 +341,31 @@ function generateUUID() {
 // Submit Form
 const submit = async () => {
     isLoading.value = true;
-    console.log(chargeItemList.value, resourceForm.value.lineItem)
-    resourceForm.value.lineItem = chargeItemList.value.map((item, index) => ({
-        sequence: index + 1,
-        chargeItem: {
-            chargeItemReference: {
-                reference: "ChargeItem/" + item.id,
-                display: "Charge Item " + item.id
-            }
-        },
-        priceComponent: [{
-            type: "base",
-            factor: 1.0,
-            amount: {
-                currency: item.priceOverride.currency,
-                value: item.priceOverride.value
-            }
-        }]
-    }))
-    console.log(resourceForm.value.subject, resourceForm.value.participant, resourceForm.value.lineItem)
 
     const submitResource = {
         "resourceType": "Invoice",
-        "id": generateUUID(),
+        "id": currentInvoice.value.id,
         "status": resourceForm.value.status,
-        "subject": {
-            "reference": "Patient/" + resourceForm.value.subject.satusehatId,
-            "display": resourceForm.value.subject.name
-        },
-        "recipient": {
-            "reference": "Patient/" + resourceForm.value.recipient.satusehatId,
-            "display": resourceForm.value.recipient.name
-        },
-        "date": formatDateString(resourceForm.value.date),
-        "participant": {
-            "reference": "Practitioner/" + resourceForm.value.participant.satusehat_id,
-            "display": resourceForm.value.participant.name
-        },
-        "issuer": {
-            "reference": "Organization/" + resourceForm.value.issuer.id,
-            "display": resourceForm.value.issuer.name
-        },
-        "lineItem": resourceForm.value.lineItem,
-        "totalPriceComponent": {
-            "currency": "IDR",
-            "value": resourceForm.value.totalPriceComponent
-        },
-        "totalNet": {
-            "currency": "IDR",
-            "value": resourceForm.value.totalNett
-        },
-        "totalGross": {
-            "currency": "IDR",
-            "value": resourceForm.value.totalGross
-        },
+        "subject": currentInvoice.value.subject,
+        "recipient": currentInvoice.value.recipient,
+        "date": currentInvoice.value.date,
+        "participant": currentInvoice.value.participant,
+        "issuer": currentInvoice.value.issuer,
+        "lineItem": currentInvoice.value.lineItem,
+        "totalNet": currentInvoice.value.totalNet,
+        "totalGross": currentInvoice.value.totalGross,
         "paymentTerms": resourceForm.value.paymentMethods,
         "note": resourceForm.value.note,
-        "account": {
-            "reference": "Account/" + resourceForm.value.account.id,
-            "display": resourceForm.value.account.name
-        }
+        "account": currentInvoice.value.account
     }
 
     console.log(submitResource)
 
     try {
         const resourceType = "Invoice";
+        const invId = currentInvoice.value.id;
         // const response = await axios.post(route('integration.store', { resourceType: resourceType }), submitResource)
-        const response = await axios.post(route('resources.store', { resType: resourceType }), submitResource)
+        const response = await axios.put(route('resources.update', { resType: resourceType, id: invId }), submitResource)
         console.log(response.data)
         isLoading.value = false;
         uploadSuccessModal.value = true;
@@ -460,17 +373,6 @@ const submit = async () => {
         console.error(error.response ? error.response.data : error.message);
         isLoading.value = false;
     }
-
-    // await axios.post(route('integration.store', { resourceType: "Invoice" }), submitResource)
-    // .then(response => {
-    //     console.log(response.data)
-    //     isLoading.value = false;
-    //     uploadSuccessModal.value = true;
-    // })
-    // .catch(error => {
-    //     isLoading.value = false;
-    //     console.error('Error creating user:', error);
-    // });
 }
 
 </script>

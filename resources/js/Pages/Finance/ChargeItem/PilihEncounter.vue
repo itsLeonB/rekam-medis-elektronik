@@ -9,7 +9,8 @@
                     v-model="selectedEncounter" />
                 <div v-if="selectedEncounter"
                     class="bg-original-white-0 grid mt-2 grid-cols-4 overflow-hidden shadow rounded-xl md:rounded-2xl mb-2 p-2 md:py-8 md:pl-10 md:pr-14">
-                    <h1 class="font-bold text-neutral-black-300 text-xl col-span-4 mb-2">Kunjungan {{ selectedEncounter.id }}
+                    <h1 class="font-bold text-neutral-black-300 text-xl col-span-4 mb-2">Kunjungan {{
+                        selectedEncounter.id }}
                     </h1>
                     <div class="grid-cols-2 grid col-span-2">
                         <div class="font-bold">Pasien</div>
@@ -71,7 +72,8 @@
                                 <th scope="col" class="px-6 py-3 w-1/6">Harga</th>
                             </tr>
                         </thead>
-                        <tbody v-if="resourceChargeItemList" v-for="(item, index) in resourceChargeItemList" :key="index">
+                        <tbody v-if="resourceChargeItemList" v-for="(item, index) in resourceChargeItemList"
+                            :key="index">
                             <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300">
                                 <td class="px-6 py-4 w-1/6"> {{ index + 1 }}</td>
                                 <td class="px-6 py-4 w-2/6">{{ item.id }}</td>

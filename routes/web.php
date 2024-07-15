@@ -245,19 +245,31 @@ Route::middleware('auth')->group(function () {
 
     // Invoice
     Route::get('/finance/invoice', function () {
-        return Inertia::render('Finance/InvoiceIndex');
-    })->name('finance.invoice');
+        return Inertia::render('Finance/Invoice/Index');
+    })->name('finance.invoice.index');
+    Route::get('/finance/invoice/{id}', function ($id) {
+        return Inertia::render('Finance/Invoice/Detail', ['id' => $id]);
+    })->name('finance.invoice.detail');
+    Route::get('/finance/invoice/edit/{id}', function ($id) {
+        return Inertia::render('Finance/Invoice/Edit', ['id' => $id]);
+    })->name('finance.invoice.edit');
     Route::get('/finance/invoice/create', function () {
         return Inertia::render('Finance/FormInvoice');
-    })->name('finance.newinvoice');
+    })->name('finance.newinvoice.blank');
     Route::get('/finance/invoice/create/{id}', function ($id) {
         return Inertia::render('Finance/FormInvoice', ['id' => $id]);
     })->name('finance.newinvoice');
 
+
     // Claim
-    Route::get('/finance/claim/create/{id}', function ($id) {
+    Route::get('/finance/claim/create', function () {
         return Inertia::render('Finance/Claim/New');
     })->name('finance.claim.new');
+    Route::get('/finance/claim', function () {
+        return Inertia::render('Finance/Claim/Index');
+    })->name('finance.claim.index');
+
+
 
     // ChargeItem
     Route::get('/finance/charge-item', function () {
@@ -285,6 +297,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/account/create', function () {
         return Inertia::render('Finance/AccountManagement/New');
     })->name('finance.account.new');
+    Route::get('/finance/account', function () {
+        return Inertia::render('Finance/AccountManagement/Index');
+    })->name('finance.account.index');
+    Route::get('/finance/account/{id}', function ($id) {
+        return Inertia::render('Finance/AccountManagement/Detail', ['id' => $id]);
+    })->name('finance.account.detail');
+    Route::get('/finance/account/edit/{id}', function ($id) {
+        return Inertia::render('Finance/AccountManagement/Edit', ['id' => $id]);
+    })->name('finance.account.edit');
 });
 
 // APIs 
@@ -374,6 +395,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
         // Jumlah pasien yang pernah dirawat berdasarkan usia
         Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
+
+        Route::get('/invoice-terbit', [AnalyticsController::class, 'getIssuedInvoice'])->name('issued-invoice');
+        Route::get('/account-aktif', [AnalyticsController::class, 'getActiveAccounts'])->name('active-accounts');
+        Route::get('/claim-aktif', [AnalyticsController::class, 'getActiveClaims'])->name('active-claims');
+        Route::get('/invoice-per-bulan', [AnalyticsController::class, 'getInvoicePerMonth'])->name('invoice-per-month');
+        Route::get('/sebaran-coverage', [AnalyticsController::class, 'getCoverageGroups'])->name('sebaran-coverage');
 
         // card :
         // - jumlah mendekati kadaluarsa exp kurang dari 1 bulan

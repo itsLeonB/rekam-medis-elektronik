@@ -3,6 +3,18 @@
         <template #apphead>
             <title>Buat Claim - </title>
         </template>
+        <Modal :show="uploadSuccessModal">
+            <div class="p-6">
+                <h2 class="text-lg text-center font-medium text-gray-900">
+                    Data Claim telah berhasil dibuat. <br> Kembali ke halaman dashboard.
+                </h2>
+                <div class="mt-6 flex justify-end">
+                    <Link :href="route('finance')" as="button"
+                        class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                    Kembali </Link>
+                </div>
+            </div>
+        </Modal>
         <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
             <h1 class="text-2xl font-bold text-neutral-black-300">Buat Claim Baru</h1>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk membuat claim baru.</p>
@@ -15,6 +27,22 @@
                         :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
                         label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required
                         v-model="resourceForm.subject" />
+                    <InputError class="mt-1" />
+                </div>
+                <div class="mt-4">
+                    <InputLabel value="Encounter" />
+                    <Multiselect mode="single" placeholder="Encounter" :filter-results="false" :object="true"
+                        :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="fetchEncounter"
+                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
+                        v-model="resourceForm.encounter" />
+                    <InputError class="mt-1" />
+                </div>
+                <div class="mt-4">
+                    <InputLabel value="Invoice" />
+                    <Multiselect mode="single" placeholder="Invoice" :filter-results="false" :object="true"
+                        :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="getInvoice"
+                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
+                        v-model="resourceForm.invoice" />
                     <InputError class="mt-1" />
                 </div>
                 <div class="mt-4">
@@ -116,7 +144,7 @@
                         <InputError class="mt-1" />
                     </div>
                 </div>
-                <div class="mt-4">
+                <!-- <div class="mt-4">
                     <InputLabel value="Related Claims" />
                     <div class="claim-field grid grid-cols-4 gap-2" v-for="(claim, index) in resourceForm.related"
                         :key="index">
@@ -137,7 +165,7 @@
                         class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
                         + Tambah Claim Terkait
                     </SecondaryButtonSmall>
-                </div>
+                </div> -->
                 <div class="mt-4">
                     <InputLabel value="Prescription" />
                     <Multiselect mode="single" placeholder="Prescription" :filter-results="false" :object="true"
@@ -215,6 +243,83 @@
                     <SecondaryButtonSmall type="button" @click="addCareTeam"
                         class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
                         + Tambah Care Team
+                    </SecondaryButtonSmall>
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel value="Diagnosis" />
+                    <div class="care-team" v-for="(team, index) in resourceForm.diagnosis" :key="index">
+                        <p class="text-sm font-bold">Diagnosis #{{ index + 1 }}</p>
+                        <InputLabel class="mt-2" value="Diagnosis (Condition)" />
+                        <div class="grid gap-1">
+                            <Multiselect mode="single" placeholder="Diagnosis (Condition)" :filter-results="false"
+                                :object="true" :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
+                                :options="getCondition" label="label" valueProp="id" track-by="id"
+                                :classes="combo_classes" required v-model="resourceForm.diagnosis[index]" />
+                        </div>
+
+                        <SecondaryButtonSmall type="button" @click="removeDiagnosis(index)"
+                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                            Remove Diagnosis
+                        </SecondaryButtonSmall>
+                    </div>
+                    <SecondaryButtonSmall type="button" @click="addDiagnosis"
+                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                        + Tambah Diagnosis
+                    </SecondaryButtonSmall>
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel value="Procedure" />
+                    <div class="care-team" v-for="(team, index) in resourceForm.procedure" :key="index">
+                        <p class="text-sm font-bold">Procedure #{{ index + 1 }}</p>
+                        <InputLabel class="mt-2" value="Procedure" />
+                        <div class="grid gap-1">
+                            <Multiselect mode="single" placeholder="Procedure" :filter-results="false" :object="true"
+                                :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
+                                :options="getProcedure" label="label" valueProp="id" track-by="id"
+                                :classes="combo_classes" required v-model="resourceForm.procedure[index]" />
+                        </div>
+
+                        <SecondaryButtonSmall type="button" @click="removeProcedure(index)"
+                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                            Remove Procedure
+                        </SecondaryButtonSmall>
+                    </div>
+                    <SecondaryButtonSmall type="button" @click="addProcedure"
+                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                        + Tambah Procedure
+                    </SecondaryButtonSmall>
+                </div>
+
+                <div class="mt-4">
+                    <InputLabel value="Insurance" />
+                    <div class="care-team" v-for="(team, index) in resourceForm.insurance" :key="index">
+                        <p class="text-sm font-bold">Insurance #{{ index + 1 }}</p>
+                        <InputLabel class="mt-2" value="Focal?" />
+                        <div>
+                            <select v-model="resourceForm.insurance[index].focal"
+                                class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
+                                <option value="0">False</option>
+                                <option value="1">True</option>
+                            </select>
+                        </div>
+                        <InputLabel class="mt-2" value="Coverage" />
+                        <div class="grid gap-1">
+                            <Multiselect mode="single" placeholder="Insurance" :filter-results="false" :object="true"
+                                :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
+                                :options="getCoverage" label="label" valueProp="id" track-by="id"
+                                :classes="combo_classes" required v-model="resourceForm.insurance[index].coverage" />
+                        </div>
+
+                        <SecondaryButtonSmall type="button" @click="removeInsurance(index)"
+                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                            Remove Insurance
+                        </SecondaryButtonSmall>
+                    </div>
+                    <SecondaryButtonSmall type="button" @click="addInsurance"
+                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
+                        + Tambah Insurance
                     </SecondaryButtonSmall>
                 </div>
 
@@ -303,8 +408,10 @@ import TextInput from '@/Components/TextInput.vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import MainButton from '@/Components/MainButton.vue';
+import Modal from '@/Components/Modal.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
 import axios from 'axios';
+import { Link } from '@inertiajs/vue3';
 import { ref, onMounted, computed, provide, watch } from 'vue';
 
 const props = defineProps({
@@ -315,6 +422,8 @@ const props = defineProps({
 
 // Variables
 const practitionerList = ref([])
+const isLoading = ref(false)
+const uploadSuccessModal = ref(false)
 
 const status = [
     { id: "active", label: "Active" },
@@ -594,6 +703,7 @@ const providerType = ["Practitioner", "Organization"]
 // ResourceForm
 const resourceForm = ref({
     status: 'active',
+    encounter: {},
     type: 'institutional',
     subType: 'ortho',
     use: 'claim',
@@ -622,10 +732,64 @@ const resourceForm = ref({
 
     ],
     supportingInfo: [],
-    procedure: []
+    procedure: [],
+    diagnosis: [],
+    insurance: [],
+    invoice: {},
 });
 
 // Functions
+const fetchEncounter = async (query) => {
+    try {
+        const { data } = await axios.get('/resources/Encounter');
+        const originalData = data
+        for (const key in originalData) {
+            const currentObject = originalData[key];
+            const label = `${currentObject.subject.display} | Status: ${currentObject.status} | ${formatTimestamp(currentObject.period?.start)}`;
+            currentObject.label = label;
+        }
+        const filteredData = originalData.filter(item => item.label.includes(query))
+        return filteredData;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+const getInvoice = async (query) => {
+    try {
+        const { data } = await axios.get('/resources/Invoice');
+        const originalData = data
+        for (const key in originalData) {
+            const currentObject = originalData[key];
+            const label = `${currentObject.subject.display} | ${formatTimestamp(currentObject.date)}`;
+            currentObject.label = label;
+        }
+        const filteredData = originalData.filter(item => item.label.includes(query))
+        return filteredData;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+const formatTimestamp = (timestamp) => {
+    const date = new Date(timestamp);
+    date.setHours(date.getHours() + 7);
+
+    const daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+
+    const dayOfWeek = daysOfWeek[date.getUTCDay()];
+    const day = date.getUTCDate();
+    const month = months[date.getUTCMonth()];
+    const year = date.getUTCFullYear();
+    const hour = date.getUTCHours().toString().padStart(2, '0');
+    const minute = date.getUTCMinutes().toString().padStart(2, '0');
+
+    return `${dayOfWeek}, ${day} ${month} ${year} / ${hour}:${minute}`;
+};
+
 const searchPatient = async (query) => {
     try {
         const { data } = await axios.get(route('rekam-medis.index', { 'nik': query }));
@@ -653,12 +817,50 @@ const getpractitionerList = async () => {
     }
 };
 
+const getCoverage = async (query) => {
+    try {
+        const { data } = await axios.get('/resources/Coverage');
+        const originalData = data
+        for (const key in originalData) {
+            const currentObject = originalData[key];
+            const label = `${currentObject.beneficiary?.display} | ID: ${currentObject.id}`;
+            currentObject.label = label;
+        }
+        const filteredData = originalData.filter(item => item.beneficiary?.display.includes(query))
+        return filteredData
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+};
+
 const getProcedure = async () => {
     try {
-        const {data}= await axios.get('/resources/Procedure');
+        const { data } = await axios.get('/resources/Procedure');
         const originalData = data
-        originalData.filter(proc => proc.encounter.reference == "Encounter/" + props.id)
-        return originalData
+        for (const key in originalData) {
+            const currentObject = originalData[key];
+            const label = `${currentObject.code?.coding[0]?.code} | ${currentObject.code?.coding[0]?.display}`;
+            currentObject.label = label;
+        }
+        const filteredData = originalData.filter(item => item.encounter.reference === "Encounter/" + resourceForm.value.encounter.id)
+        return filteredData
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return [];
+    }
+}
+
+const getCondition = async () => {
+    try {
+        const { data } = await axios.get('/resources/Condition');
+        const originalData = data
+        for (const key in originalData) {
+            const currentObject = originalData[key];
+            const label = `${currentObject.code?.coding[0]?.code} | ${currentObject.code?.coding[0]?.display}`;
+            currentObject.label = label;
+        }
+        return originalData.filter(item => item.encounter.reference === "Encounter/" + resourceForm.value.encounter.id)
     } catch (error) {
         console.error('Error fetching data:', error);
         return [];
@@ -698,6 +900,11 @@ const searchMedicationRequest = async (query) => {
         const { data } = await axios.get('/resources/MedicationRequest')
         const originalData = data
         originalData.filter(medReq => medReq.id.includes(query))
+        for (const key in originalData) {
+            const currentObject = originalData[key];
+            const label = currentObject.medicationReference.display
+            currentObject.label = label;
+        }
         return originalData
     } catch (error) {
         console.error('Error fetching data', error);
@@ -767,6 +974,30 @@ const searchLocation = async (query) => {
     }
 }
 
+function formatDateString(dateString) {
+    // Parse the date string into a Date object
+    const date = new Date(dateString);
+
+    // Get the components of the date
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    // Get the timezone offset in hours and minutes
+    const timezoneOffset = -date.getTimezoneOffset();
+    const offsetHours = String(Math.floor(Math.abs(timezoneOffset) / 60)).padStart(2, '0');
+    const offsetMinutes = String(Math.abs(timezoneOffset) % 60).padStart(2, '0');
+    const offsetSign = timezoneOffset >= 0 ? '+' : '-';
+
+    // Construct the formatted date string
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${offsetSign}${offsetHours}:${offsetMinutes}`;
+
+    return formattedDate;
+}
+
 const addField = () => {
     resourceForm.value.related.push({
         claimReference: null,
@@ -794,6 +1025,17 @@ const addProcedure = () => {
     getProcedure()
 }
 
+const addDiagnosis = () => {
+    resourceForm.value.diagnosis.push({})
+    getCondition();
+}
+
+const addInsurance = () => {
+    resourceForm.value.insurance.push({
+        focal: false,
+        coverage: {},
+    })
+}
 
 const removeField = (index) => {
     resourceForm.value.related.splice(index, 1);
@@ -809,6 +1051,14 @@ const removeSupportingInfo = (index) => {
 
 const removeProcedure = (index) => {
     resourceForm.value.procedure.splice(index, 1)
+}
+
+const removeDiagnosis = (index) => {
+    resourceForm.value.diagnosis.splice(index, 1)
+}
+
+const removeInsurance = (index) => {
+    resourceForm.value.insurance.splice(index, 1)
 }
 
 onMounted(() => {
@@ -827,6 +1077,152 @@ const combo_classes = {
 };
 
 const submit = async () => {
-    
+    isLoading.value = true
+    console.log(resourceForm.value)
+
+    const submitResource = {
+        "resourceType": "Claim",
+        "status": resourceForm.value.status,
+        "type": {
+            "coding": {
+                "system": resourceForm.value.type.system,
+                "code": resourceForm.value.type.id,
+                "display": resourceForm.value.type.label
+            }
+        },
+        "subType": {
+            "coding": {
+                "system": resourceForm.value.subType.system,
+                "code": resourceForm.value.subType.id,
+                "display": resourceForm.value.subType.label
+            }
+        },
+        "use": resourceForm.value.use,
+        "patient": {
+            "reference": "Patient/" + resourceForm.value.subject?.satusehatId,
+            "display": resourceForm.value.subject?.name
+        },
+        "billablePeriod": {
+            "start": formatDateString(resourceForm.value.billablePeriod.start),
+            "end": formatDateString(resourceForm.value.billablePeriod.end)
+        },
+        "created": formatDateString(resourceForm.value.billablePeriod.start),
+        "enterer": {
+            "reference": "Practitioner/" + resourceForm.value.enterer.id,
+            "display": resourceForm.value.enterer.name
+        },
+        "insurer": {
+            "reference": "Organization/" + resourceForm.value.insurer.id,
+            "display": resourceForm.value.insurer.name,
+        },
+        "provider": {
+            "reference": "Organization/" + resourceForm.value.provider.id,
+            "display": resourceForm.value.provider.name,
+        },
+        "priority": {
+            "coding": {
+                "system": resourceForm.value.priority.system,
+                "code": resourceForm.value.priority.id,
+                "display": resourceForm.value.priority.label
+            }
+        },
+        "fundsReserve": {
+            "coding": {
+                "system": resourceForm.value.fundsreserve.system,
+                "code": resourceForm.value.fundsreserve.id,
+                "display": resourceForm.value.fundsreserve.label
+            }
+        },
+        "prescription": {
+            "reference": "MedicationRequest/" + resourceForm.value.prescription.id,
+            "display": resourceForm.value.prescription.name,
+        },
+        "originalPrescription": {
+            "reference": "MedicationRequest/" + resourceForm.value.originalPrescription.id,
+            "display": resourceForm.value.originalPrescription.name,
+        },
+        "payee": {
+            "type": {
+                "coding": {
+                    "system": resourceForm.value.payee.type.system,
+                    "code": resourceForm.value.payee.type.id,
+                    "display": resourceForm.value.payee.type.label
+                }
+            },
+            "party": {
+                "reference": resourceForm.value.payee.party.type + "/" + resourceForm.value.payee.party.reference.id,
+                "display": resourceForm.value.payee.party.reference.name,
+            }
+        },
+        "facility": {
+            "reference": "Location/" + resourceForm.value.facility.id,
+            "display": resourceForm.value.facility.name
+        },
+        "careTeam": [],
+        "diagnosis": [],
+        "procedure": [],
+        "insurance": [],
+        "total": resourceForm.value.invoice.totalNet
+    }
+    submitResource.diagnosis = resourceForm.value.diagnosis.map((item, index) => ({
+        "sequence": index + 1,
+        "diagnosisReference": {
+            "reference": "Condition/" + item.id,
+            "display": item.code?.coding?.display
+        }
+    }));
+
+    submitResource.procedure = resourceForm.value.procedure.map((item, index) => ({
+        "sequence": index + 1,
+        "procedureReference": {
+            "reference": "Procedure/" + item.id,
+            "display": item.code?.coding?.display
+        }
+    }));
+
+    submitResource.insurance = resourceForm.value.insurance.map((item, index) => ({
+        "sequence": index + 1,
+        "focal": item.focal == 1 ? true : false,
+        "coverage": {
+            "reference": "Coverage/" + item.coverage.id,
+            "display": item.coverage.beneficiary.display,
+        }
+    }))
+
+    submitResource.careTeam = resourceForm.value.careTeam.map((item, index) => ({
+        "sequence": index + 1,
+        "provider": {
+            "reference": item.provider.resourceType + "/" + item.provider.id ?? item.provider.satusehatId,
+            "display": item.provider.name,
+        },
+        "responsible": item.responsible == 1 ? true : false,
+        "role": {
+            "coding": {
+                "system": item.role.system,
+                "code": item.role.code,
+                "display": item.role.display
+            }
+        },
+        "qualification": {
+            "coding": {
+                "system": item.qualification.system,
+                "code": item.qualification.code,
+                "display": item.qualification.display
+            }
+        }
+    }))
+
+    console.log(submitResource)
+    try {
+        const resourceType = "Claim";
+        // const response = await axios.post(route('integration.store', { resourceType: resourceType }), submitResource)
+        const response = await axios.post(route('resources.store', { resType: resourceType }), submitResource)
+        console.log(response.data)
+        isLoading.value = false;
+        uploadSuccessModal.value = true;
+    } catch (error) {
+        console.error(error.response ? error.response.data : error.message);
+        isLoading.value = false;
+    }
 }
 </script>

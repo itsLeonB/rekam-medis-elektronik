@@ -1,9 +1,10 @@
 <template>
     <AuthenticatedLayout>
-        <div class="flex flex-row justify-between bg-white overflow-hidden rounded-xl shadow h-20 md:h-36 md:rounded-2xl mb-8">
+        <div
+            class="flex flex-row justify-between bg-white overflow-hidden rounded-xl shadow h-20 md:h-36 md:rounded-2xl mb-8">
             <div class="pl-8 my-auto">
                 <h2 class="text-3xl font-bold text-secondhand-orange-300 mb-1">Hai, {{ $page.props.auth.user.name
-                }}!</h2>
+                    }}!</h2>
                 <!-- <p class="text-neutral-grey-200 font-normal text-2xl">Selamat datang di halaman utama</p> -->
             </div>
             <div class="hidden md:block md:mr-8">
@@ -11,7 +12,8 @@
             </div>
         </div>
         <div class="flex flex-col items-center space-y-8 md:flex-row md:space-x-8 md:space-y-0 mb-8">
-            <div class="px-10 py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
+            <div
+                class="px-10 py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
                 <div class="mr-5 h-fit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 74 74" fill="none">
                         <circle cx="37" cy="37" r="37" fill="#ECFBF4" />
@@ -26,7 +28,8 @@
                         Pasien</span>
                 </div>
             </div>
-            <div class="px-10 py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
+            <div
+                class="px-10 py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
                 <div class="mr-5 h-fit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 74 74" fill="none">
                         <circle cx="37" cy="37" r="37" fill="#ECFBF4" />
@@ -43,7 +46,8 @@
                         Pasien</span>
                 </div>
             </div>
-            <div class="px-10 py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
+            <div
+                class="px-10 py-6 w-full flex flex-1 items-center h-full bg-white overflow-hidden shadow rounded-lg md:rounded-xl">
                 <div class="mr-5 h-fit">
                     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 74 74" fill="none">
                         <circle cx="37" cy="37" r="37" fill="#ECFBF4" />
@@ -102,6 +106,7 @@ const fetchPasienPerBulan = async () => {
         const response = await axios.get(route('analytics.pasien-per-bulan'));
         const data = response.data;
 
+        console.log(data)
         const uniqueMonths = [...new Set(data.map(item => item.month))];
         const uniqueMonthsParsed = [...new Set(data.map(item => {
             const date = new Date(item.month + '-01');

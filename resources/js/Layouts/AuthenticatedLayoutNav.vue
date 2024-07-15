@@ -166,7 +166,7 @@ import NavLink from '@/Components/NavLink.vue';
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink :href="route('expertsystems.index')" :active="route().current('expertsystems.index')">
+                        <!-- <NavLink :href="route('expertsystems.index')" :active="route().current('expertsystems.index')">
                             <span class="mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none">
                                     <path
@@ -175,7 +175,7 @@ import NavLink from '@/Components/NavLink.vue';
                                 </svg>
                             </span>
                             <span class="pt-1">Expert Systems</span>
-                        </NavLink>
+                        </NavLink> -->
                     </li>
                     <li>
                         <NavLink :href="route('finance')" :active="route().current('finance')">
@@ -211,8 +211,8 @@ import NavLink from '@/Components/NavLink.vue';
                 Transaksi </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('medication')" :active="route().current('medication')">Medication
             </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('expertsystems.index')" :active="route().current('expertsystems.index')">
-                Expert Systems</ResponsiveNavLink>
+            <!-- <ResponsiveNavLink :href="route('expertsystems.index')" :active="route().current('expertsystems.index')">
+                Expert Systems</ResponsiveNavLink> -->
             <ResponsiveNavLink :href="route('finance')" :active="route().current('finance')">Finance</ResponsiveNavLink>
         </template>
     </AuthenticatedLayout>
