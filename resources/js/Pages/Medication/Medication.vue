@@ -9,7 +9,7 @@
                 </svg>
                 <h1 class="text-2xl font-bold text-neutral-black-300">Medication Management</h1>
             </span>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Apoteker untuk mengelola obat.
+            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman list data obat.
             </p> 
             
             

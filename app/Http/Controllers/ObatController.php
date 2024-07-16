@@ -77,6 +77,10 @@ class ObatController extends Controller
             return [
                 'code' => data_get($data, 'code.code_kfa'),
                 'name' => data_get($data, 'code.display'),
+                'stok' => data_get($data, 'stok'),
+                'satuan' => data_get($data, 'satuan'),
+                'prioritas' => data_get($data, 'prioritas'),
+                'note' => data_get($data, 'note'),
                 'opsi' => $opsi,
             ];
         });

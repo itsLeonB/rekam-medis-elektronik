@@ -1,20 +1,22 @@
 <template>
     <div class="mt-2">
         <table v-if="expertSystem && expertSystem.length && expertSystem[0].length" class="w-full text-left rtl:text-right text-neutral-grey-200 ">
-            <thead class="text-neutral-black-300 uppercase bg-gray-50 border-b">
+            <thead class="text-neutral-black-300 uppercase bg-gray-50">
                 <tr>
                     
-                    <th scope="col" class="px-3 py-2 w-4/6 border">Nama</th>
-                    <th scope="col" class="px-3 py-2 w-2/6 border">Instruksi</th>
+                    <th scope="col" class="px-3 py-2 w-4/6 ">Nama</th>
+                    <th scope="col" class="px-3 py-2 w-2/6">Instruksi Dosis</th>
                 </tr>
             </thead>
             <tbody>
                 <template v-for="(group, index) in expertSystem" :key="index">
                     <tr v-for="(medicine, i) in group" :key="i" class="bg-original-white-0 ">
                         
-                        <td class="px-3 py-1 w-4/6 border">{{ medicine.display }}</td>
-                        <td class="px-3 py-1 w-2/6 border">{{ medicine.dosageInstruction }}</td>
+                        <td class="px-3 py-1 w-4/6">{{ medicine.display }}</td>
+                        <td class="px-3 py-1 w-2/6">{{ medicine.dosageInstruction }}</td>
+                        <hr>
                     </tr>
+                    
                 </template>
             </tbody>
         </table>

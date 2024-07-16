@@ -80,28 +80,47 @@
                 <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200 ">
                     <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
                         <tr>
-                            <th scope="col" class="px-6 py-3 w-1/5">
+                            <th scope="col" class="px-6 py-3 w-1/12">
                                 Kode
                             </th>
-                            <th scope="col" class="px-6 py-3 w-3/5">
+                            <th scope="col" class="px-6 py-3 w-6/12">
                                 Nama 
                             </th>
-                            <th>Aksi</th>
+                            <th scope="col" class="px-6 py-3 w-1/12">
+                                Stok 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-1/12">
+                                Satuan 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-1/12">
+                                Prioritas 
+                            </th>
+                            <th scope="col" class="px-6 py-3 w-2/12">
+                                Aksi
+                            </th>
                         </tr>
                     </thead>
                     <tbody v-for="(medication, index) in medications.data" :key="medication.code">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (medications.data.length - 1) }">
-                            <td class="px-6 py-4 w-1/5">
+                            <td class="px-6 py-4 w-1/12">
                                 {{ medication.code }}
                             </td>
-                            <td class="px-6 py-4 w-3/5">
+                            <td class="px-6 py-4 w-6/12">
                                 {{ medication.name }}
                                 <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
                                         searchWith_id).label }}: {{ medication[searchWith_id] }}</p>
                             </td>
-                            
-                            <td>
+                            <td class="px-6 py-4 w-1/12">
+                                {{ medication.stok }}
+                            </td>
+                            <td class="px-6 py-4 w-1/12">
+                                {{ medication.satuan }}
+                            </td>
+                            <td class="px-6 py-4 w-1/12">
+                                {{ medication.prioritas }}
+                            </td>
+                            <td class="px-6 py-4 w-2/12">
                                 <!-- If the opsi is "Tambahkan" -->
                                 <p v-if="medication.opsi === 'Tambahkan Obat'" class="text-sm\\\\ text-neutral-grey-200">{{ medication.opsi }}</p>
                                 
