@@ -50,12 +50,12 @@
             <div
                 class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-2 md:py-8 md:pl-10 md:pr-14">
                 <h2 class="font-bold text-xl">Jumlah Invoice Terbit</h2>
-                <p>{{ issuedInvoice }} Invoice</p>
+                <span class="text-lg font-semibold text-neutral-black-500">{{ issuedInvoice }} Invoice</span>
             </div>
             <div
                 class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-2 md:py-8 md:pl-10 md:pr-14">
                 <h2 class="font-bold text-xl">Jumlah Klaim Aktif</h2>
-                <p>{{ activeClaims }} Klaim</p>
+                <span class="text-lg font-semibold text-neutral-black-500">{{ activeClaims }} Klaim</span>
             </div>
 
             <div class="flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0 col-span-3">

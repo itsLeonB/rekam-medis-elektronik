@@ -51,7 +51,7 @@
                     class="bg-original-white-0 mr-3 border-1 border-neutral-grey-0 text-neutral-black-300 text-sm rounded-lg focus:ring-original-teal-300 focus:border-original-teal-300 block w-40 px-2.5 h-fit">
                     <option v-for="item in searchWith" :value=item.id>{{ item.label }}</option>
                 </select>
-                <MainButton @click="searchClaim" class="teal-button text-original-white-0">
+                <MainButton @click="searchAccount" class="teal-button text-original-white-0">
                     Cari
                 </MainButton>
             </div>
@@ -98,7 +98,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p class="text-center mt-4" v-if="searchQuery !== '' && Claim.length === 0">Data tidak ditemukan
+            <p class="text-center mt-4" v-if="searchQuery !== '' && account.length === 0">Data tidak ditemukan
             </p>
         </div>
 

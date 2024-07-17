@@ -193,10 +193,18 @@ class AnalyticsController extends Controller
         return $count;
     }
 
+
+
     public function getInvoicePerMonth()
     {
         $endDate = new \MongoDB\BSON\UTCDateTime(now()->getTimestamp() * 1000);
         $startDate = new \MongoDB\BSON\UTCDateTime(now()->subMonth(13)->getTimestamp() * 1000);
+
+        $invoice = FhirResource::raw(function ($collection) use ($pipeline) {
+            return $collection->aggregate($pipeline)->toArray();
+        });
+
+        $yearlyData = [];
 
         $invoice = FhirResource::raw(function ($collection) use ($startDate, $endDate) {
             return $collection->aggregate([

@@ -268,6 +268,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/finance/claim', function () {
         return Inertia::render('Finance/Claim/Index');
     })->name('finance.claim.index');
+    Route::get('/finance/claim/detail/{id}', function ($id) {
+        return Inertia::render('Finance/Claim/Detail', ['id'=>$id]);
+    })->name('finance.claim.detail');
 
 
 

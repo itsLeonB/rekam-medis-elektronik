@@ -89,10 +89,6 @@
                             class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
                         Buat Invoice
                         </Link>
-                        <Link :href="route('finance.claim.new', { 'id': selectedEncounter.id })" as="button"
-                            class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                        Buat Claim
-                        </Link>
                     </div>
                 </div>
             </div>
@@ -116,6 +112,7 @@ const selectedEncounter = ref(null)
 const observationList = ref([])
 const selectedEncounterId = ref(null)
 const resourceChargeItemList = ref([])
+const medicationDispenseList = ref([])
 
 watch(selectedEncounter, (newValue) => {
     getChargeItemList(newValue.id)
@@ -166,6 +163,7 @@ const getChargeItemList = async (id) => {
     // await getResourceList('MedicationDispense', medicationList); MedicationDispense Not yet implemented
     await getResourceList('Observation', observationList);
     await getResourceList('ChargeItem', resourceChargeItemList);
+    await getResourceList('MedicationDispense', medicationDispenseList);
     console.log(resourceChargeItemList)
     procedureList.value = procedureList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
     observationList.value = observationList.value.filter(item => item.encounter.reference === `Encounter/${id}`)

@@ -1076,11 +1076,21 @@ const combo_classes = {
     optionSelectedDisabled: 'text-green-100 bg-original-teal-300 bg-opacity-50 cursor-not-allowed',
 };
 
+function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = (crypto.getRandomValues(new Uint8Array(1))[0] & 0x0f);
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
+
 const submit = async () => {
     isLoading.value = true
     console.log(resourceForm.value)
 
     const submitResource = {
+        "id": generateUUID(),
         "resourceType": "Claim",
         "status": resourceForm.value.status,
         "type": {

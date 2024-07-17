@@ -76,12 +76,12 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody v-for="(item, index) in Claim" :key="index">
+                <tbody v-for="(item, index) in claim" :key="index">
                     <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                        :class="{ 'border-b': index !== (Claim.length - 1) }">
-                        <Link :href="route('finance.Claim.detail', { 'id': item.id })">
+                        :class="{ 'border-b': index !== (claim.length - 1) }">
+                        <Link :href="route('finance.claim.detail', { 'id': item.id })">
                         <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-3/12">
-                            {{ item.subject.display }}
+                            {{ item.patient.display }}
                         </th>
                         </Link>
                         <td class="px-6 py-4 w-3/12">
@@ -89,11 +89,11 @@
                         </td>
 
                         <td class="px-6 py-4 w-3/12">
-                            {{ item.totalItem.currency }} {{ item.totalItem.value }}
+                            {{ item.total.currency }} {{ item.total.value }}
                         </td>
                         <td class="px-6 py-4 w-3/12">
-                            <p>{{ formatTimestamp(item.date).split('/')[0] }}</p>
-                            <p>Jam {{ formatTimestamp(item.date).split('/')[1] }}</p>
+                            <p>{{ formatTimestamp(item.created).split('/')[0] }}</p>
+                            <p>Jam {{ formatTimestamp(item.created).split('/')[1] }}</p>
                         </td>
                     </tr>
                 </tbody>
