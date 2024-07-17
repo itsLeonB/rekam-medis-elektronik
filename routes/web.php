@@ -269,7 +269,7 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Finance/Claim/Index');
     })->name('finance.claim.index');
     Route::get('/finance/claim/detail/{id}', function ($id) {
-        return Inertia::render('Finance/Claim/Detail', ['id'=>$id]);
+        return Inertia::render('Finance/Claim/Detail', ['id' => $id]);
     })->name('finance.claim.detail');
 
 
@@ -579,14 +579,14 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    // Local resource manipulation
-    Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
-        Route::get('/{resType}', [ResourceController::class, 'index'])->name('index');
-        Route::post('/{resType}', [ResourceController::class, 'store'])->name('store');
-        Route::get('/{resType}/{id}', [ResourceController::class, 'show'])->name('show');
-        Route::put('/{resType}/{id}', [ResourceController::class, 'update'])->name('update');
-        Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
-    });
+    // // Local resource manipulation
+    // Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
+    //     Route::get('/{resType}', [ResourceController::class, 'index'])->name('index');
+    //     Route::post('/{resType}', [ResourceController::class, 'store'])->name('store');
+    //     Route::get('/{resType}/{id}', [ResourceController::class, 'show'])->name('show');
+    //     Route::put('/{resType}/{id}', [ResourceController::class, 'update'])->name('update');
+    //     Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
+    // });
 
     // Harga Jasa Kesehatan (Catalogue) API 
     Route::group(['prefix' => 'catalogue', 'as' => 'catalogue.'], function () {
@@ -642,6 +642,67 @@ Route::middleware('auth')->group(function () {
         Route::get('/{medicationReq_id}', [MedicationDispense::class, 'show'])->name('show');
         Route::get('/{medicationReq_id}', [MedicationDispense::class, 'update'])->name('update');
     });
+});
+
+
+Route::group(['prefix' => 'catalogue', 'as' => 'catalogue.'], function () {
+    Route::get('/', [ServicePriceController::class, 'index'])->name('index');
+    Route::get('/{id}', [ServicePriceController::class, 'show'])->name('show');
+    Route::put('/{id}', [ServicePriceController::class, 'update'])->name('update');
+    Route::post('/', [ServicePriceController::class, 'store'])->name('store');
+});
+
+// Local resource manipulation
+Route::group(['prefix' => 'resources', 'as' => 'resources.'], function () {
+    Route::get('/{resType}', [ResourceController::class, 'index'])->name('index');
+    Route::post('/{resType}', [ResourceController::class, 'store'])->name('store');
+    Route::get('/{resType}/{id}', [ResourceController::class, 'show'])->name('show');
+    Route::put('/{resType}/{id}', [ResourceController::class, 'update'])->name('update');
+    Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
+});
+
+Route::group(['prefix' => 'analytics', 'as' => 'analytics.'], function () {
+    // Jumlah pasien sedang dirawat
+    Route::get('/pasien-dirawat', [AnalyticsController::class, 'getActiveEncounters'])->name('pasien-dirawat');
+    // Jumlah pasien baru mendaftar bulan ini
+    Route::get('/pasien-baru-bulan-ini', [AnalyticsController::class, 'getThisMonthNewPatients'])->name('pasien-baru-bulan-ini');
+    // Jumlah total pasien yang pernah dirawat
+    Route::get('/jumlah-pasien', [AnalyticsController::class, 'countPatients'])->name('jumlah-pasien');
+    // Jumlah pasien yang pernah dirawat per bulan untuk 12 bulan kebelakang
+    Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
+    // Jumlah pasien yang pernah dirawat berdasarkan usia
+    Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
+
+    Route::get('/invoice-terbit', [AnalyticsController::class, 'getIssuedInvoice'])->name('issued-invoice');
+    Route::get('/account-aktif', [AnalyticsController::class, 'getActiveAccounts'])->name('active-accounts');
+    Route::get('/claim-aktif', [AnalyticsController::class, 'getActiveClaims'])->name('active-claims');
+    Route::get('/invoice-per-bulan', [AnalyticsController::class, 'getInvoicePerMonth'])->name('invoice-per-month');
+    Route::get('/sebaran-coverage', [AnalyticsController::class, 'getCoverageGroups'])->name('sebaran-coverage');
+
+    // card :
+    // - jumlah mendekati kadaluarsa exp kurang dari 1 bulan
+    Route::get('/obat-mendekati-kadaluarsa', [AnalyticsObatController::class, 'getObatMendekatiKadaluarsa'])->name('obat-mendekati-kadaluarsa');
+
+    // - jumlah stok sedikit - kosong
+    Route::get('/obat-stok-sedikit', [AnalyticsObatController::class, 'getObatStokSedikit'])->name('obat-stok-sedikit');
+    // - jumlah obat fast 
+    Route::get('/obat-fast-moving', [AnalyticsObatController::class, 'getObatFastMoving'])->name('obat-fast-moving');
+
+    // - jumlah obat penggunaan paling banyak
+    Route::get('/obat-penggunaan-paling-banyak', [AnalyticsObatController::class, 'getObatPenggunaanPalingBanyak'])->name('obat-penggunaan-paling-banyak');
+
+    // chart :
+    // - line chart stok obat secara keseluruhan perbulan
+    Route::get('/obat-transaksi-perbandingan-per-bulan', [AnalyticsObatController::class, 'getObatTransaksiPerbandinganPerBulan'])->name('obat-transaksi-perbandingan-per-bulan');
+
+    // - pie chart distribusi stok obat berdasarkan jenis
+    Route::get('/obat-persebaran-stok', [AnalyticsObatController::class, 'getObatPersebaranStok'])->name('obat-persebaran-stok');
+
+    Route::get('/forecast', [AnalyticsObatController::class, 'forecast'])->name('forecast');
+
+    Route::post('/save-monthly-data', [AnalyticsObatController::class, 'saveMonthlyData'])->name('save-monthly-data');
+
+    Route::get('/fetch-forecast', [AnalyticsObatController::class, 'transformForecastData'])->name('fetch-forecast');
 });
 
 
