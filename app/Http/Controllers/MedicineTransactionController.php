@@ -65,12 +65,10 @@ class MedicineTransactionController extends Controller
                 'note' => $request->input('note'),
             ]);
     
-            // Kurangi quantity pada Medicine
             $medicine->quantity += intval($request->input('quantity'));
             $medicine->save();
     
             return;
-            // return response()->json($medicinetransaction, 201);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'Medicine tidak ditemukan',
@@ -83,9 +81,7 @@ class MedicineTransactionController extends Controller
                 'message' => $th->getMessage()
             ], 500);
         }
-    }    
-    
-    
+    }
 
     public function update(Request $request, $id)
     {
@@ -93,28 +89,22 @@ class MedicineTransactionController extends Controller
             
             $medicineTransaction = MedicineTransaction::findOrFail($id);
             
-            // Ambil medicine berdasarkan id_medicine yang baru
             $medicine = Medicine::findOrFail($medicineTransaction->id_medicine);
             $medicine->quantity += $medicineTransaction->quantity;
             $medicine->save();
 
-            // Update atribut-atribut yang dibutuhkan
             $medicineTransaction->id_transaction = $request->input('id_transaction');
             $medicineTransaction->id_medicine = $request->input('id_medicine');
             $medicineTransaction->quantity = intval($request->input('quantity'));
             $medicineTransaction->note = $request->input('note');
 
-            // Simpan perubahan
             $medicineTransaction->save();
 
-            // Kurangi quantity pada Medicine
             $medicine = Medicine::findOrFail($request->input('id_medicine'));
             $medicine->quantity -= intval($request->input('quantity'));
             $medicine->save();
-            // Jika ada pengubahan quantity, proses juga pengurangan atau penambahan pada Medicine sesuai kebutuhan bisnis
 
             return Inertia::location(route('medicinetransaction'));
-            // return response()->json($medicineTransaction, 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'Medicine Transaction tidak ditemukan',
@@ -132,32 +122,25 @@ class MedicineTransactionController extends Controller
     public function destroy(Request $request, $id)
     {
         try {
-            // Temukan MedicineTransaction yang akan dihapus
             $medicineTransaction = MedicineTransaction::findOrFail($id);
 
-            // Pastikan user yang sedang login memiliki izin untuk menghapus transaksi
             if ($request->user()->id != $medicineTransaction->user_id) {
-                // Hapus MedicineTransaction
                 MedicineTransaction::destroy($id);
 
-                // Update quantity pada Medicine terkait
                 $medicine = Medicine::findOrFail($medicineTransaction->id_medicine);
-                $medicine->quantity += $medicineTransaction->quantity; // Tambahkan quantity yang dihapus
+                $medicine->quantity += $medicineTransaction->quantity;
                 $medicine->save();
 
                 return Inertia::location(route('medicinetransaction'));
             } else {
-                // Jika user mencoba menghapus transaksi sendiri, kembalikan pesan error
                 return response()->json('Tidak dapat menghapus transaksi Anda sendiri', 403);
             }
         } catch (ModelNotFoundException $e) {
-            // Tangkap error jika MedicineTransaction tidak ditemukan
             return response()->json([
                 'error' => 'MedicineTransaction tidak ditemukan',
                 'message' => $e->getMessage()
             ], 404);
         } catch (\Throwable $th) {
-            // Tangkap error umum
             Log::error($th->getMessage());
             return response()->json([
                 'error' => 'Gagal menghapus MedicineTransaction',
@@ -165,12 +148,6 @@ class MedicineTransactionController extends Controller
             ], 500);
         }
     }
-
-
-    // public function getRoles()
-    // {
-    //     return Role::all()->pluck('name');
-    // }
 
     public function getmedicine(Request $request)
     {

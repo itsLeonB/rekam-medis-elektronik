@@ -17,7 +17,6 @@ const props = defineProps({
 });
 
 const trimData = (data) => {
-    // Trim trailing null values
     for (let i = data.length - 1; i >= 0; i--) {
         if (data[i] === null) {
             data.pop();
@@ -25,21 +24,18 @@ const trimData = (data) => {
             break;
         }
     }
-    // Ensure maximum of 12 values
     return data.slice(0, 12);
 };
 
 const mergedSeries = computed(() => {
     const merged = [];
 
-    // Combine original series with forecast data
     props.series.forEach(originalSeries => {
         const targetSeries = {
             name: originalSeries.name,
             data: originalSeries.data.map(value => (value === 0 ? null : value))
         };
 
-        // Check if there is forecast data for this series
         const forecastData = props.forecastSeries?.find(forecast => forecast.name === originalSeries.name);
         if (forecastData) {
             forecastData.data.forEach((value, index) => {
@@ -57,7 +53,6 @@ const mergedSeries = computed(() => {
         });
     });
 
-    // Add any forecast series that do not have a corresponding original series
     props.forecastSeries?.forEach(forecast => {
         if (!merged.find(series => series.name === forecast.name)) {
             merged.push({
@@ -66,8 +61,6 @@ const mergedSeries = computed(() => {
             });
         }
     });
-
-    console.log("Merged Series Data:", merged);
 
     return merged;
 });

@@ -221,10 +221,9 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const medications = ref([]);
-
 const hide = ref(false);
 
+const medications = ref([]);
 const fetchMedications = async (page = 1) => {
     try {
         const { data } = await axios.get(route('medicine.index', { 'page': page }));

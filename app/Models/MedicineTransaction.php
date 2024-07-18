@@ -28,19 +28,5 @@ class MedicineTransaction extends Model
     {
         return $this->belongsTo(Medicine::class, 'id_medicine');
     }
-
-    /**
-     * Scope a query to filter by medicine name.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $name
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    // public function scopeWhereMedicineName($query, $name)
-    // {
-    //     return $query->whereHas('medicine', function ($query) use ($name) {
-    //         $query->where('name', 'like', '%' . addcslashes($name, '%_') . '%');
-    //     });
-    // }
 }
 

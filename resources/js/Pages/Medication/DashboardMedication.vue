@@ -121,7 +121,6 @@ const fetchForecast = async () => {
     try {
         const response = await axios.get(route('analytics.fetch-forecast'));
         foreCastTransaksiPerBulan.value = response.data
-        console.log(foreCastTransaksiPerBulan.value, response.data, 'daffaforecast')
     } catch (error) {
         console.error('Error fetching data:', error);
     }

@@ -267,8 +267,7 @@ const submitForm = async () => {
     };
 
     try {
-        const resourceType = 'Medication';
-        const response = await axios.post(route('medicine.store'), formDataJson).then(() => {
+        await axios.post(route('medicine.store'), formDataJson).then(() => {
             searchMedicines().then(() => {
                 dispense();
             })
