@@ -239,6 +239,7 @@ const searchWith_id = ref('code');
 const searchWith = [
     {"id": 'code', "label": 'Kode'},
     {"id": 'name', "label": 'Nama'},
+    {"id": 'prioritas', "label": 'Prioritas'},
 ];
 
 const paging = ref([]);

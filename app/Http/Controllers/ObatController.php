@@ -65,6 +65,11 @@ class ObatController extends Controller
             $query->where('code.code_kfa', 'like', '%' . addcslashes($code, '%_') . '%');
         }
 
+        if ($request->query('prioritas')) {
+            $prioritas = $request->query('prioritas');
+            $query->where('prioritas', 'like', '%' . addcslashes($prioritas, '%_') . '%');
+        }
+
         $datas = $query->paginate(15)->withQueryString();
         $formattedDatas = $datas->map(function ($data) {
             //tambahan
