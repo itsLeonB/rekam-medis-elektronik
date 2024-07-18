@@ -30,7 +30,7 @@
                                 Peminta resep
                             </th>
                             <td class="px-6 py-4 w-3/4">
-                                {{ medication.requester }}
+                                {{ medication.requester || medication.requesterId }}
                             </td>
                         </tr>
                         <tr class="bg-original-white-0">
