@@ -57,7 +57,7 @@ class MedicationDispense extends Controller
             return [$data, $medicationReq];
             
         } catch (\Throwable $th) {
-            Log::error($th->getMessage());
+            \Log::error($th->getMessage());
             return response()->json([
                 'error' => 'Data tidak ditemukan',
                 'message' => $th->getMessage()

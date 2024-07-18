@@ -143,7 +143,7 @@ const updateQuantity = () => {
         quantityMax.value = selectedMedicine.quantity;
         form.id_medicine = selectedMedicine._id;
         form.quantity = -(medication.value.quantity);
-        form.id_transaction = `${new Date().getUTCSeconds()}` + `${new Date().getUTCMilliseconds()}` + `${new Date().getUTCDate()}` +`${new Date().getUTCMonth()}` + `${new Date().getUTCFullYear()}`;
+        form.id_transaction = `${new Date().getUTCDate()}` +`${new Date().getUTCMonth()}` + `${new Date().getUTCFullYear()} `+ `${new Date().getUTCSeconds()}` + `${new Date().getUTCMilliseconds()}`;
         form.note = 'Medication Dispense'
         console.log(selectedMedicine, form)
         if (form.quantity > quantityMax.value) {

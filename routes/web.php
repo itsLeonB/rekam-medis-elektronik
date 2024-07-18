@@ -468,7 +468,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'medicationDispense', 'as' => 'medicationDispense.'], function () {
         Route::get('/', [MedicationDispense::class, 'index'])->name('index');
         Route::get('/{medicationReq_id}', [MedicationDispense::class, 'show'])->name('show');
-        Route::get('/{medicationReq_id}', [MedicationDispense::class, 'update'])->name('update');
+        Route::put('/{medicationReq_id}', [MedicationDispense::class, 'update'])->name('update');
     });
 });
 
