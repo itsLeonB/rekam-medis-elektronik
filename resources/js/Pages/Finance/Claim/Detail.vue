@@ -1,7 +1,7 @@
 <template>
     <AuthenticatedLayout>
         <div class="bg-original-white-0  shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
-            <!-- <div v-if="claimData">{{ claimData }} </div> -->
+            <div v-if="claimData">{{ claimData }} </div>
             <h1 class=" font-bold text-2xl">Detail Claim {{ claimData.id }}</h1>
             <div class="mt-4">
                 <h2 class="font-bold text-lg">Resource Type</h2>
@@ -15,6 +15,10 @@
                 <h2 class="font-bold text-lg">Status Claim</h2>
                 <p class="font-normal text-base">{{ claimData.status }}</p>
             </div>
+           <div class="mt-4">
+            <h2 class="font-bold text-lg">Use Claim</h2>
+                <p class="font-normal text-base">{{ claimData.use }}</p>
+           </div>
             <div class="mt-4">
                 <h2 class="font-bold text-lg">Pasien</h2>
                 <p class="font-normal text-base">{{ claimData.patient?.display }}</p>
@@ -24,7 +28,9 @@
                 <p class="font-normal text-base">{{ claimData.fundsReserve?.coding?.display }}</p>
             </div>
 
-            <div class="mt-4">
+            <div class="mt-4"> 
+                <h2 class="font-bold text-lg">Waktu penagihan</h2>
+                <p class="font-normal text-base">{{ formatTimestamp(claimData.billablePeriod?.start), formatTimestamp(claimData.billablePeriod?.end)}}</p>
 
             </div>
             <div class="mt-4 justify-end flex gap-1">
