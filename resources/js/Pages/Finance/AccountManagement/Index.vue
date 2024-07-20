@@ -69,7 +69,7 @@
                             Status Account
                         </th>
                         <th scope="col" class="px-6 py-3 w-3/12">
-                            Total Harga
+                            ID Account
                         </th>
                         <th scope="col" class="px-6 py-3 w-3/12">
                             Tanggal dibuat Account

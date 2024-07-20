@@ -98,7 +98,7 @@
                     </tr>
                 </tbody>
             </table>
-            <p class="text-center mt-4" v-if="searchQuery !== '' && Claim.length === 0">Data tidak ditemukan
+            <p class="text-center mt-4" v-if="searchQuery !== '' && claim.length === 0">Data tidak ditemukan
             </p>
         </div>
 
@@ -138,7 +138,7 @@ const searchClaim = async () => {
             claim.value = filteredData;
             break;
         case "subject":
-            filteredData = originalData.filter(item => item.subject.display.includes(query))
+            filteredData = originalData.filter(item => item.patient.display.includes(query))
             claim.value = filteredData;
         default:
             break;
