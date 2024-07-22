@@ -1,7 +1,7 @@
 <template>
     <AuthenticatedLayout>
         <template #apphead>
-            <title>Buat Claim - </title>
+            <title>Edit Claim - </title>
         </template>
         <Modal :show="uploadSuccessModal">
             <div class="p-6">
@@ -16,8 +16,8 @@
             </div>
         </Modal>
         <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
-            <h1 class="text-2xl font-bold text-neutral-black-300">Buat Claim Baru</h1>
-            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk membuat claim baru.</p>
+            <h1 class="text-2xl font-bold text-neutral-black-300">Edit Claim</h1>
+            <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menyunting claim.</p>
 
             <!-- Form -->
             <form @submit.prevent="submit">
@@ -410,6 +410,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import MainButton from '@/Components/MainButton.vue';
 import Modal from '@/Components/Modal.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutBack.vue';
+import SecondaryButtonSmall from '@/Components/SecondaryButtonSmall.vue';
 import axios from 'axios';
 import { Link } from '@inertiajs/vue3';
 import { ref, onMounted, computed, provide, watch } from 'vue';
@@ -458,7 +459,7 @@ const type = [
         id: "vision",
         label: "Vision"
     },
-]
+];
 
 const subType = [
     {
@@ -507,7 +508,7 @@ const priority = [
         id: "deferred",
         label: "Deferred"
     },
-]
+];
 
 const fundsreserve = [
     {
@@ -525,7 +526,7 @@ const fundsreserve = [
         id: "none",
         label: "None"
     },
-]
+];
 
 const claimRelationship = [
     {
@@ -556,7 +557,7 @@ const payeeType = [
         code: "other",
         display: "Other"
     },
-]
+];
 
 const careTeamRole = [
     {
@@ -579,7 +580,7 @@ const careTeamRole = [
         code: "other",
         display: "Primary Provider"
     },
-]
+];
 
 const careTeamQualification = [
     {
@@ -597,7 +598,7 @@ const careTeamQualification = [
         code: "604210",
         display: "Optometrist"
     },
-]
+];
 
 const supportingInfoCategories = [
     {
@@ -699,6 +700,7 @@ const supportingInfoCategories = [
 
 const payeePartyType = ["Practitioner", "Patient", "Organization"]
 const providerType = ["Practitioner", "Organization"]
+const claimData = ref({ subject: {} });
 
 // ResourceForm
 const resourceForm = ref({
@@ -738,6 +740,30 @@ const resourceForm = ref({
     invoice: {},
 });
 
+const fetchClaim = async (id) => {
+    try {
+        const { data } = await axios.get('/resources/Claim/' + id)
+        const originalData = data
+        claimData.value = originalData
+    } catch (error) {
+        console.error('Error fetching resources:', error)
+        claimData.value = {}
+    }
+}
+
+const fetchSubject = async (id) => {
+    try {
+        const { data } = await axios.get('/resources/Patient/' + id)
+        const originalData = data
+        originalData.label = originalData.name[0].text
+        originalData.satusehatId = originalData.id
+        return originalData;
+    } catch (error) {
+        console.error('Error fetching resources:', error)
+        return {}
+    }
+}
+
 // Functions
 const fetchEncounter = async (query) => {
     try {
@@ -745,7 +771,7 @@ const fetchEncounter = async (query) => {
         const originalData = data
         for (const key in originalData) {
             const currentObject = originalData[key];
-            const label = `${currentObject.subject.display} | Status: ${currentObject.status} | ${formatTimestamp(currentObject.period?.start)}`;
+            const label = `${currentObject.subject.display} | Status: ${currentObject.status} | ${formatTimestamp(currentObject.period?.start)} `;
             currentObject.label = label;
         }
         const filteredData = originalData.filter(item => item.label.includes(query))
@@ -762,7 +788,7 @@ const getInvoice = async (query) => {
         const originalData = data
         for (const key in originalData) {
             const currentObject = originalData[key];
-            const label = `${currentObject.subject.display} | ${formatTimestamp(currentObject.date)}`;
+            const label = `${currentObject.subject.display} | ${formatTimestamp(currentObject.date)} `;
             currentObject.label = label;
         }
         const filteredData = originalData.filter(item => item.label.includes(query))
@@ -776,7 +802,6 @@ const getInvoice = async (query) => {
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);
     date.setHours(date.getHours() + 7);
-
     const daysOfWeek = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
     const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 
@@ -1061,7 +1086,16 @@ const removeInsurance = (index) => {
     resourceForm.value.insurance.splice(index, 1)
 }
 
-onMounted(() => {
+onMounted(async () => {
+    await fetchClaim(props.id)
+    if (claimData.value.patient?.reference) {
+        console.log(claimData.value);
+        const subjectId = claimData.value.patient.reference.split("/")[1];
+        resourceForm.value.subject = await fetchSubject(subjectId);
+        console.log(resourceForm.value.subject);
+    } else {
+        console.error('Patient data is missing in the fetched data');
+    }
     getpractitionerList()
 })
 
@@ -1225,9 +1259,7 @@ const submit = async () => {
     console.log(submitResource)
     try {
         const resourceType = "Claim";
-        // const response = await axios.post(route('integration.store', { resourceType: resourceType }), submitResource)
         const response = await axios.post(route('resources.store', { resType: resourceType }), submitResource)
-        console.log(response.data)
         isLoading.value = false;
         uploadSuccessModal.value = true;
     } catch (error) {

@@ -143,6 +143,7 @@ const fetchInvoicePerBulan = async () => {
     try {
         const response = await axios.get(route('analytics.invoice-per-month'));
         const data = response.data;
+        console.log(data)
 
         const uniqueMonths = [...new Set(data.map(item => item.month))];
         const uniqueMonthsParsed = uniqueMonths.map(month => {
@@ -168,7 +169,7 @@ const fetchInvoicePerBulan = async () => {
 
         jumlahInvoicePerBulanOptions.value = {
             chart: {
-                type: 'bar',
+                type: 'bar-chart',
                 stacked: true,
             },
             colors: ['#6f52ed', '#f6896d', '#58c5a5'],
