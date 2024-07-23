@@ -11,19 +11,56 @@
                     <h3 v-if="index !== 0" class="font-semibold text-secondhand-orange-300 mt-2">Request {{ (index + 1) }}
                     </h3>
                     <h3 v-else class="font-semibold text-secondhand-orange-300 mt-2 mb-1">Request</h3>
-                        <div class="w-full mb-3">
+                    <div class="flex"> 
+                        <div class="w-6/12 mr-3 mb-3">
                             <InputLabel for="name" value="Nama Obat" />
                             <div class="flex">
                                 <Multiselect v-model="form[index].code_obat" mode="single" placeholder="Obat"
                                     :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="100"
                                     :searchable="true" :options="searchMedication" label="name" valueProp="kfa_code"
                                     track-by="kfa_code" class="mt-1" :classes="combo_classes" required />
-                                    <DeleteButton v-if="index !== 0" @click="removeField(index)" />
+                                    
                             </div>
-                        </div>           
+                        </div> 
+                        <div class="w-6/12 mb-3">
+                            <InputLabel for="prioritas" value="Skala Prioritas" />
+                            <select id="searchWith_id" placeholder="Prioritas" v-model="form[index].prioritas"
+                                class="bg-original-white-0 border-1 border-neutral-grey-0 text-neutral-black-300 text-sm rounded-lg focus:ring-original-teal-300 focus:border-original-teal-300 block w-full h-fit">
+                                <option v-for="item in searchWith" :value="item.id">{{ item.label }}</option>
+                            </select>
+                        </div> 
+                    </div>
+                    <div class="flex">
+                        <div class="w-6/12 mr-3 mb-3">
+                            <InputLabel for="stok" value="Stok" />
+                            <TextInput v-model="form[index].stok" id="stok" type="number"
+                                class="text-sm mt-1 mr-2 block w-1/6 px-3" placeholder="1" />
+                        </div>
+                        <div class="w-6/12 mb-3">
+                            <InputLabel for="satuan" value="Satuan Obat" />
+                            <div class="flex items-center">
+                                
+                                <Multiselect v-model="form[index].satuan" mode="single" placeholder="Satuan"
+                                :object="true" :options="medicationReqQuantity" label="display" valueProp="code" track-by="code"
+                                class="mt-1" :classes="combo_classes" />
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="flex">
+                        <div class="w-full mb-3">
+                            <InputLabel for="note" value="Keterangan (Opsional)" />
+                            <div class="flex">
+                                <TextArea v-model="form[index].note" id="note" type="text"
+                                class="text-sm mt-1 block w-full" placeholder=". . ."></TextArea>
+                                <DeleteButton v-if="index !== 0" @click="removeField(index)" />
+                            </div>
+                            
+                        </div>
+                    </div>   
                 </div>
+
                  <div class="flex justify-between">
-                    <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Obat
+                    <SecondaryButtonSmall type="button" @click="addField" class="teal-button-text">+ Tambah Request Obat
                     </SecondaryButtonSmall>
                     <div class="mt-2 mr-3">
                         <MainButtonSmall type="submit" class="teal-button text-original-white-0">Submit</MainButtonSmall>
@@ -45,6 +82,7 @@ import MainButtonSmall from '@/Components/MainButtonSmall.vue';
 import '@vueform/multiselect/themes/default.css';
 import Multiselect from '@vueform/multiselect';
 import TextInput from '@/Components/TextInput.vue';
+import TextArea from '@/Components/TextArea.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import SecondaryButtonSmall from '@/Components/SecondaryButtonSmall.vue';
@@ -56,12 +94,20 @@ import { ref, onMounted } from 'vue';
 import { useForm } from '@inertiajs/vue3';
 
 const form = ref([{
-    code_obat: [null]
+    code_obat: [null],
+    prioritas: [null],
+    satuan: [null],
+    stok: [null],
+    note: [null]
 }]);
 
 const addField = () => {
     let medicationData = {
-        code_obat: [null]
+        code_obat: [null],
+        prioritas: [null],
+        satuan: [null],
+        stok: [null],
+        note: [null]
     };
     form.value.push(medicationData);
 }
@@ -80,16 +126,33 @@ const searchMedication = async (query) => {
     const originalData = data.items.data;
     return originalData;
 }
-
+const searchWith_id = ref('high');
+const searchWith = [
+    {"id": 'low', "label": 'Low'},
+    {"id": 'medium', "label": 'Medium'},
+    {"id": 'high', "label": 'High'},
+    {"id": 'urgent', "label": 'Urgent'},
+];
 const organizationRef = ref(null);
 const getorganizationRef = async () => {
     const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
     console.log(data)
     organizationRef.value = data;
 };
+const medicationReqQuantity = ref(null);
+const getMedicationReqQuantity = async () => {
+    const { data } = await axios.get(route('terminologi.get'), {
+        params: {
+            'resourceType': 'MedicationRequestDispenseRequst',
+            'attribute': 'quantityUnit'
+        }
+    });
+    medicationReqQuantity.value = data;
+};
 
 onMounted(() => {
     getorganizationRef();
+    getMedicationReqQuantity();
 });
 
 const successAlertVisible = ref(false);
@@ -103,9 +166,12 @@ const test = () => {
             code: {
                 code_kfa: item.code_obat.kfa_code,
                 display: item.code_obat.name,
-            }
+            },
+            stok: item.stok,
+            prioritas: item.prioritas,
+            satuan: item.satuan.display,
+            note: item.note,
         };
-        console.log('Sending data:', formDataJson);
         axios.post(route('request-to-stock.store'), formDataJson)
             .then(response => {
                 console.log('Response:', response.data); 
@@ -113,6 +179,7 @@ const test = () => {
                 setTimeout(() => {
                     successAlertVisible.value = false;
                 }, 3000);
+                form.value = JSON.parse(JSON.stringify(form));
             })
             .catch(error => {
                 console.error('Error creating user:', error);

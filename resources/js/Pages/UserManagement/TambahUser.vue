@@ -254,8 +254,8 @@ const submit = async () => {
     } else if (isPractitioner.value === true && practitioner.value !== null) {
         form.practitioner_id = practitioner.value.resource.id;
         await axios.get(route('integration.show', {
-            res_type: 'Practitioner',
-            satusehat_id: form.practitioner_id
+            resourceType: 'Practitioner',
+            id: form.practitioner_id
         }));
     };
 

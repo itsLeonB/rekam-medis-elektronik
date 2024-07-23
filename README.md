@@ -24,6 +24,7 @@ This project is built using:
 - MongoDB
 - Vue.js 3 with Inertia.js
 - Tailwind CSS 3
+- railway
 
 ## Installation
 

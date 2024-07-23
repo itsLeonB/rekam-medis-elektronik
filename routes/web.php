@@ -108,7 +108,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 # User Management
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/user-management', function () {
         return Inertia::render('UserManagement/UserManagement');
     })->name('usermanagement');
@@ -430,14 +430,23 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
     });
 
+    Route::middleware('auth')->group(function () {
+        Route::get('medication-request/print/{section}/{encounter_id}', [MedicationRequestController::class, 'printResep'])->name('medicationRequest.data');
+
+        Route::get('/print-resep/{encounter_id}', function ($encounter_id) {
+                return Inertia::render('RekamMedis/Partials/PrintDataResep', ['encounter_id' => $encounter_id]);
+            })->name('print.resep');
+    });
     //Role untuk dokter 
     Route::middleware('auth')->group(function () {
-        Route::get('/expertsystems', function () {
-            return Inertia::render('ExpertSystem/index');
-        })->name('expertsystems.index');
+        
+
+        //end-point page Resep Obat
+        Route::get('medicationOrg', [MedicationRequestController::class, 'searchMedication'])->name('search.medicationOrg');
+        Route::get('getConditionPatient/{section}/{id}', [MedicationRequestController::class, 'showForConditionPatient'])->name('showForConditionPatient');
 
         // end-point expert system
-        Route::get('/rule-peresepan-obat/{id}', [ExpertSystemController::class, 'rulePeresepanStore'])->name('ruleperesepan.store');
+        Route::get('/rule-peresepan-obat/{id}', [ExpertSystemController::class, 'rulePeresepanStore'])->middleware('role:poli-umum')->name('ruleperesepan.store');
         Route::get('/get-keluhan/{id}', [ExpertSystemController::class, 'getKeluhan'])->name('get.keluhan');
         Route::get('/get-alergi/{id}', [ExpertSystemController::class, 'getAlergi'])->name('get.alergi');
         Route::get('/get-diagnosa/{id}', [ExpertSystemController::class, 'getDiagnosa'])->name('get.diagnosa');
@@ -447,13 +456,11 @@ Route::middleware('auth')->group(function () {
         Route::get('/data-fisik/{id}', [ExpertSystemController::class, 'dataFisik'])->name('get.dataFisik');
         Route::get('/rule/{rule}/{id}', [ExpertSystemController::class, 'rulePeresepanShow'])->name('ruleperesepan.show');
 
-        //end-point page Resep Obat
-        Route::get('medicationOrg', [MedicationRequestController::class, 'searchMedication'])->name('search.medicationOrg');
-        Route::get('getConditionPatient/{section}/{id}', [MedicationRequestController::class, 'showForConditionPatient'])->name('showForConditionPatient');
+        
         //end-point request stok obat
         Route::get('/request-to-stock', function () {
             return Inertia::render('FormRekamMedis/PeresepanObat/RequestStok');
-        })->name('request-to-stock');
+        })->middleware('role:poli-umum')->name('request-to-stock');
         Route::post('/store-request-stok', [RequestStockController::class, 'store'])->name('request-to-stock.store');
     });
 

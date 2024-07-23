@@ -128,7 +128,7 @@ import NavLink from '@/Components/NavLink.vue';
                             <span class="pt-1">Rekam Medis</span>
                         </NavLink>
                     </li>
-                    <li>
+                    <li v-if="$page.props.auth.user.roles[0].name === 'admin'">
                         <NavLink :href="route('usermanagement')" :active="route().current('usermanagement')">
                             <span class="mr-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none">
@@ -176,6 +176,7 @@ import NavLink from '@/Components/NavLink.vue';
             <ResponsiveNavLink :href="route('rekammedis')" :active="route().current('rekammedis')"> Rekam Medis </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('usermanagement')" :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('medicinetransaction')" :active="route().current('medicinetransaction')"> Transaksi </ResponsiveNavLink>
+            <ResponsiveNavLink  v-if="$page.props.auth.user.roles[0].name === 'admin'" :href="route('usermanagement')" :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('medication')" :active="route().current('medication')">Medication</ResponsiveNavLink>
         </template>
     </AuthenticatedLayout>

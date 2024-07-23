@@ -36,7 +36,7 @@
             </svg>
             Permintaan resep
             </Link>
-            <Link :href="route('medication.requestStock')" as="button"
+            <Link :href="route('medication.requestStock')" v-if="$page.props.auth.user.roles[0].name === 'apoteker'" as="button"
             class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg ">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-5 h-5 mr-2 bi bi-file-earmark-text" viewBox="0 0 16 16" troke-width="1.5">
                     <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5"/>
@@ -45,7 +45,6 @@
                 Data Request Obat
             </Link>
             </div>
-           
         </div>
         <div
             class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
