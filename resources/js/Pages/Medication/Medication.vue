@@ -44,6 +44,8 @@
                 </svg>
                 Data Request Obat
             </Link>
+            <div class="row" v-if="$page.props.auth.user.roles[0].name === 'apoteker'">
+                <span class="font-semibold">Note : </span> <p id="check" class="text-sm">{{ message }}</p>
             </div>
         </div>
         <div
