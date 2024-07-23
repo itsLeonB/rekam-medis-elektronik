@@ -6,7 +6,7 @@
                     Data Account telah berhasil dibuat. <br> Kembali ke halaman daftar Account.
                 </h2>
                 <div class="mt-6 flex justify-end">
-                    <Link :href="route('finance.catalogue.index')"
+                    <Link :href="route('finance.account.index')"
                         class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
                     Kembali </Link>
                 </div>
@@ -438,7 +438,7 @@ const submit = async () => {
         uploadSuccessModal.value = true;
     } catch (error) {
         console.error(error.response ? error.response.data : error.message);
-        isCovLoading.value = false;
+        isLoading.value = false;
     }
 }
 

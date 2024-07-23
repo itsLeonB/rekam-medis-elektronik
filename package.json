@@ -27,6 +27,6 @@
         "vue-apexcharts": "^1.6.2",
         "vue-multiselect": "^3.0.0-beta.3",
         "vue-router": "^4.4.0",
-        "vue3-apexcharts": "^1.4.4"
+        "vue3-apexcharts": "^1.5.3"
     }
 }

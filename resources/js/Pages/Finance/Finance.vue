@@ -62,12 +62,16 @@
                 <div class="p-5 flex flex-col basis-3/5 h-fit bg-white overflow-hidden shadow sm:rounded-xl">
                     <h2 class="pl-4 pt-3 mb-2 text-base font-semibold text-neutral-black-500">Jumlah Invoice Per Bulan
                     </h2>
-                    <VueApexCharts width="100%" height="320px" type="bar" :options="jumlahInvoicePerBulanOptions"
+                    <!-- <VueApexCharts width="100%" height="320px" type="bar" :options="jumlahInvoicePerBulanOptions"
+                        :series="jumlahInvoicePerBulan">
+                    </VueApexCharts> -->
+                    <VueApexCharts width="100%" height="367px" type="bar" :options="jumlahInvoicePerBulanOptions"
                         :series="jumlahInvoicePerBulan">
                     </VueApexCharts>
                 </div>
                 <div class="p-5 flex flex-col basis-2/5 h-fit bg-white overflow-hidden shadow sm:rounded-xl">
-                    <h2 class="pl-4 pt-3 mb-2 text-base font-semibold text-neutral-black-500">Persebaran Invoice</h2>
+                    <h2 class="pl-4 pt-3 mb-2 text-base font-semibold text-neutral-black-500">Distribusi
+                        Coverage/Cakupan</h2>
                     <VueApexCharts width="100%" height="367px" type="donut" :options="persebaranCoverageOptions"
                         :series="persebaranCoverage">
                     </VueApexCharts>
@@ -85,6 +89,7 @@ import { Link } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import VueApexCharts from 'vue3-apexcharts';
 import axios from 'axios';
+import BarChart from '@/Components/BarChart.vue';
 
 const users = ref([]);
 const invoice = ref([]);
@@ -138,28 +143,30 @@ const getActiveClaims = async () => {
     }
 }
 
-
 const fetchInvoicePerBulan = async () => {
     try {
         const response = await axios.get(route('analytics.invoice-per-month'));
         const data = response.data;
         console.log(data)
 
-        const uniqueMonths = [...new Set(data.map(item => item.month))];
+        const uniqueMonths = [...new Set(data.map(item => item._id.date))];
+        console.log(uniqueMonths)
         const uniqueMonthsParsed = uniqueMonths.map(month => {
             const date = new Date(month + '-01');
             return new Intl.DateTimeFormat('id-ID', { month: 'short', year: '2-digit' }).format(date);
         });
+        console.log(uniqueMonthsParsed)
 
         const ambCountArray = Array(uniqueMonths.length).fill(0);
         const impCountArray = Array(uniqueMonths.length).fill(0);
         const emerCountArray = Array(uniqueMonths.length).fill(0);
 
         data.forEach(item => {
-            const monthIndex = uniqueMonths.indexOf(item.month);
-            if (item.class === 'qris') ambCountArray[monthIndex] = item.count;
-            else if (item.class === 'cash') impCountArray[monthIndex] = item.count;
-            else if (item.class === 'bank') emerCountArray[monthIndex] = item.count;
+            console.log(item)
+            const monthIndex = uniqueMonths.indexOf(item._id.date);
+            if (item._id.class === 'qris') ambCountArray[monthIndex] = item.count;
+            else if (item._id.class === 'cash') impCountArray[monthIndex] = item.count;
+            else if (item._id.class === 'bank') emerCountArray[monthIndex] = item.count;
         });
 
         months.value = uniqueMonthsParsed;
@@ -167,12 +174,13 @@ const fetchInvoicePerBulan = async () => {
         impCounts.value = impCountArray;
         emerCounts.value = emerCountArray;
 
+        console.log(ambCountArray, impCountArray, emerCountArray)
+
         jumlahInvoicePerBulanOptions.value = {
             chart: {
-                type: 'bar-chart',
-                stacked: true,
+                type: 'bar',
+                // stacked: true,
             },
-            colors: ['#6f52ed', '#f6896d', '#58c5a5'],
             plotOptions: {
                 bar: {
                     horizontal: false,
@@ -180,7 +188,7 @@ const fetchInvoicePerBulan = async () => {
                 },
             },
             xaxis: {
-                categories: months.value,
+                categories: uniqueMonthsParsed,
                 labels: {
                     rotate: -90,
                     rotateAlways: true,
@@ -208,7 +216,7 @@ const fetchInvoicePerBulan = async () => {
                         fontSize: '12px',
                         fontFamily: 'Arial, sans-serif',
                         fontWeight: 600,
-                        cssClass: 'apexcharts-xaxis-title',
+                        cssClass: 'apexcharts-yaxis-title',
                     }
                 },
             },
@@ -228,21 +236,25 @@ const fetchInvoicePerBulan = async () => {
                 }
             },
         };
+        console.log('Chart Options:', jumlahInvoicePerBulanOptions);
+
+
 
         jumlahInvoicePerBulan.value = [
             {
                 name: 'QRIS',
-                data: ambCounts.value
+                data: ambCountArray
             },
             {
                 name: 'Cash',
-                data: impCounts.value
+                data: impCountArray
             },
             {
                 name: 'Bank Transfer',
-                data: emerCounts.value
+                data: emerCountArray
             }
         ];
+        console.log('Series:', jumlahInvoicePerBulan);
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -256,41 +268,28 @@ const fetchPersebaranCoverage = async () => {
         const data = response.data;
 
         console.log(data);
-        const urutan = ['pay', 'PUBLICPOL', 'WCBPOL', 'COL'];
 
-        persebaranCoverage.value = Array.from(urutan.map(group => {
-            const matchingItem = data.find(item => item.id === group);
-            return matchingItem ? matchingItem.count : 0;
-        }));
+        const labels = data.map(item => item._id[0])
+        const counts = data.map(item => item.count)
+
+        persebaranCoverage.value = counts
 
         persebaranCoverageOptions.value = {
             chart: {
-                type: "donut"
+                type: 'donut',
             },
-            colors: ["#6f52ed", "#f6896d", "#589ec5", "#f2e35b", "#58c5a5", "#f43f5e"],
-            plotOptions: {
-                pie: {
-                    donut: {
-                        size: "60%",
+            labels: labels,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
                     },
-                },
-            },
-            labels: urutan,
-            legend: {
-                position: "bottom",
-                horizontalAlign: "center",
-                fontFamily: fontFamily,
-                markers: {
-                    width: 12,
-                    height: 12,
-                    radius: 12,
-                },
-            },
-            tooltip: {
-                style: {
-                    fontFamily: fontFamily,
-                },
-            },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }],
         };
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -305,7 +304,6 @@ const getCovClass = async () => {
     originalData.map(item => {
         covClass.value.push(item.code)
     });
-    console.log(covClass)
 }
 
 onMounted(() => {

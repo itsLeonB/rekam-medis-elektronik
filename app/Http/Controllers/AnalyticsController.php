@@ -242,7 +242,8 @@ class AnalyticsController extends Controller
                             ],
                             'class' => '$paymentTerms'
                         ],
-                        'count' => ['$sum' => 1]
+                        'count' => ['$sum' => 1],
+                        'totalNet' => ['$sum' => '$totalNet.value']
                     ]
                 ],
             ]);
