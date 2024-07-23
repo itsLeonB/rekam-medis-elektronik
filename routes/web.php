@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\AnalyticsObatController;
 use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\EncounterFormController;
 use App\Http\Controllers\IdentifierController;
@@ -10,13 +11,17 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
 use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\MedicineTransactionController;
 use App\Http\Controllers\ExpertSystemController;
+use App\Http\Controllers\MedicationDispense;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\MedicationRequestController;
 use App\Http\Controllers\RequestStockController;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -115,17 +120,40 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     })->name('usermanagement.tambah');
 });
 
+# Transaksi
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/medicine-transaction', function () {
+        return Inertia::render('MedicineTransaction/MedicineTransaction');
+    })->name('medicinetransaction');
+    Route::get('/medicine-transaction/form-transaction', function () {
+        return Inertia::render('MedicineTransaction/FormTransaction');
+    })->name('medicinetransaction.tambah');
+});
+
+
 # Medication
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/medication', function () {
+    Route::get('/medication/table', function () {
         return Inertia::render('Medication/Medication');
-    })->name('medication');
-    Route::get('/medication/details/{medication_id}', function ($medication_id) {
+    })->name('medication.table');
+    Route::get('/medication/details/', function ($medication_id) {
         return Inertia::render('Medication/MedicationDetails', ['medication_id' => $medication_id]);
     })->name('medication.details');
     Route::get('/medication/tambah', function () {
         return Inertia::render('Medication/TambahMedication');
     })->name('medication.tambah');
+    Route::get('/medication', function () {
+        return Inertia::render('Medication/DashboardMedication');
+    })->name('medication');
+    Route::get('/medication/prescription', function () {
+        return Inertia::render('Medication/MedicationDispense');
+    })->name('medication.prescription');
+    Route::get('/medication-dispense/details/{medication_dispense_id}', function ($medication_dispense_id) {
+        return Inertia::render('Medication/MedicationDispenseDetails', ['medication_dispense_id' => $medication_dispense_id]);
+    })->name('medicationDispense.details');
+    // Route::get('/expertsystems', function () {
+    //     return Inertia::render('Medication/ExpertSystem');
+    // })->name('expertsystems.index');
 
     Route::get('/medication/request-stock', function () {
         return Inertia::render('Medication/RequestStockData');
@@ -179,8 +207,8 @@ Route::middleware('auth')->group(function () {
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
     });
-    
-     // Endpoint untuk View mediation
+
+    // Endpoint untuk View mediation
     Route::group(['prefix' => 'obat', 'as' => 'obat.'], function () {
         // Daftar obat
         Route::get('/', [ObatController::class, 'index'])->name('index');
@@ -191,9 +219,27 @@ Route::middleware('auth')->group(function () {
         Route::get('/{medication_id}', [ObatController::class, 'show'])->name('show');
         // Pull update dari obat dari SATUSEHAT
         Route::get('/{medication_id}/update', [ObatController::class, 'updateObat'])->name('update');
+        Route::post('/obat', [ObatController::class, 'store'])->name('store');
+    });
 
-        
-
+    // Endpoint untuk View Medication
+    Route::group(['prefix' => 'medication', 'as' => 'medication.'], function () {
+        // Daftar pasien rawat jalan
+        Route::middleware('permission:akses poli umum')->get('/rawat-jalan/umum', [DaftarPasienController::class, 'getDaftarPoliUmum'])->name('rawat-jalan.umum');
+        Route::middleware('permission:akses poli neurologi')->get('/rawat-jalan/neurologi', [DaftarPasienController::class, 'getDaftarPoliNeurologi'])->name('rawat-jalan.neurologi');
+        Route::middleware('permission:akses poli obgyn')->get('/rawat-jalan/obgyn', [DaftarPasienController::class, 'getDaftarPoliObgyn'])->name('rawat-jalan.obgyn');
+        Route::middleware('permission:akses poli gigi')->get('/rawat-jalan/gigi', [DaftarPasienController::class, 'getDaftarPoliGigi'])->name('rawat-jalan.gigi');
+        Route::middleware('permission:akses poli kulit')->get('/rawat-jalan/kulit', [DaftarPasienController::class, 'getDaftarPoliKulit'])->name('rawat-jalan.kulit');
+        Route::middleware('permission:akses poli ortopedi')->get('/rawat-jalan/ortopedi', [DaftarPasienController::class, 'getDaftarPoliOrtopedi'])->name('rawat-jalan.ortopedi');
+        Route::middleware('permission:akses poli penyakit dalam')->get('/rawat-jalan/dalam', [DaftarPasienController::class, 'getDaftarPoliDalam'])->name('rawat-jalan.dalam');
+        Route::middleware('permission:akses poli bedah')->get('/rawat-jalan/bedah', [DaftarPasienController::class, 'getDaftarPoliBedah'])->name('rawat-jalan.bedah');
+        Route::middleware('permission:akses poli anak')->get('/rawat-jalan/anak', [DaftarPasienController::class, 'getDaftarPoliAnak'])->name('rawat-jalan.anak');
+        // Daftar pasien rawat inap, serviceType per ruangan
+        // Daftar pasien IGD
+        Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
+        Route::get('/medication/details/{code_medication}', function ($code_medication) {
+            return Inertia::render('RekamMedis/RekamMedisDetails', ['medication_id' => $medication_id]);
+        })->name('rekammedis.details');
     });
 
     // Endpoint untuk Dashboard Analytics
@@ -208,6 +254,32 @@ Route::middleware('auth')->group(function () {
         Route::get('/pasien-per-bulan', [AnalyticsController::class, 'getEncountersPerMonth'])->name('pasien-per-bulan');
         // Jumlah pasien yang pernah dirawat berdasarkan usia
         Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
+
+        // card :
+        // - jumlah mendekati kadaluarsa exp kurang dari 1 bulan
+        Route::get('/obat-mendekati-kadaluarsa', [AnalyticsObatController::class, 'getObatMendekatiKadaluarsa'])->name('obat-mendekati-kadaluarsa');
+
+        // - jumlah stok sedikit - kosong
+        Route::get('/obat-stok-sedikit', [AnalyticsObatController::class, 'getObatStokSedikit'])->name('obat-stok-sedikit');
+        // - jumlah obat fast 
+        Route::get('/obat-fast-moving', [AnalyticsObatController::class, 'getObatFastMoving'])->name('obat-fast-moving');
+        
+        // - jumlah obat penggunaan paling banyak
+        Route::get('/obat-penggunaan-paling-banyak', [AnalyticsObatController::class, 'getObatPenggunaanPalingBanyak'])->name('obat-penggunaan-paling-banyak');
+
+        // chart :
+        // - line chart stok obat secara keseluruhan perbulan
+        Route::get('/obat-transaksi-perbandingan-per-bulan', [AnalyticsObatController::class, 'getObatTransaksiPerbandinganPerBulan'])->name('obat-transaksi-perbandingan-per-bulan');
+
+        // - pie chart distribusi stok obat berdasarkan jenis
+        Route::get('/obat-persebaran-stok', [AnalyticsObatController::class, 'getObatPersebaranStok'])->name('obat-persebaran-stok');
+
+        Route::get('/forecast', [AnalyticsObatController::class, 'forecast'])->name('forecast');
+
+        Route::post('/save-monthly-data', [AnalyticsObatController::class, 'saveMonthlyData'])->name('save-monthly-data');
+
+        Route::get('/fetch-forecast', [AnalyticsObatController::class, 'transformForecastData'])->name('fetch-forecast');
+
     });
 
     // Endpoint untuk Formulir Perawatan
@@ -239,6 +311,24 @@ Route::middleware('auth')->group(function () {
         // Daftar roles
         Route::get('/get/roles', [UserManagementController::class, 'getRoles'])->name('roles');
     });
+
+    // Endpoint untuk MedicineTransaction Management
+    Route::group(['prefix' => 'medicinetransactions', 'as' => 'medicinetransactions.'], function () {
+        // Daftar medicinetransaction
+        Route::get('/', [MedicineTransactionController::class, 'index'])->name('index');
+        // Detail medicinetransaction
+        Route::get('/{id}', [MedicineTransactionController::class, 'show'])->name('show');
+        // Tambah medicinetransaction
+        Route::post('/', [MedicineTransactionController::class, 'store'])->name('store');
+        // Update medicinetransaction
+        Route::put('/{id}', [MedicineTransactionController::class, 'update'])->name('update');
+        // Hapus medicinetransaction
+        Route::delete('/{id}', [MedicineTransactionController::class, 'destroy'])->name('destroy');
+        // Daftar roles
+        Route::get('/get/roles', [MedicineTransactionController::class, 'getRoles'])->name('roles');
+    });
+    // Daftar medicine
+    Route::get('/getmedicine', [MedicineTransactionController::class, 'getmedicine'])->name('getmedicine');
 
     // Endpoint kode terminologi
     Route::group(['prefix' => 'terminologi', 'as' => 'terminologi.'], function () {
@@ -281,6 +371,8 @@ Route::middleware('auth')->group(function () {
 
         // Untuk Medication.code atau MedicationIngredient.itemCodeableConcept
         Route::get('/medication', [SatusehatController::class, 'searchKfaProduct'])->name('medication');
+
+        Route::get('/ingridients', [SatusehatController::class, 'searchKfaProduct'])->name('ingridients');
 
         // Endpoint codesystems
         Route::get('/icd10', [TerminologyController::class, 'getIcd10'])->name('icd10');
@@ -371,7 +463,20 @@ Route::middleware('auth')->group(function () {
         })->middleware('role:poli-umum')->name('request-to-stock');
         Route::post('/store-request-stok', [RequestStockController::class, 'store'])->name('request-to-stock.store');
     });
-    
+
+    Route::group(['prefix' => 'medicine', 'as' => 'medicine.'], function () {
+        Route::get('/', [MedicineController::class, 'index'])->name('index');
+        Route::post('/', [MedicineController::class, 'store'])->name('store');
+        Route::get('/{medicine_code}', [MedicineController::class, 'show'])->name('show');
+        Route::put('/{medicine_code}', [MedicineController::class, 'update'])->name('update');
+        Route::delete('/{medicine_code}', [MedicineController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::group(['prefix' => 'medicationDispense', 'as' => 'medicationDispense.'], function () {
+        Route::get('/', [MedicationDispense::class, 'index'])->name('index');
+        Route::get('/{medicationReq_id}', [MedicationDispense::class, 'show'])->name('show');
+        Route::put('/{medicationReq_id}', [MedicationDispense::class, 'update'])->name('update');
+    });
 });
 
 

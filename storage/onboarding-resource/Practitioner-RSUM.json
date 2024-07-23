@@ -1,48 +1,49 @@
 {
-  "address": [
-    {
-      "city": "Kab. Musi Rawas",
-      "country": "ID",
-      "extension": [
-        {
-          "extension": [
-            {
-              "url": "province",
-              "valueCode": "16"
-            },
-            {
-              "url": "city",
-              "valueCode": "1605"
-            }
-          ],
-          "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
-        }
-      ],
-      "use": "home"
-    }
-  ],
-  "gender": "male",
-  "id": "rsum",
-  "identifier": [
-    {
-      "system": "https://fhir.kemkes.go.id/id/nakes-id",
-      "value": "1000400104"
+    "address": [
+      {
+        "city": "Kab. Musi Rawas",
+        "country": "ID",
+        "extension": [
+          {
+            "extension": [
+              {
+                "url": "province",
+                "valueCode": "16"
+              },
+              {
+                "url": "city",
+                "valueCode": "1605"
+              }
+            ],
+            "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/administrativeCode"
+          }
+        ],
+        "use": "home"
+      }
+    ],
+    "gender": "male",
+    "id": "rsum",
+    "identifier": [
+      {
+        "system": "https://fhir.kemkes.go.id/id/nakes-id",
+        "value": "1000400104"
+      },
+      {
+        "system": "https://fhir.kemkes.go.id/id/nik",
+        "use": "official",
+        "value": "1673022601750002"
+      }
+    ],
+    "meta": {
+      "lastUpdated": "2022-04-21T23:57:50.201972+00:00",
+      "versionId": "MTY1MDU4NTQ3MDIwMTk3MjAwMA"
     },
-    {
-      "system": "https://fhir.kemkes.go.id/id/nik",
-      "use": "official",
-      "value": "1673022601750002"
-    }
-  ],
-  "meta": {
-    "lastUpdated": "2022-04-21T23:57:50.201972+00:00",
-    "versionId": "MTY1MDU4NTQ3MDIwMTk3MjAwMA"
-  },
-  "name": [
-    {
-      "text": "Bambang Untung Waluyo",
-      "use": "official"
-    }
-  ],
-  "resourceType": "Practitioner"
-}
+    "name": [
+      {
+        "text": "Bambang Untung Waluyo",
+        "use": "official"
+      }
+    ],
+    "resourceType": "Practitioner"
+  }
+  
