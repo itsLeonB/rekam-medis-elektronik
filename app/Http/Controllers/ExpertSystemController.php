@@ -29,8 +29,8 @@ class ExpertSystemController extends Controller
     {
         $diagnosa =FhirResource::where('resourceType', 'Condition')
                 ->where('encounter.reference', 'Encounter/'.$id)
-                ->where('category.0.coding.0.code', 'encounter-diagnosis')
                 ->where('verificationStatus.coding.0.code', 'confirmed')
+                ->where('code.coding.0.system', 'http://hl7.org/fhir/sid/icd-10')
                 ->select('code')    
                 ->first();
 
@@ -95,18 +95,6 @@ class ExpertSystemController extends Controller
         }
     }
 
-    // public function getAlergi($id){
-    //     $alergi =FhirResource::where('resourceType', 'AllergyIntolerance')
-    //             ->where('encounter.reference', 'Encounter/'.$id)
-    //             ->where('category', 'medication')  
-    //             ->get();
-        
-    //     $result = $alergi->map(function ($item) {
-    //         return data_get($item, 'code.coding.0.display');
-    //     })->toArray();
-    //     return $result;
-    // }
-
     public function rulePeresepanStore($id){        
             try {
                 DB::beginTransaction();
@@ -157,26 +145,24 @@ class ExpertSystemController extends Controller
            
     public function rulePeresepanShow($rule, $id){
         $req_keluhan =  $this->getKeluhan($id);
-
+        // dd($req_keluhan);
         $req_kehamilan = $this->statusKehamilan($id);
         $req_umur = $this->kategoriUmur($id);
         if ($rule=='diagnosa') {
-            $result = ExpertSystem::where('keluhan', 'all', $req_keluhan)
+            $result = ExpertSystem::where('keluhan', $req_keluhan)
                     ->where('umur', $req_umur)
                     ->where('statusKehamilan', $req_kehamilan)
                     ->pluck('diagnosa');
                     if ($result->isEmpty()) {
-                         return response('Belum ada rekomendasi dari data keluhan sebelumnya');
-                    }
-                    else {
-                        return $result;
+                        return response()->json(['message' => 'Belum ada rekomendasi dari data keluhan sebelumnya'], 404);
+                    } else {
+                        return response()->json($result);
                     }
            
         } if($rule=='resepObat') {
-            $result = ExpertSystem::where("keluhan", 'all', $req_keluhan)
+            $result = ExpertSystem::where("keluhan", $req_keluhan)
                     ->where('umur', $req_umur)
                     ->where('statusKehamilan', $req_kehamilan)
-                    // ->whereNot('alergi', $req_alergi)
                     ->pluck('resepObat');
                     if ($result->isEmpty()) {
                         return response()->json(['message' => 'Belum ada rekomendasi dari data keluhan sebelumnya'], 404);

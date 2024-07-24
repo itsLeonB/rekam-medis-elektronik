@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $poliPenyakitDalam = Role::create(['name' => 'poli-penyakit-dalam']);
         $poliBedah = Role::create(['name' => 'poli-bedah']);
         $poliAnak = Role::create(['name' => 'poli-anak']);
+        $apoteker = Role::create(['name' => 'apoteker']);
 
         // Permissions
         $aksesPoliUmum = Permission::create(['name' => 'akses poli umum']);
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $aksesPoliPenyakitDalam = Permission::create(['name' => 'akses poli penyakit dalam']);
         $aksesPoliBedah = Permission::create(['name' => 'akses poli bedah']);
         $aksesPoliAnak = Permission::create(['name' => 'akses poli anak']);
+        $aksesApoteker = Permission::create(['name' => 'akses apoteker']);
         $aksesUserManagement = Permission::create(['name' => 'akses user management']);
 
         // Assign permissions to roles. Note: admin tidak perlu diassign karena sudah memiliki semua permission
@@ -49,6 +51,7 @@ class DatabaseSeeder extends Seeder
         $poliPenyakitDalam->givePermissionTo($aksesPoliPenyakitDalam);
         $poliBedah->givePermissionTo($aksesPoliBedah);
         $poliAnak->givePermissionTo($aksesPoliAnak);
+        $apoteker->givePermissionTo($aksesApoteker);
 
         // Create admin
         $admin = \App\Models\User::factory()->create([
@@ -62,6 +65,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TerminologySeeder::class,
             OnboardingSeeder::class,
+            IdFhirResourceSeeder::class,
+            MedicationSeeder::class,
+            MedicineTransactionSeeder::class,
         ]);
     }
 }

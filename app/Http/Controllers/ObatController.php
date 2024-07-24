@@ -31,7 +31,8 @@ class ObatController extends Controller
                 'code' => data_get($medications, 'code.coding.0.code'),
                 'name' => data_get($medications, 'code.coding.0.display'),
                 'status' => data_get($medications, 'status'),
-                'form' => data_get($medications, 'form.coding.0.display')
+                'form' => data_get($medications, 'form.coding.0.display'),
+                'extension' => data_get($medications, 'extension.0.valueCodeableConcept.coding.0.display')
             ];
         });
 
@@ -65,6 +66,11 @@ class ObatController extends Controller
             $query->where('code.code_kfa', 'like', '%' . addcslashes($code, '%_') . '%');
         }
 
+        if ($request->query('prioritas')) {
+            $prioritas = $request->query('prioritas');
+            $query->where('prioritas', 'like', '%' . addcslashes($prioritas, '%_') . '%');
+        }
+
         $datas = $query->paginate(15)->withQueryString();
         $formattedDatas = $datas->map(function ($data) {
             //tambahan
@@ -77,6 +83,10 @@ class ObatController extends Controller
             return [
                 'code' => data_get($data, 'code.code_kfa'),
                 'name' => data_get($data, 'code.display'),
+                'stok' => data_get($data, 'stok'),
+                'satuan' => data_get($data, 'satuan'),
+                'prioritas' => data_get($data, 'prioritas'),
+                'note' => data_get($data, 'note'),
                 'opsi' => $opsi,
             ];
         });

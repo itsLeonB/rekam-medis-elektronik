@@ -240,19 +240,35 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayoutNav.vue';
 import MainButton from '@/Components/MainButton.vue';
-import { Link, usePage} from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const medications = ref([]);
-
 const hide = ref(false);
 
+const medications = ref([]);
 const fetchMedications = async (page = 1) => {
-    const { data } = await axios.get(route('obat.index', {'page': page}));
-    console.log(data)
-    medications.value = data.obat;
-    generateNumbers(1, medications.value.current_page, medications.value.last_page);
+    try {
+        const { data } = await axios.get(route('medicine.index', { 'page': page }));
+        medications.value = data;
+
+        generateNumbers(1, data.current_page, data.last_page);
+    } catch (error) {
+        console.error('Error fetching medications:', error);
+    }
+};
+
+const fetchPagination = async (page = 1) => {
+    if (searchQuery.value == '') {
+        const { data } = await axios.get(route('medicine.index'), { params: { 'page': page, 'sort': sortKey, 'direction': sortDirection } });
+        medications.value = data;
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
+    } else {
+        const query = searchQuery.value;
+        const { data } = await axios.get(route('medicine.index'), { params: { 'search': query, 'page': page, 'sort': sortKey, 'direction': sortDirection } });
+        medications.value = data;
+        generateNumbers(1, medications.value.current_page, medications.value.last_page);
+    };
 };
 
 const cancelSearch = async () => {
@@ -260,32 +276,54 @@ const cancelSearch = async () => {
     searchQuery.value = '';
     fetchMedications(1);
 };
+
+let sortKey = '';
+let sortDirection = '';
+
+const sortBy = async (key) => {
+
+    if (sortKey === key) {
+        if (sortDirection === 'asc') {
+            sortDirection = 'desc';
+        } else if (sortDirection === 'desc') {
+            sortKey = '';
+            sortDirection = 'asc';
+        } else {
+            sortDirection = 'asc';
+        }
+    } else {
+        sortKey = key;
+        sortDirection = 'asc';
+    }
+
+    const { data } = await axios.get(route('medicine.index'), { params: { 'page': 1, 'sort': sortKey, 'direction': sortDirection } });
+    console.log("Sorted Medications:", medications.value, sortKey);
+    medications.value = data;
+};
+
 const searchQuery = ref('');
 
-const searchMedications = async () => {
+const searchMedications = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     hide.value = true;
-    const query = searchQuery.value;
+    const search = searchQuery.value;
     try {
-        const { data } = await axios.get(route('obat.index', { [searchWith_id.value]: query }));
-        medications.value = data.obat;
+        const { data } = await axios.get(route('medicine.index', { search }));
+        medications.value = data;
         generateNumbers(1, medications.value.current_page, medications.value.last_page);
     } catch (error) {
         console.error("Error fetching medications:", error);
     }
 };
 
-const fetchPagination = async (page = 1) => {
-    if (searchQuery.value == '') {
-        const { data } = await axios.get(route('obat.index', {'page': page}));
-        medications.value = data.obat;
-        generateNumbers(1, medications.value.current_page, medications.value.last_page);
-    } else {
-        const query = searchQuery.value;
-        const { data } = await axios.get(route('obat.index'), {params: {'name': query, 'page': page}});
-        medications.value = data.obat;
-        generateNumbers(1, medications.value.current_page, medications.value.last_page);
-    };
+const paging = ref([]);
+
+const formatDate = (date) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(date).toLocaleDateString('id-ID', options);
 };
+
 const checkRequest = async () => {
     try {
         const response = await axios.get(route('obat.checkRequest'));
@@ -296,14 +334,6 @@ const checkRequest = async () => {
         document.getElementById('check').textContent = 'An error occurred while checking the request.';
     }
 };
-const searchWith_id = ref('name');
-
-const searchWith = [
-    {"id": 'name', "label": 'Nama'},
-    {"id": 'form', "label": 'Tipe'},
-];
-
-const paging = ref([]);
 
 const generateNumbers = (firstNumber, currentNumber, lastNumber) => {
     const result = [];
@@ -332,12 +362,22 @@ onMounted(() => {
 );
 
 </script>
+
 <style>
-    .requestCheck span{
-        font-size:14px;
-        font-weight: semibold;
-    };
-    .requestCheck p{
-        font-size:12px;
-    }
+.table-header {
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
+
+.arrow {
+    margin-left: 5px;
+    position: absolute;
+    right: 0;
+}
+
+.button-group {
+    display: flex;
+}
 </style>

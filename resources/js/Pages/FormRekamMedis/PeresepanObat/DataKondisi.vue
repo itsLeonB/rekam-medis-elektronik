@@ -13,7 +13,8 @@
             <h2 class="text-md font-semibold text-secondhand-orange-300">b. Riwayat Alergi</h2>
             <p v-if="error">{{ errorMessage }}</p>
             <ul v-else>
-                <li v-for="(item, index) in alergi" :key="index">
+                <li v-if="isAlergiEmpty">-</li>
+                <li v-else v-for="(item, index) in alergi" :key="index">
                     {{item.category[0]}} - {{ item.code.coding[0].display }}
                 </li>
             </ul>
@@ -31,7 +32,7 @@
 </template>
 <script setup>
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 
 const props = defineProps({
     subject_reference: {
@@ -84,12 +85,14 @@ const fetchAlergi = async () => {
             section: 'alergi',
             id: props.encounter_satusehat_id 
         }));
+        
         alergi.value = data;
       } catch (error) {
         errorMessage.value = 'Terjadi kesalahan dalam mengambil data.';
         console.error(error);
       }
 };
+
 onMounted(() => {
     fetchKeluhan();
     fetchDiagnosa();

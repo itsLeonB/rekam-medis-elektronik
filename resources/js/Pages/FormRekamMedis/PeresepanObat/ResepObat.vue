@@ -11,18 +11,15 @@
     <div class="flex flex-row justify-between">
         <h2 class="text-xl font-semibold text-secondhand-orange-300">Resep Obat</h2>
          <div class="flex justify-end mr-2">
-            <Link :href="route('request-to-stock')" as="button"
-                    class="mr-2 inline-flex px-4 py-1.5 border border-transparent rounded-md font-normal text-sm text-white teal-button transition ease-in-out duration-150 hover:shadow-lg">
+            <Link :href="route('request-to-stock')" v-if="$page.props.auth.user.roles[0].name === 'poli-umum'" as="button"
+                    class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg ">
                     Request Stok Obat
             </Link>
             <form @submit.prevent="ruleSubmit" class="flex items-center">
-                <MainButtonSmall type="submit" class="teal-button text-original-white-0 rounded-md">Save Rule</MainButtonSmall>
-                
+                <MainButtonSmall v-if="$page.props.auth.user.roles[0].name === 'poli-umum'" type="submit" class="mr-2 inline-flex mb-3 justify-center px-4 py-2 secondary-button border border-teal-600 rounded-xl font-semibold text-sm teal-button-text hover:text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">Save Rule</MainButtonSmall>
             </form>
         </div>
-       
     </div>
-    
     <div>
         <form @submit.prevent="submit">
             <div class="my-2 w-full" v-for="(field, index) in resourceForm" :key="index">
@@ -351,16 +348,16 @@ const submit = () => {
                 }
             ],
             "dispenseRequest": {
-                // "dispenseInterval": {
-                //     "value": parseInt(item.dispensevalue),
-                //     "unit": item.duration.unit,
-                //     "system": "http://unitsofmeasure.org",
-                //     "code": item.duration.code
-                // },
-                // "validityPeriod": {
-                //     "start": new Date(item.validityPeriodStart).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''),
-                //     "end": new Date(item.validityPeriodEnd).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''), 
-                // },
+                "dispenseInterval": {
+                    "value": parseInt(item.dispensevalue),
+                    "unit": item.duration.unit,
+                    "system": "http://unitsofmeasure.org",
+                    "code": item.duration.code
+                },
+                "validityPeriod": {
+                    "start": new Date(item.validityPeriodStart).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''),
+                    "end": new Date(item.validityPeriodEnd).toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, ''), 
+                },
                 "numberOfRepeatsAllowed": parseInt(item.repeat),
                 "quantity": {
                     "value":  parseInt(item.dispenseQtyValue),

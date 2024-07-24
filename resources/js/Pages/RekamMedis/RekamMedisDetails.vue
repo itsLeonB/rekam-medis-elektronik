@@ -23,11 +23,11 @@
                             <span class="pt-1">Riwayat Kunjungan</span>
                         </NavButton>
                     </li>
-                    <li>
+                    <!-- <li>
                         <NavButton @click="formSection = 5" :active="formSection === 5">
                             <span class="pt-1">Print Resep</span>
                         </NavButton>
-                    </li>
+                    </li> -->
                     <!-- <li>
                         <NavButton @click="formSection = 3" :active="formSection === 3">
                             <span class="pt-1">Riwayat Alergi</span>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div v-show="formSection === 5" class="min-h-full px-5 md:px-10 xl:pl-80 xl:pr-14 py-10 w-full">
+            <!-- <div v-show="formSection === 5" class="min-h-full px-5 md:px-10 xl:pl-80 xl:pr-14 py-10 w-full">
                 <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
                     <div class="flex flex-col lg:flex-row">
                         <div class="w-full py-2 lg:pr-7 lg:pb-0">
@@ -105,7 +105,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <template #responsivecontent>
             <ResponsiveNavButton @click="formSection = 1" :active="formSection === 1"> Identitas Pasien
@@ -116,8 +116,8 @@
             </ResponsiveNavButton>
             <ResponsiveNavButton @click="formSection = 4" :active="formSection === 4"> Riwayat Pengobatan
             </ResponsiveNavButton> -->
-            <ResponsiveNavButton @click="formSection = 5" :active="formSection === 5"> Print Resep
-            </ResponsiveNavButton>
+            <!-- <ResponsiveNavButton @click="formSection = 5" :active="formSection === 5"> Print Resep
+            </ResponsiveNavButton> -->
         </template>
     </AuthenticatedLayout>
 </template>
@@ -170,6 +170,7 @@ const updateRekamMedis = async () => {
 
 const fetchRekamMedis = async () => {
     const { data } = await axios.get(route('rekam-medis.show', { 'patient_id': props.patient_satusehat_id }));
+    console.log(props, props.patient_satusehat_id)
     patient.value = data.patient;
     encounters.value = data.encounters;
 };

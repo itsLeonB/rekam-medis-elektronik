@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "38bc970c425d9a59e7e5ac49d7f54d67",
+    "content-hash": "c3efdb084f4792093848c215fa83775d",
     "packages": [
         {
             "name": "brick/math",
@@ -1123,65 +1123,6 @@
             "time": "2023-10-27T10:59:02+00:00"
         },
         {
-            "name": "jean85/pretty-package-versions",
-            "version": "2.0.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Jean85/pretty-package-versions.git",
-                "reference": "f9fdd29ad8e6d024f52678b570e5593759b550b4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Jean85/pretty-package-versions/zipball/f9fdd29ad8e6d024f52678b570e5593759b550b4",
-                "reference": "f9fdd29ad8e6d024f52678b570e5593759b550b4",
-                "shasum": ""
-            },
-            "require": {
-                "composer-runtime-api": "^2.0.0",
-                "php": "^7.1|^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.2",
-                "jean85/composer-provided-replaced-stub-package": "^1.0",
-                "phpstan/phpstan": "^1.4",
-                "phpunit/phpunit": "^7.5|^8.5|^9.4",
-                "vimeo/psalm": "^4.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Jean85\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Alessandro Lai",
-                    "email": "alessandro.lai85@gmail.com"
-                }
-            ],
-            "description": "A library to get pretty versions strings of installed dependencies",
-            "keywords": [
-                "composer",
-                "package",
-                "release",
-                "versions"
-            ],
-            "support": {
-                "issues": "https://github.com/Jean85/pretty-package-versions/issues",
-                "source": "https://github.com/Jean85/pretty-package-versions/tree/2.0.6"
-            },
-            "time": "2024-03-08T09:58:59+00:00"
-        },
-        {
             "name": "laravel/framework",
             "version": "v10.48.10",
             "source": {
@@ -2033,20 +1974,22 @@
         },
         {
             "name": "mongodb/laravel-mongodb",
-            "version": "4.2.0",
+            "version": "4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/laravel-mongodb.git",
-                "reference": "13a112717ebbc35705ac2d52aa6aaa440c6443c7"
+                "reference": "64d6dc05a8f08d9cf09f6b2d54f891a1692f6181"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/laravel-mongodb/zipball/13a112717ebbc35705ac2d52aa6aaa440c6443c7",
-                "reference": "13a112717ebbc35705ac2d52aa6aaa440c6443c7",
+                "url": "https://api.github.com/repos/mongodb/laravel-mongodb/zipball/64d6dc05a8f08d9cf09f6b2d54f891a1692f6181",
+                "reference": "64d6dc05a8f08d9cf09f6b2d54f891a1692f6181",
                 "shasum": ""
             },
             "require": {
+                "composer-runtime-api": "^2.0.0",
                 "ext-mongodb": "^1.15",
+                "illuminate/cache": "^10.36|^11",
                 "illuminate/container": "^10.0|^11",
                 "illuminate/database": "^10.30|^11",
                 "illuminate/events": "^10.0|^11",
@@ -2060,10 +2003,14 @@
             "require-dev": {
                 "doctrine/coding-standard": "12.0.x-dev",
                 "mockery/mockery": "^1.4.4",
+                "mongodb/builder": "^0.2",
                 "orchestra/testbench": "^8.0|^9.0",
                 "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "^10.3",
                 "spatie/laravel-query-builder": "^5.6"
+            },
+            "suggest": {
+                "mongodb/builder": "Provides a fluent aggregation builder for MongoDB pipelines"
             },
             "type": "library",
             "extra": {
@@ -2118,29 +2065,29 @@
             "support": {
                 "issues": "https://www.mongodb.com/support",
                 "security": "https://www.mongodb.com/security",
-                "source": "https://github.com/mongodb/laravel-mongodb/tree/4.2.0"
+                "source": "https://github.com/mongodb/laravel-mongodb/tree/4.3.0"
             },
-            "time": "2024-03-14T09:38:23+00:00"
+            "time": "2024-04-26T15:53:27+00:00"
         },
         {
             "name": "mongodb/mongodb",
-            "version": "1.17.1",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mongodb/mongo-php-library.git",
-                "reference": "01d0840bf0678f519e72dc71b69c8a50a0856c2d"
+                "reference": "cbc8104c0b2c32b7cf572ff759324c872e8dc63a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/01d0840bf0678f519e72dc71b69c8a50a0856c2d",
-                "reference": "01d0840bf0678f519e72dc71b69c8a50a0856c2d",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/cbc8104c0b2c32b7cf572ff759324c872e8dc63a",
+                "reference": "cbc8104c0b2c32b7cf572ff759324c872e8dc63a",
                 "shasum": ""
             },
             "require": {
+                "composer-runtime-api": "^2.0",
                 "ext-hash": "*",
                 "ext-json": "*",
-                "ext-mongodb": "^1.17.0",
-                "jean85/pretty-package-versions": "^2.0.1",
+                "ext-mongodb": "^1.18.0",
                 "php": "^7.4 || ^8.0",
                 "psr/log": "^1.1.4|^2|^3",
                 "symfony/polyfill-php80": "^1.27",
@@ -2156,7 +2103,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.17.x-dev"
+                    "dev-master": "1.x-dev"
                 }
             },
             "autoload": {
@@ -2195,9 +2142,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mongodb/mongo-php-library/issues",
-                "source": "https://github.com/mongodb/mongo-php-library/tree/1.17.1"
+                "source": "https://github.com/mongodb/mongo-php-library/tree/1.19.0"
             },
-            "time": "2024-03-14T10:33:11+00:00"
+            "time": "2024-05-10T19:49:08+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3489,6 +3436,48 @@
                 }
             ],
             "time": "2024-04-27T21:32:50+00:00"
+        },
+        {
+            "name": "robertogallea/laravel-python",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/robertogallea/LaravelPython.git",
+                "reference": "292487bb4a35da0e635f83f66441c6c5fddf573e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/robertogallea/LaravelPython/zipball/292487bb4a35da0e635f83f66441c6c5fddf573e",
+                "reference": "292487bb4a35da0e635f83f66441c6c5fddf573e",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.7",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "robertogallea\\LaravelPython\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Python": "robertogallea\\LaravelPython\\Facades\\PythonFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "robertogallea\\LaravelPython\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Run python scripts inside Laravel app",
+            "support": {
+                "issues": "https://github.com/robertogallea/LaravelPython/issues",
+                "source": "https://github.com/robertogallea/LaravelPython/tree/0.1.1"
+            },
+            "time": "2020-12-15T15:30:22+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -6643,6 +6632,65 @@
             "time": "2020-07-09T08:09:16+00:00"
         },
         {
+            "name": "jean85/pretty-package-versions",
+            "version": "2.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Jean85/pretty-package-versions.git",
+                "reference": "f9fdd29ad8e6d024f52678b570e5593759b550b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jean85/pretty-package-versions/zipball/f9fdd29ad8e6d024f52678b570e5593759b550b4",
+                "reference": "f9fdd29ad8e6d024f52678b570e5593759b550b4",
+                "shasum": ""
+            },
+            "require": {
+                "composer-runtime-api": "^2.0.0",
+                "php": "^7.1|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.2",
+                "jean85/composer-provided-replaced-stub-package": "^1.0",
+                "phpstan/phpstan": "^1.4",
+                "phpunit/phpunit": "^7.5|^8.5|^9.4",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jean85\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alessandro Lai",
+                    "email": "alessandro.lai85@gmail.com"
+                }
+            ],
+            "description": "A library to get pretty versions strings of installed dependencies",
+            "keywords": [
+                "composer",
+                "package",
+                "release",
+                "versions"
+            ],
+            "support": {
+                "issues": "https://github.com/Jean85/pretty-package-versions/issues",
+                "source": "https://github.com/Jean85/pretty-package-versions/tree/2.0.6"
+            },
+            "time": "2024-03-08T09:58:59+00:00"
+        },
+        {
             "name": "jeroenzwart/laravel-csv-seeder",
             "version": "v1.6.3",
             "source": {
@@ -8959,5 +9007,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
