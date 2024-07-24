@@ -1,0 +1,82 @@
+[
+    {
+        "code": "SF-4-10-I",
+        "display": "INPATIENT SUB ACUTE FOR SCHIZOPHRENIA"
+    },
+    {
+        "code": "SF-4-11-I",
+        "display": "INPATIENT SUB ACUTE FOR MAJOR DEPRESSION"
+    },
+    {
+        "code": "SF-4-12-I",
+        "display": "INPATIENT SUB ACUTE FOR PERSONALITY DISORDERS"
+    },
+    {
+        "code": "SF-4-13-I",
+        "display": "INPATIENT SUB ACUTE FOR BIPOLAR DISORDERS INCLUDING MANIA"
+    },
+    {
+        "code": "SF-4-14-I",
+        "display": "INPATIENT SUB ACUTE FOR DEPRESSIVE DISORDERS"
+    },
+    {
+        "code": "SF-4-15-I",
+        "display": "INPATIENT SUB ACUTE FOR PHOBIA ANXIETY AND OTHER NEUROSES"
+    },
+    {
+        "code": "SF-4-16-I",
+        "display": "INPATIENT SUB ACUTE FOR DEMENTIA AND OTHER ORGANIC BRAIN DISTURBANCES INCLUDING  MENTAL RETARDATION"
+    },
+    {
+        "code": "SF-4-17-I",
+        "display": "INPATIENT SUB ACUTE FOR CHILDHOOD MENTAL DISORDERS"
+    },
+    {
+        "code": "SF-4-18-I",
+        "display": "INPATIENT SUB ACUTE FOR ANOREXIA NERVOSA AND BULIMIA"
+    },
+    {
+        "code": "SF-4-19-I",
+        "display": "INPATIENT SUB ACUTE FOR OTHER MENTAL AND BEHAVIORAL DISORDERS"
+    },
+    {
+        "code": "CF-4-10-I",
+        "display": "INPATIENT CHRONIC FOR SCHIZOPHRENIA"
+    },
+    {
+        "code": "CF-4-11-I",
+        "display": "INPATIENT CHRONIC FOR MAJOR DEPRESSION"
+    },
+    {
+        "code": "CF-4-12-I",
+        "display": "INPATIENT CHRONIC FOR PERSONALITY DISORDERS"
+    },
+    {
+        "code": "CF-4-13-I",
+        "display": "INPATIENT CHRONIC FOR BIPOLAR DISORDERS INCLUDING MANIA"
+    },
+    {
+        "code": "CF-4-14-I",
+        "display": "INPATIENT CHRONIC FOR DEPRESSIVE DISORDERS"
+    },
+    {
+        "code": "CF-4-15-I",
+        "display": "INPATIENT CHRONIC FOR PHOBIA ANXIETY AND OTHER NEUROSES"
+    },
+    {
+        "code": "CF-4-16-I",
+        "display": "INPATIENT CHRONIC FOR DEMENTIA AND OTHER ORGANIC BRAIN DISTURBANCES INCLUDING  MENTAL RETARDATION"
+    },
+    {
+        "code": "CF-4-17-I",
+        "display": "INPATIENT CHRONIC FOR CHILDHOOD MENTAL DISORDERS"
+    },
+    {
+        "code": "CF-4-18-I",
+        "display": "INPATIENT CHRONIC FOR ANOREXIA NERVOSA AND BULIMIA"
+    },
+    {
+        "code": "CF-4-19-I",
+        "display": "INPATIENT CHRONIC FOR OTHER MENTAL AND BEHAVIORAL DISORDERS"
+    }
+]

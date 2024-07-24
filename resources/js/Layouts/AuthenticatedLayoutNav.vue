@@ -34,12 +34,12 @@ import NavLink from '@/Components/NavLink.vue';
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-7" viewBox="0 0 33 35" fill="none">
                                     <path
                                         d="M17.5762 7.58874C19.568 7.58874 21.1826 6.22573 21.1826 4.54437C21.1826 2.86301 19.568 1.5 17.5762 1.5C15.5844 1.5 13.9697 2.86301 13.9697 4.54437C13.9697 6.22573 15.5844 7.58874 17.5762 7.58874Z"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M10.7138 19.9147L17.179 25.131C17.8167 25.6508 18.2785 26.3005 18.4984 27.0244L19.9278 31.6095C20.2797 32.7419 21.6651 33.4102 23.0065 33.0946C24.3039 32.779 25.0736 31.6652 24.7437 30.57L23.1604 25.1495C23.0505 24.7411 22.8086 24.3513 22.4787 24.0357L18.0366 19.5806L19.8398 14.0487L22.8745 16.5362C23.0945 16.7218 23.3583 16.8518 23.6222 16.9632L27.5365 18.3554C28.5261 18.7081 29.6696 18.2997 30.0874 17.4644C30.4613 16.6476 30.0215 15.738 29.0979 15.3667L25.0736 13.8445C24.6558 13.696 24.3039 13.4547 24.04 13.1391L19.8619 8.46119C19.554 8.12705 19.0702 7.92285 18.5644 7.92285H15.0019C14.6721 7.92285 14.3202 7.99711 14.0343 8.12705L8.40476 10.6888C7.78902 10.9672 7.30524 11.3942 6.97539 11.8954L4.0946 16.5176C3.6108 17.2973 3.98464 18.244 4.88626 18.6338C5.78787 19.0237 6.86543 18.7267 7.34922 17.9841L10.186 13.6032L12.9568 12.7122L10.5598 20.4716C10.4939 20.6944 10.4499 20.8986 10.4059 21.1213L9.79018 25.2609C9.74619 25.5208 9.61425 25.7807 9.41634 25.9849L5.32609 29.976C4.46846 30.8113 4.62237 32.0922 5.67792 32.7605C6.6455 33.373 8.00893 33.2431 8.77859 32.4635L13.6385 27.6184C14.0124 27.2286 14.2543 26.7645 14.3202 26.2633L14.6941 23.0148"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
                             <span class="pt-1">Rawat Jalan</span>
@@ -51,39 +51,39 @@ import NavLink from '@/Components/NavLink.vue';
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 35 33" fill="none">
                                     <path
                                         d="M20.1826 5.0965V2.56238C20.1826 1.70498 20.8583 1 21.6801 1H24.109C24.9308 1 25.6065 1.70498 25.6065 2.56238V5.0965"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M22.903 9.82189C24.5975 9.82189 25.9711 8.38876 25.9711 6.62091C25.9711 4.85305 24.5975 3.41992 22.903 3.41992C21.2086 3.41992 19.835 4.85305 19.835 6.62091C19.835 8.38876 21.2086 9.82189 22.903 9.82189Z"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M5.2077 16.8717C6.90214 16.8717 8.27575 15.4386 8.27575 13.6707C8.27575 11.9029 6.90214 10.4697 5.2077 10.4697C3.51326 10.4697 2.13965 11.9029 2.13965 13.6707C2.13965 15.4386 3.51326 16.8717 5.2077 16.8717Z"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M21.0904 8.09473H24.65L24.5353 8.31591L23.6969 8.88114H22.1068L21.1239 8.16474L21.0904 8.09473Z"
                                         stroke="currentColor" stroke-width="2" />
                                     <path
                                         d="M15.7079 27.4845C15.2879 27.4845 14.8678 27.3321 14.5391 27.0653L4.42184 18.9295C3.56352 18.2245 2.30342 18.396 1.62772 19.3106L1.40857 19.5964C0.751135 20.4919 0.897234 21.8066 1.77382 22.5116L12.8772 31.4286C13.3338 31.8097 13.8999 32.0002 14.4843 32.0002H31.7056C32.3082 32.0002 32.8378 31.7525 33.2396 31.3333C33.6231 30.9332 33.8788 30.3616 33.8788 29.7328C33.8788 28.4943 32.9109 27.4655 31.7056 27.4655H15.7079V27.4845Z"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M14.7763 27.1603C14.9407 27.2937 15.1598 27.3699 15.3789 27.3699L20.7115 27.4842C21.022 27.4842 21.3324 27.408 21.6064 27.2746L24.6196 25.7885C25.0762 25.5598 25.6058 25.5027 26.0989 25.6551L32.0158 27.3127C32.6002 27.4842 33.2211 27.2175 33.5316 26.6649C33.9516 25.9218 33.6412 24.9692 32.8741 24.6452L25.6606 21.5205C25.0762 21.2728 24.437 21.2728 23.8526 21.5014L19.8532 23.121C19.7254 23.1781 19.5793 23.1972 19.4514 23.1972H16.2373C15.8903 23.1972 15.5433 23.0829 15.2694 22.8542L9.75419 18.4338C9.42547 18.1671 9.0237 18.0337 8.62193 18.0337C8.07406 18.0337 7.5262 18.3004 7.16095 18.7768C6.54004 19.6151 6.68614 20.8155 7.48967 21.4633L14.7763 27.1603Z"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M11.6348 19.9199L18.3005 12.8701C18.8118 12.3176 19.524 12.0127 20.2728 12.0127H25.6784C26.4089 12.0127 27.1211 12.3176 27.6507 12.8701L32.2893 17.7859C32.6911 18.2051 32.7641 18.8719 32.4537 19.3673L29.9883 23.3686"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M26.209 16.5669L27.6703 18.2055C28.0539 18.6247 28.0904 19.2725 27.7799 19.7488L26.4099 21.8257"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M14.3193 22.0731L18.8118 17.1763C19.0127 16.9667 19.3597 17.1001 19.3597 17.405V23.1972"
-                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="currentColor" stroke-width="2" stroke-miterlimit="10"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
                             <span class="pt-1">Rawat Inap</span>
@@ -153,13 +153,37 @@ import NavLink from '@/Components/NavLink.vue';
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink :href="route('medication')" :active="route().current('medication') | route().current('medication.table')" >
+                        <NavLink :href="route('medication')"
+                            :active="route().current('medication') | route().current('medication.table')">
                             <span class="mr-2">
-                                <svg xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="h-8 w-8 bi bi-capsule-pill" viewBox="0 0 20 20">
-                                    <path d="M11.02 5.364a3 3 0 0 0-4.242-4.243L1.121 6.778a3 3 0 1 0 4.243 4.243l5.657-5.657Zm-6.413-.657 2.878-2.879a2 2 0 1 1 2.829 2.829L7.435 7.536zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8m-.5 1.042a3 3 0 0 0 0 5.917zm1 5.917a3 3 0 0 0 0-5.917z"/>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                    class="h-8 w-8 bi bi-capsule-pill" viewBox="0 0 20 20">
+                                    <path
+                                        d="M11.02 5.364a3 3 0 0 0-4.242-4.243L1.121 6.778a3 3 0 1 0 4.243 4.243l5.657-5.657Zm-6.413-.657 2.878-2.879a2 2 0 1 1 2.829 2.829L7.435 7.536zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8m-.5 1.042a3 3 0 0 0 0 5.917zm1 5.917a3 3 0 0 0 0-5.917z" />
                                 </svg>
                             </span>
                             <span class="pt-1">Dashboard Medication</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <!-- <NavLink :href="route('expertsystems.index')" :active="route().current('expertsystems.index')">
+                            <span class="mr-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M10 4C8.93913 4 7.92172 4.42143 7.17157 5.17157C6.42143 5.92172 6 6.93913 6 8C6 9.06087 6.42143 10.0783 7.17157 10.8284C7.92172 11.5786 8.93913 12 10 12C11.0609 12 12.0783 11.5786 12.8284 10.8284C13.5786 10.0783 14 9.06087 14 8C14 6.93913 13.5786 5.92172 12.8284 5.17157C12.0783 4.42143 11.0609 4 10 4ZM10 6C10.5304 6 11.0391 6.21071 11.4142 6.58579C11.7893 6.96086 12 7.46957 12 8C12 8.53043 11.7893 9.03914 11.4142 9.41421C11.0391 9.78929 10.5304 10 10 10C9.46957 10 8.96086 9.78929 8.58579 9.41421C8.21071 9.03914 8 8.53043 8 8C8 7.46957 8.21071 6.96086 8.58579 6.58579C8.96086 6.21071 9.46957 6 10 6ZM17 12C16.84 12 16.76 12.08 16.76 12.24L16.5 13.5C16.28 13.68 15.96 13.84 15.72 14L14.44 13.5C14.36 13.5 14.2 13.5 14.12 13.6L13.16 15.36C13.08 15.44 13.08 15.6 13.24 15.68L14.28 16.5V17.5L13.24 18.32C13.16 18.4 13.08 18.56 13.16 18.64L14.12 20.4C14.2 20.5 14.36 20.5 14.44 20.5L15.72 20C15.96 20.16 16.28 20.32 16.5 20.5L16.76 21.76C16.76 21.92 16.84 22 17 22H19C19.08 22 19.24 21.92 19.24 21.76L19.4 20.5C19.72 20.32 20.04 20.16 20.28 20L21.5 20.5C21.64 20.5 21.8 20.5 21.8 20.4L22.84 18.64C22.92 18.56 22.84 18.4 22.76 18.32L21.72 17.5V16.5L22.76 15.68C22.84 15.6 22.92 15.44 22.84 15.36L21.8 13.6C21.8 13.5 21.64 13.5 21.5 13.5L20.28 14C20.04 13.84 19.72 13.68 19.4 13.5L19.24 12.24C19.24 12.08 19.08 12 19 12H17ZM10 13C7.33 13 2 14.33 2 17V20H11.67C11.39 19.41 11.19 18.77 11.09 18.1H3.9V17C3.9 16.36 7.03 14.9 10 14.9C10.43 14.9 10.87 14.94 11.3 15C11.5 14.36 11.77 13.76 12.12 13.21C11.34 13.08 10.6 13 10 13ZM18.04 15.5C18.84 15.5 19.5 16.16 19.5 17.04C19.5 17.84 18.84 18.5 18.04 18.5C17.16 18.5 16.5 17.84 16.5 17.04C16.5 16.16 17.16 15.5 18.04 15.5Z"
+                                        fill="currentColor" />
+                                </svg>
+                            </span>
+                            <span class="pt-1">Expert Systems</span>
+                        </NavLink> -->
+                    </li>
+                    <li>
+                        <NavLink :href="route('finance')" :active="route().current('finance')">
+                            <span class="mr-2">
+                                <img width="24" height="24" src="https://img.icons8.com/material-two-tone/24/money.png"
+                                    alt="money" />
+                            </span>
+                            <span class="pt-1">Finance</span>
                         </NavLink>
                     </li>
                 </ul>
@@ -169,15 +193,25 @@ import NavLink from '@/Components/NavLink.vue';
             </div>
         </div>
         <template #responsivecontent>
-            <ResponsiveNavLink :href="route('home.index')" :active="route().current('home.index')"> Home </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('rawatjalan')" :active="route().current('rawatjalan')"> Rawat Jalan </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('rawatinap')" :active="route().current('rawatinap')"> Rawat Inap </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('gawatdarurat')" :active="route().current('gawatdarurat')"> Gawat Darurat </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('rekammedis')" :active="route().current('rekammedis')"> Rekam Medis </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('usermanagement')" :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('medicinetransaction')" :active="route().current('medicinetransaction')"> Transaksi </ResponsiveNavLink>
-            <ResponsiveNavLink  v-if="$page.props.auth.user.roles[0].name === 'admin'" :href="route('usermanagement')" :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
-            <ResponsiveNavLink :href="route('medication')" :active="route().current('medication')">Medication</ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('home.index')" :active="route().current('home.index')"> Home
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('rawatjalan')" :active="route().current('rawatjalan')"> Rawat Jalan
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('rawatinap')" :active="route().current('rawatinap')"> Rawat Inap
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('gawatdarurat')" :active="route().current('gawatdarurat')"> Gawat Darurat
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('rekammedis')" :active="route().current('rekammedis')"> Rekam Medis
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('usermanagement')" :active="route().current('usermanagement')"> User
+                Management </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('medicinetransaction')" :active="route().current('medicinetransaction')">
+                Transaksi </ResponsiveNavLink>
+            <ResponsiveNavLink v-if="$page.props.auth.user.roles[0].name === 'admin'" :href="route('usermanagement')"
+                :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('medication')" :active="route().current('medication')">Medication
+            </ResponsiveNavLink>
+            <ResponsiveNavLink :href="route('finance')" :active="route().current('finance')">Finance</ResponsiveNavLink>
         </template>
     </AuthenticatedLayout>
-</template> 
+</template>

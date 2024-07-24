@@ -24,7 +24,8 @@ const showingNavigationDropdown = ref(false);
                         <div class="shrink-0 flex items-center">
                             <Link :href="route('home.index')" class="flex flex-row">
                             <ApplicationLogo class="block h-9 sm:h-12 w-auto fill-current" />
-                            <div class="flex flex-col ml-2 sm:ml-4 text-sm sm:text-base font-bold text-neutral-black-300">
+                            <div
+                                class="flex flex-col ml-2 sm:ml-4 text-sm sm:text-base font-bold text-neutral-black-300">
                                 <span>Rumah Sakit</span>
                                 <span>Unipdu Medika</span>
                             </div>
@@ -84,7 +85,8 @@ const showingNavigationDropdown = ref(false);
             </div>
 
             <!-- Responsive Navigation Menu -->
-            <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }" class="sm:px-6 xl:hidden">
+            <div :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
+                class="sm:px-6 xl:hidden">
                 <!-- Responsive Settings Options -->
                 <div class="pt-4 pb-1 border-t border-gray-200">
                     <div class="border-b-2 space-y-1">
@@ -108,7 +110,7 @@ const showingNavigationDropdown = ref(false);
 
         <!-- Page Heading -->
         <header class="bg-white shadow" v-if="$slots.header">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="min-h-screen max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <slot name="header" />
             </div>
         </header>

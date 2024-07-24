@@ -172,6 +172,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         MongoDB\Laravel\MongoDBServiceProvider::class,
         MongoDB\Laravel\Auth\PasswordResetServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class
     ])->toArray(),
 
     /*
@@ -242,7 +243,8 @@ return [
         'poli-ortopedi',
         'poli-penyakit-dalam',
         'poli-bedah',
-        'poli-anak'
+        'poli-anak',
+        'keuangan'
     ],
 
     'permissions' => [
@@ -255,7 +257,8 @@ return [
         'akses poli penyakit dalam',
         'akses poli bedah',
         'akses poli anak',
-        'akses user management'
+        'akses user management',
+        'akses keuangan'
     ],
 
     'identifier_systems' => [
@@ -321,7 +324,12 @@ return [
         'ServiceRequest' => ['get', 'post', 'put', 'patch'],
         // 'Specimen' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
         // 'RelatedPerson' => ['get', 'post', 'put', 'patch'],  // Not yet implemented
-        'Patient' => ['get', 'post']
+        'Patient' => ['get', 'post'],
+        'Invoice' => ['get', 'post', 'put', 'patch'],
+        'ChargeItem' => ['get', 'post', 'put', 'patch'],
+        'Account' => ['get', 'post', 'put', 'patch'],
+        'Coverage' => ['get', 'post', 'put', 'patch'],
+        'Claim' => ['get', 'post', 'put', 'patch'],
     ],
 
     'resource_type_map' => [
@@ -355,7 +363,12 @@ return [
         'servicerequest' => 'ServiceRequest',
         // 'specimen' => 'Specimen',  // Not yet implemented
         // 'relatedperson' => 'RelatedPerson',  // Not yet implemented
-        'patient' => 'Patient'
+        'patient' => 'Patient',
+        'chargeitem' => 'ChargeItem',
+        'account' => 'Account',
+        'coverage' => 'Coverage',
+        'claim' => 'Claim',
+        'invoice' => 'Invoice',
     ],
 
     'resourceTypes' => [
@@ -376,6 +389,11 @@ return [
         'ClinicalImpression',
         'MedicationStatement',
         'QuestionnaireResponse',
+        'Invoice',
+        'Claim',
+        'Account',
+        'ChargeItem',
+        'Coverage'
     ],
 
     'terminologi' => [
@@ -539,7 +557,7 @@ return [
         'MedicationRequestDispenseRequst' => [
             'dispenseInterval' => Valuesets::MedicationRequestDispenseInterval,
             'quantity' => [Valuesets::MedicationIngredientStrengthDenominator, Valuesets::MedicationRequestQuantity],
-            'quantityUnit'=> Valuesets::MedicationDispenseQuantity,
+            'quantityUnit' => Valuesets::MedicationDispenseQuantity,
             'expectedSupplyDuration' => Valuesets::MedicationRequestSupplyDuration
         ],
         'MedicationRequestSubstitution' => [
@@ -672,6 +690,10 @@ return [
             'periodUnit' => Valuesets::UnitsOfTime,
             'dayOfWeek' => Valuesets::DaysOfWeek,
             'when' => Valuesets::EventTiming,
+        ],
+        'Account' => [
+            'status' => Codesystems::AccountStatus,
+            'type' => Codesystems::AccountType,
         ]
     ],
 

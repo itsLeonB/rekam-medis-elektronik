@@ -14,18 +14,18 @@
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Pasien Gawat Darurat.
             </p>
             <div class="flex flex-col sm:flex-row">
-                    <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)" :href="route('gawatdarurat.daftar')" as="button"
-                        class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-5 h-5 mr-2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                    </svg>
-                    Pendaftaran Gawat Darurat
-                    </Link>
-                </div>
+                <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
+                    :href="route('gawatdarurat.daftar')" as="button"
+                    class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                Pendaftaran Gawat Darurat
+                </Link>
+            </div>
         </div>
         <div class="bg-original-white-0 overflow-hidden shadow sm:rounded-2xl mb-8 py-8 pl-10 pr-14">
-            <h1 class="mb-4 text-2xl font-bold text-secondhand-orange-300">Daftar Pasien</h1>
             <div class="relative overflow-x-auto mb-5">
                 <table class="w-full text-sm text-center rtl:text-right text-neutral-grey-200">
                     <thead class="text-sm text-neutral-black-300 bg-original-white-0 border-b">
@@ -33,11 +33,11 @@
                             <th scope="col" class="px-6 py-3 w-3/12">
                                 Nama Pasien
                             </th>
-                            <th scope="col" class="px-6 py-3 w-[1/12]">
-                                Nomor Rekam Medis
+                            <th scope="col" class="px-6 py-3 w-1/12">
+                                No RM
                             </th>
                             <th scope="col" class="px-6 py-3 w-3/12">
-                                Waktu Masuk
+                                Status & <br> Waktu Masuk
                             </th>
                             <th scope="col" class="px-6 py-3 w-3/12">
                                 DPJP
@@ -47,23 +47,25 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody v-for="(patient, index) in patients" >
+                    <tbody v-for="(patient, index) in patients">
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (patients.length - 1) }">
-                            <!-- <Link :href="route('usermanagement.details')"> -->
+                            <Link
+                                :href="route('gawatdarurat.details', { 'encounter_satusehat_id': patient.encounter_satusehat_id })">
                             <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline 3/12">
                                 {{ patient.patient_name }}
                             </th>
-                            <!-- </Link> -->
+                            </Link>
                             <td class="px-6 py-4 w-1/12">
                                 {{ patient.patient_identifier }}
                             </td>
                             <td class="px-6 py-4 w-3/12">
+                                <p class="font-semibold">Status: {{ patient.encounter_status }}</p>
                                 <p>{{ formatTimestamp(patient.period_start).split('/')[0] }}</p>
                                 <p>Jam {{ formatTimestamp(patient.period_start).split('/')[1] }}</p>
                             </td>
                             <td class="px-6 py-4 w-3/12">
-                                {{ patient.encounter_practitioner }}
+                                {{ patient.practitioner_name }}
                             </td>
                             <td class="px-6 py-4 w-2/12">
                                 {{ patient.location }}
@@ -84,9 +86,22 @@ import { ref, onMounted } from 'vue';
 
 const patients = ref([]);
 
+const status_kunjungan = [
+    { "id": 'planned', "label": 'Planned' },
+    { "id": 'arrived', "label": 'Arrived' },
+    { "id": 'triaged', "label": 'Triaged' },
+    { "id": 'in-progress', "label": 'In Progress' },
+    { "id": 'onleave', "label": 'Onleave' },
+    { "id": 'finished', "label": 'Finished' },
+    { "id": 'cancelled', "label": 'Cancelled' }
+];
+
 const fetchPatient = async () => {
     const { data } = await axios.get(route('daftar-pasien.igd'));
     patients.value = data;
+    patients.value.forEach(item => {
+        item.encounter_status = status_kunjungan.find(staku => staku.id === item.encounter_status).label;
+    });
 };
 
 const formatTimestamp = (timestamp) => {

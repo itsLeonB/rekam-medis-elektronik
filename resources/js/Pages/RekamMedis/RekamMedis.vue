@@ -20,13 +20,14 @@
                         fill="currentColor" />
                 </svg>
                 <h1 class="text-2xl font-bold text-neutral-black-300">Rekam Medis Pasien</h1>
-            </span> 
+            </span>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman Rekam Medis Pasien.
             </p>
-            <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)" :href="route('rekammedis.tambah')" as="button"
+            <Link v-if="['admin', 'perekammedis'].includes($page.props.auth.user.roles[0].name)"
+                :href="route('rekammedis.tambah')" as="button"
                 class="inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                class="w-5 h-5 mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-5 h-5 mr-2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
             Rekam Medis Baru
@@ -47,8 +48,8 @@
                         </div>
                         <input v-model="searchQuery" id="searchQuery" placeholder="Cari"
                             class="pl-9 h-9 block w-full border border-1 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
-                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer" @click="cancelSearch"
-                            v-show="hide">
+                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
+                            @click="cancelSearch" v-show="hide">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
                                 class="w-5 h-5 hover:fill-thirdouter-red-200">
                                 <path fill-rule="evenodd"
@@ -69,8 +70,8 @@
                 </div>
             </div>
             <div class="relative overflow-x-auto mb-5">
-                <table class="w-full text-base text-center rtl:text-right text-neutral-grey-200 ">
-                    <thead class="text-base font-thin text-neutral-black-300 bg-gray-50 border-b">
+                <table class="w-full text-sm text-center rtl:text-right text-neutral-grey-200 ">
+                    <thead class="text-sm font-thin text-neutral-black-300 bg-gray-50 border-b">
                         <tr>
                             <th scope="col" class="px-6 py-3 w-3/12">
                                 Nama
@@ -90,19 +91,23 @@
                         <tr class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
                             :class="{ 'border-b': index !== (patients.data.length - 1) }">
                             <Link :href="route('rekammedis.details', { 'patient_satusehat_id': patient.satusehatId })">
-                                <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-3/12">
-                                    <P>{{ patient.name }}</P>
-                                    <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id ===
-                                        searchWith_id).label }}: {{ patient[searchWith_id] }}</p>
-                                </th>
-                            
+                            <th scope="row" class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-3/12">
+                                <P>{{ patient.name }}</P>
+                                <p v-show="searchWith_id !== 'name' && hide === true">{{ searchWith.find(item => item.id
+                                    ===
+                                    searchWith_id).label }}: {{ patient[searchWith_id] }}</p>
+                            </th>
+
                             <td class="px-6 py-4 w-3/12">
-                                {{ patient.identifier == null ? '-' : patient.identifier }}
+                                {{ patient['rekam-medis'] == null ? '-' : patient['rekam-medis'] }}
                             </td>
                             </Link>
                             <td class="px-6 py-4 w-3/12">
-                                {{ patient.class == 'AMB' ? 'Rawat Jalan' : patient.class == 'IMP' ? 'Rawat Inap' :
-                                    patient.class == 'EMER' ? 'IGD' : '-' }}
+                                <p>{{ patient.class == 'AMB' ? 'Rawat Jalan' : patient.class == 'IMP' ? 'Rawat Inap' :
+                                    patient.class == 'EMER' ? 'IGD' : '-' }}</p>
+                                <!-- <p v-if="patient.class === 'AMB'">{{ patient.serviceType }}</p>
+                                <p v-else-if="patient.class === 'IMP'">{{ patient.serviceType }}</p> -->
+
                             </td>
                             <td class="px-6 py-4 w-3/12">
                                 <p>{{ formatTimestamp(patient.start).split('/')[0] }}</p>
@@ -111,13 +116,15 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="text-center mt-4" v-if="searchQuery !== '' && patients.data.length === 0">Data tidak ditemukan</p>
+                <p class="text-center mt-4" v-if="searchQuery !== '' && patients.data.length === 0">Data tidak ditemukan
+                </p>
             </div>
 
             <nav class="flex justify-end">
                 <ul class="inline-flex -space-x-px text-base h-10">
                     <li>
-                        <button @click="fetchPagination((patients.current_page - 1) < 1 ? 1 : (patients.current_page - 1))"
+                        <button
+                            @click="fetchPagination((patients.current_page - 1) < 1 ? 1 : (patients.current_page - 1))"
                             class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">&laquo;</button>
                     </li>
                     <template v-for="(item, index) in paging">
@@ -155,7 +162,7 @@ const patients = ref([]);
 const hide = ref(false);
 
 const fetchPatients = async (page = 1) => {
-    const { data } = await axios.get(route('rekam-medis.index', {'page': page}));
+    const { data } = await axios.get(route('rekam-medis.index', { 'page': page }));
     patients.value = data.rekam_medis;
     generateNumbers(1, patients.value.current_page, patients.value.last_page);
 };
@@ -190,15 +197,30 @@ const fetchPagination = async (page = 1) => {
 };
 
 const searchWith_id = ref('name');
-
 const searchWith = [
-    {"id": 'name', "label": 'Nama'},
-    {"id": 'nik', "label": 'NIK'},
-    {"id": 'nik-ibu', "label": 'NIK Ibu'},
-    {"id": 'paspor', "label": 'Paspor'},
-    {"id": 'kk', "label": 'No KK'},
-    {"id": 'ihs-number', "label": 'IHS Number'}
+    { "id": 'name', "label": 'Nama' },
+    { "id": 'nik', "label": 'NIK' },
+    { "id": 'nik-ibu', "label": 'NIK Ibu' },
+    { "id": 'paspor', "label": 'Paspor' },
+    { "id": 'kk', "label": 'No KK' },
+    { "id": 'ihs-number', "label": 'IHS Number' }
 ];
+
+const poli = [
+    { "id": '124', "value": 'umum', "label": 'Poli Umum' },
+    { "id": '177', "value": 'neurologi', "label": 'Poli Neurologi' },
+    { "id": '186', "value": 'obgyn', "label": 'Poli Obgyn' },
+    { "id": '88', "value": 'gigi', "label": 'Poli Gigi' },
+    { "id": '168', "value": 'kulit', "label": 'Poli Kulit dan Kelamin' },
+    { "id": '218', "value": 'ortopedi', "label": 'Poli Ortopedi' },
+    { "id": '557', "value": 'dalam', "label": 'Poli Penyakit Dalam' },
+    { "id": '221', "value": 'bedah', "label": 'Poli Bedah' },
+    { "id": '286', "value": 'anak', "label": 'Poli Anak' }
+];
+
+const findPoli = (serviceType) => {
+    return poli.find(pol => pol.id === serviceType).label;
+};
 
 const formatTimestamp = (timestamp) => {
     const date = new Date(timestamp);

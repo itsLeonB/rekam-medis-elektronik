@@ -32,9 +32,10 @@
                 <!-- Identifier -->
                 <div class="mt-4">
                     <InputLabel for="pasien" value="Identitas Pasien" />
-                    <Multiselect v-model="resourceForm.patient" mode="single" placeholder="NIK Pasien" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchPatient"
-                        label="label" valueProp="satusehatId" track-by="satusehatId" :classes="combo_classes" required />
+                    <Multiselect v-model="resourceForm.patient" mode="single" placeholder="NIK Pasien"
+                        :filter-results="false" :object="true" :min-chars="1" :resolve-on-load="false" :delay="300"
+                        :searchable="true" :options="searchPatient" label="label" valueProp="satusehatId"
+                        track-by="satusehatId" :classes="combo_classes" required />
                     <InputError class="mt-1" />
                 </div>
 
@@ -42,8 +43,8 @@
                 <div class="mt-4">
                     <InputLabel for="dokter" value="Identitas Dokter" />
                     <Multiselect v-model="resourceForm.dokter" mode="single" placeholder="Status" :object="true"
-                                :options="practitionerList" label="name" valueProp="satusehat_id" track-by="satusehat_id" class="mt-1"
-                                :classes="combo_classes" required />
+                        :options="practitionerList" label="name" valueProp="satusehat_id" track-by="satusehat_id"
+                        class="mt-1" :classes="combo_classes" required />
                     <InputError class="mt-1" />
                 </div>
 
@@ -51,17 +52,17 @@
                 <div class="mt-4">
                     <InputLabel for="ruangan" value="Poli" />
                     <Multiselect v-model="resourceForm.ruangan" mode="single" placeholder="Poli" :object="true"
-                                :options="ruangan" label="label" valueProp="id" track-by="id" class="mt-1"
-                                :classes="combo_classes" required />
+                        :options="ruangan" label="label" valueProp="id" track-by="id" class="mt-1"
+                        :classes="combo_classes" required />
                     <InputError class="mt-1" />
                 </div>
 
                 <!-- Ruangan -->
                 <div class="mt-4">
                     <InputLabel for="lokasi_ruangan" value="Lokasi Poli" />
-                    <Multiselect v-model="resourceForm.lokasi_ruangan" mode="single" placeholder="Lokasi Poli" :object="true"
-                                :options="ruanganList" label="label" valueProp="satusehat_id" track-by="satusehat_id" class="mt-1"
-                                :classes="combo_classes" required />
+                    <Multiselect v-model="resourceForm.lokasi_ruangan" mode="single" placeholder="Lokasi Poli"
+                        :object="true" :options="ruanganList" label="label" valueProp="satusehat_id"
+                        track-by="satusehat_id" class="mt-1" :classes="combo_classes" required />
                     <InputError class="mt-1" />
                 </div>
                 <div class="flex flex-col items-center justify-end mt-10">
@@ -71,8 +72,8 @@
                 </div>
             </form>
             <p v-if="successAlertVisible" class="text-sm text-original-teal-300">Sukses!</p>
-                <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
-                <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+            <p v-if="failAlertVisible" class="text-sm text-thirdouter-red-300">Gagal!</p>
+            <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
         </div>
     </AuthenticatedLayout>
 </template>
@@ -131,20 +132,20 @@ const getRuanganList = async () => {
 
 const organizationRef = ref(null);
 const getorganizationRef = async () => {
-    const { data } = await axios.get(route('form.ref.organization', {layanan: 'induk'}));
+    const { data } = await axios.get(route('form.ref.organization', { layanan: 'induk' }));
     organizationRef.value = data;
 };
 
 const ruangan = [
     { "id": 124, "value": 'umum', "label": 'Poli Umum', "display": 'General practice' },
     { "id": 177, "value": 'neurologi', "label": 'Poli Neurologi', "display": 'Neurology' },
-    { "id": 186, "value": 'obgyn', "label": 'Poli Obgyn', "display": 'Obstetrics & Gynaecology'  },
-    { "id": 88, "value": 'gigi', "label": 'Poli Gigi', "display": 'General Dental'  },
-    { "id": 168, "value": 'kulit', "label": 'Poli Kulit dan Kelamin', "display": 'Dermatology'  },
-    { "id": 218, "value": 'ortopedi', "label": 'Poli Ortopedi', "display": 'Orthopaedic Surgery'  },
-    { "id": 557, "value": 'dalam', "label": 'Poli Penyakit Dalam', "display": 'Inpatients'  },
-    { "id": 221, "value": 'bedah', "label": 'Poli Bedah', "display": 'Surgery - General'  },
-    { "id": 286, "value": 'anak', "label": 'Poli Anak', "display": 'Children'  }
+    { "id": 186, "value": 'obgyn', "label": 'Poli Obgyn', "display": 'Obstetrics & Gynaecology' },
+    { "id": 88, "value": 'gigi', "label": 'Poli Gigi', "display": 'General Dental' },
+    { "id": 168, "value": 'kulit', "label": 'Poli Kulit dan Kelamin', "display": 'Dermatology' },
+    { "id": 218, "value": 'ortopedi', "label": 'Poli Ortopedi', "display": 'Orthopaedic Surgery' },
+    { "id": 557, "value": 'dalam', "label": 'Poli Penyakit Dalam', "display": 'Inpatients' },
+    { "id": 221, "value": 'bedah', "label": 'Poli Bedah', "display": 'Surgery - General' },
+    { "id": 286, "value": 'anak', "label": 'Poli Anak', "display": 'Children' }
 ];
 
 const submit = async () => {
@@ -157,7 +158,7 @@ const submit = async () => {
             "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
             "code": "AMB",
             "display": "ambulatory"
-        }, 
+        },
         "serviceType": {
             "coding": [
                 {
@@ -237,26 +238,26 @@ const submit = async () => {
                 "system": "http://sys-ids.kemkes.go.id/encounter/d7c204fd-7c20-4c59-bd61-4dc55b78438c",
                 "value": resourceForm.value.patient['ihs-number']
             }
-    ]
+        ]
     };
 
-    try { 
-    const resourceType = 'Encounter';
-    const response = await axios.post(route('integration.store', { resourceType:  resourceType}), submitResource) ;
-    console.log(response.data);
-    
-    // Handle successful response
-    creationSuccessModal.value = true;
-    failAlertVisible.value = false;
-    errorMessage.value = ''; // Clear error message
+    try {
+        const resourceType = 'Encounter';
+        const response = await axios.post(route('integration.store', { resourceType: resourceType }), submitResource);
+        console.log(response.data);
 
-  } catch (error) {
-       console.error(error.response ? error.response.data : error.message);
+        // Handle successful response
+        creationSuccessModal.value = true;
+        failAlertVisible.value = false;
+        errorMessage.value = ''; // Clear error message
+
+    } catch (error) {
+        console.error(error.response ? error.response.data : error.message);
         // Handle error response
-            failAlertVisible.value = true;
-            creationSuccessModal.value = false;
+        failAlertVisible.value = true;
+        creationSuccessModal.value = false;
 
-       if (error.response && error.response.data) {
+        if (error.response && error.response.data) {
             console.error('Response:', error.response.data); // Display server response data
             // Assign the error message from the server response to the errorMessage property
             errorMessage.value = error.response.data.error || 'Failed to save data';
@@ -264,7 +265,7 @@ const submit = async () => {
             // If there is no response, assign a general error message
             errorMessage.value = 'An error occurred while saving data';
         }
-        
+
     }
 };
 

@@ -3,9 +3,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build",
-        "serve": "concurrently  \"php artisan config:cache\" \"php artisan serve\" \"npm run dev \"  "
-
+        "build": "vite build"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",
@@ -22,13 +20,13 @@
     "dependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
-        "moment": "^2.30.1",
-        "vue-router": "^4.4.0",
         "@vueform/multiselect": "^2.6.7",
         "@vuepic/vue-datepicker": "^8.5.1",
-        "apexcharts": "^3.45.1",
-        "concurrently": "^8.2.2",
+        "apexcharts": "^3.51.0",
+        "moment": "^2.30.1",
+        "vue-apexcharts": "^1.6.2",
         "vue-multiselect": "^3.0.0-beta.3",
-        "vue3-apexcharts": "^1.4.4"
+        "vue-router": "^4.4.0",
+        "vue3-apexcharts": "^1.5.3"
     }
 }

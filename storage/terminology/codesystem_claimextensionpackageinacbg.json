@@ -1,0 +1,4534 @@
+[
+    {
+        "code": "A-4-10-I",
+        "display": "SEPTIKEMIA (RINGAN)"
+    },
+    {
+        "code": "A-4-10-II",
+        "display": "SEPTIKEMIA (SEDANG)"
+    },
+    {
+        "code": "A-4-10-III",
+        "display": "SEPTIKEMIA (BERAT)"
+    },
+    {
+        "code": "A-4-11-I",
+        "display": "INFEKSI SESUDAH OPERASI & TRAUMA (RINGAN)"
+    },
+    {
+        "code": "A-4-11-II",
+        "display": "INFEKSI SESUDAH OPERASI & TRAUMA (SEDANG)"
+    },
+    {
+        "code": "A-4-11-III",
+        "display": "INFEKSI SESUDAH OPERASI & TRAUMA (BERAT)"
+    },
+    {
+        "code": "A-4-12-I",
+        "display": "DEMAM YANG TIDAK DITENTUKAN (RINGAN)"
+    },
+    {
+        "code": "A-4-12-II",
+        "display": "DEMAM YANG TIDAK DITENTUKAN (SEDANG)"
+    },
+    {
+        "code": "A-4-12-III",
+        "display": "DEMAM YANG TIDAK DITENTUKAN (BERAT)"
+    },
+    {
+        "code": "A-4-13-I",
+        "display": "INFEKSI VIRAL & NON-BAKTERIAL LAIN (RINGAN)"
+    },
+    {
+        "code": "A-4-13-II",
+        "display": "INFEKSI VIRAL & NON-BAKTERIAL LAIN (SEDANG)"
+    },
+    {
+        "code": "A-4-13-III",
+        "display": "INFEKSI VIRAL & NON-BAKTERIAL LAIN (BERAT)"
+    },
+    {
+        "code": "A-4-14-I",
+        "display": "PENYAKIT INFEKSI BAKTERI DAN PARASIT LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "A-4-14-II",
+        "display": "PENYAKIT INFEKSI BAKTERI DAN PARASIT LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "A-4-14-III",
+        "display": "PENYAKIT INFEKSI BAKTERI DAN PARASIT LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "A-4-15-I",
+        "display": "INFEKSI HIV (RINGAN)"
+    },
+    {
+        "code": "A-4-15-II",
+        "display": "INFEKSI HIV (SEDANG)"
+    },
+    {
+        "code": "A-4-15-III",
+        "display": "INFEKSI HIV (BERAT)"
+    },
+    {
+        "code": "B-1-01-I",
+        "display": "PENCANGKOKAN HATI (RINGAN)"
+    },
+    {
+        "code": "B-1-01-II",
+        "display": "PENCANGKOKAN HATI (SEDANG)"
+    },
+    {
+        "code": "B-1-01-III",
+        "display": "PENCANGKOKAN HATI (BERAT)"
+    },
+    {
+        "code": "B-1-10-I",
+        "display": "PROSEDUR HATI DAN PANKREAS (RINGAN)"
+    },
+    {
+        "code": "B-1-10-II",
+        "display": "PROSEDUR HATI DAN PANKREAS (SEDANG)"
+    },
+    {
+        "code": "B-1-10-III",
+        "display": "PROSEDUR HATI DAN PANKREAS (BERAT)"
+    },
+    {
+        "code": "B-1-11-I",
+        "display": "PROSEDUR SALURAN EMPEDU KOMPLEK (RINGAN)"
+    },
+    {
+        "code": "B-1-11-II",
+        "display": "PROSEDUR SALURAN EMPEDU KOMPLEK (SEDANG)"
+    },
+    {
+        "code": "B-1-11-III",
+        "display": "PROSEDUR SALURAN EMPEDU KOMPLEK (BERAT)"
+    },
+    {
+        "code": "B-1-12-I",
+        "display": "CHOLESISTEKTOMI TANPA LAPAROSKOPIK (RINGAN)"
+    },
+    {
+        "code": "B-1-12-II",
+        "display": "CHOLESISTEKTOMI TANPA LAPAROSKOPIK (SEDANG)"
+    },
+    {
+        "code": "B-1-12-III",
+        "display": "CHOLESISTEKTOMI TANPA LAPAROSKOPIK (BERAT)"
+    },
+    {
+        "code": "B-1-13-I",
+        "display": "PROSEDUR PANKREAS DAN HEPATOBILLIARI LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "B-1-13-II",
+        "display": "PROSEDUR PANKREAS DAN HEPATOBILLIARI LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "B-1-13-III",
+        "display": "PROSEDUR PANKREAS DAN HEPATOBILLIARI LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "B-1-14-I",
+        "display": "CHOLESISTEKTOMI DENGAN LAPAROSKOPIK (RINGAN)"
+    },
+    {
+        "code": "B-1-14-II",
+        "display": "CHOLESISTEKTOMI DENGAN LAPAROSKOPIK (SEDANG)"
+    },
+    {
+        "code": "B-1-14-III",
+        "display": "CHOLESISTEKTOMI DENGAN LAPAROSKOPIK (BERAT)"
+    },
+    {
+        "code": "B-4-10-I",
+        "display": "SIROSIS HATI DAN HEPATITIS ALKOHOLIK (RINGAN)"
+    },
+    {
+        "code": "B-4-10-II",
+        "display": "SIROSIS HATI DAN HEPATITIS ALKOHOLIK (SEDANG)"
+    },
+    {
+        "code": "B-4-10-III",
+        "display": "SIROSIS HATI DAN HEPATITIS ALKOHOLIK (BERAT)"
+    },
+    {
+        "code": "B-4-11-I",
+        "display": "TUMOR SISTEM HEPATOBILLIARI DAN PANCREAS (RINGAN)"
+    },
+    {
+        "code": "B-4-11-II",
+        "display": "TUMOR SISTEM HEPATOBILLIARI DAN PANCREAS (SEDANG)"
+    },
+    {
+        "code": "B-4-11-III",
+        "display": "TUMOR SISTEM HEPATOBILLIARI DAN PANCREAS (BERAT)"
+    },
+    {
+        "code": "B-4-12-I",
+        "display": "GANGGUAN PANKREAS SELAIN TUMOR (RINGAN)"
+    },
+    {
+        "code": "B-4-12-II",
+        "display": "GANGGUAN PANKREAS SELAIN TUMOR (SEDANG)"
+    },
+    {
+        "code": "B-4-12-III",
+        "display": "GANGGUAN PANKREAS SELAIN TUMOR (BERAT)"
+    },
+    {
+        "code": "B-4-13-I",
+        "display": "GANGGUAN HATI LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "B-4-13-II",
+        "display": "GANGGUAN HATI LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "B-4-13-III",
+        "display": "GANGGUAN HATI LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "B-4-14-I",
+        "display": "GANGGUAN SALURAN EMPEDU LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "B-4-14-II",
+        "display": "GANGGUAN SALURAN EMPEDU LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "B-4-14-III",
+        "display": "GANGGUAN SALURAN EMPEDU LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "C-4-10-I",
+        "display": "LEUKEMIA AKUT (RINGAN)"
+    },
+    {
+        "code": "C-4-10-II",
+        "display": "LEUKEMIA AKUT (SEDANG)"
+    },
+    {
+        "code": "C-4-10-III",
+        "display": "LEUKEMIA AKUT (BERAT)"
+    },
+    {
+        "code": "C-4-11-I",
+        "display": "LIMFOMA & LEUKEMIA NON AKUT (RINGAN)"
+    },
+    {
+        "code": "C-4-11-II",
+        "display": "LIMFOMA & LEUKEMIA NON AKUT (SEDANG)"
+    },
+    {
+        "code": "C-4-11-III",
+        "display": "LIMFOMA & LEUKEMIA NON AKUT (BERAT)"
+    },
+    {
+        "code": "C-4-12-I",
+        "display": "RADIOTERAPI (RINGAN)"
+    },
+    {
+        "code": "C-4-12-II",
+        "display": "RADIOTERAPI (SEDANG)"
+    },
+    {
+        "code": "C-4-12-III",
+        "display": "RADIOTERAPI (BERAT)"
+    },
+    {
+        "code": "C-4-13-I",
+        "display": "KEMOTERAPI (RINGAN)"
+    },
+    {
+        "code": "C-4-13-II",
+        "display": "KEMOTERAPI (SEDANG)"
+    },
+    {
+        "code": "C-4-13-III",
+        "display": "KEMOTERAPI (BERAT)"
+    },
+    {
+        "code": "C-4-14-I",
+        "display": "TUMOR MYELOPROLIFERATIF LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "C-4-14-II",
+        "display": "TUMOR MYELOPROLIFERATIF LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "C-4-14-III",
+        "display": "TUMOR MYELOPROLIFERATIF LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "D-1-10-I",
+        "display": "PENCANGKOKAN SUMSUM TULANG (RINGAN)"
+    },
+    {
+        "code": "D-1-10-II",
+        "display": "PENCANGKOKAN SUMSUM TULANG (SEDANG)"
+    },
+    {
+        "code": "D-1-10-III",
+        "display": "PENCANGKOKAN SUMSUM TULANG (BERAT)"
+    },
+    {
+        "code": "D-1-11-I",
+        "display": "PROSEDUR LIMPA (RINGAN)"
+    },
+    {
+        "code": "D-1-11-II",
+        "display": "PROSEDUR LIMPA (SEDANG)"
+    },
+    {
+        "code": "D-1-11-III",
+        "display": "PROSEDUR LIMPA (BERAT)"
+    },
+    {
+        "code": "D-1-20-I",
+        "display": "PROSEDUR PADA DARAH DAN ORGAN PEMBENTUK DARAH LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "D-1-20-II",
+        "display": "PROSEDUR PADA DARAH DAN ORGAN PEMBENTUK DARAH LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "D-1-20-III",
+        "display": "PROSEDUR PADA DARAH DAN ORGAN PEMBENTUK DARAH LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "D-4-10-I",
+        "display": "AGRANULOSITOSIS (RINGAN)"
+    },
+    {
+        "code": "D-4-10-II",
+        "display": "AGRANULOSITOSIS (SEDANG)"
+    },
+    {
+        "code": "D-4-10-III",
+        "display": "AGRANULOSITOSIS (BERAT)"
+    },
+    {
+        "code": "D-4-11-I",
+        "display": "GANGGUAN PEMBEKUAN DARAH (RINGAN)"
+    },
+    {
+        "code": "D-4-11-II",
+        "display": "GANGGUAN PEMBEKUAN DARAH (SEDANG)"
+    },
+    {
+        "code": "D-4-11-III",
+        "display": "GANGGUAN PEMBEKUAN DARAH (BERAT)"
+    },
+    {
+        "code": "D-4-12-I",
+        "display": "KRISIS ANEMIA SEL SICKLE (RINGAN)"
+    },
+    {
+        "code": "D-4-12-II",
+        "display": "KRISIS ANEMIA SEL SICKLE (SEDANG)"
+    },
+    {
+        "code": "D-4-12-III",
+        "display": "KRISIS ANEMIA SEL SICKLE (BERAT)"
+    },
+    {
+        "code": "D-4-13-I",
+        "display": "GANGGUAN SEL DARAH MERAH SELAIN KRISIS ANEMIA SEL SICKLE (RINGAN)"
+    },
+    {
+        "code": "D-4-13-II",
+        "display": "GANGGUAN SEL DARAH MERAH SELAIN KRISIS ANEMIA SEL SICKLE (SEDANG)"
+    },
+    {
+        "code": "D-4-13-III",
+        "display": "GANGGUAN SEL DARAH MERAH SELAIN KRISIS ANEMIA SEL SICKLE (BERAT)"
+    },
+    {
+        "code": "D-4-14-I",
+        "display": "GANGGUAN PADA DARAH & ORGAN PEMBENTUK DARAH LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "D-4-14-II",
+        "display": "GANGGUAN PADA DARAH & ORGAN PEMBENTUK DARAH LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "D-4-14-III",
+        "display": "GANGGUAN PADA DARAH & ORGAN PEMBENTUK DARAH LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "E-1-01-I",
+        "display": "PROSEDUR KELENJAR PITUITARI DAN PINEAL (RINGAN)"
+    },
+    {
+        "code": "E-1-01-II",
+        "display": "PROSEDUR KELENJAR PITUITARI DAN PINEAL (SEDANG)"
+    },
+    {
+        "code": "E-1-01-III",
+        "display": "PROSEDUR KELENJAR PITUITARI DAN PINEAL (BERAT)"
+    },
+    {
+        "code": "E-1-10-I",
+        "display": "PROSEDUR KELENJAR ADRENAL (RINGAN)"
+    },
+    {
+        "code": "E-1-10-II",
+        "display": "PROSEDUR KELENJAR ADRENAL (SEDANG)"
+    },
+    {
+        "code": "E-1-10-III",
+        "display": "PROSEDUR KELENJAR ADRENAL (BERAT)"
+    },
+    {
+        "code": "E-1-20-I",
+        "display": "PROSEDUR PADA TIROID, PARATIROID DAN SALURAN TIROGLOSAL (RINGAN)"
+    },
+    {
+        "code": "E-1-20-II",
+        "display": "PROSEDUR PADA TIROID, PARATIROID DAN SALURAN TIROGLOSAL (SEDANG)"
+    },
+    {
+        "code": "E-1-20-III",
+        "display": "PROSEDUR PADA TIROID, PARATIROID DAN SALURAN TIROGLOSAL (BERAT)"
+    },
+    {
+        "code": "E-4-10-I",
+        "display": "PENYAKIT KENCING MANIS & GANGGUAN NUTRISI/ METABOLIK (RINGAN)"
+    },
+    {
+        "code": "E-4-10-II",
+        "display": "PENYAKIT KENCING MANIS & GANGGUAN NUTRISI/ METABOLIK (SEDANG)"
+    },
+    {
+        "code": "E-4-10-III",
+        "display": "PENYAKIT KENCING MANIS & GANGGUAN NUTRISI/ METABOLIK (BERAT)"
+    },
+    {
+        "code": "E-4-11-I",
+        "display": "HIPOVOLEMIA & GANGGUAN ELEKROLIT (RINGAN)"
+    },
+    {
+        "code": "E-4-11-II",
+        "display": "HIPOVOLEMIA & GANGGUAN ELEKROLIT (SEDANG)"
+    },
+    {
+        "code": "E-4-11-III",
+        "display": "HIPOVOLEMIA & GANGGUAN ELEKROLIT (BERAT)"
+    },
+    {
+        "code": "E-4-12-I",
+        "display": "GANGGUAN METABOLIK BAWAAN (RINGAN)"
+    },
+    {
+        "code": "E-4-12-II",
+        "display": "GANGGUAN METABOLIK BAWAAN (SEDANG)"
+    },
+    {
+        "code": "E-4-12-III",
+        "display": "GANGGUAN METABOLIK BAWAAN (BERAT)"
+    },
+    {
+        "code": "E-4-13-I",
+        "display": "GANGGUAN KELENJAR ENDOKRIN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "E-4-13-II",
+        "display": "GANGGUAN KELENJAR ENDOKRIN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "E-4-13-III",
+        "display": "GANGGUAN KELENJAR ENDOKRIN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "F-4-10-I",
+        "display": "SCHIZOFRENIA (RINGAN)"
+    },
+    {
+        "code": "F-4-10-II",
+        "display": "SCHIZOFRENIA (SEDANG)"
+    },
+    {
+        "code": "F-4-10-III",
+        "display": "SCHIZOFRENIA (BERAT)"
+    },
+    {
+        "code": "F-4-11-I",
+        "display": "DEPRESI MAYOR (RINGAN)"
+    },
+    {
+        "code": "F-4-11-II",
+        "display": "DEPRESI MAYOR (SEDANG)"
+    },
+    {
+        "code": "F-4-11-III",
+        "display": "DEPRESI MAYOR (BERAT)"
+    },
+    {
+        "code": "F-4-12-I",
+        "display": "GANGGUAN PERSONALITI & KONTROL IMPULSE (RINGAN)"
+    },
+    {
+        "code": "F-4-12-II",
+        "display": "GANGGUAN PERSONALITI & KONTROL IMPULSE (SEDANG)"
+    },
+    {
+        "code": "F-4-12-III",
+        "display": "GANGGUAN PERSONALITI & KONTROL IMPULSE (BERAT)"
+    },
+    {
+        "code": "F-4-13-I",
+        "display": "GANGGUAN BIPOLAR (RINGAN)"
+    },
+    {
+        "code": "F-4-13-II",
+        "display": "GANGGUAN BIPOLAR (SEDANG)"
+    },
+    {
+        "code": "F-4-13-III",
+        "display": "GANGGUAN BIPOLAR (BERAT)"
+    },
+    {
+        "code": "F-4-14-I",
+        "display": "DEPRESI (RINGAN)"
+    },
+    {
+        "code": "F-4-14-II",
+        "display": "DEPRESI (SEDANG)"
+    },
+    {
+        "code": "F-4-14-III",
+        "display": "DEPRESI (BERAT)"
+    },
+    {
+        "code": "F-4-15-I",
+        "display": "FOBIA, ANXIETAS DAN NEUROSIS LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "F-4-15-II",
+        "display": "FOBIA, ANXIETAS DAN NEUROSIS LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "F-4-15-III",
+        "display": "FOBIA, ANXIETAS DAN NEUROSIS LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "F-4-16-I",
+        "display": "GANGGUAN OTAK ORGANIK LAIN-LAIN TERMASUK KETERBELAKANGAN MENTAL (RINGAN)"
+    },
+    {
+        "code": "F-4-16-II",
+        "display": "GANGGUAN OTAK ORGANIK LAIN-LAIN TERMASUK KETERBELAKANGAN MENTAL (SEDANG)"
+    },
+    {
+        "code": "F-4-16-III",
+        "display": "GANGGUAN OTAK ORGANIK LAIN-LAIN TERMASUK KETERBELAKANGAN MENTAL (BERAT)"
+    },
+    {
+        "code": "F-4-17-I",
+        "display": "GANGGUAN MENTAL PADA KANAK-KANAK (RINGAN)"
+    },
+    {
+        "code": "F-4-17-II",
+        "display": "GANGGUAN MENTAL PADA KANAK-KANAK (SEDANG)"
+    },
+    {
+        "code": "F-4-17-III",
+        "display": "GANGGUAN MENTAL PADA KANAK-KANAK (BERAT)"
+    },
+    {
+        "code": "F-4-18-I",
+        "display": "GANGGUAN NUTRISI KOMPULSIF (RINGAN)"
+    },
+    {
+        "code": "F-4-18-II",
+        "display": "GANGGUAN NUTRISI KOMPULSIF (SEDANG)"
+    },
+    {
+        "code": "F-4-18-III",
+        "display": "GANGGUAN NUTRISI KOMPULSIF (BERAT)"
+    },
+    {
+        "code": "F-4-19-I",
+        "display": "GANGGUAN MENTAL LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "F-4-19-II",
+        "display": "GANGGUAN MENTAL LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "F-4-19-III",
+        "display": "GANGGUAN MENTAL LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "G-1-01-I",
+        "display": "PROSEDUR PADA PEMBULUH DARAH INTRA KRANIAL (RINGAN)"
+    },
+    {
+        "code": "G-1-01-II",
+        "display": "PROSEDUR PEMBULUH DARAH INTRA KRANIAL (SEDANG)"
+    },
+    {
+        "code": "G-1-01-III",
+        "display": "PROSEDUR PEMBULUH DARAH INTRA KRANIAL (BERAT)"
+    },
+    {
+        "code": "G-1-10-I",
+        "display": "KRANIOTOMI (RINGAN)"
+    },
+    {
+        "code": "G-1-10-II",
+        "display": "KRANIOTOMI (SEDANG)"
+    },
+    {
+        "code": "G-1-10-III",
+        "display": "KRANIOTOMI (BERAT)"
+    },
+    {
+        "code": "G-1-11-I",
+        "display": "PROSEDUR VENTRICULAR SHUNT (RINGAN)"
+    },
+    {
+        "code": "G-1-11-II",
+        "display": "PROSEDUR VENTRICULAR SHUNT (SEDANG)"
+    },
+    {
+        "code": "G-1-11-III",
+        "display": "PROSEDUR VENTRICULAR SHUNT (BERAT)"
+    },
+    {
+        "code": "G-1-12-I",
+        "display": "PROSEDUR PEMBULUH DARAH EXTRA KRANIAL (RINGAN)"
+    },
+    {
+        "code": "G-1-12-II",
+        "display": "PROSEDUR PEMBULUH DARAH EXTRA KRANIAL (SEDANG)"
+    },
+    {
+        "code": "G-1-12-III",
+        "display": "PROSEDUR PEMBULUH DARAH EXTRA KRANIAL (BERAT)"
+    },
+    {
+        "code": "G-1-13-I",
+        "display": "PROSEDUR CARPAL TUNNEL RELEASE (RINGAN)"
+    },
+    {
+        "code": "G-1-13-II",
+        "display": "PROSEDUR CARPAL TUNNEL RELEASE (SEDANG)"
+    },
+    {
+        "code": "G-1-13-III",
+        "display": "PROSEDUR CARPAL TUNNEL RELEASE (BERAT)"
+    },
+    {
+        "code": "G-1-20-I",
+        "display": "PROSEDUR SARAF KRANIAL DAN PERIFER (RINGAN)"
+    },
+    {
+        "code": "G-1-20-II",
+        "display": "PROSEDUR SARAF KRANIAL DAN PERIFER (SEDANG)"
+    },
+    {
+        "code": "G-1-20-III",
+        "display": "PROSEDUR SARAF KRANIAL DAN PERIFER (BERAT)"
+    },
+    {
+        "code": "G-1-30-I",
+        "display": "PROSEDUR TULANG BELAKANG (RINGAN)"
+    },
+    {
+        "code": "G-1-30-II",
+        "display": "PROSEDUR TULANG BELAKANG (SEDANG)"
+    },
+    {
+        "code": "G-1-30-III",
+        "display": "PROSEDUR TULANG BELAKANG (BERAT)"
+    },
+    {
+        "code": "G-4-10-I",
+        "display": "KECEDERAAN & GANGGUAN TULANG BELAKANG (RINGAN)"
+    },
+    {
+        "code": "G-4-10-II",
+        "display": "KECEDERAAN & GANGGUAN TULANG BELAKANG (SEDANG)"
+    },
+    {
+        "code": "G-4-10-III",
+        "display": "KECEDERAAN & GANGGUAN TULANG BELAKANG (BERAT)"
+    },
+    {
+        "code": "G-4-11-I",
+        "display": "TUMOR SISTEM SARAF & GANGGUAN DEGENERATIF (RINGAN)"
+    },
+    {
+        "code": "G-4-11-II",
+        "display": "TUMOR SISTEM SARAF & GANGGUAN DEGENERATIF (SEDANG)"
+    },
+    {
+        "code": "G-4-11-III",
+        "display": "TUMOR SISTEM SARAF & GANGGUAN DEGENERATIF (BERAT)"
+    },
+    {
+        "code": "G-4-12-I",
+        "display": "SKLEROSIS MULTIPLE & ATAXIA CEREBELAR (RINGAN)"
+    },
+    {
+        "code": "G-4-12-II",
+        "display": "SKLEROSIS MULTIPLE & ATAXIA CEREBELAR (SEDANG)"
+    },
+    {
+        "code": "G-4-12-III",
+        "display": "SKLEROSIS MULTIPLE & ATAXIA CEREBELAR (BERAT)"
+    },
+    {
+        "code": "G-4-13-I",
+        "display": "PERDARAHAN INTRA KRANIAL BUKAN TRAUMATIK (RINGAN)"
+    },
+    {
+        "code": "G-4-13-II",
+        "display": "PERDARAHAN INTRA KRANIAL BUKAN TRAUMATIK (SEDANG)"
+    },
+    {
+        "code": "G-4-13-III",
+        "display": "PERDARAHAN INTRA KRANIAL BUKAN TRAUMATIK (BERAT)"
+    },
+    {
+        "code": "G-4-14-I",
+        "display": "KECEDERAAN PEMBULUH DARAH OTAK DENGAN INFARK (RINGAN)"
+    },
+    {
+        "code": "G-4-14-II",
+        "display": "KECEDERAAN PEMBULUH DARAH OTAK DENGAN INFARK (SEDANG)"
+    },
+    {
+        "code": "G-4-14-III",
+        "display": "KECEDERAAN PEMBULUH DARAH OTAK DENGAN INFARK (BERAT)"
+    },
+    {
+        "code": "G-4-15-I",
+        "display": "KECEDERAAN PEMBULUH DARAH OTAK NON SPESIFIK & PENYUMBATAN PRE-CEREBRAL TANPA INFARK (RINGAN)"
+    },
+    {
+        "code": "G-4-15-II",
+        "display": "KECEDERAAN PEMBULUH DARAH OTAK NON SPESIFIK & PENYUMBATAN PRE-CEREBRAL TANPA INFARK (SEDANG)"
+    },
+    {
+        "code": "G-4-15-III",
+        "display": "KECEDERAAN PEMBULUH DARAH OTAK NON SPESIFIK & PENYUMBATAN PRE-CEREBRAL TANPA INFARK (BERAT)"
+    },
+    {
+        "code": "G-4-16-I",
+        "display": "ISKEMIK TRANSIENT (RINGAN)"
+    },
+    {
+        "code": "G-4-16-II",
+        "display": "ISKEMIK TRANSIENT (SEDANG)"
+    },
+    {
+        "code": "G-4-16-III",
+        "display": "ISKEMIK TRANSIENT (BERAT)"
+    },
+    {
+        "code": "G-4-17-I",
+        "display": "GANGUAN SARAF KRANIAL DAN PERIFER (RINGAN)"
+    },
+    {
+        "code": "G-4-17-II",
+        "display": "GANGUAN SARAF KRANIAL DAN PERIFER (SEDANG)"
+    },
+    {
+        "code": "G-4-17-III",
+        "display": "GANGUAN SARAF KRANIAL DAN PERIFER (BERAT)"
+    },
+    {
+        "code": "G-4-18-I",
+        "display": "INFEKSI BAKTERI SISTEM SARAF (RINGAN)"
+    },
+    {
+        "code": "G-4-18-II",
+        "display": "INFEKSI BAKTERI SISTEM SARAF (SEDANG)"
+    },
+    {
+        "code": "G-4-18-III",
+        "display": "INFEKSI BAKTERI SISTEM SARAF (BERAT)"
+    },
+    {
+        "code": "G-4-19-I",
+        "display": "INFEKSI NON BAKTERI SISTEM SARAF ,TIDAK TERMASUK MENINGITIS VIRUS (RINGAN)"
+    },
+    {
+        "code": "G-4-19-II",
+        "display": "INFEKSI NON BAKTERI SISTEM SARAF ,TIDAK TERMASUK MENINGITIS VIRUS (SEDANG)"
+    },
+    {
+        "code": "G-4-19-III",
+        "display": "INFEKSI NON BAKTERI SISTEM SARAF ,TIDAK TERMASUK MENINGITIS VIRUS (BERAT)"
+    },
+    {
+        "code": "G-4-20-I",
+        "display": "MENINGITIS VIRUS (RINGAN)"
+    },
+    {
+        "code": "G-4-20-II",
+        "display": "MENINGITIS VIRUS (SEDANG)"
+    },
+    {
+        "code": "G-4-20-III",
+        "display": "MENINGITIS VIRUS (BERAT)"
+    },
+    {
+        "code": "G-4-21-I",
+        "display": "KOMA & STUPOR NON TRAUMA (RINGAN)"
+    },
+    {
+        "code": "G-4-21-II",
+        "display": "KOMA & STUPOR NON TRAUMA (SEDANG)"
+    },
+    {
+        "code": "G-4-21-III",
+        "display": "KOMA & STUPOR NON TRAUMA (BERAT)"
+    },
+    {
+        "code": "G-4-22-I",
+        "display": "SERANGAN KEJANG (RINGAN)"
+    },
+    {
+        "code": "G-4-22-II",
+        "display": "SERANGAN KEJANG (SEDANG)"
+    },
+    {
+        "code": "G-4-22-III",
+        "display": "SERANGAN KEJANG (BERAT)"
+    },
+    {
+        "code": "G-4-23-I",
+        "display": "MIGREN DAN SAKIT KEPALA LAIN (RINGAN)"
+    },
+    {
+        "code": "G-4-23-II",
+        "display": "MIGREN DAN SAKIT KEPALA LAIN ((SEDANG)"
+    },
+    {
+        "code": "G-4-23-III",
+        "display": "MIGREN DAN SAKIT KEPALA LAIN (BERAT)"
+    },
+    {
+        "code": "G-4-24-I",
+        "display": "TRAUMA KEPALA (RINGAN)"
+    },
+    {
+        "code": "G-4-24-II",
+        "display": "TRAUMA KEPALA (SEDANG)"
+    },
+    {
+        "code": "G-4-24-III",
+        "display": "TRAUMA KEPALA (BERAT)"
+    },
+    {
+        "code": "G-4-25-I",
+        "display": "GEGAR OTAK (RINGAN)"
+    },
+    {
+        "code": "G-4-25-II",
+        "display": "GEGAR OTAK (SEDANG)"
+    },
+    {
+        "code": "G-4-25-III",
+        "display": "GEGAR OTAK (BERAT)"
+    },
+    {
+        "code": "G-4-26-I",
+        "display": "GANGGUAN - PENYAKIT SISTEM SARAF LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "G-4-26-II",
+        "display": "GANGGUAN - PENYAKIT SISTEM SARAF LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "G-4-26-III",
+        "display": "GANGGUAN - PENYAKIT SISTEM SARAF LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "H-1-20-I",
+        "display": "PROSEDUR EKSTRAOKULER DAN ORBITA (RINGAN)"
+    },
+    {
+        "code": "H-1-20-II",
+        "display": "PROSEDUR EKSTRAOKULER DAN ORBITA (SEDANG)"
+    },
+    {
+        "code": "H-1-20-III",
+        "display": "PROSEDUR EKSTRAOKULER DAN ORBITA (BERAT)"
+    },
+    {
+        "code": "H-1-30-I",
+        "display": "PROSEDUR LENSA DAN INTRA OKULER (RINGAN)"
+    },
+    {
+        "code": "H-1-30-II",
+        "display": "PROSEDUR LENSA DAN INTRA OKULER (SEDANG)"
+    },
+    {
+        "code": "H-1-30-III",
+        "display": "PROSEDUR LENSA DAN INTRA OKULER (BERAT)"
+    },
+    {
+        "code": "H-4-10-I",
+        "display": "INFEKSI MATA AKUT MAYOR (RINGAN)"
+    },
+    {
+        "code": "H-4-10-II",
+        "display": "INFEKSI MATA AKUT MAYOR (SEDANG)"
+    },
+    {
+        "code": "H-4-10-III",
+        "display": "INFEKSI MATA AKUT MAYOR (BERAT)"
+    },
+    {
+        "code": "H-4-11-I",
+        "display": "GANGGUAN SARAF MATA (RINGAN)"
+    },
+    {
+        "code": "H-4-11-II",
+        "display": "GANGGUAN SARAF MATA (SEDANG)"
+    },
+    {
+        "code": "H-4-11-III",
+        "display": "GANGGUAN SARAF MATA (BERAT)"
+    },
+    {
+        "code": "H-4-12-I",
+        "display": "GANGGUAN MATA LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "H-4-12-II",
+        "display": "GANGGUAN MATA LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "H-4-12-III",
+        "display": "GANGGUAN MATA LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "I-1-01-I",
+        "display": "TRANPLANTASI PARU ATAU/DAN JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-1-01-II",
+        "display": "TRANPLANTASI PARU ATAU/DAN JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-1-01-III",
+        "display": "TRANPLANTASI PARU ATAU/DAN JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-1-02-I",
+        "display": "PROSEDUR KATUP JANTUNG DENGAN KATETERISASI (RINGAN)"
+    },
+    {
+        "code": "I-1-02-II",
+        "display": "PROSEDUR KATUP JANTUNG DENGAN KATETERISASI (SEDANG)"
+    },
+    {
+        "code": "I-1-02-III",
+        "display": "PROSEDUR KATUP JANTUNG DENGAN KATETERISASI (BERAT)"
+    },
+    {
+        "code": "I-1-03-I",
+        "display": "OPERASI KARDIOTORASIK KOMPLEKS PADA JANTUNG ANOMALI (RINGAN)"
+    },
+    {
+        "code": "I-1-03-II",
+        "display": "OPERASI KARDIOTORASIK KOMPLEKS PADA JANTUNG ANOMALI (SEDANG)"
+    },
+    {
+        "code": "I-1-03-III",
+        "display": "OPERASI KARDIOTORASIK KOMPLEKS PADA JANTUNG ANOMALI (BERAT)"
+    },
+    {
+        "code": "I-1-04-I",
+        "display": "PROSEDUR KATUP JANTUNG TANPA KATETERISASI JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-1-04-II",
+        "display": "PROSEDUR KATUP JANTUNG TANPA KATETERISASI JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-1-04-III",
+        "display": "PROSEDUR KATUP JANTUNG TANPA KATETERISASI JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-1-05-I",
+        "display": "PEMBEDAHAN BYPASS PEMBULUH KORONER DENGAN KATETERISASI JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-1-05-II",
+        "display": "PEMBEDAHAN BYPASS PEMBULUH KORONER DENGAN KATETERISASI JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-1-05-III",
+        "display": "PEMBEDAHAN BYPASS PEMBULUH KORONER DENGAN KATETERISASI JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-1-06-I",
+        "display": "PROSEDUR KARDIOTORASIK LAIN (RINGAN)"
+    },
+    {
+        "code": "I-1-06-II",
+        "display": "PROSEDUR KARDIOTORASIK LAIN (SEDANG)"
+    },
+    {
+        "code": "I-1-06-III",
+        "display": "PROSEDUR KARDIOTORASIK LAIN (BERAT)"
+    },
+    {
+        "code": "I-1-07-I",
+        "display": "PROSEDUR BYPASS KORONER TANPA KATETERISASI JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-1-07-II",
+        "display": "PROSEDUR BYPASS KORONER TANPA KATETERISASI JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-1-07-III",
+        "display": "PROSEDUR BYPASS KORONER TANPA KATETERISASI JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-1-11-I",
+        "display": "DEFIBRILATOR JANTUNG DAN PEMASANGAN SISTEM BANTUAN JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-1-11-II",
+        "display": "DEFIBRILATOR JANTUNG DAN PEMASANGAN SISTEM BANTUAN JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-1-11-III",
+        "display": "DEFIBRILATOR JANTUNG DAN PEMASANGAN SISTEM BANTUAN JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-1-12-I",
+        "display": "PROSEDUR PEMBULUH DARAH TORASIK KOMPLEKS (RINGAN)"
+    },
+    {
+        "code": "I-1-12-II",
+        "display": "PROSEDUR PEMBULUH DARAH TORASIK KOMPLEKS (SEDANG)"
+    },
+    {
+        "code": "I-1-12-III",
+        "display": "PROSEDUR PEMBULUH DARAH TORASIK KOMPLEKS (BERAT)"
+    },
+    {
+        "code": "I-1-13-I",
+        "display": "PROSEDUR PEMBULUH DARAH ABDOMINAL KOMPLEK (RINGAN)"
+    },
+    {
+        "code": "I-1-13-II",
+        "display": "PROSEDUR PEMBULUH DARAH ABDOMINAL KOMPLEK (SEDANG)"
+    },
+    {
+        "code": "I-1-13-III",
+        "display": "PROSEDUR PEMBULUH DARAH ABDOMINAL KOMPLEK (BERAT)"
+    },
+    {
+        "code": "I-1-14-I",
+        "display": "PEMASANGAN PACEMAKER JANTUNG PERMANEN (RINGAN)"
+    },
+    {
+        "code": "I-1-14-II",
+        "display": "PEMASANGAN PACEMAKER JANTUNG PERMANEN (SEDANG)"
+    },
+    {
+        "code": "I-1-14-III",
+        "display": "PEMASANGAN PACEMAKER JANTUNG PERMANEN (BERAT)"
+    },
+    {
+        "code": "I-1-15-I",
+        "display": "KATETERISASI JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-1-15-II",
+        "display": "KATETERISASI JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-1-15-III",
+        "display": "KATETERISASI JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-1-16-I",
+        "display": "REVISI DEFIBRILATOR & PACEMAKER JANTUNG TIDAK TERMASUK PENGGANTIAN ALAT (RINGAN)"
+    },
+    {
+        "code": "I-1-16-II",
+        "display": "REVISI DEFIBRILATOR & PACEMAKER JANTUNG TIDAK TERMASUK PENGGANTIAN ALAT (SEDANG)"
+    },
+    {
+        "code": "I-1-16-III",
+        "display": "REVISI DEFIBRILATOR & PACEMAKER JANTUNG TIDAK TERMASUK PENGGANTIAN ALAT (BERAT)"
+    },
+    {
+        "code": "I-1-17-I",
+        "display": "LIGASI DAN STRIPPING PEMBULUH DARAH VENA (RINGAN)"
+    },
+    {
+        "code": "I-1-17-II",
+        "display": "LIGASI DAN STRIPPING PEMBULUH DARAH VENA (SEDANG)"
+    },
+    {
+        "code": "I-1-17-III",
+        "display": "LIGASI DAN STRIPPING PEMBULUH DARAH VENA (BERAT)"
+    },
+    {
+        "code": "I-1-20-I",
+        "display": "PROSEDUR SISTIM PEREDARAN DARAH LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "I-1-20-II",
+        "display": "PROSEDUR SISTIM PEREDARAN DARAH LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "I-1-20-III",
+        "display": "PROSEDUR SISTIM PEREDARAN DARAH LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "I-1-30-I",
+        "display": "PENGGANTIAN ALAT DEFIBRILATOR DAN PACEMAKER JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-1-30-II",
+        "display": "PENGGANTIAN ALAT DEFIBRILATOR DAN PACEMAKER JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-1-30-III",
+        "display": "PENGGANTIAN ALAT DEFIBRILATOR DAN PACEMAKER JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-1-40-I",
+        "display": "PROSEDUR KARDIOVASKULAR PERKUTAN (RINGAN)"
+    },
+    {
+        "code": "I-1-40-II",
+        "display": "PROSEDUR KARDIOVASKULAR PERKUTAN (SEDANG)"
+    },
+    {
+        "code": "I-1-40-III",
+        "display": "PROSEDUR KARDIOVASKULAR PERKUTAN (BERAT)"
+    },
+    {
+        "code": "I-4-10-I",
+        "display": "INFARK MYOKARD AKUT (RINGAN)"
+    },
+    {
+        "code": "I-4-10-II",
+        "display": "INFARK MYOKARD AKUT (SEDANG)"
+    },
+    {
+        "code": "I-4-10-III",
+        "display": "INFARK MYOKARD AKUT (BERAT)"
+    },
+    {
+        "code": "I-4-11-I",
+        "display": "ENDOKARDITIS AKUT DAN SUBAKUT (RINGAN)"
+    },
+    {
+        "code": "I-4-11-II",
+        "display": "ENDOKARDITIS AKUT DAN SUBAKUT (SEDANG)"
+    },
+    {
+        "code": "I-4-11-III",
+        "display": "ENDOKARDITIS AKUT DAN SUBAKUT (BERAT)"
+    },
+    {
+        "code": "I-4-12-I",
+        "display": "KEGAGALAN JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-4-12-II",
+        "display": "KEGAGALAN JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-4-12-III",
+        "display": "KEGAGALAN JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-4-13-I",
+        "display": "THROMBOPHLEBITIS PADA PEMBULUH DARAH VENA (RINGAN)"
+    },
+    {
+        "code": "I-4-13-II",
+        "display": "THROMBOPHLEBITIS PADA PEMBULUH DARAH VENA (SEDANG)"
+    },
+    {
+        "code": "I-4-13-III",
+        "display": "THROMBOPHLEBITIS PADA PEMBULUH DARAH VENA (BERAT)"
+    },
+    {
+        "code": "I-4-14-I",
+        "display": "CARDIAC ARREST, TIDAK DIKETAHUI (RINGAN)"
+    },
+    {
+        "code": "I-4-14-II",
+        "display": "CARDIAC ARREST, TIDAK DIKETAHUI (SEDANG)"
+    },
+    {
+        "code": "I-4-14-III",
+        "display": "CARDIAC ARREST, TIDAK DIKETAHUI (BERAT)"
+    },
+    {
+        "code": "I-4-15-I",
+        "display": "PENYAKIT PEMBULUH DARAH PERIFER DAN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "I-4-15-II",
+        "display": "PENYAKIT PEMBULUH DARAH PERIFER DAN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "I-4-15-III",
+        "display": "PENYAKIT PEMBULUH DARAH PERIFER DAN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "I-4-16-I",
+        "display": "ATHEROSKLEROSIS (RINGAN)"
+    },
+    {
+        "code": "I-4-16-II",
+        "display": "ATHEROSKLEROSIS (SEDANG)"
+    },
+    {
+        "code": "I-4-16-III",
+        "display": "ATHEROSKLEROSIS (BERAT)"
+    },
+    {
+        "code": "I-4-17-I",
+        "display": "HIPERTENSI (RINGAN)"
+    },
+    {
+        "code": "I-4-17-II",
+        "display": "HIPERTENSI (SEDANG)"
+    },
+    {
+        "code": "I-4-17-III",
+        "display": "HIPERTENSI (BERAT)"
+    },
+    {
+        "code": "I-4-18-I",
+        "display": "PENYAKIT JANTUNG KONGENITAL DAN KATUP JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-4-18-II",
+        "display": "PENYAKIT JANTUNG KONGENITAL DAN KATUP JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-4-18-III",
+        "display": "PENYAKIT JANTUNG KONGENITAL DAN KATUP JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-4-19-I",
+        "display": "GANGGUAN KONDUKSI & ARITMIA JANTUNG (RINGAN)"
+    },
+    {
+        "code": "I-4-19-II",
+        "display": "GANGGUAN KONDUKSI & ARITMIA JANTUNG (SEDANG)"
+    },
+    {
+        "code": "I-4-19-III",
+        "display": "GANGGUAN KONDUKSI & ARITMIA JANTUNG (BERAT)"
+    },
+    {
+        "code": "I-4-20-I",
+        "display": "ANGINA PEKTORIS DAN NYERI DADA (RINGAN)"
+    },
+    {
+        "code": "I-4-20-II",
+        "display": "ANGINA PEKTORIS DAN NYERI DADA (SEDANG)"
+    },
+    {
+        "code": "I-4-20-III",
+        "display": "ANGINA PEKTORIS DAN NYERI DADA (BERAT)"
+    },
+    {
+        "code": "I-4-21-I",
+        "display": "SYNCOPE & COLLAPSE (RINGAN)"
+    },
+    {
+        "code": "I-4-21-II",
+        "display": "SYNCOPE & COLLAPSE (SEDANG)"
+    },
+    {
+        "code": "I-4-21-III",
+        "display": "SYNCOPE & COLLAPSE (BERAT)"
+    },
+    {
+        "code": "I-4-22-I",
+        "display": "KARDIOMIOPATHI (RINGAN)"
+    },
+    {
+        "code": "I-4-22-II",
+        "display": "KARDIOMIOPATHI (SEDANG)"
+    },
+    {
+        "code": "I-4-22-III",
+        "display": "KARDIOMIOPATHI (BERAT)"
+    },
+    {
+        "code": "I-4-23-I",
+        "display": "MALFUNGSI, REAKSI DAN KOMPLIKASI DARI ALAT ATAU PROSEDUR KARDIOVASKULAR (RINGAN)"
+    },
+    {
+        "code": "I-4-23-II",
+        "display": "MALFUNGSI, REAKSI DAN KOMPLIKASI DARI ALAT ATAU PROSEDUR KARDIOVASKULAR (SEDANG)"
+    },
+    {
+        "code": "I-4-23-III",
+        "display": "MALFUNGSI, REAKSI DAN KOMPLIKASI DARI ALAT ATAU PROSEDUR KARDIOVASKULAR (BERAT)"
+    },
+    {
+        "code": "I-4-24-I",
+        "display": "GANGGUAN SISTEM PEMBULUH DARAH LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "I-4-24-II",
+        "display": "GANGGUAN SISTEM PEMBULUH DARAH LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "I-4-24-III",
+        "display": "GANGGUAN SISTEM PEMBULUH DARAH LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "J-1-01-I",
+        "display": "VENTILASI MEKANIKAL LONG TERM DENGAN TRAKEOSTOMI (RINGAN)"
+    },
+    {
+        "code": "J-1-01-II",
+        "display": "VENTILASI MEKANIKAL LONG TERM DENGAN TRAKEOSTOMI (SEDANG)"
+    },
+    {
+        "code": "J-1-01-III",
+        "display": "VENTILASI MEKANIKAL LONG TERM DENGAN TRAKEOSTOMI (BERAT)"
+    },
+    {
+        "code": "J-1-02-I",
+        "display": "VENTILASI MEKANIKAL LONG TERM TANPA TRAKEOSTOMI (RINGAN)"
+    },
+    {
+        "code": "J-1-02-II",
+        "display": "VENTILASI MEKANIKAL LONG TERM TANPA TRAKEOSTOMI (SEDANG)"
+    },
+    {
+        "code": "J-1-02-III",
+        "display": "VENTILASI MEKANIKAL LONG TERM TANPA TRAKEOSTOMI (BERAT)"
+    },
+    {
+        "code": "J-1-10-I",
+        "display": "PROSEDUR SISTEM PERNAFASAN SANGAT KOMPLEKS (RINGAN)"
+    },
+    {
+        "code": "J-1-10-II",
+        "display": "PROSEDUR SISTEM PERNAFASAN SANGAT KOMPLEKS (SEDANG)"
+    },
+    {
+        "code": "J-1-10-III",
+        "display": "PROSEDUR SISTEM PERNAFASAN SANGAT KOMPLEKS (BERAT)"
+    },
+    {
+        "code": "J-1-20-I",
+        "display": "PROSEDUR SISTEM PERNAFASAN NON-KOMPLEKS (RINGAN)"
+    },
+    {
+        "code": "J-1-20-II",
+        "display": "PROSEDUR SISTEM PERNAFASAN NON-KOMPLEKS (SEDANG)"
+    },
+    {
+        "code": "J-1-20-III",
+        "display": "PROSEDUR SISTEM PERNAFASAN NON-KOMPLEKS (BERAT)"
+    },
+    {
+        "code": "J-1-30-I",
+        "display": "PROSEDUR SISTEM PERNAFASAN KOMPLEKS (RINGAN)"
+    },
+    {
+        "code": "J-1-30-II",
+        "display": "PROSEDUR SISTEM PERNAFASAN KOMPLEKS (SEDANG)"
+    },
+    {
+        "code": "J-1-30-III",
+        "display": "PROSEDUR SISTEM PERNAFASAN KOMPLEKS (BERAT)"
+    },
+    {
+        "code": "J-4-10-I",
+        "display": "KISTA FIBROSIS (RINGAN)"
+    },
+    {
+        "code": "J-4-10-II",
+        "display": "KISTA FIBROSIS (SEDANG)"
+    },
+    {
+        "code": "J-4-10-III",
+        "display": "KISTA FIBROSIS (BERAT)"
+    },
+    {
+        "code": "J-4-11-I",
+        "display": "KEGAGALAN PERNAFASAN (RINGAN)"
+    },
+    {
+        "code": "J-4-11-II",
+        "display": "KEGAGALAN PERNAFASAN (SEDANG)"
+    },
+    {
+        "code": "J-4-11-III",
+        "display": "KEGAGALAN PERNAFASAN (BERAT)"
+    },
+    {
+        "code": "J-4-12-I",
+        "display": "EMBOLI PARU (RINGAN)"
+    },
+    {
+        "code": "J-4-12-II",
+        "display": "EMBOLI PARU (SEDANG)"
+    },
+    {
+        "code": "J-4-12-III",
+        "display": "EMBOLI PARU (BERAT)"
+    },
+    {
+        "code": "J-4-13-I",
+        "display": "TRAUMA DADA (RINGAN)"
+    },
+    {
+        "code": "J-4-13-II",
+        "display": "TRAUMA DADA (SEDANG)"
+    },
+    {
+        "code": "J-4-13-III",
+        "display": "TRAUMA DADA (BERAT)"
+    },
+    {
+        "code": "J-4-14-I",
+        "display": "TUMOR PARU (RINGAN)"
+    },
+    {
+        "code": "J-4-14-II",
+        "display": "TUMOR PARU (SEDANG)"
+    },
+    {
+        "code": "J-4-14-III",
+        "display": "TUMOR PARU (BERAT)"
+    },
+    {
+        "code": "J-4-15-I",
+        "display": "PERADANGAN DAN INFEKSI PERNAFASAN (RINGAN)"
+    },
+    {
+        "code": "J-4-15-II",
+        "display": "PERADANGAN DAN INFEKSI PERNAFASAN (SEDANG)"
+    },
+    {
+        "code": "J-4-15-III",
+        "display": "PERADANGAN DAN INFEKSI PERNAFASAN (BERAT)"
+    },
+    {
+        "code": "J-4-16-I",
+        "display": "SIMPLE PNEUMONIA & WHOOPING COUGH (RINGAN)"
+    },
+    {
+        "code": "J-4-16-II",
+        "display": "SIMPLE PNEUMONIA & WHOOPING COUGH (SEDANG)"
+    },
+    {
+        "code": "J-4-16-III",
+        "display": "SIMPLE PNEUMONIA & WHOOPING COUGH (BERAT)"
+    },
+    {
+        "code": "J-4-17-I",
+        "display": "PENYAKIT PARU OBSTRUKTIF KRONIS (RINGAN)"
+    },
+    {
+        "code": "J-4-17-II",
+        "display": "PENYAKIT PARU OBSTRUKTIF KRONIS (SEDANG)"
+    },
+    {
+        "code": "J-4-17-III",
+        "display": "PENYAKIT PARU OBSTRUKTIF KRONIS (BERAT)"
+    },
+    {
+        "code": "J-4-18-I",
+        "display": "ASTHMA & BRONKIOLITIS (RINGAN)"
+    },
+    {
+        "code": "J-4-18-II",
+        "display": "ASTHMA & BRONKIOLITIS (SEDANG)"
+    },
+    {
+        "code": "J-4-18-III",
+        "display": "ASTHMA & BRONKIOLITIS (BERAT)"
+    },
+    {
+        "code": "J-4-19-I",
+        "display": "PENYAKIT PARU INTERSTITIAL (RINGAN)"
+    },
+    {
+        "code": "J-4-19-II",
+        "display": "PENYAKIT PARU INTERSTITIAL (SEDANG)"
+    },
+    {
+        "code": "J-4-19-III",
+        "display": "PENYAKIT PARU INTERSTITIAL (BERAT)"
+    },
+    {
+        "code": "J-4-20-I",
+        "display": "PLEURAL EFUSI DAN PNEUMOTORAK (RINGAN)"
+    },
+    {
+        "code": "J-4-20-II",
+        "display": "PLEURAL EFUSI DAN PNEUMOTORAK (SEDANG)"
+    },
+    {
+        "code": "J-4-20-III",
+        "display": "PLEURAL EFUSI DAN PNEUMOTORAK (BERAT)"
+    },
+    {
+        "code": "J-4-21-I",
+        "display": "GEJALA, TANDA DAN DIAGNOSIS SISTEM PERNAFASAN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "J-4-21-II",
+        "display": "GEJALA, TANDA DAN DIAGNOSIS SISTEM PERNAFASAN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "J-4-21-III",
+        "display": "GEJALA, TANDA DAN DIAGNOSIS SISTEM PERNAFASAN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "K-1-10-I",
+        "display": "PROSEDUR NON KOMPLEKS USUS HALUS & USUS BESAR (RINGAN)"
+    },
+    {
+        "code": "K-1-10-II",
+        "display": "PROSEDUR NON KOMPLEKS USUS HALUS & USUS BESAR (SEDANG)"
+    },
+    {
+        "code": "K-1-10-III",
+        "display": "PROSEDUR NON KOMPLEKS USUS HALUS & USUS BESAR (BERAT)"
+    },
+    {
+        "code": "K-1-11-I",
+        "display": "ADHESIOLISIS PERITONEAL (RINGAN)"
+    },
+    {
+        "code": "K-1-11-II",
+        "display": "ADHESIOLISIS PERITONEAL (SEDANG)"
+    },
+    {
+        "code": "K-1-11-III",
+        "display": "ADHESIOLISIS PERITONEAL (BERAT)"
+    },
+    {
+        "code": "K-1-12-I",
+        "display": "PROSEDUR HERNIA TIDAK TERMASUK INGUINAL & FEMORAL (RINGAN)"
+    },
+    {
+        "code": "K-1-12-II",
+        "display": "PROSEDUR HERNIA TIDAK TERMASUK INGUINAL & FEMORAL (SEDANG)"
+    },
+    {
+        "code": "K-1-12-III",
+        "display": "PROSEDUR HERNIA TIDAK TERMASUK INGUINAL & FEMORAL (BERAT)"
+    },
+    {
+        "code": "K-1-13-I",
+        "display": "PROSEDUR APPENDIK (RINGAN)"
+    },
+    {
+        "code": "K-1-13-II",
+        "display": "PROSEDUR APPENDIK (SEDANG)"
+    },
+    {
+        "code": "K-1-13-III",
+        "display": "PROSEDUR APPENDIK (BERAT)"
+    },
+    {
+        "code": "K-1-14-I",
+        "display": "PROSEDUR HERNIA INGUINAL DAN FEMORAL (RINGAN)"
+    },
+    {
+        "code": "K-1-14-II",
+        "display": "PROSEDUR HERNIA INGUINAL DAN FEMORAL (SEDANG)"
+    },
+    {
+        "code": "K-1-14-III",
+        "display": "PROSEDUR HERNIA INGUINAL DAN FEMORAL (BERAT)"
+    },
+    {
+        "code": "K-1-20-I",
+        "display": "PROSEDUR INTESTINAL KOMPLEKS (RINGAN)"
+    },
+    {
+        "code": "K-1-20-II",
+        "display": "PROSEDUR INTESTINAL KOMPLEKS (SEDANG)"
+    },
+    {
+        "code": "K-1-20-III",
+        "display": "PROSEDUR INTESTINAL KOMPLEKS (BERAT)"
+    },
+    {
+        "code": "K-1-30-I",
+        "display": "PROSEDUR DUODENUM, ESOFAGUS & LAMBUNG NON KOMPLEKS (RINGAN)"
+    },
+    {
+        "code": "K-1-30-II",
+        "display": "PROSEDUR DUODENUM, ESOFAGUS & LAMBUNG NON KOMPLEKS (SEDANG)"
+    },
+    {
+        "code": "K-1-30-III",
+        "display": "PROSEDUR DUODENUM, ESOFAGUS & LAMBUNG NON KOMPLEKS (BERAT)"
+    },
+    {
+        "code": "K-1-40-I",
+        "display": "PROSEDUR SISTEM PENCERNAAN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "K-1-40-II",
+        "display": "PROSEDUR SISTEM PENCERNAAN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "K-1-40-III",
+        "display": "PROSEDUR SISTEM PENCERNAAN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "K-1-50-I",
+        "display": "PROSEDUR ANAL (RINGAN)"
+    },
+    {
+        "code": "K-1-50-II",
+        "display": "PROSEDUR ANAL (SEDANG)"
+    },
+    {
+        "code": "K-1-50-III",
+        "display": "PROSEDUR ANAL (BERAT)"
+    },
+    {
+        "code": "K-4-10-I",
+        "display": "TUMOR PENCERNAAN (RINGAN)"
+    },
+    {
+        "code": "K-4-10-II",
+        "display": "TUMOR PENCERNAAN (SEDANG)"
+    },
+    {
+        "code": "K-4-10-III",
+        "display": "TUMOR PENCERNAAN (BERAT)"
+    },
+    {
+        "code": "K-4-11-I",
+        "display": "GASTRITIS & ULKUS PEPTIKUM (RINGAN)"
+    },
+    {
+        "code": "K-4-11-II",
+        "display": "GASTRITIS & ULKUS PEPTIKUM (SEDANG)"
+    },
+    {
+        "code": "K-4-11-III",
+        "display": "GASTRITIS & ULKUS PEPTIKUM (BERAT)"
+    },
+    {
+        "code": "K-4-12-I",
+        "display": "GANGGUAN ESOFAGUS (RINGAN)"
+    },
+    {
+        "code": "K-4-12-II",
+        "display": "GANGGUAN ESOFAGUS (SEDANG)"
+    },
+    {
+        "code": "K-4-12-III",
+        "display": "GANGGUAN ESOFAGUS (BERAT)"
+    },
+    {
+        "code": "K-4-13-I",
+        "display": "DIVERTIKULITIS, DIVERTIKULOSIS DAN PENYAKIT PERADANGAN USUS BESAR (RINGAN)"
+    },
+    {
+        "code": "K-4-13-II",
+        "display": "DIVERTIKULITIS, DIVERTIKULOSIS DAN PENYAKIT PERADANGAN USUS BESAR (SEDANG)"
+    },
+    {
+        "code": "K-4-13-III",
+        "display": "DIVERTIKULITIS, DIVERTIKULOSIS DAN PENYAKIT PERADANGAN USUS BESAR (BERAT)"
+    },
+    {
+        "code": "K-4-14-I",
+        "display": "GANGGUAN PEMBULUH DARAH GASTROINTESTINAL (RINGAN)"
+    },
+    {
+        "code": "K-4-14-II",
+        "display": "GANGGUAN PEMBULUH DARAH GASTROINTESTINAL (SEDANG)"
+    },
+    {
+        "code": "K-4-14-III",
+        "display": "GANGGUAN PEMBULUH DARAH GASTROINTESTINAL (BERAT)"
+    },
+    {
+        "code": "K-4-15-I",
+        "display": "OBSTRUKSI SALURAN GASTROINTESTINAL (RINGAN)"
+    },
+    {
+        "code": "K-4-15-II",
+        "display": "OBSTRUKSI SALURAN GASTROINTESTINAL (SEDANG)"
+    },
+    {
+        "code": "K-4-15-III",
+        "display": "OBSTRUKSI SALURAN GASTROINTESTINAL (BERAT)"
+    },
+    {
+        "code": "K-4-16-I",
+        "display": "INFEKSI-INFEKSI GASTROINTESTINAL (RINGAN)"
+    },
+    {
+        "code": "K-4-16-II",
+        "display": "INFEKSI-INFEKSI GASTROINTESTINAL (SEDANG)"
+    },
+    {
+        "code": "K-4-16-III",
+        "display": "INFEKSI-INFEKSI GASTROINTESTINAL (BERAT)"
+    },
+    {
+        "code": "K-4-17-I",
+        "display": "NYERI ABDOMEN & GASTROENTERITIS LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "K-4-17-II",
+        "display": "NYERI ABDOMEN & GASTROENTERITIS LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "K-4-17-III",
+        "display": "NYERI ABDOMEN & GASTROENTERITIS LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "K-4-18-I",
+        "display": "GANGGUAN SISTEM PENCERNAAN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "K-4-18-II",
+        "display": "GANGGUAN SISTEM PENCERNAAN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "K-4-18-III",
+        "display": "GANGGUAN SISTEM PENCERNAAN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "L-1-20-I",
+        "display": "PEMINDAHAN KULIT PADA LUKA BAKAR (RINGAN)"
+    },
+    {
+        "code": "L-1-20-II",
+        "display": "PEMINDAHAN KULIT PADA LUKA BAKAR (SEDANG)"
+    },
+    {
+        "code": "L-1-20-III",
+        "display": "PEMINDAHAN KULIT PADA LUKA BAKAR (BERAT)"
+    },
+    {
+        "code": "L-1-30-I",
+        "display": "PEMINDAHAN KULIT TANPA LUKA BAKAR (RINGAN)"
+    },
+    {
+        "code": "L-1-30-II",
+        "display": "PEMINDAHAN KULIT TANPA LUKA BAKAR (SEDANG)"
+    },
+    {
+        "code": "L-1-30-III",
+        "display": "PEMINDAHAN KULIT TANPA LUKA BAKAR (BERAT)"
+    },
+    {
+        "code": "L-1-40-I",
+        "display": "PROSEDUR PADA KULIT, JA(RINGAN) BAWAH KULIT DAN PAYUDARA (RINGAN)"
+    },
+    {
+        "code": "L-1-40-II",
+        "display": "PROSEDUR PADA KULIT, JA(RINGAN) BAWAH KULIT DAN PAYUDARA (SEDANG)"
+    },
+    {
+        "code": "L-1-40-III",
+        "display": "PROSEDUR PADA KULIT, JA(RINGAN) BAWAH KULIT DAN PAYUDARA (BERAT)"
+    },
+    {
+        "code": "L-1-50-I",
+        "display": "PROSEDUR PADA PAYUDARA (RINGAN)"
+    },
+    {
+        "code": "L-1-50-II",
+        "display": "PROSEDUR PADA PAYUDARA (SEDANG)"
+    },
+    {
+        "code": "L-1-50-III",
+        "display": "PROSEDUR PADA PAYUDARA (BERAT)"
+    },
+    {
+        "code": "L-4-10-I",
+        "display": "PENYAKIT KULIT MAYOR (RINGAN)"
+    },
+    {
+        "code": "L-4-10-II",
+        "display": "PENYAKIT KULIT MAYOR (SEDANG)"
+    },
+    {
+        "code": "L-4-10-III",
+        "display": "PENYAKIT KULIT MAYOR (BERAT)"
+    },
+    {
+        "code": "L-4-11-I",
+        "display": "TUMOR PAYUDARA (RINGAN)"
+    },
+    {
+        "code": "L-4-11-II",
+        "display": "TUMOR PAYUDARA (SEDANG)"
+    },
+    {
+        "code": "L-4-11-III",
+        "display": "TUMOR PAYUDARA (BERAT)"
+    },
+    {
+        "code": "L-4-12-I",
+        "display": "PERADANGAN KULIT/CELLULITIS (RINGAN)"
+    },
+    {
+        "code": "L-4-12-II",
+        "display": "PERADANGAN KULIT/CELLULITIS (SEDANG)"
+    },
+    {
+        "code": "L-4-12-III",
+        "display": "PERADANGAN KULIT/CELLULITIS (BERAT)"
+    },
+    {
+        "code": "L-4-13-I",
+        "display": "TRAUMA PADA KULIT, JARINGAN BAWAH KULIT DAN PAYUDARA (RINGAN)"
+    },
+    {
+        "code": "L-4-13-II",
+        "display": "TRAUMA PADA KULIT, JARINGAN BAWAH KULIT DAN PAYUDARA (SEDANG)"
+    },
+    {
+        "code": "L-4-13-III",
+        "display": "TRAUMA PADA KULIT, JARINGAN BAWAH KULIT DAN PAYUDARA (BERAT)"
+    },
+    {
+        "code": "L-4-14-I",
+        "display": "GANGGUAN PADA KULIT & PAYUDARA LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "L-4-14-II",
+        "display": "GANGGUAN PADA KULIT & PAYUDARA LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "L-4-14-III",
+        "display": "GANGGUAN PADA KULIT & PAYUDARA LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "M-1-01-I",
+        "display": "PROSEDUR BILATERAL DAN MULTIPEL PADA SENDI TUNGKAI BAWAH (RINGAN)"
+    },
+    {
+        "code": "M-1-01-II",
+        "display": "PROSEDUR BILATERAL DAN MULTIPEL PADA SENDI TUNGKAI BAWAH (SEDANG)"
+    },
+    {
+        "code": "M-1-01-III",
+        "display": "PROSEDUR BILATERAL DAN MULTIPEL PADA SENDI TUNGKAI BAWAH (BERAT)"
+    },
+    {
+        "code": "M-1-02-I",
+        "display": "AMPUTASI (RINGAN)"
+    },
+    {
+        "code": "M-1-02-II",
+        "display": "AMPUTASI (SEDANG)"
+    },
+    {
+        "code": "M-1-02-III",
+        "display": "AMPUTASI (BERAT)"
+    },
+    {
+        "code": "M-1-03-I",
+        "display": "PROSEDUR FUSI TULANG BELAKANG PADA LENGKUNGAN TULANG BELAKANG (RINGAN)"
+    },
+    {
+        "code": "M-1-03-II",
+        "display": "PROSEDUR FUSI TULANG BELAKANG PADA LENGKUNGAN TULANG BELAKANG (SEDANG)"
+    },
+    {
+        "code": "M-1-03-III",
+        "display": "PROSEDUR FUSI TULANG BELAKANG PADA LENGKUNGAN TULANG BELAKANG (BERAT)"
+    },
+    {
+        "code": "M-1-04-I",
+        "display": "PROSEDUR PADA SENDI TUNGKAI BAWAH (RINGAN)"
+    },
+    {
+        "code": "M-1-04-II",
+        "display": "PROSEDUR PADA SENDI TUNGKAI BAWAH (SEDANG)"
+    },
+    {
+        "code": "M-1-04-III",
+        "display": "PROSEDUR PADA SENDI TUNGKAI BAWAH (BERAT)"
+    },
+    {
+        "code": "M-1-05-I",
+        "display": "PROSEDUR PADA SENDI TUNGKAI ATAS (RINGAN)"
+    },
+    {
+        "code": "M-1-05-II",
+        "display": "PROSEDUR PADA SENDI TUNGKAI ATAS (SEDANG)"
+    },
+    {
+        "code": "M-1-05-III",
+        "display": "PROSEDUR PADA SENDI TUNGKAI ATAS (BERAT)"
+    },
+    {
+        "code": "M-1-07-I",
+        "display": "PROSEDUR FUSI TULANG BELAKANG PADA SELAIN LENGKUNGAN TULANG BELAKANG (RINGAN)"
+    },
+    {
+        "code": "M-1-07-II",
+        "display": "PROSEDUR FUSI TULANG BELAKANG PADA SELAIN LENGKUNGAN TULANG BELAKANG (SEDANG)"
+    },
+    {
+        "code": "M-1-07-III",
+        "display": "PROSEDUR FUSI TULANG BELAKANG PADA SELAIN LENGKUNGAN TULANG BELAKANG (BERAT)"
+    },
+    {
+        "code": "M-1-10-I",
+        "display": "PROSEDUR KRANIAL DAN REKONSTRUKSI TULANG WAJAH (RINGAN)"
+    },
+    {
+        "code": "M-1-10-II",
+        "display": "PROSEDUR KRANIAL DAN REKONSTRUKSI TULANG WAJAH (SEDANG)"
+    },
+    {
+        "code": "M-1-10-III",
+        "display": "PROSEDUR KRANIAL DAN REKONSTRUKSI TULANG WAJAH (BERAT)"
+    },
+    {
+        "code": "M-1-20-I",
+        "display": "PROSEDUR PAHA DAN SENDI PANGGUL (RINGAN)"
+    },
+    {
+        "code": "M-1-20-II",
+        "display": "PROSEDUR PAHA DAN SENDI PANGGUL (SEDANG)"
+    },
+    {
+        "code": "M-1-20-III",
+        "display": "PROSEDUR PAHA DAN SENDI PANGGUL (BERAT)"
+    },
+    {
+        "code": "M-1-30-I",
+        "display": "PROSEDUR KAKI (RINGAN)"
+    },
+    {
+        "code": "M-1-30-II",
+        "display": "PROSEDUR KAKI (SEDANG)"
+    },
+    {
+        "code": "M-1-30-III",
+        "display": "PROSEDUR KAKI (BERAT)"
+    },
+    {
+        "code": "M-1-40-I",
+        "display": "EKSISI LOKAL DAN PENGANGKATAN ALAT FIKSASI INTERNAL (RINGAN)"
+    },
+    {
+        "code": "M-1-40-II",
+        "display": "EKSISI LOKAL DAN PENGANGKATAN ALAT FIKSASI INTERNAL (SEDANG)"
+    },
+    {
+        "code": "M-1-40-III",
+        "display": "EKSISI LOKAL DAN PENGANGKATAN ALAT FIKSASI INTERNAL (BERAT)"
+    },
+    {
+        "code": "M-1-50-I",
+        "display": "PROSEDUR JARINGAN LUNAK (RINGAN)"
+    },
+    {
+        "code": "M-1-50-II",
+        "display": "PROSEDUR JARINGAN LUNAK (SEDANG)"
+    },
+    {
+        "code": "M-1-50-III",
+        "display": "PROSEDUR JARINGAN LUNAK (BERAT)"
+    },
+    {
+        "code": "M-1-60-I",
+        "display": "PROSEDUR SISTEM MUSKULOSKLETAL & JARINGAN PENGHUBUNG LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "M-1-60-II",
+        "display": "PROSEDUR SISTEM MUSKULOSKLETAL & JARINGAN PENGHUBUNG LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "M-1-60-III",
+        "display": "PROSEDUR SISTEM MUSKULOSKLETAL & JARINGAN PENGHUBUNG LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "M-1-70-I",
+        "display": "PROSEDUR LUTUT DAN TUNGKAI BAWAH SELAIN KAKI (RINGAN)"
+    },
+    {
+        "code": "M-1-70-II",
+        "display": "PROSEDUR LUTUT DAN TUNGKAI BAWAH SELAIN KAKI (SEDANG)"
+    },
+    {
+        "code": "M-1-70-III",
+        "display": "PROSEDUR LUTUT DAN TUNGKAI BAWAH SELAIN KAKI (BERAT)"
+    },
+    {
+        "code": "M-1-80-I",
+        "display": "PROSEDUR ANGGOTA TUBUH ATAS (RINGAN)"
+    },
+    {
+        "code": "M-1-80-II",
+        "display": "PROSEDUR ANGGOTA TUBUH ATAS (SEDANG)"
+    },
+    {
+        "code": "M-1-80-III",
+        "display": "PROSEDUR ANGGOTA TUBUH ATAS (BERAT)"
+    },
+    {
+        "code": "M-4-10-I",
+        "display": "FRAKTUR FEMUR (RINGAN)"
+    },
+    {
+        "code": "M-4-10-II",
+        "display": "FRAKTUR FEMUR (SEDANG)"
+    },
+    {
+        "code": "M-4-10-III",
+        "display": "FRAKTUR FEMUR (BERAT)"
+    },
+    {
+        "code": "M-4-11-I",
+        "display": "FRAKTUR PELVIS ATAU DISLOKASI SENDI PANGGUL (RINGAN)"
+    },
+    {
+        "code": "M-4-11-II",
+        "display": "FRAKTUR PELVIS ATAU DISLOKASI SENDI PANGGUL (SEDANG)"
+    },
+    {
+        "code": "M-4-11-III",
+        "display": "FRAKTUR PELVIS ATAU DISLOKASI SENDI PANGGUL (BERAT)"
+    },
+    {
+        "code": "M-4-12-I",
+        "display": "FRAKTUR/DISLOKASI SELAIN FEMUR DAN PELVIS (RINGAN)"
+    },
+    {
+        "code": "M-4-12-II",
+        "display": "FRAKTUR/DISLOKASI SELAIN FEMUR DAN PELVIS (SEDANG)"
+    },
+    {
+        "code": "M-4-12-III",
+        "display": "FRAKTUR/DISLOKASI SELAIN FEMUR DAN PELVIS (BERAT)"
+    },
+    {
+        "code": "M-4-13-I",
+        "display": "TUMOR MUSKULOSKLETAL,JARINGAN KONEKTIF DAN FRAKTUR PATOLOGIS (RINGAN)"
+    },
+    {
+        "code": "M-4-13-II",
+        "display": "TUMOR MUSKULOSKLETAL,JARINGAN KONEKTIF DAN FRAKTUR PATOLOGIS (SEDANG)"
+    },
+    {
+        "code": "M-4-13-III",
+        "display": "TUMOR MUSKULOSKLETAL,JARINGAN KONEKTIF DAN FRAKTUR PATOLOGIS (BERAT)"
+    },
+    {
+        "code": "M-4-14-I",
+        "display": "OSTEOMIELITIS (RINGAN)"
+    },
+    {
+        "code": "M-4-14-II",
+        "display": "OSTEOMIELITIS (SEDANG)"
+    },
+    {
+        "code": "M-4-14-III",
+        "display": "OSTEOMIELITIS (BERAT)"
+    },
+    {
+        "code": "M-4-15-I",
+        "display": "ARTRITIS SEPSIS (RINGAN)"
+    },
+    {
+        "code": "M-4-15-II",
+        "display": "ARTRITIS SEPSIS (SEDANG)"
+    },
+    {
+        "code": "M-4-15-III",
+        "display": "ARTRITIS SEPSIS (BERAT)"
+    },
+    {
+        "code": "M-4-16-I",
+        "display": "GANGGUAN JARINGAN KONEKTIF (RINGAN)"
+    },
+    {
+        "code": "M-4-16-II",
+        "display": "GANGGUAN JARINGAN KONEKTIF (SEDANG)"
+    },
+    {
+        "code": "M-4-16-III",
+        "display": "GANGGUAN JARINGAN KONEKTIF (BERAT)"
+    },
+    {
+        "code": "M-4-17-I",
+        "display": "MASALAH BAGIAN PUNGGUNG/PINGGANG BELAKANG (RINGAN)"
+    },
+    {
+        "code": "M-4-17-II",
+        "display": "MASALAH BAGIAN PUNGGUNG/PINGGANG BELAKANG (SEDANG)"
+    },
+    {
+        "code": "M-4-17-III",
+        "display": "MASALAH BAGIAN PUNGGUNG/PINGGANG BELAKANG (BERAT)"
+    },
+    {
+        "code": "M-4-18-I",
+        "display": "PENYAKIT TULANG DAN SENDI LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "M-4-18-II",
+        "display": "PENYAKIT TULANG DAN SENDI LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "M-4-18-III",
+        "display": "PENYAKIT TULANG DAN SENDI LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "M-4-19-I",
+        "display": "MALFUNGSI, REAKSI ATAU KOMPLIKASI DARI PROSEDUR ATAU PEMASANGAN ALAT ORTOPEDIK (RINGAN)"
+    },
+    {
+        "code": "M-4-19-II",
+        "display": "MALFUNGSI, REAKSI ATAU KOMPLIKASI DARI PROSEDUR ATAU PEMASANGAN ALAT ORTOPEDIK (SEDANG)"
+    },
+    {
+        "code": "M-4-19-III",
+        "display": "MALFUNGSI, REAKSI ATAU KOMPLIKASI DARI PROSEDUR ATAU PEMASANGAN ALAT ORTOPEDIK (BERAT)"
+    },
+    {
+        "code": "M-4-20-I",
+        "display": "TANDA, GEJALA & PERADANGAN MUSKULOSKELETAL (RINGAN)"
+    },
+    {
+        "code": "M-4-20-II",
+        "display": "TANDA, GEJALA & PERADANGAN MUSKULOSKELETAL (SEDANG)"
+    },
+    {
+        "code": "M-4-20-III",
+        "display": "TANDA, GEJALA & PERADANGAN MUSKULOSKELETAL (BERAT)"
+    },
+    {
+        "code": "M-4-21-I",
+        "display": "GANGGUAN SISTEM MUSKULOSKELETAL & JA(RINGAN) PENGHUBUNG LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "M-4-21-II",
+        "display": "GANGGUAN SISTEM MUSKULOSKELETAL & JA(RINGAN) PENGHUBUNG LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "M-4-21-III",
+        "display": "GANGGUAN SISTEM MUSKULOSKELETAL & JA(RINGAN) PENGHUBUNG LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "N-1-01-I",
+        "display": "TRANSPLANTASI GINJAL (RINGAN)"
+    },
+    {
+        "code": "N-1-01-II",
+        "display": "TRANSPLANTASI GINJAL (SEDANG)"
+    },
+    {
+        "code": "N-1-01-III",
+        "display": "TRANSPLANTASI GINJAL (BERAT)"
+    },
+    {
+        "code": "N-1-11-I",
+        "display": "PROSEDUR KANDUNG KEMIH KOMPLEK (RINGAN)"
+    },
+    {
+        "code": "N-1-11-II",
+        "display": "PROSEDUR KANDUNG KEMIH KOMPLEK (SEDANG)"
+    },
+    {
+        "code": "N-1-11-III",
+        "display": "PROSEDUR KANDUNG KEMIH KOMPLEK (BERAT)"
+    },
+    {
+        "code": "N-1-12-I",
+        "display": "MEMBUAT BARU, MEREVISI DAN MEMINDAHKAN ALAT DIALISIS (RINGAN)"
+    },
+    {
+        "code": "N-1-12-II",
+        "display": "MEMBUAT BARU, MEREVISI DAN MEMINDAHKAN ALAT DIALISIS (SEDANG)"
+    },
+    {
+        "code": "N-1-12-III",
+        "display": "MEMBUAT BARU, MEREVISI DAN MEMINDAHKAN ALAT DIALISIS (BERAT)"
+    },
+    {
+        "code": "N-1-20-I",
+        "display": "PROSEDUR SALURAN URIN ATAS (RINGAN)"
+    },
+    {
+        "code": "N-1-20-II",
+        "display": "PROSEDUR SALURAN URIN ATAS (SEDANG)"
+    },
+    {
+        "code": "N-1-20-III",
+        "display": "PROSEDUR SALURAN URIN ATAS (BERAT)"
+    },
+    {
+        "code": "N-1-30-I",
+        "display": "PROSEDUR KANDUNG KEMIH DAN SALURAN URIN BAWAH (RINGAN)"
+    },
+    {
+        "code": "N-1-30-II",
+        "display": "PROSEDUR KANDUNG KEMIH DAN SALURAN URIN BAWAH (SEDANG)"
+    },
+    {
+        "code": "N-1-30-III",
+        "display": "PROSEDUR KANDUNG KEMIH DAN SALURAN URIN BAWAH (BERAT)"
+    },
+    {
+        "code": "N-1-40-I",
+        "display": "PROSEDUR PADA URETRA DAN TRANSURETRA (RINGAN)"
+    },
+    {
+        "code": "N-1-40-II",
+        "display": "PROSEDUR PADA URETRA DAN TRANSURETRA (SEDANG)"
+    },
+    {
+        "code": "N-1-40-III",
+        "display": "PROSEDUR PADA URETRA DAN TRANSURETRA (BERAT)"
+    },
+    {
+        "code": "N-4-10-I",
+        "display": "TUMOR GINJAL & SALURAN URIN & GAGAL GINJAL (RINGAN)"
+    },
+    {
+        "code": "N-4-10-II",
+        "display": "TUMOR GINJAL & SALURAN URIN & GAGAL GINJAL (SEDANG)"
+    },
+    {
+        "code": "N-4-10-III",
+        "display": "TUMOR GINJAL & SALURAN URIN & GAGAL GINJAL (BERAT)"
+    },
+    {
+        "code": "N-4-11-I",
+        "display": "PERADANGAN GINJAL (RINGAN)"
+    },
+    {
+        "code": "N-4-11-II",
+        "display": "PERADANGAN GINJAL (SEDANG)"
+    },
+    {
+        "code": "N-4-11-III",
+        "display": "PERADANGAN GINJAL (BERAT)"
+    },
+    {
+        "code": "N-4-12-I",
+        "display": "INFEKSI GINJAL DAN SALURAN URIN (RINGAN)"
+    },
+    {
+        "code": "N-4-12-II",
+        "display": "INFEKSI GINJAL DAN SALURAN URIN (SEDANG)"
+    },
+    {
+        "code": "N-4-12-III",
+        "display": "INFEKSI GINJAL DAN SALURAN URIN (BERAT)"
+    },
+    {
+        "code": "N-4-13-I",
+        "display": "BATU URIN (RINGAN)"
+    },
+    {
+        "code": "N-4-13-II",
+        "display": "BATU URIN (SEDANG)"
+    },
+    {
+        "code": "N-4-13-III",
+        "display": "BATU URIN (BERAT)"
+    },
+    {
+        "code": "N-4-14-I",
+        "display": "KOMPLIKASI DARI SALURAN URIN AKIBAT PEMASANGAN IMPLANT ATAU TRANSPLANTASI (RINGAN)"
+    },
+    {
+        "code": "N-4-14-II",
+        "display": "KOMPLIKASI DARI SALURAN URIN AKIBAT PEMASANGAN IMPLANT ATAU TRANSPLANTASI (SEDANG)"
+    },
+    {
+        "code": "N-4-14-III",
+        "display": "KOMPLIKASI DARI SALURAN URIN AKIBAT PEMASANGAN IMPLANT ATAU TRANSPLANTASI (BERAT)"
+    },
+    {
+        "code": "N-4-15-I",
+        "display": "GEJALA,TANDA GANGGUAN GINJAL DAN SALURAN URIN (RINGAN)"
+    },
+    {
+        "code": "N-4-15-II",
+        "display": "GEJALA,TANDA GANGGUAN GINJAL DAN SALURAN URIN (SEDANG)"
+    },
+    {
+        "code": "N-4-15-III",
+        "display": "GEJALA,TANDA GANGGUAN GINJAL DAN SALURAN URIN (BERAT)"
+    },
+    {
+        "code": "N-4-16-I",
+        "display": "PENYAKIT GINJAL DAN SALURAN URIN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "N-4-16-II",
+        "display": "PENYAKIT GINJAL DAN SALURAN URIN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "N-4-16-III",
+        "display": "PENYAKIT GINJAL DAN SALURAN URIN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "O-6-10-I",
+        "display": "OPERASI PEMBEDAHAN CAESAR (RINGAN)"
+    },
+    {
+        "code": "O-6-10-II",
+        "display": "OPERASI PEMBEDAHAN CAESAR (SEDANG)"
+    },
+    {
+        "code": "O-6-10-III",
+        "display": "OPERASI PEMBEDAHAN CAESAR (BERAT)"
+    },
+    {
+        "code": "O-6-11-I",
+        "display": "PERSALINAN VAGINAL DENGAN STERILISASI &/ DILATASI & KURET (RINGAN)"
+    },
+    {
+        "code": "O-6-11-II",
+        "display": "PERSALINAN VAGINAL DENGAN STERILISASI &/ DILATASI & KURET (SEDANG)"
+    },
+    {
+        "code": "O-6-11-III",
+        "display": "PERSALINAN VAGINAL DENGAN STERILISASI &/ DILATASI & KURET (BERAT)"
+    },
+    {
+        "code": "O-6-12-I",
+        "display": "PERSALINAN VAGINAL DENGAN PROSEDUR SELAIN STERILISASI &/ DILATASI &KURET (RINGAN)"
+    },
+    {
+        "code": "O-6-12-II",
+        "display": "PERSALINAN VAGINAL DENGAN PROSEDUR SELAIN STERILISASI &/ DILATASI & KURET (SEDANG)"
+    },
+    {
+        "code": "O-6-12-III",
+        "display": "PERSALINAN VAGINAL DENGAN PROSEDUR SELAIN STERILISASI &/ DILATASI & KURET (BERAT)"
+    },
+    {
+        "code": "O-6-13-I",
+        "display": "PERSALINAN VAGINAL (RINGAN)"
+    },
+    {
+        "code": "O-6-13-II",
+        "display": "PERSALINAN VAGINAL (SEDANG)"
+    },
+    {
+        "code": "O-6-13-III",
+        "display": "PERSALINAN VAGINAL (BERAT)"
+    },
+    {
+        "code": "P-8-01-I",
+        "display": "NEONATAL DENGAN PENCANGKOKAN ORGAN ATAU OKSIGENASI SELAPUT EKSTRAKORPORAL (RINGAN)"
+    },
+    {
+        "code": "P-8-01-II",
+        "display": "NEONATAL DENGAN PENCANGKOKAN ORGAN ATAU OKSIGENASI SELAPUT EKSTRAKORPORAL (SEDANG)"
+    },
+    {
+        "code": "P-8-01-III",
+        "display": "NEONATAL DENGAN PENCANGKOKAN ORGAN ATAU OKSIGENASI SELAPUT EKSTRAKORPORAL (BERAT)"
+    },
+    {
+        "code": "P-8-02-I",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-1 DENGAN PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-02-II",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-1 DENGAN PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-02-III",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-1 DENGAN PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-03-I",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-1 TANPA PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-03-II",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-1 TANPA PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-03-III",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-1 TANPA PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-04-I",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-2 DENGAN PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-04-II",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-2 DENGAN PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-04-III",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-2 DENGAN PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-05-I",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-3 DENGAN PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-05-II",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-3 DENGAN PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-05-III",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-3 DENGAN PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-06-I",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-4 DENGAN PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-06-II",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-4 DENGAN PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-06-III",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-4 DENGAN PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-07-I",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-5 DENGAN PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-07-II",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-5 DENGAN PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-07-III",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-5 DENGAN PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-08-I",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-5 DENGAN SINDROMA DISTRES PERNAFASAN (RINGAN)"
+    },
+    {
+        "code": "P-8-08-II",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-5 DENGAN SINDROMA DISTRES PERNAFASAN (SEDANG)"
+    },
+    {
+        "code": "P-8-08-III",
+        "display": "NEONATAL, BERAT BADAN LAHIR GROUP-5 DENGAN SINDROMA DISTRES PERNAFASAN (BERAT)"
+    },
+    {
+        "code": "P-8-10-I",
+        "display": "NEONATAL, MENINGGAL DAN DITRANSFER KE FASILITAS PERAWATAN PASIEN AKUT LAIN (RINGAN)"
+    },
+    {
+        "code": "P-8-10-II",
+        "display": "NEONATAL, MENINGGAL DAN DITRANSFER KE FASILITAS PERAWATAN PASIEN AKUT LAIN (SEDANG)"
+    },
+    {
+        "code": "P-8-10-III",
+        "display": "NEONATAL, MENINGGAL DAN DITRANSFER KE FASILITAS PERAWATAN PASIEN AKUT LAIN (BERAT)"
+    },
+    {
+        "code": "P-8-11-I",
+        "display": "NEONATAL, BBL 1000 - 1499 GR TANPA PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-11-II",
+        "display": "NEONATAL, BBL 1000 - 1499 GR TANPA PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-11-III",
+        "display": "NEONATAL, BBL 1000 - 1499 GR TANPA PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-12-I",
+        "display": "NEONATAL, BBL 1500 - 1999 GR TANPA PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-12-II",
+        "display": "NEONATAL, BBL 1500 - 1999 GR TANPA PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-12-III",
+        "display": "NEONATAL, BBL 1500 - 1999 GR TANPA PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-13-I",
+        "display": "NEONATAL, BBL 2000 - 2499 GR TANPA PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-13-II",
+        "display": "NEONATAL, BBL 2000 - 2499 GR TANPA PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-13-III",
+        "display": "NEONATAL, BBL 2000 - 2499 GR TANPA PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "P-8-14-I",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN ANOMALI MAYOR ATAU KONDISI HEREDITER (RINGAN)"
+    },
+    {
+        "code": "P-8-14-II",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN ANOMALI MAYOR ATAU KONDISI HEREDITER (SEDANG)"
+    },
+    {
+        "code": "P-8-14-III",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN ANOMALI MAYOR ATAU KONDISI HEREDITER (BERAT)"
+    },
+    {
+        "code": "P-8-15-I",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN SINDROMA ASPIRASI (RINGAN)"
+    },
+    {
+        "code": "P-8-15-II",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN SINDROMA ASPIRASI (SEDANG)"
+    },
+    {
+        "code": "P-8-15-III",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN SINDROMA ASPIRASI (BERAT)"
+    },
+    {
+        "code": "P-8-16-I",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN KONGENITAL/INFEKSI PERINATAL (RINGAN)"
+    },
+    {
+        "code": "P-8-16-II",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN KONGENITAL/INFEKSI PERINATAL (SEDANG)"
+    },
+    {
+        "code": "P-8-16-III",
+        "display": "NEONATAL, BBL > 2499 GR DENGAN KONGENITAL/INFEKSI PERINATAL (BERAT)"
+    },
+    {
+        "code": "P-8-17-I",
+        "display": "NEONATAL, BBL > 2499 GR TANPA PROSEDUR MAYOR (RINGAN)"
+    },
+    {
+        "code": "P-8-17-II",
+        "display": "NEONATAL, BBL > 2499 GR TANPA PROSEDUR MAYOR (SEDANG)"
+    },
+    {
+        "code": "P-8-17-III",
+        "display": "NEONATAL, BBL > 2499 GR TANPA PROSEDUR MAYOR (BERAT)"
+    },
+    {
+        "code": "S-4-10-I",
+        "display": "KECEDERAAN PADA TEMPAT YANG TAK SPESIFIK ATAU BANYAK TEMPAT (RINGAN)"
+    },
+    {
+        "code": "S-4-10-II",
+        "display": "KECEDERAAN PADA TEMPAT YANG TAK SPESIFIK ATAU BANYAK TEMPAT (SEDANG)"
+    },
+    {
+        "code": "S-4-10-III",
+        "display": "KECEDERAAN PADA TEMPAT YANG TAK SPESIFIK ATAU BANYAK TEMPAT (BERAT)"
+    },
+    {
+        "code": "S-4-11-I",
+        "display": "ALERGI DAN SYOK ANAFILAKTIK (RINGAN)"
+    },
+    {
+        "code": "S-4-11-II",
+        "display": "ALERGI DAN SYOK ANAFILAKTIK (SEDANG)"
+    },
+    {
+        "code": "S-4-11-III",
+        "display": "ALERGI DAN SYOK ANAFILAKTIK (BERAT)"
+    },
+    {
+        "code": "S-4-12-I",
+        "display": "KERACUNAN TERMASUK KERACUNAN OBAT (RINGAN)"
+    },
+    {
+        "code": "S-4-12-II",
+        "display": "KERACUNAN TERMASUK KERACUNAN OBAT (SEDANG)"
+    },
+    {
+        "code": "S-4-12-III",
+        "display": "KERACUNAN TERMASUK KERACUNAN OBAT (BERAT)"
+    },
+    {
+        "code": "S-4-13-I",
+        "display": "KOMPLIKASI DARI PENATALAKSANAAN PASIEN (RINGAN)"
+    },
+    {
+        "code": "S-4-13-II",
+        "display": "KOMPLIKASI DARI PENATALAKSANAAN PASIEN (SEDANG)"
+    },
+    {
+        "code": "S-4-13-III",
+        "display": "KOMPLIKASI DARI PENATALAKSANAAN PASIEN (BERAT)"
+    },
+    {
+        "code": "S-4-14-I",
+        "display": "KEKERASAN PADA DEWASA ATAU ANAK (RINGAN)"
+    },
+    {
+        "code": "S-4-14-II",
+        "display": "KEKERASAN PADA DEWASA ATAU ANAK (SEDANG)"
+    },
+    {
+        "code": "S-4-14-III",
+        "display": "KEKERASAN PADA DEWASA ATAU ANAK (BERAT)"
+    },
+    {
+        "code": "S-4-15-I",
+        "display": "LUKA BAKAR, DIRUJUK KE FASILITAS PERAWATAN YANG LAIN (RINGAN)"
+    },
+    {
+        "code": "S-4-15-II",
+        "display": "LUKA BAKAR, DIRUJUK KE FASILITAS PERAWATAN YANG LAIN (SEDANG)"
+    },
+    {
+        "code": "S-4-15-III",
+        "display": "LUKA BAKAR, DIRUJUK KE FASILITAS PERAWATAN YANG LAIN (BERAT)"
+    },
+    {
+        "code": "S-4-16-I",
+        "display": "LUKA BAKAR (RINGAN)"
+    },
+    {
+        "code": "S-4-16-II",
+        "display": "LUKA BAKAR (SEDANG)"
+    },
+    {
+        "code": "S-4-16-III",
+        "display": "LUKA BAKAR (BERAT)"
+    },
+    {
+        "code": "S-4-17-I",
+        "display": "DIAGNOSIS KECEDERAAN, KERACUNAN DAN EFEK TOKSIK LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "S-4-17-II",
+        "display": "DIAGNOSIS KECEDERAAN, KERACUNAN DAN EFEK TOKSIK LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "S-4-17-III",
+        "display": "DIAGNOSIS KECEDERAAN, KERACUNAN DAN EFEK TOKSIK LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "T-1-10-I",
+        "display": "TERAPI REHABILITASI ALKOHOL & OBAT (RINGAN)"
+    },
+    {
+        "code": "T-1-10-II",
+        "display": "TERAPI REHABILITASI ALKOHOL & OBAT (SEDANG)"
+    },
+    {
+        "code": "T-1-10-III",
+        "display": "TERAPI REHABILITASI ALKOHOL & OBAT (BERAT)"
+    },
+    {
+        "code": "T-4-10-I",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN OBAT DAN ALKOHOL, MENOLAK NASEHAT DOKTER (RINGAN)"
+    },
+    {
+        "code": "T-4-10-II",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN OBAT DAN ALKOHOL, MENOLAK NASEHAT DOKTER (SEDANG)"
+    },
+    {
+        "code": "T-4-10-III",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN OBAT DAN ALKOHOL, MENOLAK NASEHAT DOKTER (BERAT)"
+    },
+    {
+        "code": "T-4-11-I",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN ALKOHOL,OPIUM DAN KOKAIN (RINGAN)"
+    },
+    {
+        "code": "T-4-11-II",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN ALKOHOL,OPIUM DAN KOKAIN (SEDANG)"
+    },
+    {
+        "code": "T-4-11-III",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN ALKOHOL,OPIUM DAN KOKAIN (BERAT)"
+    },
+    {
+        "code": "T-4-12-I",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN OBAT LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "T-4-12-II",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN OBAT LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "T-4-12-III",
+        "display": "PENYALAHGUNAAN & KETERGANTUNGAN OBAT LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "U-1-10-I",
+        "display": "PROSEDUR KOMPLEKS LARING (RINGAN)"
+    },
+    {
+        "code": "U-1-10-II",
+        "display": "PROSEDUR KOMPLEKS LARING (SEDANG)"
+    },
+    {
+        "code": "U-1-10-III",
+        "display": "PROSEDUR KOMPLEKS LARING (BERAT)"
+    },
+    {
+        "code": "U-1-11-I",
+        "display": "PROSEDUR KOMPLEK LEHER DAN KEPALA LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "U-1-11-II",
+        "display": "PROSEDUR KOMPLEK LEHER DAN KEPALA LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "U-1-11-III",
+        "display": "PROSEDUR KOMPLEK LEHER DAN KEPALA LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "U-1-12-I",
+        "display": "PROSEDUR MASTOID DAN SINUS (RINGAN)"
+    },
+    {
+        "code": "U-1-12-II",
+        "display": "PROSEDUR MASTOID DAN SINUS (SEDANG)"
+    },
+    {
+        "code": "U-1-12-III",
+        "display": "PROSEDUR MASTOID DAN SINUS (BERAT)"
+    },
+    {
+        "code": "U-1-13-I",
+        "display": "PROSEDUR KELENJAR LUDAH (RINGAN)"
+    },
+    {
+        "code": "U-1-13-II",
+        "display": "PROSEDUR KELENJAR LUDAH (SEDANG)"
+    },
+    {
+        "code": "U-1-13-III",
+        "display": "PROSEDUR KELENJAR LUDAH (BERAT)"
+    },
+    {
+        "code": "U-1-14-I",
+        "display": "OPERASI BIBIR SUMBING & PALATUM (RINGAN)"
+    },
+    {
+        "code": "U-1-14-II",
+        "display": "OPERASI BIBIR SUMBING & PALATUM (SEDANG)"
+    },
+    {
+        "code": "U-1-14-III",
+        "display": "OPERASI BIBIR SUMBING & PALATUM (BERAT)"
+    },
+    {
+        "code": "U-1-15-I",
+        "display": "PROSEDUR TONSIL & ADENOID (RINGAN)"
+    },
+    {
+        "code": "U-1-15-II",
+        "display": "PROSEDUR TONSIL & ADENOID (SEDANG)"
+    },
+    {
+        "code": "U-1-15-III",
+        "display": "PROSEDUR TONSIL & ADENOID (BERAT)"
+    },
+    {
+        "code": "U-1-20-I",
+        "display": "PROSEDUR TENGGOROKAN, MULUT, HIDUNG DAN TELINGA LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "U-1-20-II",
+        "display": "PROSEDUR TENGGOROKAN, MULUT, HIDUNG DAN TELINGA LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "U-1-20-III",
+        "display": "PROSEDUR TENGGOROKAN, MULUT, HIDUNG DAN TELINGA LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "U-1-30-I",
+        "display": "PROSEDUR MULUT (RINGAN)"
+    },
+    {
+        "code": "U-1-30-II",
+        "display": "PROSEDUR MULUT (SEDANG)"
+    },
+    {
+        "code": "U-1-30-III",
+        "display": "PROSEDUR MULUT (BERAT)"
+    },
+    {
+        "code": "U-4-10-I",
+        "display": "NEOPLASMA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN (RINGAN)"
+    },
+    {
+        "code": "U-4-10-II",
+        "display": "NEOPLASMA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN (SEDANG)"
+    },
+    {
+        "code": "U-4-10-III",
+        "display": "NEOPLASMA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN (BERAT)"
+    },
+    {
+        "code": "U-4-11-I",
+        "display": "DYSEQUILIBRIUM (RINGAN)"
+    },
+    {
+        "code": "U-4-11-II",
+        "display": "DYSEQUILIBRIUM (SEDANG)"
+    },
+    {
+        "code": "U-4-11-III",
+        "display": "DYSEQUILIBRIUM (BERAT)"
+    },
+    {
+        "code": "U-4-12-I",
+        "display": "EPISTAKSIS/PERDARAHAN HIDUNG (RINGAN)"
+    },
+    {
+        "code": "U-4-12-II",
+        "display": "EPISTAKSIS/PERDARAHAN HIDUNG (SEDANG)"
+    },
+    {
+        "code": "U-4-12-III",
+        "display": "EPISTAKSIS/PERDARAHAN HIDUNG (BERAT)"
+    },
+    {
+        "code": "U-4-13-I",
+        "display": "PERADANGAN EPIGLOTIS, TELINGA TENGAH, ISPA DAN LARINGOTRAKEITIS (RINGAN)"
+    },
+    {
+        "code": "U-4-13-II",
+        "display": "PERADANGAN EPIGLOTIS, TELINGA TENGAH, ISPA DAN LARINGOTRAKEITIS (SEDANG)"
+    },
+    {
+        "code": "U-4-13-III",
+        "display": "PERADANGAN EPIGLOTIS, TELINGA TENGAH, ISPA DAN LARINGOTRAKEITIS (BERAT)"
+    },
+    {
+        "code": "U-4-14-I",
+        "display": "PENYAKIT MULUT DAN GIGI (RINGAN)"
+    },
+    {
+        "code": "U-4-14-II",
+        "display": "PENYAKIT MULUT DAN GIGI (SEDANG)"
+    },
+    {
+        "code": "U-4-14-III",
+        "display": "PENYAKIT MULUT DAN GIGI (BERAT)"
+    },
+    {
+        "code": "U-4-15-I",
+        "display": "PENYAKIT TELINGA, HIDUNG, MULUT DAN TENGGOROKAN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "U-4-15-II",
+        "display": "PENYAKIT TELINGA, HIDUNG, MULUT DAN TENGGOROKAN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "U-4-15-III",
+        "display": "PENYAKIT TELINGA, HIDUNG, MULUT DAN TENGGOROKAN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "V-1-10-I",
+        "display": "PROSEDUR PENGANGKATAN PROSTAT KOMPLEK (RINGAN)"
+    },
+    {
+        "code": "V-1-10-II",
+        "display": "PROSEDUR PENGANGKATAN PROSTAT KOMPLEK (SEDANG)"
+    },
+    {
+        "code": "V-1-10-III",
+        "display": "PROSEDUR PENGANGKATAN PROSTAT KOMPLEK (BERAT)"
+    },
+    {
+        "code": "V-1-11-I",
+        "display": "PROSEDUR PADA PENIS (RINGAN)"
+    },
+    {
+        "code": "V-1-11-II",
+        "display": "PROSEDUR PADA PENIS (SEDANG)"
+    },
+    {
+        "code": "V-1-11-III",
+        "display": "PROSEDUR PADA PENIS (BERAT)"
+    },
+    {
+        "code": "V-1-12-I",
+        "display": "PROSEDUR PADA SKROTUM DAN PROSTAT KOMPLEK-MODERAT (RINGAN)"
+    },
+    {
+        "code": "V-1-12-II",
+        "display": "PROSEDUR PADA SKROTUM DAN PROSTAT KOMPLEK-MODERAT (SEDANG)"
+    },
+    {
+        "code": "V-1-12-III",
+        "display": "PROSEDUR PADA SKROTUM DAN PROSTAT KOMPLEK-MODERAT (BERAT)"
+    },
+    {
+        "code": "V-1-13-I",
+        "display": "PROSEDUR PADA SKROTUM DAN PROSTAT NON KOMPLEK (RINGAN)"
+    },
+    {
+        "code": "V-1-13-II",
+        "display": "PROSEDUR PADA SKROTUM DAN PROSTAT NON KOMPLEK (SEDANG)"
+    },
+    {
+        "code": "V-1-13-III",
+        "display": "PROSEDUR PADA SKROTUM DAN PROSTAT NON KOMPLEK (BERAT)"
+    },
+    {
+        "code": "V-1-14-I",
+        "display": "PENGANGKATAN PROSTAT MELALUI URETRA (RINGAN)"
+    },
+    {
+        "code": "V-1-14-II",
+        "display": "PENGANGKATAN PROSTAT MELALUI URETRA (SEDANG)"
+    },
+    {
+        "code": "V-1-14-III",
+        "display": "PENGANGKATAN PROSTAT MELALUI URETRA (BERAT)"
+    },
+    {
+        "code": "V-1-15-I",
+        "display": "SIRKUMSISI DENGAN KONDISI TERTENTU (RINGAN)"
+    },
+    {
+        "code": "V-1-15-II",
+        "display": "SIRKUMSISI DENGAN KONDISI TERTENTU (SEDANG)"
+    },
+    {
+        "code": "V-1-15-III",
+        "display": "SIRKUMSISI DENGAN KONDISI TERTENTU (BERAT)"
+    },
+    {
+        "code": "V-4-10-I",
+        "display": "TUMOR PADA SISTEM REPRODUKSI LAKI-LAKI (RINGAN)"
+    },
+    {
+        "code": "V-4-10-II",
+        "display": "TUMOR PADA SISTEM REPRODUKSI LAKI-LAKI (SEDANG)"
+    },
+    {
+        "code": "V-4-10-III",
+        "display": "TUMOR PADA SISTEM REPRODUKSI LAKI-LAKI (BERAT)"
+    },
+    {
+        "code": "V-4-11-I",
+        "display": "PENYAKIT SISTEM REPRODUKSI LAKI-LAKI SELAIN TUMOR (RINGAN)"
+    },
+    {
+        "code": "V-4-11-II",
+        "display": "PENYAKIT SISTEM REPRODUKSI LAKI-LAKI SELAIN TUMOR (SEDANG)"
+    },
+    {
+        "code": "V-4-11-III",
+        "display": "PENYAKIT SISTEM REPRODUKSI LAKI-LAKI SELAIN TUMOR (BERAT)"
+    },
+    {
+        "code": "W-1-01-I",
+        "display": "OPERASI PENGANGKATAN RAHIM DAN VULVA RADIKAL & EVISCERASI (RINGAN)"
+    },
+    {
+        "code": "W-1-01-II",
+        "display": "OPERASI PENGANGKATAN RAHIM DAN VULVA RADIKAL & EVISCERASI (SEDANG)"
+    },
+    {
+        "code": "W-1-01-III",
+        "display": "OPERASI PENGANGKATAN RAHIM DAN VULVA RADIKAL & EVISCERASI (BERAT)"
+    },
+    {
+        "code": "W-1-10-I",
+        "display": "PROSEDUR ABORSI (RINGAN)"
+    },
+    {
+        "code": "W-1-10-II",
+        "display": "PROSEDUR ABORSI (SEDANG)"
+    },
+    {
+        "code": "W-1-10-III",
+        "display": "PROSEDUR ABORSI (BERAT)"
+    },
+    {
+        "code": "W-1-11-I",
+        "display": "PROSEDUR DILATASI, KURET, INTRAUTERIN & SERVIK (RINGAN)"
+    },
+    {
+        "code": "W-1-11-II",
+        "display": "PROSEDUR DILATASI, KURET, INTRAUTERIN & SERVIK (SEDANG)"
+    },
+    {
+        "code": "W-1-11-III",
+        "display": "PROSEDUR DILATASI, KURET, INTRAUTERIN & SERVIK (BERAT)"
+    },
+    {
+        "code": "W-1-12-I",
+        "display": "PROSEDUR PADA TUBA FALOPII (RINGAN)"
+    },
+    {
+        "code": "W-1-12-II",
+        "display": "PROSEDUR PADA TUBA FALOPII (SEDANG)"
+    },
+    {
+        "code": "W-1-12-III",
+        "display": "PROSEDUR PADA TUBA FALOPII (BERAT)"
+    },
+    {
+        "code": "W-1-13-I",
+        "display": "PROSEDUR PADA TUBA FALOPII DENGAN ENDOSKOP (RINGAN)"
+    },
+    {
+        "code": "W-1-13-II",
+        "display": "PROSEDUR PADA TUBA FALOPII DENGAN ENDOSKOP (SEDANG)"
+    },
+    {
+        "code": "W-1-13-III",
+        "display": "PROSEDUR PADA TUBA FALOPII DENGAN ENDOSKOP (BERAT)"
+    },
+    {
+        "code": "W-1-20-I",
+        "display": "PROSEDUR PADA RAHIM & ADNEKSA (RINGAN)"
+    },
+    {
+        "code": "W-1-20-II",
+        "display": "PROSEDUR PADA RAHIM & ADNEKSA (SEDANG)"
+    },
+    {
+        "code": "W-1-20-III",
+        "display": "PROSEDUR PADA RAHIM & ADNEKSA (BERAT)"
+    },
+    {
+        "code": "W-1-30-I",
+        "display": "PROSEDUR PADA VAGINA, SERVIK & VULVA (RINGAN)"
+    },
+    {
+        "code": "W-1-30-II",
+        "display": "PROSEDUR PADA VAGINA, SERVIK & VULVA (SEDANG)"
+    },
+    {
+        "code": "W-1-30-III",
+        "display": "PROSEDUR PADA VAGINA, SERVIK & VULVA (BERAT)"
+    },
+    {
+        "code": "W-4-10-I",
+        "display": "TUMOR SISTEM REPRODUKSI WANITA (RINGAN)"
+    },
+    {
+        "code": "W-4-10-II",
+        "display": "TUMOR SISTEM REPRODUKSI WANITA (SEDANG)"
+    },
+    {
+        "code": "W-4-10-III",
+        "display": "TUMOR SISTEM REPRODUKSI WANITA (BERAT)"
+    },
+    {
+        "code": "W-4-11-I",
+        "display": "INFEKSI SISTEM REPRODUKSI WANITA (RINGAN)"
+    },
+    {
+        "code": "W-4-11-II",
+        "display": "INFEKSI SISTEM REPRODUKSI WANITA (SEDANG)"
+    },
+    {
+        "code": "W-4-11-III",
+        "display": "INFEKSI SISTEM REPRODUKSI WANITA (BERAT)"
+    },
+    {
+        "code": "W-4-12-I",
+        "display": "GANGGUAN MENSTRUASI & SISTEM REPRODUKSI WANITA LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "W-4-12-II",
+        "display": "GANGGUAN MENSTRUASI & SISTEM REPRODUKSI WANITA LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "W-4-12-III",
+        "display": "GANGGUAN MENSTRUASI & SISTEM REPRODUKSI WANITA LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "W-4-13-I",
+        "display": "ABORTUS (RINGAN)"
+    },
+    {
+        "code": "W-4-13-II",
+        "display": "ABORTUS (SEDANG)"
+    },
+    {
+        "code": "W-4-13-III",
+        "display": "ABORTUS (BERAT)"
+    },
+    {
+        "code": "W-4-14-I",
+        "display": "ABORTUS MENGANCAM (RINGAN)"
+    },
+    {
+        "code": "W-4-14-II",
+        "display": "ABORTUS MENGANCAM (SEDANG)"
+    },
+    {
+        "code": "W-4-14-III",
+        "display": "ABORTUS MENGANCAM (BERAT)"
+    },
+    {
+        "code": "W-4-15-I",
+        "display": "PERSALINAN PALSU (RINGAN)"
+    },
+    {
+        "code": "W-4-15-II",
+        "display": "PERSALINAN PALSU (SEDANG)"
+    },
+    {
+        "code": "W-4-15-III",
+        "display": "PERSALINAN PALSU (BERAT)"
+    },
+    {
+        "code": "W-4-16-I",
+        "display": "GANGGUAN ANTEPARTUM (RINGAN)"
+    },
+    {
+        "code": "W-4-16-II",
+        "display": "GANGGUAN ANTEPARTUM (SEDANG)"
+    },
+    {
+        "code": "W-4-16-III",
+        "display": "GANGGUAN ANTEPARTUM (BERAT)"
+    },
+    {
+        "code": "W-4-17-I",
+        "display": "GANGGUAN POSTPARTUM (RINGAN)"
+    },
+    {
+        "code": "W-4-17-II",
+        "display": "GANGGUAN POSTPARTUM (SEDANG)"
+    },
+    {
+        "code": "W-4-17-III",
+        "display": "GANGGUAN POSTPARTUM (BERAT)"
+    },
+    {
+        "code": "Z-4-10-I",
+        "display": "REHABILITASI TERMASUK TERAPI WICARA (RINGAN)"
+    },
+    {
+        "code": "Z-4-10-II",
+        "display": "REHABILITASI TERMASUK TERAPI WICARA (SEDANG)"
+    },
+    {
+        "code": "Z-4-10-III",
+        "display": "REHABILITASI TERMASUK TERAPI WICARA (BERAT)"
+    },
+    {
+        "code": "Z-4-11-I",
+        "display": "GEJALA-GEJALA DAN TANDA-TANDA (RINGAN)"
+    },
+    {
+        "code": "Z-4-11-II",
+        "display": "GEJALA-GEJALA DAN TANDA-TANDA (SEDANG)"
+    },
+    {
+        "code": "Z-4-11-III",
+        "display": "GEJALA-GEJALA DAN TANDA-TANDA (BERAT)"
+    },
+    {
+        "code": "Z-4-12-I",
+        "display": "FAKTOR-FAKTOR YANG MEMPENGARUHI STATUS KESEHATAN LAIN-LAIN (RINGAN)"
+    },
+    {
+        "code": "Z-4-12-II",
+        "display": "FAKTOR-FAKTOR YANG MEMPENGARUHI STATUS KESEHATAN LAIN-LAIN (SEDANG)"
+    },
+    {
+        "code": "Z-4-12-III",
+        "display": "FAKTOR-FAKTOR YANG MEMPENGARUHI STATUS KESEHATAN LAIN-LAIN (BERAT)"
+    },
+    {
+        "code": "B-2-10-0",
+        "display": "PROSEDUR PADA HATI DAN PANKREAS"
+    },
+    {
+        "code": "B-2-11-0",
+        "display": "PROSEDUR BESAR PADA SALURAN EMPEDU"
+    },
+    {
+        "code": "B-2-12-0",
+        "display": "PROSEDUR KOLESISTEKTOMI TANPA LAPAROSKOPI"
+    },
+    {
+        "code": "B-2-13-0",
+        "display": "PROSEDUR LAIN-LAIN PADA HEPATOBILIARI & PANKREAS"
+    },
+    {
+        "code": "B-2-14-0",
+        "display": "PROSEDUR KOLESISTEKTOMI DENGAN LAPAROSKOPI"
+    },
+    {
+        "code": "B-3-10-0",
+        "display": "PROSEDUR PERKUTAN PADA HATI DAN SALURAN EMPEDU"
+    },
+    {
+        "code": "B-3-11-0",
+        "display": "PROSEDUR ENDOSKOPI SALURAN EMPEDU"
+    },
+    {
+        "code": "B-3-12-0",
+        "display": "PROSEDUR LAIN-LAIN PADA SISTEM HEPATOBILIARI DAN PANKREAS"
+    },
+    {
+        "code": "C-3-10-0",
+        "display": "PROSEDUR RADIOTERAPI"
+    },
+    {
+        "code": "C-3-11-0",
+        "display": "KEMOTERAPI PADA TUMOR PARU & KANDUNG KEMIH"
+    },
+    {
+        "code": "C-3-12-0",
+        "display": "KEMOTERAPI PADA TUMOR KOLON"
+    },
+    {
+        "code": "C-3-13-0",
+        "display": "KEMOTERAPI PADA TUMOR PAYUDARA ATAU OVARIUM"
+    },
+    {
+        "code": "C-3-14-0",
+        "display": "KEMOTERAPI PADA TUMOR GASTROINTESTINAL"
+    },
+    {
+        "code": "C-3-15-0",
+        "display": "KEMOTERAPI PADA TUMOR MELANOMA, GINJAL ATAU PROSTAT"
+    },
+    {
+        "code": "C-3-16-0",
+        "display": "KEMOTERAPI PADA TUMOR OTAK"
+    },
+    {
+        "code": "C-3-17-0",
+        "display": "KEMOTERAPI PADA TUMOR KEPALA ATAU LEHER"
+    },
+    {
+        "code": "C-3-18-0",
+        "display": "KEMOTERAPI PADA LEUKEMIA AKUT"
+    },
+    {
+        "code": "C-3-19-0",
+        "display": "KEMOTERAPI PADA TUMOR LIMFOMA, MYELOMA ATAU TESTIS"
+    },
+    {
+        "code": "C-3-20-0",
+        "display": "KEMOTERAPI PADA TUMOR KULIT"
+    },
+    {
+        "code": "C-3-21-0",
+        "display": "KEMOTERAPI PADA TUMOR GINEKOLOGI"
+    },
+    {
+        "code": "C-3-22-0",
+        "display": "KEMOTERAPI PADA TUMOR METASTASE"
+    },
+    {
+        "code": "C-3-23-0",
+        "display": "KEMOTERAPI PADA TUMOR LAIN-LAIN"
+    },
+    {
+        "code": "D-2-10-0",
+        "display": "PROSEDUR PENCANGKOKAN SUMSUM TULANG"
+    },
+    {
+        "code": "D-2-11-0",
+        "display": "PROSEDUR LIMPA"
+    },
+    {
+        "code": "D-2-21-0",
+        "display": "PROSEDUR BESAR PADA NODUL LIMPA DAN TYMUS"
+    },
+    {
+        "code": "D-2-22-0",
+        "display": "PROSEDUR KECIL PADA NODUL LIMPA DAN TYMUS"
+    },
+    {
+        "code": "D-3-10-0",
+        "display": "PROSEDUR TRANSFUSI & TERAPI SUMSUM TULANG"
+    },
+    {
+        "code": "D-3-11-0",
+        "display": "PROSEDUR DIAGNOSTIK DARAH DAN ORGAN PEMBENTUK DARAH"
+    },
+    {
+        "code": "E-2-10-0",
+        "display": "PROSEDUR PADA KELENJAR ADRENAL"
+    },
+    {
+        "code": "E-2-21-0",
+        "display": "PROSEDUR BESAR PADA KELENJAR TIROID DAN PARATIROID"
+    },
+    {
+        "code": "E-2-22-0",
+        "display": "PROSEDUR KECIL PADA KELENJAR TIROID,PARATIROID DAN SALURAN THYROGLOSSAL"
+    },
+    {
+        "code": "E-3-10-0",
+        "display": "PROSEDUR DIAGNOSTIK PADA KELENJAR ENDOKRIN"
+    },
+    {
+        "code": "F-3-10-0",
+        "display": "TERAPI SHOCK"
+    },
+    {
+        "code": "F-5-10-0",
+        "display": "PELAYANAN KESEHATAN MENTAL EKSTENSIF"
+    },
+    {
+        "code": "F-5-11-0",
+        "display": "TERAPI KELOMPOK"
+    },
+    {
+        "code": "F-5-12-0",
+        "display": "PROSEDUR TES DIAGNOSTIK KESEHATAN JIWA"
+    },
+    {
+        "code": "F-5-13-0",
+        "display": "PSIKOTERAPI INDIVIDU DEWASA AKUT"
+    },
+    {
+        "code": "F-5-14-0",
+        "display": "PSIKOTHERAPI INDIVIDU DEWASA BUKAN AKUT"
+    },
+    {
+        "code": "F-5-15-0",
+        "display": "PENGOBATAN INDIVIDU KETERBELAKANGAN MENTAL"
+    },
+    {
+        "code": "F-5-16-0",
+        "display": "PSIKOTHERAPI INDIVIDU PADA KANAK-KANAK DENGAN MASALAH KESEHATAN MENTAL"
+    },
+    {
+        "code": "G-2-10-0",
+        "display": "PROSEDUR KRANIOTOMI"
+    },
+    {
+        "code": "G-2-11-0",
+        "display": "PROSEDUR SHUNT VENTRIKEL"
+    },
+    {
+        "code": "G-2-12-0",
+        "display": "PROSEDUR PADA PEMBULUH DARAH EKSTRAKRANIAL"
+    },
+    {
+        "code": "G-2-13-0",
+        "display": "PROSEDUR CARPAL TUNNEL RELEASE"
+    },
+    {
+        "code": "G-2-21-0",
+        "display": "PROSEDUR BESAR PADA SARAF PERIFER"
+    },
+    {
+        "code": "G-2-22-0",
+        "display": "PROSEDUR KECIL PADA SARAF PERIFER"
+    },
+    {
+        "code": "G-2-31-0",
+        "display": "PROSEDUR BESAR PADA TULANG BELAKANG"
+    },
+    {
+        "code": "G-2-32-0",
+        "display": "PROSEDUR KECIL PADA TULANG BELAKANG"
+    },
+    {
+        "code": "G-3-10-0",
+        "display": "PROSEDUR TAP & INJEKSI PADA SPINAL"
+    },
+    {
+        "code": "G-3-11-0",
+        "display": "PROSEDUR INJEKSI PADA SARAF PERIFER"
+    },
+    {
+        "code": "G-3-12-0",
+        "display": "PROSEDUR PEMERIKSAAN NEUROLOGIS LAIN"
+    },
+    {
+        "code": "G-3-13-0",
+        "display": "PROSEDUR ELEKROENSEFALOGRAFI (EEG)"
+    },
+    {
+        "code": "G-5-17-0",
+        "display": "PENYAKIT SARAF KRANIAL DAN SARAF PERIFER LAIN-LAIN"
+    },
+    {
+        "code": "H-2-21-0",
+        "display": "PROSEDUR BESAR PADA MATA EKSTERNAL"
+    },
+    {
+        "code": "H-2-22-0",
+        "display": "PROSEDUR SEDANG PADA MATA EKSTERNAL"
+    },
+    {
+        "code": "H-2-23-0",
+        "display": "PROSEDUR KECIL PADA MATA EKSTERNAL"
+    },
+    {
+        "code": "H-2-31-0",
+        "display": "PROSEDUR BESAR PADA SEGMEN ANTERIOR MATA"
+    },
+    {
+        "code": "H-2-32-0",
+        "display": "PROSEDUR SEDANG PADA SEGMEN ANTERIOR MATA"
+    },
+    {
+        "code": "H-2-33-0",
+        "display": "PROSEDUR KECIL PADA SEGMEN ANTERIOR MATA"
+    },
+    {
+        "code": "H-2-34-0",
+        "display": "PROSEDUR BESAR PADA SEGMEN POSTERIOR MATA"
+    },
+    {
+        "code": "H-2-35-0",
+        "display": "PROSEDUR KECIL PADA SEGMEN POSTERIOR MATA"
+    },
+    {
+        "code": "H-2-36-0",
+        "display": "PROSEDUR OPERASI KATARAK"
+    },
+    {
+        "code": "H-2-37-0",
+        "display": "PROSEDUR PHOTOKOAGULASI DAN KRIOTHERAPI PADA RETINA"
+    },
+    {
+        "code": "H-3-10-0",
+        "display": "PROSEDUR LASER SEDANG PADA MATA"
+    },
+    {
+        "code": "H-3-11-0",
+        "display": "PROSEDUR KECIL PADA EKTRAOKULER"
+    },
+    {
+        "code": "H-3-12-0",
+        "display": "PROSEDUR LAIN-LAIN PADA MATA"
+    },
+    {
+        "code": "H-3-13-0",
+        "display": "PROSEDUR DIAGNOSTIK & IMAGING PADA MATA"
+    },
+    {
+        "code": "I-2-11-0",
+        "display": "PEMASANGAN/PENYISIPAN DEFIBRILATOR JANTUNG & SISTEM BANTU JANTUNG"
+    },
+    {
+        "code": "I-2-12-0",
+        "display": "PROSEDUR BESAR PADA PEMBULUH DARAH TORASIK"
+    },
+    {
+        "code": "I-2-13-0",
+        "display": "PROSEDUR BESAR PADA PEMBULUH DARAH ABDOMEN"
+    },
+    {
+        "code": "I-2-14-0",
+        "display": "PROSEDUR PEMASANGAN/PENYISIPAN ALAT PACU PERMANEN PADA JANTUNG"
+    },
+    {
+        "code": "I-2-15-0",
+        "display": "PROSEDUR KATETERISASI JANTUNG"
+    },
+    {
+        "code": "I-2-16-0",
+        "display": "PROSEDUR REVISI DEFIBRILATOR DAN ALAT PACU JANTUNG TIDAK TERMASUK PENGGANTIAN ALAT"
+    },
+    {
+        "code": "I-2-17-0",
+        "display": "PROSEDUR LIGASI DAN STRIPPING PEMBULUH DARAH VENA"
+    },
+    {
+        "code": "I-2-21-0",
+        "display": "ANGIOGRAFI ARTERI BUKAN JANTUNG"
+    },
+    {
+        "code": "I-2-22-0",
+        "display": "PROSEDUR SEDANG PADA PEMBULUH DARAH"
+    },
+    {
+        "code": "I-2-23-0",
+        "display": "PROSEDUR KECIL PADA PEMBULUH DARAH"
+    },
+    {
+        "code": "I-2-31-0",
+        "display": "PEMASANGAN ATAU PENGGANTIAN ALAT DEFIBRILATOR JANTUNG"
+    },
+    {
+        "code": "I-2-32-0",
+        "display": "PEMASANGAN ATAU PENGGANTIAN ALAT PACU JANTUNG"
+    },
+    {
+        "code": "I-2-41-0",
+        "display": "PROSEDUR ELEKTROFISIOLOGIK"
+    },
+    {
+        "code": "I-2-42-0",
+        "display": "PROSEDUR ANGIOPLASTI PEMBULUH DARAH KORONER DAN KARDIOVASKULAR PERKUTAN LAIN"
+    },
+    {
+        "code": "I-3-10-0",
+        "display": "PROSEDUR RESUSITASI"
+    },
+    {
+        "code": "I-3-11-0",
+        "display": "PROSEDUR KARDIOVERSI"
+    },
+    {
+        "code": "I-3-12-0",
+        "display": "PROSEDUR KECIL LAIN-LAIN PADA JANTUNG"
+    },
+    {
+        "code": "I-3-13-0",
+        "display": "PROSEDUR EKOKARDIOGRAFI"
+    },
+    {
+        "code": "I-3-14-0",
+        "display": "PROSEDUR STRESS TESTING"
+    },
+    {
+        "code": "I-3-15-0",
+        "display": "PROSEDUR PENGAWASAN FUNGSI KARDIOVASKULAR"
+    },
+    {
+        "code": "J-2-10-0",
+        "display": "PROSEDUR BESAR PADA SISTEM SALURAN PERNAFASAN"
+    },
+    {
+        "code": "J-2-21-0",
+        "display": "PROSEDUR VENTILASI MEKANIKAL JANGKA PENDEK"
+    },
+    {
+        "code": "J-2-22-0",
+        "display": "PROSEDUR PADA LARING DAN TRAKEA"
+    },
+    {
+        "code": "J-2-31-0",
+        "display": "PROSEDUR THORAKOSKOPI/MEDIASTINOSKOPI"
+    },
+    {
+        "code": "J-2-32-0",
+        "display": "PROSEDUR DADA INTERMEDIATE"
+    },
+    {
+        "code": "J-3-10-0",
+        "display": "PROSEDUR PADA DINDING DADA"
+    },
+    {
+        "code": "J-3-11-0",
+        "display": "PROSEDUR PEMASANGAN/PENYISIPAN TUBE PADA DADA"
+    },
+    {
+        "code": "J-3-12-0",
+        "display": "PROSEDUR THORACENTESIS"
+    },
+    {
+        "code": "J-3-13-0",
+        "display": "PROSEDUR TERAPI SALURAN PERNAFASAN"
+    },
+    {
+        "code": "J-3-14-0",
+        "display": "PROSEDUR BIOPSI PERKUTAN DAN ASPIRASI"
+    },
+    {
+        "code": "J-3-15-0",
+        "display": "PROSEDUR BRONKOSKOPI"
+    },
+    {
+        "code": "J-3-16-0",
+        "display": "PROSEDUR UJI FUNGSI PARU"
+    },
+    {
+        "code": "J-3-17-0",
+        "display": "PROSEDUR LAIN-LAIN PADA SISTEM SALURAN PERNAFASAN"
+    },
+    {
+        "code": "K-2-10-0",
+        "display": "PROSEDUR KECIL PADA USUS BESAR DAN KECIL"
+    },
+    {
+        "code": "K-2-11-0",
+        "display": "PROSEDUR ADHESIOLYSIS PADA PERITONEUM"
+    },
+    {
+        "code": "K-2-12-0",
+        "display": "PROSEDUR PADA HERNIA TIDAK TERMASUK HERNIA INGUINALIS DAN FEMORALIS"
+    },
+    {
+        "code": "K-2-13-0",
+        "display": "PROSEDUR PADA USUS BUNTU"
+    },
+    {
+        "code": "K-2-14-0",
+        "display": "PROSEDUR PADA HERNIA INGUINALIS DAN FEMORALIS"
+    },
+    {
+        "code": "K-2-21-0",
+        "display": "PROSEDUR BESAR PADA USUS HALUS DAN USUS BESAR"
+    },
+    {
+        "code": "K-2-22-0",
+        "display": "PROSEDUR BESAR PADA GASTROINTESTINAL ATAS"
+    },
+    {
+        "code": "K-2-31-0",
+        "display": "PROSEDUR SEDANG PADA GASTROINTESTINAL ATAS"
+    },
+    {
+        "code": "K-2-32-0",
+        "display": "PROSEDUR LAIN-LAIN PADA GASTROINTESTINAL ATAS"
+    },
+    {
+        "code": "K-2-41-0",
+        "display": "PROSEDUR LAPAROSKOPI"
+    },
+    {
+        "code": "K-2-42-0",
+        "display": "PROSEDUR LAPAROTOMI & GASTROINTESTINAL LAINNYA"
+    },
+    {
+        "code": "K-2-51-0",
+        "display": "PROSEDUR UNTUK WASIR"
+    },
+    {
+        "code": "K-2-52-0",
+        "display": "PROSEDUR SEDANG PADA ANUS & REKTUM"
+    },
+    {
+        "code": "K-2-53-0",
+        "display": "PROSEDUR KECIL PADA ANUS & REKTUM"
+    },
+    {
+        "code": "K-3-10-0",
+        "display": "PROSEDUR KECIL LAIN-LAIN PADA GASTROINTESTINAL"
+    },
+    {
+        "code": "K-3-11-0",
+        "display": "PROSEDUR LAIN-LAIN PADA ANUS & REKTUM"
+    },
+    {
+        "code": "K-3-12-0",
+        "display": "PROSEDUR SIGMOIDOSKOPI DAN ANOSKOPI"
+    },
+    {
+        "code": "K-3-13-0",
+        "display": "PROSEDUR KOLONOSKOPI"
+    },
+    {
+        "code": "K-3-14-0",
+        "display": "PROSEDUR ENDOSKOPI BESAR PADA GASTROINTESTINAL ATAS"
+    },
+    {
+        "code": "K-3-15-0",
+        "display": "PROSEDUR ENDOSKOPI KECIL PADA GASTROINTESTINAL ATAS"
+    },
+    {
+        "code": "K-3-16-0",
+        "display": "PROSEDUR LAIN-LAIN PADA GASTROINTESTINAL"
+    },
+    {
+        "code": "K-5-18-0",
+        "display": "PENYAKIT SISTEM PENCERNAAN LAIN-LAIN"
+    },
+    {
+        "code": "L-2-21-0",
+        "display": "PROSEDUR BESAR PEMINDAHAN KULIT PADA LUKA BAKAR"
+    },
+    {
+        "code": "L-2-22-0",
+        "display": "PROSEDUR KECIL PEMINDAHAN KULIT PADA LUKA BAKAR"
+    },
+    {
+        "code": "L-2-31-0",
+        "display": "PROSEDUR BESAR PEMINDAHAN KULIT TANPA LUKA BAKAR"
+    },
+    {
+        "code": "L-2-32-0",
+        "display": "PROSEDUR KECIL PEMINDAHAN KULIT TANPA LUKA BAKAR"
+    },
+    {
+        "code": "L-2-41-0",
+        "display": "PROSEDUR BEDAH PLASTIK"
+    },
+    {
+        "code": "L-2-42-0",
+        "display": "PROSEDUR LAIN-LAIN PADA KULIT DAN JARINGAN BAWAH KULIT"
+    },
+    {
+        "code": "L-2-51-0",
+        "display": "PROSEDUR PENGANGKATAN PAYUDARA"
+    },
+    {
+        "code": "L-2-52-0",
+        "display": "PROSEDUR BESAR PADA PAYUDARA TANPA PENGANGKATAN PAYUDARA"
+    },
+    {
+        "code": "L-2-53-0",
+        "display": "PROSEDUR KECIL PADA PAYUDARA TANPA PENGANGKATAN PAYUDARA"
+    },
+    {
+        "code": "L-3-10-0",
+        "display": "PROSEDUR KECIL LAIN-LAIN PADA PAYUDARA"
+    },
+    {
+        "code": "L-3-11-0",
+        "display": "PROSEDUR BESAR PADA KULIT"
+    },
+    {
+        "code": "L-3-12-0",
+        "display": "PROSEDUR KECIL PADA KULIT"
+    },
+    {
+        "code": "M-2-10-0",
+        "display": "PROSEDUR REKONTRUKSI TULANG KRANIAL DAN WAJAH"
+    },
+    {
+        "code": "M-2-21-0",
+        "display": "PROSEDUR BESAR PADA SENDI PANGGUL DAN PAHA"
+    },
+    {
+        "code": "M-2-22-0",
+        "display": "PROSEDUR KECIL PADA SENDI PANGGUL DAN PAHA"
+    },
+    {
+        "code": "M-2-31-0",
+        "display": "PROSEDUR BUNION"
+    },
+    {
+        "code": "M-2-32-0",
+        "display": "PROSEDUR LAIN-LAIN PADA KAKI"
+    },
+    {
+        "code": "M-2-41-0",
+        "display": "PROSEDUR EKSISI, INSISI DAN ARTHROTOMI TULANG"
+    },
+    {
+        "code": "M-2-42-0",
+        "display": "PROSEDUR PEMINDAHAN ALAT IMPLAN"
+    },
+    {
+        "code": "M-2-51-0",
+        "display": "PROSEDUR BESAR PADA JARINGAN LUNAK"
+    },
+    {
+        "code": "M-2-52-0",
+        "display": "PROSEDUR KECIL PADA JARINGAN LUNAK"
+    },
+    {
+        "code": "M-2-61-0",
+        "display": "PROSEDUR ARTROSKOPI"
+    },
+    {
+        "code": "M-2-62-0",
+        "display": "PROSEDUR LAIN-LAIN PADA SENDI & TULANG"
+    },
+    {
+        "code": "M-2-63-0",
+        "display": "PROSEDUR INSISI, BIOPSI DAN GRAFT PADA TULANG"
+    },
+    {
+        "code": "M-2-64-0",
+        "display": "PROSEDUR BESAR PADA TULANG KEPALA & WAJAH"
+    },
+    {
+        "code": "M-2-65-0",
+        "display": "PROSEDUR KECIL PADA TULANG KEPALA & WAJAH"
+    },
+    {
+        "code": "M-2-71-0",
+        "display": "PROSEDUR BESAR PADA LUTUT & TUNGKAI BAWAH"
+    },
+    {
+        "code": "M-2-72-0",
+        "display": "PROSEDUR KECIL PADA LUTUT & TUNGKAI BAWAH"
+    },
+    {
+        "code": "M-2-81-0",
+        "display": "PROSEDUR BESAR PADA LENGAN, SIKU & BAHU"
+    },
+    {
+        "code": "M-2-82-0",
+        "display": "PROSEDUR KECIL PADA LENGAN, SIKU & BAHU"
+    },
+    {
+        "code": "M-2-83-0",
+        "display": "PROSEDUR BESAR PADA TANGAN & PERGELANGAN TANGAN"
+    },
+    {
+        "code": "M-2-84-0",
+        "display": "PROSEDUR KECIL PADA TANGAN & PERGELANGAN TANGAN"
+    },
+    {
+        "code": "M-3-10-0",
+        "display": "PROSEDUR MANIPULATIVE OSTEOPATHIC"
+    },
+    {
+        "code": "M-3-11-0",
+        "display": "PROSEDUR DIAGNOSTIK DAN TERAPEUTIK MUSKULOSKELETAL"
+    },
+    {
+        "code": "M-3-12-0",
+        "display": "PROSEDUR BIOPSI SENDI DAN TRAKSI SKELETAL"
+    },
+    {
+        "code": "M-3-13-0",
+        "display": "PROSEDUR REDUKSI FRAKTUR TERTUTUP"
+    },
+    {
+        "code": "M-3-14-0",
+        "display": "PROSEDUR REDUKSI FRAKTUR WAJAH TERTUTUP"
+    },
+    {
+        "code": "M-3-15-0",
+        "display": "PROSEDUR APLIKASI CASTS DAN SPLINTS"
+    },
+    {
+        "code": "M-3-16-0",
+        "display": "PROSEDUR THERAPI FISIK DAN PROSEDUR KECIL MUSKULOSKLETAL"
+    },
+    {
+        "code": "M-3-17-0",
+        "display": "PROSEDUR PEMASANGAN ALAT PROSTETIK"
+    },
+    {
+        "code": "N-2-11-0",
+        "display": "PROSEDUR BESAR PADA KANDUNG KEMIH"
+    },
+    {
+        "code": "N-2-12-0",
+        "display": "PROSEDUR MEMBUAT BARU, MEREVISI DAN MEMINDAHKAN ALAT DIALISIS"
+    },
+    {
+        "code": "N-2-21-0",
+        "display": "EXTRACORPOREAL SHOCKWAVE LITHOTRIPSY (ESWL) PADA SALURAN KEMIH"
+    },
+    {
+        "code": "N-2-22-0",
+        "display": "PROSEDUR BESAR PADA GINJAL DAN URETER"
+    },
+    {
+        "code": "N-2-23-0",
+        "display": "PROSEDUR SEDANG PADA GINJAL DAN URETER"
+    },
+    {
+        "code": "N-2-24-0",
+        "display": "PROSEDUR KECIL PADA GINJAL DAN URETER"
+    },
+    {
+        "code": "N-2-31-0",
+        "display": "PROSEDUR BESAR PADA KANDUNG KEMIH DAN URETHRA"
+    },
+    {
+        "code": "N-2-32-0",
+        "display": "PROSEDUR KECIL PADA KANDUNG KEMIH DAN URETHRA"
+    },
+    {
+        "code": "N-2-41-0",
+        "display": "PROSEDUR BESAR PADA URETHRA DAN TRANSURETHRA"
+    },
+    {
+        "code": "N-2-42-0",
+        "display": "PROSEDUR KECIL PADA URETHRA DAN TRANSURETHRA"
+    },
+    {
+        "code": "N-3-10-0",
+        "display": "PROSEDUR PADA GINJAL DAN URETER"
+    },
+    {
+        "code": "N-3-11-0",
+        "display": "PROSEDUR DIAGNOSTIK LAIN PADA STUDI SALURAN KEMIH"
+    },
+    {
+        "code": "N-3-12-0",
+        "display": "PROSEDUR CYSTOSCOPI & PROSEDUR KECIL ENDOSKOPI SALURAN KEMIH"
+    },
+    {
+        "code": "N-3-13-0",
+        "display": "PROSEDUR BESAR ENDOSKOPI PADA SALURAN KEMIH"
+    },
+    {
+        "code": "N-3-14-0",
+        "display": "PROSEDUR KECIL ENDOSKOPI PADA SALURAN KEMIH"
+    },
+    {
+        "code": "N-3-15-0",
+        "display": "PROSEDUR DIALISIS"
+    },
+    {
+        "code": "O-7-10-0",
+        "display": "PROSEDUR PERSALINAN DENGAN BEDAH CAESAR"
+    },
+    {
+        "code": "O-7-11-0",
+        "display": "PERSALINAN VAGINAL DENGAN STERILISASI DAN ATAU PELEBARAN DAN KURETASE"
+    },
+    {
+        "code": "O-7-12-0",
+        "display": "PROSEDUR PERSALINAN VAGINAL DENGAN PROSEDUR SELAIN STERILISASI DAN ATAU PELEBARAN DAN KURETASE"
+    },
+    {
+        "code": "O-7-13-0",
+        "display": "PROSEDUR PERSALINAN MELALUI VAGINAL/JALAN LAHIR"
+    },
+    {
+        "code": "P-9-10-0",
+        "display": "NEONATAL, MENINGGAL DAN DITRANSFER KE FASILITAS PERAWATAN PASIEN AKUT LAIN"
+    },
+    {
+        "code": "P-9-11-0",
+        "display": "NEONATAL, BBL GROUP-2"
+    },
+    {
+        "code": "P-9-12-0",
+        "display": "NEONATAL, BBL GROUP-3"
+    },
+    {
+        "code": "P-9-13-0",
+        "display": "NEONATAL, BBL GROUP-4"
+    },
+    {
+        "code": "P-9-14-0",
+        "display": "NEONATAL, BBL GROUP-5 DENGAN ANOMALI MAYOR ATAU KONDISI HEREDITER"
+    },
+    {
+        "code": "P-9-15-0",
+        "display": "NEONATAL, BBL GROUP-5 DENGAN SINDROM ASPIRASI"
+    },
+    {
+        "code": "P-9-16-0",
+        "display": "NEONATAL, BBL GROUP-5 DENGAN KONGENITAL/INFEKSI PERINATAL"
+    },
+    {
+        "code": "P-9-17-0",
+        "display": "NEONATAL, BBL GROUP-5"
+    },
+    {
+        "code": "Q-5-10-0",
+        "display": "PENYALAHGUNAAN ZAT NAPZA AKUT"
+    },
+    {
+        "code": "Q-5-11-0",
+        "display": "PENYALAHGUNAAN ZAT NAPZA NON AKUT"
+    },
+    {
+        "code": "Q-5-12-0",
+        "display": "GIGI DAN PERMASALAHANNYA"
+    },
+    {
+        "code": "Q-5-13-0",
+        "display": "MEDICAL CHECK-UP"
+    },
+    {
+        "code": "Q-5-14-0",
+        "display": "RONGENT (PLAIN FILM)"
+    },
+    {
+        "code": "Q-5-15-0",
+        "display": "ELEKTROKARDIOGRAM (ECG)"
+    },
+    {
+        "code": "Q-5-16-0",
+        "display": "VAKSINASI"
+    },
+    {
+        "code": "Q-5-17-0",
+        "display": "PASANG INFUS"
+    },
+    {
+        "code": "Q-5-18-0",
+        "display": "KONSULTASI ATAU PEMERIKSAAN LAIN-LAIN"
+    },
+    {
+        "code": "Q-5-19-0",
+        "display": "KONTAK PELAYANAN KESEHATAN LAIN-LAIN"
+    },
+    {
+        "code": "Q-5-20-0",
+        "display": "ABORSI MENGANCAM"
+    },
+    {
+        "code": "Q-5-21-0",
+        "display": "ABORSI"
+    },
+    {
+        "code": "Q-5-22-0",
+        "display": "PERSALINAN PALSU"
+    },
+    {
+        "code": "Q-5-23-0",
+        "display": "PEMERIKSAAN ANTEPARTUM"
+    },
+    {
+        "code": "Q-5-24-0",
+        "display": "PEMERIKSAAN POSTPARTUM"
+    },
+    {
+        "code": "Q-5-25-0",
+        "display": "GASTROINTESTINAL AKUT"
+    },
+    {
+        "code": "Q-5-26-0",
+        "display": "BRONKIAL AKUT"
+    },
+    {
+        "code": "Q-5-27-0",
+        "display": "SISTEM SARAF PUSAT AKUT"
+    },
+    {
+        "code": "Q-5-28-0",
+        "display": "CEDERA PADA SISTEM SARAF PUSAT"
+    },
+    {
+        "code": "Q-5-29-0",
+        "display": "GAGAL JANTUNG KONGESTIF DAN KONDISI JANTUNG LAIN-LAIN"
+    },
+    {
+        "code": "Q-5-30-0",
+        "display": "INFARK MIOKARD AKUT DAN ARITMIA"
+    },
+    {
+        "code": "Q-5-31-0",
+        "display": "FRAKTUR"
+    },
+    {
+        "code": "Q-5-32-0",
+        "display": "GANGGUAN SALURAN KEMIH AKUT"
+    },
+    {
+        "code": "Q-5-33-0",
+        "display": "HEMATOLOGI AKUT"
+    },
+    {
+        "code": "Q-5-34-0",
+        "display": "INFEKSI VIRUS HIV"
+    },
+    {
+        "code": "Q-5-35-0",
+        "display": "INFEKSI AKUT"
+    },
+    {
+        "code": "Q-5-36-0",
+        "display": "GANGGUAN METABOLIK AKUT"
+    },
+    {
+        "code": "Q-5-37-0",
+        "display": "CARDIAC ARREST, RESPIRATORY ARREST & SHOCK"
+    },
+    {
+        "code": "Q-5-38-0",
+        "display": "GANGGUAN PARU AKUT"
+    },
+    {
+        "code": "Q-5-39-0",
+        "display": "CEDERA PADA JARINGAN LUNAK KOMPLEK"
+    },
+    {
+        "code": "Q-5-40-0",
+        "display": "INFEKSI SALURAN KEMIH AKUT"
+    },
+    {
+        "code": "Q-5-41-0",
+        "display": "PENYAKIT AKUT BESAR LAIN-LAIN"
+    },
+    {
+        "code": "Q-5-42-0",
+        "display": "PENYAKIT AKUT KECIL LAIN-LAIN"
+    },
+    {
+        "code": "Q-5-43-0",
+        "display": "PENYAKIT KRONIS BESAR LAIN-LAIN"
+    },
+    {
+        "code": "Q-5-44-0",
+        "display": "PENYAKIT KRONIS KECIL LAIN-LAIN"
+    },
+    {
+        "code": "T-2-10-0",
+        "display": "DETOKSIFIKASI DAN ATAU REHABILITASI ALKOHOL DAN OBAT (RINGAN)"
+    },
+    {
+        "code": "U-2-10-0",
+        "display": "PROSEDUR BESAR PADA LARING"
+    },
+    {
+        "code": "U-2-11-0",
+        "display": "PROSEDUR BESAR LAIN-LAIN PADA KEPALA & LEHER"
+    },
+    {
+        "code": "U-2-12-0",
+        "display": "PROSEDUR PADA SINUS & MASTOID"
+    },
+    {
+        "code": "U-2-13-0",
+        "display": "PROSEDUR KELENJAR LUDAH"
+    },
+    {
+        "code": "U-2-14-0",
+        "display": "PROSEDUR OPERASI BIBIR SUMBING & LANGIT-LANGIT MULUT"
+    },
+    {
+        "code": "U-2-15-0",
+        "display": "PROSEDUR OPERASI TONSIL & AMANDEL"
+    },
+    {
+        "code": "U-2-21-0",
+        "display": "PROSEDUR BESAR PADA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN"
+    },
+    {
+        "code": "U-2-22-0",
+        "display": "PROSEDUR SEDANG PADA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN"
+    },
+    {
+        "code": "U-2-23-0",
+        "display": "RINOPLASTI"
+    },
+    {
+        "code": "U-2-24-0",
+        "display": "PROSEDUR KECIL PADA HIDUNG"
+    },
+    {
+        "code": "U-2-25-0",
+        "display": "PROSEDUR PADA TELINGA TENGAH"
+    },
+    {
+        "code": "U-2-31-0",
+        "display": "PROSEDUR BESAR PADA MULUT DAN LIDAH"
+    },
+    {
+        "code": "U-2-32-0",
+        "display": "PROSEDUR KECIL PADA MULUT DAN LIDAH"
+    },
+    {
+        "code": "U-3-10-0",
+        "display": "PROSEDUR SEDANG LAIN-LAIN PADA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN"
+    },
+    {
+        "code": "U-3-11-0",
+        "display": "PROSEDUR KECIL LAIN-LAIN PADA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN"
+    },
+    {
+        "code": "U-3-12-0",
+        "display": "PROSEDUR KAUTERISASI & PACKING PADA RONGGA HIDUNG"
+    },
+    {
+        "code": "U-3-13-0",
+        "display": "PROSEDUR DIAGNOSTIK LAIN-LAIN PADA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN"
+    },
+    {
+        "code": "U-3-14-0",
+        "display": "PROSEDUR TES FUNGSI PADA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN"
+    },
+    {
+        "code": "U-3-15-0",
+        "display": "PROSEDUR LAIN-LAIN PADA TELINGA, HIDUNG, MULUT DAN TENGGOROKAN"
+    },
+    {
+        "code": "U-3-16-0",
+        "display": "PROSEDUR PADA GIGI"
+    },
+    {
+        "code": "V-2-10-0",
+        "display": "PROSEDUR BESAR PADA PENGANGKATAN PROSTAT"
+    },
+    {
+        "code": "V-2-11-0",
+        "display": "PROSEDUR PADA PENIS"
+    },
+    {
+        "code": "V-2-12-0",
+        "display": "PROSEDUR SEDANG PADA PROSTAT DAN SKROTUM"
+    },
+    {
+        "code": "V-2-13-0",
+        "display": "PROSEDUR KECIL PADA PROSTAT DAN SKROTUM"
+    },
+    {
+        "code": "V-2-14-0",
+        "display": "PENGANGKATAN PROSTAT MELALUI TRANSURETHRAL"
+    },
+    {
+        "code": "V-2-15-0",
+        "display": "SIRKUMSISI"
+    },
+    {
+        "code": "V-3-10-0",
+        "display": "PROSEDUR STERILISASI PADA LAKI-LAKI"
+    },
+    {
+        "code": "V-3-11-0",
+        "display": "PROSEDUR DIAGNOSTIK DAN TERAPEUTIK PADA ALAT GENITAL LAKI-LAKI"
+    },
+    {
+        "code": "V-3-12-0",
+        "display": "PROSEDUR LAIN PADA ALAT GENITAL LAKI-LAKI"
+    },
+    {
+        "code": "W-2-10-0",
+        "display": "PROSEDUR ABORSI"
+    },
+    {
+        "code": "W-2-11-0",
+        "display": "PROSEDUR DILATASI, KURETASE DALAM RAHIM & LEHER RAHIM"
+    },
+    {
+        "code": "W-2-12-0",
+        "display": "PROSEDUR TERBUKA PADA TUBA FALOPII"
+    },
+    {
+        "code": "W-2-13-0",
+        "display": "PROSEDUR ENDOSKOPI PADA TUBA FALOPII"
+    },
+    {
+        "code": "W-2-21-0",
+        "display": "PROSEDUR BESAR TERBUKA PADA PANGGUL"
+    },
+    {
+        "code": "W-2-22-0",
+        "display": "PROSEDUR KECIL TERBUKA PADA PANGGUL"
+    },
+    {
+        "code": "W-2-23-0",
+        "display": "PROSEDUR LAPAROSKOPI GINEKOLOGI"
+    },
+    {
+        "code": "W-2-31-0",
+        "display": "PROSEDUR PENGANGKATAN RAHIM MELALUI JALAN LAHIR"
+    },
+    {
+        "code": "W-2-32-0",
+        "display": "PROSEDUR PERBAIKAN CYSTOCELE DAN VULVOVAGINAL INTERMEDIATE"
+    },
+    {
+        "code": "W-2-33-0",
+        "display": "PROSEDUR KECIL VULVOVAGINAL"
+    },
+    {
+        "code": "W-2-34-0",
+        "display": "PROSEDUR GINEKOLOGI LAIN-LAIN"
+    },
+    {
+        "code": "W-3-10-0",
+        "display": "PROSEDUR KECIL GINEKOLOGI & ENDOSKOPI"
+    },
+    {
+        "code": "W-3-11-0",
+        "display": "PROSEDUR SEDANG GINEKOLOGI"
+    },
+    {
+        "code": "W-3-12-0",
+        "display": "PROSEDUR KECIL GINEKOLOGI"
+    },
+    {
+        "code": "Z-3-10-0",
+        "display": "PROSEDUR RADIOSURGICAL"
+    },
+    {
+        "code": "Z-3-11-0",
+        "display": "EXTRACORPOREAL SHOCKWAVE LITHOTRIPSY (ESWL) SELAIN URINARI DAN SALURAN EMPEDU"
+    },
+    {
+        "code": "Z-3-12-0",
+        "display": "PROSEDUR REHABILITASI"
+    },
+    {
+        "code": "Z-3-13-0",
+        "display": "PROSEDUR KECIL PELAYANAN PENUNJANG LAIN-LAIN"
+    },
+    {
+        "code": "Z-3-14-0",
+        "display": "DIAGNOSTIK TIDUR"
+    },
+    {
+        "code": "Z-3-15-0",
+        "display": "IMAGING NUKLIR JANTUNG"
+    },
+    {
+        "code": "Z-3-16-0",
+        "display": "PROSEDUR MAGNETIC RESONANCE IMAGING (MRI)"
+    },
+    {
+        "code": "Z-3-17-0",
+        "display": "PELAYANAN KEDOKTERAN NUKLIR"
+    },
+    {
+        "code": "Z-3-18-0",
+        "display": "CT-SCAN KEPALA"
+    },
+    {
+        "code": "Z-3-19-0",
+        "display": "CT SCAN LAIN-LAIN"
+    },
+    {
+        "code": "Z-3-20-0",
+        "display": "IMAGING KONTRAS SALURAN URINARI"
+    },
+    {
+        "code": "Z-3-21-0",
+        "display": "IMAGING KONTRAS PEMBULUH DARAH"
+    },
+    {
+        "code": "Z-3-22-0",
+        "display": "IMAGING KONTRAS LAIN-LAIN"
+    },
+    {
+        "code": "Z-3-23-0",
+        "display": "PROSEDUR ULTRASOUND LAIN-LAIN"
+    },
+    {
+        "code": "Z-3-24-0",
+        "display": "PROSEDUR ULTRASOUND PEMBULUH DARAH"
+    },
+    {
+        "code": "Z-3-25-0",
+        "display": "PROSEDUR ULTRASOUND GINEKOLOGIK"
+    },
+    {
+        "code": "Z-3-26-0",
+        "display": "PROSEDUR BESAR RADIOGRAFI"
+    },
+    {
+        "code": "Z-3-27-0",
+        "display": "PERAWATAN LUKA"
+    },
+    {
+        "code": "Z-3-28-0",
+        "display": "IMAGING PAYUDARA"
+    },
+    {
+        "code": "Z-3-29-0",
+        "display": "IMAGING LAIN-LAIN"
+    },
+    {
+        "code": "Z-3-30-0",
+        "display": "FOTOTERAPI"
+    },
+    {
+        "code": "X-0-00-X",
+        "display": "SALAH:  DITOLAK DALAM GROUP INACBG"
+    },
+    {
+        "code": "X-0-01-X",
+        "display": "SALAH: CARA PULANG PASIEN"
+    },
+    {
+        "code": "X-0-02-X",
+        "display": "SALAH: TANGGAL MASUK"
+    },
+    {
+        "code": "X-0-03-X",
+        "display": "SALAH: TANGGAL PULANG"
+    },
+    {
+        "code": "X-0-04-X",
+        "display": "SALAH: LAMA RAWAT"
+    },
+    {
+        "code": "X-0-05-X",
+        "display": "SALAH: TANGGAL LAHIR"
+    },
+    {
+        "code": "X-0-06-X",
+        "display": "SALAH: UMUR"
+    },
+    {
+        "code": "X-0-07-X",
+        "display": "SALAH: BERAT LAHIR"
+    },
+    {
+        "code": "X-0-08-X",
+        "display": "SALAH: JENIS KELAMIN"
+    },
+    {
+        "code": "X-0-09-X",
+        "display": "SALAH: CARA PULANG"
+    },
+    {
+        "code": "X-0-10-X",
+        "display": "SALAH: KODE DIAGNOSA UTAMA"
+    },
+    {
+        "code": "X-0-11-X",
+        "display": "SALAH: DAFTAR DATA DIAGNOSA"
+    },
+    {
+        "code": "X-0-12-X",
+        "display": "SALAH: DAFTAR DATA PROSEDUR"
+    },
+    {
+        "code": "X-0-13-X",
+        "display": "SALAH: JENIS KELAMIN LAKI-LAKI TIDAK SESUAI DENGAN KRITERIA GROUPING"
+    },
+    {
+        "code": "X-0-14-X",
+        "display": "SALAH: JENIS KELAMIN PEREMPUAN TIDAK SESUAI DENGAN KRITERIA GROUPING"
+    },
+    {
+        "code": "X-0-15-X",
+        "display": "SALAH: DIAGNOSA UTAMA UNTUK PERSALINAN"
+    },
+    {
+        "code": "X-0-16-X",
+        "display": "SALAH: CARA PULANG TIDAK SESUAI"
+    },
+    {
+        "code": "X-0-17-X",
+        "display": "SALAH: BERAT LAHIR TIDAK SESUAI"
+    },
+    {
+        "code": "X-0-18-X",
+        "display": "SALAH: JENIS CBG TIDAK SESUAI"
+    },
+    {
+        "code": "X-0-19-X",
+        "display": "SALAH: RAJAL DENGAN PROSEDUR RANAP"
+    },
+    {
+        "code": "X-0-20-X",
+        "display": "SALAH: KODE DIAGNOSA UTAMA TIDAK SESUAI"
+    },
+    {
+        "code": "X-0-99-X",
+        "display": "GAGAL: HASIL KOSONG"
+    },
+    {
+        "code": "X-0-98-X",
+        "display": "GAGAL: PARAMETER INVALID"
+    },
+    {
+        "code": "X-0-97-X",
+        "display": "GAGAL: LISENSI KADALUWARSA"
+    },
+    {
+        "code": "X-0-95-X",
+        "display": "GAGAL: KODE DIAGNOSA TIDAK BERLAKU"
+    },
+    {
+        "code": "X-0-96-X",
+        "display": "GAGAL: KODE PROSEDUR TIDAK BERLAKU"
+    },
+    {
+        "code": "X-0-94-X",
+        "display": "GAGAL: DATA TIDAK LENGKAP"
+    },
+    {
+        "code": "X-0-93-X",
+        "display": "SALAH: PASIEN COVID-19 RAWAT INAP DIRUJUK KURANG DARI 6 JAM"
+    },
+    {
+        "code": "X-0-92-X",
+        "display": "SALAH: RAWAT INAP ODP COVID-19 DIBAWAH 60 TAHUN TANPA KOMORBID / KOMPLIKASI"
+    },
+    {
+        "code": "X-0-91-X",
+        "display": "SALAH: DIAGNOSA UTAMA TIDAK SESUAI DENGAN KETENTUAN JAMINAN COVID-19"
+    },
+    {
+        "code": "X-0-90-X",
+        "display": "SALAH: MENYATAKAN ADA KOMORBID / KOMPLIKASI TANPA ADA DIAGNOSA SEKUNDER"
+    },
+    {
+        "code": "X-0-89-X",
+        "display": "SALAH: JAM PULANG MENDAHULUI JAM MASUK"
+    },
+    {
+        "code": "J-1-19-I",
+        "display": "VENTILASI MEKANIKAL >= 96 JAM PADA KONFIRMASI COVID-19 (LEVEL 1)"
+    },
+    {
+        "code": "J-1-19-II",
+        "display": "VENTILASI MEKANIKAL >= 96 JAM PADA KONFIRMASI COVID-19 (LEVEL 2)"
+    },
+    {
+        "code": "J-1-19-III",
+        "display": "VENTILASI MEKANIKAL >= 96 JAM PADA KONFIRMASI COVID-19 (LEVEL 3)"
+    },
+    {
+        "code": "J-2-19-I",
+        "display": "VENTILASI MEKANIKAL < 96 JAM PADA KONFIRMASI COVID-19 (LEVEL 1)"
+    },
+    {
+        "code": "J-2-19-II",
+        "display": "VENTILASI MEKANIKAL < 96 JAM PADA KONFIRMASI COVID-19 (LEVEL 2)"
+    },
+    {
+        "code": "J-2-19-III",
+        "display": "VENTILASI MEKANIKAL < 96 JAM PADA KONFIRMASI COVID-19 (LEVEL 3)"
+    },
+    {
+        "code": "J-1-18-I",
+        "display": "VENTILASI MEKANIKAL >= 96 JAM PADA SUSPEK COVID-19 (LEVEL 1)"
+    },
+    {
+        "code": "J-1-18-II",
+        "display": "VENTILASI MEKANIKAL >= 96 JAM PADA SUSPEK COVID-19 (LEVEL 2)"
+    },
+    {
+        "code": "J-1-18-III",
+        "display": "VENTILASI MEKANIKAL >= 96 JAM PADA SUSPEK COVID-19 (LEVEL 3)"
+    },
+    {
+        "code": "J-2-18-I",
+        "display": "VENTILASI MEKANIKAL < 96 JAM PADA SUSPEK COVID-19 (LEVEL 1)"
+    },
+    {
+        "code": "J-2-18-II",
+        "display": "VENTILASI MEKANIKAL < 96 JAM PADA SUSPEK COVID-19 (LEVEL 2)"
+    },
+    {
+        "code": "J-2-18-III",
+        "display": "VENTILASI MEKANIKAL < 96 JAM PADA SUSPEK COVID-19 (LEVEL 3)"
+    },
+    {
+        "code": "A-4-19-I",
+        "display": "KONFIRMASI COVID-19 (LEVEL 1)"
+    },
+    {
+        "code": "A-4-19-II",
+        "display": "KONFIRMASI COVID-19 (LEVEL 2)"
+    },
+    {
+        "code": "A-4-19-III",
+        "display": "KONFIRMASI COVID-19 (LEVEL 3)"
+    },
+    {
+        "code": "A-4-18-I",
+        "display": "SUSPEK COVID-19 (LEVEL 1)"
+    },
+    {
+        "code": "A-4-18-II",
+        "display": "SUSPEK COVID-19 (LEVEL 2)"
+    },
+    {
+        "code": "A-4-18-III",
+        "display": "SUSPEK COVID-19 (LEVEL 3)"
+    },
+    {
+        "code": "Q-4-19-0",
+        "display": "KONFIRMASI COVID-19"
+    },
+    {
+        "code": "Q-4-18-0",
+        "display": "SUSPEK COVID-19"
+    },
+    {
+        "code": "X-0-88-X",
+        "display": "SALAH: ISOLASI DI RS DENGAN DIAGNOSA SUSPEK"
+    },
+    {
+        "code": "X-0-87-X",
+        "display": "SALAH: RAWAT IGD 6 JAM KURANG"
+    }
+]

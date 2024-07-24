@@ -95,7 +95,7 @@
                                 <th @click="sortBy('medicine_code')" class="table-header">Kode <span
                                         v-if="sortKey === 'medicine_code'" class="arrow">{{ sortDirection === 'asc' ?
                                             '▲' :
-                                        '▼' }}</span>
+                                            '▼' }}</span>
                                 </th>
                                 <th @click="sortBy('name')" class="table-header">Nama <span v-if="sortKey === 'name'"
                                         class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
@@ -103,31 +103,31 @@
                                 <th @click="sortBy('dosage_form')" class="table-header">Tipe <span
                                         v-if="sortKey === 'dosage_form'" class="arrow">{{ sortDirection === 'asc' ? '▲'
                                             :
-                                        '▼' }}</span>
+                                            '▼' }}</span>
                                 </th>
                                 <th @click="sortBy('quantity')" class="table-header">Jumlah <span
                                         v-if="sortKey === 'quantity'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
-                                        '▼'
+                                            '▼'
                                         }}</span>
                                 </th>
                                 <th @click="sortBy('package')" class="table-header">Jenis <span
                                         v-if="sortKey === 'package'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
-                                        '▼' }}</span>
+                                            '▼' }}</span>
                                 </th>
                                 <th @click="sortBy('expiry_date')" class="table-header">Tanggal Kadaluarsa <span
                                         v-if="sortKey === 'expiry_date'" class="arrow">{{ sortDirection === 'asc' ? '▲'
                                             :
-                                        '▼' }}</span>
+                                            '▼' }}</span>
                                 </th>
                                 <th @click="sortBy('prices.base_price')" class="table-header">Harga Dasar <span
                                         v-if="sortKey === 'prices.base_price'" class="arrow">{{ sortDirection === 'asc'
                                             ?
-                                        '▲' : '▼' }}</span>
+                                            '▲' : '▼' }}</span>
                                 </th>
                                 <th @click="sortBy('prices.purchase_price')" class="table-header">Harga Beli <span
                                         v-if="sortKey === 'prices.purchase_price'" class="arrow">{{ sortDirection ===
                                             'asc'
-                                        ? '▲' : '▼' }}</span>
+                                            ? '▲' : '▼' }}</span>
                                 </th>
                                 <th @click="sortBy('prices.treatment_price_1')" class="table-header">Harga Rawat Jalan
                                     <span v-if="sortKey === 'prices.treatment_price_1'" class="arrow">{{ sortDirection

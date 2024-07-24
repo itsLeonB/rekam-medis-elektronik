@@ -499,4 +499,194 @@ class Codesystems
         'system' => 'http://sys-ids.kemkes.go.id/administrative-area',
         'table' => 'codesystem_administrativearea',
     ];
+
+    public const InvoiceClaimStatus =  [
+        'system' => 'http://hl7.org/fhir/invoice-status',
+        'code' => ['draft', 'issued', 'balanced', 'cancelled', 'entered-in-error'],
+        'display' => ['draft' => 'draft', 'issued' => 'issued', 'balanced' => 'balanced', 'cancelled' => 'cancelled', 'entered-in-error' => 'entered in error']
+    ];
+
+    public const InvoicePriceComponentType = [
+        'system' => 'http://hl7.org/fhir/invoice-priceComponentType',
+        'code' => ['base', 'surcharge', 'deduction', 'discount', 'tax', 'informational'],
+        'display' => ['base' => 'base', 'surcharge' => 'surcharge', 'deduction' => 'deduction', 'discount' => 'discount', 'tax' => 'tax', 'informational' => 'informational']
+    ];
+
+    public const InvoicePriceComponentcode = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/invoice-lineitem',
+        'code' => ['IN000001', 'IN000002'],
+        'display' => ['IN000001' => 'Invoice Biaya Poli Eksekutif', 'IN000002' => 'Invoice Biaya Naik Kelas']
+    ];
+
+    public const ClaimType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/claim-type',
+        'code' => ['institutional', 'oral', 'pharmacy', 'professional', 'vision'],
+        'display' => ['institutional' => 'Institional', 'oral' => 'Oral', 'pharmacy' => 'Pharmacy', 'professional' => 'Professional', 'vision' => 'Vision']
+    ];
+
+    public const ClaimSubType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-claimsubtype',
+        'code' => ['ortho', 'emergency'],
+        'display' => ['ortho' => 'Orthodontic Claim', 'emergency' => 'Emergency Claim']
+    ];
+
+    public const ClaimUse = [
+        'system' => 'http://hl7.org/fhir/claim-use',
+        'code' => ['claim', 'preauthorization', 'predetermination'],
+        'display' => ['claim' => 'Claim', 'preauthorization' => 'Preauthorization', 'predetermination' => 'Predetermination']
+    ];
+
+    public const ClaimPriority = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/processpriority',
+        'code' => ['stat', 'normal', 'deferred'],
+        'display' => ['stat' => 'Immediate', 'normal' => 'Normal', 'deferred' => 'Deferred']
+    ];
+
+    public const ClaimFundsReserve = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/fundsreserve',
+        'code' => ['patient', 'provider', 'none'],
+        'display' => ['patient' => 'Patient', 'provider' => 'Provider', 'none' => 'None']
+    ];
+
+    public const ClaimRelatedRelationship = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-relatedclaimrelationship',
+        'code' => ['prior', 'associated'],
+        'display' => ['prior' => 'Prior Claim', 'associated' => 'Associated Claim']
+    ];
+
+    //Valueset
+    public const ClaimPayeeType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/payeetype',
+        'code' => ['subscriber', 'provider', 'other'],
+        'display' => ['subscriber' => 'Subscriber', 'provider' => 'Provider', 'other' => 'Provider']
+    ];
+
+    public const ClaimCareTeamRole = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/claimcareteamrole',
+        'code' => ['primary', 'assist', 'supervisor', 'other'],
+        'display' => ['primary' => 'Primary provider', 'assist' => 'Assisting Provider', 'supervisor' => 'Supervising Provider', 'other' => 'Other']
+    ];
+
+    public const ClaimCareTeamQualification = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-providerqualification',
+        'code' => ['311405', '604215', '604210'],
+        'display' => ['311405' => 'Dentist', '604215' => 'Ophthamologist', '604210' => 'Optometrist'],
+    ];
+
+    public const ClaimSupportingInfoCategory = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/claiminformationcategory',
+        'code' => ['upgrade-class-indicator', 'upgrade-class-class', 'claim-text-encoded', 'e-klaim-version', 'unu-grouper-version', 'info', 'discharge', 'onset', 'related', 'exception', 'material', 'attachment', 'missingtooth', 'prosthesis', 'other', 'hospitalized', 'employmentimpacted', 'externalcause', 'patientreasonforvisit'],
+        'display' => ['upgrade-class-indicator' => 'Indikator naik kelas', 'upgrade-class-class' => 'Kenaikan Kelas', 'claim-text-encoded' => 'Claim Text Encoded', 'e-klaim-version' => 'Versi Aplikasi E-Klaim', 'unu-grouper-version' => 'Versi Grouper INACBG', 'info' => 'Information', 'discharge' => 'Discharge', 'onset' => 'Onset', 'related' => 'Related Services', 'exception' => 'Exception', 'material' => 'Materials Forwarded', 'attachment' => 'Attachment', 'missingtooth' => 'Missing Tooth', 'prosthesis' => 'Prosthesis', 'other' => 'Other', 'hospitalized' => 'Hospitalized', 'employmentimpacted' => 'EmploymentImpacted', 'externalcause' => 'External Cause', 'patientreasonforvisit' => 'Patient Reason for Visit'],
+    ];
+
+    public const ClaimSupportingInfoCode = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/upgradeClassIndicator',
+        'code' => ['upgrade', 'no-upgrade', 'student', 'disabled'],
+        'display' => ['upgrade' => 'Ada Kenaikan Kelas', 'no-upgrade' => 'Tidak Ada Kenaikan Kelas', 'student' => 'Student (Fulltime)', 'disabled' => 'Disabled']
+    ];
+
+    public const ClaimDiagnosisType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-diagnosistype',
+        'code' => ['admitting', 'clinical', 'differential', 'discharge', 'labolatory', 'nursing', 'prenatal', 'principal', 'radiology', 'remote', 'retrospective', 'self'],
+        'display' => ['admitting' => 'Admitting Diagnosis', 'clinical' => 'Clinical Diagnosis', 'differential' => 'Differential Diagnosis', 'discharge' => 'Discharge Diagnosis', 'laboratory' => 'Laboratory Diagnosis', 'nursing' => 'Nursing Diagnosis', 'prenatal' => 'Prenatal Diagnosis', 'principal' => 'Principal Diagnosis', 'radiology' => 'Radiology Diagnosis', 'remote' => 'Remote Diagnosis', 'retrospective' => 'Retrospective Diagnosis', 'self' => 'Self Diagnosis']
+    ];
+
+    public const ClaimExtensionPackageTariffClass = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/tariffClass',
+        'code' => ['AP', 'AS', 'BP', 'BS', 'CP', 'CS', 'DP', 'DS', 'RSCM', 'RSJP', 'RSD', 'RSAB', 'RSPON'],
+        'display' => ['AP' => 'Tarif Kelas A Pemerintah', 'AS' => 'Tarif Kelas A Swasta', 'BP' => 'Tarif Kelas B Pemerintah', 'BS' => 'Tarif Kelas B Swasta', 'CP' => 'Tarif Kelas C Pemerintah', 'CS' => 'Tarif Kelas C Swasta', 'DP' => 'Tarif Kelas D Pemerintah', 'DS' => 'Tarif Kelas D Swasta', 'RSCM' => 'Tarif RSUPN Cipto Mangunkusumo', 'RSJP' => 'Tarif RSJPD Harapan Kita', 'RSD' => 'Tarif RS Kanker Dharmais', 'RSAB' => 'Tarif RSAB Harapan Kita', 'RSPON' => 'Tarif RS Pusat Otak Nasioinal']
+    ];
+
+    public const ClaimExtensionPackageINACBG = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/inacbg-v5',
+        'keterangan' => 'Kode INACBG',
+        'table' => 'codesystem_claimextensionpackageinacbg'
+    ];
+
+    public const SpecialCodeCMG = [
+        'system' => "http://terminology.kemkes.go.id/CodeSystem/inacbg-special-cmg-v5",
+        'keterangan' => 'Kode Spesial CMG',
+        'table' => 'codesystem_specialcodecmg'
+    ];
+
+    public const SubacuteChronic = [
+        'system' => 'http://terminology.kemkes.go.id/CodeSystem/inacbg-sac-v5',
+        'keterangan' => 'Kode Subacute Chronic',
+        'table' => 'codesystem_subacutechronic'
+    ];
+
+    public const ChargeItemIdentifier = [
+        'system' => 'https://terminology.kemkes.go.id/CodeSystem/chargeitem-billingGroup',
+        'value' => [
+            'prosedur-non-bedah',
+            'prosedur-bedah',
+            'konsultasi',
+            'tenaga-ahli',
+            'keperawatan',
+            'penunjang',
+            'radiologi',
+            'laboratorium',
+            'pelayanan-darah',
+            'rehabilitasi',
+            'kamar-akomodasi',
+            'rawat-intensif',
+            'obat',
+            'obat-kronis',
+            'obat-kemoterapi',
+            'alat-kesehatan',
+            'bmhp',
+            'sewa-alat',
+            'tarif-rumah-sakit',
+            'tarif-poli-eksekutif',
+            'tambahan-biaya-naik-kelas'
+        ]
+    ];
+
+    public const ChargeItemStatus = [
+        'system' => 'http://hl7.org/fhir/chargeitem-status',
+        'code' => ['planned', 'billable', 'not-billable', 'aborted', 'billed', 'entered-in-error', 'unknown'],
+        'display' => ['planned' => 'Planned', 'billable' => 'Billable', 'not-billable' => 'Not billable', 'aborted' => 'Aborted', 'billed' => 'Billed', 'entered-in-error' => 'Entered in Error', 'unknown' => 'Unknown']
+    ];
+
+    public const CoverageStatus = [
+        'system' => 'http://hl7.org/fhir/fm-status',
+        'code' => ['active', 'cancelled', 'draft', 'entered-in-error'],
+        'display' => ['active' => 'Active', 'cancelled' => 'Cancelled', 'draft' => 'Draft', 'entered-in-error' => 'Entered in Error']
+    ];
+
+    public const CoverageRelationship = [
+        'system' => 'http://terminology.hl7.org/Codesystem/subscriber-relationship',
+        'code' => ['child', 'parent', 'spouse', 'common', 'other', 'self', 'injured'],
+        'display' => ['child' => 'Child', 'parent' => 'Parent', 'spouse' => 'Spouse', 'common' => 'Common Law Spouse', 'other' => 'Other', 'self' => 'Self', 'injured' => 'Injured Party']
+    ];
+
+    public const CoverageCostToBeneficiary = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/coverage-copay-type',
+        'code' => ['gpvisit', 'spvisit', 'emergency', 'inpthosp', 'televisit', 'urgentcare', 'copaypct', 'copay', 'deductible', 'maxoutofpocket'],
+        'display' => ['gpvisit' => 'GP Office Visit', 'spvisit' => 'Specialist Office Visit', 'emergency' => 'Emergency', 'inpthosp' => 'Inpatient Hospital', 'televisit' => 'Tele-visit', 'urgentcare' => 'Urgent Care', 'copaypct' => 'Copay Percentage', 'copay' => 'Copay Amount', 'deductible' => 'Deductible', 'maxoutofpocket' => 'Maximum out of pocket']
+    ];
+
+    public const  CoverageCostToBeneficiaryException = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/ex-coverage-financial-exception',
+        'code' => ['retired', 'foster'],
+        'foster' => ['retired' => 'Retired', 'foster' => 'Foster Child']
+    ];
+
+    public const CoverageClassType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/coverage-class',
+        'code' => ['group', 'subgroup', 'plan', 'subplan', 'class', 'subclass', 'sequence', 'rxbin', 'rxpcn', 'rxid', 'rxgroup'],
+        'display' => ['group' => 'Group', 'subgroup' => 'SubGroup', 'plan' => 'Plan', 'subplan' => 'SubPlan', 'class' => 'Class', 'subclass' => 'SubClass', 'sequence' => 'Sequence', 'rxbin' => 'RX BIN', 'rxpcn' => 'RX PCN', 'rxid' => 'RX Id', 'rxgroup' => 'RX Group']
+    ];
+
+    public const AccountStatus = [
+        'system' => 'http://hl7.org/fhir/account-status',
+        'code' => ['active', 'inactive', 'entered-in-error', 'on-hold', 'unknown'],
+        'display' => ['active' => 'Active', 'inactive' => 'Inactive', 'entered-in-error' => 'Entered in error', 'on-hold' => 'On Hold', 'unknown' => 'Unknown']
+    ];
+
+    public const AccountType = [
+        'system' => 'http://terminology.hl7.org/CodeSystem/v3-ActCode',
+        'code' => ['_ActAccountCode', 'ACCTRECEIVABLE', 'CASH', 'CC', 'AE', 'DN', 'DV', 'MC', 'V', 'PBILLACT'],
+        'display' => ['_ActAccountCode' => 'ActAccountCode', 'ACCTRECEIVABLE' => 'account receivable', 'CASH' => 'Cash', 'CC' => 'credit card', 'AE' => 'American Express', 'DN' => 'Diner\'s Club', 'DV' => 'Discover Card', 'MC' => 'Master Card', 'V' => 'Visa', 'PBILLACT' => 'patient billing account']
+    ];
 }

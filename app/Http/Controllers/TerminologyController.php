@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Fhir\Codesystems;
+use App\Fhir\Valuesets;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 
 class TerminologyController extends Controller
@@ -529,5 +531,78 @@ class TerminologyController extends Controller
         });
 
         return $ucum;
+    }
+
+    public function getKptl(Request $request)
+    {
+        $kptl = DB::table(Valuesets::KPTL['table'])
+            ->where('display', 'like', '%' . $request->query('search') . '%')
+            ->orWhere('code', 'like', '%' . $request->query('search') . '%')
+            ->paginate(50);
+
+        $kptl->getCollection()->transform(function ($item) {
+            $item['system'] = Valuesets::KPTL['system'];
+            unset($item['_id']);
+            return $item;
+        });
+
+        return $kptl;
+    }
+
+    public function getKPTLModifier(Request $request)
+    {
+        // Retrieve the 'search' query parameter
+        $search = $request->query('category');
+
+        // Check if sea$search is not an array and convert if necessary
+        if (!is_array($search)) {
+            $search = explode(', ', $search);
+        }
+
+        // Query the database using the sea$search array
+        $mod = DB::table(Valuesets::KPTLModifiers['table'])
+            ->where('display', 'like', '%' . $request->query('search') . '%')
+            ->orWhere('code', 'like', '%' . $request->query('search') . '%')
+            ->whereIn('Kategori', $search)
+            ->paginate(50);
+
+        // Transform the collection
+        $mod->getCollection()->transform(function ($item) {
+            unset($item['_id']);
+            $item['label'] = $item['Kategori'] . " | " . $item['display'];
+            return $item;
+        });
+
+        return $mod;
+    }
+
+    public function getCoverageType(Request $request)
+    {
+        $covType = DB::table(Valuesets::CoverageType['table'])
+            ->where('display', 'like', '%' . $request->query('search') . '%')
+            ->orWhere('code', 'like', '%' . $request->query('search') . '%')
+            ->paginate(100);
+
+        $covType->getCollection()->transform(function ($item) {
+            unset($item['_id']);
+            return $item;
+        });
+
+        return $covType;
+    }
+
+    public function getCoverageClass(Request $request)
+    {
+        $covClass = DB::table(Valuesets::CoverageClass['table'])
+            ->where('value', 'like', '%' . $request->query('search') . '%')
+            ->orWhere('name', 'like', '%' . $request->query('search') . '%')
+            ->paginate(100);
+
+        $covClass->getCollection()->transform(function ($item) {
+            unset($item['_id']);
+            return $item;
+        });
+
+        return $covClass;
     }
 }

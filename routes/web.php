@@ -6,7 +6,10 @@ use App\Http\Controllers\DaftarPasienController;
 use App\Http\Controllers\EncounterFormController;
 use App\Http\Controllers\IdentifierController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\IntegrationController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\SatusehatController;
 use App\Http\Controllers\TerminologyController;
@@ -18,6 +21,7 @@ use App\Http\Controllers\ObatController;
 use App\Http\Controllers\MedicationRequestController;
 use App\Http\Controllers\RequestStockController;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Models\ServicePrice;
 use App\Http\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -41,7 +45,10 @@ Route::get('/', function () {
     ]);
 })->middleware([RedirectIfAuthenticated::class, 'guest']);
 
-Route::middleware(['auth', 'verified'])->group(function () {
+
+# Admin
+Route::middleware('auth')->group(function () {
+    # Home
     Route::get('/home', function () {
         return Inertia::render('Dashboard');
     })->name('home.index');
@@ -166,6 +173,146 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/profile/details', [ProfileController::class, 'details'])->name('profile.details');
+
+    # Rawat Jalan
+    Route::get('/rawat-jalan', function () {
+        return Inertia::render('RawatJalan/RawatJalan');
+    })->name('rawatjalan');
+    Route::get('/rawat-jalan/details/{encounter_satusehat_id}', function ($encounter_satusehat_id) {
+        return Inertia::render('RawatJalan/RawatJalanDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
+    })->name('rawatjalan.details');
+
+    # Rawat Inap
+    Route::get('/rawat-inap', function () {
+        return Inertia::render('RawatInap/RawatInap');
+    })->name('rawatinap');
+    Route::get('/rawat-inap/details/{encounter_satusehat_id}', function ($encounter_satusehat_id) {
+        return Inertia::render('RawatInap/RawatInapDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
+    })->name('rawatinap.details');
+
+    # Gawat Darurat
+    Route::get('/gawat-darurat', function () {
+        return Inertia::render('GawatDarurat/GawatDarurat');
+    })->name('gawatdarurat');
+    Route::get('/gawat-darurat/details/{encounter_satusehat_id}', function ($encounter_satusehat_id) {
+        return Inertia::render('GawatDarurat/GawatDaruratDetails', ['encounter_satusehat_id' => $encounter_satusehat_id]);
+    })->name('gawatdarurat.details');
+
+    # Rekam Medis
+    Route::get('/rekam-medis-pasien', function () {
+        return Inertia::render('RekamMedis/RekamMedis');
+    })->name('rekammedis');
+    Route::get('/rekam-medis-pasien/details/{patient_satusehat_id}', function ($patient_satusehat_id) {
+        return Inertia::render('RekamMedis/RekamMedisDetails', ['patient_satusehat_id' => $patient_satusehat_id]);
+    })->name('rekammedis.details');
+
+    # Daftar (admin and perekam medis)
+    Route::middleware('role:admin|perekammedis')->group(function () {
+        Route::get('/rekam-medis-pasien/daftar', function () {
+            return Inertia::render('RekamMedis/TambahRekamMedis');
+        })->name('rekammedis.tambah');
+        Route::get('/gawat-darurat/daftar', function () {
+            return Inertia::render('GawatDarurat/DaftarGawatDarurat');
+        })->name('gawatdarurat.daftar');
+        Route::get('/rawat-inap/daftar', function () {
+            return Inertia::render('RawatInap/DaftarRawatInap');
+        })->name('rawatinap.daftar');
+        Route::get('/rawat-jalan/daftar', function () {
+            return Inertia::render('RawatJalan/DaftarRawatJalan');
+        })->name('rawatjalan.daftar');
+    });
+
+    # User Management (admin only)
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/user-management', function () {
+            return Inertia::render('UserManagement/UserManagement');
+        })->name('usermanagement');
+        Route::get('/user-management/details/{user_id}', function ($user_id) {
+            return Inertia::render('UserManagement/UserDetails', ['user_id' => $user_id]);
+        })->name('usermanagement.details');
+        Route::get('/user-management/tambah-user', function () {
+            return Inertia::render('UserManagement/TambahUser');
+        })->name('usermanagement.tambah');
+        Route::get('/user-management/edit-user/{user_id}', function ($user_id) {
+            return Inertia::render('UserManagement/EditUser', ['user_id' => $user_id]);
+        })->name('usermanagement.edit');
+    });
+
+    // Halaman Finance
+    Route::get('/finance', function () {
+        return Inertia::render('Finance/Finance');
+    })->name('finance');
+
+    // Invoice
+    Route::get('/finance/invoice', function () {
+        return Inertia::render('Finance/Invoice/Index');
+    })->name('finance.invoice.index');
+    Route::get('/finance/invoice/{id}', function ($id) {
+        return Inertia::render('Finance/Invoice/Detail', ['id' => $id]);
+    })->name('finance.invoice.detail');
+    Route::get('/finance/invoice/edit/{id}', function ($id) {
+        return Inertia::render('Finance/Invoice/Edit', ['id' => $id]);
+    })->name('finance.invoice.edit');
+    Route::get('/finance/invoice/create', function () {
+        return Inertia::render('Finance/FormInvoice');
+    })->name('finance.newinvoice.blank');
+    Route::get('/finance/invoice/create/{id}', function ($id) {
+        return Inertia::render('Finance/FormInvoice', ['id' => $id]);
+    })->name('finance.newinvoice');
+
+
+    // Claim
+    Route::get('/finance/claim/create', function () {
+        return Inertia::render('Finance/Claim/New');
+    })->name('finance.claim.new');
+    Route::get('/finance/claim', function () {
+        return Inertia::render('Finance/Claim/Index');
+    })->name('finance.claim.index');
+    Route::get('/finance/claim/detail/{id}', function ($id) {
+        return Inertia::render('Finance/Claim/Detail', ['id' => $id]);
+    })->name('finance.claim.detail');
+    Route::get('finance/claim/edit/{id}', function ($id) {
+        return Inertia::render('Finance/Claim/Edit', ['id' => $id]);
+    })->name('finance.claim.edit');
+
+    // ChargeItem
+    Route::get('/finance/charge-item', function () {
+        return Inertia::render('Finance/ChargeItem/PilihEncounter');
+    })->name('finance.chargeitem.index');
+    Route::get('finance/charge-item/{id}', function ($id) {
+        return Inertia::render('Finance/ChargeItem/Buat', ['item_id' => $id]);
+    })->name('finance.chargeitem.createblank');
+    Route::get('finance/charge-item/{resType}/{id}', function ($resType, $id) {
+        return Inertia::render('Finance/ChargeItem/Buat', ['item_id' => $id, 'item_res_type' => $resType]);
+    })->name('finance.chargeitem.create');
+
+    // Catalogue
+    Route::get('/finance/catalogue', function () {
+        return Inertia::render('Finance/DaftarHarga/Index'); // Halaman Daftar Harga
+    })->name('finance.catalogue');
+    Route::get('/finance/catalogue/detail/{id}', function ($id) {
+        return Inertia::render('Finance/DaftarHarga/Detail', ['item_id' => $id]);
+    })->name('finance.catalogue.detail'); // Halaman Detail Harga
+    Route::get('/finance/catalogue/edit/{id}', function ($id) {
+        return Inertia::render('Finance/DaftarHarga/Edit', ['item_id' => $id]);
+    })->name('finance.catalogue.edit'); // Halaman Edit Harga
+    Route::get('/finance/catalogue/create', function () {
+        return Inertia::render('Finance/DaftarHarga/New');
+    })->name('finance.catalogue.new');
+
+    // Account
+    Route::get('/finance/account/create', function () {
+        return Inertia::render('Finance/AccountManagement/New');
+    })->name('finance.account.new');
+    Route::get('/finance/account', function () {
+        return Inertia::render('Finance/AccountManagement/Index');
+    })->name('finance.account.index');
+    Route::get('/finance/account/{id}', function ($id) {
+        return Inertia::render('Finance/AccountManagement/Detail', ['id' => $id]);
+    })->name('finance.account.detail');
+    Route::get('/finance/account/edit/{id}', function ($id) {
+        return Inertia::render('Finance/AccountManagement/Edit', ['id' => $id]);
+    })->name('finance.account.edit');
 });
 
 // APIs 
@@ -179,6 +326,7 @@ Route::middleware('auth')->group(function () {
         // Update resource dan kirim ke SATUSEHAT
         Route::put('/{resourceType}/{id}', [SatusehatController::class, 'integrationPut'])->name('update');
     });
+
 
     // Endpoint untuk View Rekam Medis
     Route::group(['prefix' => 'rekam-medis', 'as' => 'rekam-medis.'], function () {
@@ -238,7 +386,7 @@ Route::middleware('auth')->group(function () {
         // Daftar pasien IGD
         Route::get('/igd', [DaftarPasienController::class, 'getDaftarIgd'])->name('igd');
         Route::get('/medication/details/{code_medication}', function ($code_medication) {
-            return Inertia::render('RekamMedis/RekamMedisDetails', ['medication_id' => $medication_id]);
+            return Inertia::render('RekamMedis/RekamMedisDetails', ['medication_id' => $code_medication]);
         })->name('rekammedis.details');
     });
 
@@ -255,6 +403,12 @@ Route::middleware('auth')->group(function () {
         // Jumlah pasien yang pernah dirawat berdasarkan usia
         Route::get('/sebaran-usia-pasien', [AnalyticsController::class, 'getPatientAgeGroups'])->name('sebaran-usia-pasien');
 
+        Route::get('/invoice-terbit', [AnalyticsController::class, 'getIssuedInvoice'])->name('issued-invoice');
+        Route::get('/account-aktif', [AnalyticsController::class, 'getActiveAccounts'])->name('active-accounts');
+        Route::get('/claim-aktif', [AnalyticsController::class, 'getActiveClaims'])->name('active-claims');
+        Route::get('/invoice-per-bulan', [AnalyticsController::class, 'getInvoicePerMonth'])->name('invoice-per-month');
+        Route::get('/sebaran-coverage', [AnalyticsController::class, 'getCoverageGroups'])->name('sebaran-coverage');
+
         // card :
         // - jumlah mendekati kadaluarsa exp kurang dari 1 bulan
         Route::get('/obat-mendekati-kadaluarsa', [AnalyticsObatController::class, 'getObatMendekatiKadaluarsa'])->name('obat-mendekati-kadaluarsa');
@@ -263,7 +417,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/obat-stok-sedikit', [AnalyticsObatController::class, 'getObatStokSedikit'])->name('obat-stok-sedikit');
         // - jumlah obat fast 
         Route::get('/obat-fast-moving', [AnalyticsObatController::class, 'getObatFastMoving'])->name('obat-fast-moving');
-        
+
         // - jumlah obat penggunaan paling banyak
         Route::get('/obat-penggunaan-paling-banyak', [AnalyticsObatController::class, 'getObatPenggunaanPalingBanyak'])->name('obat-penggunaan-paling-banyak');
 
@@ -279,7 +433,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/save-monthly-data', [AnalyticsObatController::class, 'saveMonthlyData'])->name('save-monthly-data');
 
         Route::get('/fetch-forecast', [AnalyticsObatController::class, 'transformForecastData'])->name('fetch-forecast');
-
     });
 
     // Endpoint untuk Formulir Perawatan
@@ -390,6 +543,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/bcp47', [TerminologyController::class, 'getBcp47'])->name('bcp47');
         Route::get('/iso3166', [TerminologyController::class, 'getIso3166'])->name('iso3166');
         Route::get('/ucum', [TerminologyController::class, 'getUcum'])->name('ucum');
+        Route::group(['prefix' => 'kptl', 'as' => 'kptl.'], function () {
+            Route::get('/base', [TerminologyController::class, 'getKPTL'])->name('base');
+            Route::get('/modifier', [TerminologyController::class, 'getKPTLModifier'])->name('modifier');
+        });
+        Route::get('/coverageType', [TerminologyController::class, 'getCoverageType'])->name('cov-type');
+        Route::get('/coverageClass', [TerminologyController::class, 'getCoverageClass'])->name('cov-class');
     });
 
     // Endpoint untuk call API SATUSEHAT
@@ -430,16 +589,24 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{resType}/{id}', [ResourceController::class, 'destroy'])->name('destroy');
     });
 
+    // Harga Jasa Kesehatan (Catalogue) API 
+    Route::group(['prefix' => 'catalogue', 'as' => 'catalogue.'], function () {
+        Route::get('/', [ServicePriceController::class, 'index'])->name('index');
+        Route::get('/{id}', [ServicePriceController::class, 'show'])->name('show');
+        Route::put('/{id}', [ServicePriceController::class, 'update'])->name('update');
+        Route::post('/', [ServicePriceController::class, 'store'])->name('store');
+    });
+
     Route::middleware('auth')->group(function () {
         Route::get('medication-request/print/{section}/{encounter_id}', [MedicationRequestController::class, 'printResep'])->name('medicationRequest.data');
 
         Route::get('/print-resep/{encounter_id}', function ($encounter_id) {
-                return Inertia::render('RekamMedis/Partials/PrintDataResep', ['encounter_id' => $encounter_id]);
-            })->name('print.resep');
+            return Inertia::render('RekamMedis/Partials/PrintDataResep', ['encounter_id' => $encounter_id]);
+        })->name('print.resep');
     });
     //Role untuk dokter 
     Route::middleware('auth')->group(function () {
-        
+
 
         //end-point page Resep Obat
         Route::get('medicationOrg', [MedicationRequestController::class, 'searchMedication'])->name('search.medicationOrg');
@@ -456,7 +623,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/data-fisik/{id}', [ExpertSystemController::class, 'dataFisik'])->name('get.dataFisik');
         Route::get('/rule/{rule}/{id}', [ExpertSystemController::class, 'rulePeresepanShow'])->name('ruleperesepan.show');
 
-        
         //end-point request stok obat
         Route::get('/request-to-stock', function () {
             return Inertia::render('FormRekamMedis/PeresepanObat/RequestStok');

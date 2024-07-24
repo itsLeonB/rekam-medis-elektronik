@@ -12,6 +12,20 @@ class AnalyticsController extends Controller
 {
     const ENDED_STATUS = ['finished', 'cancelled', 'entered-in-error', 'unknown'];
 
+    const ENDED_INVOICE_STATUS = [
+        'draft',
+        'balanced',
+        'cancelled',
+        'entered-in-error'
+    ];
+
+    const ENDED_ACCOUNT_STATUS = [
+        'inactive',
+        'entered-in-error',
+        'on-hold',
+        'unknown'
+    ];
+
     public function getActiveEncounters()
     {
         $count = FhirResource::where('resourceType', 'Encounter')
@@ -150,5 +164,110 @@ class AnalyticsController extends Controller
         });
 
         return $patientCounts;
+    }
+
+    public function getIssuedInvoice()
+    {
+        $count = FhirResource::where('resourceType', 'Invoice')
+            ->whereNotIn('status', self::ENDED_INVOICE_STATUS)
+            ->count();
+
+        return $count;
+    }
+
+    public function getActiveAccounts()
+    {
+        $count = FhirResource::where('resourceType', 'Account')
+            ->whereNotIn('status', self::ENDED_ACCOUNT_STATUS)
+            ->count();
+
+        return $count;
+    }
+
+    public function getActiveClaims()
+    {
+        $count = FhirResource::where('resourceType', 'Claim')
+            ->whereNotIn('status', self::ENDED_ACCOUNT_STATUS)
+            ->count();
+
+        return $count;
+    }
+
+
+
+    public function getInvoicePerMonth()
+    {
+        $endDate = new \MongoDB\BSON\UTCDateTime(now()->getTimestamp() * 1000);
+        $startDate = new \MongoDB\BSON\UTCDateTime(now()->subMonth(13)->getTimestamp() * 1000);
+
+        $yearlyData = [];
+
+        $invoice = FhirResource::raw(function ($collection) use ($startDate, $endDate) {
+            return $collection->aggregate([
+                [
+                    '$addFields' => [
+                        'date' => [
+                            '$dateFromString' => [
+                                'dateString' => '$date'
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    '$match' => [
+                        'resourceType' => 'Invoice',
+                        'date' => [
+                            '$gte' => $startDate,
+                            '$lte' => $endDate
+                        ]
+                    ]
+                ],
+                [
+                    '$group' => [
+                        "_id" => [
+                            'date' => [
+                                '$dateToString' => [
+                                    'format' => '%Y-%m',
+                                    'date' => [
+                                        '$dateFromParts' => [
+                                            'year' => [
+                                                '$year' => '$date'
+                                            ],
+                                            'month' => [
+                                                '$month' => '$date'
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            'class' => '$paymentTerms'
+                        ],
+                        'count' => ['$sum' => 1],
+                        'totalNet' => ['$sum' => '$totalNet.value']
+                    ]
+                ],
+            ]);
+        });
+
+        return $invoice;
+    }
+
+    public function getCoverageGroups()
+    {
+        $coverageCounts = FhirResource::raw(function ($collection) {
+            return $collection->aggregate([
+                [
+                    '$match' => ['resourceType' => 'Coverage']
+                ],
+                [
+                    '$group' => [
+                        '_id' => '$type.coding.code',
+                        'count' => ['$sum' => 1]
+                    ]
+                ]
+            ]);
+        });
+
+        return $coverageCounts;
     }
 }
