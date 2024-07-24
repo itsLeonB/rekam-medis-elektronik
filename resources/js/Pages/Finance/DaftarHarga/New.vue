@@ -26,10 +26,10 @@
                                     Kode Obat (KFA)
                                 </th>
                                 <td class="px-6 py-4 w-2/3">
-                                    <Multiselect mode="single" placeholder="Kode Obat (KFA)" :filter-results="false"
-                                        :object="true" :min-chars="1" :resolve-on-load="false" :delay="300"
-                                        :searchable="true" :options="getKFA" label="display" valueProp="code"
-                                        track-by="code" :classes="combo_classes" v-model="preset" />
+                                    <Multiselect mode="single" placeholder="Obat" :filter-results="false" :object="true"
+                                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
+                                        :options="getMedicine" label="label" valueProp="id" track-by="id"
+                                        :classes="combo_classes" v-model="preset" />
                                     <InputError class="mt-1" />
                                 </td>
                             </tr>
@@ -117,10 +117,30 @@ const resourceForm = ref({
 })
 
 watch(preset, (newValue) => {
-    resourceForm.value.code = newValue.code;
-    resourceForm.value.display = newValue.display;
-    resourceForm.value.definition = newValue.definition;
+    if (newValue?.resourceType) {
+        resourceForm.value.code = newValue?.code?.coding[0]?.code ?? generateRandomCode();
+        resourceForm.value.display = newValue.code?.coding[0]?.display;
+        resourceForm.value.definition = newValue.code?.coding[0]?.display;
+    } else {
+        resourceForm.value.code = newValue.code;
+        resourceForm.value.display = newValue.display;
+        resourceForm.value.definition = newValue.definition;
+    }
+
 });
+
+function generateRandomCode(length = 6) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
+
 
 const getICD9CM = async (query) => {
     try {
@@ -137,7 +157,7 @@ const getICD9CM = async (query) => {
 };
 
 const getKFA = async (query) => {
-    const { data } = await axios.get(route('terminologi.medication'), {
+    const { data } = await axios.get(route('resources'), {
         params: {
             'page': 1,
             'size': 10,
@@ -149,6 +169,21 @@ const getKFA = async (query) => {
     return originalData;
 }
 
+const getMedicine = async (name) => {
+    try {
+        const { data } = await axios.get('/resources/Medication')
+        const originalData = data
+        const modifiedData = originalData.map(item => ({
+            label: `${item.code.coding[0].code} | ${item.code.coding[0].display}`,
+            ...item
+        }))
+        const filteredData = modifiedData.filter(account => account.code.coding[0].display.includes(name))
+        console.log(filteredData)
+        return filteredData
+    } catch (error) {
+        console.error('Error fetching resources:', error)
+    }
+}
 
 const submit = async () => {
     isLoading.value = true;

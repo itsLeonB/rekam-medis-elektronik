@@ -275,8 +275,6 @@ Route::middleware('auth')->group(function () {
         return Inertia::render('Finance/Claim/Edit', ['id' => $id]);
     })->name('finance.claim.edit');
 
-
-
     // ChargeItem
     Route::get('/finance/charge-item', function () {
         return Inertia::render('Finance/ChargeItem/PilihEncounter');

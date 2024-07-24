@@ -6,7 +6,7 @@
         <Modal :show="uploadSuccessModal">
             <div class="p-6">
                 <h2 class="text-lg text-center font-medium text-gray-900">
-                    Data Claim telah berhasil dibuat. <br> Kembali ke halaman dashboard.
+                    Data Claim telah berhasil disunting. <br> Kembali ke halaman dashboard.
                 </h2>
                 <div class="mt-6 flex justify-end">
                     <Link :href="route('finance')" as="button"
@@ -30,42 +30,11 @@
                     <InputError class="mt-1" />
                 </div>
                 <div class="mt-4">
-                    <InputLabel value="Encounter" />
-                    <Multiselect mode="single" placeholder="Encounter" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="fetchEncounter"
-                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
-                        v-model="resourceForm.encounter" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4">
                     <InputLabel value="Invoice" />
                     <Multiselect mode="single" placeholder="Invoice" :filter-results="false" :object="true"
                         :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="getInvoice"
                         label="label" valueProp="id" track-by="id" :classes="combo_classes" required
                         v-model="resourceForm.invoice" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Enterer" />
-                    <Multiselect mode="single" placeholder="Enterer" :object="true" :options="practitionerList"
-                        label="name" valueProp="satusehat_id" track-by="satusehat_id" class="mt-1"
-                        :classes="combo_classes" required v-model="resourceForm.participant" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Insurer" />
-                    <Multiselect mode="single" placeholder="Insurer" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchOrg"
-                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
-                        v-model="resourceForm.insurer" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Provider" />
-                    <Multiselect mode="single" placeholder="Provider" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true" :options="searchOrg"
-                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
-                        v-model="resourceForm.provider" />
                     <InputError class="mt-1" />
                 </div>
                 <div class="mt-4">
@@ -79,319 +48,23 @@
                     <InputLabel value="Priority" />
                     <Multiselect mode="single" placeholder="Priority" :filter-results="false" :object="true"
                         :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="priority"
-                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
+                        label="display" valueProp="code" track-by="code" :classes="combo_classes" required
                         v-model="resourceForm.priority" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Facility" />
-                    <Multiselect mode="single" placeholder="Facility" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                        :options="searchLocation" label="label" valueProp="id" track-by="id" :classes="combo_classes"
-                        required v-model="resourceForm.facility" />
                     <InputError class="mt-1" />
                 </div>
                 <div class="mt-4">
                     <InputLabel value="Type" />
                     <Multiselect mode="single" placeholder="Type" :filter-results="false" :object="true" :min-chars="1"
-                        :resolve-on-load="true" :delay="300" :searchable="true" :options="type" label="label"
-                        valueProp="id" track-by="id" :classes="combo_classes" required v-model="resourceForm.type" />
+                        :resolve-on-load="true" :delay="300" :searchable="true" :options="type" label="display"
+                        valueProp="code" track-by="code" :classes="combo_classes" required
+                        v-model="resourceForm.type" />
                     <InputError class="mt-1" />
                 </div>
-                <div class="mt-4">
-                    <InputLabel value="Sub-Type" />
-                    <Multiselect mode="single" placeholder="Sub Type" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="subType"
-                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
-                        v-model="resourceForm.subType" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Use" />
-                    <select v-model="resourceForm.use"
-                        class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                        <option v-for="item in use" :value=item.id>{{ item.label }}</option>
-                    </select>
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Funds Reserve" />
-                    <Multiselect mode="single" placeholder="Funds Reserve" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="fundsreserve"
-                        label="label" valueProp="id" track-by="id" :classes="combo_classes" required
-                        v-model="resourceForm.fundsreserve" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4 grid grid-cols-4 gap-1">
-                    <div>
-                        <InputLabel value="Payee Type" />
-                        <Multiselect mode="single" placeholder="Payee Type" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true" :options="payeeType"
-                            label="display" valueProp="code" track-by="code" :classes="combo_classes" required
-                            v-model="resourceForm.payee.type" />
-                        <InputError class="mt-1" />
-                    </div>
-                    <div class="grid grid-cols-4 col-span-3 ">
-                        <InputLabel value="Payee Party" class="col-span-4" />
-                        <select v-model="resourceForm.payee.party.type"
-                            class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                            <option v-for="item in payeePartyType" :value=item>{{ item }}</option>
-                        </select>
-                        <Multiselect mode="single" placeholder="Payee Type" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                            :options="searchPayeeParty" label="label" valueProp="id" track-by="id"
-                            :classes="combo_classes" required v-model="resourceForm.payee.party.reference"
-                            class="col-span-3" />
-                        <InputError class="mt-1" />
-                    </div>
-                </div>
-                <!-- <div class="mt-4">
-                    <InputLabel value="Related Claims" />
-                    <div class="claim-field grid grid-cols-4 gap-2" v-for="(claim, index) in resourceForm.related"
-                        :key="index">
-                        <Multiselect mode="single" placeholder="Claim" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                            :options="searchClaim" label="label" valueProp="id" track-by="id" :classes="combo_classes"
-                            required v-model="resourceForm.related[index].claimReference" class=" col-span-2" />
-                        <Multiselect mode="single" placeholder="Claim Relationship" :filter-results="false"
-                            :object="true" :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                            :options="claimRelationship" label="display" valueProp="code" track-by="code"
-                            :classes="combo_classes" required v-model="resourceForm.related[index].claimRelationship" />
-                        <SecondaryButtonSmall type="button" @click="removeField(index)"
-                            class="inline-block text-center mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                            Remove
-                        </SecondaryButtonSmall>
-                    </div>
-                    <SecondaryButtonSmall type="button" @click="addField"
-                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                        + Tambah Claim Terkait
-                    </SecondaryButtonSmall>
-                </div> -->
-                <div class="mt-4">
-                    <InputLabel value="Prescription" />
-                    <Multiselect mode="single" placeholder="Prescription" :filter-results="false" :object="true"
-                        :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                        :options="searchMedicationRequest" label="label" valueProp="id" track-by="id"
-                        :classes="combo_classes" v-model="resourceForm.prescription" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4">
-                    <InputLabel value="Original Prescription (jika ada perbedaan dari resep dokter dan apoteker)" />
-                    <Multiselect mode="single" placeholder="Original Prescription" :filter-results="false"
-                        :object="true" :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                        :options="searchMedicationRequest" label="label" valueProp="id" track-by="id"
-                        :classes="combo_classes" v-model="resourceForm.originalPrescription" />
-                    <InputError class="mt-1" />
-                </div>
-                <div class="mt-4 grid grid-cols-2 gap-1">
-                    <div>
-                        <InputLabel value="Billable Period (Start)" />
-                        <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required
-                            v-model="resourceForm.billablePeriod.start">
-                        </VueDatePicker>
-                        <InputError class="mt-1" />
-                    </div>
-                    <div>
-                        <InputLabel value="Billable Period (End)" />
-                        <VueDatePicker class=" border-[1.5px] rounded-lg border-neutral-grey-0 " required
-                            v-model="resourceForm.billablePeriod.end">
-                        </VueDatePicker>
-                        <InputError class="mt-1" />
-                    </div>
-                </div>
-
-                <div class="mt-4">
-                    <InputLabel value="Care Team" />
-                    <div class="care-team" v-for="(team, index) in resourceForm.careTeam" :key="index">
-                        <p class="text-sm font-bold">Care Team #{{ index + 1 }}</p>
-                        <InputLabel class="mt-2" value="Provider (Practitioner/Organization)" />
-                        <div class="grid grid-cols-2 gap-1">
-                            <Multiselect mode="single" placeholder="Provider (Practitioner)" :filter-results="false"
-                                :object="true" :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                                :options="searchProvider" label="label" valueProp="id" track-by="id"
-                                :classes="combo_classes" required v-model="resourceForm.careTeam[index].provider" />
-                            <Multiselect mode="single" placeholder="Provider (Organization)" :filter-results="false"
-                                :object="true" :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                                :options="searchOrg" label="label" valueProp="id" track-by="id" :classes="combo_classes"
-                                required v-model="resourceForm.careTeam[index].provider" />
-                        </div>
-
-                        <InputLabel class="mt-2" value="Responsible" />
-
-                        <select v-model="resourceForm.careTeam.responsible"
-                            class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                            <option value="0">False</option>
-                            <option value="1">True</option>
-                        </select>
-                        <InputLabel class="mt-2" value="Role" />
-
-                        <Multiselect mode="single" placeholder="Role" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                            :options="careTeamRole" label="display" valueProp="code" track-by="code"
-                            :classes="combo_classes" required v-model="resourceForm.careTeam[index].role" />
-                        <InputLabel class="mt-2" value="Qualification" />
-
-                        <Multiselect mode="single" placeholder="Qualification" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                            :options="careTeamQualification" label="display" valueProp="code" track-by="code"
-                            :classes="combo_classes" required v-model="resourceForm.careTeam[index].qualification" />
-
-                        <SecondaryButtonSmall type="button" @click="removeCareTeam(index)"
-                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                            Remove Care Team
-                        </SecondaryButtonSmall>
-                    </div>
-                    <SecondaryButtonSmall type="button" @click="addCareTeam"
-                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                        + Tambah Care Team
-                    </SecondaryButtonSmall>
-                </div>
-
-                <div class="mt-4">
-                    <InputLabel value="Diagnosis" />
-                    <div class="care-team" v-for="(team, index) in resourceForm.diagnosis" :key="index">
-                        <p class="text-sm font-bold">Diagnosis #{{ index + 1 }}</p>
-                        <InputLabel class="mt-2" value="Diagnosis (Condition)" />
-                        <div class="grid gap-1">
-                            <Multiselect mode="single" placeholder="Diagnosis (Condition)" :filter-results="false"
-                                :object="true" :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                                :options="getCondition" label="label" valueProp="id" track-by="id"
-                                :classes="combo_classes" required v-model="resourceForm.diagnosis[index]" />
-                        </div>
-
-                        <SecondaryButtonSmall type="button" @click="removeDiagnosis(index)"
-                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                            Remove Diagnosis
-                        </SecondaryButtonSmall>
-                    </div>
-                    <SecondaryButtonSmall type="button" @click="addDiagnosis"
-                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                        + Tambah Diagnosis
-                    </SecondaryButtonSmall>
-                </div>
-
-                <div class="mt-4">
-                    <InputLabel value="Procedure" />
-                    <div class="care-team" v-for="(team, index) in resourceForm.procedure" :key="index">
-                        <p class="text-sm font-bold">Procedure #{{ index + 1 }}</p>
-                        <InputLabel class="mt-2" value="Procedure" />
-                        <div class="grid gap-1">
-                            <Multiselect mode="single" placeholder="Procedure" :filter-results="false" :object="true"
-                                :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                                :options="getProcedure" label="label" valueProp="id" track-by="id"
-                                :classes="combo_classes" required v-model="resourceForm.procedure[index]" />
-                        </div>
-
-                        <SecondaryButtonSmall type="button" @click="removeProcedure(index)"
-                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                            Remove Procedure
-                        </SecondaryButtonSmall>
-                    </div>
-                    <SecondaryButtonSmall type="button" @click="addProcedure"
-                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                        + Tambah Procedure
-                    </SecondaryButtonSmall>
-                </div>
-
-                <div class="mt-4">
-                    <InputLabel value="Insurance" />
-                    <div class="care-team" v-for="(team, index) in resourceForm.insurance" :key="index">
-                        <p class="text-sm font-bold">Insurance #{{ index + 1 }}</p>
-                        <InputLabel class="mt-2" value="Focal?" />
-                        <div>
-                            <select v-model="resourceForm.insurance[index].focal"
-                                class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                                <option value="0">False</option>
-                                <option value="1">True</option>
-                            </select>
-                        </div>
-                        <InputLabel class="mt-2" value="Coverage" />
-                        <div class="grid gap-1">
-                            <Multiselect mode="single" placeholder="Insurance" :filter-results="false" :object="true"
-                                :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                                :options="getCoverage" label="label" valueProp="id" track-by="id"
-                                :classes="combo_classes" required v-model="resourceForm.insurance[index].coverage" />
-                        </div>
-
-                        <SecondaryButtonSmall type="button" @click="removeInsurance(index)"
-                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                            Remove Insurance
-                        </SecondaryButtonSmall>
-                    </div>
-                    <SecondaryButtonSmall type="button" @click="addInsurance"
-                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                        + Tambah Insurance
-                    </SecondaryButtonSmall>
-                </div>
-
-                <!-- <div class="mt-4">
-                    <InputLabel value="Supporting Information" />
-                    <div class="care-team" v-for="(info, index) in resourceForm.supportingInfo" :key="index">
-                        <p class="text-sm font-bold">Supporting Information #{{ index + 1 }}</p>
-                        <InputLabel class="mt-2" value="Category" />
-                        <Multiselect mode="single" placeholder="Category" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                            :options="supportingInfoCategories" label="label" valueProp="id" track-by="id"
-                            :classes="combo_classes" required v-model="resourceForm.supportingInfo[index].category" />
-                        <Multiselect mode="single" placeholder="Provider (Organization)" :filter-results="false"
-                            :object="true" :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                            :options="searchOrg" label="label" valueProp="id" track-by="id" :classes="combo_classes"
-                            required v-model="resourceForm.careTeam[index].provider" />
-
-                        <InputLabel class="mt-2" value="Responsible" />
-
-                        <select v-model="resourceForm.careTeam.responsible"
-                            class="block w-full outline-none border-2 border-neutral-grey-0 ring-0 focus:border-original-teal-300 focus:ring-original-teal-300 rounded-xl shadow-sm px-2.5 h-fit">
-                            <option value="0">False</option>
-                            <option value="1">True</option>
-                        </select>
-                        <InputLabel class="mt-2" value="Role" />
-
-                        <Multiselect mode="single" placeholder="Role" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                            :options="careTeamRole" label="display" valueProp="code" track-by="code"
-                            :classes="combo_classes" required v-model="resourceForm.careTeam[index].role" />
-                        <InputLabel class="mt-2" value="Qualification" />
-
-                        <Multiselect mode="single" placeholder="Qualification" :filter-results="false" :object="true"
-                            :min-chars="1" :resolve-on-load="true" :delay="300" :searchable="true"
-                            :options="careTeamQualification" label="display" valueProp="code" track-by="code"
-                            :classes="combo_classes" required v-model="resourceForm.careTeam[index].qualification" />
-
-                        <SecondaryButtonSmall type="button" @click="removeCareTeam(index)"
-                            class="inline-block text-center mt-1 mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                            Remove Care Team
-                        </SecondaryButtonSmall>
-                    </div>
-                    <SecondaryButtonSmall type="button" @click="addCareTeam"
-                        class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                        + Tambah Care Team
-                    </SecondaryButtonSmall>
-                    <div class="mt-4">
-                        <InputLabel value="Procedures" />
-                        <div class="claim-field grid grid-cols-4 gap-2" v-for="(claim, index) in resourceForm.related"
-                            :key="index">
-                            <Multiselect mode="single" placeholder="Procedure" :filter-results="false" :object="true"
-                                :min-chars="1" :resolve-on-load="false" :delay="300" :searchable="true"
-                                :options="getProcedure" label="label" valueProp="id" track-by="id"
-                                :classes="combo_classes" required v-model="resourceForm.procedure[index]"
-                                class=" col-span-2" />
-                            <SecondaryButtonSmall type="button" @click="removeProcedure(index)"
-                                class="inline-block text-center mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                                Remove
-                            </SecondaryButtonSmall>
-                        </div>
-                        <SecondaryButtonSmall type="button" @click="addProcedure"
-                            class="mt-2 inline-flex mb-3 justify-center px-4 py-2 border border-transparent rounded-xl font-semibold text-sm orange-button text-original-white-0 transition ease-in-out duration-150 hover:shadow-lg me-1">
-                            + Tambah Procedure
-                        </SecondaryButtonSmall>
-                    </div>
-
-                </div> -->
 
                 <div class="mt-4 text-center">
                     <MainButton :isLoading="isLoading"
                         class="w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0" type="submit">
-                        Tambah Claim
+                        Edit Claim
                     </MainButton>
                 </div>
             </form>
@@ -436,28 +109,28 @@ const status = [
 const type = [
     {
         system: "http://terminology.hl7.org/CodeSystem/claim-type",
-        id: "institutional",
-        label: "Institutional"
+        code: "institutional",
+        display: "Institutional"
     },
     {
         system: "http://terminology.hl7.org/CodeSystem/claim-type",
-        id: "oral",
-        label: "Oral"
+        code: "oral",
+        display: "Oral"
     },
     {
         system: "http://terminology.hl7.org/CodeSystem/claim-type",
-        id: "pharmacy",
-        label: "Pharmacy"
+        code: "pharmacy",
+        display: "Pharmacy"
     },
     {
         system: "http://terminology.hl7.org/CodeSystem/claim-type",
-        id: "professional",
-        label: "Professional"
+        code: "professional",
+        display: "Professional"
     },
     {
         system: "http://terminology.hl7.org/CodeSystem/claim-type",
-        id: "vision",
-        label: "Vision"
+        code: "vision",
+        display: "Vision"
     },
 ];
 
@@ -495,18 +168,18 @@ const use = [
 const priority = [
     {
         system: "http://terminology.hl7.org/CodeSystem/processpriority",
-        id: "stat",
-        label: "Immediate"
+        code: "stat",
+        display: "Immediate"
     },
     {
         system: "http://terminology.hl7.org/CodeSystem/processpriority",
-        id: "normal",
-        label: "Normal"
+        code: "normal",
+        display: "Normal"
     },
     {
         system: "http://terminology.hl7.org/CodeSystem/processpriority",
-        id: "deferred",
-        label: "Deferred"
+        code: "deferred",
+        display: "Deferred"
     },
 ];
 
@@ -745,6 +418,7 @@ const fetchClaim = async (id) => {
         const { data } = await axios.get('/resources/Claim/' + id)
         const originalData = data
         claimData.value = originalData
+        fillData(originalData)
     } catch (error) {
         console.error('Error fetching resources:', error)
         claimData.value = {}
@@ -764,22 +438,12 @@ const fetchSubject = async (id) => {
     }
 }
 
-// Functions
-const fetchEncounter = async (query) => {
-    try {
-        const { data } = await axios.get('/resources/Encounter');
-        const originalData = data
-        for (const key in originalData) {
-            const currentObject = originalData[key];
-            const label = `${currentObject.subject.display} | Status: ${currentObject.status} | ${formatTimestamp(currentObject.period?.start)} `;
-            currentObject.label = label;
-        }
-        const filteredData = originalData.filter(item => item.label.includes(query))
-        return filteredData;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
+const fillData = (data) => {
+    // console.log(data)
+    resourceForm.value.status = data.status
+    resourceForm.value.priority = data.priority.coding
+    resourceForm.value.type = data.type.coding
+    // console.log(resourceForm)
 }
 
 const getInvoice = async (query) => {
@@ -832,173 +496,6 @@ const searchPatient = async (query) => {
     }
 }
 
-const getpractitionerList = async () => {
-    try {
-        const { data } = await axios.get(route('form.index.encounter'));
-        practitionerList.value = data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        practitionerList.value = [];
-    }
-};
-
-const getCoverage = async (query) => {
-    try {
-        const { data } = await axios.get('/resources/Coverage');
-        const originalData = data
-        for (const key in originalData) {
-            const currentObject = originalData[key];
-            const label = `${currentObject.beneficiary?.display} | ID: ${currentObject.id}`;
-            currentObject.label = label;
-        }
-        const filteredData = originalData.filter(item => item.beneficiary?.display.includes(query))
-        return filteredData
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
-};
-
-const getProcedure = async () => {
-    try {
-        const { data } = await axios.get('/resources/Procedure');
-        const originalData = data
-        for (const key in originalData) {
-            const currentObject = originalData[key];
-            const label = `${currentObject.code?.coding[0]?.code} | ${currentObject.code?.coding[0]?.display}`;
-            currentObject.label = label;
-        }
-        const filteredData = originalData.filter(item => item.encounter.reference === "Encounter/" + resourceForm.value.encounter.id)
-        return filteredData
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
-}
-
-const getCondition = async () => {
-    try {
-        const { data } = await axios.get('/resources/Condition');
-        const originalData = data
-        for (const key in originalData) {
-            const currentObject = originalData[key];
-            const label = `${currentObject.code?.coding[0]?.code} | ${currentObject.code?.coding[0]?.display}`;
-            currentObject.label = label;
-        }
-        return originalData.filter(item => item.encounter.reference === "Encounter/" + resourceForm.value.encounter.id)
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
-}
-
-const searchOrg = async (query) => {
-    try {
-        const { data } = await axios.get(route('satusehat.search.organization', { 'name': query }));
-        const originalData = data.entry || [];
-        // Map the data to the required structure
-        return originalData.map(item => ({
-            label: item.resource.name,
-            id: item.resource.id,
-            ...item.resource
-        }));
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
-}
-
-const searchClaim = async (query) => {
-    try {
-        const { data } = await axios.get('/resources/Claim')
-        const originalData = data
-        originalData.filter(claim => claim.id.includes(query))
-        return originalData
-    } catch (error) {
-        console.error('Error fetching data', error);
-        return [];
-    }
-}
-
-const searchMedicationRequest = async (query) => {
-    try {
-        const { data } = await axios.get('/resources/MedicationRequest')
-        const originalData = data
-        originalData.filter(medReq => medReq.id.includes(query))
-        for (const key in originalData) {
-            const currentObject = originalData[key];
-            const label = currentObject.medicationReference.display
-            currentObject.label = label;
-        }
-        return originalData
-    } catch (error) {
-        console.error('Error fetching data', error);
-        return [];
-    }
-}
-
-const searchProvider = async (query) => {
-    try {
-        const { data } = await axios.get('/resources/Practitioner')
-        const originalData = data
-        originalData.filter(party => party.id.includes(query));
-        for (const key in originalData) {
-            const currentObject = originalData[key];
-            const label = currentObject.name[0].text
-            currentObject.label = label;
-        }
-        return originalData;
-    } catch (error) {
-        console.error('Error fetching data', error);
-        return [];
-    }
-
-}
-
-const searchPayeeParty = async (query) => {
-
-    switch (resourceForm.value.payee.party.type) {
-        case "Organization":
-            return searchOrg(query)
-
-        case "Patient":
-            return searchPatient(query)
-
-        case "Practitioner":
-            try {
-                const { data } = await axios.get('/resources/Practitioner')
-                const originalData = data
-                originalData.filter(party => party.id.includes(query));
-                for (const key in originalData) {
-                    const currentObject = originalData[key];
-                    const label = currentObject.name[0].text
-                    currentObject.label = label;
-                }
-                return originalData;
-            } catch (error) {
-                console.error('Error fetching data', error);
-                return [];
-            }
-        default:
-            return [];
-    }
-}
-
-const searchLocation = async (query) => {
-    try {
-        const { data } = await axios.get('/resources/Location');
-        const originalData = data
-        originalData.filter(party => party.name.includes(query));
-        return originalData.map(item => ({
-            label: item.name,
-            ...item
-        }));
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        return [];
-    }
-}
-
 function formatDateString(dateString) {
     // Parse the date string into a Date object
     const date = new Date(dateString);
@@ -1023,80 +520,16 @@ function formatDateString(dateString) {
     return formattedDate;
 }
 
-const addField = () => {
-    resourceForm.value.related.push({
-        claimReference: null,
-        claimRelationship: null
-    })
-}
-
-const addCareTeam = () => {
-    resourceForm.value.careTeam.push({
-        provider: {},
-        responsible: 1,
-        role: {},
-        qualification: {}
-    })
-}
-
-const addSupportingInfo = () => {
-    resourceForm.value.supportingInfo.push({
-
-    })
-}
-
-const addProcedure = () => {
-    resourceForm.value.procedure.push({})
-    getProcedure()
-}
-
-const addDiagnosis = () => {
-    resourceForm.value.diagnosis.push({})
-    getCondition();
-}
-
-const addInsurance = () => {
-    resourceForm.value.insurance.push({
-        focal: false,
-        coverage: {},
-    })
-}
-
-const removeField = (index) => {
-    resourceForm.value.related.splice(index, 1);
-};
-
-const removeCareTeam = (index) => {
-    resourceForm.value.careTeam.splice(index, 1);
-};
-
-const removeSupportingInfo = (index) => {
-    resourceForm.value.supportingInfo.splice(index, 1)
-}
-
-const removeProcedure = (index) => {
-    resourceForm.value.procedure.splice(index, 1)
-}
-
-const removeDiagnosis = (index) => {
-    resourceForm.value.diagnosis.splice(index, 1)
-}
-
-const removeInsurance = (index) => {
-    resourceForm.value.insurance.splice(index, 1)
-}
-
 onMounted(async () => {
     await fetchClaim(props.id)
     if (claimData.value.patient?.reference) {
-        console.log(claimData.value);
+        // console.log(claimData.value);
         const subjectId = claimData.value.patient.reference.split("/")[1];
         resourceForm.value.subject = await fetchSubject(subjectId);
-        console.log(resourceForm.value.subject);
+        // console.log(resourceForm.value.subject);
     } else {
         console.error('Patient data is missing in the fetched data');
     }
-    getpractitionerList()
 })
 
 const combo_classes = {
@@ -1121,145 +554,54 @@ function generateUUID() {
 
 const submit = async () => {
     isLoading.value = true
-    console.log(resourceForm.value)
+    // console.log(resourceForm.value)
 
     const submitResource = {
-        "id": generateUUID(),
+        "id": claimData.value.id,
         "resourceType": "Claim",
         "status": resourceForm.value.status,
         "type": {
             "coding": {
                 "system": resourceForm.value.type.system,
-                "code": resourceForm.value.type.id,
-                "display": resourceForm.value.type.label
+                "code": resourceForm.value.type.code,
+                "display": resourceForm.value.type.display
             }
         },
-        "subType": {
-            "coding": {
-                "system": resourceForm.value.subType.system,
-                "code": resourceForm.value.subType.id,
-                "display": resourceForm.value.subType.label
-            }
-        },
-        "use": resourceForm.value.use,
+        "subType": claimData.value.subType,
+        "use": claimData.value.use,
         "patient": {
             "reference": "Patient/" + resourceForm.value.subject?.satusehatId,
-            "display": resourceForm.value.subject?.name
+            "display": resourceForm.value.subject?.name[0]?.text
         },
-        "billablePeriod": {
-            "start": formatDateString(resourceForm.value.billablePeriod.start),
-            "end": formatDateString(resourceForm.value.billablePeriod.end)
-        },
-        "created": formatDateString(resourceForm.value.billablePeriod.start),
-        "enterer": {
-            "reference": "Practitioner/" + resourceForm.value.participant.id,
-            "display": resourceForm.value.participant.name[0].text
-        },
-        "insurer": {
-            "reference": "Organization/" + resourceForm.value.insurer.id,
-            "display": resourceForm.value.insurer.name,
-        },
-        "provider": {
-            "reference": "Organization/" + resourceForm.value.provider.id,
-            "display": resourceForm.value.provider.name,
-        },
+        "billablePeriod": claimData.value.billablePeriod,
+        "created": claimData.value.created,
+        "enterer": claimData.value.enterer,
+        "insurer": claimData.value.insurer,
+        "provider": claimData.value.provider,
         "priority": {
             "coding": {
                 "system": resourceForm.value.priority.system,
-                "code": resourceForm.value.priority.id,
-                "display": resourceForm.value.priority.label
+                "code": resourceForm.value.priority.code,
+                "display": resourceForm.value.priority.display
             }
         },
-        "fundsReserve": {
-            "coding": {
-                "system": resourceForm.value.fundsreserve.system,
-                "code": resourceForm.value.fundsreserve.id,
-                "display": resourceForm.value.fundsreserve.label
-            }
-        },
-        "prescription": {
-            "reference": "MedicationRequest/" + resourceForm.value.prescription.id,
-            "display": resourceForm.value.prescription.medicationReference?.display,
-        },
-        "originalPrescription": {
-            "reference": "MedicationRequest/" + resourceForm.value.originalPrescription.id,
-            "display": resourceForm.value.originalPrescription.medicationReference?.display,
-        },
-        "payee": {
-            "type": {
-                "coding": {
-                    "system": resourceForm.value.payee.type.system,
-                    "code": resourceForm.value.payee.type.code,
-                    "display": resourceForm.value.payee.type.display
-                }
-            },
-            "party": {
-                "reference": resourceForm.value.payee.party.type + "/" + resourceForm.value.payee.party.reference.id,
-                "display": resourceForm.value.payee.party.reference.name,
-            }
-        },
-        "facility": {
-            "reference": "Location/" + resourceForm.value.facility.id,
-            "display": resourceForm.value.facility.name
-        },
-        "careTeam": [],
-        "diagnosis": [],
-        "procedure": [],
-        "insurance": [],
+        "fundsReserve": claimData.value.fundsReserve,
+        "prescription": claimData.value.prescription,
+        "originalPrescription": claimData.value.originalPrescription,
+        "payee": claimData.value.payee,
+        "facility": claimData.value.facility,
+        "careTeam": claimData.value.careTeam,
+        "diagnosis": claimData.value.diagnosis,
+        "procedure": claimData.value.procedure,
+        "insurance": claimData.value.insurance,
         "total": resourceForm.value.invoice.totalNet
     }
-    submitResource.diagnosis = resourceForm.value.diagnosis.map((item, index) => ({
-        "sequence": index + 1,
-        "diagnosisReference": {
-            "reference": "Condition/" + item.id,
-            "display": item.code?.coding?.display
-        }
-    }));
+    console.log(submitResource, resourceForm)
 
-    submitResource.procedure = resourceForm.value.procedure.map((item, index) => ({
-        "sequence": index + 1,
-        "procedureReference": {
-            "reference": "Procedure/" + item.id,
-            "display": item.code?.coding?.display
-        }
-    }));
-
-    submitResource.insurance = resourceForm.value.insurance.map((item, index) => ({
-        "sequence": index + 1,
-        "focal": item.focal == 1 ? true : false,
-        "coverage": {
-            "reference": "Coverage/" + item.coverage.id,
-            "display": item.coverage.beneficiary.display,
-        }
-    }))
-
-    submitResource.careTeam = resourceForm.value.careTeam.map((item, index) => ({
-        "sequence": index + 1,
-        "provider": {
-            "reference": item.provider.resourceType + "/" + item.provider.id ?? item.provider.satusehatId,
-            "display": item.provider.name[0].text,
-        },
-        "responsible": item.responsible == 1 ? true : false,
-        "role": {
-            "coding": {
-                "system": item.role.system,
-                "code": item.role.code,
-                "display": item.role.display
-            }
-        },
-        "qualification": {
-            "coding": {
-                "system": item.qualification.system,
-                "code": item.qualification.code,
-                "display": item.qualification.display
-            }
-        }
-    }))
-
-    console.log(submitResource)
     try {
         const resourceType = "Claim";
-        const response = await axios.post(route('resources.store', { resType: resourceType }), submitResource)
+        const claimID = claimData.value.id
+        const response = await axios.put(route('resources.update', { resType: resourceType, id: claimID }), submitResource)
         isLoading.value = false;
         uploadSuccessModal.value = true;
     } catch (error) {

@@ -3,6 +3,19 @@
         <template #apphead>
             <title>Tambah ke Tagihan - </title>
         </template>
+        <Modal :show="uploadSuccessModal">
+            <div class="p-6">
+                <h2 class="text-lg text-center font-medium text-gray-900">
+                    Data Tagihan telah berhasil dibuat. <br> Kembali ke Dashboard.
+                </h2>
+                <div class="mt-6 flex justify-end">
+                    <Link :href="route('finance.chargeitem.index')" class="mx-auto mb-3 w-fit block justify-center px-4 py-2 border border-transparent rounded-lg
+                    font-semibold text-sm teal-button text-original-white-0 transition ease-in-out duration-150
+                    hover:shadow-lg">
+                    Kembali </Link>
+                </div>
+            </div>
+        </Modal>
         <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:px-10">
             <h1 class="text-2xl font-bold text-neutral-black-300">Tambah item tagihan baru</h1>
             <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk membuat item tagihan baru.</p>
@@ -77,7 +90,7 @@
                 </div>
                 <div class="mt-4">
                     <InputLabel value="Account" />
-                    <Multiselect mode="single" placeholder="Account" :filter-results="false" :resolve-on-load="true"
+                    <Multiselect mode="single" placeholder="Account" :filter-results="true" :resolve-on-load="true"
                         :object="true" :options="getAccount" label="name" valueProp="id" track-by="id" class="mt-1"
                         :searchable="true" :classes="combo_classes" required v-model="resourceForm.account" />
                     <InputError class="mt-1" />
@@ -93,6 +106,14 @@
                 <div class="mt-4">
                     <InputLabel value="Jumlah barang" />
                     <TextInput type="number" v-model="resourceForm.quantity" />
+                    <InputError class="mt-1" />
+                </div>
+                <div class="mt-4">
+                    <InputLabel value="Catalogue" />
+                    <Multiselect mode="single" placeholder="Catalogue" :filter-results="false" :resolve-on-load="true"
+                        :object="true" :options="getCatalogue" label="label" valueProp="code" track-by="code"
+                        class="mt-1" :searchable="true" :classes="combo_classes" required :delay="300"
+                        v-model="resourceForm.catalogue" />
                     <InputError class="mt-1" />
                 </div>
                 <div class="mt-4">
@@ -125,6 +146,8 @@ import InputError from '@/Components/InputError.vue';
 import MainButton from '@/Components/MainButton.vue';
 import SecondaryButtonSmall from '@/Components/SecondaryButtonSmall.vue';
 import EncounterDetails from '@/Pages/RekamMedis/Partials/EncounterDetails.vue';
+import Modal from '@/Components/Modal.vue';
+import { Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     item_id: {
@@ -135,7 +158,8 @@ const props = defineProps({
     }
 });
 
-const isLoading = ref(false)
+const isLoading = ref(false);
+const uploadSuccessModal = ref(false);
 
 const resourceForm = ref({
     status: "planned",
@@ -158,8 +182,10 @@ const resourceForm = ref({
     coding: null,
     codingModifier: [],
     quantity: 0,
-    account: null
-})
+    account: null,
+    catalogue: {},
+    price: 0
+});
 
 const chStatus = { 'planned': 'Planned', 'billable': 'Billable', 'not-billable': 'Not Billable', 'aborted': 'Aborted', 'entered-in-error': 'Entered in error', 'billed': 'Billed', 'unknown': 'Unknown' } // Status Invoice
 const practitionerList = ref(null)
@@ -193,7 +219,7 @@ const identifier = {
 }
 
 watch(() => resourceForm.value.coding, (newValue) => {
-    console.log(newValue)
+    // console.log(newValue)
     searchCodingModifier(newValue.modifier)
 })
 
@@ -208,12 +234,61 @@ const getAccount = async (name) => {
     }
 }
 
+const getCatalogue = async (query) => {
+    try {
+        const { data } = await axios.get('/catalogue', { params: { name: query } });
+        const originalData = data.items.data
+        const modifiedData = originalData.map(item => ({
+            label: `${item.code} | ${item.display}`,
+            ...item
+        }));
+        return modifiedData;
+    } catch (error) {
+        console.error('Error fetching resources:', error);
+    }
+}
+
+const fillCatalogue = async (catalogueId) => {
+    try {
+        const { data } = await axios.get(`/catalogue/${catalogueId}`);
+        if (!data?.code) {
+            const errorData = {
+                code: catalogueId,
+                display: "Belum Terdaftar",
+                label: "Belum Terdaftar",
+                price: {
+                    value: 0,
+                    currency: "IDR"
+                }
+            };
+            return errorData
+        } else {
+            data.label = `${data.code} | ${data.display}`;
+            return data;
+        }
+
+    } catch (error) {
+        console.error('Error fetching resources:', error);
+        return {}
+    }
+}
+
 const getResourceById = async (resourceName, variable, id) => {
     try {
         const { data } = await axios.get(`/resources/${resourceName}/${id}`)
         variable.value = data;
-        console.log(variable.value.subject)
+        // console.log(variable.value)
         fillForm(resourceForm, variable.value, props)
+    } catch (error) {
+        console.error('Error fetching resources:', error);
+    }
+}
+
+const getMedicationByID = async (id) => {
+    try {
+        const { data } = await axios.get(`/resources/Medication/${id}`)
+        const originalData = data;
+        return originalData;
     } catch (error) {
         console.error('Error fetching resources:', error);
     }
@@ -224,8 +299,18 @@ const getpractitionerList = async () => {
     practitionerList.value = data;
 };
 
-const fillForm = (resForm, data, props) => {
-    if (data.resourceType == 'ChargeItem') {
+watch(async () => await fillCatalogue(resourceForm.value.catalogue.code), async (newValue) => {
+    try {
+        const data = await newValue;
+        resourceForm.value.price = data.price.value * resourceForm.value.quantity;
+    } catch (error) {
+        console.error('Error updating price:', error);
+        resourceForm.value.price = 0;
+    }
+});
+
+const fillForm = async (resForm, data, props) => {
+    if (data.resourceType == 'Procedure') {
         // Service
         resForm.value.service = `${props.item_res_type}/${props.item_id}`
         serviceDetail.value = `${props.item_res_type}/${props.item_id} | ${data.code.coding[0].display}`
@@ -243,10 +328,41 @@ const fillForm = (resForm, data, props) => {
         resForm.value.performer = data?.performer
         // Bodysite
         resForm.value.bodySite = data?.bodySite
-    } else {
+        resForm.value.quantity = 1
+        resForm.value.catalogue = await fillCatalogue(data?.code?.coding[0]?.code)
+        // console.log(resForm.value.catalogue)
+    } if (data.resourceType == 'MedicationDispense') {
+        const medication = await getMedicationByID(data.medicationReference.reference.split("/")[1])
+        // Service
+        resForm.value.service = `${props.item_res_type}/${props.item_id}`
+        // serviceDetail.value = `${props.item_res_type}/${props.item_id} | ${data.code.coding[0].display}`
+        // Context (Encounter)
+        resForm.value.context.reference = data?.context?.reference
+        resForm.value.context.display = data?.medicationReference?.display
+        contextDetail.value = `${data?.context?.reference} | ${data.context.display}`
+        // Subject (Patient)
+        resForm.value.subject.reference = data?.subject?.reference
+        resForm.value.subject.name = data.subject.display
+        subjectDetail.value = `${data?.subject?.reference} | ${data?.subject?.display}`
+        // Occurence
+        resForm.value.occurence = {
+            start: data?.whenPrepared,
+            end: data?.whenHandedOver
+        }
+        // Performer
+        resForm.value.performer = data?.performer
+        // Bodysite
+        resForm.value.quantity = data?.quantity.value
+        resForm.value.quantityUnit = data?.quantity.unit
+        resForm.value.quantityObject = data?.quantity
+        resForm.value.bodySite = {}
+        resForm.value.catalogue = await fillCatalogue(medication?.code?.coding[0]?.code)
+    }
+    else {
         resForm.value.context.reference = "Encounter/" + data?.id
         resForm.value.subject.reference = data.subject.reference
-     }
+        resForm.value.quantity = 1;
+    }
 }
 
 const submit = async () => {
@@ -259,8 +375,8 @@ const submit = async () => {
     const submitResource = {
         "resourceType": "ChargeItem",
         "identifier": {
-            "system": "https://terminology.kemkes.go.id/CodeSystem/chargeitem-billingGroup",
-            "value": resourceForm.value.identifier,
+            // "system": "https://terminology.kemkes.go.id/CodeSystem/chargeItem-billingGroup",
+            // "value": resourceForm.value.identifier,
         },
         "status": resourceForm.value.status,
         "subject": {
@@ -269,7 +385,7 @@ const submit = async () => {
         },
         "context": {
             "reference": resourceForm.value.context.reference,
-            "display": resourceForm.value.context.display,
+            "display": props.item_res_type !== undefined ? resourceForm.value.context.display : resourceForm.value.catalogue.display,
         },
         "occurrencePeriod": resourceForm.value.occurence ?? {
             start: currentTime,
@@ -307,6 +423,7 @@ const submit = async () => {
         // const response = await axios.post(route('resources.store', {resType: resourceType}), submitResource)
         console.log(response.data)
         isLoading.value = false;
+        uploadSuccessModal.value = true;
     } catch (error) {
         console.error(error.response ? error.response.data : error.message);
         isLoading.value = false;
@@ -315,7 +432,9 @@ const submit = async () => {
 
 onMounted(() => {
     getpractitionerList()
-    if (props.item_res_type) {
+    // console.log(props)
+    if (props.item_res_type !== undefined) {
+        // console.log("workds")
         getResourceById(props.item_res_type, chargeItem, props.item_id)
     } else {
         getResourceById("Encounter", encounterDetails, props.item_id)

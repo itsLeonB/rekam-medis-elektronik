@@ -73,8 +73,8 @@ import { ref, onMounted } from 'vue';
 const item = ref(null);
 const updateSuccessModal = ref(false);
 const form = ref({
-    code: 'Hello',
-    display: 'Hello',
+    code: '',
+    display: '',
     price: {
         currency: "IDR",
         value: 0,
@@ -90,7 +90,6 @@ const props = defineProps({
 const fetchItem = async () => {
     const { data } = await axios.get('/catalogue/' + props.item_id);
     item.value = data
-    console.log(item.value)
     form.value.code = item.value.code
     form.value.display = item.value.display
     form.value.price.value = item.value.price.value
@@ -107,7 +106,7 @@ const submit = async () => {
     }
     try {
         const response = await axios.put('/catalogue/' + props.item_id, submitForm)
-            .then (response => {
+            .then(response => {
                 updateSuccessModal.value = true;
             })
     } catch (error) {

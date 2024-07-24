@@ -130,7 +130,6 @@ const getResourceList = async (resourceName, list) => {
         } else {
             list.value = data
         }
-        console.log(list.value)
     } catch (error) {
         console.error('Error fetching resources:', error);
     }
@@ -152,10 +151,10 @@ const formatDate = (isoString) => {
 // List ChargeItem = procedure + medication
 const chargeItemList = computed(() => {
     // if (!medicationList.value || !procedureList.value || !observationList.value) { MedicationDispense not yet implemented
-    if (!procedureList.value || !observationList.value) {
+    if (!procedureList.value || !observationList.value || !medicationDispenseList.value) {
         return [];
     }
-    return [...procedureList.value, ...observationList.value]
+    return [...procedureList.value, ...observationList.value, ...medicationDispenseList.value]
 });
 
 const getChargeItemList = async (id) => {
@@ -164,7 +163,7 @@ const getChargeItemList = async (id) => {
     await getResourceList('Observation', observationList);
     await getResourceList('ChargeItem', resourceChargeItemList);
     await getResourceList('MedicationDispense', medicationDispenseList);
-    console.log(resourceChargeItemList)
+    console.log(medicationDispenseList)
     procedureList.value = procedureList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
     observationList.value = observationList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
     resourceChargeItemList.value = resourceChargeItemList.value.filter(item => item.context.reference = `Encounter/${id}`)

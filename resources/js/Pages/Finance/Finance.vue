@@ -147,22 +147,18 @@ const fetchInvoicePerBulan = async () => {
     try {
         const response = await axios.get(route('analytics.invoice-per-month'));
         const data = response.data;
-        console.log(data)
 
         const uniqueMonths = [...new Set(data.map(item => item._id.date))];
-        console.log(uniqueMonths)
         const uniqueMonthsParsed = uniqueMonths.map(month => {
             const date = new Date(month + '-01');
             return new Intl.DateTimeFormat('id-ID', { month: 'short', year: '2-digit' }).format(date);
         });
-        console.log(uniqueMonthsParsed)
 
         const ambCountArray = Array(uniqueMonths.length).fill(0);
         const impCountArray = Array(uniqueMonths.length).fill(0);
         const emerCountArray = Array(uniqueMonths.length).fill(0);
 
         data.forEach(item => {
-            console.log(item)
             const monthIndex = uniqueMonths.indexOf(item._id.date);
             if (item._id.class === 'qris') ambCountArray[monthIndex] = item.count;
             else if (item._id.class === 'cash') impCountArray[monthIndex] = item.count;
@@ -173,8 +169,6 @@ const fetchInvoicePerBulan = async () => {
         ambCounts.value = ambCountArray;
         impCounts.value = impCountArray;
         emerCounts.value = emerCountArray;
-
-        console.log(ambCountArray, impCountArray, emerCountArray)
 
         jumlahInvoicePerBulanOptions.value = {
             chart: {
@@ -236,9 +230,6 @@ const fetchInvoicePerBulan = async () => {
                 }
             },
         };
-        console.log('Chart Options:', jumlahInvoicePerBulanOptions);
-
-
 
         jumlahInvoicePerBulan.value = [
             {
@@ -254,7 +245,6 @@ const fetchInvoicePerBulan = async () => {
                 data: emerCountArray
             }
         ];
-        console.log('Series:', jumlahInvoicePerBulan);
     } catch (error) {
         console.error('Error fetching data:', error);
     }
@@ -266,8 +256,6 @@ const fetchPersebaranCoverage = async () => {
     try {
         const response = await axios.get(route('analytics.sebaran-coverage'));
         const data = response.data;
-
-        console.log(data);
 
         const labels = data.map(item => item._id[0])
         const counts = data.map(item => item.count)

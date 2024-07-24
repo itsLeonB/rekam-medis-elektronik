@@ -100,7 +100,7 @@ const fetchCoverage = async (id) => {
         const { data } = await axios.get('/resources/Coverage')
         const originalData = data
         coverageData.value = originalData.filter(item => item.id === id)
-        console.log(originalData)
+        // console.log(originalData)
     } catch (error) {
         console.error('Error fetching resources:', error)
         accountData.value = {}
