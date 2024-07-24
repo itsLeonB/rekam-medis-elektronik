@@ -626,7 +626,7 @@ Route::middleware('auth')->group(function () {
         //end-point request stok obat
         Route::get('/request-to-stock', function () {
             return Inertia::render('FormRekamMedis/PeresepanObat/RequestStok');
-        })->name('request-to-stock');
+        })->middleware('role:poli-umum')->name('request-to-stock');
         Route::post('/store-request-stok', [RequestStockController::class, 'store'])->name('request-to-stock.store');
     });
 
@@ -641,7 +641,7 @@ Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'medicationDispense', 'as' => 'medicationDispense.'], function () {
         Route::get('/', [MedicationDispense::class, 'index'])->name('index');
         Route::get('/{medicationReq_id}', [MedicationDispense::class, 'show'])->name('show');
-        Route::get('/{medicationReq_id}', [MedicationDispense::class, 'update'])->name('update');
+        Route::put('/{medicationReq_id}', [MedicationDispense::class, 'update'])->name('update');
     });
 });
 

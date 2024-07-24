@@ -95,18 +95,6 @@ class ExpertSystemController extends Controller
         }
     }
 
-    // public function getAlergi($id){
-    //     $alergi =FhirResource::where('resourceType', 'AllergyIntolerance')
-    //             ->where('encounter.reference', 'Encounter/'.$id)
-    //             ->where('category', 'medication')  
-    //             ->get();
-        
-    //     $result = $alergi->map(function ($item) {
-    //         return data_get($item, 'code.coding.0.display');
-    //     })->toArray();
-    //     return $result;
-    // }
-
     public function rulePeresepanStore($id){        
             try {
                 DB::beginTransaction();

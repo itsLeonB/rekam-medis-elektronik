@@ -19,12 +19,12 @@
             <div class="header">
                 <h1 class="text-2xl font-bold text-neutral-black-300">Tambah Obat</h1>
                 <p class="mb-3 text-base font-normal text-neutral-grey-100">Halaman untuk menambahkan obat.</p>
-                <MainButton @click.prevent="isMedicineInAPI"
+                <!-- <MainButton @click.prevent="isMedicineInAPI"
                     class="w-full mb-3 mx-auto  block teal-button text-original-white-0">
                     {{ MedicineAPI ? 'Tidak menemukan obat yang dicari?' : 'Gunakan data obat?' }}
-                </MainButton>
+                </MainButton> -->
             </div>
-            <form @submit.prevent="submitForm">
+            <form @submit.prevent="addMedication">
                 <div v-if="MedicineAPI">
                     <InputLabel for="code_obat" value="Kode Obat" />
                     <Multiselect v-model="form.code_obat" mode="single" placeholder="Obat" :filter-results="false"
@@ -99,13 +99,12 @@
                 <MainButton class="mt-4 w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
                     @click.prevent="addPrice" :disabled="additionalPrices.length >= 9">Tambahkan Harga</MainButton>
 
-                <div v-if="MedicineAPI" class="mt-4" v-for="(ingredient, index) in form.ingredients" :key="index">
+                <div v-if="!MedicineAPI" class="mt-4" v-for="(ingredient, index) in form.ingredients" :key="index">
                     <label :for="'ingredient_' + (index + 1)">Bahan {{ index + 1 }}</label>
                     <FieldInput v-model="ingredient.ingredient_name" type="text"
                         :placeholder="'Bahan ' + (index + 1)" />
                 </div>
-
-                <MainButton v-if="MedicineAPI" :disabled="form.ingredients.length >= 9"
+                <MainButton v-if="!MedicineAPI" :disabled="form.ingredients.length >= 9"
                     class="mt-4 w-full mb-3 mx-auto max-w-[284px] block teal-button text-original-white-0"
                     @click.prevent="addIngredient">Tambahkan Bahan Aktif</MainButton>
 
@@ -153,6 +152,7 @@ const form = useForm({
     is_active: false,
     minimum_quantity: '',
     dosage_form: '',
+    extension: '',
     prices: {
         base_price: '',
         purchase_price: '',
@@ -267,15 +267,14 @@ const submitForm = async () => {
     };
 
     try {
-        const resourceType = 'Medication';
-        const response = await axios.post(route('medicine.store'), formDataJson).then(() => {
+        await axios.post(route('medicine.store'), formDataJson).then(() => {
             searchMedicines().then(() => {
                 dispense();
             })
-           
-        creationSuccessModal.value = true;
-        failAlertVisible.value = false;
-        errorMessage.value = '';
+
+            creationSuccessModal.value = true;
+            failAlertVisible.value = false;
+            errorMessage.value = '';
         });
 
     } catch (error) {
@@ -292,22 +291,96 @@ const submitForm = async () => {
     }
 };
 
+const addMedication = () => {
+    const formDataJson = {
+        resourceType: 'Medication',
+        identifier: [
+            {
+                system: 'http://sys-ids.kemkes.go.id/medication/d7c204fd-7c20-4c59-bd61-4dc55b78438c',
+                use: 'official',
+                value: '123456789'
+            }
+        ],
+        // identifier: [organizationRef.value],
+        meta: {
+            profile: [
+                'https://fhir.kemkes.go.id/r4/StructureDefinition/Medication'
+            ]
+        },
+        code: {
+            coding: [{
+                system: 'http://sys-ids.kemkes.go.id/kfa',
+                code: form.code_obat.kfa_code,
+                display: form.code_obat.name,
+            }],
+        },
+
+        status: form.code_obat.active ? 'active' : 'inactive',
+        form: {
+            coding: [{
+                system: 'http://terminology.kemkes.go.id/CodeSystem/medication-form',
+                code: form.code_obat.dosage_form.code,
+                display: form.code_obat.dosage_form.name,
+            }],
+        },
+        extension: [
+            {
+                url: 'https://fhir.kemkes.go.id/r4/StructureDefinition/MedicationType',
+                valueCodeableConcept: {
+                    coding: [
+                        {
+                            system: 'http://terminology.kemkes.go.id/CodeSystem/medication-type',
+                            code: 'NC',
+                            display: 'Non-compound'
+                        }
+                    ]
+                }
+            }
+        ],
+        ingredient: form.code_obat.active_ingredients.map(ingredient => ({
+            itemCodeableConcept: {
+                coding: [{
+                    system: 'http://sys-ids.kemkes.go.id/kfa',
+                    code: ingredient.kfa_code,
+                    display: ingredient.zat_aktif
+                }]
+            },
+            isActive: ingredient.active,
+        }))
+    };
+    axios.post(route('integration.store', { resourceType: 'Medication' }), formDataJson)
+        .then(response => {
+            submitForm();
+            creationSuccessModal.value = true;
+            setTimeout(() => {
+                successAlertVisible.value = false;
+            }, 3000);
+        })
+        .catch(error => {
+            console.error('Error creating user:', error);
+            failAlertVisible.value = true;
+            setTimeout(() => {
+                failAlertVisible.value = false;
+            }, 3000);
+        });
+};
+
 const formStock = useForm({
     _id: '',
-    id_transaction:  '',
-    id_medicine:  '',
+    id_transaction: '',
+    id_medicine: '',
     quantity: '',
     note: '',
 });
 
 const medicines = ref([]);
-let quantityMax = ref(null); 
+let quantityMax = ref(null);
 
 const searchMedicines = async () => {
     try {
         const response = await axios.get(route('getmedicine', { search: form.code_obat.name || form.name }));
         medicines.value = response.data;
-        
+
         console.log(form.code_obat.name || form.name, medicines.value, medicines.value.find(medicine => medicine.name === (form.code_obat.name || form.name)), 'daffa')
         updateQuantity();
     } catch (error) {
@@ -317,13 +390,13 @@ const searchMedicines = async () => {
 
 const updateQuantity = () => {
     const selectedMedicine = medicines.value.find(medicine => medicine.name === (form.code_obat.name || form.name));
-   
+
 
     if (selectedMedicine) {
         quantityMax.value = selectedMedicine.quantity;
         formStock.id_medicine = selectedMedicine._id;
         formStock.quantity = form.quantity;
-        formStock.id_transaction = `${new Date().getUTCSeconds()}` + `${new Date().getUTCMilliseconds()}` + `${new Date().getUTCDate()}` +`${new Date().getUTCMonth()}` + `${new Date().getUTCFullYear()}`;
+        formStock.id_transaction = `${new Date().getUTCSeconds()}` + `${new Date().getUTCMilliseconds()}` + `${new Date().getUTCDate()}` + `${new Date().getUTCMonth()}` + `${new Date().getUTCFullYear()}`;
         formStock.note = 'Medication Dispense'
         console.log(selectedMedicine, formStock)
         if (formStock.quantity > quantityMax.value) {
@@ -346,7 +419,7 @@ const dispense = async () => {
 
     const routeName = 'medicinetransactions.store';
     const method = 'post';
-    
+
     try {
         await formStock[method](route(routeName), {
             preserveScroll: true,

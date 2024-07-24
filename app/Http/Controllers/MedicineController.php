@@ -16,22 +16,12 @@ class MedicineController extends Controller
         $sort = $request->query('sort', 'updated_at');
         $direction = $request->query('direction', 'asc');
 
-        // Log the search query, page number, sort column, and sort direction
-        Log::info('Search query:', ['search' => $search]);
-        Log::info('Page number:', ['page' => $page]);
-        Log::info('Sort column:', ['sort' => $sort]);
-        Log::info('Sort direction:', ['direction' => $direction]);
 
-        // Get the paginated and sorted results
         $medicines = Medicine::where('name', 'like', "%{$search}%")
             ->orWhere('medicine_code', 'like', "%{$search}%")
             ->orderBy($sort, $direction)
             ->paginate(10);
 
-        // Log the paginated and sorted results
-        Log::info('Paginated and sorted results:', ['medicines' => $medicines]);
-
-        // Return JSON response with paginated medicines
         return response()->json($medicines);
     }
 
@@ -64,18 +54,14 @@ class MedicineController extends Controller
             'prices.treatment_price_9' => 'numeric',
         ]);
 
-        // Generate a unique ID for the document
         $validatedData['_id'] = Str::uuid();
 
-        // Set the created_at and updated_at fields
         $validatedData['created_at'] = now();
         $validatedData['updated_at'] = now();
 
-        // Encode the ingredients and prices arrays to JSON
         $validatedData['ingredients'] = json_encode($validatedData['ingredients']);
         $validatedData['prices'] = json_encode($validatedData['prices']);
 
-        // Create the Medicine document
         $medicine = Medicine::create($validatedData);
 
         return response()->json($medicine, 201);

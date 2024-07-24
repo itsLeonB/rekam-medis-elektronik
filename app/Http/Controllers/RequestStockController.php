@@ -15,6 +15,10 @@ class RequestStockController extends Controller
         $validatedData = $request->validate([
             'code.code_kfa' => 'required',
             'code.display' => 'required',
+            'prioritas' => 'required|string',
+            'stok' => 'required|integer',
+            'satuan' => 'required|string',
+            'note' => 'nullable|string'
         ]);
         try {
             DB::beginTransaction();
@@ -22,7 +26,11 @@ class RequestStockController extends Controller
                 'code' => [
                         'code_kfa' => $validatedData['code']['code_kfa'],
                         'display' => $validatedData['code']['display'],
-                    ]   
+                ],
+                'prioritas' => $validatedData['prioritas'],
+                'stok' => $validatedData['stok'],
+                'satuan' => $validatedData['satuan'],
+                'note' => $validatedData['note']
                 ]);
             DB::commit();
             return response()->json(['message' => 'Data stored successfully'], 201);

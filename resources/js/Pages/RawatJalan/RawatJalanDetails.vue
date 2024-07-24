@@ -192,7 +192,7 @@
                     </div>
                 </div>
             </div>
-            <div v-show="formSection === 5" class="min-h-full px-5 md:px-10 xl:pl-80 xl:pr-14 pb-10 w-full">
+            <div  v-show="formSection === 5" class="min-h-full px-5 md:px-10 xl:pl-80 xl:pr-14 pb-10 w-full">
                  <div class="bg-original-white-0 shadow rounded-xl md:rounded-2xl mb-4 p-6 md:py-6 md:px-8">
                     <h2 class="text-xl font-bold text-secondhand-orange-300">Kondisi Pasien</h2>
                     <div class="space-y-4">

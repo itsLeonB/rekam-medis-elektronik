@@ -163,40 +163,40 @@ const submit = async () => {
                     "reference": "Location/" + resourceForm.value.lokasi_ruangan.satusehat_id,
                     "display": resourceForm.value.lokasi_ruangan.name
                 },
-                "period": {
-                    "start": currentTime
-                },
-                "extension": [
-                    {
-                        "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass",
-                        "extension": [
-                            {
-                                "url": "value",
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient",
-                                            "code": resourceForm.value.lokasi_ruangan.serviceClass.split(' ')[1].toLowerCase(),
-                                            "display": resourceForm.value.lokasi_ruangan.serviceClass
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "url": "upgradeClassIndicator",
-                                "valueCodeableConcept": {
-                                    "coding": [
-                                        {
-                                            "system": "http://terminology.kemkes.go.id/CodeSystem/locationUpgradeClass",
-                                            "code": "kelas-tetap",
-                                            "display": "Kelas Tetap Perawatan"
-                                        }
-                                    ]
-                                }
-                            }
-                        ]
-                    }
-                ]
+                // "period": {
+                //     "start": currentTime
+                // },
+                // "extension": [
+                //     {
+                //         "url": "https://fhir.kemkes.go.id/r4/StructureDefinition/ServiceClass",
+                //         "extension": [
+                //             {
+                //                 "url": "value",
+                //                 "valueCodeableConcept": {
+                //                     "coding": [
+                //                         {
+                //                             "system": "http://terminology.kemkes.go.id/CodeSystem/locationServiceClass-Outpatient",
+                //                             "code": resourceForm.value.lokasi_ruangan.serviceClass.split(' ')[1].toLowerCase(),
+                //                             "display": resourceForm.value.lokasi_ruangan.serviceClass
+                //                         }
+                //                     ]
+                //                 }
+                //             },
+                //             {
+                //                 "url": "upgradeClassIndicator",
+                //                 "valueCodeableConcept": {
+                //                     "coding": [
+                //                         {
+                //                             "system": "http://terminology.kemkes.go.id/CodeSystem/locationUpgradeClass",
+                //                             "code": "kelas-tetap",
+                //                             "display": "Kelas Tetap Perawatan"
+                //                         }
+                //                     ]
+                //                 }
+                //             }
+                //         ]
+                //     }
+                // ]
             }
         ],
         "statusHistory": [
@@ -207,10 +207,16 @@ const submit = async () => {
                 }
             }
         ],
-        "serviceProvider": organizationRef.value
+        "serviceProvider": organizationRef.value,
+        "identifier": [
+            {
+                "system": "http://sys-ids.kemkes.go.id/encounter/d7c204fd-7c20-4c59-bd61-4dc55b78438c",
+                "value": resourceForm.value.patient['ihs-number']
+            }
+    ]
     };
 
-    axios.post(route('integration.store', { res_type: "Encounter" }), submitResource)
+    axios.post(route('integration.store', { resourceType: "Encounter" }), submitResource)
         .then(response => {
             isLoading.value = false;
             creationSuccessModal.value = true;

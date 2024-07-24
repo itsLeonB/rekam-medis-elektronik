@@ -49,173 +49,191 @@
                 </svg>
                 Data Request Obat
                 </Link>
-            </div>
-
-        </div>
-        <div
-            class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
-            <!-- Search bar -->
-            <div class="flex flex-col md:flex-row md:justify-end md:items-center mb-5 w-full">
-                <form class="mr-3 w-full">
-                    <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
-                        <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="#8f8f8f" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
-                        </div>
-                        <input v-model="searchQuery" id="searchQuery" @keydown.enter="searchMedications"
-                            placeholder="Cari"
-                            class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
-                        <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
-                            @click="cancelSearch" v-show="hide">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
-                                class="w-5 h-5 hover:fill-thirdouter-red-200">
-                                <path fill-rule="evenodd"
-                                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
-                                    clip-rule="evenodd" />
-                            </svg>
-
-                        </div>
-                    </div>
-                </form>
-                <div class="flex mt-4 md:mt-0">
-                    <MainButton @click="searchMedications" class="teal-button text-original-white-0">
-                        Cari
-                    </MainButton>
+                <div class="row" v-if="$page.props.auth.user.roles[0].name === 'apoteker'">
+                    <span class="font-semibold">Note : </span>
+                    <p id="check" class="text-sm">{{ message }}</p>
                 </div>
             </div>
-            <div class="relative overflow-x-auto mb-5">
-                <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200">
-                    <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
-                        <tr>
-                            <th @click="sortBy('medicine_code')" class="table-header">Kode <span
-                                    v-if="sortKey === 'medicine_code'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
-                                        '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('name')" class="table-header">Nama <span v-if="sortKey === 'name'"
-                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('dosage_form')" class="table-header">Tipe <span
-                                    v-if="sortKey === 'dosage_form'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
-                                        '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('quantity')" class="table-header">Jumlah <span
-                                    v-if="sortKey === 'quantity'" class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼'
-                                    }}</span>
-                            </th>
-                            <th @click="sortBy('package')" class="table-header">Jenis <span v-if="sortKey === 'package'"
-                                    class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('expiry_date')" class="table-header">Tanggal Kadaluarsa <span
-                                    v-if="sortKey === 'expiry_date'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
-                                        '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.base_price')" class="table-header">Harga Dasar <span
-                                    v-if="sortKey === 'prices.base_price'" class="arrow">{{ sortDirection === 'asc' ?
-                                        '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.purchase_price')" class="table-header">Harga Beli <span
-                                    v-if="sortKey === 'prices.purchase_price'" class="arrow">{{ sortDirection === 'asc'
-                                        ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_1')" class="table-header">Harga Rawat Jalan <span
-                                    v-if="sortKey === 'prices.treatment_price_1'" class="arrow">{{ sortDirection ===
+            <div
+                class="bg-original-white-0 overflow-hidden shadow rounded-xl md:rounded-2xl mb-8 p-6 md:py-8 md:pl-10 md:pr-14">
+                <!-- Search bar -->
+                <div class="flex flex-col md:flex-row md:justify-end md:items-center mb-5 w-full">
+                    <form class="mr-3 w-full">
+                        <div class="relative p-0 rounded-xl w-full border-none text-neutral-black-300">
+                            <div class="absolute inset-y-0 left-0 mx-3 w-5 h-5 my-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="#8f8f8f" class="w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                            <input v-model="searchQuery" id="searchQuery" @keydown.enter="searchMedications"
+                                placeholder="Cari"
+                                class="pl-9 h-9 block w-full border border-1 border-neutral-grey-0 outline-none focus:border-original-teal-300 focus:ring-original-teal-300 hover:ring-1 hover:ring-original-teal-300 rounded-xl shadow" />
+                            <div class="absolute inset-y-0 right-0 mx-3 w-5 h-5 my-auto cursor-pointer"
+                                @click="cancelSearch" v-show="hide">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8f8f8f"
+                                    class="w-5 h-5 hover:fill-thirdouter-red-200">
+                                    <path fill-rule="evenodd"
+                                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-1.72 6.97a.75.75 0 1 0-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 1 0 1.06 1.06L12 13.06l1.72 1.72a.75.75 0 1 0 1.06-1.06L13.06 12l1.72-1.72a.75.75 0 1 0-1.06-1.06L12 10.94l-1.72-1.72Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+
+                            </div>
+                        </div>
+                    </form>
+                    <div class="flex mt-4 md:mt-0">
+                        <MainButton @click="searchMedications" class="teal-button text-original-white-0">
+                            Cari
+                        </MainButton>
+                    </div>
+                </div>
+                <div class="relative overflow-x-auto mb-5">
+                    <table class="w-full text-base text-left rtl:text-right text-neutral-grey-200">
+                        <thead class="text-base text-neutral-black-300 uppercase bg-gray-50 border-b">
+                            <tr>
+                                <th @click="sortBy('medicine_code')" class="table-header">Kode <span
+                                        v-if="sortKey === 'medicine_code'" class="arrow">{{ sortDirection === 'asc' ?
+                                            '▲' :
+                                            '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('name')" class="table-header">Nama <span v-if="sortKey === 'name'"
+                                        class="arrow">{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('dosage_form')" class="table-header">Tipe <span
+                                        v-if="sortKey === 'dosage_form'" class="arrow">{{ sortDirection === 'asc' ? '▲'
+                                            :
+                                            '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('quantity')" class="table-header">Jumlah <span
+                                        v-if="sortKey === 'quantity'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
+                                            '▼'
+                                        }}</span>
+                                </th>
+                                <th @click="sortBy('package')" class="table-header">Jenis <span
+                                        v-if="sortKey === 'package'" class="arrow">{{ sortDirection === 'asc' ? '▲' :
+                                            '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('expiry_date')" class="table-header">Tanggal Kadaluarsa <span
+                                        v-if="sortKey === 'expiry_date'" class="arrow">{{ sortDirection === 'asc' ? '▲'
+                                            :
+                                            '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.base_price')" class="table-header">Harga Dasar <span
+                                        v-if="sortKey === 'prices.base_price'" class="arrow">{{ sortDirection === 'asc'
+                                            ?
+                                            '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.purchase_price')" class="table-header">Harga Beli <span
+                                        v-if="sortKey === 'prices.purchase_price'" class="arrow">{{ sortDirection ===
+                                            'asc'
+                                            ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_1')" class="table-header">Harga Rawat Jalan
+                                    <span v-if="sortKey === 'prices.treatment_price_1'" class="arrow">{{ sortDirection
+                                        ===
                                         'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_2')" class="table-header">Harga Rawat Inap K1
-                                <span v-if="sortKey === 'prices.treatment_price_2'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_3')" class="table-header">Harga Rawat Inap K2
-                                <span v-if="sortKey === 'prices.treatment_price_3'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_4')" class="table-header">Harga Rawat Inap K3
-                                <span v-if="sortKey === 'prices.treatment_price_4'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_5')" class="table-header">Harga Rawat Inap K4
-                                <span v-if="sortKey === 'prices.treatment_price_5'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_6')" class="table-header">Harga Rawat Inap K5
-                                <span v-if="sortKey === 'prices.treatment_price_6'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_7')" class="table-header">Harga Rawat Inap K6
-                                <span v-if="sortKey === 'prices.treatment_price_7'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_8')" class="table-header">Harga Rawat Inap K7
-                                <span v-if="sortKey === 'prices.treatment_price_8'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('prices.treatment_price_9')" class="table-header">Harga Rawat Inap K8
-                                <span v-if="sortKey === 'prices.treatment_price_9'" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                            <th @click="sortBy('ingridients')" class="table-header">Bahan
-                                <span v-if="sortKey === 'ingridients    '" class="arrow">{{ sortDirection ===
-                                    'asc' ? '▲' : '▼' }}</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(medication, index) in medications.data" :key="index"
-                            class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
-                            :class="{ 'border-b': index !== (medications.length - 1) }">
-                            <td class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">{{
-                                medication.medicine_code }}</td>
-                            <td class="px-6 py-4 w-3/5">{{ medication.name }}</td>
-                            <td class="px-6 py-4 w-2/5">{{ medication.dosage_form }}</td>
-                            <td class="px-6 py-4 w-1/5">{{ medication.quantity }}</td>
-                            <td class="px-6 py-4 w-1/5">{{ medication.package }}</td>
-                            <td class="px-6 py-4 w-1/5">{{ formatDate(medication.expiry_date) }}</td>
-                            <template v-for="price in JSON.parse(medication.prices)">
-                                <td class="px-6 py-4 w-1/5">{{ price }}</td>
-                            </template>
-                            <td class="px-6 py-4 w-1/5">
-                                <template v-for="ingredient in JSON.parse(medication.ingredients)">
-                                    <ul>
-                                        <li v-for="ingredientName in ingredient"> {{ ingredientName }}</li>
-                                    </ul>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_2')" class="table-header">Harga Rawat Inap K1
+                                    <span v-if="sortKey === 'prices.treatment_price_2'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_3')" class="table-header">Harga Rawat Inap K2
+                                    <span v-if="sortKey === 'prices.treatment_price_3'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_4')" class="table-header">Harga Rawat Inap K3
+                                    <span v-if="sortKey === 'prices.treatment_price_4'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_5')" class="table-header">Harga Rawat Inap K4
+                                    <span v-if="sortKey === 'prices.treatment_price_5'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_6')" class="table-header">Harga Rawat Inap K5
+                                    <span v-if="sortKey === 'prices.treatment_price_6'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_7')" class="table-header">Harga Rawat Inap K6
+                                    <span v-if="sortKey === 'prices.treatment_price_7'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_8')" class="table-header">Harga Rawat Inap K7
+                                    <span v-if="sortKey === 'prices.treatment_price_8'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('prices.treatment_price_9')" class="table-header">Harga Rawat Inap K8
+                                    <span v-if="sortKey === 'prices.treatment_price_9'" class="arrow">{{ sortDirection
+                                        ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                                <th @click="sortBy('ingridients')" class="table-header">Bahan
+                                    <span v-if="sortKey === 'ingridients    '" class="arrow">{{ sortDirection ===
+                                        'asc' ? '▲' : '▼' }}</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(medication, index) in medications.data" :key="index"
+                                class="bg-original-white-0 hover:bg-thirdinner-lightteal-300"
+                                :class="{ 'border-b': index !== (medications.length - 1) }">
+                                <td class="px-6 py-4 font-normal whitespace-nowrap hover:underline w-1/5">{{
+                                    medication.medicine_code }}</td>
+                                <td class="px-6 py-4 w-3/5">{{ medication.name }}</td>
+                                <td class="px-6 py-4 w-2/5">{{ medication.dosage_form }}</td>
+                                <td class="px-6 py-4 w-1/5">{{ medication.quantity }}</td>
+                                <td class="px-6 py-4 w-1/5">{{ medication.package }}</td>
+                                <td class="px-6 py-4 w-1/5">{{ formatDate(medication.expiry_date) }}</td>
+                                <template v-for="price in JSON.parse(medication.prices)">
+                                    <td class="px-6 py-4 w-1/5">{{ price }}</td>
                                 </template>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <td class="px-6 py-4 w-1/5">
+                                    <template v-for="ingredient in JSON.parse(medication.ingredients)">
+                                        <ul>
+                                            <li v-for="ingredientName in ingredient"> {{ ingredientName }}</li>
+                                        </ul>
+                                    </template>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <nav class="flex justify-end">
+                    <ul class="inline-flex -space-x-px text-base h-10">
+                        <li>
+                            <button
+                                @click="fetchPagination((medications.current_page - 1) < 1 ? 1 : (medications.current_page - 1))"
+                                class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">&laquo;</button>
+                        </li>
+                        <template v-for="(item, index) in paging">
+                            <li v-if="item !== medications.current_page">
+                                <button @click="fetchPagination(item === '...' ? medications.current_page : item)"
+                                    class="flex items-center justify-center px-4 h-10 text-neutral-grey-200 bg-original-white-0 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{
+                                        item }}</button>
+                            </li>
+                            <li v-else-if="item === medications.current_page">
+                                <button @click="fetchPagination(item)"
+                                    class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 ">{{
+                                        item }}</button>
+                            </li>
+                        </template>
+                        <li>
+                            <button
+                                @click="fetchPagination((medications.current_page + 1) > medications.last_page ? medications.last_page : (medications.current_page + 1))"
+                                class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">&raquo;</button>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-
-            <nav class="flex justify-end">
-                <ul class="inline-flex -space-x-px text-base h-10">
-                    <li>
-                        <button
-                            @click="fetchPagination((medications.current_page - 1) < 1 ? 1 : (medications.current_page - 1))"
-                            class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">&laquo;</button>
-                    </li>
-                    <template v-for="(item, index) in paging">
-                        <li v-if="item !== medications.current_page">
-                            <button @click="fetchPagination(item === '...' ? medications.current_page : item)"
-                                class="flex items-center justify-center px-4 h-10 text-neutral-grey-200 bg-original-white-0 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 ">{{
-                                    item }}</button>
-                        </li>
-                        <li v-else-if="item === medications.current_page">
-                            <button @click="fetchPagination(item)"
-                                class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 ">{{
-                                    item }}</button>
-                        </li>
-                    </template>
-                    <li>
-                        <button
-                            @click="fetchPagination((medications.current_page + 1) > medications.last_page ? medications.last_page : (medications.current_page + 1))"
-                            class="flex items-center justify-center px-4 h-10 leading-tight text-neutral-grey-200 bg-original-white-0 border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">&raquo;</button>
-                    </li>
-                </ul>
-            </nav>
         </div>
-
     </AuthenticatedLayout>
 </template>
 
@@ -226,10 +244,9 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const medications = ref([]);
-
 const hide = ref(false);
 
+const medications = ref([]);
 const fetchMedications = async (page = 1) => {
     try {
         const { data } = await axios.get(route('medicine.index', { 'page': page }));

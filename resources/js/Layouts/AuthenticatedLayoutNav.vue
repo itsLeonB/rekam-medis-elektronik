@@ -203,16 +203,14 @@ import NavLink from '@/Components/NavLink.vue';
             </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('rekammedis')" :active="route().current('rekammedis')"> Rekam Medis
             </ResponsiveNavLink>
-            <ResponsiveNavLink v-if="$page.props.auth.user.roles[0].name === 'admin'" :href="route('usermanagement')"
-                :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('usermanagement')" :active="route().current('usermanagement')"> User
                 Management </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('medicinetransaction')" :active="route().current('medicinetransaction')">
                 Transaksi </ResponsiveNavLink>
+            <ResponsiveNavLink v-if="$page.props.auth.user.roles[0].name === 'admin'" :href="route('usermanagement')"
+                :active="route().current('usermanagement')"> User Management </ResponsiveNavLink>
             <ResponsiveNavLink :href="route('medication')" :active="route().current('medication')">Medication
             </ResponsiveNavLink>
-            <!-- <ResponsiveNavLink :href="route('expertsystems.index')" :active="route().current('expertsystems.index')">
-                Expert Systems</ResponsiveNavLink> -->
             <ResponsiveNavLink :href="route('finance')" :active="route().current('finance')">Finance</ResponsiveNavLink>
         </template>
     </AuthenticatedLayout>

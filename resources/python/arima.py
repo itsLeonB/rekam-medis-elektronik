@@ -29,9 +29,6 @@ def process_forecast():
             year.append(d['year'])
             quantity.append(d['quantity'])
 
-        logging.debug(f"Read data: months={month}, years={year}, quantities={quantity}")
-        logging.debug(f"Quantity data types: {type(quantity[0])}, {quantity}")
-
         # Ensure the quantity data is numeric
         quantity = list(map(float, quantity))
 

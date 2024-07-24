@@ -31,7 +31,7 @@
                     </tr>
                     <tr class="bg-original-white-0">
                         <th scope="row" class="px-6 py-2 font-semibold whitespace-nowrap w-1/4">
-                            Keterangan
+                            Instruksi
                         </th>
                         <td v-if="item.dosageInstruction" class="px-6 py-2 w-3/4">
                              {{ item.dosageInstruction[0].text }}

@@ -10,6 +10,6 @@ class RequestStock extends Model
     use HasFactory;
     protected $connection = 'mongodb';
     protected $collection = 'request_stock';
-    // protected $fillable = ['code_kfa', 'display'];
     protected $guarded = [];
 }
+
