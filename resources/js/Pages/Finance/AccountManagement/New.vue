@@ -204,6 +204,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import Modal from '@/Components/Modal.vue';
 import MainButton from '@/Components/MainButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import { Link } from '@inertiajs/vue3';
 
 const showForm = ref(false)
 const covType = ref([])

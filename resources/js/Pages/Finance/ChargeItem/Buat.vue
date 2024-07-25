@@ -331,7 +331,7 @@ const fillForm = async (resForm, data, props) => {
         resForm.value.quantity = 1
         resForm.value.catalogue = await fillCatalogue(data?.code?.coding[0]?.code)
         // console.log(resForm.value.catalogue)
-    } if (data.resourceType == 'MedicationDispense') {
+    } else if (data.resourceType == 'MedicationDispense') {
         const medication = await getMedicationByID(data.medicationReference.reference.split("/")[1])
         // Service
         resForm.value.service = `${props.item_res_type}/${props.item_id}`
@@ -370,6 +370,10 @@ const submit = async () => {
     const currentTime = new Date().toISOString().replace('Z', '+00:00').replace(/\.\d{3}/, '');
     const quantity = parseInt(resourceForm.value.quantity, 10)
     const price = parseInt(resourceForm.value.price, 10)
+    const contextDisplayBlank = resourceForm.value.context.display == ""
+    const contextDisplayUndefined = resourceForm.value.context.display == undefined
+    console.log(resourceForm.value.context.display)
+    console.log(resourceForm.value.catalogue.display)
     console.log(quantity)
     console.log(price)
     const submitResource = {
@@ -385,7 +389,7 @@ const submit = async () => {
         },
         "context": {
             "reference": resourceForm.value.context.reference,
-            "display": props.item_res_type !== undefined ? resourceForm.value.context.display : resourceForm.value.catalogue.display,
+            "display": !contextDisplayBlank && !contextDisplayUndefined ? resourceForm.value.context.display : resourceForm.value.catalogue.display,
         },
         "occurrencePeriod": resourceForm.value.occurence ?? {
             start: currentTime,
@@ -417,6 +421,7 @@ const submit = async () => {
 
     }
 
+    console.log(submitResource)
     try {
         const resourceType = "ChargeItem";
         const response = await axios.post(route('integration.store', { resourceType: resourceType }), submitResource)

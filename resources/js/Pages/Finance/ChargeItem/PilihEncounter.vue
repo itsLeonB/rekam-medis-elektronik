@@ -160,13 +160,15 @@ const chargeItemList = computed(() => {
 const getChargeItemList = async (id) => {
     await getResourceList('Procedure', procedureList);
     // await getResourceList('MedicationDispense', medicationList); MedicationDispense Not yet implemented
-    await getResourceList('Observation', observationList);
+    // await getResourceList('Observation', observationList);
     await getResourceList('ChargeItem', resourceChargeItemList);
     await getResourceList('MedicationDispense', medicationDispenseList);
     console.log(medicationDispenseList)
+    console.log(id)
     procedureList.value = procedureList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
-    observationList.value = observationList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
-    resourceChargeItemList.value = resourceChargeItemList.value.filter(item => item.context.reference = `Encounter/${id}`)
+    // observationList.value = observationList.value.filter(item => item.encounter.reference === `Encounter/${id}`)
+    resourceChargeItemList.value = resourceChargeItemList.value.filter(item => item.context.reference === `Encounter/${id}`)
+    medicationDispenseList.value = medicationDispenseList.value.filter(item => item.context.reference === `Encounter/${id}`)
     // medicationList.value = medicationList.value.filter(item => item?.encounter?.reference === `Encounter/${id}`)
 }
 
