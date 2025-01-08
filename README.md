@@ -102,8 +102,7 @@ This project is built using:
 -   [@salmahatta](https://github.com/salmahatta) - UI/UX
    
 ## License
-
-This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
+[Rekam Medis Elektronik LMA](https://github.com/itsLeonB/rekam-medis-elektronik) © 2024 by Ellion Blessan, Hanif Mitsal Mahatta, and Muhammad Armando Nur Rizqy Ansar is licensed under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).
 
 You are free to:
 - Share: Copy and redistribute the material in any medium or format.
