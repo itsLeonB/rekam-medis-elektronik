@@ -1,6 +1,7 @@
 # Electronic Medical Record System
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC--BY--NC%204.0-lightgrey.svg)
 
 This is a web-based Electronic Medical Record systems application which complies with Indonesia's FHIR Implementation (SATUSEHAT).
 
@@ -113,4 +114,3 @@ You are free to:
 - **NonCommercial**: You may not use the material for commercial purposes.
 
 See the full license text in the `LICENSE` file.
-![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC--BY--NC%204.0-lightgrey.svg)
